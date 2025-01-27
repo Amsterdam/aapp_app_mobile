@@ -1,0 +1,6 @@
+framework module WasteVisionSDK {
+  umbrella header "WasteVisionSDK.h"
+  export *
+
+  module * { export * }
+}

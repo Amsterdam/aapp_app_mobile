@@ -1,0 +1,19 @@
+{
+  "name": "react-native-wastevision-container",
+  "version": "0.0.0",
+  "description": "open waste vision container",
+  "main": "src/index",
+  "codegenConfig": {
+    "name": "RNWastevisionContainerSpec",
+    "type": "modules",
+    "jsSrcsDir": "src"
+  },
+  "author": " <> ()",
+  "license": "UNLICENSED",
+  "homepage": "#readme",
+  "create-react-native-library": {
+    "type": "turbo-module",
+    "languages": "kotlin-objc",
+    "version": "0.45.5"
+  }
+}

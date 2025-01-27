@@ -2,7 +2,9 @@ package com.salesforcemessaginginapp
 
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.util.Base64
+import androidx.annotation.RequiresApi
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
@@ -938,6 +940,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
     }
   }
 
+  @RequiresApi(Build.VERSION_CODES.FROYO)
   @ReactMethod
   override fun retrieveTranscript(promise: Promise) {
     try {

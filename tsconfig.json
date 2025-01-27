@@ -26,7 +26,8 @@
     "react-native-salesforce-messaging-in-app",
     "*.ts",
     "*.mts",
-    "nodescripts"
+    "nodescripts",
+    "react-native-wastevision-container"
   ],
   "extends": "@react-native/typescript-config/tsconfig.json"
 }
