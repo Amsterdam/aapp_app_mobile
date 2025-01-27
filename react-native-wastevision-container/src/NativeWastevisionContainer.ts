@@ -4,6 +4,7 @@ import type {EventEmitter} from 'react-native/Libraries/Types/CodegenTypes'
 
 export interface Spec extends TurboModule {
   autoUnlock(cardId: CardId): void
+  checkBluetoothPermission(): Promise<Record<string, BluetoothPermission>>
   connect(bluetoothContainerDevice: BluetoothContainerDevice): void
   disconnect(bluetoothContainerDevice: BluetoothContainerDevice): void
   //getBluetoothState(): BluetoothState
@@ -76,9 +77,9 @@ export enum BluetoothState {
 }
 
 export enum BluetoothPermission {
-  denied = 'denied',
-  granted = 'granted',
-  unknown = 'unknown',
+  denied = 'DENIED',
+  granted = 'GRANTED',
+  unknown = 'UNKNOWN',
 }
 
 // eslint-disable-next-line import-x/no-default-export

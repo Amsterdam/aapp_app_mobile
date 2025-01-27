@@ -22,6 +22,9 @@ export const autoUnlock = (cardNumber: string): void => {
   WastevisionContainer.autoUnlock(cardNumber)
 }
 
+export const checkBluetoothPermission = () =>
+  WastevisionContainer.checkBluetoothPermission()
+
 export const connect = (
   bluetoothContainerDevice: BluetoothContainerDevice,
 ): void => {
@@ -37,3 +40,9 @@ export const disconnect = (
 export const stopScan = (): void => {
   WastevisionContainer.stopScan()
 }
+
+export const onScanStarted = (callback: () => void): void => {
+  WastevisionContainer.onScanStarted(callback)
+}
+
+export const a = WastevisionContainer
