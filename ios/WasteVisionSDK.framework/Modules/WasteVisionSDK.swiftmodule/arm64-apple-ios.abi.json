@@ -1,0 +1,2886 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "WasteVisionSDK",
+    "printedName": "WasteVisionSDK",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothAuthorization",
+        "printedName": "BluetoothAuthorization",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "notDetermined",
+            "printedName": "notDetermined",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothAuthorization.Type) -> WasteVisionSDK.BluetoothAuthorization",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                    "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothAuthorization",
+                        "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                        "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO13notDeterminedyA2CmF",
+            "mangledName": "$s14WasteVisionSDK22BluetoothAuthorizationO13notDeterminedyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "restricted",
+            "printedName": "restricted",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothAuthorization.Type) -> WasteVisionSDK.BluetoothAuthorization",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                    "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothAuthorization",
+                        "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                        "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO10restrictedyA2CmF",
+            "mangledName": "$s14WasteVisionSDK22BluetoothAuthorizationO10restrictedyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "denied",
+            "printedName": "denied",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothAuthorization.Type) -> WasteVisionSDK.BluetoothAuthorization",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                    "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothAuthorization",
+                        "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                        "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO6deniedyA2CmF",
+            "mangledName": "$s14WasteVisionSDK22BluetoothAuthorizationO6deniedyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "allowedAlways",
+            "printedName": "allowedAlways",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothAuthorization.Type) -> WasteVisionSDK.BluetoothAuthorization",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                    "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothAuthorization",
+                        "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                        "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO13allowedAlwaysyA2CmF",
+            "mangledName": "$s14WasteVisionSDK22BluetoothAuthorizationO13allowedAlwaysyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "WasteVisionSDK.BluetoothAuthorization?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                    "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO8rawValueACSgSS_tcfc",
+            "mangledName": "$s14WasteVisionSDK22BluetoothAuthorizationO8rawValueACSgSS_tcfc",
+            "moduleName": "WasteVisionSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO8rawValueSSvp",
+            "mangledName": "$s14WasteVisionSDK22BluetoothAuthorizationO8rawValueSSvp",
+            "moduleName": "WasteVisionSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO8rawValueSSvg",
+                "mangledName": "$s14WasteVisionSDK22BluetoothAuthorizationO8rawValueSSvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO",
+        "mangledName": "$s14WasteVisionSDK22BluetoothAuthorizationO",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothState",
+        "printedName": "BluetoothState",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "unknown",
+            "printedName": "unknown",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothState.Type) -> WasteVisionSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "WasteVisionSDK.BluetoothState",
+                    "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "WasteVisionSDK.BluetoothState",
+                        "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK14BluetoothStateO7unknownyA2CmF",
+            "mangledName": "$s14WasteVisionSDK14BluetoothStateO7unknownyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "resetting",
+            "printedName": "resetting",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothState.Type) -> WasteVisionSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "WasteVisionSDK.BluetoothState",
+                    "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "WasteVisionSDK.BluetoothState",
+                        "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK14BluetoothStateO9resettingyA2CmF",
+            "mangledName": "$s14WasteVisionSDK14BluetoothStateO9resettingyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "unsupported",
+            "printedName": "unsupported",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothState.Type) -> WasteVisionSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "WasteVisionSDK.BluetoothState",
+                    "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "WasteVisionSDK.BluetoothState",
+                        "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK14BluetoothStateO11unsupportedyA2CmF",
+            "mangledName": "$s14WasteVisionSDK14BluetoothStateO11unsupportedyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "unauthorized",
+            "printedName": "unauthorized",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothState.Type) -> WasteVisionSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "WasteVisionSDK.BluetoothState",
+                    "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "WasteVisionSDK.BluetoothState",
+                        "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK14BluetoothStateO12unauthorizedyA2CmF",
+            "mangledName": "$s14WasteVisionSDK14BluetoothStateO12unauthorizedyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "poweredOff",
+            "printedName": "poweredOff",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothState.Type) -> WasteVisionSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "WasteVisionSDK.BluetoothState",
+                    "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "WasteVisionSDK.BluetoothState",
+                        "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK14BluetoothStateO10poweredOffyA2CmF",
+            "mangledName": "$s14WasteVisionSDK14BluetoothStateO10poweredOffyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "poweredOn",
+            "printedName": "poweredOn",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.BluetoothState.Type) -> WasteVisionSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "WasteVisionSDK.BluetoothState",
+                    "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "WasteVisionSDK.BluetoothState",
+                        "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK14BluetoothStateO9poweredOnyA2CmF",
+            "mangledName": "$s14WasteVisionSDK14BluetoothStateO9poweredOnyA2CmF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "WasteVisionSDK.BluetoothState?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "WasteVisionSDK.BluetoothState",
+                    "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:14WasteVisionSDK14BluetoothStateO8rawValueACSgSS_tcfc",
+            "mangledName": "$s14WasteVisionSDK14BluetoothStateO8rawValueACSgSS_tcfc",
+            "moduleName": "WasteVisionSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK14BluetoothStateO8rawValueSSvp",
+            "mangledName": "$s14WasteVisionSDK14BluetoothStateO8rawValueSSvp",
+            "moduleName": "WasteVisionSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK14BluetoothStateO8rawValueSSvg",
+                "mangledName": "$s14WasteVisionSDK14BluetoothStateO8rawValueSSvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:14WasteVisionSDK14BluetoothStateO",
+        "mangledName": "$s14WasteVisionSDK14BluetoothStateO",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothConnectionManager",
+        "printedName": "BluetoothConnectionManager",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "bluetoothState",
+            "printedName": "bluetoothState",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothState",
+                "printedName": "WasteVisionSDK.BluetoothState",
+                "usr": "s:14WasteVisionSDK14BluetoothStateO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC14bluetoothStateAA0dH0Ovp",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC14bluetoothStateAA0dH0Ovp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "WasteVisionSDK.BluetoothState",
+                    "usr": "s:14WasteVisionSDK14BluetoothStateO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC14bluetoothStateAA0dH0Ovg",
+                "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC14bluetoothStateAA0dH0Ovg",
+                "moduleName": "WasteVisionSDK",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "bluetoothAuthorization",
+            "printedName": "bluetoothAuthorization",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothAuthorization",
+                "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC22bluetoothAuthorizationAA0dH0Ovp",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC22bluetoothAuthorizationAA0dH0Ovp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "WasteVisionSDK.BluetoothAuthorization",
+                    "usr": "s:14WasteVisionSDK22BluetoothAuthorizationO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC22bluetoothAuthorizationAA0dH0Ovg",
+                "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC22bluetoothAuthorizationAA0dH0Ovg",
+                "moduleName": "WasteVisionSDK",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothConnectionManager",
+                "printedName": "WasteVisionSDK.BluetoothConnectionManager",
+                "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerCACycfc",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerCACycfc",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "startScan",
+            "printedName": "startScan()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC9startScanyyF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC9startScanyyF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopScan",
+            "printedName": "stopScan()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC8stopScanyyF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC8stopScanyyF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "connect",
+            "printedName": "connect(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC7connect24bluetoothContainerDeviceyAA0diJ0C_tF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC7connect24bluetoothContainerDeviceyAA0diJ0C_tF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "disconnect",
+            "printedName": "disconnect(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC10disconnect24bluetoothContainerDeviceyAA0diJ0C_tF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC10disconnect24bluetoothContainerDeviceyAA0diJ0C_tF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setup",
+            "printedName": "setup(sdkConfiguration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SDKConfiguration",
+                "printedName": "WasteVisionSDK.SDKConfiguration",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC5setup16sdkConfigurationyAA16SDKConfigurationC_tF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC5setup16sdkConfigurationyAA16SDKConfigurationC_tF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setBluetoothConnectionDelegate",
+            "printedName": "setBluetoothConnectionDelegate(bluetoothConnectionDelegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothConnectionDelegate",
+                "printedName": "any WasteVisionSDK.BluetoothConnectionDelegate",
+                "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC03setdE8Delegate09bluetootheH0yAA0deH0_p_tF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC03setdE8Delegate09bluetootheH0yAA0deH0_p_tF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "autoUnlock",
+            "printedName": "autoUnlock(cardId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.UInt8]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt8",
+                    "printedName": "Swift.UInt8",
+                    "usr": "s:s5UInt8V"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC10autoUnlock6cardIdySays5UInt8VG_tF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC10autoUnlock6cardIdySays5UInt8VG_tF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "unlock",
+            "printedName": "unlock(bluetoothContainerDevice:cardId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.UInt8]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt8",
+                    "printedName": "Swift.UInt8",
+                    "usr": "s:s5UInt8V"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC6unlock24bluetoothContainerDevice6cardIdyAA0diJ0C_Says5UInt8VGtF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC6unlock24bluetoothContainerDevice6cardIdyAA0diJ0C_Says5UInt8VGtF",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC",
+        "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreData",
+        "printedName": "CoreData",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothConnectionDelegate",
+        "printedName": "BluetoothConnectionDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onBluetoothStateChanged",
+            "printedName": "onBluetoothStateChanged(bluetoothState:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothState",
+                "printedName": "WasteVisionSDK.BluetoothState",
+                "usr": "s:14WasteVisionSDK14BluetoothStateO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP02onD12StateChanged09bluetoothH0yAA0dH0O_tF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP02onD12StateChanged09bluetoothH0yAA0dH0O_tF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onScanStarted",
+            "printedName": "onScanStarted()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP13onScanStartedyyF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP13onScanStartedyyF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onScanStopped",
+            "printedName": "onScanStopped()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP13onScanStoppedyyF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP13onScanStoppedyyF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onBluetoothContainerDeviceDiscovered",
+            "printedName": "onBluetoothContainerDeviceDiscovered(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP02onD25ContainerDeviceDiscovered09bluetoothhI0yAA0dhI0C_tF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP02onD25ContainerDeviceDiscovered09bluetoothhI0yAA0dhI0C_tF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onBluetoothContainerDeviceConnected",
+            "printedName": "onBluetoothContainerDeviceConnected(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP02onD24ContainerDeviceConnected09bluetoothhI0yAA0dhI0C_tF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP02onD24ContainerDeviceConnected09bluetoothhI0yAA0dhI0C_tF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onBluetoothContainerDeviceConnectionFailed",
+            "printedName": "onBluetoothContainerDeviceConnectionFailed(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP02ond15ContainerDeviceE6Failed09bluetoothhI0yAA0dhI0C_tF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP02ond15ContainerDeviceE6Failed09bluetoothhI0yAA0dhI0C_tF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onBluetoothContainerDeviceDisconnected",
+            "printedName": "onBluetoothContainerDeviceDisconnected(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP02onD27ContainerDeviceDisconnected09bluetoothhI0yAA0dhI0C_tF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP02onD27ContainerDeviceDisconnected09bluetoothhI0yAA0dhI0C_tF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onUnlockFinished",
+            "printedName": "onUnlockFinished(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP16onUnlockFinished24bluetoothContainerDeviceyAA0dkL0C_tF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP16onUnlockFinished24bluetoothContainerDeviceyAA0dkL0C_tF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onUnlockError",
+            "printedName": "onUnlockError(bluetoothContainerDevice:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "WasteVisionSDK.BluetoothContainerDevice",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP13onUnlockError24bluetoothContainerDevice5erroryAA0dkL0C_SSSgtF",
+            "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP13onUnlockError24bluetoothContainerDevice5erroryAA0dkL0C_SSSgtF",
+            "moduleName": "WasteVisionSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : WasteVisionSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:14WasteVisionSDK27BluetoothConnectionDelegateP",
+        "mangledName": "$s14WasteVisionSDK27BluetoothConnectionDelegateP",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothContainerDevice",
+        "printedName": "BluetoothContainerDevice",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "name",
+            "printedName": "name",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4nameSSSgvp",
+            "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4nameSSSgvp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4nameSSSgvg",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4nameSSSgvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4nameSSSgvs",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4nameSSSgvs",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4nameSSSgvM",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4nameSSSgvM",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "uuid",
+            "printedName": "uuid",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UUID",
+                "printedName": "Foundation.UUID",
+                "usr": "s:10Foundation4UUIDV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4uuid10Foundation4UUIDVvp",
+            "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4uuid10Foundation4UUIDVvp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["HasStorage", "AccessControl", "RawDocComment"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UUID",
+                    "printedName": "Foundation.UUID",
+                    "usr": "s:10Foundation4UUIDV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4uuid10Foundation4UUIDVvg",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4uuid10Foundation4UUIDVvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UUID",
+                    "printedName": "Foundation.UUID",
+                    "usr": "s:10Foundation4UUIDV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4uuid10Foundation4UUIDVvs",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4uuid10Foundation4UUIDVvs",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4uuid10Foundation4UUIDVvM",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4uuid10Foundation4UUIDVvM",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "RSSI",
+            "printedName": "RSSI",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.NSNumber?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSNumber",
+                    "printedName": "Foundation.NSNumber",
+                    "usr": "c:objc(cs)NSNumber"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4RSSISo8NSNumberCSgvp",
+            "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4RSSISo8NSNumberCSgvp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.NSNumber?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSNumber",
+                        "printedName": "Foundation.NSNumber",
+                        "usr": "c:objc(cs)NSNumber"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4RSSISo8NSNumberCSgvg",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4RSSISo8NSNumberCSgvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.NSNumber?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSNumber",
+                        "printedName": "Foundation.NSNumber",
+                        "usr": "c:objc(cs)NSNumber"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4RSSISo8NSNumberCSgvs",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4RSSISo8NSNumberCSgvs",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC4RSSISo8NSNumberCSgvM",
+                "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC4RSSISo8NSNumberCSgvM",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:14WasteVisionSDK24BluetoothContainerDeviceC",
+        "mangledName": "$s14WasteVisionSDK24BluetoothContainerDeviceC",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "hasMissingDesignatedInitializers": true,
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Environment",
+        "printedName": "Environment",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "test",
+            "printedName": "test",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.Environment.Type) -> WasteVisionSDK.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "WasteVisionSDK.Environment",
+                    "usr": "s:14WasteVisionSDK11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "WasteVisionSDK.Environment",
+                        "usr": "s:14WasteVisionSDK11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK11EnvironmentO4testyA2CmF",
+            "mangledName": "$s14WasteVisionSDK11EnvironmentO4testyA2CmF",
+            "moduleName": "WasteVisionSDK"
+          },
+          {
+            "kind": "Var",
+            "name": "acceptance",
+            "printedName": "acceptance",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.Environment.Type) -> WasteVisionSDK.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "WasteVisionSDK.Environment",
+                    "usr": "s:14WasteVisionSDK11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "WasteVisionSDK.Environment",
+                        "usr": "s:14WasteVisionSDK11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK11EnvironmentO10acceptanceyA2CmF",
+            "mangledName": "$s14WasteVisionSDK11EnvironmentO10acceptanceyA2CmF",
+            "moduleName": "WasteVisionSDK"
+          },
+          {
+            "kind": "Var",
+            "name": "production",
+            "printedName": "production",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WasteVisionSDK.Environment.Type) -> WasteVisionSDK.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "WasteVisionSDK.Environment",
+                    "usr": "s:14WasteVisionSDK11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WasteVisionSDK.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "WasteVisionSDK.Environment",
+                        "usr": "s:14WasteVisionSDK11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:14WasteVisionSDK11EnvironmentO10productionyA2CmF",
+            "mangledName": "$s14WasteVisionSDK11EnvironmentO10productionyA2CmF",
+            "moduleName": "WasteVisionSDK"
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "WasteVisionSDK.Environment",
+                "usr": "s:14WasteVisionSDK11EnvironmentO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "WasteVisionSDK.Environment",
+                "usr": "s:14WasteVisionSDK11EnvironmentO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK11EnvironmentO2eeoiySbAC_ACtFZ",
+            "mangledName": "$s14WasteVisionSDK11EnvironmentO2eeoiySbAC_ACtFZ",
+            "moduleName": "WasteVisionSDK",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "hashValue",
+            "printedName": "hashValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK11EnvironmentO9hashValueSivp",
+            "mangledName": "$s14WasteVisionSDK11EnvironmentO9hashValueSivp",
+            "moduleName": "WasteVisionSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK11EnvironmentO9hashValueSivg",
+                "mangledName": "$s14WasteVisionSDK11EnvironmentO9hashValueSivg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14WasteVisionSDK11EnvironmentO4hash4intoys6HasherVz_tF",
+            "mangledName": "$s14WasteVisionSDK11EnvironmentO4hash4intoys6HasherVz_tF",
+            "moduleName": "WasteVisionSDK",
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:14WasteVisionSDK11EnvironmentO",
+        "mangledName": "$s14WasteVisionSDK11EnvironmentO",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["AccessControl"],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreData",
+        "printedName": "CoreData",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SDKConfiguration",
+        "printedName": "SDKConfiguration",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "organisationId",
+            "printedName": "organisationId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK16SDKConfigurationC14organisationIdSSvp",
+            "mangledName": "$s14WasteVisionSDK16SDKConfigurationC14organisationIdSSvp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["HasStorage", "AccessControl"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC14organisationIdSSvg",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC14organisationIdSSvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC14organisationIdSSvs",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC14organisationIdSSvs",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC14organisationIdSSvM",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC14organisationIdSSvM",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "servicePrincipalName",
+            "printedName": "servicePrincipalName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK16SDKConfigurationC20servicePrincipalNameSSvp",
+            "mangledName": "$s14WasteVisionSDK16SDKConfigurationC20servicePrincipalNameSSvp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["HasStorage", "AccessControl"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC20servicePrincipalNameSSvg",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC20servicePrincipalNameSSvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC20servicePrincipalNameSSvs",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC20servicePrincipalNameSSvs",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC20servicePrincipalNameSSvM",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC20servicePrincipalNameSSvM",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "servicePrincipalSecret",
+            "printedName": "servicePrincipalSecret",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK16SDKConfigurationC22servicePrincipalSecretSSvp",
+            "mangledName": "$s14WasteVisionSDK16SDKConfigurationC22servicePrincipalSecretSSvp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["HasStorage", "AccessControl"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC22servicePrincipalSecretSSvg",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC22servicePrincipalSecretSSvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC22servicePrincipalSecretSSvs",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC22servicePrincipalSecretSSvs",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC22servicePrincipalSecretSSvM",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC22servicePrincipalSecretSSvM",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "environment",
+            "printedName": "environment",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "WasteVisionSDK.Environment",
+                "usr": "s:14WasteVisionSDK11EnvironmentO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14WasteVisionSDK16SDKConfigurationC11environmentAA11EnvironmentOvp",
+            "mangledName": "$s14WasteVisionSDK16SDKConfigurationC11environmentAA11EnvironmentOvp",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["HasStorage", "AccessControl"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "WasteVisionSDK.Environment",
+                    "usr": "s:14WasteVisionSDK11EnvironmentO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC11environmentAA11EnvironmentOvg",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC11environmentAA11EnvironmentOvg",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "WasteVisionSDK.Environment",
+                    "usr": "s:14WasteVisionSDK11EnvironmentO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC11environmentAA11EnvironmentOvs",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC11environmentAA11EnvironmentOvs",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC11environmentAA11EnvironmentOvM",
+                "mangledName": "$s14WasteVisionSDK16SDKConfigurationC11environmentAA11EnvironmentOvM",
+                "moduleName": "WasteVisionSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(organisationId:servicePrincipalName:servicePrincipalSecret:environment:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SDKConfiguration",
+                "printedName": "WasteVisionSDK.SDKConfiguration",
+                "usr": "s:14WasteVisionSDK16SDKConfigurationC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "WasteVisionSDK.Environment",
+                "usr": "s:14WasteVisionSDK11EnvironmentO"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:14WasteVisionSDK16SDKConfigurationC14organisationId20servicePrincipalName0gH6Secret11environmentACSS_S2SAA11EnvironmentOtcfc",
+            "mangledName": "$s14WasteVisionSDK16SDKConfigurationC14organisationId20servicePrincipalName0gH6Secret11environmentACSS_S2SAA11EnvironmentOtcfc",
+            "moduleName": "WasteVisionSDK",
+            "declAttributes": ["AccessControl"],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:14WasteVisionSDK16SDKConfigurationC",
+        "mangledName": "$s14WasteVisionSDK16SDKConfigurationC",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["AccessControl"],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CommonCrypto",
+        "printedName": "CommonCrypto",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK",
+        "declAttributes": ["RawDocComment"]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 847,
+      "length": 12,
+      "value": "[0x00, 0x00]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 893,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 937,
+      "length": 6,
+      "value": "[0x01]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1158,
+      "length": 12,
+      "value": "[0x00, 0x07]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1204,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1248,
+      "length": 6,
+      "value": "[0x00]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1555,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1601,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1645,
+      "length": 6,
+      "value": "[0x00]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 2236,
+      "length": 12,
+      "value": "[0x00, 0x03]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 2282,
+      "length": 12,
+      "value": "[0x00, 0x10]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 2326,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 3500,
+      "length": 12,
+      "value": "[0x00, 0x06]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 3546,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 3590,
+      "length": 6,
+      "value": "[0x00]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/BluetoothConnectionManager.swift",
+      "kind": "Array",
+      "offset": 1237,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/BluetoothConnectionManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1469,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 378,
+      "length": 16,
+      "value": "\"WasteVisionSDK\""
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 514,
+      "length": 27,
+      "value": "\"Unresolved error \""
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 540,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1127,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 221,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 248,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 269,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 331,
+      "length": 1,
+      "value": "4"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 350,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 380,
+      "length": 1,
+      "value": "6"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 403,
+      "length": 1,
+      "value": "7"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 422,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 492,
+      "length": 1,
+      "value": "9"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 519,
+      "length": 2,
+      "value": "10"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 553,
+      "length": 2,
+      "value": "11"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 626,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 657,
+      "length": 2,
+      "value": "13"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2155,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2306,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2382,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2432,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2547,
+      "length": 1,
+      "value": "4"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2653,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2712,
+      "length": 1,
+      "value": "6"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/ContainerLogManager.swift",
+      "kind": "IntegerLiteral",
+      "offset": 715,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/ContainerLogManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1864,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/ContainerLogManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6602,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/ContainerLogManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6915,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/BluetoothConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 258,
+      "length": 38,
+      "value": "\"0783B03E-8535-B5A0-7140-A304D2495CB7\""
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/BluetoothConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 399,
+      "length": 38,
+      "value": "\"0783B03E-8535-B5A0-7140-A304D2495CB8\""
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/BluetoothConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 536,
+      "length": 38,
+      "value": "\"0783B03E-8535-B5A0-7140-A304D2495CBA\""
+    }
+  ]
+}

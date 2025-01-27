@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.mts",
-    "nodescripts"
+    "nodescripts",
+    "react-native-wastevision-container"
   ],
   "extends": "@react-native/typescript-config"
 }

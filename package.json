@@ -103,7 +103,8 @@
     "redux-devtools-expo-dev-plugin": "^2.0.0",
     "redux-persist": "^6.0.0",
     "simplur": "^3.0.1",
-    "text-encoding": "^0.7.0"
+    "text-encoding": "^0.7.0",
+    "react-native-wastevision-container": "file:./react-native-wastevision-container"
   },
   "devDependencies": {
     "@actions/core": "^3.0.0",

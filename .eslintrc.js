@@ -33,6 +33,8 @@ module.exports = {
     '.expo',
     'android/link-assets-manifest.json',
     'ios/link-assets-manifest.json',
+    'ios/build',
+    'ios/Pods',
   ],
 
   overrides: [

@@ -1,0 +1,99 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0 effective-5.10 (swiftlang-6.0.0.9.10 clang-1600.0.26.2)
+// swift-module-flags: -target arm64-apple-ios13.1 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name WasteVisionSDK
+import Alamofire
+import CommonCrypto
+import CoreBluetooth
+import CoreData
+import Foundation
+import Swift
+import UIKit
+@_exported import WasteVisionSDK
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum BluetoothAuthorization : Swift.String {
+  case notDetermined
+  case restricted
+  case denied
+  case allowedAlways
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum BluetoothState : Swift.String {
+  case unknown
+  case resetting
+  case unsupported
+  case unauthorized
+  case poweredOff
+  case poweredOn
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public class BluetoothConnectionManager {
+  public var bluetoothState: WasteVisionSDK.BluetoothState {
+    get
+  }
+  public var bluetoothAuthorization: WasteVisionSDK.BluetoothAuthorization {
+    get
+  }
+  public init()
+  public func startScan()
+  public func stopScan()
+  public func connect(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice)
+  public func disconnect(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice)
+  public func setup(sdkConfiguration: WasteVisionSDK.SDKConfiguration)
+  public func setBluetoothConnectionDelegate(bluetoothConnectionDelegate: any WasteVisionSDK.BluetoothConnectionDelegate)
+  public func autoUnlock(cardId: [Swift.UInt8])
+  public func unlock(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice, cardId: [Swift.UInt8])
+  @objc deinit
+}
+public protocol BluetoothConnectionDelegate {
+  func onBluetoothStateChanged(bluetoothState: WasteVisionSDK.BluetoothState)
+  func onScanStarted()
+  func onScanStopped()
+  func onBluetoothContainerDeviceDiscovered(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice)
+  func onBluetoothContainerDeviceConnected(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice)
+  func onBluetoothContainerDeviceConnectionFailed(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice)
+  func onBluetoothContainerDeviceDisconnected(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice)
+  func onUnlockFinished(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice)
+  func onUnlockError(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice, error: Swift.String?)
+}
+@_hasMissingDesignatedInitializers public class BluetoothContainerDevice {
+  public var name: Swift.String?
+  public var uuid: Foundation.UUID
+  public var RSSI: Foundation.NSNumber?
+  @objc deinit
+}
+public enum Environment {
+  case test
+  case acceptance
+  case production
+  public static func == (a: WasteVisionSDK.Environment, b: WasteVisionSDK.Environment) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class SDKConfiguration {
+  public var organisationId: Swift.String
+  public var servicePrincipalName: Swift.String
+  public var servicePrincipalSecret: Swift.String
+  public var environment: WasteVisionSDK.Environment
+  public init(organisationId: Swift.String, servicePrincipalName: Swift.String, servicePrincipalSecret: Swift.String, environment: WasteVisionSDK.Environment)
+  @objc deinit
+}
+extension WasteVisionSDK.BluetoothAuthorization : Swift.Equatable {}
+extension WasteVisionSDK.BluetoothAuthorization : Swift.Hashable {}
+extension WasteVisionSDK.BluetoothAuthorization : Swift.RawRepresentable {}
+extension WasteVisionSDK.BluetoothState : Swift.Equatable {}
+extension WasteVisionSDK.BluetoothState : Swift.Hashable {}
+extension WasteVisionSDK.BluetoothState : Swift.RawRepresentable {}
+extension WasteVisionSDK.Environment : Swift.Equatable {}
+extension WasteVisionSDK.Environment : Swift.Hashable {}
