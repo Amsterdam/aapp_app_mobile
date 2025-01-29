@@ -30,7 +30,7 @@ class WastevisionContainerModule(reactContext: ReactApplicationContext) :
   ) {
     val config = Config(
 //      context = this,
-      environment = WasteVisionEnvironment.ACCEPTANCE,
+      environment = WasteVisionEnvironment.PRODUCTION,
       servicePrincipalName = servicePrincipalName,
       servicePrincipalSecret = servicePrincipalSecret,
       organisationId = organisationId
@@ -87,9 +87,7 @@ class WastevisionContainerModule(reactContext: ReactApplicationContext) :
   }
 
   override fun autoUnlock(cardNumber: String) {
-    val byteArray = cardNumber.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-
-    bluetoothConnectionManager.autoUnlock(byteArray)
+    bluetoothConnectionManager.autoUnlock(cardNumber)
   }
 
   companion object {
@@ -106,19 +104,6 @@ class WastevisionContainerModule(reactContext: ReactApplicationContext) :
 
   override fun onBluetoothContainerDeviceConnected(bluetoothContainerDevice: BluetoothContainerDevice) {
     emitOnBluetoothContainerDeviceConnected(convertBluetoothContainerDevice(bluetoothContainerDevice))
-
-    bluetoothConnectionManager.unlock(
-      bluetoothContainerDevice,
-      byteArrayOf(
-        0x80.toByte(),
-        0x70.toByte(),
-        0x6D.toByte(),
-        0x8A.toByte(),
-        0x18.toByte(),
-        0x94.toByte(),
-        0x04.toByte()
-      )
-    )
   }
 
   override fun onBluetoothContainerDeviceConnectionFailed(bluetoothContainerDevice: BluetoothContainerDevice) {
@@ -143,8 +128,6 @@ class WastevisionContainerModule(reactContext: ReactApplicationContext) :
         bluetoothContainerDevice
       )
     )
-
-    bluetoothConnectionManager.connect(bluetoothContainerDevice)
   }
 
   override fun onBluetoothStateChanged(bluetoothState: BluetoothState) {

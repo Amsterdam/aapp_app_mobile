@@ -48,6 +48,9 @@ declare module '@env' {
   export const CHAT_DEVELOPER_NAME_PROD: string | undefined
   export const CHAT_ORGANIZATION_ID_PROD: string | undefined
   export const CHAT_URL_PROD: string | undefined
+  export const WASTE_CONTAINER_SERVICE_PRINCIPAL_NAME: string | undefined
+  export const WASTE_CONTAINER_SERVICE_PRINCIPAL_SECRET: string | undefined
+  export const WASTE_CONTAINER_ORGANISATION_ID: string | undefined
 }
 
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
