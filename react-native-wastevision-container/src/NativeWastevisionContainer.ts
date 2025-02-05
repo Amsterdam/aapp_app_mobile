@@ -23,15 +23,12 @@ export interface Spec extends TurboModule {
   readonly onScanStopped: EventEmitter<void>
   readonly onUnlockError: EventEmitter<string>
   readonly onUnlockFinished: EventEmitter<BluetoothContainerDevice>
-  // setBluetoothConnectionDelegate(
-  //   bluetoothContainerDevice: BluetoothContainerDevice,
-  // ): void
   startScan(): void
   stopScan(): void
-  // unlock(
-  //   bluetoothContainerDevice: BluetoothContainerDevice,
-  //   cardId: CardId,
-  // ): void
+  unlock(
+    bluetoothContainerDevice: BluetoothContainerDevice,
+    cardId: CardId,
+  ): void
 }
 
 export type BluetoothContainerDevice = {
