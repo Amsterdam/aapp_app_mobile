@@ -714,16 +714,16 @@
       },
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
         "declKind": "Import",
         "moduleName": "WasteVisionSDK",
         "declAttributes": ["RawDocComment"]
       },
       {
         "kind": "Import",
-        "name": "CoreBluetooth",
-        "printedName": "CoreBluetooth",
+        "name": "Foundation",
+        "printedName": "Foundation",
         "declKind": "Import",
         "moduleName": "WasteVisionSDK"
       },
@@ -971,22 +971,14 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "Array",
-                "printedName": "[Swift.UInt8]",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "UInt8",
-                    "printedName": "Swift.UInt8",
-                    "usr": "s:s5UInt8V"
-                  }
-                ],
-                "usr": "s:Sa"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Func",
-            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC10autoUnlock6cardIdySays5UInt8VG_tF",
-            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC10autoUnlock6cardIdySays5UInt8VG_tF",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC10autoUnlock6cardIdySS_tF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC10autoUnlock6cardIdySS_tF",
             "moduleName": "WasteVisionSDK",
             "declAttributes": ["AccessControl", "RawDocComment"],
             "funcSelfKind": "NonMutating"
@@ -1009,22 +1001,14 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "Array",
-                "printedName": "[Swift.UInt8]",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "UInt8",
-                    "printedName": "Swift.UInt8",
-                    "usr": "s:s5UInt8V"
-                  }
-                ],
-                "usr": "s:Sa"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Func",
-            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC6unlock24bluetoothContainerDevice6cardIdyAA0diJ0C_Says5UInt8VGtF",
-            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC6unlock24bluetoothContainerDevice6cardIdyAA0diJ0C_Says5UInt8VGtF",
+            "usr": "s:14WasteVisionSDK26BluetoothConnectionManagerC6unlock24bluetoothContainerDevice6cardIdyAA0diJ0C_SStF",
+            "mangledName": "$s14WasteVisionSDK26BluetoothConnectionManagerC6unlock24bluetoothContainerDevice6cardIdyAA0diJ0C_SStF",
             "moduleName": "WasteVisionSDK",
             "declAttributes": ["AccessControl", "RawDocComment"],
             "funcSelfKind": "NonMutating"
@@ -2016,16 +2000,23 @@
       },
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
         "declKind": "Import",
         "moduleName": "WasteVisionSDK",
         "declAttributes": ["RawDocComment"]
       },
       {
         "kind": "Import",
-        "name": "Alamofire",
-        "printedName": "Alamofire",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WasteVisionSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
         "declKind": "Import",
         "moduleName": "WasteVisionSDK"
       },
@@ -2832,6 +2823,20 @@
       "offset": 2712,
       "length": 1,
       "value": "6"
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/EncryptionKeyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 383,
+      "length": 26,
+      "value": "\"com.wastevision.wastekey\""
+    },
+    {
+      "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/EncryptionKeyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 421,
+      "length": 9,
+      "value": "\"network\""
     },
     {
       "filePath": "/Users/laurensjan/Development/waste-vision-ios-sdk/WasteVisionSDK/WasteVisionSDK/ContainerLogManager.swift",

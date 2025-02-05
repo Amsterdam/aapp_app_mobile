@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 6.0 effective-5.10 (swiftlang-6.0.0.9.10 clang-1600.0.26.2)
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
 // swift-module-flags: -target arm64-apple-ios13.1 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name WasteVisionSDK
 import Alamofire
 import CommonCrypto
@@ -12,6 +12,7 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+import os
 public enum BluetoothAuthorization : Swift.String {
   case notDetermined
   case restricted
@@ -50,8 +51,8 @@ public class BluetoothConnectionManager {
   public func disconnect(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice)
   public func setup(sdkConfiguration: WasteVisionSDK.SDKConfiguration)
   public func setBluetoothConnectionDelegate(bluetoothConnectionDelegate: any WasteVisionSDK.BluetoothConnectionDelegate)
-  public func autoUnlock(cardId: [Swift.UInt8])
-  public func unlock(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice, cardId: [Swift.UInt8])
+  public func autoUnlock(cardId: Swift.String)
+  public func unlock(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice, cardId: Swift.String)
   @objc deinit
 }
 public protocol BluetoothConnectionDelegate {
