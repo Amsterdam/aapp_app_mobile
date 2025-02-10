@@ -2740,27 +2740,28 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-trunk:
-- Firebase
-- FirebaseAnalytics
-- FirebaseCore
-- FirebaseCoreExtension
-- FirebaseCoreInternal
-- FirebaseInstallations
-- FirebaseMessaging
-- GoogleAppMeasurement
-- GoogleDataTransport
-- GoogleUtilities
-- libwebp
-- Messaging-InApp-Core
-- nanopb
-- PiwikPROSDK
-- PromisesObjC
-- SDWebImage
-- SDWebImageWebPCoder
-- SocketRocket
-- TOCropViewController
-- TrustKit
+  trunk:
+    - Alamofire
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleUtilities
+    - libwebp
+    - Messaging-InApp-Core
+    - nanopb
+    - PiwikPROSDK
+    - PromisesObjC
+    - SDWebImage
+    - SDWebImageWebPCoder
+    - SocketRocket
+    - TOCropViewController
+    - TrustKit
 
 EXTERNAL SOURCES:
   boost:

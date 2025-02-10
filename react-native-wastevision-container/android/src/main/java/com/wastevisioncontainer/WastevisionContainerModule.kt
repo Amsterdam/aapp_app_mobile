@@ -90,6 +90,22 @@ class WastevisionContainerModule(reactContext: ReactApplicationContext) :
     bluetoothConnectionManager.autoUnlock(cardNumber)
   }
 
+  override fun unlock(bluetoothContainerDevice: ReadableMap, cardId: String) {
+    val name = bluetoothContainerDevice.getString("name")
+    val address = bluetoothContainerDevice.getString("address")
+    val rssi = bluetoothContainerDevice.getInt("rssi")
+    if (name.isNullOrEmpty() || address.isNullOrEmpty()) {
+      return
+    }
+    val device = BluetoothContainerDevice(
+      bluetoothConnectionManager = bluetoothConnectionManager,
+      name = name,
+      address = address,
+      rssi = rssi,
+    )
+    bluetoothConnectionManager.unlock(device, cardId)
+  }
+
   companion object {
     const val NAME = "WastevisionContainer"
   }

@@ -72,10 +72,14 @@ WasteVisionContainer* wasteVisionContainer;
 }
 
 - (void)onBluetoothContainerDeviceDiscoveredWithBluetoothContainerDevice:(BluetoothContainerDevice * _Nonnull)bluetoothContainerDevice {
+    [wasteVisionContainer stopScan];
+    [wasteVisionContainer connectWithBluetoothContainerDevice:bluetoothContainerDevice];
     [self emitOnBluetoothContainerDeviceDiscovered:[self convertBluetoothContainerDeviceToDictionary:bluetoothContainerDevice]];
 }
 
 - (void)onBluetoothContainerDeviceConnectedWithBluetoothContainerDevice:(BluetoothContainerDevice * _Nonnull)bluetoothContainerDevice {
+    NSString *cardId = @"381ff706"; // Correctly define the cardId as an NSString
+      [wasteVisionContainer unlockWithBluetoothContainerDevice:bluetoothContainerDevice cardId:cardId];
     [self emitOnBluetoothContainerDeviceConnected:[self convertBluetoothContainerDeviceToDictionary:bluetoothContainerDevice]];
 }
 

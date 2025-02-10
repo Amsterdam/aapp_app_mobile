@@ -45,4 +45,11 @@ export const onScanStarted = (callback: () => void): void => {
   WastevisionContainer.onScanStarted(callback)
 }
 
+export const unlock = (
+  bluetoothContainerDevice: BluetoothContainerDevice,
+  cardId: string,
+): void => {
+  WastevisionContainer.unlock(bluetoothContainerDevice, cardId)
+}
+
 export const a = WastevisionContainer
