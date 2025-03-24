@@ -86,7 +86,7 @@ export const PassOwners = ({logout}: Props) => {
         <Column gutter="md">
           <ShowCityPassButton />
           <Gutter height="sm" />
-          {cityPasses.map(cityPass => (
+          {cityPasses.map((cityPass, index) => (
             <CityPassCard
               cityPass={cityPass}
               key={cityPass.passNumberComplete}
@@ -95,7 +95,7 @@ export const PassOwners = ({logout}: Props) => {
                   onPressCityPassCard(cityPass.passNumber)
                 }
               }}
-              testID={`CityPassOwnerButton-${'id' in cityPass ? cityPass.id : cityPass.passNumberComplete}`}
+              testID={`CityPassOwnerButton-${index}`}
             />
           ))}
         </Column>
