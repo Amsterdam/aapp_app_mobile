@@ -22,7 +22,7 @@ stages:
   - stage: AndroidStakeholders
     displayName: 'Android Stakeholders'
     dependsOn: AndroidInternal
-    condition: and(not(or(failed(), canceled())), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    condition: and(not(or(failed(), canceled())))
     jobs:
       - template: ./templates/distribution.yml
         parameters:
@@ -31,7 +31,7 @@ stages:
   - stage: AndroidProduction
     displayName: 'Android Production'
     dependsOn: AndroidStakeholders
-    condition: and(not(or(failed(), canceled())), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    condition: and(not(or(failed(), canceled())))
     jobs:
       - template: ./templates/distribution.yml
         parameters:
