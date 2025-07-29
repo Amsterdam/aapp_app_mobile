@@ -4,6 +4,7 @@ PODS:
     - React-Core
   - Clusterer (5.0.2):
     - DoubleConversion
+    - ExpoModulesCore
     - glog
     - hermes-engine
     - NitroModules
@@ -2752,13 +2753,10 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
-    - libwebp
     - Messaging-InApp-Core
     - nanopb
     - PiwikPROSDK
     - PromisesObjC
-    - SDWebImage
-    - SDWebImageWebPCoder
     - SocketRocket
     - TOCropViewController
     - TrustKit
@@ -3133,6 +3131,6 @@ SPEC CHECKSUMS:
   TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   Yoga: dc7c21200195acacb62fa920c588e7c2106de45e
 
-PODFILE CHECKSUM: 6fecea1e75e19740eb4fcfd93e827b1151feefdd
+PODFILE CHECKSUM: 791b785b0c54c55e993449b9a09796f992d3d76f
 
 COCOAPODS: 1.14.3
