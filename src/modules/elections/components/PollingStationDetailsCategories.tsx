@@ -37,7 +37,18 @@ export const PollingStationDetailsCategories = ({categories}: Props) => (
       level="h5"
       text="Toegankelijkheid"
     />
-    {!categories?.some(c => c === ElectionsCategory.pysicalLimitation) ? (
+    {categories?.map(category => (
+      <Row
+        gutter="md"
+        key={category}>
+        <Icon
+          name={mapCategoryToIconName[category]}
+          size="xl"
+        />
+        <Paragraph>{mapCategoryToLabel[category]}</Paragraph>
+      </Row>
+    ))}
+    {!categories?.some(c => c === ElectionsCategory.pysicalLimitation) && (
       <Row
         gutter="md"
         key="categoryInaccessible">
@@ -47,18 +58,6 @@ export const PollingStationDetailsCategories = ({categories}: Props) => (
         />
         <Paragraph>{mapCategoryToLabel.inaccessible}</Paragraph>
       </Row>
-    ) : (
-      categories?.map(category => (
-        <Row
-          gutter="md"
-          key={category}>
-          <Icon
-            name={mapCategoryToIconName[category]}
-            size="xl"
-          />
-          <Paragraph>{mapCategoryToLabel[category]}</Paragraph>
-        </Row>
-      ))
     )}
   </Column>
 )
