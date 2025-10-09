@@ -24,10 +24,10 @@ export type PollingStation = {
 export enum ElectionsCategory {
   disabledParking = 'disabled_parking',
   hearingImpaired = 'hearing_impaired',
-  inAccessible = 'inaccessible',
   ptWheelchair = 'pt_wheelchair',
   pysicalLimitation = 'pysical_limitation',
   visionImpaired = 'vision_impaired',
+  wheelchairHelp = 'wheelchair_help',
 }
 
 export type PollingStationsResponse = PollingStation[]

@@ -11,24 +11,22 @@ type Props = {
 }
 
 const mapCategoryToLabel: Record<ElectionsCategory, string> = {
-  [ElectionsCategory.disabledParking]: 'Gehandicaptenparkeerplaats binnen 100m',
-  [ElectionsCategory.hearingImpaired]:
-    'Voorzieningen voor doven/slechthorenden',
-  [ElectionsCategory.inAccessible]: 'Niet rolstoeltoegankelijk',
+  [ElectionsCategory.disabledParking]: 'Parkeerplaats voor gehandicapten',
+  [ElectionsCategory.hearingImpaired]: 'Hulp voor slechthorenden/doven',
   [ElectionsCategory.ptWheelchair]:
     'Rolstoeltoegankelijke OV-halte binnen 100m',
-  [ElectionsCategory.pysicalLimitation]: 'Rolstoeltoegankelijk',
-  [ElectionsCategory.visionImpaired]:
-    'Voorzieningen voor blinden/slechtzienden',
+  [ElectionsCategory.pysicalLimitation]: 'Toegankelijk met rolstoel',
+  [ElectionsCategory.visionImpaired]: 'Hulpmiddelen voor slechtzienden/blinden',
+  [ElectionsCategory.wheelchairHelp]: 'Hulp bij rolstoel',
 }
 
 const mapCategoryToIconName: Record<ElectionsCategory, SvgIconName> = {
   [ElectionsCategory.disabledParking]: 'disabledParking',
   [ElectionsCategory.hearingImpaired]: 'hearingImpaired',
-  [ElectionsCategory.inAccessible]: 'wheelchairDisabled',
   [ElectionsCategory.ptWheelchair]: 'wheelchairPublicTransport',
   [ElectionsCategory.pysicalLimitation]: 'wheelchair',
   [ElectionsCategory.visionImpaired]: 'visionImpaired',
+  [ElectionsCategory.wheelchairHelp]: 'wheelchairPlus',
 }
 
 export const PollingStationDetailsCategories = ({categories}: Props) => (
@@ -48,16 +46,5 @@ export const PollingStationDetailsCategories = ({categories}: Props) => (
         <Paragraph>{mapCategoryToLabel[category]}</Paragraph>
       </Row>
     ))}
-    {!categories?.some(c => c === ElectionsCategory.pysicalLimitation) && (
-      <Row
-        gutter="md"
-        key="categoryInaccessible">
-        <Icon
-          name={mapCategoryToIconName.inaccessible}
-          size="xl"
-        />
-        <Paragraph>{mapCategoryToLabel.inaccessible}</Paragraph>
-      </Row>
-    )}
   </Column>
 )
