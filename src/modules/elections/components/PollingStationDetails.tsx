@@ -89,9 +89,11 @@ export const PollingStationDetails = () => {
             />
           </Column>
         </Row>
-        <PollingStationDetailsCategories
-          categories={pollingStation.categories}
-        />
+        {!!pollingStation.categories.length && (
+          <PollingStationDetailsCategories
+            categories={pollingStation.categories}
+          />
+        )}
         <Row align="start">
           <ExternalLinkButton
             label="Meer informatie over de verkiezingen"
