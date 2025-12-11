@@ -3,6 +3,7 @@ import BottomSheetOriginal, {
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet'
+import {useIsFocused} from '@react-navigation/native'
 import {useEffect, type FC, type ReactNode} from 'react'
 import {StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
@@ -60,6 +61,7 @@ export const BottomSheet = ({
   const {top: topInset} = useSafeAreaInsets()
   const ViewComponent = scroll ? ScrollWrapper : BottomSheetView
   const styles = createStyles(flex)
+  const isFocused = useIsFocused()
 
   const VariantComponent: FC | undefined = variants
     ? (variants[variant ?? ''] ?? (() => null))
@@ -82,7 +84,7 @@ export const BottomSheet = ({
         handleComponent={Handle}
         index={-1}
         keyboardBlurBehavior="restore"
-        onChange={onChangeHandler}
+        onChange={idx => isFocused && onChangeHandler(idx)}
         ref={ref}
         topInset={topInset}
         {...rest}>

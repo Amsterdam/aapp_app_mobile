@@ -2,6 +2,7 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -294,6 +295,11 @@ export const ParkingReceipt = () => {
             : alerts.insufficientMoneyBalance2Failed)}
         />
       )}
+      {errors.root?.serverError &&
+        errors.root?.serverError?.message !== 'SSP_TIME_BALANCE_INSUFFICIENT' &&
+        errors.root?.serverError?.message !== 'SSP_BALANCE_TOO_LOW' && (
+          <SomethingWentWrong testID="ParkingReceiptSomethingWentWrong" />
+        )}
     </Column>
   )
 }

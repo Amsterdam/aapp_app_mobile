@@ -155,6 +155,7 @@ export const ParkingMachineBottomSheetContent = () => {
             isLoading={isLoading}
             label="Selecteer deze automaat"
             onPress={() => {
+              closeBottomSheet()
               navigation.popTo(ParkingRouteName.startSession, {
                 parkingMachineId: selectedParkingMachineId,
               })

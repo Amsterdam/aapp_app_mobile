@@ -2,7 +2,6 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
-import type {ParkingMachine} from '@/modules/parking/types'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {SwitchField} from '@/components/ui/forms/SwitchField'
 import {Column} from '@/components/ui/layout/Column'
@@ -10,6 +9,8 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useZoneByMachineQuery} from '@/modules/parking/service'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope, type ParkingMachine} from '@/modules/parking/types'
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
 
 type FieldValues = Pick<
@@ -29,6 +30,7 @@ export const ParkingSessionChooseParkingMachine = ({
     setValue,
     formState: {errors},
   } = useFormContext<FieldValues>()
+  const parkingAccount = useParkingAccount()
   const currentPermit = useCurrentParkingPermit()
   const startTime = watch('startTime')
 
@@ -73,6 +75,7 @@ export const ParkingSessionChooseParkingMachine = ({
         }
       />
       {currentPermit.parking_machine_favorite !== selectedParkingMachineId &&
+        parkingAccount?.scope !== ParkingPermitScope.visitor &&
         !!selectedParkingMachineId &&
         !errors.parking_machine && (
           <SwitchField
