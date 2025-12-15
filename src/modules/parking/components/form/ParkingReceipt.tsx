@@ -103,7 +103,8 @@ export const ParkingReceipt = () => {
 
   const {data, isLoading} = useSessionReceiptQuery(queryParams)
 
-  const {isLoading: isLoadingAccount} = useAccountDetailsQuery()
+  const {isLoading: isLoadingAccount, data: accountData} =
+    useAccountDetailsQuery()
 
   const checkStartTime = useCallback(() => {
     const now = dayjs().set('second', 0)
@@ -165,6 +166,7 @@ export const ParkingReceipt = () => {
     isPermitHolder &&
     currentPermit.money_balance_applicable &&
     typeof remainingWalletBalance === 'number' &&
+    accountData?.wallet?.balance !== 0 &&
     remainingWalletBalance < 0
 
   useEffect(() => {
