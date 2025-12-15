@@ -73,6 +73,10 @@ export const BottomSheet = ({
     }
   }, [variant, variants, ref])
 
+  if (!isFocused) {
+    return null
+  }
+
   return (
     <BottomSheetPresenceContext.Provider value={true}>
       <BottomSheetOriginal
@@ -84,7 +88,7 @@ export const BottomSheet = ({
         handleComponent={Handle}
         index={-1}
         keyboardBlurBehavior="restore"
-        onChange={idx => isFocused && onChangeHandler(idx)}
+        onChange={onChangeHandler}
         ref={ref}
         topInset={topInset}
         {...rest}>
