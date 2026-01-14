@@ -19,10 +19,6 @@ export const ActionButtons = () => {
     enabledModules,
   )
 
-  if (!ActionButtonsComponents.length) {
-    return null
-  }
-
   return (
     <ScrollView
       alwaysBounceHorizontal={false}
