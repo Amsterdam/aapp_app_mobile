@@ -24,11 +24,15 @@ import {
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {
+  useBottomSheet,
+  useBottomSheetSelectors,
+} from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
+  const {isOpen} = useBottomSheetSelectors()
   const autoFocus = useAccessibilityFocus()
   const navigation = useNavigation()
 
@@ -67,10 +71,11 @@ export const ParkingMachineBottomSheetContent = () => {
     [parkingMachineDetails],
   )
 
-  useEffect(
-    () => () => resetSelectedParkingMachineId(),
-    [resetSelectedParkingMachineId],
-  )
+  useEffect(() => {
+    if (!isOpen) {
+      resetSelectedParkingMachineId()
+    }
+  }, [isOpen, resetSelectedParkingMachineId])
 
   if (!parkingMachine) {
     return null
