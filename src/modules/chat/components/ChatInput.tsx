@@ -6,8 +6,6 @@ import {
   type TextInputProps,
   View,
 } from 'react-native'
-import {KeyboardAvoidingView} from 'react-native-keyboard-controller'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {sendTypingEvent} from 'react-native-salesforce-messaging-in-app/src'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
@@ -31,10 +29,8 @@ type Props = {
 
 export const ChatInput = ({onSubmit}: Props) => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
-  const insets = useSafeAreaInsets()
   const trackException = useTrackException()
 
-  const isKeyboardVisible = Keyboard.isVisible()
   const styles = useThemable(createStyles)
   const themedTextInputProps = useThemable(createTextInputProps)
 
@@ -75,72 +71,68 @@ export const ChatInput = ({onSubmit}: Props) => {
 
   return (
     <>
-      <KeyboardAvoidingView
-        behavior="translate-with-padding"
-        keyboardVerticalOffset={isKeyboardVisible ? insets.top : 0}>
-        <Box>
-          <Row gutter="sm">
-            {!!agentInChat && (
-              <IconButton
-                accessibilityLabel={
-                  selectAttachment ? 'Naar toetsenbord' : 'Naar bijlages'
+      <Box>
+        <Row gutter="sm">
+          {!!agentInChat && (
+            <IconButton
+              accessibilityLabel={
+                selectAttachment ? 'Naar toetsenbord' : 'Naar bijlages'
+              }
+              hitSlop={16}
+              icon={
+                <Icon
+                  color="link"
+                  name={selectAttachment ? 'keyboard' : 'attachment'}
+                  size="xl"
+                  testID="ChatAttachmentsIcon"
+                />
+              }
+              onPress={() => {
+                if (selectAttachment) {
+                  inputRef.current?.focus()
+                  hideSelectAttachment()
+                } else {
+                  Keyboard.dismiss()
+                  setTimeout(showSelectAttachment, 300)
                 }
-                hitSlop={16}
-                icon={
+              }}
+              testID="ChatAttachmentsButton"
+            />
+          )}
+          <View
+            style={styles.container}
+            testID="ChatTextInputContainer">
+            <TextInput
+              {...themedTextInputProps}
+              autoFocus={isScreenReaderEnabled}
+              multiline
+              onChangeText={onChangeText}
+              onFocus={hideSelectAttachment}
+              placeholder="Typ uw bericht"
+              ref={inputRef}
+              style={styles.textInput}
+              testID="ChatTextInput"
+              value={input}
+            />
+            {input.length > 0 && (
+              <View style={styles.buttonWrapper}>
+                <View style={styles.spacePlaceholder} />
+                <PressableBase
+                  accessibilityLabel="Verstuur bericht"
+                  onPress={() => handleSubmit(input)}
+                  style={styles.button}
+                  testID="ChatTextInputSendButton">
                   <Icon
-                    color="link"
-                    name={selectAttachment ? 'keyboard' : 'attachment'}
-                    size="xl"
-                    testID="ChatAttachmentsIcon"
+                    color="inverse"
+                    name="chevron-right"
+                    testID="ChatTextInputSendButtonIcon"
                   />
-                }
-                onPress={() => {
-                  if (selectAttachment) {
-                    inputRef.current?.focus()
-                    hideSelectAttachment()
-                  } else {
-                    Keyboard.dismiss()
-                    setTimeout(showSelectAttachment, 300)
-                  }
-                }}
-                testID="ChatAttachmentsButton"
-              />
+                </PressableBase>
+              </View>
             )}
-            <View
-              style={styles.container}
-              testID="ChatTextInputContainer">
-              <TextInput
-                {...themedTextInputProps}
-                autoFocus={isScreenReaderEnabled}
-                multiline
-                onChangeText={onChangeText}
-                onFocus={hideSelectAttachment}
-                placeholder="Typ uw bericht"
-                ref={inputRef}
-                style={styles.textInput}
-                testID="ChatTextInput"
-                value={input}
-              />
-              {input.length > 0 && (
-                <View style={styles.buttonWrapper}>
-                  <View style={styles.spacePlaceholder} />
-                  <PressableBase
-                    accessibilityLabel="Verstuur bericht"
-                    onPress={() => handleSubmit(input)}
-                    style={styles.button}
-                    testID="ChatTextInputSendButton">
-                    <Icon
-                      color="inverse"
-                      name="chevron-right"
-                      testID="ChatTextInputSendButtonIcon"
-                    />
-                  </PressableBase>
-                </View>
-              )}
-            </View>
-          </Row>
-        </Box>
-      </KeyboardAvoidingView>
+          </View>
+        </Row>
+      </Box>
       {!!selectAttachment && !keyboardVisible && (
         <ChatAttachment
           minHeight={keyboardHeight}
