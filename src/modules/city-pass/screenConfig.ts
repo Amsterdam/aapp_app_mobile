@@ -13,8 +13,7 @@ import {DashboardScreen} from '@/modules/city-pass/screens/Dashboard.screen'
 import {LogoutScreen} from '@/modules/city-pass/screens/Logout.screen'
 import {SecurityCodeScreen} from '@/modules/city-pass/screens/SecurityCode.screen'
 
-export const cityPassScreenConfig: StackNavigationRoutes<
-  CityPassStackParams,
+export type CityPassScreenConfigRoutes =
   | CityPassRouteName.cityPassBlockPass
   | CityPassRouteName.budget
   | CityPassRouteName.dashboard
@@ -22,6 +21,10 @@ export const cityPassScreenConfig: StackNavigationRoutes<
   | CityPassRouteName.cityPassLogout
   | CityPassRouteName.cityPasses
   | CityPassRouteName.securityCode
+
+export const cityPassScreenConfig: StackNavigationRoutes<
+  CityPassStackParams,
+  CityPassScreenConfigRoutes
 > = {
   [CityPassRouteName.dashboard]: {
     component: DashboardScreen,

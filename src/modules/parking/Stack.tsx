@@ -2,6 +2,7 @@ import {TransitionPresets} from '@react-navigation/stack'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
+import {usePendingScreen} from '@/hooks/navigation/usePendingScreen'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
@@ -14,7 +15,10 @@ import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.s
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {useShouldShowLoginScreen} from '@/modules/parking/hooks/useShouldShowLoginScreen'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {parkingScreenConfig} from '@/modules/parking/screenConfig'
+import {
+  parkingScreenConfig,
+  type ParkingScreenConfigRoutes,
+} from '@/modules/parking/screenConfig'
 import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
 import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingForgotAccessCode.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
@@ -23,6 +27,7 @@ import {
   useParkingAccountIsLoggingIn,
   useParkingAccounts,
 } from '@/modules/parking/slice'
+import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()
 
@@ -37,6 +42,11 @@ export const ParkingStack = () => {
   const accounts = useParkingAccounts()
   const isLoggingIn = useParkingAccountIsLoggingIn()
   const hasAccounts = Object.keys(accounts).length
+  const {pendingScreen} = usePendingScreen<ParkingScreenConfigRoutes>()
+  const sortedScreenConfig = sortEntriesByKeyFirst(
+    Object.entries(parkingScreenConfig),
+    pendingScreen,
+  )
 
   if (isLoading) {
     return null
@@ -69,10 +79,10 @@ export const ParkingStack = () => {
                   options={{headerTitle: 'Inloggen'}}
                 />
               )}
-              {Object.entries(parkingScreenConfig).map(([key, route]) => (
+              {sortedScreenConfig.map(([key, parkingRoute]) => (
                 <Stack.Screen
                   key={key}
-                  {...route}
+                  {...parkingRoute}
                 />
               ))}
             </>
