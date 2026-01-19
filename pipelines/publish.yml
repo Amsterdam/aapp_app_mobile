@@ -21,6 +21,6 @@ jobs:
     steps:
       - template: ./templates/push-repo-to-github.yml
         parameters:
-          repository: 'amsterdam-app-frontend'
+          repository: 'aapp_app_mobile'
           sshKeySecureFile: 'frontend-github-ssh'
           sshPublicKey: $(sshPublicKeyFrontend)
