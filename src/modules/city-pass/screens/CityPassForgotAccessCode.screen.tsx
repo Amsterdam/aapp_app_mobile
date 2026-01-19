@@ -6,7 +6,6 @@ export const CityPassForgotAccessCodeScreen = () => {
 
   return (
     <ForgotAccessCodeScreen
-      buttonLabel="Inloggen met DigiD"
       onAfterRestart={login}
       testID="CityPassForgotAccessCodeScreen"
     />
