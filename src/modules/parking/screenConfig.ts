@@ -19,15 +19,17 @@ import {ParkingVisitorEditSessionScreen} from '@/modules/parking/screens/Parking
 import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
 import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
 
+export type ParkingScreenConfigRoutes = Exclude<
+  ParkingRouteName,
+  | ParkingRouteName.intro
+  | ParkingRouteName.login
+  | ParkingRouteName.loginSteps
+  | ParkingRouteName.forgotAccessCode
+>
+
 export const parkingScreenConfig: StackNavigationRoutes<
   ParkingStackParams,
-  Exclude<
-    ParkingRouteName,
-    | ParkingRouteName.intro
-    | ParkingRouteName.login
-    | ParkingRouteName.loginSteps
-    | ParkingRouteName.forgotAccessCode
-  >
+  ParkingScreenConfigRoutes
 > = {
   [ParkingRouteName.dashboard]: {
     component: ParkingDashboardScreen,

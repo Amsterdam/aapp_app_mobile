@@ -2,6 +2,7 @@ import {TransitionPresets} from '@react-navigation/stack'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
+import {usePendingScreen} from '@/hooks/navigation/usePendingScreen'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
@@ -14,11 +15,15 @@ import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAcce
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {cityPassScreenConfig} from '@/modules/city-pass/screenConfig'
+import {
+  cityPassScreenConfig,
+  type CityPassScreenConfigRoutes,
+} from '@/modules/city-pass/screenConfig'
 import {CityPassForgotAccessCodeScreen} from '@/modules/city-pass/screens/CityPassForgotAccessCode.screen'
 import {CityPassIntroScreen} from '@/modules/city-pass/screens/CityPassIntro.screen'
 import {LoginStepsScreen} from '@/modules/city-pass/screens/LoginSteps.screen'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
+import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()
 
@@ -30,6 +35,11 @@ export const CityPassStack = () => {
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isLoginStepsActive} = useLoginSteps()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
+  const {pendingScreen} = usePendingScreen<CityPassScreenConfigRoutes>()
+  const sortedScreenConfig = sortEntriesByKeyFirst(
+    Object.entries(cityPassScreenConfig),
+    pendingScreen,
+  )
 
   if (isLoading) {
     return null
@@ -54,7 +64,7 @@ export const CityPassStack = () => {
       ) : isCityPassOwnerRegistered ? (
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
-            Object.entries(cityPassScreenConfig).map(([key, route]) => (
+            sortedScreenConfig.map(([key, route]) => (
               <Stack.Screen
                 key={key}
                 {...route}
