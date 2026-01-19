@@ -14,4 +14,6 @@ export const onNotificationEvent: ModuleClientConfig['onNotificationEvent'] = (
       moduleSlug: ModuleSlug['waste-guide'],
     }),
   )
+
+  return '/afval/afvalinformatie/'
 }
