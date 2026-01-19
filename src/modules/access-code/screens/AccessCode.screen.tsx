@@ -24,6 +24,10 @@ export const AccessCodeScreen = ({navigation}: Props) => {
     (navigation.getParent()?.getState().routes.at(-1)?.name as ModuleSlug) ??
     ModuleSlug.home
 
+  const prevModule = navigation.getParent()?.getState().routes.at(-2)?.name as
+    | ModuleSlug
+    | undefined
+
   useEffect(() => {
     if (isCodeValid && isEnrolled && useBiometrics === undefined) {
       navigation.navigate(AccessCodeRouteName.biometricsPermission)
@@ -52,12 +56,14 @@ export const AccessCodeScreen = ({navigation}: Props) => {
               text="Voer uw toegangscode in"
             />
             <EnterAccessCode />
-            <Button
-              label="Toegangscode vergeten"
-              onPress={onForgotCode}
-              testID="AccessCodeForgotButton"
-              variant="tertiary"
-            />
+            {prevModule !== ModuleSlug.user && (
+              <Button
+                label="Toegangscode vergeten"
+                onPress={onForgotCode}
+                testID="AccessCodeForgotButton"
+                variant="tertiary"
+              />
+            )}
           </Column>
         </Box>
       </Center>
