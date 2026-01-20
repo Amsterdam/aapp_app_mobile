@@ -3,7 +3,7 @@ import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotificatio
 import {ModuleSlug} from '@/modules/slugs'
 
 describe('getRouteFromNotification', () => {
-  it('should return an in-app route when no external url is provided', () => {
+  it('should return a module based route when no external url is provided', () => {
     const mockNotificationBG: Partial<PushNotification> = {
       data: {
         module_slug: ModuleSlug['burning-guide'],
@@ -44,7 +44,7 @@ describe('getRouteFromNotification', () => {
     const mockNotification: PushNotification = {
       data: {
         url: 'https://amsterdam.nl',
-        module_slug: ModuleSlug['burning-guide'],
+        module_slug: ModuleSlug['mijn-amsterdam'],
         linkSourceid: '1234',
       },
       body: 'testBody',
@@ -52,7 +52,7 @@ describe('getRouteFromNotification', () => {
     }
 
     expect(getRouteFromNotification(mockNotification)).toBe(
-      'https://amsterdam.nl',
+      'amsterdam://notification-external-link?url=https://amsterdam.nl',
     )
   })
 })

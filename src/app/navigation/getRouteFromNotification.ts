@@ -12,5 +12,9 @@ export const getRouteFromNotification = (
   const route = createPathFromNotification(notification)
   const externalRoute = notification.data.url
 
-  return externalRoute || (route ? appPrefix + route.slice(1) : null)
+  if (externalRoute) {
+    return appPrefix + `notification-external-link?url=${externalRoute}`
+  }
+
+  return route ? appPrefix + route.slice(1) : null
 }

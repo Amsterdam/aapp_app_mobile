@@ -6,7 +6,6 @@ import type {RootStackParams} from '@/app/navigation/types'
 import {appPrefix} from '@/app/navigation/constants'
 import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotification'
 import {navigationRef} from '@/app/navigation/navigationRef'
-import {openExternalWebLink} from '@/app/navigation/openExternalWebLink'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {clientModules} from '@/modules/modules'
 import {ModuleSlug} from '@/modules/slugs'
@@ -28,8 +27,6 @@ export const createLinking = (
       const url = await Linking.getInitialURL()
 
       if (url) {
-        await openExternalWebLink(url)
-
         return url
       }
 
@@ -40,23 +37,17 @@ export const createLinking = (
       )
 
       if (notifeeUrl) {
-        await openExternalWebLink(notifeeUrl)
-
         return notifeeUrl
       }
 
       const initialFirebaseNotification =
         await getMessaging().getInitialNotification()
 
-      const fireBaseUrl = getRouteFromNotification({
+      return getRouteFromNotification({
         data: initialFirebaseNotification?.data,
         title: initialFirebaseNotification?.notification?.title,
         body: initialFirebaseNotification?.notification?.body,
       })
-
-      await openExternalWebLink(fireBaseUrl)
-
-      return fireBaseUrl
     } catch (error) {
       devLog(error)
 

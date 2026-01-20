@@ -4,6 +4,7 @@ import {
   type NotificationHistoryModalParams,
   type NotificationHistoryStackParams,
 } from '@/modules/notification-history/routes'
+import {NotificationExternalLinkScreen} from '@/modules/notification-history/screens/NotificationExternalLink.screen'
 import {NotificationHistoryScreen} from '@/modules/notification-history/screens/NotificationHistory.screen'
 
 export const screenConfig: StackNavigationRoutes<
@@ -15,6 +16,13 @@ export const screenConfig: StackNavigationRoutes<
     name: NotificationHistoryRouteName.NotificationHistory,
     options: {
       headerTitle: 'Meldingen',
+    },
+  },
+  [NotificationHistoryRouteName.NotificationExternalLink]: {
+    component: NotificationExternalLinkScreen,
+    name: NotificationHistoryRouteName.NotificationExternalLink,
+    options: {
+      headerShown: false,
     },
   },
 }
