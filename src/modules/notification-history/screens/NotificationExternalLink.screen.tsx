@@ -20,7 +20,7 @@ export const NotificationExternalLinkScreen = ({route}: Props) => {
   const {navigate} = useNavigation()
 
   useEffect(() => {
-    if (counter === 0) {
+    if (counter <= 0) {
       openUrl(route.params.url)
       navigate(ModuleSlug.home, {screen: HomeRouteName.home})
 
@@ -34,6 +34,8 @@ export const NotificationExternalLinkScreen = ({route}: Props) => {
     }
   }, [counter, route.params.url, openUrl, navigate])
 
+  const strippedUrl = new URL(route.params.url).host
+
   return (
     <Screen
       scroll={false}
@@ -43,9 +45,8 @@ export const NotificationExternalLinkScreen = ({route}: Props) => {
           align="center"
           flex={1}>
           <Paragraph textAlign="center">
-            U wordt doorgeleid naar{' '}
-            <Phrase color="link">{route.params.url}</Phrase> in{' '}
-            <Phrase emphasis="strong">{counter}</Phrase>
+            U wordt doorgeleid naar <Phrase color="link">{strippedUrl}</Phrase>{' '}
+            in <Phrase emphasis="strong">{counter}</Phrase>
             ...
           </Paragraph>
         </Column>

@@ -1,10 +1,10 @@
-import type {PushNotification} from '@/types/notification'
+import {appPrefix} from '@/app/navigation/constants'
 import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotification'
 import {ModuleSlug} from '@/modules/slugs'
 
 describe('getRouteFromNotification', () => {
   it('should return a module based route when no external url is provided', () => {
-    const mockNotificationBG: Partial<PushNotification> = {
+    const mockNotificationBG = {
       data: {
         module_slug: ModuleSlug['burning-guide'],
         linkSourceid: '1234',
@@ -13,7 +13,7 @@ describe('getRouteFromNotification', () => {
       title: 'testTitle',
     }
 
-    const mockNotificationWG: PushNotification = {
+    const mockNotificationWG = {
       data: {
         module_slug: ModuleSlug['waste-guide'],
         linkSourceid: '1234',
@@ -22,7 +22,7 @@ describe('getRouteFromNotification', () => {
       title: 'testTitle',
     }
 
-    const mockNotificationMyAms: PushNotification = {
+    const mockNotificationMyAms = {
       data: {
         module_slug: ModuleSlug['mijn-amsterdam'],
         linkSourceid: '1234',
@@ -41,7 +41,7 @@ describe('getRouteFromNotification', () => {
   })
 
   it('should return an external route when an external url is provided', () => {
-    const mockNotification: PushNotification = {
+    const mockNotification = {
       data: {
         url: 'https://amsterdam.nl',
         module_slug: ModuleSlug['mijn-amsterdam'],
@@ -52,7 +52,7 @@ describe('getRouteFromNotification', () => {
     }
 
     expect(getRouteFromNotification(mockNotification)).toBe(
-      'amsterdam://notification-external-link?url=https://amsterdam.nl',
+      `${appPrefix}notification-external-link?url=${encodeURIComponent(mockNotification.data?.url)}`,
     )
   })
 })

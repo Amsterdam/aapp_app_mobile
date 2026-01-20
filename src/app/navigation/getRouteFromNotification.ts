@@ -1,3 +1,4 @@
+import {buildNotificationExternalLink} from '@/app/navigation/buildNotificationExternalLink'
 import {appPrefix} from '@/app/navigation/constants'
 import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {PushNotification} from '@/types/notification'
@@ -13,7 +14,7 @@ export const getRouteFromNotification = (
   const externalRoute = notification.data.url
 
   if (externalRoute) {
-    return appPrefix + `notification-external-link?url=${externalRoute}`
+    return buildNotificationExternalLink(externalRoute)
   }
 
   return route ? appPrefix + route.slice(1) : null
