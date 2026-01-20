@@ -1,5 +1,6 @@
 import type {Address, LocationType} from '@/modules/address/types'
 import {
+  getAddressSwitchAccessibilityLabel,
   getAddressSwitchIcon,
   getAddressSwitchLabel,
 } from '@/modules/address/utils/getAddressSwitchProps'
@@ -12,9 +13,17 @@ describe('getAddressSwitchProps', () => {
 
     const icon = getAddressSwitchIcon(locationType, address, isFetching)
     const label = getAddressSwitchLabel(locationType, address, isFetching)
+    const accessibilityLabel = getAddressSwitchAccessibilityLabel(
+      locationType,
+      address,
+      isFetching,
+    )
 
     expect(icon).toBe('spinner')
     expect(label).toBe('Mijn huidige locatie')
+    expect(accessibilityLabel).toBe(
+      'Mijn huidige locatie, Druk om adres te wijzigen.',
+    )
   })
 
   test('should return current location and mapLocationIosFilled icon when locationType is location and location is fetched.', () => {
@@ -34,9 +43,17 @@ describe('getAddressSwitchProps', () => {
       address as Address,
       isFetching,
     )
+    const accessibilityLabel = getAddressSwitchAccessibilityLabel(
+      locationType,
+      address as Address,
+      isFetching,
+    )
 
     expect(icon).toBe('mapLocationIosFilled')
     expect(label).toBe('Cruquiusweg 5')
+    expect(accessibilityLabel).toBe(
+      'Cruquiusweg 5, Adres bij uw huidige locatie, Druk om adres te wijzigen.',
+    )
   })
 
   test('should return my address and housing icon when locationType is address and user has entered an address that is similar to myAddress.', () => {
@@ -56,9 +73,17 @@ describe('getAddressSwitchProps', () => {
       address as Address,
       isFetching,
     )
+    const accessibilityLabel = getAddressSwitchAccessibilityLabel(
+      locationType,
+      address as Address,
+      isFetching,
+    )
 
     expect(icon).toBe('housing')
     expect(label).toBe('Cruquiusweg 5')
+    expect(accessibilityLabel).toBe(
+      'Cruquiusweg 5, Mijn adres, Druk om adres te wijzigen.',
+    )
   })
 
   test('should return an address and location icon when locationType is address and user has entered an address that is different from myAddress.', () => {
@@ -78,9 +103,17 @@ describe('getAddressSwitchProps', () => {
       address as Address,
       isFetching,
     )
+    const accessibilityLabel = getAddressSwitchAccessibilityLabel(
+      locationType,
+      address as Address,
+      isFetching,
+    )
 
     expect(icon).toBe('housing')
     expect(label).toBe('Cruquiusweg 5')
+    expect(accessibilityLabel).toBe(
+      'Cruquiusweg 5, Mijn adres, Druk om adres te wijzigen.',
+    )
   })
 
   test('should return location icon and placeholder text when locationType is address and user has not entered address nor has myAddress set.', () => {
@@ -90,8 +123,16 @@ describe('getAddressSwitchProps', () => {
 
     const icon = getAddressSwitchIcon(locationType, address, isFetching)
     const label = getAddressSwitchLabel(locationType, address, isFetching)
+    const accessibilityLabel = getAddressSwitchAccessibilityLabel(
+      locationType,
+      address,
+      isFetching,
+    )
 
     expect(icon).toBe('location')
     expect(label).toBe('Adres invullen')
+    expect(accessibilityLabel).toBe(
+      'Adres invullen, Druk om adres te wijzigen.',
+    )
   })
 })
