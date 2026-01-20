@@ -5,40 +5,41 @@ on:
     branches: [main]
 
 jobs:
-  runs-on: macos-latest
-  steps:
-    - uses: actions/checkout@v4
+  checks:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
 
-    - uses: ./.github/actions/install-node
+      - uses: ./.github/actions/install-node
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Run Type Check
-      run: npm run typescript
+      - name: Run Type Check
+        run: npm run typescript
 
-    - name: Run Unit Tests
-      run: npm run test-ci
+      - name: Run Unit Tests
+        run: npm run test-ci
 
-    - name: Run Linter
-      run: npm run lint
+      - name: Run Linter
+        run: npm run lint
 
-    - name: Run Formatter
-      run: npm run format
+      - name: Run Formatter
+        run: npm run format
 
-    - name: Run react-native bundle
-      run: npm run test:bundle
+      - name: Run react-native bundle
+        run: npm run test:bundle
 
-    - name: Upload Jest Unit Test Results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: jest-test-results
-        path: .jest/jestTestResults.trx
+      - name: Upload Jest Unit Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-test-results
+          path: .jest/jestTestResults.trx
 
-    - name: Upload code coverage from Jest tests
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: code-coverage
-        path: coverage/cobertura-coverage.xml
+      - name: Upload code coverage from Jest tests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage
+          path: coverage/cobertura-coverage.xml
