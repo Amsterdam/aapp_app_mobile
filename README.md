@@ -7,8 +7,7 @@ We are creating a native app for citizens, entrepreneurs, and visitors of the Ci
 The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a good overview of how to set up your development environment. Specific instructions for this project:
 
 - Clone the repository
-  - from Azure: `git clone git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/aapp_app_mobile`
-  - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git` (please check if it is up to date)
+  - or from GitHub: `git clone git@github.com:Amsterdam/aapp_app_mobile.git` (please check if it is up to date)
 - Set Node version
   - Install Volta (https://volta.sh/) and make sure it has set the correct Node version (see package.json)
 - Install Node dependencies: `npm i`.
@@ -100,7 +99,6 @@ More documentation can be found in the `.docs` folder:
 
 - [Build documentation](./.docs/build.md)
 - [Certificate pinning (security)](./.docs/certificate-pinning.md)
-- [Pushing code to GitHub](./.docs/push-code-to-github.md)
 - [Cache durations](./.docs/cache-durations.md)
 - [Troubleshooting](./.docs/frequently-solved-problems.md)
 - [Test automation](./.docs/test-automation.md)

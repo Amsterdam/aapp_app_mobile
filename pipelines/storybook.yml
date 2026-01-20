@@ -1,0 +1,14 @@
+trigger:
+  - main
+
+pr: none
+
+name: $(Date:yyMMdd)$(Rev:rr)
+
+jobs:
+  - job: 'Build_Storybook'
+    timeoutInMinutes: 30
+    pool:
+      vmImage: macOS-15
+    steps:
+      - template: ./templates/storybook-build.yml
