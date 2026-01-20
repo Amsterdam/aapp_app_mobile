@@ -1,5 +1,5 @@
 import {useLinkTo} from '@react-navigation/native'
-import {StyleSheet, View} from 'react-native'
+import {Linking, StyleSheet, View} from 'react-native'
 import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
@@ -51,7 +51,13 @@ export const NotificationHistoryItem = ({
         body,
         `ontvangen: ${createdAt}`,
       )}
-      onPress={() => {
+      onPress={async () => {
+        if (context.url) {
+          await Linking.openURL(context.url)
+
+          return
+        }
+
         const deeplinkUrl = createPathFromNotification(
           {
             id,
