@@ -1,0 +1,14 @@
+name: Install Node from package.json
+description: Detect and install Node.js version from nodescripts/getNodeVersion.js
+runs:
+  using: 'composite'
+  steps:
+    - name: Read required node version
+      id: node_version
+      shell: bash
+      run: echo "NODE_VERSION=$(node ./nodescripts/getNodeVersion.js)" >> $GITHUB_OUTPUT
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
