@@ -20,7 +20,7 @@ export const WasteGuideCalendarMenu = () => {
   const webCalUrl = address?.bagId
     ? `${apiBase}/guide/${address.bagId}.ics`
     : undefined
-  const onPressLogout = useCallback(() => {
+  const onPressAddToCalendar = useCallback(() => {
     close()
 
     if (webCalUrl) {
@@ -38,7 +38,7 @@ export const WasteGuideCalendarMenu = () => {
         {
           color: 'default',
           label: 'Toevoegen aan agenda',
-          onPress: onPressLogout,
+          onPress: onPressAddToCalendar,
           testID: 'WasteGuideAddToCalendarButton',
         },
       ]}
