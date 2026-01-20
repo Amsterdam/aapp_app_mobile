@@ -1,5 +1,6 @@
 export enum Features {
   BurningGuideNotifications = 'BurningGuideNotifications',
+  WasteGuideCalendarSubscribe = 'WasteGuideCalendarSubscribe',
   WasteGuideNotifications = 'WasteGuideNotifications',
 }
 

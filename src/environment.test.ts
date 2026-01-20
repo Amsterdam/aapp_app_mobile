@@ -58,4 +58,15 @@ describe('getApi', () => {
       ),
     ).toBe(customDefaultUrls['construction-work'])
   })
+  test('returns correct api url with custom protocol', () => {
+    expect(
+      getApi(
+        Environment.development,
+        customDefaultUrls,
+        ModuleSlug['waste-guide'],
+        '/api/v1',
+        'webcal',
+      ),
+    ).toBe('webcal://ontw.app.amsterdam.nl/waste-guide/api/v1')
+  })
 })
