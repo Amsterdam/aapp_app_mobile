@@ -3,7 +3,7 @@ import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotificatio
 import {ModuleSlug} from '@/modules/slugs'
 
 describe('getRouteFromNotification', () => {
-  it('should return a module based route when no external url is provided', () => {
+  it('should return an in-app module based route when no external url is provided', () => {
     const mockNotificationBG = {
       data: {
         module_slug: ModuleSlug['burning-guide'],
@@ -40,7 +40,7 @@ describe('getRouteFromNotification', () => {
     expect(getRouteFromNotification(mockNotificationMyAms)).toBeNull()
   })
 
-  it('should return an external route when an external url is provided', () => {
+  it('should return an in-app deeplink with external url as param when an external url is provided', () => {
     const mockNotification = {
       data: {
         url: 'https://amsterdam.nl',
