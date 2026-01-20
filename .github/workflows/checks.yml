@@ -33,16 +33,16 @@ jobs:
       - name: Run react-native bundle
         run: npm run test:bundle
 
-      - name: Upload Jest Unit Test Results
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Publish Jest Unit Test Results
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }}
         with:
-          name: jest-test-results
-          path: .jest/jestTestResults.trx
+          name: JEST Tests
+          path: reports/jest-*.xml
+          reporter: jest-junit
 
-      - name: Upload code coverage from Jest tests
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage
-          path: coverage/cobertura-coverage.xml
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Publish code coverage from Jest tests
+        uses: ArtiomTr/jest-coverage-report-action@v2
