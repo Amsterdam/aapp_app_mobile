@@ -166,6 +166,7 @@
     "react-native-web": "^0.21.2",
     "react-test-renderer": "19.0.0",
     "storybook": "10.1.11",
+    "ts-node": "^10.9.2",
     "tsc-files": "^1.1.4",
     "typescript": "5.9.3",
     "vite-plugin-svgr": "^4.3.0"
