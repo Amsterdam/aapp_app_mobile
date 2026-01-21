@@ -18,6 +18,10 @@ export type CityPassState = {
   isLoginStepsActive: boolean
   refreshTokenExpiration?: string
   /**
+   * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
+   */
+  shouldShowLoginScreen: boolean
+  /**
    * The index of the city-passes to start displaying
    */
   startIndex: number
@@ -26,6 +30,7 @@ export type CityPassState = {
 const initialState: CityPassState = {
   isCityPassOwnerRegistered: false,
   isLoginStepsActive: false,
+  shouldShowLoginScreen: false,
   startIndex: 0,
   accessTokenExpiration: undefined,
   refreshTokenExpiration: undefined,
@@ -44,6 +49,9 @@ export const cityPassSlice = createSlice({
     },
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
+    },
+    setShouldShowLoginScreen: (state, {payload}: PayloadAction<boolean>) => {
+      state.shouldShowLoginScreen = payload
     },
     setStartIndex: (state, {payload}: PayloadAction<number | undefined>) => {
       state.startIndex = payload ?? 0
@@ -79,6 +87,8 @@ export const cityPassSlice = createSlice({
 export const {
   setIsCityPassOwnerRegistered,
   setLoginStepsActive,
+  setShouldShowLoginScreen: setShouldShowLoginScreenAction,
+
   setStartIndex,
   setTokenExpiration,
   setIsAutomaticLogoutAlertDismissed,
@@ -92,6 +102,9 @@ export const selectIsLoginStepsActive = (state: RootState) =>
 
 export const selectStartIndex = (state: RootState) =>
   state[ReduxKey.cityPass].startIndex
+
+export const selectShouldShowLoginScreen = (state: RootState) =>
+  state[ReduxKey.cityPass].shouldShowLoginScreen
 
 export const selectAccessTokenExpiration = (state: RootState) =>
   state[ReduxKey.cityPass].accessTokenExpiration

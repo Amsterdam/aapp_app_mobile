@@ -24,7 +24,7 @@ export const CurrentPermitProvider = ({children}: Props) => {
     {}) as {headerShown?: boolean}
 
   const onPressLogout = () => {
-    void logout(dispatch, store.getState() as RootState)
+    void logout(false, dispatch, store.getState() as RootState)
   }
 
   if (isLoading) {
