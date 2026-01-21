@@ -27,10 +27,6 @@ export type ParkingState = {
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
-  /**
-   * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
-   */
-  shouldShowLoginScreen: boolean
   visitorVehicleId?: string
   walletBalanceIncreaseStartBalance?: number
   walletBalanceIncreaseStartedAt?: string
@@ -46,7 +42,6 @@ const initialState: ParkingState = {
   isLoggingIn: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
-  shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
   walletBalanceIncreaseStartBalance: undefined,
   walletBalanceIncreaseStartedAt: undefined,
@@ -128,9 +123,6 @@ export const parkingSlice = createSlice({
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
     },
-    setShouldShowLoginScreen: (state, {payload}: PayloadAction<boolean>) => {
-      state.shouldShowLoginScreen = payload
-    },
     setVisitorVehicleId: (
       state,
       {payload}: PayloadAction<string | undefined>,
@@ -173,7 +165,6 @@ export const {
   setIsLoggingIn,
   setIsLoggingOut,
   setLoginStepsActive,
-  setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setWalletBalanceIncreaseStartBalance,
   setWalletBalanceIncreaseStartedAt,
 } = parkingSlice.actions
@@ -209,9 +200,6 @@ export const selectIsLoggingIn = (state: RootState) =>
 
 export const selectIsLoggingOut = (state: RootState) =>
   state[ReduxKey.parking].isLoggingOut
-
-export const selectShouldShowLoginScreen = (state: RootState) =>
-  state[ReduxKey.parking].shouldShowLoginScreen
 
 export const selectVisitorVehicleId = (state: RootState) =>
   state[ReduxKey.parking].visitorVehicleId

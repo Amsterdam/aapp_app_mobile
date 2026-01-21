@@ -28,7 +28,7 @@ export const refreshAccessToken = (
     if (!secureAccount) {
       devError('No pin found for account')
       reject(new Error('No pin found for account'))
-      void logout(true, dispatch, state)
+      void logout(dispatch, state)
 
       return
     }
@@ -55,27 +55,17 @@ export const refreshAccessToken = (
         },
         ({data, status}: {data?: {code?: string}; status?: number}) => {
           if (status === 401 && data?.code === 'SSP_BAD_CREDENTIALS') {
-            void logout(false, dispatch, state)
+            void logout(dispatch, state)
             devError(
               'Token refresh failed, because of bad credentials, you are now logged out',
             )
           } else if (status === 401 && data?.code === 'SSP_ACCOUNT_INACTIVE') {
-            void logout(
-              false,
-              dispatch,
-              state,
-              alerts.loginAccountInactiveFailed,
-            )
+            void logout(dispatch, state, alerts.loginAccountInactiveFailed)
             devError(
               'Token refresh failed, because account is inactive, you are now logged out',
             )
           } else if (status === 401 && data?.code === 'SSP_ACCOUNT_BLOCKED') {
-            void logout(
-              false,
-              dispatch,
-              state,
-              alerts.loginAccountBlockedFailed,
-            )
+            void logout(dispatch, state, alerts.loginAccountBlockedFailed)
             devError(
               'Token refresh failed, because account is blocked, you are now logged out',
             )

@@ -13,7 +13,6 @@ import {BiometricsPermissionScreen} from '@/modules/access-code/screens/Biometri
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
-import {useShouldShowLoginScreen} from '@/modules/parking/hooks/useShouldShowLoginScreen'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   parkingScreenConfig,
@@ -37,7 +36,6 @@ export const ParkingStack = () => {
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
   const {isLoginStepsActive} = useLoginSteps()
-  const {shouldShowLoginScreen} = useShouldShowLoginScreen()
   const screenOptions = useScreenOptions()
   const accounts = useParkingAccounts()
   const isLoggingIn = useParkingAccountIsLoggingIn()
@@ -122,13 +120,11 @@ export const ParkingStack = () => {
         )
       ) : (
         <>
-          {!shouldShowLoginScreen && (
-            <Stack.Screen
-              component={ParkingIntroScreen}
-              name={ParkingRouteName.intro}
-              options={{headerTitle: 'Aanmelden parkeren'}}
-            />
-          )}
+          <Stack.Screen
+            component={ParkingIntroScreen}
+            name={ParkingRouteName.intro}
+            options={{headerTitle: 'Aanmelden parkeren'}}
+          />
           <Stack.Screen
             component={ParkingLoginScreen}
             name={ParkingRouteName.login}
