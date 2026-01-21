@@ -1,5 +1,4 @@
 name: Validation Checks
-
 on:
   pull_request:
     branches: [main]
@@ -10,17 +9,8 @@ permissions:
 jobs:
   checks:
     runs-on: macos-latest
-    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - uses: ./.github/actions/install-node
 
@@ -42,16 +32,16 @@ jobs:
       - name: Run react-native bundle
         run: npm run test:bundle
 
-      - name: Upload Jest Test Results
+      - name: Publish Jest Unit Test Results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: dorny/test-reporter@v2
         with:
-          name: jest-test-results
+          name: JEST Tests
           path: .jest/jestTestResults.trx
+          reporter: vstest
 
-      - name: Upload code coverage
+      - name: Publish code coverage from Jest tests
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          name: code-coverage
-          path: coverage/cobertura-coverage.xml
+          coverage-file: coverage/cobertura-coverage.xml
