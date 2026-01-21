@@ -15,7 +15,7 @@ steps:
   # Set up environment
   - template: ./install-node.yml
   - template: ./install-ruby.yml
-  - script: gem install bundler:2.4.16
+  - script: gem install bundler:$(cat .bundler)
     displayName: 'Install bundler'
   - task: JavaToolInstaller@0
     displayName: 'Install Java SDK'

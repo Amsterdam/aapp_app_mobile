@@ -18,7 +18,7 @@ steps:
     displayName: 'Copy AppStoreConnectApiKey'
 
   - template: ./install-ruby.yml
-  - script: gem install bundler:2.4.16
+  - script: gem install bundler:$(cat .bundler)
     displayName: 'Install bundler'
   - script: |
       bundle config set --local without 'iosAppBuildDependencies'

@@ -13,9 +13,9 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 - Install Node dependencies: `npm i`.
 - For iOS development, install other dependencies:
   - install rbenv: `brew install rbenv ruby-build` and execute `rbenv init`
-  - install ruby version: `rbenv install` and `rbenv global 3.1.4`
+  - install ruby version: `rbenv install` and `rbenv global $(cat .ruby-version)`
   - Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or <https://rubygems.org/>
-  - Install bundler (Ruby gem manager): `gem install bundler:2.4.16`
+  - Install bundler (Ruby gem manager): `gem install bundler:$(cat .bundler)`
   - Install/update the gems with bundler: `bundle install`
   - Go to `/ios`
   - Install pods: `npm run ios:install:pods`
