@@ -38,7 +38,7 @@ export const WasteGuideNotificationToggleBox = () => {
       insetHorizontal="md"
       insetVertical="no">
       <NotificationToggleBox
-        description="U ontvangt meldingen over ophaaldagen voor ‘Mijn adres’."
+        description="U krijgt meldingen over ophaaldagen voor ‘Mijn adres’."
         disabled={isLoading}
         onChange={onChange}
         testID="WasteGuideNotificationSwitch"
