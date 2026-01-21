@@ -1,11 +1,11 @@
 export enum NotificationHistoryRouteName {
-  NotificationExternalLink = 'NotificationExternalLink',
   NotificationHistory = 'NotificationHistory',
+  NotificationRedirect = 'NotificationRedirect',
 }
 
 export type NotificationHistoryStackParams = {
   [NotificationHistoryRouteName.NotificationHistory]: undefined
-  [NotificationHistoryRouteName.NotificationExternalLink]: {
+  [NotificationHistoryRouteName.NotificationRedirect]: {
     url: string
   }
 }

@@ -10,7 +10,7 @@ export const buildNotificationExternalLink = (externalRoute: string) => {
     return null
   }
 
-  const url = new URL(`${appPrefix}notification-external-link`)
+  const url = new URL(`${appPrefix}notification-redirect`)
 
   url.searchParams.append('url', externalRoute)
 

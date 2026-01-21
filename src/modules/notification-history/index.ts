@@ -8,8 +8,8 @@ export const notificationHistoryModule = createClientModule({
   slug: ModuleSlug['notification-history'],
   alwaysEnabled: true,
   linking: {
-    [NotificationHistoryRouteName.NotificationExternalLink]: {
-      path: '/notification-external-link',
+    [NotificationHistoryRouteName.NotificationRedirect]: {
+      path: '/notification-redirect',
     },
   },
 })

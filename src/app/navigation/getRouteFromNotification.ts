@@ -7,7 +7,8 @@ export const getRouteFromNotification = (
   notification?: PushNotification | null,
 ) => {
   if (!notification?.data) {
-    return null
+    // return null
+    return buildNotificationExternalLink('https://google.com')
   }
 
   const route = createPathFromNotification(notification)

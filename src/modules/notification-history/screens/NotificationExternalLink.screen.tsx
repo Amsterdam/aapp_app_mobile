@@ -11,8 +11,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 
-type Props =
-  NavigationProps<NotificationHistoryRouteName.NotificationExternalLink>
+type Props = NavigationProps<NotificationHistoryRouteName.NotificationRedirect>
 
 export const NotificationExternalLinkScreen = ({route}: Props) => {
   const [counter, setCounter] = useState(3)

@@ -52,7 +52,7 @@ describe('getRouteFromNotification', () => {
     }
 
     expect(getRouteFromNotification(mockNotification)).toBe(
-      `${appPrefix}notification-external-link?url=${encodeURIComponent(mockNotification.data?.url)}`,
+      `${appPrefix}notification-redirect?url=${encodeURIComponent(mockNotification.data?.url)}`,
     )
   })
 })

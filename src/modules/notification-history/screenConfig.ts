@@ -18,9 +18,9 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Meldingen',
     },
   },
-  [NotificationHistoryRouteName.NotificationExternalLink]: {
+  [NotificationHistoryRouteName.NotificationRedirect]: {
     component: NotificationExternalLinkScreen,
-    name: NotificationHistoryRouteName.NotificationExternalLink,
+    name: NotificationHistoryRouteName.NotificationRedirect,
     options: {
       headerShown: false,
     },

@@ -19,11 +19,11 @@ describe('buildNotificationExternalLink', () => {
     const validLink2 = 'http://mijn.amsterdam.nl'
 
     expect(buildNotificationExternalLink(validLink)).toMatch(
-      /^amsterdam:\/\/notification-external-link\?url=/,
+      /^amsterdam:\/\/notification-redirect\?url=/,
     )
     const url = new URL(buildNotificationExternalLink(validLink) as string)
 
-    expect(url.hostname).toBe('notification-external-link')
+    expect(url.hostname).toBe('notification-redirect')
     expect(url.search).toBe(`?url=${encodeURIComponent(validLink)}`)
     expect(url.protocol).toBe(appPrefix.slice(0, -2))
 
