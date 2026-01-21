@@ -1,3 +1,9 @@
+import {useRef} from 'react'
+import {StyleSheet} from 'react-native'
+import {
+  KeyboardAwareScrollView,
+  type KeyboardAwareScrollViewRef,
+} from 'react-native-keyboard-controller'
 import {
   ConversationEntry,
   ConversationEntrySenderRole,
@@ -28,32 +34,52 @@ const checkIsMessageLastOfGroup = (
     dayjsFromUnix(message.timestamp).format('HH:mm')
 
 export const ChatHistory = () => {
+  const scrollRef = useRef<KeyboardAwareScrollViewRef>(null)
+  const styles = createStyles()
   const {messages} = useChatContext()
 
   return (
-    <Box
-      grow
-      insetHorizontal="md">
-      <Column>
-        <ChatStartTime firstMessage={messages[0]} />
-        <Gutter height="md" />
-        {messages.map((message, index) => {
-          const isLastOfGroup = checkIsMessageLastOfGroup(
-            message,
-            index,
-            messages,
-          )
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.contentContainer}
+      keyboardShouldPersistTaps="handled"
+      onContentSizeChange={() => scrollRef?.current?.scrollToEnd()}
+      ref={scrollRef}
+      style={styles.scrollView}
+      testID="ChatHistoryScrollView">
+      <Box
+        grow
+        insetHorizontal="md">
+        <Column>
+          <ChatStartTime firstMessage={messages[0]} />
+          <Gutter height="md" />
+          {messages.map((message, index) => {
+            const isLastOfGroup = checkIsMessageLastOfGroup(
+              message,
+              index,
+              messages,
+            )
 
-          return (
-            <Entry
-              isLast={index === messages.length - 1}
-              isLastOfGroup={isLastOfGroup}
-              key={message.entryId + index}
-              message={message}
-            />
-          )
-        })}
-      </Column>
-    </Box>
+            return (
+              <Entry
+                isLast={index === messages.length - 1}
+                isLastOfGroup={isLastOfGroup}
+                key={message.entryId + index}
+                message={message}
+              />
+            )
+          })}
+        </Column>
+      </Box>
+    </KeyboardAwareScrollView>
   )
 }
+
+const createStyles = () =>
+  StyleSheet.create({
+    contentContainer: {
+      flexGrow: 1,
+    },
+    scrollView: {
+      flex: 1,
+    },
+  })

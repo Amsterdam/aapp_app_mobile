@@ -71,7 +71,7 @@ export const ChatInput = ({onSubmit}: Props) => {
 
   return (
     <>
-      <Box>
+      <Box variant="distinct">
         <Row gutter="sm">
           {!!agentInChat && (
             <IconButton
