@@ -113,6 +113,14 @@ export const Fraction = ({fraction, testID}: Props) => {
           testID={`${testID}WhereSection`}
           url={containerMapUrl}
         />
+        {!!fraction?.info_link && (
+          <FractionSection
+            content={`Wat mag er bij ${fraction.label.toLowerCase()}`}
+            sectionTitle="Wat"
+            testID={`${testID}WhatSection`}
+            url={fraction.info_link}
+          />
+        )}
       </Column>
       {!!fraction.note && (
         <FractionContent

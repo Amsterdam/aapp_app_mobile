@@ -34,4 +34,5 @@ export enum RedirectKey {
   rivm_report = 'rivm_report',
   sailingAndMooring = 'sailingAndMooring',
   waste = 'waste',
+  waste_extra_info = 'waste_extra_info',
 }

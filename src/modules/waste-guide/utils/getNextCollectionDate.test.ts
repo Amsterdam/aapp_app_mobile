@@ -16,6 +16,7 @@ const baseFraction: WasteType = {
   note: '',
   url: '',
   where: '',
+  info_link: '',
 }
 
 describe('getNextCollectionDate', () => {
