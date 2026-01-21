@@ -7,6 +7,7 @@ export const AddLicensePlateScreen = () => (
   <CurrentPermitProvider>
     <Screen
       hasStickyAlert
+      keyboardAware
       testID="ParkingAddLicensePlateScreen">
       <Box>
         <AddLicensePlateForm />
