@@ -34,15 +34,15 @@ jobs:
         run: npm run test:bundle
 
       - name: Publish Jest Unit Test Results
+        if: always()
         uses: dorny/test-reporter@v2
-        if: ${{ !cancelled() }}
         with:
           name: JEST Tests
-          path: reports/jest-*.xml
-          reporter: jest-junit
-
-      - name: Checkout code
-        uses: actions/checkout@v4
+          path: .jest/jestTestResults.trx
+          reporter: vstest
 
       - name: Publish code coverage from Jest tests
+        if: always()
         uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          coverage-file: coverage/cobertura-coverage.xml
