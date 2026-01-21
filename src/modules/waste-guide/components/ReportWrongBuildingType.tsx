@@ -4,9 +4,7 @@ import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-
-const wrongBuildingTypeReactionFormUrl =
-  'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/'
+import {wrongWasteGuideInfoReactionFormUrl} from '@/modules/waste-guide/constants'
 
 type Props = TestProps
 
@@ -26,7 +24,7 @@ export const ReportWrongBuildingType = ({testID}: Props) => {
         <Phrase testID={`${testID}Phrase`}>Klopt dit niet?</Phrase>
         <InlineLink
           isExternal
-          onPress={() => openWebUrl(wrongBuildingTypeReactionFormUrl)}
+          onPress={() => openWebUrl(wrongWasteGuideInfoReactionFormUrl)}
           testID={`${testID}Link`}>
           Geef het door
         </InlineLink>

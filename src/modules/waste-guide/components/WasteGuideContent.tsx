@@ -1,12 +1,15 @@
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ContactCollector} from '@/modules/waste-guide/components/ContactCollector'
 import {Fractions} from '@/modules/waste-guide/components/Fractions'
 import {NavigationButtonToWasteCalendar} from '@/modules/waste-guide/components/NavigationButtonToWasteCalendar'
 import {ReportWrongBuildingType} from '@/modules/waste-guide/components/ReportWrongBuildingType'
 import {SelectContract} from '@/modules/waste-guide/components/SelectContract'
+import {wrongWasteGuideInfoReactionFormUrl} from '@/modules/waste-guide/constants'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {selectContract} from '@/modules/waste-guide/slice'
 import {WasteGuideResponse} from '@/modules/waste-guide/types'
@@ -14,6 +17,7 @@ import {getFractionsForCollectionByAppointment} from '@/modules/waste-guide/util
 
 export const WasteGuideContent = () => {
   const {address, wasteGuide} = useGetWasteGuide()
+  const openWebUrl = useOpenWebUrl()
   const contract = useSelector(selectContract(address?.bagId))
   const fractions = wasteGuide?.is_collection_by_appointment
     ? getFractionsForCollectionByAppointment(wasteGuide?.waste_types)
@@ -39,10 +43,18 @@ export const WasteGuideContent = () => {
       <ReportWrongBuildingType testID="WasteGuideReportWrongBuildingType" />
       <SelectContract bagNummeraanduidingId={address.bagId} />
       {contract?.hasContract === false ? (
-        <WasteGuideCollectionInformation
-          fractions={fractions}
-          isCollectionByAppointment={wasteGuide.is_collection_by_appointment}
-        />
+        <>
+          <WasteGuideCollectionInformation
+            fractions={fractions}
+            isCollectionByAppointment={wasteGuide.is_collection_by_appointment}
+          />
+
+          <ExternalLinkButton
+            label="Klopt dit niet? Geef het door."
+            onPress={() => openWebUrl(wrongWasteGuideInfoReactionFormUrl)}
+            testID="WasteGuideWrongCollectionInformationButton"
+          />
+        </>
       ) : (
         <ContactCollector />
       )}
