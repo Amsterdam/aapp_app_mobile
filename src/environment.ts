@@ -55,6 +55,7 @@ export const getApi = (
   custom: typeof customDefaultUrls,
   slug: ApiSlug,
   apiVersionPath = '/api/v1',
+  protocol = 'https',
 ) => {
   if (environment === Environment.custom && slug in (custom ?? {})) {
     return custom[slug as keyof typeof customDefaultUrls]
@@ -63,7 +64,7 @@ export const getApi = (
   const env = getEnvForApiUrl(environment)
   const interPunction = environment === Environment.production ? '' : '.'
 
-  return `https://${env}${interPunction}app.amsterdam.nl/${slug}${apiVersionPath}`
+  return `${protocol}://${env}${interPunction}app.amsterdam.nl/${slug}${apiVersionPath}`
 }
 
 export const customDefaultUrls: Record<

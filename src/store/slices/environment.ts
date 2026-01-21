@@ -34,10 +34,12 @@ export const selectEnvironment = (state: RootState) =>
   state[ReduxKey.environment]
 
 export const selectApi =
-  (api: ApiSlug, apiVersionPath?: string) => (state: RootState) =>
+  (api: ApiSlug, apiVersionPath?: string, protocol?: string) =>
+  (state: RootState) =>
     getApi(
       state[ReduxKey.environment].environment,
       state[ReduxKey.environment].custom,
       api,
       apiVersionPath,
+      protocol,
     )
