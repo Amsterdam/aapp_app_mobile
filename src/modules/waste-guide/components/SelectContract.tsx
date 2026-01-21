@@ -9,7 +9,7 @@ const contractOptions: RadioGroupOption<boolean>[] = [
     value: false,
   },
   {
-    label: 'Ik heb een contract voor mijn afval',
+    label: 'Ik heb een contract voor mijn afval.',
     value: true,
   },
 ]
