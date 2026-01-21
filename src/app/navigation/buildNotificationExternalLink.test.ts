@@ -15,6 +15,9 @@ describe('buildNotificationExternalLink', () => {
   it('should return in-app deeplink to notification module with external link as param if valid externalLink is provided', () => {
     const validLink = 'https://mijn.amsterdam.nl'
 
+    // eslint-disable-next-line sonarjs/no-clear-text-protocols
+    const validLink2 = 'http://mijn.amsterdam.nl'
+
     expect(buildNotificationExternalLink(validLink)).toMatch(
       /^amsterdam:\/\/notification-external-link\?url=/,
     )
@@ -23,5 +26,7 @@ describe('buildNotificationExternalLink', () => {
     expect(url.hostname).toBe('notification-external-link')
     expect(url.search).toBe(`?url=${encodeURIComponent(validLink)}`)
     expect(url.protocol).toBe(appPrefix.slice(0, -2))
+
+    expect(buildNotificationExternalLink(validLink2)).not.toBeNull()
   })
 })
