@@ -2,6 +2,7 @@ import {useCallback} from 'react'
 import {Platform} from 'react-native'
 import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
 import {PopupMenuOrientation} from '@/components/ui/menus/types'
+import {DeviatingApiSlug} from '@/environment'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
@@ -15,7 +16,7 @@ export const WasteGuideCalendarMenu = () => {
   const openWebUrl = useOpenWebUrl()
 
   const apiBase = useSelector(
-    selectApi(ModuleSlug['waste-guide'], '/api/v1', 'webcal'),
+    selectApi(DeviatingApiSlug.waste, '/api/v1', 'webcal'),
   )
   const webCalUrl = address?.bagId
     ? `${apiBase}/guide/${address.bagId}.ics`
