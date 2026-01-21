@@ -43,6 +43,7 @@ export type WasteType = {
   days_array: string[]
   frequency: string
   how: string
+  info_link: string
   label: string
   next_date: string
   note: string
