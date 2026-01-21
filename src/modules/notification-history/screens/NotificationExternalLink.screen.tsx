@@ -45,8 +45,9 @@ export const NotificationExternalLinkScreen = ({route}: Props) => {
           align="center"
           flex={1}>
           <Paragraph textAlign="center">
-            U wordt doorgeleid naar <Phrase color="link">{strippedUrl}</Phrase>{' '}
-            in <Phrase emphasis="strong">{counter}</Phrase>
+            U wordt doorgestuurd naar{' '}
+            <Phrase color="link">{strippedUrl}</Phrase> in{' '}
+            <Phrase emphasis="strong">{counter}</Phrase>
             ...
           </Paragraph>
         </Column>

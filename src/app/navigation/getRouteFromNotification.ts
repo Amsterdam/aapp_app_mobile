@@ -11,7 +11,7 @@ export const getRouteFromNotification = (
   }
 
   const route = createPathFromNotification(notification)
-  const externalRoute = notification.data.url
+  const externalRoute = notification.data.url // This assumes the url will exist inside the data object. TODO: adjust if needed once url's are added to notifications.
 
   if (externalRoute) {
     return buildNotificationExternalLink(externalRoute)
