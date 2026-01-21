@@ -4,8 +4,8 @@ import {
   type NotificationHistoryModalParams,
   type NotificationHistoryStackParams,
 } from '@/modules/notification-history/routes'
-import {NotificationExternalLinkScreen} from '@/modules/notification-history/screens/NotificationExternalLink.screen'
 import {NotificationHistoryScreen} from '@/modules/notification-history/screens/NotificationHistory.screen'
+import {NotificationRedirectScreen} from '@/modules/notification-history/screens/NotificationRedirect.screen'
 
 export const screenConfig: StackNavigationRoutes<
   NotificationHistoryStackParams,
@@ -19,7 +19,7 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
   [NotificationHistoryRouteName.NotificationRedirect]: {
-    component: NotificationExternalLinkScreen,
+    component: NotificationRedirectScreen,
     name: NotificationHistoryRouteName.NotificationRedirect,
     options: {
       headerShown: false,

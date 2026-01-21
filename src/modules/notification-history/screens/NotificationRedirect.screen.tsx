@@ -13,7 +13,7 @@ import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<NotificationHistoryRouteName.NotificationRedirect>
 
-export const NotificationExternalLinkScreen = ({route}: Props) => {
+export const NotificationRedirectScreen = ({route}: Props) => {
   const [counter, setCounter] = useState(3)
   const openUrl = useOpenUrl()
   const {navigate} = useNavigation()
