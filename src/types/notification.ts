@@ -12,6 +12,7 @@ export type NotificationQueryArg = {
 export type PushNotificationDataDefault = {
   linkSourceid?: string
   module_slug?: ModuleSlug
+  url?: string // This assumes the url will exist inside the data object. TODO: adjust if needed once url's are added to notifications.
 }
 
 export type PushNotification<

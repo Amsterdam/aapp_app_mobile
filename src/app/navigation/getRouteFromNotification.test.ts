@@ -1,0 +1,58 @@
+import {appPrefix} from '@/app/navigation/constants'
+import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotification'
+import {ModuleSlug} from '@/modules/slugs'
+
+describe('getRouteFromNotification', () => {
+  it('should return an in-app module based route when no external url is provided', () => {
+    const mockNotificationBG = {
+      data: {
+        module_slug: ModuleSlug['burning-guide'],
+        linkSourceid: '1234',
+      },
+      body: 'testBody',
+      title: 'testTitle',
+    }
+
+    const mockNotificationWG = {
+      data: {
+        module_slug: ModuleSlug['waste-guide'],
+        linkSourceid: '1234',
+      },
+      body: 'testBody',
+      title: 'testTitle',
+    }
+
+    const mockNotificationMyAms = {
+      data: {
+        module_slug: ModuleSlug['mijn-amsterdam'],
+        linkSourceid: '1234',
+      },
+      body: 'testBody',
+      title: 'testTitle',
+    }
+
+    expect(getRouteFromNotification(mockNotificationBG)).toBe(
+      'amsterdam://burning-guide',
+    )
+    expect(getRouteFromNotification(mockNotificationWG)).toBe(
+      'amsterdam://afval/afvalinformatie/',
+    )
+    expect(getRouteFromNotification(mockNotificationMyAms)).toBeNull()
+  })
+
+  it('should return an in-app deeplink with external url as param when an external url is provided', () => {
+    const mockNotification = {
+      data: {
+        url: 'https://amsterdam.nl',
+        module_slug: ModuleSlug['mijn-amsterdam'],
+        linkSourceid: '1234',
+      },
+      body: 'testBody',
+      title: 'testTitle',
+    }
+
+    expect(getRouteFromNotification(mockNotification)).toBe(
+      `${appPrefix}notification-redirect?url=${encodeURIComponent(mockNotification.data?.url)}`,
+    )
+  })
+})

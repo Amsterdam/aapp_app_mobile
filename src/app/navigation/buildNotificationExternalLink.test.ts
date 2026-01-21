@@ -1,0 +1,36 @@
+import {buildNotificationExternalLink} from '@/app/navigation/buildNotificationExternalLink'
+import {appPrefix} from '@/app/navigation/constants'
+
+describe('buildNotificationExternalLink', () => {
+  it('should return null when no valid external url is provided', () => {
+    expect(buildNotificationExternalLink('')).toBeNull()
+
+    expect(
+      buildNotificationExternalLink(undefined as unknown as string),
+    ).toBeNull()
+
+    expect(buildNotificationExternalLink('randomScheme://test.com')).toBeNull()
+    expect(buildNotificationExternalLink('https://')).toBeNull()
+    expect(buildNotificationExternalLink('https://@')).toBeNull()
+    expect(buildNotificationExternalLink('mailto://')).toBeNull()
+  })
+
+  it('should return in-app deeplink to notification module with external link as param if valid externalLink is provided', () => {
+    const validLink = 'https://mijn.amsterdam.nl'
+    const validLink2 = 'https://d'
+    // eslint-disable-next-line sonarjs/no-clear-text-protocols
+    const validLink3 = 'http://amsterdam.nl'
+
+    expect(buildNotificationExternalLink(validLink)).toMatch(
+      /^amsterdam:\/\/notification-redirect\?url=/,
+    )
+    const url = new URL(buildNotificationExternalLink(validLink) as string)
+
+    expect(url.hostname).toBe('notification-redirect')
+    expect(url.search).toBe(`?url=${encodeURIComponent(validLink)}`)
+    expect(url.protocol).toBe(appPrefix.slice(0, -2))
+
+    expect(buildNotificationExternalLink(validLink2)).not.toBeNull()
+    expect(buildNotificationExternalLink(validLink3)).not.toBeNull()
+  })
+})

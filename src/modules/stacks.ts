@@ -1,5 +1,6 @@
 import {ComponentType} from 'react'
 import type {BurningGuideStackParams} from '@/modules/burning-guide/routes'
+import type {NotificationHistoryStackParams} from '@/modules/notification-history/routes'
 import type {SurveyStackParams} from '@/modules/survey/routes'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {AccessCodeStack} from '@/modules/access-code/Stack'
@@ -74,7 +75,8 @@ export type ModuleStackParams = AccessCodeStackParams &
   SurveyStackParams &
   UserStackParams &
   WasteContainerStackParams &
-  WasteGuideStackParams
+  WasteGuideStackParams &
+  NotificationHistoryStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['access-code']]: AccessCodeStack,

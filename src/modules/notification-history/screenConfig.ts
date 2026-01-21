@@ -5,6 +5,7 @@ import {
   type NotificationHistoryStackParams,
 } from '@/modules/notification-history/routes'
 import {NotificationHistoryScreen} from '@/modules/notification-history/screens/NotificationHistory.screen'
+import {NotificationRedirectScreen} from '@/modules/notification-history/screens/NotificationRedirect.screen'
 
 export const screenConfig: StackNavigationRoutes<
   NotificationHistoryStackParams,
@@ -15,6 +16,13 @@ export const screenConfig: StackNavigationRoutes<
     name: NotificationHistoryRouteName.NotificationHistory,
     options: {
       headerTitle: 'Meldingen',
+    },
+  },
+  [NotificationHistoryRouteName.NotificationRedirect]: {
+    component: NotificationRedirectScreen,
+    name: NotificationHistoryRouteName.NotificationRedirect,
+    options: {
+      headerShown: false,
     },
   },
 }

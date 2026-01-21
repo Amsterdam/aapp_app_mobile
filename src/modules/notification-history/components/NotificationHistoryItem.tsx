@@ -11,6 +11,7 @@ import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Notification} from '@/modules/notification-history/types'
@@ -33,6 +34,7 @@ export const NotificationHistoryItem = ({
   const {fontScale} = useDeviceContext()
   const module = enabledModules.find(({slug}) => slug === module_slug)
   const styles = useThemable(createStyles(fontScale))
+  const openUrl = useOpenUrl()
 
   const linkTo = useLinkTo()
 
@@ -52,6 +54,10 @@ export const NotificationHistoryItem = ({
         `ontvangen: ${createdAt}`,
       )}
       onPress={() => {
+        if (context.url) {
+          return openUrl(context.url)
+        }
+
         const deeplinkUrl = createPathFromNotification(
           {
             id,
