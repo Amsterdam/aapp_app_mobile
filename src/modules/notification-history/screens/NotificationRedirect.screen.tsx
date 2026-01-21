@@ -38,7 +38,7 @@ export const NotificationRedirectScreen = ({route}: Props) => {
   return (
     <Screen
       scroll={false}
-      testID="ExtScreen">
+      testID="NotificationRedirectScreen">
       <Box grow>
         <Column
           align="center"
