@@ -12,11 +12,11 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressRouteName} from '@/modules/address/routes'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {
+  getAddressSwitchAccessibilityLabel,
   getAddressSwitchIcon,
   getAddressSwitchLabel,
 } from '@/modules/address/utils/getAddressSwitchProps'
 import {ModuleSlug} from '@/modules/slugs'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type AddressSwitcherProps = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
@@ -45,6 +45,11 @@ export const AddressSwitch = ({
     [address, isFetching, locationType],
   )
 
+  const accessibilityLabel = useMemo(
+    () => getAddressSwitchAccessibilityLabel(locationType, address, isFetching),
+    [address, isFetching, locationType],
+  )
+
   const onNavigateToAddressForm = () =>
     navigate(ModuleSlug.address, {
       screen: AddressRouteName.chooseAddress,
@@ -55,7 +60,7 @@ export const AddressSwitch = ({
     <>
       <Column gutter="xl">
         <NavigationButton
-          accessibilityLabel={accessibleText(label)}
+          accessibilityLabel={accessibilityLabel}
           accessibilityLanguage="nl-NL"
           accessibilityRole="button"
           border

@@ -1,4 +1,5 @@
 import type {Address, LocationType} from '@/modules/address/types'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const getAddressSwitchIcon = (
   locationType?: LocationType,
@@ -35,3 +36,27 @@ export const getAddressSwitchLabel = (
 
   return 'Adres invullen'
 }
+
+export const getLocationTypeLabel = (locationType?: LocationType) => {
+  switch (locationType) {
+    case 'address':
+      return 'Mijn adres'
+    case 'custom':
+      return ''
+    case 'location':
+      return 'Adres bij uw huidige locatie'
+    default:
+      return ''
+  }
+}
+
+export const getAddressSwitchAccessibilityLabel = (
+  locationType?: LocationType,
+  address?: Address,
+  isFetching?: boolean,
+) =>
+  accessibleText(
+    getAddressSwitchLabel(locationType, address, isFetching),
+    address ? getLocationTypeLabel(locationType) : '',
+    'Druk om adres te wijzigen.',
+  )

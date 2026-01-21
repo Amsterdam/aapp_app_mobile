@@ -40,6 +40,7 @@ export const MyAddressButton = ({testID, onPress, moduleSlug}: Props) => {
       />
       {!!myAddress && (
         <Button
+          accessibilityLabel="Wijzig mijn adres"
           label="Wijzig"
           minWidth={90}
           onPress={() => {
