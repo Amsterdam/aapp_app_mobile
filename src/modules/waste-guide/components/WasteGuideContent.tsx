@@ -9,7 +9,7 @@ import {Fractions} from '@/modules/waste-guide/components/Fractions'
 import {NavigationButtonToWasteCalendar} from '@/modules/waste-guide/components/NavigationButtonToWasteCalendar'
 import {ReportWrongBuildingType} from '@/modules/waste-guide/components/ReportWrongBuildingType'
 import {SelectContract} from '@/modules/waste-guide/components/SelectContract'
-import {wrongWasteGuideInfoReactionFormUrl} from '@/modules/waste-guide/constants'
+import {WRONG_WASTE_GUIDE_INFO_REACTION_FORM_URL} from '@/modules/waste-guide/external-links'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {selectContract} from '@/modules/waste-guide/slice'
 import {WasteGuideResponse} from '@/modules/waste-guide/types'
@@ -51,7 +51,7 @@ export const WasteGuideContent = () => {
 
           <ExternalLinkButton
             label="Klopt dit niet? Geef het door."
-            onPress={() => openWebUrl(wrongWasteGuideInfoReactionFormUrl)}
+            onPress={() => openWebUrl(WRONG_WASTE_GUIDE_INFO_REACTION_FORM_URL)}
             testID="WasteGuideWrongCollectionInformationButton"
           />
         </>
