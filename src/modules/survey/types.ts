@@ -63,7 +63,7 @@ export type SurveyVersion = {
 
 export type Survey = {
   description: string
-  latest_version: SurveyVersion
+  latest_version: SurveyVersion | null
   team: string
   title: string
   unique_code: string
