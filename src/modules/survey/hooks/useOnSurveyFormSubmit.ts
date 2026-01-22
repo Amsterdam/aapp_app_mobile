@@ -33,7 +33,7 @@ export const useOnSurveyFormSubmit = ({
 
   const onSubmit = useCallback(
     (formData: Record<string, string | string[]>) => {
-      if (!survey) {
+      if (!survey?.latest_version) {
         return
       }
 
@@ -43,7 +43,7 @@ export const useOnSurveyFormSubmit = ({
         answers,
         entry_point: entryPoint,
         unique_code: survey?.unique_code,
-        version: survey?.latest_version.version,
+        version: survey?.latest_version?.version,
       })
         .unwrap()
         .then(

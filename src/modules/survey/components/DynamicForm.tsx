@@ -59,7 +59,7 @@ export const DynamicForm = ({entryPoint}: Props) => {
     <FormProvider {...form}>
       <Box>
         <Column gutter="xl">
-          <FormFields questions={survey?.latest_version.questions} />
+          <FormFields questions={survey?.latest_version?.questions} />
           {(!!isFeedbackScreen || !!isDirty) && (
             <Button
               isLoading={createSurveyIsLoading}
