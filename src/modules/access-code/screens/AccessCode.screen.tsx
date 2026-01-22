@@ -37,7 +37,7 @@ export const AccessCodeScreen = ({navigation}: Props) => {
   const onForgotCode = useCallback(() => {
     setIsForgotCode(true)
     // The module's stack automatically redirects user to forgot code screen.
-    navigation.navigate(currentModule)
+    navigation.popTo(currentModule)
   }, [currentModule, navigation, setIsForgotCode])
 
   useBlurEffect(() => setIsEnteringCode(false))

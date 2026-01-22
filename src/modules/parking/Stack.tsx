@@ -12,8 +12,8 @@ import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeI
 import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
+import {useIsRecentlyLoggedOut} from '@/modules/parking/hooks/useIsRecentlyLoggedOut'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
-import {useShouldShowLoginScreen} from '@/modules/parking/hooks/useShouldShowLoginScreen'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   parkingScreenConfig,
@@ -37,7 +37,7 @@ export const ParkingStack = () => {
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
   const {isLoginStepsActive} = useLoginSteps()
-  const {shouldShowLoginScreen} = useShouldShowLoginScreen()
+  const {isRecentlyLoggedOut} = useIsRecentlyLoggedOut()
   const screenOptions = useScreenOptions()
   const accounts = useParkingAccounts()
   const isLoggingIn = useParkingAccountIsLoggingIn()
@@ -122,7 +122,7 @@ export const ParkingStack = () => {
         )
       ) : (
         <>
-          {!shouldShowLoginScreen && (
+          {!isRecentlyLoggedOut && (
             <Stack.Screen
               component={ParkingIntroScreen}
               name={ParkingRouteName.intro}

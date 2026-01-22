@@ -65,7 +65,7 @@ export const ParkingLogoutScreen = ({navigation: {goBack}}: Props) => {
           <Button
             label="Uitloggen"
             onPress={async () => {
-              await logout(false, dispatch, store.getState())
+              await logout(dispatch, store.getState())
 
               if (Object.keys(accounts).length > 1) {
                 setAlert(alerts.logoutWithAnotherAccountSuccess)
