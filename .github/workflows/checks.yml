@@ -44,7 +44,8 @@ jobs:
 
       - name: Publish code coverage from Jest tests
         if: always()
-        uses: ArtiomTr/jest-coverage-report-action@v2
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
         with:
           coverage-file: ./coverage/coverage-final.json
+          base-coverage-file: ./coverage/base-coverage-final.json
           skip-step: all
