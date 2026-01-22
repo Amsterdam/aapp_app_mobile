@@ -42,7 +42,6 @@ const config: Config = {
     'patches',
   ],
   cacheDirectory: '.jest/cache',
-  coverageReporters: ['json'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!**/node_modules/**',
