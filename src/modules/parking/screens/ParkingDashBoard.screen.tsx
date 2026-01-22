@@ -88,6 +88,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
           disableHorizontalInsets: true,
           SideComponent: DashboardHeaderButton,
         }}
+        keyboardAware
         stickyHeader={<DashboardMenu />}
         testID="ParkingDashboardScreen">
         <BackgroundColorArea
