@@ -5,6 +5,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   checks:
@@ -37,11 +38,11 @@ jobs:
         uses: dorny/test-reporter@v2
         with:
           name: JEST Tests
-          path: .jest/jestTestResults.trx
-          reporter: vstest
+          path: .jest/junit.xml
+          reporter: jest-junit
 
       - name: Publish code coverage from Jest tests
         if: always()
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          coverage-file: coverage/cobertura-coverage.xml
+          coverage-file: coverage/coverage-final.json

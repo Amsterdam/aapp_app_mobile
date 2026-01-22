@@ -42,7 +42,7 @@ const config: Config = {
     'patches',
   ],
   cacheDirectory: '.jest/cache',
-  coverageReporters: ['cobertura'],
+  coverageReporters: ['json'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!**/node_modules/**',
@@ -60,10 +60,10 @@ const config: Config = {
   reporters: [
     'default',
     [
-      'jest-trx-results-processor',
+      'jest-junit',
       {
-        outputFile: './.jest/jestTestResults.trx',
-        defaultUserName: 'user name to use if automatic detection fails',
+        outputDirectory: './.jest',
+        outputName: 'junit.xml',
       },
     ],
   ],
