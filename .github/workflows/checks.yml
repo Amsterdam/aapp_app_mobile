@@ -34,14 +34,6 @@ jobs:
       - name: Run react-native bundle
         run: npm run test:bundle
 
-      - name: Publish Jest Unit Test Results
-        if: always()
-        uses: dorny/test-reporter@v2
-        with:
-          name: JEST Tests
-          path: .jest/junit.xml
-          reporter: jest-junit
-
       - name: Publish code coverage from Jest tests
         if: always()
         uses: ArtiomTr/jest-coverage-report-action@v2.3.1
