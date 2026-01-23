@@ -47,7 +47,7 @@ jobs:
           echo "| Metric | Coverage | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|--------|----------|--------|" >> $GITHUB_STEP_SUMMARY
 
-          jq -r '.total | to_entries[] | select(.value != null) | "\(.key) \(.value.pct)"' coverage/coverage-final.json \
+          jq -r '.total | to_entries[] | "\(.key) \(.value.pct)"' coverage/coverage-summary.json \
           | while read metric pct; do
               printf "| %s | %.1f%% | %s |\n" \
                 "$(echo $metric | sed 's/.*/\u&/')" \
