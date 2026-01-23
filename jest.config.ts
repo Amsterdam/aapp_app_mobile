@@ -56,16 +56,7 @@ const config: Config = {
     '!**/constants.ts',
     '!**/index.ts',
   ],
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: './.jest',
-        outputName: 'junit.xml',
-      },
-    ],
-  ],
+  reporters: [['github-actions', {silent: false}], 'summary'],
   testTimeout: 30000,
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@react-navigation)',
