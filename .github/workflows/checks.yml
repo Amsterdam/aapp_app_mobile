@@ -34,9 +34,24 @@ jobs:
       - name: Run react-native bundle
         run: npm run test:bundle
 
-      - name: Publish code coverage from Jest tests
-        if: always()
-        uses: ArtiomTr/jest-coverage-report-action@v2.3.1
-        with:
-          skip-step: install
-          output: report-markdown
+      - name: Add coverage to job summary (with emojis)
+        run: |
+          emoji () {
+            pct=$1
+            if (( $(echo "$pct >= 90" | bc -l) )); then echo "🟢";
+            elif (( $(echo "$pct >= 80" | bc -l) )); then echo "🟡";
+            else echo "🔴"; fi
+          }
+
+          echo "## 🧪 Test Coverage" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Coverage | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|----------|--------|" >> $GITHUB_STEP_SUMMARY
+
+          jq -r '.total | to_entries[] | "\(.key) \(.value.pct)"' coverage/coverage-final.json \
+          | while read metric pct; do
+              printf "| %s | %.1f%% | %s |\n" \
+                "$(echo $metric | sed 's/.*/\u&/')" \
+                "$pct" \
+                "$(emoji $pct)" \
+                >> $GITHUB_STEP_SUMMARY
+            done
