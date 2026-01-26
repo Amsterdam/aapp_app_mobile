@@ -1,4 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {ConstructionWorkSearchHeaderButton} from '@/modules/construction-work/components/projects/ConstructionWorkSearchHeaderButton'
 import {
   ConstructionWorkModalParams,
   ConstructionWorkRouteName,
@@ -19,6 +20,7 @@ export const screenConfig: StackNavigationRoutes<
     component: ConstructionWorkScreen,
     name: ConstructionWorkRouteName.constructionWork,
     options: {
+      SideComponent: ConstructionWorkSearchHeaderButton,
       headerTitle: 'Werkzaamheden',
     },
   },

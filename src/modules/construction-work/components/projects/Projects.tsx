@@ -9,7 +9,6 @@ import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
-import {SearchFieldNavigator} from '@/modules/construction-work/components/projects/SearchFieldNavigator'
 import {config} from '@/modules/construction-work/components/projects/config'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {
@@ -87,7 +86,6 @@ export const Projects = () => {
           byDistance={!!addressParam}
           listHeader={
             <ProjectsListHeader>
-              <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
               <AddressSwitch
                 highAccuracyPurposeKey={
                   HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork

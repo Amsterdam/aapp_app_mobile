@@ -13,7 +13,6 @@ import type {TestProps} from '@/components/ui/types'
 import type {Theme} from '@/themes/themes'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {useSearchField} from '@/hooks/useSearchField'
 import {usePiwikTrackSearchFromProps} from '@/processes/piwik/hooks/usePiwikTrackSearchFromProps'
 import {PiwikDimension} from '@/processes/piwik/types'
@@ -121,34 +120,6 @@ export const SearchField = ({
           />
         </View>
       )}
-    </View>
-  )
-}
-
-type StylisticSearchFieldProps = {
-  label: string
-} & TestProps
-
-export const StylisticSearchField = ({
-  label,
-  testID,
-}: StylisticSearchFieldProps) => {
-  const styles = useThemable(createStyles({}))
-
-  return (
-    <View style={styles.frame}>
-      <View style={styles.textInput}>
-        <Phrase
-          color="secondary"
-          testID={`${testID}Phrase`}>
-          {label}
-        </Phrase>
-      </View>
-      <Icon
-        name="search"
-        size="lg"
-        testID={`${testID}Icon`}
-      />
     </View>
   )
 }
