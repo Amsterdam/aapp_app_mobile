@@ -1,11 +1,12 @@
 name: Validation Checks
-
 on:
   pull_request:
     branches: [main]
 
 permissions:
   contents: read
+  pull-requests: write
+  checks: write
 
 jobs:
   checks:
@@ -33,16 +34,39 @@ jobs:
       - name: Run react-native bundle
         run: npm run test:bundle
 
-      - name: Upload Jest Unit Test Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: jest-test-results
-          path: .jest/jestTestResults.trx
+      - name: Add coverage to job summary (with emojis)
+        run: |
+          emoji () {
+            pct=$1
+            if (( $(echo "$pct >= 90" | bc -l) )); then echo "🟢";
+            elif (( $(echo "$pct >= 80" | bc -l) )); then echo "🟡";
+            else echo "🔴"; fi
+          }
 
-      - name: Upload code coverage from Jest tests
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage
-          path: coverage/cobertura-coverage.xml
+          echo "## 🧪 Test Coverage" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Coverage | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|----------|--------|" >> $GITHUB_STEP_SUMMARY
+
+          jq -r '
+            .total
+            | [
+                ["Lines", .lines.pct],
+                ["Statements", .statements.pct],
+                ["Functions", .functions.pct],
+                ["Branches", .branches.pct]
+              ]
+            | .[]
+            | "\(. [0]) \(. [1])"
+          ' coverage/coverage-summary.json \
+          | while read metric pct; do
+              printf "| %s | %.1f%% | %s |\n" \
+                "$metric" \
+                "$pct" \
+                "$(emoji "$pct")" \
+                >> $GITHUB_STEP_SUMMARY
+            done
+
+      - name: Annotate PR with uncovered lines
+        run: node nodescripts/coverage-pr-annotations.mts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

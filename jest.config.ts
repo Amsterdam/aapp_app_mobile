@@ -42,7 +42,7 @@ const config: Config = {
     'patches',
   ],
   cacheDirectory: '.jest/cache',
-  coverageReporters: ['cobertura'],
+  coverageReporters: ['json', 'json-summary', 'text', 'lcov'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!**/node_modules/**',
@@ -57,16 +57,7 @@ const config: Config = {
     '!**/constants.ts',
     '!**/index.ts',
   ],
-  reporters: [
-    'default',
-    [
-      'jest-trx-results-processor',
-      {
-        outputFile: './.jest/jestTestResults.trx',
-        defaultUserName: 'user name to use if automatic detection fails',
-      },
-    ],
-  ],
+  reporters: [['github-actions', {silent: false}], 'summary'],
   testTimeout: 30000,
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@react-navigation)',
