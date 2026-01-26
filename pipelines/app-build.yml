@@ -45,3 +45,16 @@ jobs:
       - template: ./templates/app-build.yml
         parameters:
           platform: 'ios'
+  - job: 'Tests'
+    timeoutInMinutes: 30
+    pool:
+      vmImage: macOS-15
+    steps:
+      - checkout: self
+        path: './s/'
+        fetchDepth: 1
+        fetchTags: false
+      - template: ./install-node.yml
+      - script: npm ci
+        displayName: Install Dependencies
+      - template: ./checks.yml

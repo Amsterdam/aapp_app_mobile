@@ -27,9 +27,6 @@ steps:
   - script: npm ci
     displayName: 'Install node dependencies'
 
-  # Tests
-  - template: ./checks.yml
-
   # Version info
   - template: ./save-version-info.yml
 
