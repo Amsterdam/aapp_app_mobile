@@ -61,6 +61,8 @@ const displayCoverageSummary = () => {
     )
   }
   //   }
+
+  void summary.write()
 }
 
 displayCoverageSummary()
