@@ -5,6 +5,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useStore} from '@/hooks/redux/useStore'
@@ -34,13 +35,13 @@ export const ParkingLogoutScreen = ({navigation: {goBack}}: Props) => {
             <Title
               level="h2"
               testID="ParkingLogoutScreenTitle"
-              text={name ?? 'Account bezoeker'}
+              text={name ?? 'Bezoekersaccount'}
             />
           ) : null}
           {parkingAccount?.permits?.length ? (
             <Column gutter="sm">
               <Title
-                level="h3"
+                level="h4"
                 testID="ParkingLogoutScreenSubtitle"
                 text="U logt uit op deze vergunningen:"
               />
@@ -49,37 +50,38 @@ export const ParkingLogoutScreen = ({navigation: {goBack}}: Props) => {
                   <Row gutter="md">
                     <Icon
                       name={isVisitor ? 'person' : 'documentCheckmark'}
-                      size="lg"
+                      size="ml"
                       testID="ParkingLogoutScreenPermitIcon"
                     />
-                    <Title
-                      level="h4"
-                      testID={`ParkingLogoutScreenPermit-${permit.report_code}Title`}
-                      text={permit.permit_name}
-                    />
+                    <Phrase
+                      testID={`ParkingLogoutScreenPermit-${permit.report_code}Phrase`}>
+                      {permit.permit_name}
+                    </Phrase>
                   </Row>
                 </Box>
               ))}
             </Column>
           ) : null}
-          <Button
-            label="Uitloggen"
-            onPress={async () => {
-              await logout(dispatch, store.getState())
+          <Column gutter="md">
+            <Button
+              label="Uitloggen"
+              onPress={async () => {
+                await logout(dispatch, store.getState())
 
-              if (Object.keys(accounts).length > 1) {
-                setAlert(alerts.logoutWithAnotherAccountSuccess)
-                goBack()
-              }
-            }}
-            testID="ParkingLogoutScreenLogoutButton"
-          />
-          <Button
-            label="Annuleren"
-            onPress={goBack}
-            testID="ParkingLogoutScreenCancelButton"
-            variant="secondary"
-          />
+                if (Object.keys(accounts).length > 1) {
+                  setAlert(alerts.logoutWithAnotherAccountSuccess)
+                  goBack()
+                }
+              }}
+              testID="ParkingLogoutScreenLogoutButton"
+            />
+            <Button
+              label="Annuleren"
+              onPress={goBack}
+              testID="ParkingLogoutScreenCancelButton"
+              variant="secondary"
+            />
+          </Column>
         </Column>
       </Box>
     </Screen>
