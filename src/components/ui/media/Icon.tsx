@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/media/svgIcons'
 import {IconSize, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {devError} from '@/processes/development'
+import {devError, devLog} from '@/processes/development'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
@@ -23,7 +23,6 @@ type AdditionalIconConfig = {
 const AdditionalIconConfigs: Partial<
   Record<SvgIconName, AdditionalIconConfig>
 > = {
-  backspace: {stroke: true, strokeWidth: 2},
   spinner: {Wrapper: Rotator, stroke: true},
 }
 
@@ -43,7 +42,7 @@ export type IconProps = {
   size?: keyof typeof IconSize
 } & Partial<TestProps>
 
-const DEFAULT_VIEW_BOX = '0 0 32 32'
+const DEFAULT_VIEW_BOX = '0 0 24 24'
 
 export const Icon = ({
   color = 'default',
@@ -67,6 +66,14 @@ export const Icon = ({
     devError(`Icon with name "${name}" does not exist.`)
 
     return null
+  }
+
+  if (/[A-Z]/.test(name)) {
+    devLog(`Please use kebab casing for ${name}.`)
+  }
+
+  if (icon.viewBox) {
+    devLog(`Please use the default 24x24 viewbox for ${name}.`)
   }
 
   return (
