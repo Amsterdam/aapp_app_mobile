@@ -33,75 +33,83 @@ export const ParkingSelectPermit = () => {
 
   return (
     <Box grow>
-      <Column gutter="md">
-        <Column gutter="lg">
-          <Column gutter="md">
-            {Object.keys(parkingAccounts)
-              .sort(a =>
-                parkingAccounts[a].scope === ParkingPermitScope.permitHolder
-                  ? -1
-                  : 1,
-              )
-              .map((reportCodeParkingAccount, accountIndex) => {
-                const {name, scope} = parkingAccounts[reportCodeParkingAccount]
+      <Column gutter="lg">
+        <Column gutter="sm">
+          {Object.values(parkingAccounts).some(
+            acc => acc.scope === ParkingPermitScope.permitHolder,
+          ) && (
+            <Title
+              level="h4"
+              ref={focusRef}
+              testID="ParkingSelectPermitTitle"
+              text="Mijn vergunningen"
+            />
+          )}
 
-                return (
-                  <Column
-                    gutter="sm"
-                    key={`ParkingSelectPermitTitle-${accountIndex}`}>
-                    {((scope === ParkingPermitScope.permitHolder && !!name) ||
-                      scope === ParkingPermitScope.visitor) && (
-                      <Title
-                        level="h3"
-                        ref={focusRef}
-                        testID="ParkingSelectPermitTitle"
-                        text={
+          {Object.keys(parkingAccounts)
+            .sort(a =>
+              parkingAccounts[a].scope === ParkingPermitScope.permitHolder
+                ? -1
+                : 1,
+            )
+            .map((reportCodeParkingAccount, accountIndex) => {
+              const {name, scope} = parkingAccounts[reportCodeParkingAccount]
+
+              return (
+                <Column
+                  gutter="no"
+                  key={`ParkingSelectPermitTitle-${accountIndex}`}>
+                  {((scope === ParkingPermitScope.permitHolder && !!name) ||
+                    scope === ParkingPermitScope.visitor) && (
+                    <Title
+                      level="h4"
+                      ref={focusRef}
+                      testID="ParkingSelectPermitTitle"
+                      text={
+                        scope === ParkingPermitScope.visitor
+                          ? 'Bezoekersaccount'
+                          : (name ?? '')
+                      }
+                    />
+                  )}
+                  {parkingAccounts[reportCodeParkingAccount].permits?.map(
+                    (
+                      {permit_name, report_code, permit_zone, permit_type},
+                      permitIndex,
+                    ) => (
+                      <TopTaskButton
+                        iconName={
                           scope === ParkingPermitScope.visitor
-                            ? 'Account bezoeker'
-                            : (name ?? '')
+                            ? 'person'
+                            : 'documentCheckmark'
+                        }
+                        iconSize="ml"
+                        insetHorizontal="sm"
+                        key={
+                          scope === ParkingPermitScope.visitor
+                            ? `visitor-${permit_name}`
+                            : `holder-${permit_name}`
+                        }
+                        onPress={() =>
+                          onPress(
+                            reportCodeParkingAccount,
+                            report_code.toString(),
+                          )
+                        }
+                        testID={`ParkingSelectPermit${permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
+                        title={
+                          scope === ParkingPermitScope.visitor
+                            ? `Op bezoek ${permit_zone.name} - ${report_code}`
+                            : permit_name
                         }
                       />
-                    )}
-                    <Column>
-                      {parkingAccounts[reportCodeParkingAccount].permits?.map(
-                        (
-                          {permit_name, report_code, permit_zone, permit_type},
-                          permitIndex,
-                        ) => (
-                          <TopTaskButton
-                            iconName={
-                              scope === ParkingPermitScope.visitor
-                                ? 'person'
-                                : 'documentCheckmark'
-                            }
-                            iconSize="lg"
-                            key={
-                              scope === ParkingPermitScope.visitor
-                                ? `visitor-${permit_name}`
-                                : `holder-${permit_name}`
-                            }
-                            onPress={() =>
-                              onPress(
-                                reportCodeParkingAccount,
-                                report_code.toString(),
-                              )
-                            }
-                            testID={`ParkingSelectPermit${permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
-                            title={
-                              scope === ParkingPermitScope.visitor
-                                ? `Op bezoek ${permit_zone.name} - ${report_code}`
-                                : permit_name
-                            }
-                          />
-                        ),
-                      )}
-                    </Column>
-                  </Column>
-                )
-              })}
-          </Column>
-          <AdditionalLoginButton testID="ParkingSelectPermitLoginTopTaskButton" />
+                    ),
+                  )}
+                </Column>
+              )
+            })}
         </Column>
+        <AdditionalLoginButton testID="ParkingSelectPermitLoginTopTaskButton" />
       </Column>
     </Box>
   )
