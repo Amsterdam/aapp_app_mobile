@@ -69,5 +69,7 @@ jobs:
       - name: Display Coverage Summary
         run: node nodescripts/displayCoverageSummary.mts
 
+      - name: Annotate PR with uncovered lines
+        run: node nodescripts/coverage-pr-annotations.ts
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
