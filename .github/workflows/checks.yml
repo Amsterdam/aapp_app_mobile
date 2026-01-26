@@ -70,6 +70,6 @@ jobs:
         run: node nodescripts/displayCoverageSummary.mts
 
       - name: Annotate PR with uncovered lines
-        run: node nodescripts/coverage-pr-annotations.ts
+        run: node nodescripts/coverage-pr-annotations.mts
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
