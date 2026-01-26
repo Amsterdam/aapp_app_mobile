@@ -14,8 +14,8 @@ type CoverageData = {
 
 // --- CONFIG ---
 const COVERAGE_FILE = join(process.cwd(), 'coverage', 'coverage-final.json')
-// Get GitHub token from action input (preferred for GitHub Actions)
-const GITHUB_TOKEN = core.getInput('GH_TOKEN', {required: false})
+// eslint-disable-next-line no-process-env
+const GITHUB_TOKEN = process.env.GH_TOKEN as string
 
 if (!GITHUB_TOKEN) {
   core.setFailed(
