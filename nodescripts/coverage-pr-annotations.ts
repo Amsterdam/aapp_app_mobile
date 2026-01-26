@@ -15,9 +15,7 @@ type CoverageData = {
 // --- CONFIG ---
 const COVERAGE_FILE = join(process.cwd(), 'coverage', 'coverage-final.json')
 // Get GitHub token from action input (preferred for GitHub Actions)
-const GITHUB_TOKEN =
-  core.getInput('github_token', {required: false}) ||
-  core.getInput('GITHUB_TOKEN', {required: false})
+const GITHUB_TOKEN = core.getInput('GH_TOKEN', {required: false})
 
 if (!GITHUB_TOKEN) {
   core.setFailed(
