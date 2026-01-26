@@ -106,6 +106,8 @@
     "text-encoding": "^0.7.0"
   },
   "devDependencies": {
+    "@actions/core": "^2.0.2",
+    "@actions/github": "^7.0.0",
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@babel/runtime": "^7.26.10",
