@@ -24,6 +24,34 @@
     {
       "path": "src/assets/fonts/AmsterdamSans-Bold.woff2",
       "sha1": "5384252727bd3d098a962f08424670540742946d"
+    },
+    {
+      "path": "assets/images/map/pin.png",
+      "sha1": "5aae7f1f9b6dcabbb7052a8f98241bf118a23ed7"
+    },
+    {
+      "path": "assets/images/map/distinct_pin.png",
+      "sha1": "beaf6e1adf26110e9859bf6c009b5eff3d536936"
+    },
+    {
+      "path": "assets/images/map/elections_crowd_busy_pin.png",
+      "sha1": "147d5cc06404fc9df7391f013e307f20178ff1b0"
+    },
+    {
+      "path": "assets/images/map/elections_crowd_calm_pin.png",
+      "sha1": "5ac79217f66923afa4b9b9474a60e510799073e5"
+    },
+    {
+      "path": "assets/images/map/selected_pin.png",
+      "sha1": "06bb80cb71c7c65f6645f3107380655a39517923"
+    },
+    {
+      "path": "assets/images/map/elections_crowd_medium_pin.png",
+      "sha1": "d81a724f0bcc598a076fe96bb0eaab717fd24820"
+    },
+    {
+      "path": "assets/images/map/elections_crowd_unknown_pin.png",
+      "sha1": "039be999404096a8e2d062d70f82d251ae31c4e0"
     }
   ]
 }
