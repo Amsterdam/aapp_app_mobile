@@ -13,6 +13,7 @@ import {useOnNavigationStateChange} from '@/modules/report-problem/hooks/useOnNa
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {Survey} from '@/modules/survey/exports/Survey'
 import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
+import {devLog} from '@/processes/development'
 import {
   PiwikAction,
   useTrackEvents,
@@ -23,7 +24,52 @@ type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 const injectedJavaScript = `
   window.postMessage = function(data) {
     window.ReactNativeWebView.postMessage(data);
-  };`
+  };
+
+  let telFilled = false;
+  let emailFilled = false;
+  function preFillInputIfFound() {
+    // Delay to ensure elements are rendered
+    setTimeout(() => {
+      window.postMessage('Checking for tel input');
+      const telInput = document.querySelector('input[type="tel"]');
+      if (telInput) {
+        if (!telFilled) {
+          window.postMessage('found');
+          const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+          nativeInputValueSetter.call(telInput, '12346');
+          telInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+          telInput.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+          telFilled = true;
+        } else {
+          window.postMessage('tel already filled: ' + telInput.value);
+        }
+      } else {
+        window.postMessage('not found');
+      }
+      const emailInput = document.querySelector('input[type="email"]');
+      if (emailInput) {
+        if (!emailFilled) {
+          window.postMessage('found');
+          const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+          nativeInputValueSetter.call(emailInput, '12346@as.nl');
+          emailInput.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+          emailInput.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+          emailFilled = true;
+        } else {
+          window.postMessage('email already filled: ' + emailInput.value);
+        }
+      } else {
+        window.postMessage('not found');
+      }
+    }, 100);
+  }
+  // Initial check
+  preFillInputIfFound();
+  // Observe DOM changes
+  const observer = new MutationObserver(preFillInputIfFound);
+  observer.observe(document.body, { childList: true, subtree: true });
+  `
 
 const signalsCloseMessage = 'signals/close'
 
@@ -52,6 +98,8 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
         trackCustomEvent('ReportProblemCloseButton', PiwikAction.buttonPress)
         isEndUrl.current = true
         navigation.getParent()?.goBack()
+      } else {
+        devLog('WebView message:', event.nativeEvent.data)
       }
     },
     [navigation, trackCustomEvent],
