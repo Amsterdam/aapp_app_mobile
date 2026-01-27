@@ -84,7 +84,6 @@ export const AddressSwitch = ({
           />
         </Column>
       )}
-
       <AddressSwitchSaveMyAddress
         moduleSlug={moduleSlug}
         shouldShowSaveAsMyAddress={shouldShowSaveAsMyAddress}
