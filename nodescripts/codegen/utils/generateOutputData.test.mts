@@ -74,7 +74,9 @@ export const myExport = [
     const imports: ImportConfig[] = [
       {
         exportName: 'funcExport',
-        result: (dir: Dirent<string>, name: string) => `${dir.name}: ${name}`,
+        result: 'objectFunction',
+        resultFunction: (dir: Dirent<string>, name: string) =>
+          `${dir.name}: ${name}`,
         satisfies: 'SomeType',
         resultImports: [],
         import: 'default',

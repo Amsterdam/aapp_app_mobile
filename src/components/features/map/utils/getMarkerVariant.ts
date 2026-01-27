@@ -1,4 +1,4 @@
-import {MarkerVariant} from '@/components/features/map/marker/markers'
+import {MarkerVariant} from '@/components/features/map/marker/markers.generated'
 
 /**
  *

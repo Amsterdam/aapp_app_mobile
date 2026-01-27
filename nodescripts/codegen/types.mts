@@ -33,7 +33,9 @@ export type ImportConfig = {
     | 'spreadArray'
     | 'spreadObject'
     | 'array'
-    | ((path: fs.Dirent<string>, name: string) => string)
+    | 'objectFunction'
+    | 'enumFunction'
+  resultFunction?: (path: fs.Dirent<string>, name: string) => string
   resultImports?: string[]
   satisfies?: string
 }

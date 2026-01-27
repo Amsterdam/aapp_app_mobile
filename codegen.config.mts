@@ -4,8 +4,10 @@ import type {CodeGenConfig} from 'nodescripts/codegen/types.mts'
 const inputDir = 'src/modules'
 const defaultResultImports = ['import { ModuleSlug } from "@/modules/slugs";']
 const defaultSatisfies = 'Partial<Record<ModuleSlug, React.ComponentType>>'
-const moduleBasedResult = (path: Dirent<string>, name: string): string =>
-  `[ModuleSlug["${path.name}"]]: ${name}`
+const moduleBasedResultFunction = (
+  path: Dirent<string>,
+  name: string,
+): string => `[ModuleSlug["${path.name}"]]: ${name}`
 
 export const capitalizeString = (s: string) =>
   s ? s.charAt(0).toUpperCase() + s.slice(1) : ''
@@ -33,7 +35,8 @@ export const config: CodeGenConfig = [
         import: 'PreRenderComponent',
         exportName: 'preRenderComponents',
         optional: true,
-        result: moduleBasedResult,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -48,7 +51,8 @@ export const config: CodeGenConfig = [
         import: 'PostRenderComponent',
         exportName: 'postRenderComponents',
         optional: true,
-        result: moduleBasedResult,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -63,7 +67,8 @@ export const config: CodeGenConfig = [
         import: 'HeaderComponent',
         exportName: 'headerComponents',
         optional: true,
-        result: moduleBasedResult,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -78,7 +83,8 @@ export const config: CodeGenConfig = [
         import: 'ActionButton',
         exportName: 'actionButtons',
         optional: true,
-        result: moduleBasedResult,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -92,13 +98,28 @@ export const config: CodeGenConfig = [
     imports: [
       {
         import: 'none',
+        exportName: 'MarkerVariant',
+        optional: true,
+        result: 'enumFunction',
+        resultFunction: (path: Dirent<string>): string => {
+          const file = path.name.replace(/\.png$/, '')
+          const markerVariant = file.replaceAll(/_([a-z])/g, p =>
+            capitalizeString(p[1]),
+          )
+
+          return `${markerVariant}= '${markerVariant}'`
+        },
+      },
+      {
+        import: 'none',
         exportName: 'MARKER_IMAGES',
         optional: true,
-        resultImports: [
-          'import { MarkerVariant } from "@/components/features/map/marker/markers";',
-        ],
+        // resultImports: [
+        //   'import { MarkerVariant } from "@/components/features/map/marker/markers";',
+        // ],
         satisfies: 'Record<MarkerVariant, {uri: string}>',
-        result: (path: Dirent<string>): string => {
+        result: 'objectFunction',
+        resultFunction: (path: Dirent<string>): string => {
           const file = path.name.replace(/\.png$/, '')
           const markerVariant = file.replaceAll(/_([a-z])/g, p =>
             capitalizeString(p[1]),

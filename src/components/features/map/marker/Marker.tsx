@@ -5,7 +5,7 @@ import {
   type MapMarkerProps,
   type Point,
 } from 'react-native-maps'
-import {MarkerVariant} from '@/components/features/map/marker/markers'
+import {MarkerVariant} from '@/components/features/map/marker/markers.generated'
 import {MARKER_IMAGES} from '@/components/features/map/marker/markers.generated'
 import {checkMarkerPropsHaveChanged} from '@/components/features/map/utils/checkMarkerPropsHaveChanged'
 

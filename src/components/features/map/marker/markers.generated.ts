@@ -1,4 +1,12 @@
-import {MarkerVariant} from '@/components/features/map/marker/markers'
+export enum MarkerVariant {
+  distinctPin = 'distinctPin',
+  electionsCrowdBusyPin = 'electionsCrowdBusyPin',
+  electionsCrowdCalmPin = 'electionsCrowdCalmPin',
+  electionsCrowdMediumPin = 'electionsCrowdMediumPin',
+  electionsCrowdUnknownPin = 'electionsCrowdUnknownPin',
+  pin = 'pin',
+  selectedPin = 'selectedPin',
+}
 
 export const MARKER_IMAGES = {
   [MarkerVariant.distinctPin]: {uri: 'distinct_pin'},
