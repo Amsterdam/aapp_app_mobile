@@ -16,7 +16,7 @@ export const WasteGuideCalendarMenu = () => {
   const openWebUrl = useOpenWebUrl()
 
   const apiBase = useSelector(
-    selectApi(DeviatingApiSlug.waste, '/api/v1', 'webcal'),
+    selectApi(DeviatingApiSlug.waste, '/api/v1', 'https'),
   )
   const webCalUrl = address?.bagId
     ? `${apiBase}/guide/${address.bagId}.ics`
