@@ -130,4 +130,31 @@ export const config: CodeGenConfig = [
       },
     ],
   },
+  {
+    inputDir: 'assets/images/map',
+    match: '\\.png$',
+    type: 'file',
+    output: 'src/components/features/map/marker/Marker.stories.mock.ts',
+    imports: [
+      {
+        import: 'none',
+        exportName: 'MOCK_MARKER_MAP',
+        optional: true,
+        result: 'objectFunction',
+        resultFunction: (path: Dirent<string>): string => {
+          const file = path.name.replace(/\.png$/, '')
+          const markerVariant = file.replaceAll(/_([a-z])/g, p =>
+            capitalizeString(p[1]),
+          )
+
+          return `[MarkerVariant.${markerVariant}]: require('@/../assets/images/map/${file}.png') as ImageSourcePropType`
+        },
+        resultImports: [
+          "import {MarkerVariant} from '@/components/features/map/marker/markers.generated'",
+          "import type {ImageSourcePropType} from 'react-native'",
+        ],
+        satisfies: 'Record<MarkerVariant, ImageSourcePropType>',
+      },
+    ],
+  },
 ]
