@@ -57,4 +57,4 @@ jobs:
       - template: ./templates/install-node.yml
       - script: npm ci
         displayName: Install Dependencies
-      - template: ./checks.yml
+      - template: ./templates/checks.yml
