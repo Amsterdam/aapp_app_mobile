@@ -160,7 +160,6 @@
     "lint-staged": "^16.2.7",
     "patch-package": "^8.0.1",
     "path": "^0.12.7",
-    "react-docgen-typescript-plugin": "^1.0.8",
     "react-dom": "19.0.0",
     "react-native-clean-project": "^4.0.3",
     "react-native-dotenv": "^3.4.11",
