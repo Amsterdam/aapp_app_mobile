@@ -54,7 +54,7 @@ jobs:
         path: './s/'
         fetchDepth: 1
         fetchTags: false
-      - template: ./install-node.yml
+      - template: ./templates/install-node.yml
       - script: npm ci
         displayName: Install Dependencies
       - template: ./checks.yml
