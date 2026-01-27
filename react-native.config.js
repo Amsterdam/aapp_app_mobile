@@ -3,4 +3,5 @@
  */
 module.exports = {
   assets: ['./src/assets/fonts/'],
+  androidAssets: ['./assets/images/map/'],
 }

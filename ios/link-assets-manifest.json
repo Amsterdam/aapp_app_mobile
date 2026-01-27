@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/AmsterdamSans-Regular.woff2",
+      "sha1": "3f2e80b463013d27ca535acd036bebe625a7ed70"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-Regular.otf",
+      "sha1": "c124d5769ae83422cbafb06824fcdb281de2d527"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-ExtraBold.woff2",
+      "sha1": "68720216b1d4514c09e692e14ee58f98426bcf80"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-Bold.otf",
+      "sha1": "ca08ef22981bf8c622d66af651ea7d25014f2ddb"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-ExtraBold.otf",
+      "sha1": "239451b3988b4e851e10819ccab3fedc10ca6450"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-Bold.woff2",
+      "sha1": "5384252727bd3d098a962f08424670540742946d"
+    }
+  ]
+}

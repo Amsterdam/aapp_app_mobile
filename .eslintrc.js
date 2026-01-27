@@ -31,6 +31,8 @@ module.exports = {
     'ios',
     '.jest',
     '.expo',
+    'android/link-assets-manifest.json',
+    'ios/link-assets-manifest.json',
   ],
 
   overrides: [
@@ -217,7 +219,7 @@ module.exports = {
             next: ['const', 'let', 'var'],
           },
         ],
-        'no-console': 'warn',
+        'no-console': 'error',
       },
     },
     {
@@ -232,7 +234,7 @@ module.exports = {
         'amsterdam/jsx-strict-logical-expression': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
-        '@typescript-eslint/restrict-template-expressions': 'warn',
+        '@typescript-eslint/restrict-template-expressions': 'error',
       },
       parserOptions: {
         project: ['./tsconfig.json'],
@@ -284,7 +286,7 @@ module.exports = {
       parser: 'jsonc-eslint-parser',
       plugins: ['depend'],
       rules: {
-        // 'depend/ban-dependencies': 'warn',
+        'depend/ban-dependencies': 'warn',
       },
     },
   ],

@@ -94,6 +94,7 @@
 	<array>
 		<string>AmsterdamSans-ExtraBold.otf</string>
 		<string>AmsterdamSans-Regular.otf</string>
+		<string>AmsterdamSans-Bold.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
