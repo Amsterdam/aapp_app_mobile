@@ -6,7 +6,9 @@ export const buildImport = (
   importPath: string,
   importConfig: ImportConfig[],
 ) => {
-  const sortedImports = importConfig.sort(sortImportNames)
+  const sortedImports = importConfig
+    .filter(imp => imp.import !== 'none')
+    .sort(sortImportNames)
 
   let defaultImport = ''
   let namespaceImport = ''

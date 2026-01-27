@@ -8,24 +8,28 @@ import type {Dirent} from 'node:fs'
  */
 export const getAvailableImports = (
   base: string,
-  directory: Dirent<string>,
+  entry: Dirent<string>,
   match: string,
   imports: ImportConfig[],
+  type: 'directory' | 'file' = 'directory',
 ) => {
-  const absTarget = path.join(base, directory.name, match)
+  const absTarget =
+    type === 'directory'
+      ? path.join(base, entry.name, match)
+      : path.join(base, entry.name)
 
   return imports.filter(imp => {
     if (!imp.optional) {
       return true
     }
 
-    if (imp.import === 'namespace') {
-      // For default/namespace, just check if file exists
-      return fs.existsSync(absTarget)
+    if (imp.import === 'namespace' || imp.import === 'none') {
+      // For namespace/none, just check if file exists
+      return fs.globSync(absTarget).length > 0
     }
 
     // For named exports, check if the file contains the export
-    if (!fs.existsSync(absTarget)) {
+    if (fs.globSync(absTarget).length === 0) {
       return false
     }
 
