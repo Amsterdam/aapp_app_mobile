@@ -1,0 +1,57 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/AmsterdamSans-Regular.woff2",
+      "sha1": "3f2e80b463013d27ca535acd036bebe625a7ed70"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-Regular.otf",
+      "sha1": "c124d5769ae83422cbafb06824fcdb281de2d527"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-ExtraBold.woff2",
+      "sha1": "68720216b1d4514c09e692e14ee58f98426bcf80"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-Bold.otf",
+      "sha1": "ca08ef22981bf8c622d66af651ea7d25014f2ddb"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-ExtraBold.otf",
+      "sha1": "239451b3988b4e851e10819ccab3fedc10ca6450"
+    },
+    {
+      "path": "src/assets/fonts/AmsterdamSans-Bold.woff2",
+      "sha1": "5384252727bd3d098a962f08424670540742946d"
+    },
+    {
+      "path": "assets/images/map/pin.png",
+      "sha1": "5aae7f1f9b6dcabbb7052a8f98241bf118a23ed7"
+    },
+    {
+      "path": "assets/images/map/distinct_pin.png",
+      "sha1": "beaf6e1adf26110e9859bf6c009b5eff3d536936"
+    },
+    {
+      "path": "assets/images/map/elections_crowd_busy_pin.png",
+      "sha1": "147d5cc06404fc9df7391f013e307f20178ff1b0"
+    },
+    {
+      "path": "assets/images/map/elections_crowd_calm_pin.png",
+      "sha1": "5ac79217f66923afa4b9b9474a60e510799073e5"
+    },
+    {
+      "path": "assets/images/map/selected_pin.png",
+      "sha1": "06bb80cb71c7c65f6645f3107380655a39517923"
+    },
+    {
+      "path": "assets/images/map/elections_crowd_medium_pin.png",
+      "sha1": "d81a724f0bcc598a076fe96bb0eaab717fd24820"
+    },
+    {
+      "path": "assets/images/map/elections_crowd_unknown_pin.png",
+      "sha1": "039be999404096a8e2d062d70f82d251ae31c4e0"
+    }
+  ]
+}

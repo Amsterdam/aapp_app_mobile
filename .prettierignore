@@ -12,3 +12,5 @@ android/.gradle
 android/.idea
 android/build
 android/app/build
+android/link-assets-manifest.json
+ios/link-assets-manifest.json

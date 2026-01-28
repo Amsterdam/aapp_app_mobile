@@ -4,8 +4,13 @@ import type {CodeGenConfig} from 'nodescripts/codegen/types.mts'
 const inputDir = 'src/modules'
 const defaultResultImports = ['import { ModuleSlug } from "@/modules/slugs";']
 const defaultSatisfies = 'Partial<Record<ModuleSlug, React.ComponentType>>'
-const moduleBasedResult = (path: Dirent<string>, name: string): string =>
-  `[ModuleSlug["${path.name}"]]: ${name}`
+const moduleBasedResultFunction = (
+  path: Dirent<string>,
+  name: string,
+): string => `[ModuleSlug["${path.name}"]]: ${name}`
+
+export const capitalizeString = (s: string) =>
+  s ? s.charAt(0).toUpperCase() + s.slice(1) : ''
 
 export const config: CodeGenConfig = [
   {
@@ -30,7 +35,8 @@ export const config: CodeGenConfig = [
         import: 'PreRenderComponent',
         exportName: 'preRenderComponents',
         optional: true,
-        result: moduleBasedResult,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -45,7 +51,8 @@ export const config: CodeGenConfig = [
         import: 'PostRenderComponent',
         exportName: 'postRenderComponents',
         optional: true,
-        result: moduleBasedResult,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -60,7 +67,8 @@ export const config: CodeGenConfig = [
         import: 'HeaderComponent',
         exportName: 'headerComponents',
         optional: true,
-        result: moduleBasedResult,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -75,9 +83,77 @@ export const config: CodeGenConfig = [
         import: 'ActionButton',
         exportName: 'actionButtons',
         optional: true,
-        result: moduleBasedResult,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
+      },
+    ],
+  },
+  {
+    inputDir: 'assets/images/map',
+    match: '\\.png$',
+    type: 'file',
+    output: 'src/components/features/map/marker/markers.generated.ts',
+    imports: [
+      {
+        import: 'none',
+        exportName: 'MarkerVariant',
+        optional: true,
+        result: 'enumFunction',
+        resultFunction: (path: Dirent<string>): string => {
+          const file = path.name.replace(/\.png$/, '')
+          const markerVariant = file.replaceAll(/_([a-z])/g, p =>
+            capitalizeString(p[1]),
+          )
+
+          return `${markerVariant}= '${markerVariant}'`
+        },
+      },
+      {
+        import: 'none',
+        exportName: 'MARKER_IMAGES',
+        optional: true,
+        // resultImports: [
+        //   'import { MarkerVariant } from "@/components/features/map/marker/markers";',
+        // ],
+        satisfies: 'Record<MarkerVariant, {uri: string}>',
+        result: 'objectFunction',
+        resultFunction: (path: Dirent<string>): string => {
+          const file = path.name.replace(/\.png$/, '')
+          const markerVariant = file.replaceAll(/_([a-z])/g, p =>
+            capitalizeString(p[1]),
+          )
+
+          return `[MarkerVariant["${markerVariant}"]]: {uri: '${file}'}`
+        },
+      },
+    ],
+  },
+  {
+    inputDir: 'assets/images/map',
+    match: '\\.png$',
+    type: 'file',
+    output: 'src/components/features/map/marker/Marker.stories.mock.ts',
+    imports: [
+      {
+        import: 'none',
+        exportName: 'MOCK_MARKER_MAP',
+        optional: true,
+        result: 'objectFunction',
+        resultFunction: (path: Dirent<string>): string => {
+          const file = path.name.replace(/\.png$/, '')
+          const markerVariant = file.replaceAll(/_([a-z])/g, p =>
+            capitalizeString(p[1]),
+          )
+
+          return `[MarkerVariant.${markerVariant}]: require('@/../assets/images/map/${file}.png') as ImageSourcePropType`
+        },
+        resultImports: [
+          "import {MarkerVariant} from '@/components/features/map/marker/markers.generated'",
+          "import type {ImageSourcePropType} from 'react-native'",
+        ],
+        satisfies: 'Record<MarkerVariant, ImageSourcePropType>',
       },
     ],
   },

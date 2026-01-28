@@ -1,4 +1,4 @@
-import type {MarkerVariant} from '@/components/features/map/marker/markers'
+import type {MarkerVariant} from '@/components/features/map/marker/markers.generated'
 import type {Supercluster} from 'react-native-clusterer'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'

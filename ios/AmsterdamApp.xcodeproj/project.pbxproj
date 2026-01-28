@@ -7,36 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FF6A6245A7946B0BFBB97C5 /* selected_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B73F9FF267F4F70AE09B20E /* selected_pin.png */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		1647DA37B50C4309ACA53659 /* elections_crowd_unknown_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 736FB0E4FAF249F79614368C /* elections_crowd_unknown_pin.png */; };
 		16E64D5303EDA3A3C3754E93 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E6F5517E541BA96138764AFE /* PrivacyInfo.xcprivacy */; };
+		2472A7ADCA0B4FA887BC06DF /* distinct_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = C51914104B2A40E4A43A34B1 /* distinct_pin.png */; };
+		30B9CB232AC741FA94628965 /* elections_crowd_busy_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = AEBF63522C15464CA8B11976 /* elections_crowd_busy_pin.png */; };
 		315F40D329098DCA009B5A4A /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 315F40D229098DCA009B5A4A /* BootSplash.storyboard */; };
+		331F44806EDA4117B8CF871A /* AmsterdamSans-Bold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 580D2E4D9C6D4ACD90462D0A /* AmsterdamSans-Bold.woff2 */; };
 		3862AE132E1D10D700BC8924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3862AE122E1D10D700BC8924 /* AppDelegate.swift */; };
+		4485991D72904DD6B24042A2 /* AmsterdamSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 82A0C79240B6480CB8D82694 /* AmsterdamSans-Regular.otf */; };
 		6A19800B395FA72D9E5D77B7 /* libPods-AmsterdamApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */; };
-		BFEC3A0229826EB500C469AA /* AmsterdamSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC39FF29826EB400C469AA /* AmsterdamSans-Regular.otf */; };
-		BFEC3A0329826EB500C469AA /* AmsterdamSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */; };
-		BFEC3A0429826EB500C469AA /* AmsterdamSans-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC3A0129826EB400C469AA /* AmsterdamSans-ExtraBold.otf */; };
+		7BC2C69F912A447BBB83D90B /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C944DB2335F4E82A1602A7B /* pin.png */; };
+		9D74DB31FAE447818E2F23C1 /* AmsterdamSans-ExtraBold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = F070658E8FA54B3FAC6B88BA /* AmsterdamSans-ExtraBold.woff2 */; };
+		B1C30405BC054560A007429B /* elections_crowd_calm_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = A8643F1D2BB54823B6A54DE2 /* elections_crowd_calm_pin.png */; };
+		B6202174C4144C4883FBA252 /* elections_crowd_medium_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 34F15997A34949978222A66E /* elections_crowd_medium_pin.png */; };
+		D0E144962A52447992D50ED4 /* AmsterdamSans-Regular.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = D932E7ACEC72448998A21771 /* AmsterdamSans-Regular.woff2 */; };
 		D71BAD6826FA2FE7001B5972 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71BAD6726FA2FE7001B5972 /* File.swift */; };
 		E799C6585E4E37E592D6AA0A /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD915A4441343B8B41BE39B /* ExpoModulesProvider.swift */; };
+		F4A5FF28AC4543C1B9901BB1 /* AmsterdamSans-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B645891CC4C04257938B508C /* AmsterdamSans-ExtraBold.otf */; };
+		FF1917B1D3284DB8A505168D /* AmsterdamSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 409DBA78D74B44BDA1D30F9B /* AmsterdamSans-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* Amsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AmsterdamApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AmsterdamApp/Info.plist; sourceTree = "<group>"; };
+		2C944DB2335F4E82A1602A7B /* pin.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = pin.png; path = ../assets/images/map/pin.png; sourceTree = "<group>"; };
 		2F69FEEA62C39F6CD7DB1371 /* Pods-AmsterdamApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.debug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.debug.xcconfig"; sourceTree = "<group>"; };
 		315F40D229098DCA009B5A4A /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = AmsterdamApp/BootSplash.storyboard; sourceTree = "<group>"; };
+		34F15997A34949978222A66E /* elections_crowd_medium_pin.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = elections_crowd_medium_pin.png; path = ../assets/images/map/elections_crowd_medium_pin.png; sourceTree = "<group>"; };
 		3862AE122E1D10D700BC8924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = AmsterdamApp/AppDelegate.swift; sourceTree = "<group>"; };
+		409DBA78D74B44BDA1D30F9B /* AmsterdamSans-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Bold.otf"; path = "../src/assets/fonts/AmsterdamSans-Bold.otf"; sourceTree = "<group>"; };
+		580D2E4D9C6D4ACD90462D0A /* AmsterdamSans-Bold.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Bold.woff2"; path = "../src/assets/fonts/AmsterdamSans-Bold.woff2"; sourceTree = "<group>"; };
 		6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AmsterdamApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		736FB0E4FAF249F79614368C /* elections_crowd_unknown_pin.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = elections_crowd_unknown_pin.png; path = ../assets/images/map/elections_crowd_unknown_pin.png; sourceTree = "<group>"; };
+		82A0C79240B6480CB8D82694 /* AmsterdamSans-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Regular.otf"; path = "../src/assets/fonts/AmsterdamSans-Regular.otf"; sourceTree = "<group>"; };
+		8B73F9FF267F4F70AE09B20E /* selected_pin.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = selected_pin.png; path = ../assets/images/map/selected_pin.png; sourceTree = "<group>"; };
 		A3830F9D08EB4C084763DC88 /* Pods-AmsterdamApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.release.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.release.xcconfig"; sourceTree = "<group>"; };
+		A8643F1D2BB54823B6A54DE2 /* elections_crowd_calm_pin.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = elections_crowd_calm_pin.png; path = ../assets/images/map/elections_crowd_calm_pin.png; sourceTree = "<group>"; };
+		AEBF63522C15464CA8B11976 /* elections_crowd_busy_pin.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = elections_crowd_busy_pin.png; path = ../assets/images/map/elections_crowd_busy_pin.png; sourceTree = "<group>"; };
 		B12AB5ECD661CF7F7D25E413 /* Pods-AmsterdamApp.devrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devrelease.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devrelease.xcconfig"; sourceTree = "<group>"; };
-		BFEC39FF29826EB400C469AA /* AmsterdamSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-Regular.otf"; sourceTree = "<group>"; };
-		BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-Bold.otf"; sourceTree = "<group>"; };
-		BFEC3A0129826EB400C469AA /* AmsterdamSans-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-ExtraBold.otf"; sourceTree = "<group>"; };
+		B645891CC4C04257938B508C /* AmsterdamSans-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-ExtraBold.otf"; path = "../src/assets/fonts/AmsterdamSans-ExtraBold.otf"; sourceTree = "<group>"; };
+		C51914104B2A40E4A43A34B1 /* distinct_pin.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = distinct_pin.png; path = ../assets/images/map/distinct_pin.png; sourceTree = "<group>"; };
 		CAD915A4441343B8B41BE39B /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-AmsterdamApp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		D71BAD6726FA2FE7001B5972 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		D932E7ACEC72448998A21771 /* AmsterdamSans-Regular.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Regular.woff2"; path = "../src/assets/fonts/AmsterdamSans-Regular.woff2"; sourceTree = "<group>"; };
 		DFC95A086219933539042EB5 /* Pods-AmsterdamApp.devdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devdebug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devdebug.xcconfig"; sourceTree = "<group>"; };
 		E6F5517E541BA96138764AFE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = AmsterdamApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F070658E8FA54B3FAC6B88BA /* AmsterdamSans-ExtraBold.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-ExtraBold.woff2"; path = "../src/assets/fonts/AmsterdamSans-ExtraBold.woff2"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,9 +104,19 @@
 		33C66B9996D642ECB7D265F6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */,
-				BFEC3A0129826EB400C469AA /* AmsterdamSans-ExtraBold.otf */,
-				BFEC39FF29826EB400C469AA /* AmsterdamSans-Regular.otf */,
+				82A0C79240B6480CB8D82694 /* AmsterdamSans-Regular.otf */,
+				409DBA78D74B44BDA1D30F9B /* AmsterdamSans-Bold.otf */,
+				B645891CC4C04257938B508C /* AmsterdamSans-ExtraBold.otf */,
+				D932E7ACEC72448998A21771 /* AmsterdamSans-Regular.woff2 */,
+				F070658E8FA54B3FAC6B88BA /* AmsterdamSans-ExtraBold.woff2 */,
+				580D2E4D9C6D4ACD90462D0A /* AmsterdamSans-Bold.woff2 */,
+				2C944DB2335F4E82A1602A7B /* pin.png */,
+				C51914104B2A40E4A43A34B1 /* distinct_pin.png */,
+				AEBF63522C15464CA8B11976 /* elections_crowd_busy_pin.png */,
+				A8643F1D2BB54823B6A54DE2 /* elections_crowd_calm_pin.png */,
+				8B73F9FF267F4F70AE09B20E /* selected_pin.png */,
+				34F15997A34949978222A66E /* elections_crowd_medium_pin.png */,
+				736FB0E4FAF249F79614368C /* elections_crowd_unknown_pin.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -207,10 +237,20 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				315F40D329098DCA009B5A4A /* BootSplash.storyboard in Resources */,
-				BFEC3A0429826EB500C469AA /* AmsterdamSans-ExtraBold.otf in Resources */,
-				BFEC3A0329826EB500C469AA /* AmsterdamSans-Bold.otf in Resources */,
-				BFEC3A0229826EB500C469AA /* AmsterdamSans-Regular.otf in Resources */,
 				16E64D5303EDA3A3C3754E93 /* PrivacyInfo.xcprivacy in Resources */,
+				4485991D72904DD6B24042A2 /* AmsterdamSans-Regular.otf in Resources */,
+				FF1917B1D3284DB8A505168D /* AmsterdamSans-Bold.otf in Resources */,
+				F4A5FF28AC4543C1B9901BB1 /* AmsterdamSans-ExtraBold.otf in Resources */,
+				D0E144962A52447992D50ED4 /* AmsterdamSans-Regular.woff2 in Resources */,
+				9D74DB31FAE447818E2F23C1 /* AmsterdamSans-ExtraBold.woff2 in Resources */,
+				331F44806EDA4117B8CF871A /* AmsterdamSans-Bold.woff2 in Resources */,
+				7BC2C69F912A447BBB83D90B /* pin.png in Resources */,
+				2472A7ADCA0B4FA887BC06DF /* distinct_pin.png in Resources */,
+				30B9CB232AC741FA94628965 /* elections_crowd_busy_pin.png in Resources */,
+				B1C30405BC054560A007429B /* elections_crowd_calm_pin.png in Resources */,
+				0FF6A6245A7946B0BFBB97C5 /* selected_pin.png in Resources */,
+				B6202174C4144C4883FBA252 /* elections_crowd_medium_pin.png in Resources */,
+				1647DA37B50C4309ACA53659 /* elections_crowd_unknown_pin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
