@@ -8,18 +8,18 @@ export const getAddressSwitchIcon = (
   isFetchingLocation = false,
 ) => {
   if (locationType === 'address' && address) {
-    return 'housing'
+    return 'house'
   }
 
   if (locationType === 'location') {
     if (address?.addressLine1) {
-      return 'mapLocationIosFilled'
+      return 'gps-ios_filled'
     } else if (isFetchingLocation) {
       return 'spinner'
     }
   }
 
-  return 'location'
+  return 'map-marker'
 }
 
 export const getAddressSwitchLabel = (

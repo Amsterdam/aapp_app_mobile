@@ -33,7 +33,7 @@ export const ParkingPermitTopTaskButton = () => {
       iconName={
         parkingAccount?.scope === ParkingPermitScope.visitor
           ? 'person'
-          : 'documentCheckmark'
+          : 'document-check-mark'
       }
       iconSize="lg"
       insetVertical="sm"

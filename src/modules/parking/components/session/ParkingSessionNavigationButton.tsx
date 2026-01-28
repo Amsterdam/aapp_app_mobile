@@ -40,7 +40,7 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
         currentPermit.max_session_length_in_days,
         currentPermit.no_endtime,
       )}
-      iconName="parkingCar"
+      iconName="car"
       iconSize="lg"
       insetHorizontal="no"
       insetVertical="no"

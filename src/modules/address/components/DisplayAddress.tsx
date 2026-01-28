@@ -36,7 +36,7 @@ export const DisplayAddress = () => {
             accessibilityHint="Tik om het adres te wijzigen"
             flex={1}
             hitSlop={{bottom: size.spacing.md, top: size.spacing.md}}
-            iconName="housing"
+            iconName="house"
             logName={
               address?.addressLine1 ? 'AddressChangeButton' : 'AddressAddButton'
             }

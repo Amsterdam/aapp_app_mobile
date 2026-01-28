@@ -83,7 +83,7 @@ export const PollingStationDetails = () => {
           valign="start">
           <Box insetTop="xs">
             <Icon
-              name="location"
+              name="map-marker"
               size="lg"
             />
           </Box>

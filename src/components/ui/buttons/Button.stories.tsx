@@ -80,7 +80,7 @@ export const __Alignment: Story<typeof Row> = {
  */
 export const __hasIcon: Story = {
   args: {
-    iconName: 'phone',
+    iconName: 'phone_filled',
     label: 'Bel ons',
   },
   render: args => (

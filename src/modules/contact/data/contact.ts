@@ -24,7 +24,7 @@ export const contactOptions: ContactOption[] = [
   {
     accessibilityHint: 'Opent een link naar een formulier.',
     accessibilityLabel: 'Gebruik ons contactformulier',
-    iconName: 'email',
+    iconName: 'mail',
     key: 'email',
     redirectsKey: RedirectKey.contactForm,
     testID: 'ContactContactFormButton',
@@ -33,7 +33,7 @@ export const contactOptions: ContactOption[] = [
   },
   {
     accessibilityLabel: 'Bel veertien nul twintig',
-    iconName: 'phone',
+    iconName: 'phone_filled',
     key: 'phone',
     url: 'tel:14020',
     testID: 'ContactPhoneButton',
@@ -42,7 +42,7 @@ export const contactOptions: ContactOption[] = [
   },
   {
     accessibilityLabel: 'Chat met een bot of een medewerker.',
-    iconName: 'chat',
+    iconName: 'speech-balloon-ellipsis',
     key: 'chat',
     testID: 'ContactChatButton',
     text: 'Direct antwoord van onze digitale assistent of medewerker.',
@@ -69,7 +69,7 @@ export const contactOptions: ContactOption[] = [
   {
     accessibilityHint: 'Opent een link naar een website.',
     accessibilityLabel: 'Ga naar Mijn Amsterdam',
-    iconName: 'personCircle',
+    iconName: 'person-circle_filled',
     key: 'mijn-amsterdam',
     url: 'https://mijn.amsterdam.nl/',
     testID: 'ContactMijnAmsterdamButton',

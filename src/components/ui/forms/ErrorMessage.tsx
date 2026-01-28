@@ -11,7 +11,7 @@ export const ErrorMessage = ({text, testID}: Props) => (
   <Row gutter="sm">
     <Icon
       color="warning"
-      name="alert"
+      name="warning"
       size="md"
       testID={`${testID}Icon`}
     />

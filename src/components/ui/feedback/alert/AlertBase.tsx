@@ -131,8 +131,8 @@ export const AlertBase = ({
 const alertVariantIcon: Record<AlertVariant, SvgIconName> = {
   [AlertVariant.information]: 'info',
   [AlertVariant.negative]: 'error',
-  [AlertVariant.positive]: 'circle-check-mark',
-  [AlertVariant.warning]: 'alert',
+  [AlertVariant.positive]: 'success',
+  [AlertVariant.warning]: 'warning',
 }
 
 const createStyles =

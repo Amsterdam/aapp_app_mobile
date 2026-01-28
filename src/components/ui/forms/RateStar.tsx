@@ -23,7 +23,7 @@ export const RateStar = ({
     icon={
       <Icon
         color="link"
-        name={isSelected ? 'starFilled' : 'star'}
+        name={isSelected ? 'star_filled' : 'star'}
         size="xll"
         testID={`${testID}Icon`}
       />

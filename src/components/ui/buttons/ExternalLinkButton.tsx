@@ -34,7 +34,7 @@ export const ExternalLinkButton = ({
     <Button
       accessibilityHint={`${accessibilityHint ? accessibilityHint + '. ' : ''}Opent in ${redirectKey || url?.startsWith('http') ? 'webbrowser' : 'andere app'}.`}
       accessibilityRole="link"
-      iconName="external-link"
+      iconName="link-external"
       iconSize="md"
       isError={isError}
       isLoading={isLoading}

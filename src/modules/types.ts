@@ -8,8 +8,8 @@ import {type StackNavigationOptions} from '@react-navigation/stack'
 import type {Address} from '@/modules/address/types'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {
-  type SvgIconConfig,
   type SvgIconName,
+  type SvgIconVariantConfig,
 } from '@/components/ui/media/svgIcons'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {type ModuleSlug} from '@/modules/slugs'
@@ -60,7 +60,7 @@ export type ModuleClientConfig<
     string,
     unknown
   >,
-  Icons extends Record<string, SvgIconConfig> | void = void,
+  Icons extends SvgIconVariantConfig | void = void,
 > = CoreModuleConfig & {
   /**
    * If true, the user is not allowed to disable the module in the settings.

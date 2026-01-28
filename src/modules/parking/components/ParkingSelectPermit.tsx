@@ -81,7 +81,7 @@ export const ParkingSelectPermit = () => {
                         iconName={
                           scope === ParkingPermitScope.visitor
                             ? 'person'
-                            : 'documentCheckmark'
+                            : 'document-check-mark'
                         }
                         iconSize="ml"
                         insetHorizontal="sm"
@@ -105,6 +105,40 @@ export const ParkingSelectPermit = () => {
                       />
                     ),
                   )}
+                  <Column>
+                    {parkingAccounts[reportCodeParkingAccount].permits?.map(
+                      (
+                        {permit_name, report_code, permit_zone, permit_type},
+                        permitIndex,
+                      ) => (
+                        <TopTaskButton
+                          iconName={
+                            scope === ParkingPermitScope.visitor
+                              ? 'person'
+                              : 'document-check-mark'
+                          }
+                          iconSize="lg"
+                          key={
+                            scope === ParkingPermitScope.visitor
+                              ? `visitor-${permit_name}`
+                              : `holder-${permit_name}`
+                          }
+                          onPress={() =>
+                            onPress(
+                              reportCodeParkingAccount,
+                              report_code.toString(),
+                            )
+                          }
+                          testID={`ParkingSelectPermit${permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
+                          title={
+                            scope === ParkingPermitScope.visitor
+                              ? `Op bezoek ${permit_zone.name} - ${report_code}`
+                              : permit_name
+                          }
+                        />
+                      ),
+                    )}
+                  </Column>
                 </Column>
               )
             })}

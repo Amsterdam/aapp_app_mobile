@@ -1,12 +1,12 @@
-import type {SvgIconConfig} from '@/components/ui/media/svgIcons'
 import type {CoreModuleConfig, ModuleClientConfig} from '@/modules/types'
+import {type SvgIconVariantConfig} from '@/components/ui/media/svgIcons'
 
 export const createClientModule = <
   PushNotificationData extends Record<string, unknown> = Record<
     string,
     unknown
   >,
-  Icons extends Record<string, SvgIconConfig> | void = void,
+  Icons extends SvgIconVariantConfig | void = void,
 >(
   module: ModuleClientConfig<PushNotificationData, Icons>,
 ) => module

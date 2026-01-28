@@ -12,15 +12,12 @@ export const WasteGuideMoreOptions = () => {
 
   return (
     <Column gutter="md">
-      <Title
-        level="h2"
-        text="Meer opties"
-      />
+      <Title text="Meer opties" />
       <NavigationButton
         Icon={
           <Icon
             color="link"
-            name="alert"
+            name="warning"
             size="xl"
           />
         }
@@ -30,7 +27,7 @@ export const WasteGuideMoreOptions = () => {
             screen: ReportProblemRouteName.reportProblemWebView,
           })
         }
-        testID="WasteGuideReportProblemNavigationButton"
+        testID="WasteGuideMoreOptionsButton"
         title="Meld een afvalprobleem"
       />
       <NavigationButton

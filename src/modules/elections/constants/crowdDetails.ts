@@ -8,22 +8,22 @@ export const crowdStateMap: Record<
 > = {
   [ElectionsState.calm]: {
     label: 'Rustig',
-    icon: 'crowdCalm',
+    icon: 'crowd-calm',
     color: 'confirm',
   },
   [ElectionsState.medium]: {
     label: 'Gemiddeld',
-    icon: 'crowdMedium',
+    icon: 'crowd-medium',
     color: 'alert',
   },
   [ElectionsState.busy]: {
     label: 'Druk',
-    icon: 'crowdBusy',
+    icon: 'crowd-busy',
     color: 'warning',
   },
   [ElectionsState.unknown]: {
     label: 'Onbekend',
-    icon: 'crowdUnknown',
+    icon: 'crowd-unknown',
     color: 'secondary',
   },
 }

@@ -18,7 +18,7 @@ export const NotificationPermissionSettings = () => {
     <Column gutter="lg">
       <Row align="center">
         <Icon
-          name="bellOff"
+          name="bell-off"
           size="xxl"
           testID="NotificationPermissionSettingsIcon"
         />

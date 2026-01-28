@@ -171,7 +171,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
           align="evenly"
           gutter="sm">
           <ChatAttachmentButton
-            iconName="picture"
+            iconName="image"
             label="Foto"
             onPress={addPhotoFromLibrary}
             ref={setAccessibilityFocus}

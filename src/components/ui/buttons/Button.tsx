@@ -84,8 +84,8 @@ export const Button = ({
     [onPressOut],
   )
 
-  const iconName = isLoading ? 'spinner' : isError ? 'alert' : iconNameInput
-  const isExternalLink = iconName === 'external-link'
+  const iconName = isLoading ? 'spinner' : isError ? 'warning' : iconNameInput
+  const isExternalLink = iconName === 'link-external'
 
   return (
     <PressableBase

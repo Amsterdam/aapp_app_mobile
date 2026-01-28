@@ -26,7 +26,7 @@ describe('getAddressSwitchProps', () => {
     )
   })
 
-  test('should return current location and mapLocationIosFilled icon when locationType is location and location is fetched.', () => {
+  test('should return current location and gps-ios icon when locationType is location and location is fetched.', () => {
     const locationType: LocationType = 'location'
     const address: Pick<Address, 'addressLine1'> = {
       addressLine1: 'Cruquiusweg 5',
@@ -49,14 +49,14 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('mapLocationIosFilled')
+    expect(icon).toBe('gps-ios_filled')
     expect(label).toBe('Cruquiusweg 5')
     expect(accessibilityLabel).toBe(
       'Cruquiusweg 5, Adres bij uw huidige locatie, Druk om adres te wijzigen.',
     )
   })
 
-  test('should return my address and housing icon when locationType is address and user has entered an address that is similar to myAddress.', () => {
+  test('should return my address and house icon when locationType is address and user has entered an address that is similar to myAddress.', () => {
     const locationType: LocationType = 'address'
     const address: Pick<Address, 'addressLine1'> = {
       addressLine1: 'Cruquiusweg 5',
@@ -79,7 +79,7 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('housing')
+    expect(icon).toBe('house')
     expect(label).toBe('Cruquiusweg 5')
     expect(accessibilityLabel).toBe(
       'Cruquiusweg 5, Mijn adres, Druk om adres te wijzigen.',
@@ -109,7 +109,7 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('housing')
+    expect(icon).toBe('house')
     expect(label).toBe('Cruquiusweg 5')
     expect(accessibilityLabel).toBe(
       'Cruquiusweg 5, Mijn adres, Druk om adres te wijzigen.',
@@ -129,7 +129,7 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('location')
+    expect(icon).toBe('map-marker')
     expect(label).toBe('Adres invullen')
     expect(accessibilityLabel).toBe(
       'Adres invullen, Druk om adres te wijzigen.',

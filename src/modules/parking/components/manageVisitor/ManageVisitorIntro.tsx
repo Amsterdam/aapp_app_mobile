@@ -23,7 +23,7 @@ export const ManageVisitorIntro = () => {
       </Paragraph>
       <Gutter height="lg" />
       <Button
-        iconName={Platform.OS === 'android' ? 'shareAndroid' : 'shareIos'}
+        iconName={Platform.OS === 'android' ? 'share-android' : 'share-ios'}
         label="Bezoeker uitnodigen"
         onPress={() => {
           if (!currentPermit.visitor_account) {

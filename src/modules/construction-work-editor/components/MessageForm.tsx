@@ -174,7 +174,7 @@ export const MessageForm = ({ref, onMainImageSelected}: Props) => {
             </Paragraph>
             <Row align="start">
               <Button
-                iconName="enlarge"
+                iconName="plus"
                 label="Foto toevoegen"
                 onPress={handleSubmit(pickImage())}
                 testID="ConstructionWorkEditorCreateMessageAddImageButton"
@@ -183,7 +183,7 @@ export const MessageForm = ({ref, onMainImageSelected}: Props) => {
             </Row>
             <Row align="start">
               <Button
-                iconName="enlarge"
+                iconName="plus"
                 label="Foto maken"
                 onPress={handleSubmit(pickImage(true))}
                 testID="ConstructionWorkEditorCreateMessageTakeImageButton"

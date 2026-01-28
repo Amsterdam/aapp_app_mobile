@@ -35,7 +35,7 @@ export const StatefulTopTaskButton = ({
 
     if (isError) {
       setText('Er gaat iets mis. Probeer het later nog een keer.')
-      setIconName('alert')
+      setIconName('warning')
     }
   }, [isLoading, isError, buttonText, buttonIconName])
 
