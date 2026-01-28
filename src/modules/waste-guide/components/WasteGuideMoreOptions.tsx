@@ -7,6 +7,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {ModuleSlug} from '@/modules/slugs'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 export const WasteGuideMoreOptions = () => {
   const {navigate} = useNavigation()
@@ -33,8 +34,23 @@ export const WasteGuideMoreOptions = () => {
                 screen: ReportProblemRouteName.reportProblemWebView,
               })
             }
-            testID="WasteGuideMoreOptionsButton"
+            testID="WasteGuideReportProblemNavigationButton"
             title="Meld een afvalprobleem"
+          />
+          <NavigationButton
+            Icon={
+              <Icon
+                color="link"
+                name="recycle"
+                size="xl"
+              />
+            }
+            insetHorizontal="sm"
+            onPress={() =>
+              navigate(WasteGuideRouteName.wasteGuideRecyclePoints)
+            }
+            testID="WasteGuideRecyclingNavigationButton"
+            title="Recyclepunten"
           />
         </Column>
       </Box>
