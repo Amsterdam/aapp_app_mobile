@@ -189,7 +189,7 @@ export const ParkingStartSessionButton = () => {
     )
   }
 
-  if (!isWalletBalanceInsufficient) {
+  if (isWalletBalanceInsufficient) {
     return <ParkingAddMoneyButton />
   }
 
