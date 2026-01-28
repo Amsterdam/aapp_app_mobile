@@ -7,7 +7,7 @@ type Props = {
   onPress: () => void
 }
 
-export const HeaderBackButton = ({iconSize = 'ml', onPress}: Props) => (
+export const HeaderBackButton = ({iconSize = 'lg', onPress}: Props) => (
   <IconButton
     accessibilityLabel="Terug"
     hitSlop={16}

@@ -48,7 +48,7 @@ export const redirects: RedirectResponse[] = [
     title: 'Afspraak maken op Stadsloket',
   },
   {
-    iconName: 'euro-coins_filled',
+    iconName: 'euro-coins',
     testID: 'RedirectsLowIncomeAidButton',
     text: 'Regelingen bij laag inkomen / Pak je kans.',
     title: 'Hulp bij een laag inkomen',

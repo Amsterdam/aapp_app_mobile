@@ -38,7 +38,7 @@ export const AddLicensePlateHeaderButton = () => {
       icon={
         <Icon
           color="link"
-          name="plus-circle"
+          name="plus-circle_filled"
           size="lgx"
           testID="ParkingAddLicensePlateHeaderButtonIcon"
         />

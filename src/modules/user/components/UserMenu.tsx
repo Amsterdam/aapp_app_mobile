@@ -43,7 +43,7 @@ const getSections = (
         route: AddressRouteName.address,
       },
       {
-        iconName: 'bell',
+        iconName: 'bell-push',
         label: 'Pushmeldingen',
         route: UserRouteName.notificationSettings,
       },

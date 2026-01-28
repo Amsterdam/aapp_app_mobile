@@ -29,6 +29,7 @@ export const FollowButton = ({
   return (
     <Button
       iconName="plus"
+      iconSize="lgx"
       label="Volgen"
       onPress={follow}
       variant="secondary"

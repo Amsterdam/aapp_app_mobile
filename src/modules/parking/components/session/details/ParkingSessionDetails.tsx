@@ -111,7 +111,7 @@ export const ParkingSessionDetails = ({
 
         {!!shouldShowCosts && (
           <ParkingSessionDetailsRow
-            iconName="euro-coins_filled"
+            iconName="euro-coins"
             title="Kosten">
             <Phrase>
               {formatNumber(

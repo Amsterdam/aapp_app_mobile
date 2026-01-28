@@ -1,6 +1,6 @@
 import {ComponentType, Fragment} from 'react'
 import {View} from 'react-native'
-import {Path, Svg} from 'react-native-svg'
+import {Path, Svg, type FillRule} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {
   FILLED_SUFFIX,
@@ -15,17 +15,16 @@ import {devError, devLog} from '@/processes/development'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
-const DEFAULT_STROKE_WIDTH = 3
-
 type AdditionalIconConfig = {
   Wrapper?: ComponentType
-  stroke: boolean
-  strokeWidth?: number
+  fillRule?: FillRule
+  stroke?: boolean
 }
 const AdditionalIconConfigs: Partial<
   Record<SvgIconName, AdditionalIconConfig>
 > = {
   spinner: {Wrapper: Rotator, stroke: false},
+  error: {fillRule: 'nonzero'},
 }
 
 export type IconProps = {
@@ -69,7 +68,7 @@ export const Icon = ({
   const {
     Wrapper = Fragment,
     stroke,
-    strokeWidth = DEFAULT_STROKE_WIDTH,
+    fillRule = 'evenodd',
   } = AdditionalIconConfigs[iconName] ?? {}
 
   if (!icon) {
@@ -88,7 +87,7 @@ export const Icon = ({
       testID={testID}>
       <Wrapper>
         <Svg
-          fillRule="evenodd"
+          fillRule={fillRule}
           height={scaledSize}
           viewBox={'viewBox' in icon ? icon.viewBox : DEFAULT_VIEW_BOX}
           width={scaledSize}>
@@ -96,7 +95,6 @@ export const Icon = ({
             d={icon.path}
             fill={!stroke ? colorTokens.text[color] : 'none'}
             stroke={stroke ? colorTokens.text[color] : undefined}
-            strokeWidth={stroke ? strokeWidth : undefined}
           />
         </Svg>
       </Wrapper>

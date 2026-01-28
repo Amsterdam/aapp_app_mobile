@@ -8,7 +8,7 @@ import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {IconSize} from '@/components/ui/types'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 
-const chevronSize = 'ml'
+const chevronSize = 'lg'
 
 export const HeaderContent = ({
   back,

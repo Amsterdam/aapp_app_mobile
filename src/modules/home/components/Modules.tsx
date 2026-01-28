@@ -24,7 +24,7 @@ export const Modules = ({modules}: Props) => {
   }
 
   return (
-    <Column gutter="md">
+    <Column gutter="sm">
       {availableModules?.map(
         ({icon, requiresAuthorization, slug, status, title}) => (
           <ModuleButton
