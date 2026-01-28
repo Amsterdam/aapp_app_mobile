@@ -7,7 +7,8 @@ import {AddressTopTaskButton} from '@/modules/address/components/form/AddressTop
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
 import {useMyAddress} from '@/modules/address/slice'
-import {AddressCity, type Address} from '@/modules/address/types'
+import {type Address} from '@/modules/address/types'
+import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
@@ -30,9 +31,6 @@ export const MyAddressButton = ({testID, onPress, moduleSlug}: Props) => {
     onPress(myAddress)
   }, [onPress, myAddress, navigate])
 
-  const cityPart =
-    myAddress?.city !== AddressCity.Amsterdam ? ', ' + myAddress?.city : ''
-
   return (
     <Row align="between">
       <AddressTopTaskButton
@@ -41,7 +39,7 @@ export const MyAddressButton = ({testID, onPress, moduleSlug}: Props) => {
         testID={testID}
         text={
           myAddress
-            ? `${myAddress.addressLine1}${cityPart}`
+            ? getAddressLineWithCityIfNotAmsterdam(myAddress)
             : 'Vul een adres in'
         }
       />
