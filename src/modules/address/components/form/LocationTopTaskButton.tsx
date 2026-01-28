@@ -79,7 +79,7 @@ export const LocationTopTaskButton = ({
 
   return (
     <StatefulTopTaskButton
-      iconName="mapLocationIos"
+      iconName="gps-ios"
       iconSize="lg"
       insetHorizontal="sm"
       isError={getLocationIsError}

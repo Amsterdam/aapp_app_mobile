@@ -22,7 +22,7 @@ export const HeaderNavigation = () => {
           accessibilityLabel="Selecteer omgeving"
           icon={
             <Icon
-              name="api"
+              name="power-plug-with-socket_filled"
               {...iconProps}
               testID="HeaderEnvironmentIcon"
             />
@@ -36,7 +36,7 @@ export const HeaderNavigation = () => {
         accessibilityLabel="Mijn profiel"
         icon={
           <Icon
-            name="person"
+            name="person_filled"
             {...iconProps}
             testID="HeaderUserIcon"
           />

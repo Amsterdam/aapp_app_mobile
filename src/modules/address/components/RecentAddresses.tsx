@@ -26,7 +26,7 @@ export const RecentAddresses = ({
         {recentAddresses.map(address => (
           <SuggestionButton
             address={address}
-            iconName="timeBack"
+            iconName="time-back"
             key={address.bagId}
             label={address.addressLine1}
             onPress={onPress}

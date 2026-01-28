@@ -36,7 +36,7 @@ export const ParkingMachineListItem = ({
               <Icon
                 color="link"
                 logging-label="ParkingMachineListItemIcon"
-                name="location"
+                name="map-marker"
                 size="lg"
                 testID="ParkingMachineListItemIcon"
               />

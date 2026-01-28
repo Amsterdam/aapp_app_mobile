@@ -5,6 +5,11 @@ export enum Direction {
   up = 'up',
 }
 
+export enum SvgIconVariant {
+  default = 'default',
+  filled = 'filled',
+}
+
 export enum IconSize {
   sm = 12,
   smd = 14,

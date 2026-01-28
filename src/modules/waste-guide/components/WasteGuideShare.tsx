@@ -40,7 +40,7 @@ export const WasteGuideShare = () => {
       icon={
         <Icon
           color="link"
-          name={Platform.OS === 'ios' ? 'shareIos' : 'shareAndroid'}
+          name={Platform.OS === 'ios' ? 'share-ios' : 'share-android'}
           size="lg"
           testID="WasteGuideShareIcon"
         />

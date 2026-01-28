@@ -48,7 +48,7 @@ export const ParkingMachineDetails = ({
 
   return (
     <ParkingSessionDetailsRow
-      iconName="location"
+      iconName="map-marker"
       title={`Parkeerautomaat ${parkingSession.parking_machine}`}>
       {isLoadingParkingMachineData || isLoadingParkingMachines ? (
         <PleaseWait testID="ParkingSessionPleaseWait" />

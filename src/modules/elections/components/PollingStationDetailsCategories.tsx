@@ -22,13 +22,13 @@ const mapCategoryToLabel: Record<ElectionsCategory, string> = {
 }
 
 const mapCategoryToIconName: Record<ElectionsCategory, ElectionsIconNames> = {
-  [ElectionsCategory.disabledParking]: 'disabledParking',
-  [ElectionsCategory.hearingImpaired]: 'hearingImpaired',
-  [ElectionsCategory.ptWheelchair]: 'wheelchairPublicTransport',
+  [ElectionsCategory.disabledParking]: 'disabled-parking',
+  [ElectionsCategory.hearingImpaired]: 'hearing-impaired',
+  [ElectionsCategory.ptWheelchair]: 'wheelchair-public-transport',
   [ElectionsCategory.pysicalLimitation]: 'wheelchair',
-  [ElectionsCategory.readingAid]: 'readingAid',
-  [ElectionsCategory.visionImpaired]: 'visionImpaired',
-  [ElectionsCategory.wheelchairHelp]: 'wheelchairPlus',
+  [ElectionsCategory.readingAid]: 'reading-aid',
+  [ElectionsCategory.visionImpaired]: 'vision-impaired',
+  [ElectionsCategory.wheelchairHelp]: 'wheelchair-plus',
 }
 
 export const PollingStationDetailsCategories = ({categories}: Props) => (

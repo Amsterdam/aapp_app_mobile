@@ -51,7 +51,7 @@ export const InlineLink = ({
           {'  '}
           <Icon
             color="link"
-            name="external-link"
+            name="link-external"
             size="smd"
             testID={`${testID}Icon`}
           />

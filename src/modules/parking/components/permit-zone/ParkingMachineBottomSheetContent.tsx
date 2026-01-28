@@ -107,7 +107,7 @@ export const ParkingMachineBottomSheetContent = () => {
           gutter="smd"
           valign="start">
           <Icon
-            name="location"
+            name="map-marker"
             size="lg"
           />
           <Column>

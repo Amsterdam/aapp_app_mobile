@@ -36,7 +36,7 @@ export const HeaderComponent = () => {
         icon={
           <Icon
             color="link"
-            name="alarmFilled"
+            name="bell_filled"
             size="lg"
             testID="HeaderNotificationHistoryIcon"
           />

@@ -61,7 +61,7 @@ export const ParkingSessionDetails = ({
     <Box>
       <Column gutter="lg">
         <ParkingSessionDetailsRow
-          iconName="parkingCar"
+          iconName="car"
           title="Kenteken">
           <Phrase>{licensePlateString}</Phrase>
         </ParkingSessionDetailsRow>
@@ -75,7 +75,7 @@ export const ParkingSessionDetails = ({
 
         {!parkingSession.parking_machine && (
           <ParkingSessionDetailsRow
-            iconName="location"
+            iconName="map-marker"
             title={getPermitZoneLabel(currentPermit.permit_zone)}>
             <NavigationButton
               emphasis="default"
@@ -111,7 +111,7 @@ export const ParkingSessionDetails = ({
 
         {!!shouldShowCosts && (
           <ParkingSessionDetailsRow
-            iconName="euroCoinsInverted"
+            iconName="euro-coins_filled"
             title="Kosten">
             <Phrase>
               {formatNumber(

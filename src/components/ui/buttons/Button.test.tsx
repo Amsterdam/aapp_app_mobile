@@ -8,7 +8,7 @@ describe('Button', () => {
     const {getByTestId, getByText} = render(
       <StoreProvider>
         <Button
-          iconName="alert"
+          iconName="warning"
           label="My Button"
           testID="Button"
         />
@@ -25,7 +25,7 @@ describe('Button', () => {
     const {getByTestId} = render(
       <StoreProvider>
         <Button
-          iconName="alert"
+          iconName="warning"
           isLoading
           testID="Button"
         />
@@ -39,14 +39,14 @@ describe('Button', () => {
     const {getByTestId} = render(
       <StoreProvider>
         <Button
-          iconName="alert"
+          iconName="warning"
           isError
           testID="Button"
         />
       </StoreProvider>,
     )
 
-    expect(getByTestId('ButtonIcon').parent?.parent?.props.name).toBe('alert')
+    expect(getByTestId('ButtonIcon').parent?.parent?.props.name).toBe('warning')
   })
 
   it('renders with different variants', () => {
@@ -165,18 +165,18 @@ describe('Button', () => {
     expect(onPress).toHaveBeenCalled()
   })
 
-  it('renders external-link icon and reverses Row', () => {
+  it('renders link-external icon and reverses Row', () => {
     const {getByTestId} = render(
       <StoreProvider>
         <Button
-          iconName="external-link"
+          iconName="link-external"
           testID="Button"
         />
       </StoreProvider>,
     )
 
     expect(getByTestId('ButtonIcon').parent?.parent?.props.name).toBe(
-      'external-link',
+      'link-external',
     )
     // Can't directly test Row reverse, but no error means prop is accepted
   })

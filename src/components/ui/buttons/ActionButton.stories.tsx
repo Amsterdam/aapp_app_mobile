@@ -13,6 +13,6 @@ export default {
 export const Default: StoryObj<typeof ActionButton> = {
   args: {
     label: 'Afvalpas',
-    iconName: 'wasteCard',
+    iconName: 'afvalpas',
   },
 }

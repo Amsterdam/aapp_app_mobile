@@ -48,7 +48,7 @@ export const ParkingLogoutScreen = ({navigation: {goBack}}: Props) => {
                 <Box key={permit.report_code}>
                   <Row gutter="md">
                     <Icon
-                      name={isVisitor ? 'person' : 'documentCheckmark'}
+                      name={isVisitor ? 'person' : 'document-check-mark'}
                       size="lg"
                       testID="ParkingLogoutScreenPermitIcon"
                     />

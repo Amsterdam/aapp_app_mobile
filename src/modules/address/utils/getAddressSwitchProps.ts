@@ -1,3 +1,4 @@
+import type {SvgIconName} from '@/components/ui/media/svgIcons'
 import type {Address, LocationType} from '@/modules/address/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -5,20 +6,20 @@ export const getAddressSwitchIcon = (
   locationType?: LocationType,
   address?: Address,
   isFetchingLocation: boolean = false,
-) => {
+): SvgIconName => {
   if (locationType === 'address' && address) {
-    return 'housing'
+    return 'house'
   }
 
   if (locationType === 'location') {
     if (address?.addressLine1) {
-      return 'mapLocationIosFilled'
+      return 'gps-ios_filled'
     } else if (isFetchingLocation) {
       return 'spinner'
     }
   }
 
-  return 'location'
+  return 'map-marker'
 }
 
 export const getAddressSwitchLabel = (

@@ -14,7 +14,7 @@ type Props<AddressType extends Address | BaseAddress> = {
   TestProps
 
 export const SuggestionButton = <AddressType extends Address | BaseAddress>({
-  iconName = 'location',
+  iconName = 'map-marker',
   label,
   address,
   onPress,

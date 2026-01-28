@@ -3,11 +3,13 @@ import {View} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {
+  FILLED_SUFFIX,
   SvgIconName,
   SvgIconsConfig,
+  type BaseSvgIconName,
   type SvgIconConfig,
 } from '@/components/ui/media/svgIcons'
-import {IconSize, TestProps} from '@/components/ui/types'
+import {IconSize, SvgIconVariant, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {devError, devLog} from '@/processes/development'
 import {Theme} from '@/themes/themes'
@@ -23,7 +25,7 @@ type AdditionalIconConfig = {
 const AdditionalIconConfigs: Partial<
   Record<SvgIconName, AdditionalIconConfig>
 > = {
-  spinner: {Wrapper: Rotator, stroke: true},
+  spinner: {Wrapper: Rotator, stroke: false},
 }
 
 export type IconProps = {
@@ -54,13 +56,21 @@ export const Icon = ({
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
-  const icon: SvgIconConfig | undefined = SvgIconsConfig[name]
+
+  const iconName = name.replace(FILLED_SUFFIX, '') as BaseSvgIconName
+  const isFilled = name.endsWith(FILLED_SUFFIX)
+
+  const iconVariants: Partial<Record<SvgIconVariant, SvgIconConfig>> =
+    SvgIconsConfig[iconName]
+
+  const icon =
+    iconVariants?.[isFilled ? SvgIconVariant.filled : SvgIconVariant.default]
 
   const {
     Wrapper = Fragment,
     stroke,
     strokeWidth = DEFAULT_STROKE_WIDTH,
-  } = AdditionalIconConfigs[name] ?? {}
+  } = AdditionalIconConfigs[iconName] ?? {}
 
   if (!icon) {
     devError(`Icon with name "${name}" does not exist.`)
@@ -69,11 +79,7 @@ export const Icon = ({
   }
 
   if (/[A-Z]/.test(name)) {
-    devLog(`Please use kebab casing for ${name}.`)
-  }
-
-  if (icon.viewBox) {
-    devLog(`Please use the default 24x24 viewbox for ${name}.`)
+    devLog(`\x1b[36mPlease use kebab casing for ${name}.\x1b[0m`)
   }
 
   return (

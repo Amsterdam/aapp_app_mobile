@@ -19,12 +19,12 @@ const accessCodeSection: UserMenuSection = {
   title: 'Beveiliging',
   navigationItems: [
     {
-      iconName: 'accessCode',
+      iconName: 'access-code',
       label: 'Wijzig toegangscode',
       moduleSlug: ModuleSlug['access-code'],
     },
     {
-      iconName: 'lock',
+      iconName: 'lock-closed',
       label: 'Toegang met biometrische gevens',
       route: UserRouteName.userBiometrics,
     },
@@ -37,13 +37,13 @@ const getSections = (
   {
     navigationItems: [
       {
-        iconName: 'housing',
+        iconName: 'house',
         label: 'Mijn adres',
         moduleSlug: ModuleSlug.address,
         route: AddressRouteName.address,
       },
       {
-        iconName: 'alarm',
+        iconName: 'bell',
         label: 'Pushmeldingen',
         route: UserRouteName.notificationSettings,
       },

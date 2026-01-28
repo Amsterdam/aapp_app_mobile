@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
+import type {SvgIconName} from '@/components/ui/media/svgIcons'
 import type {ModuleSlug} from '@/modules/slugs'
 import {useMap} from '@/components/features/map/hooks/useMap'
-import {IconProps} from '@/components/ui/media/Icon'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
@@ -12,12 +12,16 @@ import {Permissions} from '@/types/permissions'
 const getIconNameLocation = (
   isSetLocation: boolean,
   isFetching: boolean,
-): IconProps['name'] => {
+): SvgIconName => {
   if (isFetching) {
     return 'spinner'
   }
 
-  return isSetLocation ? 'mapLocationIosFilled' : 'mapLocationIos'
+  if (isSetLocation) {
+    return 'gps-ios_filled'
+  }
+
+  return 'gps-ios'
 }
 
 export const useMapControlsLocationButton = (moduleSlug: ModuleSlug) => {

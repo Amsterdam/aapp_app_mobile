@@ -72,7 +72,7 @@ export const ParkingSelectPermit = () => {
                             iconName={
                               scope === ParkingPermitScope.visitor
                                 ? 'person'
-                                : 'documentCheckmark'
+                                : 'document-check-mark'
                             }
                             iconSize="lg"
                             key={

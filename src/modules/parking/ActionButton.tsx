@@ -37,7 +37,7 @@ export const ActionButton = () => {
   return (
     <Column>
       <ActionButtonBase
-        iconName="parkingSession"
+        iconName="parking-start"
         isModuleInactive={isInactive}
         label={'Parkeersessie\nstarten'}
         onPress={() => {

@@ -23,7 +23,7 @@ export const WasteGuideMoreOptions = () => {
             Icon={
               <Icon
                 color="link"
-                name="alert"
+                name="warning"
                 size="xl"
               />
             }

@@ -7,7 +7,7 @@ import {
   DesignSystemSvgIcons,
   SvgIconName,
   SystemSvgIcons,
-  type SvgIconConfig,
+  type SvgIconVariantConfig,
 } from './svgIcons'
 import type {FractionCode} from '@/modules/waste-guide/types'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
@@ -24,10 +24,7 @@ enum IconCategory {
   wasteGuide = 'wasteGuide',
 }
 
-const ICONS_PER_CATEGORY: Record<
-  IconCategory,
-  Record<string, SvgIconConfig>
-> = {
+const ICONS_PER_CATEGORY: Record<IconCategory, SvgIconVariantConfig> = {
   [IconCategory.elections]: electionsSvgIcons,
   [IconCategory.wasteGuide]: fractionIconConfig,
   [IconCategory.system]: SystemSvgIcons,
@@ -54,12 +51,36 @@ const MultipleIconsTemplate = ({color, category}: Props) => (
           halign="center">
           <Phrase testID="testIdPhrase">{iconName}</Phrase>
           {category !== IconCategory.wasteGuide && (
-            <Icon
-              color={color}
-              name={iconName as SvgIconName}
-              size="lg"
-              testID="testIdIcon"
-            />
+            <Row
+              gutter="sm"
+              valign="end">
+              <Column
+                flex={1}
+                halign="center">
+                <Icon
+                  color={color}
+                  name={iconName as SvgIconName}
+                  size="lg"
+                  testID="testIdIcon"
+                />
+                <Phrase variant="extraSmall">Default</Phrase>
+              </Column>
+              <Column
+                flex={1}
+                halign="center">
+                <Icon
+                  color={color}
+                  name={`${iconName}_filled` as SvgIconName}
+                  size="lg"
+                  testID="testIdIcon"
+                />
+                <Phrase
+                  textAlign="center"
+                  variant="extraSmall">
+                  Filled
+                </Phrase>
+              </Column>
+            </Row>
           )}
           {category === IconCategory.wasteGuide && (
             <WasteFractionIcon
