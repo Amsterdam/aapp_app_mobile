@@ -1,6 +1,5 @@
 import {useCallback} from 'react'
 import type {TestProps} from '@/components/ui/types'
-import type {Address} from '@/modules/address/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -8,6 +7,7 @@ import {AddressTopTaskButton} from '@/modules/address/components/form/AddressTop
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
 import {useMyAddress} from '@/modules/address/slice'
+import {AddressCity, type Address} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
@@ -30,13 +30,20 @@ export const MyAddressButton = ({testID, onPress, moduleSlug}: Props) => {
     onPress(myAddress)
   }, [onPress, myAddress, navigate])
 
+  const cityPart =
+    myAddress?.city !== AddressCity.Amsterdam ? ', ' + myAddress?.city : ''
+
   return (
     <Row align="between">
       <AddressTopTaskButton
         logName={`BottomSheetAddAddressButton${myAddress?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
         onPress={onPressAddressButton}
         testID={testID}
-        text={myAddress?.addressLine1 ?? 'Vul een adres in'}
+        text={
+          myAddress
+            ? `${myAddress.addressLine1}${cityPart}`
+            : 'Vul een adres in'
+        }
       />
       {!!myAddress && (
         <Button

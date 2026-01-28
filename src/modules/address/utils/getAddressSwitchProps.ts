@@ -1,4 +1,8 @@
-import type {Address, LocationType} from '@/modules/address/types'
+import {
+  AddressCity,
+  type Address,
+  type LocationType,
+} from '@/modules/address/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const getAddressSwitchIcon = (
@@ -31,7 +35,12 @@ export const getAddressSwitchLabel = (
   }
 
   if (address?.addressLine1) {
-    return address.addressLine1
+    const cityPart =
+      address?.city && address.city !== AddressCity.Amsterdam
+        ? ', ' + address?.city
+        : ''
+
+    return `${address.addressLine1}${cityPart}`
   }
 
   return 'Adres invullen'
