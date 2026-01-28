@@ -40,7 +40,7 @@ export const AddressSwitchSaveMyAddress = ({
     setIsSuccessAlertVisible(false)
     dispatch(addAddress(moduleAddress))
 
-    enabledModules?.map(({onMyAddressChanged}) => {
+    enabledModules?.forEach(({onMyAddressChanged}) => {
       void onMyAddressChanged?.(moduleAddress, dispatch)
     })
 

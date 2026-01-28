@@ -7,6 +7,7 @@ import {useSelectedPostalArea} from '@/modules/address/hooks/useSelectedPostalAr
 import {BurningGuideForecastList} from '@/modules/burning-guide/components/BurningGuideForecastList'
 import {BurningGuideRecommendation} from '@/modules/burning-guide/components/BurningGuideRecommendation'
 import {useGetForecast} from '@/modules/burning-guide/hooks/useGetForecast'
+import {getIsPostalCodeError} from '@/modules/burning-guide/utils/getIsPostalCodeError'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const BurningGuide = () => {
@@ -16,6 +17,7 @@ export const BurningGuide = () => {
     isError: isErrorPostalArea,
   } = useSelectedPostalArea(ModuleSlug['burning-guide'])
   const {error, forecast, isError, isLoading} = useGetForecast(postalArea)
+  const isPostalCodeError = getIsPostalCodeError(error)
 
   if (!postalArea) {
     return null
@@ -25,16 +27,7 @@ export const BurningGuide = () => {
     return <PleaseWait testID="BurningGuideForecastListPleaseWait" />
   }
 
-  if (
-    error &&
-    typeof error === 'object' &&
-    'data' in error &&
-    error.data &&
-    typeof error.data === 'object' &&
-    'postal_code' in error.data &&
-    Array.isArray(error.data.postal_code) &&
-    error.data.postal_code.every(item => typeof item === 'string')
-  ) {
+  if (isPostalCodeError) {
     return (
       <Column gutter="sm">
         <Title
