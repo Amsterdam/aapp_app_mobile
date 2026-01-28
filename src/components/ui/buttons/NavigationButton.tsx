@@ -40,7 +40,7 @@ export const NavigationButton = ({
   emphasis = 'strong',
   horizontallyAlign = 'between',
   iconName,
-  iconSize = 'lg',
+  iconSize = 'lgx',
   insetHorizontal = 'md',
   insetVertical = 'sm',
   isDescriptionBelowIcon = true,

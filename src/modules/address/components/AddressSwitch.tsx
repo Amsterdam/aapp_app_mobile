@@ -66,7 +66,7 @@ export const AddressSwitch = ({
           border
           emphasis="default"
           iconName={iconName}
-          iconSize="md"
+          iconSize="ml"
           onPress={onNavigateToAddressForm}
           testID={testID}
           title={label}
