@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/media/svgIcons'
 import {IconSize, SvgIconVariant, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {devError, devLog} from '@/processes/development'
+import {devError} from '@/processes/development'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
@@ -75,10 +75,6 @@ export const Icon = ({
     devError(`Icon with name "${name}" does not exist.`)
 
     return null
-  }
-
-  if (/[A-Z]/.test(name)) {
-    devLog(`\x1b[36mPlease use kebab casing for ${name}.\x1b[0m`)
   }
 
   return (
