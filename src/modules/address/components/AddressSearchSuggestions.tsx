@@ -18,7 +18,7 @@ export const AddressSearchSuggestions = ({
   <Column gutter="xs">
     {addresses.map(address => {
       const key =
-        'bagId' in address
+        'bagId' in address && address.bagId
           ? address.bagId
           : [address.street, address.city].join('-')
 
