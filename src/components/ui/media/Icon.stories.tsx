@@ -41,64 +41,70 @@ const MultipleIconsTemplate = ({color, category}: Props) => (
   <Row
     gutter="md"
     wrap>
-    {Object.keys(ICONS_PER_CATEGORY[category]).map(iconName => {
-      const icon = SvgIconsConfig[iconName as SvgIconName]
-      const hasFilled = 'filled' in icon
+    {(Object.keys(ICONS_PER_CATEGORY[category]) as SvgIconName[]).map(
+      iconName => {
+        const icon = SvgIconsConfig[iconName]
 
-      return (
-        <Box
-          borderColor="default"
-          borderStyle="solid"
-          inset="sm"
-          key={iconName}>
-          <Column
-            gutter="sm"
-            halign="center">
-            <Phrase testID="testIdPhrase">{iconName}</Phrase>
-            {category !== IconCategory.wasteGuide && (
-              <Row
-                gutter="sm"
-                valign="end">
-                <Column
-                  flex={1}
-                  halign="center">
-                  <Icon
-                    color={color}
-                    name={iconName as SvgIconName}
-                    size="lg"
-                    testID="testIdIcon"
-                  />
-                  {!!hasFilled && <Phrase variant="extraSmall">Default</Phrase>}
-                </Column>
-                {!!hasFilled && (
+        const hasFilled = 'filled' in icon
+
+        return (
+          <Box
+            borderColor="default"
+            borderStyle="solid"
+            inset="sm"
+            key={iconName}>
+            <Column
+              gutter="sm"
+              halign="center">
+              <Phrase testID="testIdPhrase">{iconName}</Phrase>
+              {category !== IconCategory.wasteGuide && (
+                <Row
+                  gutter="sm"
+                  valign="end">
                   <Column
                     flex={1}
                     halign="center">
                     <Icon
                       color={color}
-                      name={`${iconName}_filled` as SvgIconName}
+                      name={iconName}
                       size="lg"
                       testID="testIdIcon"
                     />
-                    <Phrase
-                      textAlign="center"
-                      variant="extraSmall">
-                      Filled
-                    </Phrase>
+                    {!!hasFilled && (
+                      <Phrase variant="extraSmall">Default</Phrase>
+                    )}
                   </Column>
-                )}
-              </Row>
-            )}
-            {category === IconCategory.wasteGuide && (
-              <WasteFractionIcon
-                fractionCode={iconName as FractionCode}
-                size="xl"
-              />
-            )}
-          </Column>
-        </Box>
-      )
-    })}
+                  {!!hasFilled && (
+                    <Column
+                      flex={1}
+                      halign="center">
+                      <Icon
+                        color={color}
+                        isFilled
+                        name={iconName}
+                        size="lg"
+                        testID="testIdIcon"
+                      />
+                      <Phrase
+                        textAlign="center"
+                        variant="extraSmall">
+                        Filled
+                      </Phrase>
+                    </Column>
+                  )}
+                </Row>
+              )}
+              {category === IconCategory.wasteGuide && (
+                <WasteFractionIcon
+                  fractionCode={iconName as FractionCode}
+                  size="xl"
+                />
+              )}
+            </Column>
+          </Box>
+        )
+      },
+    )}
   </Row>
 )
 
