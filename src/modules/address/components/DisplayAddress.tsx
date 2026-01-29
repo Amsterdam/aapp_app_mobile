@@ -8,6 +8,7 @@ import {useModules} from '@/hooks/useModules'
 import {alerts} from '@/modules/address/alerts'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, useMyAddress} from '@/modules/address/slice'
+import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
 import {useAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
 
@@ -41,7 +42,11 @@ export const DisplayAddress = () => {
             }
             onPress={() => navigation.navigate(AddressModalName.myAddressForm)}
             testID="AddressAddButton"
-            text={address?.addressLine1 ?? 'Vul een adres in'}
+            text={
+              address
+                ? getAddressLineWithCityIfNotAmsterdam(address)
+                : 'Vul een adres in'
+            }
             title="Mijn adres"
           />
           {!!address && (

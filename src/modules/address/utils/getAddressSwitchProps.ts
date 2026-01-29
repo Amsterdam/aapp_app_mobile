@@ -1,10 +1,11 @@
-import type {Address, LocationType} from '@/modules/address/types'
+import {type Address, type LocationType} from '@/modules/address/types'
+import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const getAddressSwitchIcon = (
   locationType?: LocationType,
   address?: Address,
-  isFetchingLocation: boolean = false,
+  isFetchingLocation = false,
 ) => {
   if (locationType === 'address' && address) {
     return 'housing'
@@ -24,14 +25,14 @@ export const getAddressSwitchIcon = (
 export const getAddressSwitchLabel = (
   locationType?: LocationType,
   address?: Address,
-  isFetching?: boolean,
+  isFetching = false,
 ) => {
   if (locationType === 'location' && isFetching) {
     return 'Mijn huidige locatie'
   }
 
   if (address?.addressLine1) {
-    return address.addressLine1
+    return getAddressLineWithCityIfNotAmsterdam(address)
   }
 
   return 'Adres invullen'
@@ -53,7 +54,7 @@ export const getLocationTypeLabel = (locationType?: LocationType) => {
 export const getAddressSwitchAccessibilityLabel = (
   locationType?: LocationType,
   address?: Address,
-  isFetching?: boolean,
+  isFetching = false,
 ) =>
   accessibleText(
     getAddressSwitchLabel(locationType, address, isFetching),
