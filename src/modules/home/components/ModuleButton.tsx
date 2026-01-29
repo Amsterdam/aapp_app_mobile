@@ -43,7 +43,7 @@ const ModuleButtonContent = ({
           <Icon
             color={color}
             name={iconName}
-            size="lgx"
+            size="lg"
             testID={`${testID}Icon`}
           />
         )}
