@@ -9,6 +9,7 @@ import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
+import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {ModuleSlug} from '@/modules/slugs'
 import {useGetActiveRecyclePoint} from '@/modules/waste-guide/hooks/useGetActiveRecyclePoint'
 import {useThemable} from '@/themes/useThemable'
@@ -16,7 +17,10 @@ import {useThemable} from '@/themes/useThemable'
 export const WasteGuideRecyclePointMap = () => {
   const {activeRecyclePoint: recyclePoint, isLoading} =
     useGetActiveRecyclePoint()
-
+  const directionsUrl = useGetGoogleMapsDirectionsUrl({
+    lat: recyclePoint?.address.coordinates?.lat,
+    lon: recyclePoint?.address.coordinates?.lon,
+  })
   const {bottom} = useSafeAreaInsets()
   const styles = useThemable(theme => createStyles(theme, bottom))
 
@@ -66,7 +70,7 @@ export const WasteGuideRecyclePointMap = () => {
         <ExternalLinkButton
           label="Route openen"
           testID="WasteGuideRecyclePointMapExternalLinkButton"
-          url={`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`} //TODO: use directionsUrl from API once available as requested
+          url={directionsUrl}
           variant="secondary"
         />
       </View>
