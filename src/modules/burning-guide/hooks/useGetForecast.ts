@@ -4,9 +4,11 @@ import {getForecast} from '@/modules/burning-guide/utils/getForecast'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const useGetForecast = (zipCode?: string) => {
-  const {data, isError, isLoading} = useBurningGuideQuery(zipCode ?? skipToken)
+  const {data, error, isError, isLoading} = useBurningGuideQuery(
+    zipCode ?? skipToken,
+  )
 
   const forecast = getForecast(dayjs(), data)
 
-  return {forecast, isError, isLoading: isLoading}
+  return {error, forecast, isError, isLoading: isLoading}
 }

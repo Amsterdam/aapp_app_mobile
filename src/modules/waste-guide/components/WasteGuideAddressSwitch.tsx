@@ -17,7 +17,8 @@ export const WasteGuideAddressSwitch = () => {
         HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
       }
       moduleSlug={ModuleSlug['waste-guide']}
-      noAddressText="Voer een adres in om uw afvalinformatie te bekijken."
+      noAddressText="Vul uw adres in om te zien wat u met uw afval moet doen."
+      noAddressTitle="Afvalinformatie"
       testID="WasteGuideNoAddressAddressSwitch"
     />
   )

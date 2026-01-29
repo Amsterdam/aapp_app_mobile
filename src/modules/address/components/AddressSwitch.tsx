@@ -2,7 +2,6 @@ import {useMemo} from 'react'
 import type {TestProps} from '@/components/ui/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
-import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -22,11 +21,13 @@ type AddressSwitcherProps = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
   moduleSlug: ModuleSlug
   noAddressText?: string
+  noAddressTitle?: string
 } & TestProps
 
 export const AddressSwitch = ({
   testID,
   noAddressText,
+  noAddressTitle,
   moduleSlug,
   highAccuracyPurposeKey = HighAccuracyPurposeKey.PreciseLocationAddressLookup,
 }: AddressSwitcherProps) => {
@@ -57,38 +58,36 @@ export const AddressSwitch = ({
     })
 
   return (
-    <>
-      <Column gutter="xl">
-        <NavigationButton
-          accessibilityLabel={accessibilityLabel}
-          accessibilityLanguage="nl-NL"
-          accessibilityRole="button"
-          border
-          emphasis="default"
-          iconName={iconName}
-          iconSize="md"
-          onPress={onNavigateToAddressForm}
-          testID={testID}
-          title={label}
-        />
-
-        {!address && !!noAddressText && (
-          <Column gutter="md">
-            <Title text="Geen adres" />
+    <Column gutter="xl">
+      <NavigationButton
+        accessibilityLabel={accessibilityLabel}
+        accessibilityLanguage="nl-NL"
+        accessibilityRole="button"
+        border
+        emphasis="default"
+        iconName={iconName}
+        iconSize="md"
+        onPress={onNavigateToAddressForm}
+        testID={testID}
+        title={label}
+      />
+      {!address && !!noAddressText && (
+        <Column gutter="md">
+          <Column gutter="sm">
+            <Title text={noAddressTitle ?? 'Geen adres'} />
             <Paragraph>{noAddressText}</Paragraph>
-            <Button
-              label="Adres invullen"
-              onPress={onNavigateToAddressForm}
-              testID="AddressSwitchChooseAddressButton"
-            />
           </Column>
-        )}
-
-        {!!shouldShowSaveAsMyAddress && (
-          <AddressSwitchSaveMyAddress moduleSlug={moduleSlug} />
-        )}
-      </Column>
-      <AlertTopOfScreen inset="no" />
-    </>
+          <Button
+            label="Adres invullen"
+            onPress={onNavigateToAddressForm}
+            testID="AddressSwitchChooseAddressButton"
+          />
+        </Column>
+      )}
+      <AddressSwitchSaveMyAddress
+        moduleSlug={moduleSlug}
+        shouldShowSaveAsMyAddress={shouldShowSaveAsMyAddress}
+      />
+    </Column>
   )
 }

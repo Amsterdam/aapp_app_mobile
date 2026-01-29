@@ -1,7 +1,8 @@
-import {useCallback} from 'react'
+import {useCallback, useState} from 'react'
 import type {ModuleSlug} from '@/modules/slugs'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
+import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -15,14 +16,17 @@ import {
   addAddress,
   setModuleIsSaveAsMyAddressShown,
 } from '@/modules/address/slice'
-import {useAlert} from '@/store/slices/alert'
 
 type Props = {
   moduleSlug: ModuleSlug
+  shouldShowSaveAsMyAddress?: boolean
 }
 
-export const AddressSwitchSaveMyAddress = ({moduleSlug}: Props) => {
-  const {setAlert} = useAlert()
+export const AddressSwitchSaveMyAddress = ({
+  moduleSlug,
+  shouldShowSaveAsMyAddress,
+}: Props) => {
+  const [isSuccessAlertVisible, setIsSuccessAlertVisible] = useState(false)
   const dispatch = useDispatch()
   const {address: moduleAddress} = useSelectedAddress(moduleSlug)
   const setLocationType = useSetLocationType(moduleSlug)
@@ -33,52 +37,70 @@ export const AddressSwitchSaveMyAddress = ({moduleSlug}: Props) => {
       return
     }
 
+    setIsSuccessAlertVisible(false)
     dispatch(addAddress(moduleAddress))
+
     enabledModules?.forEach(({onMyAddressChanged}) => {
       void onMyAddressChanged?.(moduleAddress, dispatch)
     })
-    setLocationType('address')
 
-    setAlert(alerts.saveMyAddressSuccess)
-  }, [moduleAddress, dispatch, enabledModules, setLocationType, setAlert])
+    setLocationType('address')
+    setIsSuccessAlertVisible(true)
+  }, [
+    moduleAddress,
+    dispatch,
+    enabledModules,
+    setIsSuccessAlertVisible,
+    setLocationType,
+  ])
 
   return (
-    <Column gutter="md">
-      <Title
-        level="h3"
-        text="Wilt u dit adres opslaan als Mijn adres?"
-      />
-      <Paragraph>
-        Met Mijn adres ziet u in de hele app alle informatie die bij dit adres
-        hoort. U kunt ook meldingen uit deze buurt krijgen. Dit stelt u in bij
-        Mijn profiel.
-      </Paragraph>
-      <Box
-        insetBottom="xl"
-        insetTop="smd">
-        <Row gutter="smd">
-          <Button
-            flex={1}
-            label="Opslaan"
-            onPress={onSaveMyAddress}
-            testID="AddressSwitchSaveMyAddressButton"
+    <>
+      {!!shouldShowSaveAsMyAddress && (
+        <Column gutter="md">
+          <Title
+            level="h3"
+            text="Wilt u dit adres opslaan als Mijn adres?"
           />
-          <Button
-            flex={1}
-            label="Nee, later"
-            onPress={() =>
-              dispatch(
-                setModuleIsSaveAsMyAddressShown({
-                  moduleSlug,
-                  isSaveAsMyAddressShown: true,
-                }),
-              )
-            }
-            testID="AddressSwitchDeclineMyAddressButton"
-            variant="secondary"
-          />
-        </Row>
-      </Box>
-    </Column>
+          <Paragraph>
+            Met Mijn adres ziet u in de hele app alle informatie die bij dit
+            adres hoort. U kunt ook meldingen uit deze buurt krijgen. Dit stelt
+            u in bij Mijn profiel.
+          </Paragraph>
+          <Box
+            insetBottom="xl"
+            insetTop="smd">
+            <Row gutter="smd">
+              <Button
+                flex={1}
+                label="Opslaan"
+                onPress={onSaveMyAddress}
+                testID="AddressSwitchSaveMyAddressButton"
+              />
+              <Button
+                flex={1}
+                label="Nee, later"
+                onPress={() =>
+                  dispatch(
+                    setModuleIsSaveAsMyAddressShown({
+                      moduleSlug,
+                      isSaveAsMyAddressShown: true,
+                    }),
+                  )
+                }
+                testID="AddressSwitchDeclineMyAddressButton"
+                variant="secondary"
+              />
+            </Row>
+          </Box>
+        </Column>
+      )}
+      {!!isSuccessAlertVisible && (
+        <AlertInline
+          inset="no"
+          {...alerts.saveMyAddressSuccess}
+        />
+      )}
+    </>
   )
 }

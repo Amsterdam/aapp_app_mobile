@@ -1,9 +1,13 @@
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {Column} from '@/components/ui/layout/Column'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
 import {useSelectedPostalArea} from '@/modules/address/hooks/useSelectedPostalArea'
 import {BurningGuideForecastList} from '@/modules/burning-guide/components/BurningGuideForecastList'
 import {BurningGuideRecommendation} from '@/modules/burning-guide/components/BurningGuideRecommendation'
 import {useGetForecast} from '@/modules/burning-guide/hooks/useGetForecast'
+import {getIsPostalCodeError} from '@/modules/burning-guide/utils/getIsPostalCodeError'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const BurningGuide = () => {
@@ -12,7 +16,8 @@ export const BurningGuide = () => {
     isFetching,
     isError: isErrorPostalArea,
   } = useSelectedPostalArea(ModuleSlug['burning-guide'])
-  const {forecast, isError, isLoading} = useGetForecast(postalArea)
+  const {error, forecast, isError, isLoading} = useGetForecast(postalArea)
+  const isPostalCodeError = getIsPostalCodeError(error)
 
   if (!postalArea) {
     return null
@@ -20,6 +25,18 @@ export const BurningGuide = () => {
 
   if (isLoading || isFetching) {
     return <PleaseWait testID="BurningGuideForecastListPleaseWait" />
+  }
+
+  if (isPostalCodeError) {
+    return (
+      <Column gutter="sm">
+        <Title
+          testID="BurningGuideAddressOutsideAmsterdamTitle"
+          text="Stookinformatie"
+        />
+        <Phrase>We hebben geen informatie gevonden bij dit adres.</Phrase>
+      </Column>
+    )
   }
 
   if (!forecast?.length || isError || isErrorPostalArea) {
