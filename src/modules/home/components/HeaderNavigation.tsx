@@ -12,7 +12,7 @@ export const HeaderNavigation = () => {
 
   const iconProps: Partial<IconProps> = {
     color: 'link',
-    size: 'lg',
+    size: 'lgx',
   }
 
   return (
