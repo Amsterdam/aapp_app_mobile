@@ -1,7 +1,11 @@
+import type {Address} from '@/modules/address/types'
+import type {ExceptionDate, VisitingHour} from '@/modules/contact/types'
+
 export enum WasteGuideEndpointName {
   deleteWasteGuideNotification = 'deleteWasteGuideNotification',
   getWasteGuide = 'getWasteGuide',
   getWasteGuideNotification = 'getWasteGuideNotification',
+  getWasteGuideRecyclePoints = 'getWasteGuideRecyclePoints',
   patchWasteGuideNotification = 'patchWasteGuideNotification',
   postWasteGuideNotification = 'postWasteGuideNotification',
 }
@@ -67,3 +71,16 @@ export type WasteGuideNotificationSettings =
       message: never
       status: 'success'
     }
+
+export type WasteGuideRecyclePoint = {
+  address: Omit<Address, 'bagId'> & {cityDistrict?: string}
+  commercialWaste: boolean
+  id: number
+  name: string
+  openingHours: {
+    exceptions: ExceptionDate[]
+    regular: VisitingHour[]
+  }
+}
+
+export type WasteGuideRecyclePointsResponse = WasteGuideRecyclePoint[]
