@@ -18,7 +18,10 @@ export const WasteGuideMoreOptions = () => {
         insetHorizontal="md"
         insetVertical="no">
         <Column gutter="md">
-          <Title text="Meer opties" />
+          <Title
+            level="h2"
+            text="Meer opties"
+          />
           <NavigationButton
             Icon={
               <Icon

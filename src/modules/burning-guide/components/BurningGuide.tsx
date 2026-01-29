@@ -31,7 +31,6 @@ export const BurningGuide = () => {
     return (
       <Column gutter="sm">
         <Title
-          level="h2"
           testID="BurningGuideAddressOutsideAmsterdamTitle"
           text="Stookinformatie"
         />

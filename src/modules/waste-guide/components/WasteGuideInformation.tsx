@@ -11,7 +11,10 @@ export const WasteGuideInformation = () => (
   <HorizontalSafeArea flex={1}>
     <Box grow>
       <Column gutter="md">
-        <Title text="Alles over afval" />
+        <Title
+          level="h2"
+          text="Alles over afval"
+        />
         <Paragraph>
           In de app ziet u ophaaldagen en afvalinformatie. Op de website vindt u
           meer informatie, zoals afval voor ondernemers en rolcontainers
