@@ -94,6 +94,7 @@ export const TopTaskButton = ({
               <Icon
                 color={colorTitleAndIconLeft}
                 name={titleIconName}
+                size="ml"
                 testID={`${testID}TitleIcon`}
               />
             )}
@@ -139,9 +140,9 @@ export const TopTaskButton = ({
           <View style={styles.height}>
             <HideFromAccessibility>
               <Icon
+                color="link"
                 size="xl"
                 {...iconRight}
-                color={colorDescriptionAndIconRight}
                 testID={`${testID}Icon`}
               />
             </HideFromAccessibility>
