@@ -31,6 +31,7 @@ export const ParkingPermitTopTaskButton = () => {
       accessibilityHint="Tik om een andere vergunning te selecteren."
       accessibilityLabel={`De huidige vergunning is ${title}.`}
       icon={{
+        isFilled: parkingAccount?.scope === ParkingPermitScope.visitor,
         name:
           parkingAccount?.scope === ParkingPermitScope.visitor
             ? 'person'
