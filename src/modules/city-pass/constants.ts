@@ -10,28 +10,28 @@ export const SOMETHING_WENT_WRONG_TEXT =
 
 export const aboutBlocks: AboutBlock[] = [
   {
-    icon: 'list',
+    icon: {name: 'list'},
     redirectKey: RedirectKey.citypass,
     title: 'Bekijk het aanbod',
     text: 'Gratis of met korting sporten, naar de bioscoop, het theater, of het museum.',
     testID: 'CityPassOverviewLink',
   },
   {
-    icon: 'child_filled',
+    icon: {isFilled: true, name: 'child'},
     redirectKey: RedirectKey.cityPassChildBudget,
     title: 'Over het kindtegoed',
     text: 'Kinderen tot en met 17 jaar krijgen Kindtegoed op hun Stadspas.',
     testID: 'CityPassChildBudgetLink',
   },
   {
-    icon: 'wallet',
+    icon: {name: 'wallet'},
     redirectKey: RedirectKey.cityPassLowIncomeSupport,
     title: 'Hulp bij weinig geld',
     text: 'Kijk welke regelingen er zijn.',
     testID: 'CityPassLowIncomeSupportLink',
   },
   {
-    icon: 'question-mark-circle_filled',
+    icon: {isFilled: true, name: 'question-mark-circle'},
     redirectKey: RedirectKey.cityPassUsage,
     title: 'Zo werkt je Stadspas',
     text: 'Lees meer over wat de Stadspas is en hoe het werkt.',

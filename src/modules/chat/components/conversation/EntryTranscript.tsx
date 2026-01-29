@@ -11,7 +11,7 @@ export const EntryTranscript = ({message}: Props) => {
 
   return downloadedTranscriptIds.includes(message.entryId) ? (
     <ChatSystemEntry
-      icon="download"
+      icon={{name: 'download'}}
       testID="ChatEntryTranscriptEntry"
       text={'Chat gedownload'}
       timestamp={message.timestamp}

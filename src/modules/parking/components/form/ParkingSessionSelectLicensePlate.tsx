@@ -56,7 +56,7 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
           return (
             <TopTaskButton
               accessibilityLabel={`Kenteken ${title}`}
-              iconName="car"
+              icon={{name: 'car'}}
               key={licensePlate.vehicle_id}
               onPress={() => onPress(licensePlate)}
               testID="ParkingSessionSelectLicensePlateTopTaskButton"

@@ -7,9 +7,9 @@ export const NavigationButtonToWasteCalendar = () => {
 
   return (
     <NavigationButton
+      chevronSize="md"
       emphasis="default"
       horizontallyAlign="start"
-      iconSize="md"
       insetHorizontal="no"
       insetVertical="no"
       onPress={() => navigate(WasteGuideRouteName.wasteGuideCalendar)}

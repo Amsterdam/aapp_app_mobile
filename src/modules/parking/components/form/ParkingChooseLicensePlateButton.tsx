@@ -30,7 +30,7 @@ export const ParkingChooseLicensePlateButton = () => {
       }
       bottomSheetVariant={ParkingSessionBottomSheetVariant.licensePlate}
       disabled={isLoading || isError}
-      iconName={isLoading && permit?.no_endtime ? 'spinner' : 'car'}
+      icon={isLoading && permit?.no_endtime ? {name: 'spinner'} : {name: 'car'}}
       name="licensePlate"
       rules={{
         required: 'Kies een kenteken',

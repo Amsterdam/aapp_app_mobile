@@ -16,8 +16,7 @@ export const NotificationSettingsScreen = () => {
         !hasPermission ? (
           <Box>
             <Button
-              iconName="link-external"
-              iconSize="md"
+              icon={{name: 'link-external'}}
               label="Ga naar Instellingen"
               onPress={() => Linking.openSettings()}
               testID="NotificationSettingsCloseButton"

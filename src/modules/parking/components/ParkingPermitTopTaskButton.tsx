@@ -30,12 +30,13 @@ export const ParkingPermitTopTaskButton = () => {
     <TopTaskButton
       accessibilityHint="Tik om een andere vergunning te selecteren."
       accessibilityLabel={`De huidige vergunning is ${title}.`}
-      iconName={
-        parkingAccount?.scope === ParkingPermitScope.visitor
-          ? 'person'
-          : 'document-check-mark'
-      }
-      iconSize="lg"
+      icon={{
+        name:
+          parkingAccount?.scope === ParkingPermitScope.visitor
+            ? 'person'
+            : 'document-check-mark',
+        size: 'lg',
+      }}
       insetVertical="sm"
       minHeight={32}
       onPress={() => toggle(ParkingDashboardBottomSheetVariant.selectPermit)}

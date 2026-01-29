@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import type {SvgIconName} from '@/components/ui/media/svgIcons'
+import type {IconProps} from '@/components/ui/media/Icon'
 import type {ModuleSlug} from '@/modules/slugs'
 import {useMap} from '@/components/features/map/hooks/useMap'
 import {usePermission} from '@/hooks/permissions/usePermission'
@@ -9,19 +9,19 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {Permissions} from '@/types/permissions'
 
-const getIconNameLocation = (
+const getIconLocation = (
   isSetLocation: boolean,
   isFetching: boolean,
-): SvgIconName => {
+): IconProps => {
   if (isFetching) {
-    return 'spinner'
+    return {name: 'spinner'}
   }
 
   if (isSetLocation) {
-    return 'gps-ios_filled'
+    return {name: 'gps-ios', isFilled: true}
   }
 
-  return 'gps-ios'
+  return {name: 'gps-ios'}
 }
 
 export const useMapControlsLocationButton = (moduleSlug: ModuleSlug) => {
@@ -76,7 +76,7 @@ export const useMapControlsLocationButton = (moduleSlug: ModuleSlug) => {
     setLocationType,
   ])
 
-  const iconName = getIconNameLocation(isSetLocation, isFetching)
+  const icon = getIconLocation(isSetLocation, isFetching)
 
-  return {onPressLocationButton, iconName}
+  return {onPressLocationButton, icon}
 }

@@ -50,8 +50,8 @@ export const BurningGuideRecommendation = ({
             </Column>
           </SingleSelectable>
           <NavigationButton
+            chevronSize="md"
             horizontallyAlign="center"
-            iconSize="md"
             insetVertical="sm"
             onPress={() => {
               navigate(BurningGuideRouteName.burningGuideCodeInfo)

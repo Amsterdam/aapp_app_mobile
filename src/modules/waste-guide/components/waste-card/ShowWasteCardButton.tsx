@@ -8,7 +8,7 @@ export const ShowWasteCardButton = () => {
 
   return (
     <Button
-      iconName="afvalpas"
+      icon={{name: 'afvalpas'}}
       label="Afvalpas tonen"
       onPress={() =>
         navigate(ModuleSlug['waste-container'], {

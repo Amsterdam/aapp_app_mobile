@@ -3,10 +3,8 @@ import {View} from 'react-native'
 import {Path, Svg, type FillRule} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {
-  FILLED_SUFFIX,
   SvgIconName,
   SvgIconsConfig,
-  type BaseSvgIconName,
   type SvgIconConfig,
 } from '@/components/ui/media/svgIcons'
 import {IconSize, SvgIconVariant, TestProps} from '@/components/ui/types'
@@ -32,6 +30,7 @@ export type IconProps = {
    * The color of the icon to display.
    */
   color?: keyof Theme['color']['text']
+  isFilled?: boolean
   'logging-label'?: string
   /**
    * The name of the icon to display.
@@ -51,16 +50,14 @@ export const Icon = ({
   size = 'md',
   testID,
   'logging-label': loggingLabel,
+  isFilled = false,
 }: IconProps) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
 
-  const iconName = name.replace(FILLED_SUFFIX, '') as BaseSvgIconName
-  const isFilled = name.endsWith(FILLED_SUFFIX)
-
   const iconVariants: Partial<Record<SvgIconVariant, SvgIconConfig>> =
-    SvgIconsConfig[iconName]
+    SvgIconsConfig[name]
 
   const icon =
     iconVariants?.[isFilled ? SvgIconVariant.filled : SvgIconVariant.default]
@@ -69,7 +66,7 @@ export const Icon = ({
     Wrapper = Fragment,
     stroke,
     fillRule = 'evenodd',
-  } = AdditionalIconConfigs[iconName] ?? {}
+  } = AdditionalIconConfigs[name] ?? {}
 
   if (!icon) {
     devError(`Icon with name "${name}" does not exist.`)

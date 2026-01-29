@@ -2,15 +2,14 @@ import {StyleSheet, View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {PressableBaseProps} from '@/components/ui/buttons/PressableBase'
 import {Column} from '@/components/ui/layout/Column'
-import {Icon} from '@/components/ui/media/Icon'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {IconSize} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
-  iconName: SvgIconName
+  icon: IconProps
   isModuleInactive: boolean
   label: string
 } & PressableBaseProps
@@ -19,7 +18,7 @@ const BUTTON_SIZE = 60
 const ICON_SIZE = 'xl'
 
 export const ActionButton = ({
-  iconName,
+  icon,
   label,
   isModuleInactive,
   ...props
@@ -48,8 +47,8 @@ export const ActionButton = ({
           icon={
             <Icon
               color="inverse"
-              name={iconName}
               size="xl"
+              {...icon}
               testID={`${testID}Icon`}
             />
           }

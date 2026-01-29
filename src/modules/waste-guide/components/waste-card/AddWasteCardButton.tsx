@@ -20,7 +20,7 @@ export const AddWasteCardButton = () => {
 
   return data?.has_container ? (
     <Button
-      iconName="plus-circle_filled"
+      icon={{name: 'plus-circle', isFilled: true}}
       label="Afvalpas toevoegen"
       onPress={() =>
         navigate(ModuleSlug['waste-container'], {

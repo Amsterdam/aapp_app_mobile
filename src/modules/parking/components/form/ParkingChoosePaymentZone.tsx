@@ -122,7 +122,7 @@ export const ParkingChoosePaymentZone = () => {
       <Gutter />
       <SelectButtonControlled<{paymentZoneId?: string}, 'paymentZoneId'>
         bottomSheetVariant={ParkingSessionBottomSheetVariant.paymentZone}
-        iconName="clock"
+        icon={{name: 'clock'}}
         name="paymentZoneId"
         testID="ParkingChoosePaymentZoneButton"
         text={timeString}

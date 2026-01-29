@@ -19,7 +19,7 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('spinner')
+    expect(icon).toEqual({name: 'spinner'})
     expect(label).toBe('Mijn huidige locatie')
     expect(accessibilityLabel).toBe(
       'Mijn huidige locatie, Druk om adres te wijzigen.',
@@ -49,7 +49,7 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('gps-ios_filled')
+    expect(icon).toEqual({isFilled: true, name: 'gps-ios'})
     expect(label).toBe('Cruquiusweg 5')
     expect(accessibilityLabel).toBe(
       'Cruquiusweg 5, Adres bij uw huidige locatie, Druk om adres te wijzigen.',
@@ -79,7 +79,7 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('house')
+    expect(icon).toEqual({name: 'house'})
     expect(label).toBe('Cruquiusweg 5')
     expect(accessibilityLabel).toBe(
       'Cruquiusweg 5, Mijn adres, Druk om adres te wijzigen.',
@@ -109,7 +109,7 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('house')
+    expect(icon).toEqual({name: 'house'})
     expect(label).toBe('Cruquiusweg 5')
     expect(accessibilityLabel).toBe(
       'Cruquiusweg 5, Mijn adres, Druk om adres te wijzigen.',
@@ -129,7 +129,7 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('map-marker')
+    expect(icon).toEqual({name: 'map-marker'})
     expect(label).toBe('Adres invullen')
     expect(accessibilityLabel).toBe(
       'Adres invullen, Druk om adres te wijzigen.',

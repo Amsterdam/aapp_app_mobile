@@ -27,7 +27,7 @@ export const PhoneButton = ({
             ...(formatPhoneNumber(phoneNumber) ?? '').split(' '),
           )
         }
-        iconName="phone_filled"
+        icon={{isFilled: true, name: 'phone'}}
         label={formatPhoneNumber(phoneNumber)}
         onPress={() => {
           openPhoneUrl(phoneNumber)

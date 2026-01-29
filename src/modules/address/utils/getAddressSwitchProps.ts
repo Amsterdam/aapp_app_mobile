@@ -1,3 +1,4 @@
+import type {IconProps} from '@/components/ui/media/Icon'
 import {type Address, type LocationType} from '@/modules/address/types'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -5,21 +6,21 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 export const getAddressSwitchIcon = (
   locationType?: LocationType,
   address?: Address,
-  isFetchingLocation = false,
-) => {
+  isFetchingLocation: boolean = false,
+): IconProps => {
   if (locationType === 'address' && address) {
-    return 'house'
+    return {name: 'house'}
   }
 
   if (locationType === 'location') {
     if (address?.addressLine1) {
-      return 'gps-ios_filled'
+      return {isFilled: true, name: 'gps-ios'}
     } else if (isFetchingLocation) {
-      return 'spinner'
+      return {name: 'spinner'}
     }
   }
 
-  return 'map-marker'
+  return {name: 'map-marker'}
 }
 
 export const getAddressSwitchLabel = (

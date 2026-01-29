@@ -78,8 +78,8 @@ export const ParkingSessionDetails = ({
             iconName="map-marker"
             title={getPermitZoneLabel(currentPermit.permit_zone)}>
             <NavigationButton
+              chevronSize="smd"
               emphasis="default"
-              iconSize="smd"
               insetHorizontal="no"
               insetVertical="no"
               onPress={() => navigate(ParkingRouteName.parkingPermitZones)}

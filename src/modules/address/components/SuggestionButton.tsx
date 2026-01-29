@@ -1,12 +1,12 @@
 import {AccessibilityProps} from 'react-native'
-import type {SvgIconName} from '@/components/ui/media/svgIcons'
+import type {IconProps} from '@/components/ui/media/Icon'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {type TestProps} from '@/components/ui/types'
 import {BaseAddress, Address} from '@/modules/address/types'
 
 type Props<AddressType extends Address | BaseAddress> = {
   address: AddressType
-  iconName?: SvgIconName
+  icon?: IconProps
   label: string
   'logging-label'?: string
   onPress: (address: AddressType) => void
@@ -14,7 +14,7 @@ type Props<AddressType extends Address | BaseAddress> = {
   TestProps
 
 export const SuggestionButton = <AddressType extends Address | BaseAddress>({
-  iconName = 'map-marker',
+  icon,
   label,
   address,
   onPress,
@@ -27,8 +27,7 @@ export const SuggestionButton = <AddressType extends Address | BaseAddress>({
     accessibilityLabel={accessibilityLabel}
     accessibilityLanguage="nl-NL"
     accessibilityRole="button"
-    iconName={iconName}
-    iconSize="lg"
+    icon={{name: 'map-marker', ...icon}}
     insetHorizontal="sm"
     insetVertical="xs"
     logging-label={loggingLabel}

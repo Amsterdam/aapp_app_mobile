@@ -7,8 +7,7 @@ export const BurningGuideTipsButton = () => {
 
   return (
     <TopTaskButton
-      iconName="lightBulb"
-      iconRightSize="ml"
+      icon={{name: 'lightBulb'}}
       isInternalLink
       onPress={() => navigate(BurningGuideRouteName.burningGuideTips)}
       testID="BurningGuideTipsButton"

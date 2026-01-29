@@ -11,7 +11,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    icon: 'speech-balloon-ellipsis',
+    icon: {name: 'speech-balloon-ellipsis'},
     text: 'Chat gestopt',
     testID: 'chatEntryRoutingWorkResultEntry',
     timestamp: 1630510440,

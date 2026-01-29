@@ -23,13 +23,13 @@ export const Fractions = ({fractions, isCollectionByAppointment}: Props) => {
 
         return (
           <NavigationButton
+            chevronSize="ml"
             description={
               !isCollectionByAppointment && nextCollectionDate
                 ? `Ophaaldag: ${nextCollectionDate}`
                 : ''
             }
             Icon={<WasteFractionIcon fractionCode={code} />}
-            iconSize="ml"
             insetHorizontal="no"
             insetVertical="no"
             isDescriptionBelowIcon={false}

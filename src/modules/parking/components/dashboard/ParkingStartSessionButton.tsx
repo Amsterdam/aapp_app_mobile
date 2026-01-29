@@ -10,7 +10,7 @@ export const ParkingStartSessionButton = () => {
 
   return (
     <Button
-      iconName="parking-start"
+      icon={{name: 'parking-start'}}
       label={
         currentPermit.no_endtime ? 'Kies ander kenteken' : 'Start parkeersessie'
       }

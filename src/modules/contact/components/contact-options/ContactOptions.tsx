@@ -32,7 +32,7 @@ export const ContactOptions = () => {
         </Column>
         <Column gutter="md">
           {contactOptions.map(
-            ({redirectsKey, url, iconName, key, routeName, ...props}) => {
+            ({redirectsKey, url, icon, key, routeName, ...props}) => {
               const redirectUrl = redirectsKey && redirectUrls?.[redirectsKey]
               const resultUrl = redirectUrl ?? url
 
@@ -50,7 +50,7 @@ export const ContactOptions = () => {
                   <ChatOption
                     key={key}
                     {...props}
-                    iconName={iconName}
+                    icon={icon}
                   />
                 )
               }
@@ -64,7 +64,7 @@ export const ContactOptions = () => {
                     props.text,
                   )}
                   accessibilityRole="link"
-                  iconName={redirectsKey && isLoading ? 'spinner' : iconName}
+                  icon={redirectsKey && isLoading ? {name: 'spinner'} : icon}
                   isExternalLink={/^https:/.test(resultUrl ?? '')}
                   isInternalLink={!!routeName}
                   onPress={() => {

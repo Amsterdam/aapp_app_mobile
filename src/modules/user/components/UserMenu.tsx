@@ -76,8 +76,8 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
           item.route === UserRouteName.userBiometrics &&
           (!biometricsLabel || !isEnrolled) ? null : (
             <NavigationButton
+              chevronSize="md"
               emphasis="default"
-              iconSize="md"
               key={item.label}
               {...item}
               onPress={() =>

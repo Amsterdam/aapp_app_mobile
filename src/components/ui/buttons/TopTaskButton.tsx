@@ -15,10 +15,8 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 export type TopTaskButtonProps = {
   border?: boolean
   flex?: number
-  iconName: SvgIconName
-  iconRightName?: SvgIconName
-  iconRightSize?: IconProps['size']
-  iconSize?: IconProps['size']
+  icon: IconProps
+  iconRight?: IconProps
   isError?: boolean
   isExternalLink?: boolean
   isInternalLink?: boolean
@@ -32,10 +30,8 @@ export const TopTaskButton = ({
   isExternalLink,
   isInternalLink,
   isError = false,
-  iconName,
-  iconRightName,
-  iconRightSize = 'xl',
-  iconSize = 'xl',
+  icon,
+  iconRight,
   onPress,
   text,
   textAdditional,
@@ -74,9 +70,9 @@ export const TopTaskButton = ({
         <View style={styles.height}>
           <HideFromAccessibility>
             <Icon
+              size="xl"
+              {...icon}
               color={colorTitleAndIconLeft}
-              name={iconName}
-              size={iconSize}
               testID={`${testID}Icon`}
             />
           </HideFromAccessibility>
@@ -139,13 +135,13 @@ export const TopTaskButton = ({
             name="chevron-right"
           />
         )}
-        {!!iconRightName && (
+        {!!iconRight && (
           <View style={styles.height}>
             <HideFromAccessibility>
               <Icon
+                size="xl"
+                {...iconRight}
                 color={colorDescriptionAndIconRight}
-                name={iconRightName}
-                size={iconRightSize}
                 testID={`${testID}Icon`}
               />
             </HideFromAccessibility>

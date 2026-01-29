@@ -5,7 +5,7 @@ import {type ContactOption} from '@/modules/contact/data/contact'
 import {ModuleSlug} from '@/modules/slugs'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
-export const ChatOption = ({iconName, ...props}: ContactOption) => {
+export const ChatOption = ({icon, ...props}: ContactOption) => {
   const {enabledModulesBySlug} = useModules()
   const chatModule = enabledModulesBySlug?.includes(ModuleSlug.chat)
   const {open} = useChat()
@@ -17,7 +17,7 @@ export const ChatOption = ({iconName, ...props}: ContactOption) => {
         props.accessibilityLabel ?? props.title,
         props.text,
       )}
-      iconName={iconName}
+      icon={icon}
       onPress={open}
     />
   ) : null

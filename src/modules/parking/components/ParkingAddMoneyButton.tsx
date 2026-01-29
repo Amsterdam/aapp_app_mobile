@@ -11,7 +11,7 @@ export const ParkingAddMoneyButton = ({variant}: Props) => {
 
   return (
     <Button
-      iconName="euro-coins_filled"
+      icon={{name: 'euro-coins', isFilled: true}}
       label="Geld toevoegen"
       onPress={() => {
         navigate(ParkingRouteName.increaseBalance)

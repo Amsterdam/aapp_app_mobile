@@ -8,7 +8,7 @@ describe('Button', () => {
     const {getByTestId, getByText} = render(
       <StoreProvider>
         <Button
-          iconName="warning"
+          icon={{name: 'warning'}}
           label="My Button"
           testID="Button"
         />
@@ -25,7 +25,7 @@ describe('Button', () => {
     const {getByTestId} = render(
       <StoreProvider>
         <Button
-          iconName="warning"
+          icon={{name: 'warning'}}
           isLoading
           testID="Button"
         />
@@ -39,7 +39,7 @@ describe('Button', () => {
     const {getByTestId} = render(
       <StoreProvider>
         <Button
-          iconName="warning"
+          icon={{name: 'warning'}}
           isError
           testID="Button"
         />
@@ -169,7 +169,7 @@ describe('Button', () => {
     const {getByTestId} = render(
       <StoreProvider>
         <Button
-          iconName="link-external"
+          icon={{name: 'link-external'}}
           testID="Button"
         />
       </StoreProvider>,

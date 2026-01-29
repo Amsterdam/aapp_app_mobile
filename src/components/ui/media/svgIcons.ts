@@ -625,9 +625,4 @@ export const SvgIconsConfig = {
   ...moduleIcons,
 } satisfies SvgIconVariantConfig
 
-export type BaseSvgIconName = keyof typeof SvgIconsConfig
-
-export const FILLED_SUFFIX = '_filled'
-export type SvgIconName =
-  | BaseSvgIconName
-  | `${BaseSvgIconName}${typeof FILLED_SUFFIX}`
+export type SvgIconName = keyof typeof SvgIconsConfig

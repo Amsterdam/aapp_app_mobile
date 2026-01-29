@@ -78,12 +78,13 @@ export const ParkingSelectPermit = () => {
                       permitIndex,
                     ) => (
                       <TopTaskButton
-                        iconName={
-                          scope === ParkingPermitScope.visitor
-                            ? 'person'
-                            : 'document-check-mark'
-                        }
-                        iconSize="ml"
+                        icon={{
+                          name:
+                            scope === ParkingPermitScope.visitor
+                              ? 'person'
+                              : 'document-check-mark',
+                          size: 'lg',
+                        }}
                         insetHorizontal="sm"
                         key={
                           scope === ParkingPermitScope.visitor
@@ -112,12 +113,13 @@ export const ParkingSelectPermit = () => {
                         permitIndex,
                       ) => (
                         <TopTaskButton
-                          iconName={
-                            scope === ParkingPermitScope.visitor
-                              ? 'person'
-                              : 'document-check-mark'
-                          }
-                          iconSize="lg"
+                          icon={{
+                            name:
+                              scope === ParkingPermitScope.visitor
+                                ? 'person'
+                                : 'document-check-mark',
+                            size: 'lg',
+                          }}
                           key={
                             scope === ParkingPermitScope.visitor
                               ? `visitor-${permit_name}`

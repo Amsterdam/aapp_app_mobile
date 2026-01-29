@@ -44,10 +44,11 @@ export const WasteGuideCalendarListView = ({calendar}: Props) => {
             <Column gutter="lg">
               {item.events.map(event => (
                 <NavigationButton
+                  chevronColor="secondary"
+                  chevronSize="md"
                   color="default"
                   emphasis="default"
                   Icon={<WasteFractionIcon fractionCode={event.code} />}
-                  iconSize="md"
                   insetHorizontal="no"
                   key={event.code}
                   onPress={() => {

@@ -8,7 +8,6 @@ import {
   SvgIconName,
   SvgIconsConfig,
   SystemSvgIcons,
-  type BaseSvgIconName,
   type SvgIconVariantConfig,
 } from './svgIcons'
 import type {FractionCode} from '@/modules/waste-guide/types'
@@ -43,7 +42,7 @@ const MultipleIconsTemplate = ({color, category}: Props) => (
     gutter="md"
     wrap>
     {Object.keys(ICONS_PER_CATEGORY[category]).map(iconName => {
-      const icon = SvgIconsConfig[iconName as BaseSvgIconName]
+      const icon = SvgIconsConfig[iconName as SvgIconName]
       const hasFilled = 'filled' in icon
 
       return (
