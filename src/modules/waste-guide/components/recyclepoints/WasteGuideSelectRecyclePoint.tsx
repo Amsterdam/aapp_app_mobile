@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -7,11 +8,21 @@ import {Title} from '@/components/ui/text/Title'
 import {useSetBottomSheetElementFocus} from '@/hooks/accessibility/useSetBottomSheetElementFocus'
 import {useGetWasteGuideRecyclePointsQuery} from '@/modules/waste-guide/service'
 import {useActiveRecyclePointId} from '@/modules/waste-guide/slice'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const WasteGuideSelectRecyclePoint = () => {
   const focusRef = useSetBottomSheetElementFocus()
   const {data: recyclePoints, isLoading} = useGetWasteGuideRecyclePointsQuery()
   const {setActiveRecyclePointId} = useActiveRecyclePointId()
+  const {close} = useBottomSheet()
+
+  const onPress = useCallback(
+    (id: number) => {
+      setActiveRecyclePointId(id)
+      close()
+    },
+    [close, setActiveRecyclePointId],
+  )
 
   if (isLoading) {
     return <PleaseWait testID="WasteGuideSelectRecyclePointsLoadingSpinner" />
@@ -36,7 +47,7 @@ export const WasteGuideSelectRecyclePoint = () => {
         <TopTaskButton
           iconName="recycle"
           key={id}
-          onPress={() => setActiveRecyclePointId(id)}
+          onPress={() => onPress(id)}
           testID={`RecyclePoint${id}Button`}
           text={
             address.cityDistrict
