@@ -36,7 +36,8 @@ export const ParkingPermitTopTaskButton = () => {
           : 'documentCheckmark'
       }
       iconSize="lg"
-      insetVertical="no"
+      insetVertical="sm"
+      minHeight={32}
       onPress={() => toggle(ParkingDashboardBottomSheetVariant.selectPermit)}
       testID="ParkingPermitTopTaskButton"
       title={title}
