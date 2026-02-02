@@ -6,7 +6,7 @@ describe('formatHistoryDateTime', () => {
   test('Some time today', () => {
     const date = dayjs().set('hour', 13).set('minute', 26)
 
-    expect(formatHistoryDateTime(date)).toBe('13.26')
+    expect(formatHistoryDateTime(date)).toBe('13.26 uur')
   })
   test('Some time yesterday', () => {
     const date = dayjs().add(-1, 'day')

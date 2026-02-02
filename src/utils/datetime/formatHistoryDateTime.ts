@@ -14,7 +14,7 @@ export const formatHistoryDateTime = (date: string | number | Dayjs) => {
   const isLastSixDays = dayDifference > -7 && dayDifference < -1
 
   if (isToday) {
-    return moment.format('HH.mm')
+    return `${moment.format('HH.mm')} uur`
   } else if (isYesterday) {
     return 'gisteren'
   } else if (isLastSixDays) {
