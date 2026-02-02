@@ -9,6 +9,8 @@ import {WasteGuideScreen} from '@/modules/waste-guide/screens/WasteGuide.screen'
 import {WasteGuideCalendarScreen} from '@/modules/waste-guide/screens/WasteGuideCalendar.screen'
 import {WasteGuideFeedbackScreen} from '@/modules/waste-guide/screens/WasteGuideFeedback.screen'
 import {WasteGuideFractionScreen} from '@/modules/waste-guide/screens/WasteGuideFraction.screen'
+import {WasteGuideRecyclePointMapScreen} from '@/modules/waste-guide/screens/WasteGuideRecyclePointMap.screen'
+import {WasteGuideRecyclePointsScreen} from '@/modules/waste-guide/screens/WasteGuideRecyclePoints.screen'
 
 export const screenConfig: StackNavigationRoutes<
   WasteGuideStackParams,
@@ -40,6 +42,18 @@ export const screenConfig: StackNavigationRoutes<
   [WasteGuideRouteName.wasteGuideFraction]: {
     component: WasteGuideFractionScreen,
     name: WasteGuideRouteName.wasteGuideFraction,
+  },
+  [WasteGuideRouteName.wasteGuideRecyclePointMap]: {
+    component: WasteGuideRecyclePointMapScreen,
+    name: WasteGuideRouteName.wasteGuideRecyclePointMap,
+  },
+  [WasteGuideRouteName.wasteGuideRecyclePoints]: {
+    component: WasteGuideRecyclePointsScreen,
+    name: WasteGuideRouteName.wasteGuideRecyclePoints,
+    options: {
+      headerShown: false,
+      headerTitle: 'Recyclepunt',
+    },
   },
 }
 

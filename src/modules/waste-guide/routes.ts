@@ -5,6 +5,8 @@ export enum WasteGuideRouteName {
   wasteGuideCalendar = 'WasteGuideCalendar',
   wasteGuideFeedback = 'WasteGuideFeedback',
   wasteGuideFraction = 'WasteGuideFraction',
+  wasteGuideRecyclePointMap = 'WasteGuideRecyclePointMap',
+  wasteGuideRecyclePoints = 'WasteGuideRecyclePoints',
 }
 
 export type WasteGuideStackParams = {
@@ -14,6 +16,8 @@ export type WasteGuideStackParams = {
   [WasteGuideRouteName.wasteGuideFraction]: {
     fractionCode: FractionCode
   }
+  [WasteGuideRouteName.wasteGuideRecyclePoints]: undefined
+  [WasteGuideRouteName.wasteGuideRecyclePointMap]: undefined
 }
 
 export enum WasteGuideModalName {}

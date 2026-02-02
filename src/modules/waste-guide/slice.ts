@@ -6,11 +6,13 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
 export type WasteGuideState = {
+  activeRecyclePointId?: number
   calendarView: 'list' | 'calendar'
   contracts?: Contract
 }
 
 const initialState: WasteGuideState = {
+  activeRecyclePointId: undefined,
   calendarView: 'calendar',
   contracts: undefined,
 }
@@ -25,13 +27,20 @@ export const wasteGuideSlice = createSlice({
         : payload
     },
     resetContracts: ({contracts: _contracts, ...rest}) => rest,
+    setActiveRecyclePoint: (
+      state,
+      {payload}: PayloadAction<number | undefined>,
+    ) => {
+      state.activeRecyclePointId = payload
+    },
     toggleCalendarView: state => {
       state.calendarView = state.calendarView === 'list' ? 'calendar' : 'list'
     },
   },
 })
 
-export const {addContract, resetContracts} = wasteGuideSlice.actions
+export const {addContract, resetContracts, setActiveRecyclePoint} =
+  wasteGuideSlice.actions
 
 export const selectContracts = (state: RootState) =>
   state[ReduxKey.wasteGuide].contracts
@@ -55,4 +64,16 @@ export const useCalendarView = () => {
   }
 
   return {calendarView, toggleCalendarView}
+}
+
+export const useActiveRecyclePointId = () => {
+  const dispatch = useDispatch()
+  const activeRecyclePointId = useSelector(
+    (state: RootState) => state[ReduxKey.wasteGuide].activeRecyclePointId,
+  )
+  const setActiveRecyclePointId = (id?: number) => {
+    dispatch(wasteGuideSlice.actions.setActiveRecyclePoint(id))
+  }
+
+  return {activeRecyclePointId, setActiveRecyclePointId}
 }

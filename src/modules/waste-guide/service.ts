@@ -3,6 +3,7 @@ import {
   WasteGuideEndpointName,
   WasteGuideResponse,
   type WasteGuideNotificationSettings,
+  type WasteGuideRecyclePointsResponse,
 } from '@/modules/waste-guide/types'
 import {
   updateCalendarEventLabels,
@@ -52,6 +53,16 @@ export const wasteGuideApi = baseApi.injectEndpoints({
       providesTags: ['WasteGuideNotifications'],
       keepUnusedDataFor: CacheLifetime.day,
     }),
+    [WasteGuideEndpointName.getWasteGuideRecyclePoints]: builder.query<
+      WasteGuideRecyclePointsResponse,
+      void
+    >({
+      query: () => ({
+        slug: DeviatingApiSlug.waste,
+        url: '/recycle-locations',
+      }),
+      keepUnusedDataFor: CacheLifetime.day,
+    }),
     [WasteGuideEndpointName.postWasteGuideNotification]: builder.mutation<
       WasteGuideNotificationSettings,
       string
@@ -97,6 +108,7 @@ export const wasteGuideApi = baseApi.injectEndpoints({
 export const {
   useGetWasteGuideQuery,
   useGetWasteGuideNotificationQuery,
+  useGetWasteGuideRecyclePointsQuery,
   usePostWasteGuideNotificationMutation,
   usePatchWasteGuideNotificationMutation,
   useDeleteWasteGuideNotificationMutation,
