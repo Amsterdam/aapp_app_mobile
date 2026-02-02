@@ -7,6 +7,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AddressSwitchSaveMyAddress} from '@/modules/address/components/AddressSwitchSaveMyAddress'
+import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressRouteName} from '@/modules/address/routes'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
@@ -32,6 +33,8 @@ export const AddressSwitch = ({
   highAccuracyPurposeKey = HighAccuracyPurposeKey.PreciseLocationAddressLookup,
 }: AddressSwitcherProps) => {
   const {navigate} = useNavigation()
+
+  useRequestLocationFetch(moduleSlug, highAccuracyPurposeKey)
 
   const {address, shouldShowSaveAsMyAddress, locationType, isFetching} =
     useSelectedAddress(moduleSlug)
