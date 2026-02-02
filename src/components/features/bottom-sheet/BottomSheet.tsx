@@ -57,7 +57,7 @@ export const BottomSheet = ({
   variants,
   ...rest
 }: BottomSheetProps) => {
-  const {onChange: onChangeHandler, ref, variant} = useBottomSheetHandler()
+  const {onChange, onClose, ref, variant} = useBottomSheetHandler()
   const {top: topInset} = useSafeAreaInsets()
   const ViewComponent = scroll ? ScrollWrapper : BottomSheetView
   const styles = createStyles(flex)
@@ -88,7 +88,8 @@ export const BottomSheet = ({
         handleComponent={Handle}
         index={-1}
         keyboardBlurBehavior="restore"
-        onChange={onChangeHandler}
+        onChange={onChange}
+        onClose={onClose}
         ref={ref}
         topInset={topInset}
         {...rest}>

@@ -62,5 +62,6 @@ export const useBottomSheetHandler = () => {
     onChange,
     ref,
     variant,
+    onClose: close,
   }
 }
