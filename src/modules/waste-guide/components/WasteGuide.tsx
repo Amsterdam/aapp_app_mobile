@@ -28,25 +28,22 @@ export const WasteGuide = () => {
             flex={1}
             gutter="xl">
             <WasteGuideAddressSwitch />
-            {isFetchingWasteGuide || isFetchingAddress ? (
-              <PleaseWait testID="WasteGuideLoadingSpinner" />
-            ) : (
-              <Column gutter="lg">
-                <WasteCardButton />
-
-                {loadingError ? (
-                  <SomethingWentWrong
-                    testID="WasteGuideSomethingWentWrong"
-                    text="Probeer het later nog een keer."
-                    title="Helaas is de afvalwijzer nu niet beschikbaar"
-                  />
-                ) : hasContent ? (
-                  <WasteGuideContent />
-                ) : (
-                  <WasteGuideNotFound />
-                )}
-              </Column>
-            )}
+            <Column gutter="lg">
+              <WasteCardButton />
+              {isFetchingWasteGuide || isFetchingAddress ? (
+                <PleaseWait testID="WasteGuideLoadingSpinner" />
+              ) : loadingError ? (
+                <SomethingWentWrong
+                  testID="WasteGuideSomethingWentWrong"
+                  text="Probeer het later nog een keer."
+                  title="Helaas is de afvalwijzer nu niet beschikbaar"
+                />
+              ) : hasContent ? (
+                <WasteGuideContent />
+              ) : (
+                <WasteGuideNotFound />
+              )}
+            </Column>
           </Column>
         </Box>
       </HorizontalSafeArea>
