@@ -21,6 +21,7 @@ export const WasteGuideCalendarMenu = () => {
   const webCalUrl = address?.bagId
     ? `${apiBase}/guide/${address.bagId}.ics`
     : undefined
+
   const onPressAddToCalendar = useCallback(() => {
     close()
 
@@ -33,6 +34,10 @@ export const WasteGuideCalendarMenu = () => {
     }
   }, [close, openWebUrl, webCalUrl])
 
+  const onPressDownloadAsPdf = useCallback(() => {
+    close()
+  }, [close])
+
   return (
     <PopUpMenu
       menuItems={[
@@ -41,6 +46,12 @@ export const WasteGuideCalendarMenu = () => {
           label: 'Toevoegen aan agenda',
           onPress: onPressAddToCalendar,
           testID: 'WasteGuideAddToCalendarButton',
+        },
+        {
+          color: 'default',
+          label: 'Download als PDF',
+          onPress: onPressDownloadAsPdf,
+          testID: 'WasteGuideDownloadAsPdfButton',
         },
       ]}
       orientation={PopupMenuOrientation.right}
