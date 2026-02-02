@@ -1,5 +1,5 @@
 import {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, type DimensionValue} from 'react-native'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
@@ -8,9 +8,9 @@ import {Icon, IconProps} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {Theme} from '@/themes/themes'
-import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
+
+const DEFAULT_MIN_HEIGHT = 49
 
 export type TopTaskButtonProps = {
   border?: boolean
@@ -22,6 +22,7 @@ export type TopTaskButtonProps = {
   isError?: boolean
   isExternalLink?: boolean
   isInternalLink?: boolean
+  minHeight?: DimensionValue
   text?: ReactNode
   textAdditional?: string
   title?: string
@@ -46,10 +47,9 @@ export const TopTaskButton = ({
   insetHorizontal = 'md',
   insetVertical = 'sm',
   variant = 'tertiary',
+  minHeight = DEFAULT_MIN_HEIGHT,
   ...pressableProps
 }: TopTaskButtonProps) => {
-  const styles = useThemable(createStyles)
-
   const colorTitleAndIconLeft =
     variant === 'transparentInverse' ? 'inverse' : 'link'
   const colorDescriptionAndIconRight =
@@ -70,8 +70,8 @@ export const TopTaskButton = ({
       insetHorizontal={insetHorizontal}
       insetVertical={insetVertical}
       variant={variant}>
-      <Row gutter="md">
-        <View style={styles.height}>
+      <View style={[styles.container, {minHeight}]}>
+        <Row gutter="md">
           <HideFromAccessibility>
             <Icon
               color={colorTitleAndIconLeft}
@@ -80,67 +80,65 @@ export const TopTaskButton = ({
               testID={`${testID}Icon`}
             />
           </HideFromAccessibility>
-        </View>
-        <Column
-          align="center"
-          grow={1}
-          shrink={1}>
-          <Row gutter="sm">
-            {!!title && (
-              <Title
-                color={colorTitleAndIconLeft}
-                level="h5"
-                testID={`${testID}Title`}
-                text={title}
-              />
+          <Column
+            align="center"
+            grow={1}
+            shrink={1}>
+            <Row gutter="sm">
+              {!!title && (
+                <Title
+                  color={colorTitleAndIconLeft}
+                  level="h5"
+                  testID={`${testID}Title`}
+                  text={title}
+                />
+              )}
+              {!!titleIconName && (
+                <Icon
+                  color={colorTitleAndIconLeft}
+                  name={titleIconName}
+                  testID={`${testID}TitleIcon`}
+                />
+              )}
+            </Row>
+            {typeof text === 'string' ? (
+              <Paragraph
+                color={
+                  variant === 'transparentInverse'
+                    ? 'inverse'
+                    : isError
+                      ? 'warning'
+                      : undefined
+                }
+                testID={`${testID}Text`}
+                variant="small">
+                {text}
+              </Paragraph>
+            ) : (
+              text
             )}
-            {!!titleIconName && (
-              <Icon
-                color={colorTitleAndIconLeft}
-                name={titleIconName}
-                testID={`${testID}TitleIcon`}
-              />
+            {!!textAdditional && (
+              <Paragraph
+                color={colorDescriptionAndIconRight}
+                testID={`${testID}AdditionalText`}
+                variant="small">
+                {textAdditional}
+              </Paragraph>
             )}
-          </Row>
-          {typeof text === 'string' ? (
-            <Paragraph
-              color={
-                variant === 'transparentInverse'
-                  ? 'inverse'
-                  : isError
-                    ? 'warning'
-                    : undefined
-              }
-              testID={`${testID}Text`}
-              variant="small">
-              {text}
-            </Paragraph>
-          ) : (
-            text
-          )}
-          {!!textAdditional && (
-            <Paragraph
+          </Column>
+          {!!isExternalLink && (
+            <Icon
               color={colorDescriptionAndIconRight}
-              testID={`${testID}AdditionalText`}
-              variant="small">
-              {textAdditional}
-            </Paragraph>
+              name="external-link"
+            />
           )}
-        </Column>
-        {!!isExternalLink && (
-          <Icon
-            color={colorDescriptionAndIconRight}
-            name="external-link"
-          />
-        )}
-        {!!isInternalLink && (
-          <Icon
-            color={colorDescriptionAndIconRight}
-            name="chevron-right"
-          />
-        )}
-        {!!iconRightName && (
-          <View style={styles.height}>
+          {!!isInternalLink && (
+            <Icon
+              color={colorDescriptionAndIconRight}
+              name="chevron-right"
+            />
+          )}
+          {!!iconRightName && (
             <HideFromAccessibility>
               <Icon
                 color={colorDescriptionAndIconRight}
@@ -149,17 +147,15 @@ export const TopTaskButton = ({
                 testID={`${testID}Icon`}
               />
             </HideFromAccessibility>
-          </View>
-        )}
-      </Row>
+          )}
+        </Row>
+      </View>
     </Pressable>
   )
 }
 
-const createStyles = ({text}: Theme) =>
-  StyleSheet.create({
-    height: {
-      justifyContent: 'center',
-      height: text.lineHeight.h5 + text.lineHeight.small,
-    },
-  })
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+  },
+})
