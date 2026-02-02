@@ -3,7 +3,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
-import {BurningGuideRisksButton} from '@/modules/burning-guide/components/BurningGuideRisksButton'
 
 export const BurningGuideTipsScreen = () => (
   <Screen testID="BurningGuideTipsScreen">
@@ -24,7 +23,6 @@ export const BurningGuideTipsScreen = () => (
           />
         </Column>
       </Box>
-      <BurningGuideRisksButton />
     </Column>
   </Screen>
 )
