@@ -4,13 +4,14 @@ import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const BurningGuideAddress = () => (
-  <Column gutter="sm">
+  <Column gutter="lg">
     <AddressSwitch
       highAccuracyPurposeKey={
         HighAccuracyPurposeKey.PreciseLocationAddressBurningGuide
       }
       moduleSlug={ModuleSlug['burning-guide']}
-      noAddressText="Voer een adres in om uw stookwijzer informatie te bekijken."
+      noAddressText="Kies uw adres om het stookadvies voor vandaag te bekijken."
+      noAddressTitle="Stookinformatie"
       testID="BurningGuideAddressSwitch"
     />
   </Column>

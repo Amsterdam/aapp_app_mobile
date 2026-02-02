@@ -29,10 +29,10 @@ export const AlertInline = ({...alert}: AlertBaseProps) => {
       testID={alert.testID}
       variant="transparent">
       <AlertBase
-        {...alert}
         hasCloseIcon
         hasIcon
         inset="md"
+        {...alert}
       />
     </Pressable>
   )
