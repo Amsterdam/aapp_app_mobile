@@ -1,6 +1,12 @@
-import {useEffect, useRef, useState, type PropsWithChildren} from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type PropsWithChildren,
+} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
-import MapView, {MapViewProps} from 'react-native-maps'
+import MapView, {MapViewProps, type Region} from 'react-native-maps'
 import type {ModuleSlug} from '@/modules/slugs'
 import {MapContext} from '@/components/features/map/MapContext'
 import {MapControls} from '@/components/features/map/MapControls'
@@ -27,6 +33,7 @@ export const MapBase = ({
 }: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
   const mapRef = useRef<MapView>(null)
+  const regionRef = useRef<Region>(null)
   const styles = useThemable(createStyles)
 
   const handleOnMapReady = () => {
@@ -45,8 +52,16 @@ export const MapBase = ({
     }
   }, [isMapReady, initialRegion, mapRef])
 
+  const context = useMemo(
+    () => ({
+      map: mapRef,
+      getCurrentRegion: () => regionRef.current,
+    }),
+    [],
+  )
+
   return (
-    <MapContext.Provider value={mapRef}>
+    <MapContext.Provider value={context}>
       <View style={styles.container}>
         {!!controls?.length && (
           <View style={styles.controls}>
@@ -61,6 +76,10 @@ export const MapBase = ({
           initialRegion={AMSTERDAM_REGION} // Default initial region is overview of Amsterdam.
           moveOnMarkerPress={false}
           onMapReady={handleOnMapReady}
+          onRegionChangeComplete={(regionData, details) => {
+            regionRef.current = regionData
+            mapViewProps.onRegionChangeComplete?.(regionData, details)
+          }}
           provider={Platform.OS === 'android' ? 'google' : undefined}
           ref={mapRef}
           showsBuildings={false}

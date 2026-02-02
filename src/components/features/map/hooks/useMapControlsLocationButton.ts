@@ -24,7 +24,7 @@ export const useMapControlsLocationButton = (moduleSlug: ModuleSlug) => {
   const {locationType, isFetching, address} = useSelectedAddress(moduleSlug)
   const setLocationType = useSetLocationType(moduleSlug)
 
-  const map = useMap()
+  const {map} = useMap()
   const {requestPermission: requestLocationPermission} = usePermission(
     Permissions.location,
   )

@@ -3,21 +3,39 @@ import type {ClusterItem} from '@/components/features/map/types'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
 import {useMap} from '@/components/features/map/hooks/useMap'
 import {Marker} from '@/components/features/map/marker/Marker'
+import {isNearlyEqualFloat} from '@/components/features/map/utils/isNearlyEqualFloat'
 
 export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
-  const map = useMap()
+  const {map, getCurrentRegion} = useMap()
+
   const handlePress = useCallback(() => {
     if ('cluster_id' in item.properties) {
       const {getExpansionRegion} = item.properties
-      const clusterRegion = getExpansionRegion()
 
-      map?.animateToRegion(clusterRegion)
+      const expansionRegion = getExpansionRegion()
+
+      const currentRegion = getCurrentRegion()
+
+      const shouldForceZoom =
+        !!currentRegion &&
+        isNearlyEqualFloat(
+          expansionRegion.longitudeDelta,
+          currentRegion?.longitudeDelta,
+          5,
+        )
+
+      map?.animateToRegion({
+        ...expansionRegion,
+        longitudeDelta: shouldForceZoom
+          ? expansionRegion.longitudeDelta / 2
+          : expansionRegion.longitudeDelta,
+      })
 
       return
     }
 
     item.properties.onMarkerPress?.()
-  }, [item.properties, map])
+  }, [item.properties, map, getCurrentRegion])
 
   return (
     <Marker

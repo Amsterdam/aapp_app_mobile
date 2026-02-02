@@ -2,11 +2,11 @@ import {useContext} from 'react'
 import {MapContext} from '@/components/features/map/MapContext'
 
 export const useMap = () => {
-  const map = useContext(MapContext)
+  const ctx = useContext(MapContext)
 
-  if (!map) {
+  if (!ctx) {
     throw new Error('useMap must be used within a MapProvider')
   }
 
-  return map.current
+  return {map: ctx.map?.current, getCurrentRegion: ctx.getCurrentRegion}
 }
