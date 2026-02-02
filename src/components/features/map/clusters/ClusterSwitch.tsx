@@ -20,7 +20,7 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
         !!currentRegion &&
         isNearlyEqualFloat(
           expansionRegion.longitudeDelta,
-          currentRegion?.longitudeDelta,
+          currentRegion.longitudeDelta,
           5,
         )
 
