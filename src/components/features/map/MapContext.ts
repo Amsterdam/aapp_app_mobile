@@ -1,5 +1,10 @@
-import {createContext} from 'react'
-import type {RefObject} from 'react'
+import {createContext, type RefObject} from 'react'
+import type {Region} from 'react-native-maps'
 import type MapView from 'react-native-maps'
 
-export const MapContext = createContext<RefObject<MapView | null> | null>(null)
+type MapContextReturnValue = {
+  getCurrentRegion: () => Region | null
+  map: RefObject<MapView | null>
+}
+
+export const MapContext = createContext<MapContextReturnValue | null>(null)
