@@ -9,7 +9,7 @@ permissions:
   checks: write
 
 jobs:
-  checks:
+  unit-tests:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,20 +19,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Type Check
-        run: npm run typescript
-
       - name: Run Unit Tests
         run: npm run test-ci
-
-      - name: Run Linter
-        run: npm run lint
-
-      - name: Run Formatter
-        run: npm run format
-
-      - name: Run react-native bundle
-        run: npm run test:bundle
 
       - name: Add coverage to job summary (with emojis)
         run: |
@@ -70,3 +58,35 @@ jobs:
         run: node nodescripts/coverage-pr-annotations.mts
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  typing-and-linting:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/install-node
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Type Check
+        run: npm run typescript
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run Formatter
+        run: npm run format
+
+  bundle-check:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/install-node
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run react-native bundle
+        run: npm run test:bundle
