@@ -14,7 +14,7 @@ export const WasteGuideSelectRecyclePoint = () => {
   const {setActiveRecyclePointId} = useActiveRecyclePointId()
 
   if (isLoading) {
-    return <PleaseWait testID="ContactSelectRecyclePointsLoadingSpinner" />
+    return <PleaseWait testID="WasteGuideSelectRecyclePointsLoadingSpinner" />
   }
 
   if (!recyclePoints) {
