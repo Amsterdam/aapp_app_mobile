@@ -20,7 +20,7 @@ type Props = {
 export const MapSelector = ({mapHeight, onSelect, testID}: Props) => {
   const [selected, setSelected] = useState<LatLng | null>(null)
   const styles = createStyles(mapHeight)
-  const {currentData: addressList} = useGetLocationQuery(
+  const {currentData: addressList, isFetching} = useGetLocationQuery(
     selected ? {lat: selected.latitude, lon: selected.longitude} : skipToken,
   )
 
@@ -44,19 +44,21 @@ export const MapSelector = ({mapHeight, onSelect, testID}: Props) => {
         </MapBase>
       </View>
       <Column gutter="sm">
-        <Phrase emphasis="strong">Geselecteerd adres: </Phrase>
         {addressList?.length ? (
           <Phrase>
+            <Phrase emphasis="strong">Locatie: </Phrase>
             {`${addressList[0].street} ${'number' in addressList[0] ? addressList[0].number : ''}, ${'postcode' in addressList[0] ? addressList[0].postcode : ''} ${addressList[0].city}`}
           </Phrase>
         ) : (
-          <Row>
-            <Icon
-              color="link"
-              name="spinner"
-              size="lg"
-            />
-          </Row>
+          isFetching && (
+            <Row>
+              <Icon
+                color="link"
+                name="spinner"
+                size="lg"
+              />
+            </Row>
+          )
         )}
       </Column>
     </Column>

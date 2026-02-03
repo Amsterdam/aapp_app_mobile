@@ -3,7 +3,6 @@ import {useIsInBottomSheet} from '@/components/features/bottom-sheet/BottomSheet
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
-import {MapSelectorControlled} from '@/components/ui/forms/MapSelectorControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {alerts} from '@/modules/survey/alerts'
@@ -61,13 +60,7 @@ export const DynamicForm = ({entryPoint}: Props) => {
       <Box>
         <Column gutter="xl">
           <FormFields questions={survey?.latest_version?.questions} />
-          <MapSelectorControlled
-            label="Locatie"
-            mapHeight={300}
-            name="location"
-            rules={{required: true}}
-            testID="FeedbackMapFormField"
-          />
+
           {(!!isFeedbackScreen || !!isDirty) && (
             <Button
               isLoading={createSurveyIsLoading}

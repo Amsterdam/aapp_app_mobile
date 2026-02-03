@@ -1,7 +1,11 @@
 export enum OpenCityRouteName {
-  home = 'Home',
+  form = 'OpenCityForm',
+  home = 'OpenCityHome',
+  list = 'OpenCityList',
 }
 
 export type OpenCityStackParams = {
+  [OpenCityRouteName.form]: undefined
   [OpenCityRouteName.home]: undefined
+  [OpenCityRouteName.list]: undefined
 }
