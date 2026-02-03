@@ -1,5 +1,7 @@
 import {FeatureFlag} from '@/components/features/FeatureFlag'
 import {Screen} from '@/components/features/screen/Screen'
+import {Box} from '@/components/ui/containers/Box'
+import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {Features} from '@/constants/featureFlags'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -20,14 +22,18 @@ export const WasteGuideScreen = () => {
       testID="WasteGuideScreen"
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
-      <Column gutter="xl">
-        <WasteGuide />
-        <FeatureFlag feature={Features.WasteGuideNotifications}>
-          <WasteGuideNotificationToggleBox />
-        </FeatureFlag>
-        <WasteGuideMoreOptions />
-        <WasteGuideInformation />
-      </Column>
+      <HorizontalSafeArea>
+        <Box>
+          <Column gutter="xl">
+            <WasteGuide />
+            <FeatureFlag feature={Features.WasteGuideNotifications}>
+              <WasteGuideNotificationToggleBox />
+            </FeatureFlag>
+            <WasteGuideMoreOptions />
+            <WasteGuideInformation />
+          </Column>
+        </Box>
+      </HorizontalSafeArea>
     </Screen>
   )
 }

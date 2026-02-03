@@ -1,5 +1,3 @@
-import {Box} from '@/components/ui/containers/Box'
-import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -14,6 +12,7 @@ export const WasteGuide = () => {
     getWasteGuideIsError,
     isFetchingAddress,
     isFetchingWasteGuide,
+    hasValidAddress,
     wasteGuide,
   } = useGetWasteGuide()
 
@@ -21,32 +20,25 @@ export const WasteGuide = () => {
   const hasContent = wasteGuide && wasteGuide.waste_types.length > 0
 
   return (
-    <Column grow={1}>
-      <HorizontalSafeArea flex={1}>
-        <Box grow>
-          <Column
-            flex={1}
-            gutter="xl">
-            <WasteGuideAddressSwitch />
-            <Column gutter="lg">
-              <WasteCardButton />
-              {isFetchingWasteGuide || isFetchingAddress ? (
-                <PleaseWait testID="WasteGuideLoadingSpinner" />
-              ) : loadingError ? (
-                <SomethingWentWrong
-                  testID="WasteGuideSomethingWentWrong"
-                  text="Probeer het later nog een keer."
-                  title="Helaas is de afvalwijzer nu niet beschikbaar"
-                />
-              ) : hasContent ? (
-                <WasteGuideContent />
-              ) : (
-                <WasteGuideNotFound />
-              )}
-            </Column>
-          </Column>
-        </Box>
-      </HorizontalSafeArea>
+    <Column gutter="xl">
+      <WasteGuideAddressSwitch />
+      <Column gutter="lg">
+        <WasteCardButton />
+        {!!hasValidAddress &&
+          (isFetchingWasteGuide || isFetchingAddress ? (
+            <PleaseWait testID="WasteGuideLoadingSpinner" />
+          ) : loadingError ? (
+            <SomethingWentWrong
+              testID="WasteGuideSomethingWentWrong"
+              text="Probeer het later nog een keer."
+              title="Helaas is de afvalwijzer nu niet beschikbaar"
+            />
+          ) : hasContent ? (
+            <WasteGuideContent />
+          ) : (
+            <WasteGuideNotFound />
+          ))}
+      </Column>
     </Column>
   )
 }
