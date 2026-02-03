@@ -3,6 +3,7 @@ import {
   OpenCityStackParams,
   OpenCityRouteName,
 } from '@/modules/open-city/routes'
+import {OpenCityDetailScreen} from '@/modules/open-city/screens/OpenCityDetailScreen'
 import {OpenCityFormScreen} from '@/modules/open-city/screens/OpenCityForm.screen'
 import {OpenCityHomeScreen} from '@/modules/open-city/screens/OpenCityHome.screen'
 import {OpenCityListScreen} from '@/modules/open-city/screens/OpenCityList.screen'
@@ -32,5 +33,9 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Stuur uw idee',
     },
+  },
+  [OpenCityRouteName.detail]: {
+    component: OpenCityDetailScreen,
+    name: OpenCityRouteName.detail,
   },
 }
