@@ -1,6 +1,7 @@
 import {ComponentType} from 'react'
 import type {BurningGuideStackParams} from '@/modules/burning-guide/routes'
 import type {NotificationHistoryStackParams} from '@/modules/notification-history/routes'
+import type {OpenCityStackParams} from '@/modules/open-city/routes'
 import type {SurveyStackParams} from '@/modules/survey/routes'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {AccessCodeStack} from '@/modules/access-code/Stack'
@@ -33,6 +34,7 @@ import {MijnAmsterdamStackParams} from '@/modules/mijn-amsterdam/routes'
 import {NotificationHistoryStack} from '@/modules/notification-history/Stack'
 import {OnboardingStack} from '@/modules/onboarding/Stack'
 import {OnboardingStackParams} from '@/modules/onboarding/routes'
+import {OpenCityStack} from '@/modules/open-city/Stack'
 import {ParkingStack} from '@/modules/parking/Stack'
 import {ParkingStackParams} from '@/modules/parking/routes'
 import {RedirectsStack} from '@/modules/redirects/Stack'
@@ -69,6 +71,7 @@ export type ModuleStackParams = AccessCodeStackParams &
   HomeStackParams &
   MijnAmsterdamStackParams &
   OnboardingStackParams &
+  OpenCityStackParams &
   ParkingStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
@@ -91,6 +94,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['mijn-amsterdam']]: MijnAmsterdamStack,
   [ModuleSlug['notification-history']]: NotificationHistoryStack,
   [ModuleSlug.onboarding]: OnboardingStack,
+  [ModuleSlug['open-city']]: OpenCityStack,
   [ModuleSlug.parking]: ParkingStack,
   [ModuleSlug['waste-container']]: WasteContainerStack,
   [ModuleSlug['report-problem']]: ReportProblemStack,

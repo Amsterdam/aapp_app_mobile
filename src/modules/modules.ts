@@ -12,6 +12,7 @@ import {homeModule} from '@/modules/home'
 import {mijnAmsterdamModule} from '@/modules/mijn-amsterdam'
 import {notificationHistoryModule} from '@/modules/notification-history'
 import {onboardingModule} from '@/modules/onboarding'
+import {openCityModule} from '@/modules/open-city'
 import {parkingModule} from '@/modules/parking'
 import {redirectsModule} from '@/modules/redirects'
 import {reportProblemModule} from '@/modules/report-problem'
@@ -44,6 +45,7 @@ export const clientModules = [
   electionsModule,
   mijnAmsterdamModule,
   notificationHistoryModule,
+  openCityModule,
   parkingModule,
   redirectsModule,
   reportProblemModule,
