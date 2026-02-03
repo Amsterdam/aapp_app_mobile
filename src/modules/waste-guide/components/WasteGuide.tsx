@@ -1,10 +1,7 @@
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {Column} from '@/components/ui/layout/Column'
-import {WasteGuideAddressSwitch} from '@/modules/waste-guide/components/WasteGuideAddressSwitch'
 import {WasteGuideContent} from '@/modules/waste-guide/components/WasteGuideContent'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
-import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 
 export const WasteGuide = () => {
@@ -19,26 +16,27 @@ export const WasteGuide = () => {
   const loadingError = getWasteGuideIsError || !wasteGuide
   const hasContent = wasteGuide && wasteGuide.waste_types.length > 0
 
-  return (
-    <Column gutter="xl">
-      <WasteGuideAddressSwitch />
-      <Column gutter="lg">
-        <WasteCardButton />
-        {!!hasValidAddress &&
-          (isFetchingWasteGuide || isFetchingAddress ? (
-            <PleaseWait testID="WasteGuideLoadingSpinner" />
-          ) : loadingError ? (
-            <SomethingWentWrong
-              testID="WasteGuideSomethingWentWrong"
-              text="Probeer het later nog een keer."
-              title="Helaas is de afvalwijzer nu niet beschikbaar"
-            />
-          ) : hasContent ? (
-            <WasteGuideContent />
-          ) : (
-            <WasteGuideNotFound />
-          ))}
-      </Column>
-    </Column>
-  )
+  if (!hasValidAddress) {
+    return null
+  }
+
+  if (isFetchingAddress || isFetchingWasteGuide) {
+    return <PleaseWait testID="WasteGuideLoadingSpinner" />
+  }
+
+  if (loadingError) {
+    return (
+      <SomethingWentWrong
+        testID="WasteGuideSomethingWentWrong"
+        text="Probeer het later nog een keer."
+        title="Helaas is de afvalwijzer nu niet beschikbaar"
+      />
+    )
+  }
+
+  if (hasContent) {
+    return <WasteGuideContent />
+  }
+
+  return <WasteGuideNotFound />
 }
