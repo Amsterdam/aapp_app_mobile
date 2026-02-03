@@ -20,7 +20,7 @@ import {useThemable} from '@/themes/useThemable'
 
 type Props = PropsWithChildren<{
   controls?: ControlVariant[]
-  moduleSlug: ModuleSlug
+  moduleSlug?: ModuleSlug
 }> &
   MapViewProps
 
@@ -63,7 +63,7 @@ export const MapBase = ({
   return (
     <MapContext.Provider value={context}>
       <View style={styles.container}>
-        {!!controls?.length && (
+        {!!controls?.length && !!moduleSlug && (
           <View style={styles.controls}>
             <MapControls
               moduleSlug={moduleSlug}
