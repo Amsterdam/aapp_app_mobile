@@ -23,6 +23,11 @@ export const HandleNotificationEvent = () => {
 
       return Promise.resolve()
     })
+    notifee.onForegroundEvent(() => {
+      dispatch(baseApi.util.invalidateTags(['Notifications']))
+
+      return Promise.resolve()
+    })
   }, [dispatch])
 
   return null
