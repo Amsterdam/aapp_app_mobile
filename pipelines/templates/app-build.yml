@@ -43,6 +43,11 @@ steps:
       brew install ccache
     displayName: 'Install Ccache'
 
+  # Set ccache compiler_check to content
+  - script: |
+      ccache --set-config=compiler_check=content
+    displayName: 'Set ccache compiler_check to content'
+
   - task: Cache@2
     inputs:
       key: 'ccache | "$(Agent.OS)" | **/*.cpp, **/*.h'
