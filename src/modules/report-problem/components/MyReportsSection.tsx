@@ -4,13 +4,13 @@ import {Row} from '@/components/ui/layout/Row'
 import {Track} from '@/components/ui/layout/Track'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
-import {devLog} from '@/processes/development'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useUrlForEnv} from '@/hooks/useUrlForEnv'
+import {myReportsExternalLinks} from '@/modules/report-problem/external-links'
 
 export const MyReportsSection = () => {
-  const {redirectUrls} = useOpenRedirect()
-
-  devLog(redirectUrls)
+  const openWebUrl = useOpenWebUrl()
+  const reportProblemMapUrl = useUrlForEnv(myReportsExternalLinks)
 
   return (
     <Column gutter="md">
@@ -34,7 +34,7 @@ export const MyReportsSection = () => {
             <Column grow={1}>
               <ExternalLinkButton
                 label="Mijn meldingen"
-                onPress={() => devLog('TODO: link naar mijn meldingen')}
+                onPress={() => openWebUrl(reportProblemMapUrl)}
                 testID="MyReportsSectionExternalLinkButton"
                 variant="secondary"
               />
