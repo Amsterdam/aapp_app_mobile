@@ -1,3 +1,5 @@
+import {Platform} from 'react-native'
+
 export enum Features {
   BurningGuideNotifications = 'BurningGuideNotifications',
   WasteGuideCalendarSubscribe = 'WasteGuideCalendarSubscribe',
@@ -10,6 +12,6 @@ export enum Features {
  */
 export const featureFlags: Partial<Record<Features, boolean>> = {
   WasteGuideNotifications: true,
-  WasteGuideCalendarSubscribe: true,
+  WasteGuideCalendarSubscribe: Platform.OS === 'ios',
   BurningGuideNotifications: true,
 }
