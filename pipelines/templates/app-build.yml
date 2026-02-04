@@ -50,7 +50,7 @@ steps:
 
   - task: Cache@2
     inputs:
-      key: 'ccache | "$(Agent.OS)" | **/*.cpp, **/*.h'
+      key: 'ccache | ${{ parameters.platform }} | **/package-lock.json'
       path: $(CCACHE_DIR)
       cacheHitVar: CACHE_RESTORED
     displayName: 'Cache ccache directory'
