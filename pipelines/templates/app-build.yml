@@ -38,6 +38,18 @@ steps:
     parameters:
       condition: eq('${{ parameters.platform }}', 'ios')
 
+  # Install Ccache
+  - script: |
+      brew install ccache
+    displayName: 'Install Ccache'
+
+  - task: Cache@2
+    inputs:
+      key: 'ccache | "$(Agent.OS)" | **/*.cpp, **/*.h'
+      path: $(CCACHE_DIR)
+      cacheHitVar: CACHE_RESTORED
+    displayName: 'Cache ccache directory'
+
   # Install gems and run Fastlane
   - script: |
       bundle config set --local without 'iosAppBuildDependencies'
@@ -83,6 +95,10 @@ steps:
       CHAT_URL_PROD: $(CHAT_URL_PROD)
       GOOGLE_MAPS_API_KEY_ANDROID: $(GOOGLE_MAPS_API_KEY_ANDROID)
       GOOGLE_MAPS_API_KEY_IOS: $(GOOGLE_MAPS_API_KEY_IOS)
+
+  - script: |
+      ccache -s # Show ccache stats
+    displayName: 'Show ccache stats'
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml
