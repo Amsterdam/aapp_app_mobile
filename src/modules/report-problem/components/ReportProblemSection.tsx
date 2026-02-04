@@ -22,7 +22,8 @@ export const ReportProblemSection = () => {
       <Track gutter="lg">
         <Column
           flex={2}
-          gutter="md">
+          gutter="md"
+          halign="start">
           <Paragraph>
             Ziet u iets dat de gemeente moet opruimen of repareren? Doe een
             melding.
