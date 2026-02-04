@@ -2,6 +2,7 @@ import type {WasteGuideRecyclePoint} from '@/modules/waste-guide/types'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -17,7 +18,7 @@ export const WasteGuideRecyclePointTopTaskButton = ({recyclePoint}: Props) => {
     <TopTaskButton
       accessibilityHint="Tik om een ander recyclepunt te selecteren."
       accessibilityLabel={accessibleText(
-        `${address.cityDistrict ?? ''}${commercialWaste ? '' : ', geen bedrijfsafval'}, ${address.street} ${address.postcode} ${address.city}`,
+        `${address.cityDistrict ?? ''}${commercialWaste ? '' : ', geen bedrijfsafval'}, ${getAddressLine1(address)} ${address.postcode} ${address.city}`,
       )}
       iconName="recycle"
       insetHorizontal="no"
@@ -31,7 +32,7 @@ export const WasteGuideRecyclePointTopTaskButton = ({recyclePoint}: Props) => {
               {commercialWaste ? '' : ' (geen bedrijfsafval)'}
             </Phrase>
           )}
-          <Phrase>{address.street}</Phrase>
+          <Phrase>{getAddressLine1(address)}</Phrase>
           <Phrase>
             {address.postcode} {address.city}
           </Phrase>
