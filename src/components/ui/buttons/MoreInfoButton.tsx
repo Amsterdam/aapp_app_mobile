@@ -1,5 +1,4 @@
 import {StyleSheet, View} from 'react-native'
-import type {RedirectKey} from '@/modules/redirects/types'
 import {Pressable, type PressableProps} from '@/components/ui/buttons/Pressable'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -8,7 +7,6 @@ import {TestProps} from '@/components/ui/types'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
-  redirectKey?: RedirectKey
   text: string
 } & Omit<PressableProps, 'children'> &
   TestProps
