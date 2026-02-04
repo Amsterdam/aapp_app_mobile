@@ -4,6 +4,7 @@ import {
   getMessaging,
 } from '@react-native-firebase/messaging'
 import {useEffect} from 'react'
+import {useAppState} from '@/hooks/useAppState'
 import {useGetNotificationsQuery} from '@/modules/notification-history/service'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
@@ -15,6 +16,12 @@ import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 export const useDisplayNotificationOnAppForeground = () => {
   const {trackCustomEvent} = useTrackEvents()
   const {refetch} = useGetNotificationsQuery()
+
+  useAppState({
+    onForeground: () => {
+      void refetch()
+    },
+  })
 
   useEffect(() => {
     const onMessage = async (message: FirebaseMessagingTypes.RemoteMessage) => {
