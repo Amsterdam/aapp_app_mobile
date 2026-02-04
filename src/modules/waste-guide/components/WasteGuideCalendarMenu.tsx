@@ -12,6 +12,7 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ModuleSlug} from '@/modules/slugs'
 import {selectApi} from '@/store/slices/environment'
 import {useMenu} from '@/store/slices/menu'
+import {saveFile} from '@/utils/saveFile'
 
 export const WasteGuideCalendarMenu = () => {
   const {address} = useSelectedAddress(ModuleSlug['waste-guide'])
@@ -41,13 +42,16 @@ export const WasteGuideCalendarMenu = () => {
     }
   }, [close, openWebUrl, webCalUrl])
 
-  const onPressDownloadAsPdf = useCallback(() => {
+  const onPressDownloadAsPdf = useCallback(async () => {
     close()
 
     if (pdfUrl) {
-      openWebUrl(pdfUrl)
+      await saveFile({
+        downloadUri: pdfUrl,
+        fileName: `${address?.addressLine1.replaceAll(' ', '_')}.pdf`,
+      })
     }
-  }, [close, openWebUrl, pdfUrl])
+  }, [close, pdfUrl, address?.addressLine1])
 
   const menuItems = useMemo(
     () =>
@@ -64,7 +68,7 @@ export const WasteGuideCalendarMenu = () => {
           onPress: onPressDownloadAsPdf,
           testID: 'WasteGuideDownloadAsPdfButton',
         },
-      ].filter((url): url is PopupMenuItem => Boolean(url)),
+      ].filter((item): item is PopupMenuItem => Boolean(item)),
     [webCalUrl, pdfUrl, onPressAddToCalendar, onPressDownloadAsPdf],
   )
 

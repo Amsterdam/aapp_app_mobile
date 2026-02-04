@@ -9,7 +9,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {ChatMessageImage} from '@/modules/chat/components/ChatMessageImage'
 import {MessagePhrase} from '@/modules/chat/components/MessagePhrase'
-import {saveFile} from '@/modules/chat/utils/saveFile'
+import {saveFile} from '@/utils/saveFile'
 
 type Props = {
   message: ConversationEntryAttachments
