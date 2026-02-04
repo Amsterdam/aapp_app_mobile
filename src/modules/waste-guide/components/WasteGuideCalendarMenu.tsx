@@ -12,6 +12,7 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ModuleSlug} from '@/modules/slugs'
 import {selectApi} from '@/store/slices/environment'
 import {useMenu} from '@/store/slices/menu'
+import {dayjs} from '@/utils/datetime/dayjs'
 import {saveFile} from '@/utils/saveFile'
 
 export const WasteGuideCalendarMenu = () => {
@@ -48,7 +49,7 @@ export const WasteGuideCalendarMenu = () => {
     if (pdfUrl) {
       await saveFile({
         downloadUri: pdfUrl,
-        fileName: `${address?.addressLine1.replaceAll(' ', '_')}.pdf`,
+        fileName: `Afvalkalender_${dayjs().format('DD-MM-YYYY')}_${address?.addressLine1.replaceAll(' ', '_')}.pdf`,
       })
     }
   }, [close, pdfUrl, address?.addressLine1])
