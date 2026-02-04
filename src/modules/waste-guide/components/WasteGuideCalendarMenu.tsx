@@ -1,7 +1,10 @@
-import {useCallback} from 'react'
+import {useCallback, useMemo} from 'react'
 import {Platform} from 'react-native'
 import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
-import {PopupMenuOrientation} from '@/components/ui/menus/types'
+import {
+  PopupMenuOrientation,
+  type PopupMenuItem,
+} from '@/components/ui/menus/types'
 import {DeviatingApiSlug} from '@/environment'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -22,6 +25,10 @@ export const WasteGuideCalendarMenu = () => {
     ? `${apiBase}/guide/${address.bagId}.ics`
     : undefined
 
+  const pdfUrl = address?.bagId
+    ? `${apiBase}/guide/pdf?bag_nummeraanduiding_id=${address.bagId}`
+    : undefined
+
   const onPressAddToCalendar = useCallback(() => {
     close()
 
@@ -36,24 +43,38 @@ export const WasteGuideCalendarMenu = () => {
 
   const onPressDownloadAsPdf = useCallback(() => {
     close()
-  }, [close])
 
-  return (
-    <PopUpMenu
-      menuItems={[
-        {
+    if (pdfUrl) {
+      openWebUrl(pdfUrl)
+    }
+  }, [close, openWebUrl, pdfUrl])
+
+  const menuItems = useMemo(
+    () =>
+      [
+        !!webCalUrl && {
           color: 'default',
           label: 'Toevoegen aan agenda',
           onPress: onPressAddToCalendar,
           testID: 'WasteGuideAddToCalendarButton',
         },
-        {
+        !!pdfUrl && {
           color: 'default',
           label: 'Download als PDF',
           onPress: onPressDownloadAsPdf,
           testID: 'WasteGuideDownloadAsPdfButton',
         },
-      ]}
+      ].filter((url): url is PopupMenuItem => Boolean(url)),
+    [webCalUrl, pdfUrl, onPressAddToCalendar, onPressDownloadAsPdf],
+  )
+
+  if (!menuItems.length) {
+    return null
+  }
+
+  return (
+    <PopUpMenu
+      menuItems={menuItems}
       orientation={PopupMenuOrientation.right}
     />
   )
