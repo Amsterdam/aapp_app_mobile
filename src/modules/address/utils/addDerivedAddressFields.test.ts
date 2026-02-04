@@ -47,6 +47,7 @@ describe('getAddressLine2', () => {
       '1234 AB AMSTERDAM',
     )
     expect(getAddressLine2('5678CD', AddressCity.Weesp)).toBe('5678 CD WEESP')
+    expect(getAddressLine2('5678 CD', AddressCity.Weesp)).toBe('5678 CD WEESP')
   })
   test('should undefined input', () => {
     // @ts-ignore
