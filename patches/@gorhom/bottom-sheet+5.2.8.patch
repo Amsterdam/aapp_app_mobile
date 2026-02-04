@@ -18,7 +18,7 @@ index 6748c93..bb6e064 100644
 +          return;
 +        }
 +
-+        animatedPosition.value = newHeight
++        animatedPosition.value = newHeight;
 +      },
 +      [animatedLayoutState]
 +    );
