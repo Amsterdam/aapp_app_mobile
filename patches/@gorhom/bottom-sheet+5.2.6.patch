@@ -1,0 +1,28 @@
+diff --git a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheet/BottomSheet.tsx b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheet/BottomSheet.tsx
+index 6748c93..bb6e064 100644
+--- a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheet/BottomSheet.tsx
++++ b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheet/BottomSheet.tsx
+@@ -1746,6 +1746,23 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+       [_providedAnimatedPosition, topInset]
+     );
+
++    /** Reset position of Bottom Sheet during screen rotate */
++    useAnimatedReaction(
++      () => animatedLayoutState.value.containerHeight,
++      (newHeight, previousHeight) => {
++        if (newHeight === previousHeight) {
++          return;
++        }
++        if (!previousHeight || animatedPosition.value < previousHeight) {
++          // Do not reset position while bottom sheet is open
++          return;
++        }
++
++        animatedPosition.value = newHeight
++      },
++      [animatedLayoutState]
++    );
++
+     /**
+      * sets provided animated index
+      */
