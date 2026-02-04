@@ -87,7 +87,7 @@ target 'AmsterdamApp' do
       installer,
       config[:reactNativePath],
       :mac_catalyst_enabled => false,
-      # :ccache_enabled => true
+      :ccache_enabled => true
     )
     apply_xcode_14_fix(installer)
     __apply_Xcode_14_3_RC_post_install_workaround(installer)
