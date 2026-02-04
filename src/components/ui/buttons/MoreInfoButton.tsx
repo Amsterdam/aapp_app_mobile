@@ -16,11 +16,14 @@ export const MoreInfoButton = ({
   ...pressableProps
 }: Props) => (
   <Pressable
+    hitSlop={8}
     onPress={onPress}
     {...pressableProps}
     testID={`${testID}MoreInfoButton`}>
-    <Row valign="center">
-      <Phrase color="link">{text} </Phrase>
+    <Row
+      gutter="sm"
+      valign="center">
+      <Phrase color="link">{text}</Phrase>
       <Icon
         color="link"
         name="chevron-down"
