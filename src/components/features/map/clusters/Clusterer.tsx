@@ -24,11 +24,22 @@ export type ClustererProps = {
   region?: Region
 } & Omit<MapMarkerProps, 'coordinate'>
 
+const defaultClusterOptions: Supercluster.Options<
+  MarkerProperties | ClusterProperties,
+  MarkerProperties | ClusterProperties
+> = {
+  minZoom: 0,
+  maxZoom: 16,
+  minPoints: 2,
+  radius: 30,
+  extent: 512,
+}
+
 export const Clusterer = ({
   data,
   region = AMSTERDAM_REGION,
   mapDimensions,
-  clusterOptions,
+  clusterOptions = defaultClusterOptions,
 }: ClustererProps) => {
   const dimensions = useWindowDimensions()
 
