@@ -33,6 +33,7 @@ export const WasteGuideContent = () => {
     return (
       <WasteGuideCollectionInformation
         fractions={fractions}
+        hasCalendar={!!wasteGuide.calendar.length}
         isCollectionByAppointment={wasteGuide?.is_collection_by_appointment}
       />
     )
@@ -46,6 +47,7 @@ export const WasteGuideContent = () => {
         <>
           <WasteGuideCollectionInformation
             fractions={fractions}
+            hasCalendar={!!wasteGuide.calendar.length}
             isCollectionByAppointment={wasteGuide.is_collection_by_appointment}
           />
 
@@ -64,11 +66,13 @@ export const WasteGuideContent = () => {
 
 type WasteGuideCollectionInformationProps = {
   fractions: WasteGuideResponse['waste_types']
+  hasCalendar?: boolean
   isCollectionByAppointment: boolean
 }
 
 const WasteGuideCollectionInformation = ({
   fractions,
+  hasCalendar,
   isCollectionByAppointment,
 }: WasteGuideCollectionInformationProps) => (
   <Column gutter="lg">
@@ -77,7 +81,9 @@ const WasteGuideCollectionInformation = ({
         testID="WasteGuideTitle"
         text="Afvalinformatie"
       />
-      {!isCollectionByAppointment && <NavigationButtonToWasteCalendar />}
+      {!isCollectionByAppointment && !!hasCalendar && (
+        <NavigationButtonToWasteCalendar />
+      )}
     </Column>
     <Fractions
       fractions={fractions}
