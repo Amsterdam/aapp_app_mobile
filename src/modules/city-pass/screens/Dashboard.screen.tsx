@@ -42,7 +42,7 @@ export const DashboardScreen = ({navigation}: Props) => {
           />
           {aboutBlocks.map(({icon, title, text, testID, redirectKey}) => (
             <TopTaskButton
-              iconName={icon}
+              icon={icon}
               isExternalLink
               key={title}
               onPress={() => openRedirect(redirectKey)}

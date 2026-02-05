@@ -12,8 +12,9 @@ export const ParkingTransactionHistoryHeaderButton = () => {
       icon={
         <Icon
           color="link"
-          name="add"
-          size="xl"
+          isFilled
+          name="plus-circle"
+          size="lgx"
           testID="ParkingMoneyHeaderButtonIcon"
         />
       }

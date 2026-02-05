@@ -18,7 +18,7 @@ export const Default: StoryObj<typeof NavigationButton> = {
 
 export const Icon: StoryObj<typeof NavigationButton> = {
   args: {
-    iconName: 'alert',
+    icon: {name: 'warning'},
     title: 'Met icoon',
   },
 }
@@ -41,6 +41,6 @@ export const WithDescription: StoryObj<typeof NavigationButton> = {
     direction: 'forward',
     title: '43DNT8 - Sander',
     description: '10.15 uur - 2 uur 15 min',
-    iconName: 'parkingCar',
+    icon: {name: 'car'},
   },
 }

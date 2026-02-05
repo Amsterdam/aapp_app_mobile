@@ -16,8 +16,7 @@ export const NumberSearchBackPressButton = () => {
     <Button
       accessibilityHint="klik om straatnaam te veranderen"
       accessibilityLabel={street}
-      iconName="chevron-up"
-      iconSize="ml"
+      icon={{name: 'chevron-up', size: 'ml'}}
       label={street}
       onPress={handlePressBack}
       testID="AddressFormNumberSearchBackPressButton"

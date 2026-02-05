@@ -36,7 +36,7 @@ export const DisplayAddress = () => {
             accessibilityHint="Tik om het adres te wijzigen"
             flex={1}
             hitSlop={{bottom: size.spacing.md, top: size.spacing.md}}
-            iconName="housing"
+            icon={{name: 'house'}}
             logName={
               address?.addressLine1 ? 'AddressChangeButton' : 'AddressAddButton'
             }
@@ -52,7 +52,7 @@ export const DisplayAddress = () => {
           {!!address && (
             <Button
               accessibilityLabel="Verwijder mijn adres"
-              iconName="trash-bin"
+              icon={{name: 'trash-bin'}}
               onPress={removeAddressAndShowAlert}
               testID="AddressDeleteButton"
               variant="tertiary"

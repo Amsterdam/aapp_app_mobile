@@ -22,7 +22,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
           address.postalCode,
           address.city,
         )}
-        iconName="city-office"
+        icon={{name: 'person-at-desk'}}
         onPress={() => openBottomSheet()}
         testID="ContactCurrentCityOfficeButton"
         text={

@@ -63,7 +63,7 @@ export const ParkingActivateLicensePlateButton = () => {
   return (
     <Button
       disabled={isSubmitting || isLoading}
-      iconName="parkingSession"
+      icon={{name: 'parking-start'}}
       isLoading={isLoading}
       label="Activeer kenteken"
       onPress={handleSubmit(onSubmit)}

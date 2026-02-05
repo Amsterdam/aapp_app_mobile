@@ -52,7 +52,7 @@ export const ProjectTraits = memo(
           {!!distanceText && (
             <Trait
               accessibilityLabel={distanceA11yText}
-              iconName="location"
+              iconName="map-marker"
               label={distanceText}
               testID="ConstructionWorkProjectMetersTrait"
             />

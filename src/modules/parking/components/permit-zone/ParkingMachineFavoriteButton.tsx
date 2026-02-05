@@ -26,7 +26,8 @@ export const ParkingMachineFavoriteButton = ({onPress}: Props) => {
         <Row gutter="md">
           <Icon
             color="link"
-            name="starFilled"
+            isFilled
+            name="star"
             size="lg"
           />
           <Phrase>{`Mijn standaard ${currentParkingPermit.parking_machine_favorite}`}</Phrase>

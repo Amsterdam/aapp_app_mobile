@@ -12,7 +12,7 @@ export default {
 
 export const Default: StoryObj<typeof TopTaskButton> = {
   args: {
-    iconName: 'email',
+    icon: {name: 'mail'},
     text: 'Reactie binnen 1 werkdag',
     title: 'Contactformulier',
   },

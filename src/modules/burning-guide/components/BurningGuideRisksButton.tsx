@@ -7,8 +7,7 @@ export const BurningGuideRisksButton = () => {
 
   return (
     <TopTaskButton
-      iconName="medicalKit"
-      iconRightSize="ml"
+      icon={{name: 'medicalKit'}}
       isInternalLink
       onPress={() => navigate(BurningGuideRouteName.burningGuideRisks)}
       testID="BurningGuideRisksButton"

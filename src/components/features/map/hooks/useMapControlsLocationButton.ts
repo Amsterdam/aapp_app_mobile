@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
+import type {IconProps} from '@/components/ui/media/Icon'
 import type {ModuleSlug} from '@/modules/slugs'
 import {useMap} from '@/components/features/map/hooks/useMap'
-import {IconProps} from '@/components/ui/media/Icon'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
@@ -9,15 +9,19 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {Permissions} from '@/types/permissions'
 
-const getIconNameLocation = (
+const getIconLocation = (
   isSetLocation: boolean,
   isFetching: boolean,
-): IconProps['name'] => {
+): IconProps => {
   if (isFetching) {
-    return 'spinner'
+    return {name: 'spinner'}
   }
 
-  return isSetLocation ? 'mapLocationIosFilled' : 'mapLocationIos'
+  if (isSetLocation) {
+    return {name: 'gps-ios', isFilled: true}
+  }
+
+  return {name: 'gps-ios'}
 }
 
 export const useMapControlsLocationButton = (moduleSlug: ModuleSlug) => {
@@ -72,7 +76,7 @@ export const useMapControlsLocationButton = (moduleSlug: ModuleSlug) => {
     setLocationType,
   ])
 
-  const iconName = getIconNameLocation(isSetLocation, isFetching)
+  const icon = getIconLocation(isSetLocation, isFetching)
 
-  return {onPressLocationButton, iconName}
+  return {onPressLocationButton, icon}
 }

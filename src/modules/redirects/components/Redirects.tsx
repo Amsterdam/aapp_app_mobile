@@ -24,7 +24,7 @@ export const Redirects = () => {
           <TopTaskButton
             accessibilityLabel={accessibleText(title, text)}
             accessibilityRole={routeName ? 'button' : 'link'}
-            iconName={iconName}
+            icon={{name: iconName}}
             isExternalLink={!routeName}
             isInternalLink={!!routeName}
             key={testID}

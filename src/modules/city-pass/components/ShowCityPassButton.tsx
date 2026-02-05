@@ -11,7 +11,7 @@ export const ShowCityPassButton = ({index}: Props) => {
 
   return (
     <Button
-      iconName="city-pass-pass"
+      icon={{isFilled: true, name: 'city-pass'}}
       label="Stadspas tonen"
       onPress={() => {
         navigate(CityPassRouteName.cityPasses, {index})

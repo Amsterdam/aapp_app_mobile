@@ -7,8 +7,7 @@ export const BurningGuideReportButton = () => {
 
   return (
     <TopTaskButton
-      iconName="alert"
-      iconRightSize="ml"
+      icon={{name: 'warning'}}
       isInternalLink
       onPress={() => navigate(BurningGuideRouteName.burningGuideNuisance)}
       testID="BurningGuideReportButton"

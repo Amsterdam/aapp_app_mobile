@@ -73,7 +73,7 @@ export const OnboardingScreen = ({navigation}: Props) => {
                   <Icon
                     color="link"
                     name="close"
-                    size="ml"
+                    size="lg"
                     testID="OnboardingCloseIcon"
                   />
                 }

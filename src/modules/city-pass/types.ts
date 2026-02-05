@@ -1,4 +1,4 @@
-import {SvgIconName} from '@/components/ui/media/svgIcons'
+import type {IconProps} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
 import {RedirectKey} from '@/modules/redirects/types'
 import {ApiError} from '@/types/api'
@@ -14,7 +14,7 @@ export enum CityPassEndpointName {
 }
 
 export type AboutBlock = {
-  icon: SvgIconName
+  icon: IconProps
   redirectKey: RedirectKey
   text: string
   title: string

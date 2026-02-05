@@ -49,8 +49,7 @@ export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
       stickyFooter={
         <Box>
           <Button
-            iconName="external-link"
-            iconSize="md"
+            icon={{name: 'link-external', size: 'md'}}
             label="Ga naar Instellingen"
             onPress={() => Linking.openSettings()}
             testID="PermissionInstructionModalCloseButton"

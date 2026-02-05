@@ -63,7 +63,7 @@ export const CopyButton = ({
         <Icon
           color={isCopied ? 'confirm' : 'link'}
           name="copy"
-          size="md"
+          size="ml"
           testID={`${testID}Icon`}
         />
         <Phrase

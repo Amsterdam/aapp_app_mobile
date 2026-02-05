@@ -16,6 +16,7 @@ export const Default: Story = {
   args: {
     icon: (
       <Icon
+        isFilled
         name="person"
         size="lg"
         testID="Icon"

@@ -6,10 +6,8 @@ import {
 } from '@/components/ui/buttons/PressableBase'
 import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
-import {IconSize} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
@@ -21,8 +19,7 @@ export type ButtonVariant =
 
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
-  iconName?: SvgIconName
-  iconSize?: keyof typeof IconSize
+  icon?: IconProps
   isError?: boolean
   isLoading?: boolean
   label?: string
@@ -40,8 +37,7 @@ const defaultVariant = 'primary'
 
 export const Button = ({
   ellipsizeMode,
-  iconName: iconNameInput,
-  iconSize = 'lg',
+  icon,
   isError,
   isLoading,
   label,
@@ -84,8 +80,7 @@ export const Button = ({
     [onPressOut],
   )
 
-  const iconName = isLoading ? 'spinner' : isError ? 'alert' : iconNameInput
-  const isExternalLink = iconName === 'external-link'
+  const isExternalLink = icon?.name === 'link-external'
 
   return (
     <PressableBase
@@ -106,9 +101,10 @@ export const Button = ({
         gutter="sm"
         reverse={isExternalLink}
         valign={variant === 'tertiary' ? 'start' : 'center'}>
-        {!!iconName && (
+        {!!icon && (
           <View style={variant === 'tertiary' ? styles.iconWrapper : undefined}>
             <Icon
+              {...icon}
               color={
                 variant === 'primary'
                   ? 'inverse'
@@ -116,8 +112,8 @@ export const Button = ({
                     ? 'warning'
                     : 'link'
               }
-              name={iconName}
-              size={iconSize}
+              name={isLoading ? 'spinner' : isError ? 'warning' : icon.name}
+              size={icon.size ?? 'lg'}
               testID={`${testID}Icon`}
             />
           </View>

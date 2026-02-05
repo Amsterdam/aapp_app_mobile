@@ -11,7 +11,7 @@ export const ParkingChooseStartTimeButton = () => {
   return (
     <SelectButtonControlled<{startTime: Dayjs}, 'startTime'>
       bottomSheetVariant={ParkingSessionBottomSheetVariant.startTime}
-      iconName="clock"
+      icon={{name: 'clock'}}
       name="startTime"
       rules={{
         required: 'Kies een starttijd',

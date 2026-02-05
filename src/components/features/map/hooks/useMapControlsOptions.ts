@@ -10,7 +10,7 @@ export const useMapControlsOptions = (
   options: ControlVariant[],
   moduleSlug: ModuleSlug,
 ) => {
-  const {onPressLocationButton, iconName: locationIconName} =
+  const {onPressLocationButton, icon: locationIcon} =
     useMapControlsLocationButton(moduleSlug)
   const {onPressLegendButton} = useMapControlsLegendButton()
 
@@ -21,7 +21,7 @@ export const useMapControlsOptions = (
     () => ({
       [ControlVariant.location]: {
         accessibilityLabel: 'Mijn locatie',
-        iconName: locationIconName,
+        iconName: locationIcon.name,
         key: ControlVariant.location,
         onPress: onPressLocationButton,
         testID: 'MapControlsLocationButton',
@@ -34,7 +34,7 @@ export const useMapControlsOptions = (
         testID: 'MapControlsLegendButton',
       },
     }),
-    [locationIconName, onPressLocationButton, onPressLegendButton],
+    [locationIcon.name, onPressLocationButton, onPressLegendButton],
   )
 
   return useMemo(

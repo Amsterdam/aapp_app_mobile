@@ -15,10 +15,8 @@ const DEFAULT_MIN_HEIGHT = 49
 export type TopTaskButtonProps = {
   border?: boolean
   flex?: number
-  iconName: SvgIconName
-  iconRightName?: SvgIconName
-  iconRightSize?: IconProps['size']
-  iconSize?: IconProps['size']
+  icon: IconProps
+  iconRight?: IconProps
   isError?: boolean
   isExternalLink?: boolean
   isInternalLink?: boolean
@@ -33,10 +31,8 @@ export const TopTaskButton = ({
   isExternalLink,
   isInternalLink,
   isError = false,
-  iconName,
-  iconRightName,
-  iconRightSize = 'xl',
-  iconSize = 'xl',
+  icon,
+  iconRight,
   onPress,
   text,
   textAdditional,
@@ -74,9 +70,9 @@ export const TopTaskButton = ({
         <Row gutter="md">
           <HideFromAccessibility>
             <Icon
+              size="xl"
+              {...icon}
               color={colorTitleAndIconLeft}
-              name={iconName}
-              size={iconSize}
               testID={`${testID}Icon`}
             />
           </HideFromAccessibility>
@@ -97,6 +93,7 @@ export const TopTaskButton = ({
                 <Icon
                   color={colorTitleAndIconLeft}
                   name={titleIconName}
+                  size="ml"
                   testID={`${testID}TitleIcon`}
                 />
               )}
@@ -129,7 +126,7 @@ export const TopTaskButton = ({
           {!!isExternalLink && (
             <Icon
               color={colorDescriptionAndIconRight}
-              name="external-link"
+              name="link-external"
             />
           )}
           {!!isInternalLink && (
@@ -138,12 +135,12 @@ export const TopTaskButton = ({
               name="chevron-right"
             />
           )}
-          {!!iconRightName && (
+          {!!iconRight && (
             <HideFromAccessibility>
               <Icon
-                color={colorDescriptionAndIconRight}
-                name={iconRightName}
-                size={iconRightSize}
+                color="link"
+                size="xl"
+                {...iconRight}
                 testID={`${testID}Icon`}
               />
             </HideFromAccessibility>

@@ -21,7 +21,7 @@ export const EmailButton = ({email, subject, ...buttonProps}: Props) => {
           emailPronounce(email),
         )}
         ellipsizeMode="tail"
-        iconName="email"
+        icon={{name: 'mail'}}
         label={email}
         onPress={() => {
           openMailUrl(email, subject)

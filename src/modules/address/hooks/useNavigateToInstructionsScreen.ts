@@ -12,7 +12,7 @@ const navigationParams: Record<
   PermissionInstructionScreenParams
 > = {
   [Permissions.biometrics]: {
-    iconName: 'faceId',
+    iconName: 'face-id',
     paragraph: 'Ga naar Instellingen en geef de app toegang tot Face ID.',
     permission: Permissions.biometrics,
     screenTitle: 'Face ID',
@@ -26,14 +26,14 @@ const navigationParams: Record<
     title: 'Geef toegang tot bluetooth',
   },
   [Permissions.location]: {
-    iconName: 'location',
+    iconName: 'map-marker',
     paragraph: 'Ga naar Instellingen en geef de app toegang tot uw locatie.',
     permission: Permissions.location,
     screenTitle: 'Locatie delen',
     title: 'Geef uw locatie door',
   },
   [Permissions.notifications]: {
-    iconName: 'bellOff',
+    iconName: 'bell-off',
     paragraph: 'Ga naar Instellingen en zet de meldingen aan.',
     permission: Permissions.notifications,
     screenTitle: 'Pushmeldingen',

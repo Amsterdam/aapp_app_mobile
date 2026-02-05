@@ -12,7 +12,7 @@ export const HeaderNavigation = () => {
 
   const iconProps: Partial<IconProps> = {
     color: 'link',
-    size: 'lg',
+    size: 'lgx',
   }
 
   return (
@@ -22,7 +22,8 @@ export const HeaderNavigation = () => {
           accessibilityLabel="Selecteer omgeving"
           icon={
             <Icon
-              name="api"
+              isFilled
+              name="power-plug-with-socket"
               {...iconProps}
               testID="HeaderEnvironmentIcon"
             />
@@ -36,6 +37,7 @@ export const HeaderNavigation = () => {
         accessibilityLabel="Mijn profiel"
         icon={
           <Icon
+            isFilled
             name="person"
             {...iconProps}
             testID="HeaderUserIcon"

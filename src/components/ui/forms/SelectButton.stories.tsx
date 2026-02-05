@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    iconName: 'alert',
+    icon: {name: 'warning'},
     testID: 'testIdAlert',
     text: 'Text',
     title: 'Title',

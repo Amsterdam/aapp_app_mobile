@@ -91,8 +91,8 @@ export const NotificationSettings = () => {
             <Column gutter="xxs">
               {activeModulesWithSettingsInModule.map(({title, slug}) => (
                 <NavigationButton
+                  chevronSize="md"
                   emphasis="default"
-                  iconSize="md"
                   key={slug}
                   onPress={() => {
                     dispatch(

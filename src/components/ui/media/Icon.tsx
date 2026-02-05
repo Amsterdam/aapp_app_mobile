@@ -1,30 +1,28 @@
 import {ComponentType, Fragment} from 'react'
 import {View} from 'react-native'
-import {Path, Svg} from 'react-native-svg'
+import {Path, Svg, type FillRule} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {
   SvgIconName,
   SvgIconsConfig,
   type SvgIconConfig,
 } from '@/components/ui/media/svgIcons'
-import {IconSize, TestProps} from '@/components/ui/types'
+import {IconSize, SvgIconVariant, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {devError} from '@/processes/development'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
-const DEFAULT_STROKE_WIDTH = 3
-
 type AdditionalIconConfig = {
   Wrapper?: ComponentType
-  stroke: boolean
-  strokeWidth?: number
+  fillRule?: FillRule
+  stroke?: boolean
 }
 const AdditionalIconConfigs: Partial<
   Record<SvgIconName, AdditionalIconConfig>
 > = {
-  backspace: {stroke: true, strokeWidth: 2},
-  spinner: {Wrapper: Rotator, stroke: true},
+  spinner: {Wrapper: Rotator, stroke: false},
+  error: {fillRule: 'nonzero'},
 }
 
 export type IconProps = {
@@ -32,6 +30,7 @@ export type IconProps = {
    * The color of the icon to display.
    */
   color?: keyof Theme['color']['text']
+  isFilled?: boolean
   'logging-label'?: string
   /**
    * The name of the icon to display.
@@ -43,7 +42,7 @@ export type IconProps = {
   size?: keyof typeof IconSize
 } & Partial<TestProps>
 
-const DEFAULT_VIEW_BOX = '0 0 32 32'
+const DEFAULT_VIEW_BOX = '0 0 24 24'
 
 export const Icon = ({
   color = 'default',
@@ -51,16 +50,22 @@ export const Icon = ({
   size = 'md',
   testID,
   'logging-label': loggingLabel,
+  isFilled = false,
 }: IconProps) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
-  const icon: SvgIconConfig | undefined = SvgIconsConfig[name]
+
+  const iconVariants: Partial<Record<SvgIconVariant, SvgIconConfig>> =
+    SvgIconsConfig[name]
+
+  const icon =
+    iconVariants?.[isFilled ? SvgIconVariant.filled : SvgIconVariant.default]
 
   const {
     Wrapper = Fragment,
     stroke,
-    strokeWidth = DEFAULT_STROKE_WIDTH,
+    fillRule = 'evenodd',
   } = AdditionalIconConfigs[name] ?? {}
 
   if (!icon) {
@@ -75,7 +80,7 @@ export const Icon = ({
       testID={testID}>
       <Wrapper>
         <Svg
-          fillRule="evenodd"
+          fillRule={fillRule}
           height={scaledSize}
           viewBox={'viewBox' in icon ? icon.viewBox : DEFAULT_VIEW_BOX}
           width={scaledSize}>
@@ -83,7 +88,6 @@ export const Icon = ({
             d={icon.path}
             fill={!stroke ? colorTokens.text[color] : 'none'}
             stroke={stroke ? colorTokens.text[color] : undefined}
-            strokeWidth={stroke ? strokeWidth : undefined}
           />
         </Svg>
       </Wrapper>

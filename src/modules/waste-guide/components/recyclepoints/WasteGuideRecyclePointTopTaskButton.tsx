@@ -23,7 +23,7 @@ export const WasteGuideRecyclePointTopTaskButton = ({recyclePoint}: Props) => {
       accessibilityLabel={accessibleText(
         `${address.cityDistrict ?? ''}${commercialWaste ? '' : ', geen bedrijfsafval'}, ${getAddressLine1(address)} ${getAddressLine2(address.postcode, address.city)}`,
       )}
-      iconName="recycle"
+      icon={{name: 'recycle'}}
       insetHorizontal="no"
       onPress={() => openBottomSheet()}
       testID="RecyclePointTopTaskButton"

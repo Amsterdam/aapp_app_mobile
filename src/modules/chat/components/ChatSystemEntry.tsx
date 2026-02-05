@@ -1,13 +1,12 @@
 import {View} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
 import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 type Props = {
-  icon: SvgIconName
+  icon: IconProps
   text: string
   timestamp: number
 } & TestProps
@@ -19,7 +18,7 @@ export const ChatSystemEntry = ({icon, text, testID, timestamp}: Props) => (
       gutter="sm">
       <Icon
         color="secondary"
-        name={icon}
+        {...icon}
         testID={`${testID}Icon`}
       />
       <Phrase

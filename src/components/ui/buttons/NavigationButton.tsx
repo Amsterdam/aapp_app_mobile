@@ -1,16 +1,15 @@
 import {ReactNode} from 'react'
 import {TextProps} from 'react-native'
+import type {TestProps} from '@/components/ui/types'
 import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {MainAxisAlignment} from '@/components/ui/layout/types'
-import {Icon} from '@/components/ui/media/Icon'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {IconSize, TestProps} from '@/components/ui/types'
 import {SpacingTokens} from '@/themes/tokens/size'
 
 type Props = {
@@ -19,13 +18,14 @@ type Props = {
   accessibilityLanguage?: TextProps['accessibilityLanguage']
   accessibilityRole?: 'link' | 'button'
   border?: boolean
+  chevronColor?: keyof Theme['color']['text']
+  chevronSize?: IconProps['size']
   color?: keyof Theme['color']['text']
   description?: string
   direction?: 'backward' | 'forward'
   emphasis?: PhraseProps['emphasis']
   horizontallyAlign?: MainAxisAlignment
-  iconName?: SvgIconName
-  iconSize?: keyof typeof IconSize
+  icon?: IconProps
   insetHorizontal?: keyof SpacingTokens
   insetVertical?: keyof SpacingTokens
   isDescriptionBelowIcon?: boolean
@@ -39,8 +39,9 @@ export const NavigationButton = ({
   direction = 'forward',
   emphasis = 'strong',
   horizontallyAlign = 'between',
-  iconName,
-  iconSize = 'lg',
+  icon,
+  chevronColor = 'link',
+  chevronSize = 'lgx',
   insetHorizontal = 'md',
   insetVertical = 'sm',
   isDescriptionBelowIcon = true,
@@ -72,9 +73,9 @@ export const NavigationButton = ({
         gutter="md">
         {direction === 'backward' && (
           <Icon
-            color={color}
+            color={chevronColor}
             name="chevron-left"
-            size={iconSize}
+            size={chevronSize}
             testID={`${testID}Icon`}
           />
         )}
@@ -82,15 +83,15 @@ export const NavigationButton = ({
           <Row
             gutter="md"
             shrink={0}>
-            {!!iconName && (
+            {!!icon && (
               <Icon
-                color={color}
-                name={iconName}
                 size="lg"
+                {...icon}
+                color={color}
                 testID={`${testID}Icon`}
               />
             )}
-            {!!props.Icon && !iconName ? props.Icon : null}
+            {!!props.Icon && !icon ? props.Icon : null}
             <Column shrink={1}>
               {emphasis === 'strong' ? (
                 <Title
@@ -119,9 +120,9 @@ export const NavigationButton = ({
         </Column>
         {direction === 'forward' && (
           <Icon
-            color={color}
+            color={chevronColor}
             name="chevron-right"
-            size={iconSize}
+            size={chevronSize}
             testID={`${testID}Icon`}
           />
         )}

@@ -39,7 +39,7 @@ export const AddressSwitch = ({
   const {address, shouldShowSaveAsMyAddress, locationType, isFetching} =
     useSelectedAddress(moduleSlug)
 
-  const iconName = useMemo(
+  const icon = useMemo(
     () => getAddressSwitchIcon(locationType, address, isFetching),
     [address, isFetching, locationType],
   )
@@ -67,9 +67,9 @@ export const AddressSwitch = ({
         accessibilityLanguage="nl-NL"
         accessibilityRole="button"
         border
+        chevronSize="ml"
         emphasis="default"
-        iconName={iconName}
-        iconSize="md"
+        icon={icon}
         onPress={onNavigateToAddressForm}
         testID={testID}
         title={label}

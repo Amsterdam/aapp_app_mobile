@@ -1,5 +1,6 @@
 import {FieldError} from 'react-hook-form'
 import {AccessibilityProps} from 'react-native'
+import type {IconProps} from '@/components/ui/media/Icon'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Column} from '@/components/ui/layout/Column'
@@ -8,7 +9,7 @@ import {TestProps} from '@/components/ui/types'
 
 type Props = {
   error?: FieldError
-  iconName: SvgIconName
+  icon: IconProps
   iconRightName?: Extract<SvgIconName, 'chevron-down' | 'chevron-right'>
   onPress: () => void
   text?: string
@@ -21,7 +22,7 @@ type Props = {
   >
 
 export const SelectButton = ({
-  iconName,
+  icon,
   testID,
   text,
   textAdditional,
@@ -40,9 +41,8 @@ export const SelectButton = ({
       accessibilityRole="combobox"
       accessibilityValue={accessibilityValue}
       border
-      iconName={iconName}
-      iconRightName={iconRightName}
-      iconRightSize="lg"
+      icon={icon}
+      iconRight={{name: iconRightName, size: 'lg'}}
       onPress={onPress}
       testID={testID}
       text={text}

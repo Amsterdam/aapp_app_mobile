@@ -196,7 +196,7 @@ export const ParkingStartSessionButton = () => {
   return (
     <Button
       disabled={isSubmitting || isLoading || !!errors?.parking_machine}
-      iconName="parkingSession"
+      icon={{name: 'parking-start'}}
       isLoading={isLoading}
       label="Bevestig parkeersessie"
       onPress={handleSubmit(onSubmit)}

@@ -30,7 +30,7 @@ export const CityOfficeButton = ({cityOffice}: Props) => {
         <Row gutter="md">
           <Icon
             color="link"
-            name="city-office"
+            name="person-at-desk"
             size="lg"
             testID={`ContactCityOffice${cityOffice.identifier}Icon`}
           />

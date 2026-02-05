@@ -14,13 +14,10 @@ export const MapControls = ({moduleSlug, variants}: Props) => {
 
   return (
     <Column gutter="sm">
-      {options.map(({accessibilityLabel, iconName, key, onPress, testID}) => (
+      {options.map(({key, ...props}) => (
         <MapControlsButton
-          accessibilityLabel={accessibilityLabel}
-          iconName={iconName}
           key={key}
-          onPress={onPress}
-          testID={testID}
+          {...props}
         />
       ))}
     </Column>

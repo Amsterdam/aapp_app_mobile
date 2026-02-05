@@ -32,7 +32,7 @@ export const ActionButton = () => {
   return (
     <Column>
       <ActionButtonBase
-        iconName="city-pass-pass"
+        icon={{isFilled: true, name: 'city-pass'}}
         isModuleInactive={isModuleInactive}
         label="Stadspas tonen"
         onPress={onPress}

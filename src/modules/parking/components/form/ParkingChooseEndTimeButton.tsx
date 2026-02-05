@@ -20,7 +20,7 @@ export const ParkingChooseEndTimeButton = () => {
   return (
     <SelectButtonControlled<{endTime?: Dayjs}, 'endTime'>
       bottomSheetVariant={ParkingSessionBottomSheetVariant.endTime}
-      iconName="clock"
+      icon={{name: 'clock'}}
       name="endTime"
       rules={{
         required: 'Kies een eindtijd',

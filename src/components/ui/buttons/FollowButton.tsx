@@ -17,7 +17,7 @@ export const FollowButton = ({
   if (followed) {
     return (
       <Button
-        iconName="check-mark"
+        icon={{name: 'check-mark'}}
         label="Volgend"
         onPress={unfollow}
         variant="primary"
@@ -28,7 +28,7 @@ export const FollowButton = ({
 
   return (
     <Button
-      iconName="enlarge"
+      icon={{name: 'plus', size: 'lgx'}}
       label="Volgen"
       onPress={follow}
       variant="secondary"

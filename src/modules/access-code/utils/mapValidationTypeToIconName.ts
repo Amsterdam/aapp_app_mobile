@@ -1,9 +1,10 @@
 import {AuthenticationType} from 'expo-local-authentication'
 import {Platform} from 'react-native'
+import type {SvgIconName} from '@/components/ui/media/svgIcons'
 
 export const mapBiometricsAuthenticationTypeToIconName = (
   types?: AuthenticationType[],
-) => {
+): Extract<SvgIconName, 'touch-id' | 'face-id' | 'biometrics'> | undefined => {
   if (!types || types.length === 0) {
     return
   }
@@ -15,22 +16,22 @@ export const mapBiometricsAuthenticationTypeToIconName = (
     ].every(type => types.includes(type))
   ) {
     if (Platform.OS === 'android') {
-      return 'touchId' // Android always uses Touch ID icon
+      return 'touch-id' // Android always uses Touch ID icon
     }
 
     return 'biometrics'
   }
 
   if (types.includes(AuthenticationType.FINGERPRINT)) {
-    return 'touchId'
+    return 'touch-id'
   }
 
   if (types.includes(AuthenticationType.FACIAL_RECOGNITION)) {
     if (Platform.OS === 'android') {
-      return 'touchId'
+      return 'touch-id'
     }
 
-    return 'faceId'
+    return 'face-id'
   }
 
   if (types.includes(AuthenticationType.IRIS)) {

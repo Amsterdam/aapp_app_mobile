@@ -6,8 +6,8 @@ import {
   UseControllerProps,
 } from 'react-hook-form'
 import type {RootStackParams} from '@/app/navigation/types'
+import type {IconProps} from '@/components/ui/media/Icon'
 import {SelectButton} from '@/components/ui/forms/SelectButton'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {type TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -25,7 +25,7 @@ type Props<
   accessibilityHint?: ValueFunctionOrString<TFieldValues, TName>
   accessibilityLabel?: ValueFunctionOrString<TFieldValues, TName>
   bottomSheetVariant?: string
-  iconName: SvgIconName
+  icon: IconProps
   routeName?: keyof RootStackParams
   text?: ValueFunctionOrString<TFieldValues, TName>
   textAdditional?: ValueFunctionOrString<TFieldValues, TName>
@@ -42,7 +42,7 @@ export const SelectButtonControlled = <
   title,
   text,
   textAdditional,
-  iconName,
+  icon,
   routeName,
   accessibilityLabel,
   accessibilityHint,
@@ -70,7 +70,7 @@ export const SelectButtonControlled = <
           : accessibilityLabel?.(value)
       }
       error={error}
-      iconName={iconName}
+      icon={icon}
       iconRightName={routeName ? 'chevron-right' : 'chevron-down'}
       onPress={(): void => {
         if (routeName) {
