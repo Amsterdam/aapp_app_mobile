@@ -35,7 +35,7 @@ export const getAddressLine2 = (postcode: string, city: AddressCity) => {
     return ''
   }
 
-  return `${postcode.slice(0, 4)} ${postcode.slice(4).trim()} ${city.toUpperCase()}`
+  return `${postcode.slice(0, 4)} ${postcode.slice(4).trim()} ${city}`
 }
 
 export const addDerivedAddressFields = (address: Address): Address => {
