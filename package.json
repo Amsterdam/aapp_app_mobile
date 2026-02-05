@@ -1,6 +1,6 @@
 {
   "name": "amsterdam-app",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "private": true,
   "scripts": {
     "android:connect:device": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8000 tcp:8000",
