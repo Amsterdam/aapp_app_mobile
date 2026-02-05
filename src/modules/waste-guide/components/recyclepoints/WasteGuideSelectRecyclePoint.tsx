@@ -45,7 +45,7 @@ export const WasteGuideSelectRecyclePoint = () => {
       <Gutter height="md" />
       {recyclePoints.map(({address, commercialWaste, id, name}) => (
         <TopTaskButton
-          iconName="recycle"
+          icon={{name: 'recycle'}}
           key={id}
           onPress={() => onPress(id)}
           testID={`RecyclePoint${id}Button`}
