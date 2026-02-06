@@ -15,10 +15,10 @@ import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
-import {saveFile} from '@/modules/chat/utils/saveFile'
 import {devLog} from '@/processes/development'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {saveFile} from '@/utils/saveFile'
 
 type Props = {
   fileName: string
