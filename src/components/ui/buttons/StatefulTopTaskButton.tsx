@@ -41,7 +41,7 @@ export const StatefulTopTaskButton = ({
   return (
     <TopTaskButton
       {...topTaskButtonProps}
-      icon={{name: iconName}}
+      icon={{name: iconName, size: icon.size, isFilled: icon.isFilled}}
       isError={isError}
       text={text}
     />

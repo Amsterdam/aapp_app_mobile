@@ -79,7 +79,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
               chevronSize="md"
               emphasis="default"
               key={item.label}
-              {...(item.iconName && {icon: {name: item.iconName}})}
+              {...(item.iconName && {icon: {name: item.iconName, size: 'lgx'}})}
               {...item}
               onPress={() =>
                 navigate(item.moduleSlug ?? ModuleSlug.user, {
