@@ -29,12 +29,12 @@ export const WasteGuideContent = () => {
     )
   }
 
-  if (wasteGuide?.is_residential) {
+  if (wasteGuide.is_residential) {
     return (
       <WasteGuideCollectionInformation
         fractions={fractions}
         hasCalendar={!!wasteGuide.calendar.length}
-        isCollectionByAppointment={wasteGuide?.is_collection_by_appointment}
+        isCollectionByAppointment={wasteGuide.is_collection_by_appointment}
       />
     )
   }
@@ -66,7 +66,7 @@ export const WasteGuideContent = () => {
 
 type WasteGuideCollectionInformationProps = {
   fractions: WasteGuideResponse['waste_types']
-  hasCalendar?: boolean
+  hasCalendar: boolean
   isCollectionByAppointment: boolean
 }
 
