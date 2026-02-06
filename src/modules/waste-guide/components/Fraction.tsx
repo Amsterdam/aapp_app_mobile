@@ -99,7 +99,9 @@ export const Fraction = ({fraction, testID}: Props) => {
               sectionTitle="Volgende ophaaldag"
               testID={`${testID}NextCollectionSection`}
             />
-            <NavigationButtonToWasteCalendar />
+            {!!wasteGuide?.calendar.length && (
+              <NavigationButtonToWasteCalendar />
+            )}
           </Column>
         )}
         <FractionSection
