@@ -44,10 +44,10 @@ describe('getAddressLine1', () => {
 describe('getAddressLine2', () => {
   test('should format postcode and city into address line 2', () => {
     expect(getAddressLine2('1234AB', AddressCity.Amsterdam)).toBe(
-      '1234 AB AMSTERDAM',
+      '1234 AB Amsterdam',
     )
-    expect(getAddressLine2('5678CD', AddressCity.Weesp)).toBe('5678 CD WEESP')
-    expect(getAddressLine2('5678 CD', AddressCity.Weesp)).toBe('5678 CD WEESP')
+    expect(getAddressLine2('5678CD', AddressCity.Weesp)).toBe('5678 CD Weesp')
+    expect(getAddressLine2('5678 CD', AddressCity.Weesp)).toBe('5678 CD Weesp')
   })
   test('should undefined input', () => {
     // @ts-ignore
@@ -79,7 +79,7 @@ describe('addDerivedAddressFields', () => {
       postcode: '1058BB',
       coordinates: {lat: 52.36303093, lon: 4.85284154},
       addressLine1: 'Hoofdweg 123A',
-      addressLine2: '1058 BB AMSTERDAM',
+      addressLine2: '1058 BB Amsterdam',
       city: AddressCity.Amsterdam,
       number: 123,
       type: 'adres',
@@ -106,7 +106,7 @@ describe('addDerivedAddressFields', () => {
       postcode: '1058BB',
       coordinates: {lat: 52.36303093, lon: 4.85284154},
       addressLine1: 'Hoofdweg 123-4',
-      addressLine2: '1058 BB AMSTERDAM',
+      addressLine2: '1058 BB Amsterdam',
       city: AddressCity.Amsterdam,
       number: 123,
       type: 'adres',
@@ -135,7 +135,7 @@ describe('addDerivedAddressFields', () => {
       postcode: '1058BB',
       coordinates: {lat: 52.36303093, lon: 4.85284154},
       addressLine1: 'Hoofdweg 123A-4',
-      addressLine2: '1058 BB AMSTERDAM',
+      addressLine2: '1058 BB Amsterdam',
       city: AddressCity.Amsterdam,
       number: 123,
       type: 'adres',
