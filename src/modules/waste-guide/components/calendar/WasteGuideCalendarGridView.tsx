@@ -44,6 +44,18 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                   const now = dayjs()
                   const dayIsToday = isToday(day)
                   const dayIsTomorrow = isTomorrow(day)
+                  const months = Array.from(
+                    new Set(week.days.map(d => d.month())),
+                  )
+
+                  const isNewMonth =
+                    week.isLastOfMonth && day.month() === months[1]
+
+                  const isPreviousMonth =
+                    week.isFirstOfMonth &&
+                    months.length > 1 &&
+                    day.month() === months[0]
+
                   const isBeforeToday = day.isBefore(now, 'day')
                   const isAfterPeriod = day
                     .add(1, 'day')
@@ -55,8 +67,8 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                   return (
                     <WasteGuideCalendarDay
                       accessibilityLabel={accessibilityLabel}
-                      isAfter={isAfterPeriod}
-                      isBeforeToday={isBeforeToday}
+                      isAfter={isAfterPeriod || isNewMonth}
+                      isBeforeToday={isBeforeToday || isPreviousMonth}
                       isFirstWeekOfMonth={week.isFirstOfMonth}
                       isToday={dayIsToday}
                       key={dayIdx}>
