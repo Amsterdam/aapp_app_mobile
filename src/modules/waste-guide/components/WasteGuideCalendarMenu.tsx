@@ -10,7 +10,6 @@ import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ModuleSlug} from '@/modules/slugs'
-import {devError} from '@/processes/development'
 import {selectApi} from '@/store/slices/environment'
 import {useMenu} from '@/store/slices/menu'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -46,27 +45,17 @@ export const WasteGuideCalendarMenu = () => {
     )
   }, [close, openWebUrl, webCalUrl])
 
-  const onPressDownloadAsPdf = useCallback(async () => {
+  const onPressDownloadAsPdf = useCallback(() => {
     close()
 
     if (!pdfUrl) {
       return
     }
 
-    try {
-      const res = await fetch(pdfUrl, {method: 'HEAD'})
-
-      if (!res.ok) {
-        throw new Error(`Failed to fetch PDF. Status: ${res.status}`)
-      }
-
-      await saveFile({
-        downloadUri: pdfUrl,
-        fileName: `Afvalkalender_${dayjs().format('DD-MM-YYYY')}_${address?.addressLine1.replaceAll(' ', '_')}.pdf`,
-      })
-    } catch (error) {
-      devError('Error downloading waste guide PDF', error)
-    }
+    void saveFile({
+      downloadUri: pdfUrl,
+      fileName: `Afvalkalender_${dayjs().format('DD-MM-YYYY')}_${address?.addressLine1.replaceAll(' ', '_')}.pdf`,
+    })
   }, [close, pdfUrl, address?.addressLine1])
 
   const menuItems = useMemo(
