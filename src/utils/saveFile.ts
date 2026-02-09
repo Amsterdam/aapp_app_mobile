@@ -4,12 +4,12 @@ import {
   StorageAccessFramework,
   writeAsStringAsync,
 } from 'expo-file-system'
+import * as FileSystem from 'expo-file-system'
 import {shareAsync} from 'expo-sharing'
 import {Platform} from 'react-native'
-import {contentTypeToUTI} from '@/modules/chat/utils/contentTypeToUTI'
-import {downloadFile} from '@/modules/chat/utils/downloadFile'
-import {fileExtensionToMimeType} from '@/modules/chat/utils/fileExtensionToMimeType'
 import {devLog} from '@/processes/development'
+import {contentTypeToUTI} from '@/utils/contentTypeToUTI'
+import {fileExtensionToMimeType} from '@/utils/fileExtensionToMimeType'
 
 type Params = {
   base64?: {
@@ -164,4 +164,13 @@ const saveFileOnDevice = async (
   } else {
     await shareFile(base64, fileName, mimetype)
   }
+}
+
+const downloadFile = async (downloadUri: string, filename: string) => {
+  const {headers, uri} = await FileSystem.downloadAsync(
+    downloadUri,
+    FileSystem.documentDirectory + filename,
+  )
+
+  return {uri, mimeType: headers['content-type']}
 }
