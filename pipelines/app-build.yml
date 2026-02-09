@@ -12,6 +12,10 @@ resources:
 
 name: $(Date:yyMMdd)$(Rev:rr)
 
+variables:
+  - name: CCACHE_DIR
+    value: ~/.ccache
+
 jobs:
   - job: 'Build_Android'
     timeoutInMinutes: 180
