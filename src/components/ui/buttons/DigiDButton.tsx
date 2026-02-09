@@ -19,7 +19,7 @@ export const DigiDButton = ({onPress, isLoading, testID}: Props) => (
     <Row gutter="sm">
       <Pressable
         onPress={onPress}
-        testID={testID}>
+        testID={`${testID}IconButton`}>
         <DigiD />
       </Pressable>
       <Button
