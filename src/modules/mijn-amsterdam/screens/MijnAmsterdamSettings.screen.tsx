@@ -2,7 +2,7 @@ import type {NavigationProps} from '@/app/navigation/types'
 import type {MijnAmsterdamRouteName} from '@/modules/mijn-amsterdam/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
-import {DigIDButton} from '@/components/ui/buttons/DigIDButton'
+import {DigiDButton} from '@/components/ui/buttons/DigiDButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -57,7 +57,7 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
                 </Paragraph>
                 <Button
                   label="Uitloggen"
-                  onPress={() => logout()}
+                  onPress={logout}
                   testID="MijnAmsterdamLogoutButton"
                   variant="secondary"
                 />
@@ -68,7 +68,7 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
                   Blijf op de hoogte van uw aanvraag of klacht. Log 1 keer in
                   met DigiD om meldingen te ontvangen.
                 </Paragraph>
-                <DigIDButton
+                <DigiDButton
                   isLoading={isLoading}
                   onPress={login}
                   testID="MijnAmsterdamLoginButton"

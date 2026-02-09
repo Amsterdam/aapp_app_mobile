@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
-import {DigIDButton} from '@/components/ui/buttons/DigIDButton'
+import {DigiDButton} from '@/components/ui/buttons/DigiDButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
@@ -45,7 +45,7 @@ export const CityPassIntroScreen = () => {
           de Stadspas offline gebruiken en laten scannen.
         </Paragraph>
         <Gutter height="lg" />
-        <DigIDButton
+        <DigiDButton
           onPress={login}
           testID="CityPassLoginButton"
         />

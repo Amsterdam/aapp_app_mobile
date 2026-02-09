@@ -11,7 +11,7 @@ type Props = {
   onPress: (event: GestureResponderEvent) => void
 } & TestProps
 
-export const DigIDButton = ({onPress, isLoading, testID}: Props) => (
+export const DigiDButton = ({onPress, isLoading, testID}: Props) => (
   <Column
     grow={1}
     gutter="md"
