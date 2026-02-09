@@ -21,7 +21,6 @@ export const OptionsControlled = <
   label,
   options,
   orientation,
-  rules,
   testID,
   type,
   ...controllerProps
@@ -42,7 +41,7 @@ export const OptionsControlled = <
       onChange={onChange}
       options={options}
       orientation={orientation}
-      required={!!rules?.required}
+      required={!!controllerProps?.rules?.required}
       testID={testID}
       type={type}
       value={value}
