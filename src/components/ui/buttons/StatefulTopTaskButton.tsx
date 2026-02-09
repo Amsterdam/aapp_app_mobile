@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react'
 import {
   TopTaskButton,
   TopTaskButtonProps,
@@ -12,38 +11,23 @@ type StatefulTopTaskButtonProps = {
 export const StatefulTopTaskButton = ({
   isError = false,
   isLoading = false,
+  text,
+  icon,
   ...topTaskButtonProps
-}: StatefulTopTaskButtonProps) => {
-  const {text: buttonText, icon} = topTaskButtonProps
-  const [iconName, setIconName] = useState(icon.name)
-  const [text, setText] = useState(buttonText)
-
-  useEffect(() => {
-    if (!isLoading && !isError) {
-      setText(buttonText)
-
-      return
+}: StatefulTopTaskButtonProps) => (
+  <TopTaskButton
+    {...topTaskButtonProps}
+    icon={{
+      ...icon,
+      name: isError ? 'warning' : isLoading ? 'spinner' : icon.name,
+    }}
+    isError={isError}
+    text={
+      isError
+        ? 'Er gaat iets mis. Probeer het later nog een keer.'
+        : isLoading
+          ? '...'
+          : text
     }
-
-    if (isLoading) {
-      setText('...')
-      setIconName('spinner')
-
-      return
-    }
-
-    if (isError) {
-      setText('Er gaat iets mis. Probeer het later nog een keer.')
-      setIconName('warning')
-    }
-  }, [isLoading, isError, buttonText])
-
-  return (
-    <TopTaskButton
-      {...topTaskButtonProps}
-      icon={{name: iconName}}
-      isError={isError}
-      text={text}
-    />
-  )
-}
+  />
+)

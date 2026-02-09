@@ -10,7 +10,7 @@ export const ManageVisitorChooseTimeAddOn = ({isNegative}: Props) => {
 
   return (
     <SelectButtonControlled<{time?: number}, 'time'>
-      icon={{name: 'clock'}}
+      icon={{name: 'clock', size: 'lgx'}}
       name="time"
       rules={{
         required: 'Kies een tijdsduur',
