@@ -2,6 +2,7 @@ import {useCallback} from 'react'
 import type {Survey} from '@/modules/survey/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/survey/alerts'
+import {useBuildSurveyMetaData} from '@/modules/survey/hooks/useBuildSurveyMetaData'
 import {useCreateSurveyVersionEntryMutation} from '@/modules/survey/service'
 import {getAnswers} from '@/modules/survey/utils/getAnswers'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
@@ -30,6 +31,7 @@ export const useOnSurveyFormSubmit = ({
   const {setAlert} = useAlert()
   const trackException = useTrackException()
   const {close} = useBottomSheet()
+  const metadata = useBuildSurveyMetaData()
 
   const onSubmit = useCallback(
     (formData: Record<string, string | string[]>) => {
@@ -42,6 +44,7 @@ export const useOnSurveyFormSubmit = ({
       void createSurvey({
         answers,
         entry_point: entryPoint,
+        metadata,
         unique_code: survey?.unique_code,
         version: survey?.latest_version?.version,
       })
@@ -83,9 +86,11 @@ export const useOnSurveyFormSubmit = ({
       entryPoint,
       isFeedbackScreen,
       isInBottomSheet,
+      metadata,
       navigation,
       setAlert,
-      survey,
+      survey?.latest_version,
+      survey?.unique_code,
       surveyId,
       trackException,
     ],
