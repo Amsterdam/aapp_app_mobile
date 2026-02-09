@@ -6,12 +6,14 @@ import {DigIDButton} from '@/components/ui/buttons/DigIDButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {alerts} from '@/modules/mijn-amsterdam/alerts'
 import {useHandleLoginDeeplink} from '@/modules/mijn-amsterdam/hooks/useHandleLoginDeeplink'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
 import {
   useGetMijnAmsterdamLoginStatusQuery,
   useMijnAmsterdamLogoutMutation,
 } from '@/modules/mijn-amsterdam/service'
+import {useAlert} from '@/store/slices/alert'
 
 type Props = NavigationProps<MijnAmsterdamRouteName.settings>
 
@@ -19,8 +21,17 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
   const {loginResult} = route.params || {}
   const {data: {isLoggedIn} = {isLoggedIn: false}, isLoading} =
     useGetMijnAmsterdamLoginStatusQuery()
-  const [logout] = useMijnAmsterdamLogoutMutation()
+  const [logoutMutation] = useMijnAmsterdamLogoutMutation()
   const login = useLoginMijnAmsterdam()
+  const {setAlert} = useAlert()
+
+  const logout = () => {
+    logoutMutation()
+      .unwrap()
+      .catch(() => {
+        setAlert(alerts.logoutFailed)
+      })
+  }
 
   useHandleLoginDeeplink(loginResult)
 

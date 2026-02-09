@@ -18,6 +18,14 @@ export const alerts = {
     hasIcon: true,
     testID: 'MijnAmsterdamLoginFailedAlert',
   },
+  logoutFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    title: 'Uitloggen mislukt',
+    hasIcon: true,
+    hasCloseIcon: true,
+    testID: 'MijnAmsterdamLogoutFailedAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts
