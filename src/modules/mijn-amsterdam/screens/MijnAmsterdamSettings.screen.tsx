@@ -59,7 +59,7 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
                 </Paragraph>
                 <DigIDButton
                   isLoading={isLoading}
-                  onPress={() => !isLoggedIn && !isLoading && login()}
+                  onPress={login}
                   testID="MijnAmsterdamLoginButton"
                 />
               </>
