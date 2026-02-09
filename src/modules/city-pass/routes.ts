@@ -1,8 +1,6 @@
-import {
-  CityPass,
-  CityPassBudget,
-  RedirectErrorCodes,
-} from '@/modules/city-pass/types'
+import type {RedirectErrorCodes} from '@/types/mijnAmsterdam'
+import type {LoginResult} from '@/types/navigation'
+import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
 
 export enum CityPassRouteName {
   budget = 'Budget',
@@ -33,7 +31,7 @@ export type CityPassStackParams = {
         'amp;errorCode'?: string
         errorCode?: RedirectErrorCodes
         errorMessage?: string
-        loginResult?: string
+        loginResult?: LoginResult
         refreshToken?: string
       }
     | undefined

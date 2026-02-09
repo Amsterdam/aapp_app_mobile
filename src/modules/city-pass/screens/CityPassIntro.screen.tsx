@@ -1,12 +1,8 @@
 import {useEffect} from 'react'
-import DigiD from '@/assets/icons/digid.svg'
 import {Screen} from '@/components/features/screen/Screen'
-import {Button} from '@/components/ui/buttons/Button'
-import {Pressable} from '@/components/ui/buttons/Pressable'
+import {DigIDButton} from '@/components/ui/buttons/DigIDButton'
 import {Box} from '@/components/ui/containers/Box'
-import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -49,24 +45,10 @@ export const CityPassIntroScreen = () => {
           de Stadspas offline gebruiken en laten scannen.
         </Paragraph>
         <Gutter height="lg" />
-        <Column
-          grow={1}
-          gutter="md"
-          halign="stretch">
-          <Row gutter="sm">
-            <Pressable
-              onPress={login}
-              testID="CityPassLoginDigiDButton">
-              <DigiD />
-            </Pressable>
-            <Button
-              flex={1}
-              label="Inloggen met DigiD"
-              onPress={login}
-              testID="CityPassLoginButton"
-            />
-          </Row>
-        </Column>
+        <DigIDButton
+          onPress={login}
+          testID="CityPassLoginButton"
+        />
         <Gutter height="xl" />
         <RequestCityPass />
       </Box>

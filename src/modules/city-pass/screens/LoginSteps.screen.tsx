@@ -17,8 +17,8 @@ import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
 import {useRegisterCityPassOwner} from '@/modules/city-pass/hooks/useRegisterCityPassOwner'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
-import {RedirectErrorCodes} from '@/modules/city-pass/types'
 import {UserRouteName} from '@/modules/user/routes'
+import {RedirectErrorCodes} from '@/types/mijnAmsterdam'
 
 type Props = NavigationProps<CityPassRouteName.loginSteps>
 

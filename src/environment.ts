@@ -21,6 +21,7 @@ export enum GlobalApiSlug {
  */
 export enum DeviatingApiSlug {
   waste = 'waste',
+  mijnAmsterdam = 'mijnamsterdam',
 }
 
 export type ApiSlug = GlobalApiSlug | ModuleSlug | DeviatingApiSlug
