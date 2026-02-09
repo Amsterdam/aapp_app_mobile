@@ -41,7 +41,7 @@ describe('buildMetadata', () => {
       params: {foo: ['a', 'b']},
     } as RouteProp<string>
 
-    expect(buildMetadata(route)).toBe('SurveyScreen/?foo=a&foo=b')
+    expect(buildMetadata(route)).toBe('SurveyScreen/?foo.0=a&foo.1=b')
   })
 
   it('handles mixed params', () => {
@@ -50,7 +50,7 @@ describe('buildMetadata', () => {
       params: {foo: ['a', 'b'], bar: 'c'},
     } as RouteProp<string>
 
-    expect(buildMetadata(route)).toBe('SurveyScreen/?foo=a&foo=b&bar=c')
+    expect(buildMetadata(route)).toBe('SurveyScreen/?foo.0=a&foo.1=b&bar=c')
   })
 
   it('returns route name if params is empty object', () => {
