@@ -1,7 +1,7 @@
 import {DeviatingApiSlug} from '@/environment'
 import {
   GetMijnAmsterdamLogin,
-  GetMijnAmsterdamLoginStatus,
+  MijnAmsterdamLoginStatus,
 } from '@/modules/mijn-amsterdam/types'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
@@ -22,7 +22,7 @@ const mijnAmsterdamApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.minute,
       transformResponse: ({status}: GetMijnAmsterdamLogin) => ({
-        isLoggedIn: status === GetMijnAmsterdamLoginStatus.loggedIn,
+        isLoggedIn: status === MijnAmsterdamLoginStatus.loggedIn,
       }),
     }),
     mijnAmsterdamLogout: builder.mutation<void, void>({

@@ -1,7 +1,7 @@
 export type GetMijnAmsterdamLogin = {
-  status: GetMijnAmsterdamLoginStatus
+  status: MijnAmsterdamLoginStatus
 }
-export enum GetMijnAmsterdamLoginStatus {
+export enum MijnAmsterdamLoginStatus {
   loggedIn = 'OK',
   loggedOut = 'ERROR',
 }
