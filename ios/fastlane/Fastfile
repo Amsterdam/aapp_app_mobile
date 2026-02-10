@@ -179,7 +179,7 @@ platform :ios do
         build_app(
           workspace: "AmsterdamApp.xcworkspace",
           scheme: app[:scheme],
-          clean: true,
+          clean: false,
           build_path: "./builds",
           output_directory: "./builds",
           output_name: app[:output_name],
