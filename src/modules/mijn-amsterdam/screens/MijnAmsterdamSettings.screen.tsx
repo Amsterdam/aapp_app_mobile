@@ -1,67 +1,74 @@
-import {ReactNode, useCallback, useEffect, useState} from 'react'
-import {NavigationProps} from '@/app/navigation/types'
+import type {NavigationProps} from '@/app/navigation/types'
+import type {MijnAmsterdamRouteName} from '@/modules/mijn-amsterdam/routes'
 import {Screen} from '@/components/features/screen/Screen'
+import {Button} from '@/components/ui/buttons/Button'
+import {DigiDButton} from '@/components/ui/buttons/DigiDButton'
 import {Box} from '@/components/ui/containers/Box'
-import {Switch} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Phrase} from '@/components/ui/text/Phrase'
+import {alerts} from '@/modules/mijn-amsterdam/alerts'
 import {useHandleLoginDeeplink} from '@/modules/mijn-amsterdam/hooks/useHandleLoginDeeplink'
+import {useIsLoggedInMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useIsLoggedInMijnAmsterdam'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
-import {MijnAmsterdamRouteName} from '@/modules/mijn-amsterdam/routes'
+import {useMijnAmsterdamLogoutMutation} from '@/modules/mijn-amsterdam/service'
+import {useAlert} from '@/store/slices/alert'
 
 type Props = NavigationProps<MijnAmsterdamRouteName.settings>
 
 export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
   const {loginResult} = route.params || {}
-  const [isEnabled, setIsEnabled] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(true) // TODO: check if user is logged in once endpoint is ready
+  const [logoutMutation] = useMijnAmsterdamLogoutMutation()
   const login = useLoginMijnAmsterdam()
+  const {isLoggedIn} = useIsLoggedInMijnAmsterdam()
+  const {setAlert} = useAlert()
+
+  const logout = () => {
+    logoutMutation()
+      .unwrap()
+      .catch(() => {
+        setAlert(alerts.logoutFailed)
+      })
+  }
 
   useHandleLoginDeeplink(loginResult)
-
-  const onChange = useCallback(() => {
-    setIsEnabled(prev => !prev)
-    setIsLoggedIn(prev => !prev)
-  }, [])
-
-  useEffect(() => {
-    if (isEnabled && !isLoggedIn) {
-      login()
-    }
-  }, [isEnabled, isLoggedIn, login])
 
   return (
     <Screen
       hasStickyAlert
       testID="MijnAmsterdamSettingsScreen">
       <Box>
-        <Column>
-          <Switch
-            accessibilityLabel={`Meldingen Mijn Amsterdam staat ${isEnabled ? 'aan' : 'uit'}`}
-            disabled={false}
-            label={<Phrase>Meldingen Mijn Amsterdam</Phrase>}
-            onChange={onChange}
-            testID="MijnAmsterdamSettingsSwitch"
-            value={isEnabled}
-            wrapper={Wrapper}
-          />
-          <Box>
-            <Paragraph variant="small">
-              Blijf op de hoogte van uw aanvraag of klacht. Log 1 keer in met
-              DigiD om meldingen te ontvangen.
-            </Paragraph>
-          </Box>
-        </Column>
+        <Box
+          insetHorizontal="md"
+          insetVertical="lg"
+          variant="distinct">
+          <Column gutter="lg">
+            {isLoggedIn ? (
+              <>
+                <Paragraph>
+                  U ontvangt nu meldingen van Mijn Amsterdam.
+                </Paragraph>
+                <Button
+                  label="Uitloggen"
+                  onPress={logout}
+                  testID="MijnAmsterdamLogoutButton"
+                  variant="secondary"
+                />
+              </>
+            ) : (
+              <>
+                <Paragraph>
+                  Blijf op de hoogte van uw aanvraag of klacht. Log 1 keer in
+                  met DigiD om meldingen te ontvangen.
+                </Paragraph>
+                <DigiDButton
+                  onPress={login}
+                  testID="MijnAmsterdamLoginButton"
+                />
+              </>
+            )}
+          </Column>
+        </Box>
       </Box>
     </Screen>
   )
 }
-
-type WrapperProps = {
-  children: ReactNode
-}
-
-const Wrapper = ({children}: WrapperProps) => (
-  <Box variant="distinct">{children}</Box>
-)

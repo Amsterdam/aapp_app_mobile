@@ -4,6 +4,7 @@ import path, {dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {StorybookConfig} from '@storybook/react-native-web-vite'
 import {mergeConfig} from 'vite'
+import svgr from 'vite-plugin-svgr'
 import alias from '../.config/alias.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -55,6 +56,14 @@ const config: StorybookConfig = {
           transformMixedEsModules: true,
         },
       },
+      plugins: [
+        svgr({
+          svgrOptions: {
+            exportType: 'default',
+          },
+          include: '**/*.svg',
+        }),
+      ],
       resolve: {
         // this list is ordered: higher items are matched first
         alias: [
