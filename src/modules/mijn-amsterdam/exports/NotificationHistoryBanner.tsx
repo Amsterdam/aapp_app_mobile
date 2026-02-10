@@ -41,7 +41,7 @@ export const NotificationHistoryBanner = () => {
                   text="Mijn Amsterdam meldingen"
                 />
                 <IconButton
-                  accessibilityLabel="Sluit informatie mijn amsterdam meldingen"
+                  accessibilityLabel="Sluit informatie over mijn amsterdam meldingen"
                   icon={
                     <Icon
                       color="inverse"
