@@ -13,6 +13,7 @@ export enum ReduxKey {
   internetConnection = 'internetConnection',
   menu = 'menu',
   messageDraft = 'messageDraft',
+  mijnAmsterdam = 'mijnAmsterdam',
   modules = 'modules',
   onboarding = 'onboarding',
   parking = 'parking',

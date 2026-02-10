@@ -1,4 +1,6 @@
+import type {QueryReturnValue} from '@reduxjs/toolkit/dist/query/baseQueryTypes'
 import {DeviatingApiSlug} from '@/environment'
+import {setIsLoggedIn} from '@/modules/mijn-amsterdam/slice'
 import {
   GetMijnAmsterdamLogin,
   MijnAmsterdamLoginStatus,
@@ -19,6 +21,14 @@ const mijnAmsterdamApi = baseApi.injectEndpoints({
           params: {},
         }),
         headers: deviceIdHeader,
+        afterSuccess: (
+          {data}: QueryReturnValue<GetMijnAmsterdamLogin>,
+          {dispatch},
+        ) => {
+          dispatch(
+            setIsLoggedIn(data?.status === MijnAmsterdamLoginStatus.loggedIn),
+          )
+        },
       }),
       keepUnusedDataFor: CacheLifetime.minute,
       transformResponse: ({status}: GetMijnAmsterdamLogin) => ({
