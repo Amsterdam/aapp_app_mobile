@@ -26,7 +26,7 @@ export const NotificationHistoryList = ({data}: Props) => {
     ),
     [enabledModules],
   )
-  const [markAllNotificationsRead, {}] = useMarkAllNotificationsReadMutation()
+  const [markAllNotificationsRead] = useMarkAllNotificationsReadMutation()
 
   useBlurEffect(() => {
     void markAllNotificationsRead()
