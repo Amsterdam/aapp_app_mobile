@@ -4,10 +4,12 @@ import {type RootState} from '@/store/types/rootState'
 
 export type MijnAmsterdamState = {
   isLoggedIn: boolean
+  shouldShowBanner?: boolean
 }
 
 const initialState: MijnAmsterdamState = {
   isLoggedIn: false,
+  shouldShowBanner: undefined,
 }
 
 export const mijnAmsterdamSlice = createSlice({

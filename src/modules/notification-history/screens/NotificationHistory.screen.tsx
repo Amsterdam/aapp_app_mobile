@@ -1,6 +1,6 @@
 import {Screen} from '@/components/features/screen/Screen'
+import {NotificationHistoryBanner} from '@/modules/mijn-amsterdam/exports/NotificationHistoryBanner'
 import {NotificationHistory} from '@/modules/notification-history/components/NotificationHistory'
-import {NotificationHistoryBanner} from '@/modules/notification-history/components/NotificationHistoryBanner'
 
 export const NotificationHistoryScreen = () => (
   <Screen
