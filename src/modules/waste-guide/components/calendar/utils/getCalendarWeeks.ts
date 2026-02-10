@@ -29,7 +29,9 @@ export const getCalendarWeeks = () => {
 
     // isLastOfMonth: true if the next week contains any day that is the first of a month
     const nextWeek = days.slice(i + 7, i + 14)
-    const isLastOfMonth = nextWeek.some(day => day.date() === 1)
+    const isLastOfMonth =
+      nextWeek[0]?.date() === 1 ||
+      weekDays.some((day, index) => day.date() === 1 && index > 0)
 
     const week = {
       days: weekDays,

@@ -39,7 +39,8 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
               />
               <WasteGuideCalendarDaysRow
                 isFirstOfMonth={week.isFirstOfMonth}
-                isLastOfMonth={week.isLastOfMonth}>
+                isLastOfMonth={week.isLastOfMonth}
+                isLastRow={weekIdx === weeks.length - 1}>
                 {week.days.map((day, dayIdx) => {
                   const now = dayjs()
                   const dayIsToday = isToday(day)

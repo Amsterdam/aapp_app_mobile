@@ -10,6 +10,7 @@ type Props = {
   insetHorizontal?: keyof SpacingTokens
   isFirstOfMonth?: boolean
   isLastOfMonth?: boolean
+  isLastRow?: boolean
 }
 
 export const WasteGuideCalendarDaysRow = ({
@@ -17,6 +18,7 @@ export const WasteGuideCalendarDaysRow = ({
   insetHorizontal,
   isFirstOfMonth,
   isLastOfMonth,
+  isLastRow,
 }: Props) => {
   const styles = useThemable(theme => createStyles(theme, insetHorizontal))
 
@@ -25,7 +27,7 @@ export const WasteGuideCalendarDaysRow = ({
       style={[
         styles.daysRow,
         isFirstOfMonth && styles.daysRowMonthFirst,
-        isLastOfMonth && styles.daysRowMonthLast,
+        (isLastOfMonth || isLastRow) && styles.noBorderBottom,
       ]}>
       <Row>{children}</Row>
     </View>
@@ -46,7 +48,7 @@ const createStyles = (
       borderTopWidth: border.width.md,
       borderTopColor: color.box.border.emphasis,
     },
-    daysRowMonthLast: {
+    noBorderBottom: {
       borderBottomWidth: 0,
     },
   })
