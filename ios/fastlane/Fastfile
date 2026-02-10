@@ -171,9 +171,6 @@ platform :ios do
   desc "Build prod and dev version of the app"
   lane :buildApps do
 
-    # We cannot switch the app identifier for the build_app task via a config setting, in this setup we can only set it for a lane (see Appfile).
-    # Hence the multitude of lanes that seemingly do nothing.
-
     desc "Create single app build"
     private_lane :buildLane do |app|
         build_app(
@@ -184,16 +181,6 @@ platform :ios do
           output_directory: "./builds",
           output_name: app[:output_name],
         )
-    end
-
-    desc "Production build"
-    private_lane :prodLane do |app|
-      buildLane(app)
-    end
-
-    desc "Dev build"
-    private_lane :devLane do |app|
-      buildLane(app)
     end
 
     syncAppstore(
@@ -208,11 +195,7 @@ platform :ios do
     apps.each do |app|
       puts "Build #{app[:app_identifier]}"
       setEnvironmentForApp(app)
-      if app[:name] == "amsterdam-test"
-        devLane(app)
-      else
-        prodLane(app)
-      end
+      buildLane(app)
     end
   end
 
