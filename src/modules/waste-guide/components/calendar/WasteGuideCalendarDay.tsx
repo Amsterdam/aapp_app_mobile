@@ -9,6 +9,8 @@ type Props = {
   isAfter?: boolean
   isBeforeToday?: boolean
   isFirstWeekOfMonth?: boolean
+  isInNextMonth?: boolean
+  isInPreviousMonth?: boolean
   isToday?: boolean
   isWeekDayLabel?: boolean
 }
@@ -19,11 +21,16 @@ export const WasteGuideCalendarDay = ({
   isAfter,
   isToday,
   isFirstWeekOfMonth,
+  isInNextMonth,
+  isInPreviousMonth,
   isWeekDayLabel,
   accessibilityLabel,
 }: Props) => {
   const theme = useTheme()
   const styles = createStyles(theme, isWeekDayLabel)
+
+  const isInvisible =
+    isBeforeToday || isAfter || isInPreviousMonth || isInNextMonth
 
   return (
     <View
@@ -31,7 +38,7 @@ export const WasteGuideCalendarDay = ({
       accessible={!isBeforeToday}
       style={[
         styles.cell,
-        (isBeforeToday || isAfter) && styles.dayInvisible,
+        isInvisible && styles.dayInvisible,
         isToday && styles.cellToday,
         isFirstWeekOfMonth && isToday && styles.cellTodayCurrentWeek,
       ]}>
@@ -40,7 +47,7 @@ export const WasteGuideCalendarDay = ({
   )
 }
 
-const createStyles = ({border, color, size}: Theme, isWeekDayLabel?: boolean) =>
+const createStyles = ({border, color, size}: Theme, isWeekDayLabel = false) =>
   StyleSheet.create({
     cell: {
       alignItems: 'center',

@@ -50,7 +50,9 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                   )
 
                   const isNewMonth =
-                    week.isLastOfMonth && day.month() === months[1]
+                    week.isLastOfMonth &&
+                    months.length > 1 &&
+                    day.month() === months[1]
 
                   const isPreviousMonth =
                     week.isFirstOfMonth &&
@@ -68,9 +70,11 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                   return (
                     <WasteGuideCalendarDay
                       accessibilityLabel={accessibilityLabel}
-                      isAfter={isAfterPeriod || isNewMonth}
-                      isBeforeToday={isBeforeToday || isPreviousMonth}
+                      isAfter={isAfterPeriod}
+                      isBeforeToday={isBeforeToday}
                       isFirstWeekOfMonth={week.isFirstOfMonth}
+                      isInNextMonth={isNewMonth}
+                      isInPreviousMonth={isPreviousMonth}
                       isToday={dayIsToday}
                       key={dayIdx}>
                       <Phrase
