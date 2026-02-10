@@ -1,43 +1,43 @@
+import {useFocusEffect} from '@react-navigation/native'
 import {useCallback} from 'react'
-import {FlatList, type ListRenderItem} from 'react-native'
-import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
-import {useModules} from '@/hooks/useModules'
-import {NotificationHistoryItem} from '@/modules/notification-history/components/NotificationHistoryItem'
-import {NotificationHistoryListFooter} from '@/modules/notification-history/components/NotificationHistoryListFooter'
-import {useMarkAllNotificationsReadMutation} from '@/modules/notification-history/service'
-import {
-  GetNotificationsResult,
-  type Notification,
-} from '@/modules/notification-history/types'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
+import {ConstructionWorkFigure} from '@/components/ui/media/errors/ConstructionWorkFigure'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {NotificationHistoryEmpty} from '@/modules/notification-history/components/NotificationHistoryEmpty'
+import {NotificationHistoryList} from '@/modules/notification-history/components/NotificationHistoryList'
+import {useGetNotificationsQuery} from '@/modules/notification-history/service'
 
-type Props = {
-  data?: GetNotificationsResult
-}
+export const NotificationHistory = () => {
+  const navigation = useNavigation()
+  const {data, isLoading, isError, error, refetch} = useGetNotificationsQuery()
 
-export const NotificationHistory = ({data}: Props) => {
-  const {enabledModules} = useModules()
+  useFocusEffect(
+    useCallback(() => {
+      void refetch()
+    }, [refetch]),
+  )
 
-  const renderItem = useCallback<ListRenderItem<Notification>>(
-    ({item}) => (
-      <NotificationHistoryItem
-        enabledModules={enabledModules}
-        item={item}
+  if (isLoading) {
+    return <PleaseWait testID="NotificationHistoryPleaseWait" />
+  }
+
+  if (isError) {
+    return (
+      <FullScreenError
+        buttonLabel="Ga terug"
+        error={error}
+        Image={ConstructionWorkFigure}
+        onPress={() => navigation.goBack()}
+        testID="NotificationHistoryFullScreenError"
+        title="Er kunnen geen meldingen worden getoond"
       />
-    ),
-    [enabledModules],
-  )
-  const [markAllNotificationsRead, {}] = useMarkAllNotificationsReadMutation()
+    )
+  }
 
-  useBlurEffect(() => {
-    void markAllNotificationsRead()
-  })
+  if (data?.length === 0) {
+    return <NotificationHistoryEmpty />
+  }
 
-  return (
-    <FlatList
-      data={data}
-      keyExtractor={({id}) => id}
-      ListFooterComponent={NotificationHistoryListFooter}
-      renderItem={renderItem}
-    />
-  )
+  return <NotificationHistoryList data={data} />
 }
