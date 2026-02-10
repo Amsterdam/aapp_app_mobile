@@ -41,7 +41,7 @@ steps:
   # Install Ccache
   - script: |
       brew install ccache
-      export PATH="/usr/local/opt/ccache/libexec:$PATH"
+      echo "##vso[task.prependpath]/usr/local/opt/ccache/libexec"
     displayName: 'Install Ccache'
 
   # Set ccache compiler_check to content
@@ -51,9 +51,11 @@ steps:
 
   - task: Cache@2
     inputs:
-      key: 'ccache | ${{ parameters.platform }} | **/package-lock.json'
+      key: 'ccache | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json'
       path: $(CCACHE_DIR)
       cacheHitVar: CACHE_RESTORED
+      restoreKeys: |
+        ccache | "$(Agent.OS)" | ${{ parameters.platform }}
     displayName: 'Cache ccache directory'
 
   # Install gems and run Fastlane
