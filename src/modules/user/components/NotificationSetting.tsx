@@ -1,11 +1,13 @@
 import {type ReactNode, useCallback} from 'react'
 import type {Module} from '@/modules/types'
 import type {NotificationModule} from '@/modules/user/types'
+import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {
   useAddDisabledPushTypeMutation,
   useDeleteDisabledPushModuleMutation,
@@ -21,7 +23,15 @@ type Props = {
 
 export const NotificationSetting = ({
   isDisabled,
-  notificationModule: {description, module, title, types},
+  notificationModule: {
+    description,
+    module,
+    title,
+    types,
+    useIsLoggedIn,
+    loginRoute,
+    slug,
+  },
 }: Props) => {
   const [deleteDisabledPushModule, {isLoading: isLoadingEnable}] =
     useDeleteDisabledPushModuleMutation()
@@ -30,6 +40,7 @@ export const NotificationSetting = ({
   const [deleteDisabledPushType, {isLoading: isLoadingTypeEnable}] =
     useDeleteDisabledPushTypeMutation()
   const {data: disabledPushTypes} = useGetDisabledPushTypesQuery()
+  const navigation = useNavigation()
 
   const isLoading =
     isLoadingEnable || isLoadingTypeDisable || isLoadingTypeEnable
@@ -56,6 +67,8 @@ export const NotificationSetting = ({
     ],
   )
 
+  const isLoggedIn = useIsLoggedIn?.() ?? true
+
   return (
     <Column gutter="no">
       <Box>
@@ -66,23 +79,35 @@ export const NotificationSetting = ({
       </Box>
 
       <Column gutter="xxs">
-        {types.map(type => (
-          <Switch
-            accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
-            disabled={isLoading}
-            key={type.type}
-            label={<Phrase>{type.description}</Phrase>}
-            onChange={() =>
-              onChangeType(
-                type.type,
-                !disabledPushTypes?.includes(type.type) && !isDisabled,
-              )
-            }
-            testID={`NotificationSetting${module}Switch`}
-            value={!disabledPushTypes?.includes(type.type) && !isDisabled}
-            wrapper={SwitchWrapper}
+        {isLoggedIn ? (
+          types.map(type => (
+            <Switch
+              accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
+              disabled={isLoading}
+              key={type.type}
+              label={<Phrase>{type.description}</Phrase>}
+              onChange={() =>
+                onChangeType(
+                  type.type,
+                  !disabledPushTypes?.includes(type.type) && !isDisabled,
+                )
+              }
+              testID={`NotificationSetting${module}Switch`}
+              value={!disabledPushTypes?.includes(type.type) && !isDisabled}
+              wrapper={SwitchWrapper}
+            />
+          ))
+        ) : (
+          <NavigationButton
+            chevronSize="md"
+            emphasis="default"
+            onPress={() => {
+              navigation.navigate(slug, loginRoute)
+            }}
+            testID={`NotificationSetting${module}LoginNavigationButton`}
+            title="Log in om meldingen te ontvangen"
           />
-        ))}
+        )}
       </Column>
     </Column>
   )

@@ -1,3 +1,4 @@
+import {useIsLoggedInMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useIsLoggedInMijnAmsterdam'
 import {MijnAmsterdamRouteName} from '@/modules/mijn-amsterdam/routes'
 import {mijnAmsterdamSlice} from '@/modules/mijn-amsterdam/slice'
 import {mijnAmsterdamUserMenuSection} from '@/modules/mijn-amsterdam/utils/userMenuSection'
@@ -21,4 +22,6 @@ export const mijnAmsterdamModule = createClientModule({
   requiresFirebaseToken: true,
   slug: ModuleSlug['mijn-amsterdam'],
   userMenuSection: mijnAmsterdamUserMenuSection,
+  useIsLoggedIn: () => useIsLoggedInMijnAmsterdam().isLoggedIn,
+  loginRoute: {screen: MijnAmsterdamRouteName.settings},
 })

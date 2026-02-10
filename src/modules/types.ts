@@ -22,7 +22,7 @@ import {type PushNotification} from '@/types/notification'
 /**
  * The config properties that are shared between core and non-core modules.
  */
-export type CoreModuleConfig = {
+export type CoreModuleConfig<Slug extends ModuleSlug = ModuleSlug> = {
   /**
    * The log dimension to log the enabled state of this module
    */
@@ -49,7 +49,7 @@ export type CoreModuleConfig = {
   /**
    * A unique human-readable identifier for the module.
    */
-  slug: ModuleSlug
+  slug: Slug
 }
 
 /**
@@ -61,7 +61,8 @@ export type ModuleClientConfig<
     unknown
   >,
   Icons extends SvgIconVariantConfig | void = void,
-> = CoreModuleConfig & {
+  Slug extends ModuleSlug = ModuleSlug,
+> = CoreModuleConfig<Slug> & {
   /**
    * If true, the user is not allowed to disable the module in the settings.
    */
@@ -79,6 +80,7 @@ export type ModuleClientConfig<
    * @see https://reactnavigation.org/docs/configuring-links
    */
   linking?: PathConfigMap<RootStackParams>
+  loginRoute?: RootStackParams[Slug]
   /**
    * Function to call the logout logic of the module.
    */
@@ -125,6 +127,10 @@ export type ModuleClientConfig<
    * Determines whether the module requires a Firebase token.
    */
   requiresFirebaseToken?: boolean
+  /**
+   * Provide a hook that returns whether the user is logged in.
+   */
+  useIsLoggedIn?: () => boolean
   userMenuSection?: UserMenuSection
 }
 
