@@ -28,7 +28,7 @@ export const NotificationSetting = ({
     module,
     title,
     types,
-    useIsLoggedIn,
+    useIsLoggedIn = () => true,
     loginRoute,
     slug,
   },
@@ -67,7 +67,7 @@ export const NotificationSetting = ({
     ],
   )
 
-  const isLoggedIn = useIsLoggedIn?.() ?? true
+  const isLoggedIn = useIsLoggedIn()
 
   return (
     <Column gutter="no">
@@ -102,7 +102,12 @@ export const NotificationSetting = ({
             chevronSize="md"
             emphasis="default"
             onPress={() => {
-              navigation.navigate(slug, loginRoute)
+              if (Array.isArray(loginRoute)) {
+                // @ts-expect-error - This is a valid navigation route, but somehow it does not understand the params type
+                navigation.navigate(...loginRoute)
+              } else {
+                navigation.navigate(slug, loginRoute)
+              }
             }}
             testID={`NotificationSetting${module}LoginNavigationButton`}
             title="Log in om meldingen te ontvangen"

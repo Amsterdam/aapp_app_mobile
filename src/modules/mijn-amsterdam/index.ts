@@ -23,5 +23,8 @@ export const mijnAmsterdamModule = createClientModule({
   slug: ModuleSlug['mijn-amsterdam'],
   userMenuSection: mijnAmsterdamUserMenuSection,
   useIsLoggedIn: () => useIsLoggedInMijnAmsterdam().isLoggedIn,
-  loginRoute: {screen: MijnAmsterdamRouteName.settings},
+  loginRoute: [
+    ModuleSlug['mijn-amsterdam'],
+    {screen: MijnAmsterdamRouteName.settings},
+  ],
 })

@@ -80,7 +80,14 @@ export type ModuleClientConfig<
    * @see https://reactnavigation.org/docs/configuring-links
    */
   linking?: PathConfigMap<RootStackParams>
-  loginRoute?: RootStackParams[Slug]
+  /**
+   * The route to navigate to when the user wants to log in. This can be either a direct route name or an array with the route name and params.
+   * Should be passed an object with the screen name when the login screen is in the module's navigation stack, for example: {screen: 'Login'}.
+   * When navigating to another module, an array should be passed where the first param is the module slug and the second param is an object with the screen name and params to navigate to.
+   */
+  loginRoute?:
+    | RootStackParams[Slug]
+    | [keyof RootStackParams, RootStackParams[Slug]]
   /**
    * Function to call the logout logic of the module.
    */

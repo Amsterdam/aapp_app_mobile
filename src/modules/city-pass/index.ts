@@ -1,10 +1,6 @@
-import {useSelector} from '@/hooks/redux/useSelector'
+import {useIsLoggedIn} from '@/modules/city-pass/hooks/useIsLoggedIn'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {
-  cityPassSlice,
-  CityPassState,
-  selectIsCityPassOwnerRegistered,
-} from '@/modules/city-pass/slice'
+import {cityPassSlice, CityPassState} from '@/modules/city-pass/slice'
 import {logout} from '@/modules/city-pass/utils/logout'
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
@@ -36,6 +32,6 @@ export const cityPassModule = createClientModule({
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['city-pass'],
-  useIsLoggedIn: () => useSelector(selectIsCityPassOwnerRegistered),
+  useIsLoggedIn,
   loginRoute: {screen: CityPassRouteName.login},
 })
