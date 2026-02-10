@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import Animated, {FadeOutUp} from 'react-native-reanimated'
 import {RenderIfModuleActive} from '@/components/features/RenderIfModuleActive'
 import {Button} from '@/components/ui/buttons/Button'
@@ -10,17 +9,21 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {MijnAmsterdamRouteName} from '@/modules/mijn-amsterdam/routes'
+import {
+  selectShouldShowBanner,
+  setShouldShowBanner,
+} from '@/modules/mijn-amsterdam/slice'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const NotificationHistoryBanner = () => {
   const {navigate} = useNavigation()
-  const [isOpen, setIsOpen] = useState(true)
-  const onClose = () => {
-    setIsOpen(false)
-  }
+  const dispatch = useDispatch()
+  const shouldShowBanner = useSelector(selectShouldShowBanner)
 
-  return isOpen ? (
+  return shouldShowBanner ? (
     <RenderIfModuleActive moduleSlug={ModuleSlug['mijn-amsterdam']}>
       <Animated.View
         exiting={FadeOutUp}
@@ -47,7 +50,7 @@ export const NotificationHistoryBanner = () => {
                       testID="NotificationHistoryBannerCloseIcon"
                     />
                   }
-                  onPress={onClose}
+                  onPress={() => dispatch(setShouldShowBanner(false))}
                   testID="NotificationHistoryBannerCloseButton"
                 />
               </Row>
