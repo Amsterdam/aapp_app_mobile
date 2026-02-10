@@ -31,8 +31,8 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
         <Box
           insetHorizontal="md"
           insetTop="md">
-          {weeks.map((week, weekIdx) => (
-            <View key={weekIdx}>
+          {weeks.map((week, weekIndex) => (
+            <View key={weekIndex}>
               <WasteGuideCalendarMonthTitle
                 isFirstOfMonth={week.isFirstOfMonth}
                 monthName={week.monthName}
@@ -40,8 +40,8 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
               <WasteGuideCalendarDaysRow
                 isFirstOfMonth={week.isFirstOfMonth}
                 isLastOfMonth={week.isLastOfMonth}
-                isLastRow={weekIdx === weeks.length - 1}>
-                {week.days.map((day, dayIdx) => {
+                isLastRow={weekIndex === weeks.length - 1}>
+                {week.days.map((day, dayIndex) => {
                   const now = dayjs()
                   const dayIsToday = isToday(day)
                   const dayIsTomorrow = isTomorrow(day)
@@ -76,7 +76,7 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                       isInNextMonth={isNewMonth}
                       isInPreviousMonth={isPreviousMonth}
                       isToday={dayIsToday}
-                      key={dayIdx}>
+                      key={dayIndex}>
                       <Phrase
                         accessible={false}
                         color={isWeekendDay ? 'secondary' : undefined}
