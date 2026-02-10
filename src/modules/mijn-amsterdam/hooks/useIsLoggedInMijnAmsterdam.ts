@@ -7,7 +7,5 @@ export const useIsLoggedInMijnAmsterdam = () => {
 
   useGetMijnAmsterdamLoginStatusQuery()
 
-  return {
-    isLoggedIn,
-  }
+  return isLoggedIn
 }

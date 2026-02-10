@@ -19,7 +19,7 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
   const {loginResult} = route.params || {}
   const [logoutMutation] = useMijnAmsterdamLogoutMutation()
   const login = useLoginMijnAmsterdam()
-  const {isLoggedIn} = useIsLoggedInMijnAmsterdam()
+  const isLoggedIn = useIsLoggedInMijnAmsterdam()
   const {setAlert} = useAlert()
 
   const logout = () => {
