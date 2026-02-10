@@ -9,7 +9,7 @@ export const mijnAmsterdamModule = createClientModule({
   reduxConfigs: [
     {
       key: ReduxKey.mijnAmsterdam,
-      persistVersion: -1,
+      persistVersion: 0,
       slice: mijnAmsterdamSlice,
     },
   ],

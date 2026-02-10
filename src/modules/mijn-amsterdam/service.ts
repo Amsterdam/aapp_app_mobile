@@ -31,9 +31,6 @@ const mijnAmsterdamApi = baseApi.injectEndpoints({
         },
       }),
       keepUnusedDataFor: CacheLifetime.minute,
-      transformResponse: ({status}: GetMijnAmsterdamLogin) => ({
-        isLoggedIn: status === MijnAmsterdamLoginStatus.loggedIn,
-      }),
     }),
     mijnAmsterdamLogout: builder.mutation<void, void>({
       invalidatesTags: ['MijnAmsterdam'],
