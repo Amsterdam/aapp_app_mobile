@@ -13,4 +13,6 @@ export const createClientModule = <
   module: ModuleClientConfig<PushNotificationData, Icons, Slug>,
 ) => module
 
-export const createCoreModule = (module: CoreModuleConfig) => module
+export const createCoreModule = <Slug extends ModuleSlug = ModuleSlug>(
+  module: CoreModuleConfig<Slug>,
+) => module
