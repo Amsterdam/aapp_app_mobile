@@ -53,10 +53,39 @@ steps:
     inputs:
       key: 'ccache | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json'
       path: $(CCACHE_DIR)
-      cacheHitVar: CACHE_RESTORED
+      cacheHitVar: CCACHE_CACHE_RESTORED
       restoreKeys: |
         ccache | "$(Agent.OS)" | ${{ parameters.platform }}
     displayName: 'Cache ccache directory'
+
+  - task: Cache@2
+    inputs:
+      key: 'pods | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json | **/podfile.lock'
+      path: '~/Library/Caches/CocoaPods'
+      cacheHitVar: PODS_CACHE_RESTORED
+      restoreKeys: |
+        pods | "$(Agent.OS)" | ${{ parameters.platform }}
+    displayName: 'Cache CocoaPods local cache directory'
+    condition: eq('${{ parameters.platform }}', 'ios')
+
+  - task: Cache@2
+    inputs:
+      key: 'npm | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json'
+      path: $(Pipeline.Workspace)/.npm
+      cacheHitVar: NPM_CACHE_RESTORED
+      restoreKeys: |
+        npm | "$(Agent.OS)" | ${{ parameters.platform }}
+    displayName: 'Cache npm local cache directory'
+
+  - task: Cache@2
+    inputs:
+      key: 'gems | "$(Agent.OS)" | ${{ parameters.platform }} | **/gemfile.lock | **/gemfile'
+      path: $(Pipeline.Workspace)/.bundle
+      cacheHitVar: GEMS_CACHE_RESTORED
+      restoreKeys: |
+        gems | "$(Agent.OS)" | ${{ parameters.platform }}
+        gems | "$(Agent.OS)"
+    displayName: 'Cache gems local cache directory'
 
   # Install gems and run Fastlane
   - script: |
