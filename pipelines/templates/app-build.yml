@@ -41,6 +41,7 @@ steps:
   # Install Ccache
   - script: |
       brew install ccache
+      export PATH="/usr/local/opt/ccache/libexec:$PATH"
     displayName: 'Install Ccache'
 
   # Set ccache compiler_check to content
