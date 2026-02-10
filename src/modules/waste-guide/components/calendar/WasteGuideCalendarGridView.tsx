@@ -31,19 +31,34 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
         <Box
           insetHorizontal="md"
           insetTop="md">
-          {weeks.map((week, weekIdx) => (
-            <View key={weekIdx}>
+          {weeks.map((week, weekIndex) => (
+            <View key={weekIndex}>
               <WasteGuideCalendarMonthTitle
                 isFirstOfMonth={week.isFirstOfMonth}
                 monthName={week.monthName}
               />
               <WasteGuideCalendarDaysRow
                 isFirstOfMonth={week.isFirstOfMonth}
-                isLastOfMonth={week.isLastOfMonth}>
-                {week.days.map((day, dayIdx) => {
+                isLastOfMonth={week.isLastOfMonth}
+                isLastRow={weekIndex === weeks.length - 1}>
+                {week.days.map((day, dayIndex) => {
                   const now = dayjs()
                   const dayIsToday = isToday(day)
                   const dayIsTomorrow = isTomorrow(day)
+                  const months = Array.from(
+                    new Set(week.days.map(d => d.month())),
+                  )
+
+                  const isNewMonth =
+                    week.isLastOfMonth &&
+                    months.length > 1 &&
+                    day.month() === months[1]
+
+                  const isPreviousMonth =
+                    week.isFirstOfMonth &&
+                    months.length > 1 &&
+                    day.month() === months[0]
+
                   const isBeforeToday = day.isBefore(now, 'day')
                   const isAfterPeriod = day
                     .add(1, 'day')
@@ -58,8 +73,10 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                       isAfter={isAfterPeriod}
                       isBeforeToday={isBeforeToday}
                       isFirstWeekOfMonth={week.isFirstOfMonth}
+                      isInNextMonth={isNewMonth}
+                      isInPreviousMonth={isPreviousMonth}
                       isToday={dayIsToday}
-                      key={dayIdx}>
+                      key={dayIndex}>
                       <Phrase
                         accessible={false}
                         color={isWeekendDay ? 'secondary' : undefined}

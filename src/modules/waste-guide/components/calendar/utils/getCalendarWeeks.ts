@@ -29,14 +29,36 @@ export const getCalendarWeeks = () => {
 
     // isLastOfMonth: true if the next week contains any day that is the first of a month
     const nextWeek = days.slice(i + 7, i + 14)
-    const isLastOfMonth = nextWeek.some(day => day.date() === 1)
+    const isLastOfMonth =
+      nextWeek[0]?.date() === 1 ||
+      weekDays.some((day, index) => day.date() === 1 && index > 0)
 
-    weeks.push({
+    const week = {
       days: weekDays,
       isFirstOfMonth,
       isLastOfMonth,
-      monthName: isFirstOfMonth ? currentMonth : undefined,
-    })
+      monthName: currentMonth,
+    }
+
+    // To render transitional weeks (from previous month into new month) we need to duplicate those weeks and provide their appropriate transitional status.
+    // This is to show days of month 1 inside the grid of month 1, and days of month 2 inside the grid row of month 2. In the data, this requires duplicate days.
+    if (weekDays.some((day, index) => day.date() === 1 && index > 0)) {
+      weeks.push(
+        {
+          ...week,
+          isFirstOfMonth: false,
+          isLastOfMonth: true,
+        },
+        {
+          ...week,
+          isFirstOfMonth: true,
+          isLastOfMonth: false,
+        },
+      )
+    } else {
+      weeks.push(week)
+    }
+
     prevMonth = currentMonth
   }
 
