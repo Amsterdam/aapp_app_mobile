@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
@@ -23,7 +22,5 @@ export const mijnAmsterdamSlice = createSlice({
 
 export const {setIsLoggedIn} = mijnAmsterdamSlice.actions
 
-const selectIsLoggedIn = (state: RootState) =>
+export const selectIsLoggedIn = (state: RootState) =>
   state[ReduxKey.mijnAmsterdam].isLoggedIn
-
-export const useIsLoggedIn = () => useSelector(selectIsLoggedIn)

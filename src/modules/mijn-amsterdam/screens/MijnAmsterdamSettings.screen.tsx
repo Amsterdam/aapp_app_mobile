@@ -8,21 +8,18 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {alerts} from '@/modules/mijn-amsterdam/alerts'
 import {useHandleLoginDeeplink} from '@/modules/mijn-amsterdam/hooks/useHandleLoginDeeplink'
+import {useIsLoggedInMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useIsLoggedInMijnAmsterdam'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
-import {
-  useGetMijnAmsterdamLoginStatusQuery,
-  useMijnAmsterdamLogoutMutation,
-} from '@/modules/mijn-amsterdam/service'
+import {useMijnAmsterdamLogoutMutation} from '@/modules/mijn-amsterdam/service'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = NavigationProps<MijnAmsterdamRouteName.settings>
 
 export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
   const {loginResult} = route.params || {}
-  const {data: {isLoggedIn} = {isLoggedIn: false}, isLoading} =
-    useGetMijnAmsterdamLoginStatusQuery()
   const [logoutMutation] = useMijnAmsterdamLogoutMutation()
   const login = useLoginMijnAmsterdam()
+  const {isLoggedIn} = useIsLoggedInMijnAmsterdam()
   const {setAlert} = useAlert()
 
   const logout = () => {
@@ -45,12 +42,7 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
           insetVertical="lg"
           variant="distinct">
           <Column gutter="lg">
-            {isLoading ? (
-              <Paragraph>
-                Blijf op de hoogte van uw aanvraag of klacht. Log 1 keer in met
-                DigiD om meldingen te ontvangen.
-              </Paragraph>
-            ) : isLoggedIn ? (
+            {isLoggedIn ? (
               <>
                 <Paragraph>
                   U ontvangt nu meldingen van Mijn Amsterdam.
@@ -69,7 +61,6 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
                   met DigiD om meldingen te ontvangen.
                 </Paragraph>
                 <DigiDButton
-                  isLoading={isLoading}
                   onPress={login}
                   testID="MijnAmsterdamLoginButton"
                 />
