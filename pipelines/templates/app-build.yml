@@ -24,6 +24,16 @@ steps:
       jdkArchitectureOption: 'x64'
       jdkSourceOption: 'PreInstalled'
     condition: eq('${{ parameters.platform }}', 'android')
+
+  - task: Cache@2
+    inputs:
+      key: 'npm | "$(Agent.OS)" | **/package-lock.json'
+      path: $(npm_config_cache)
+      cacheHitVar: NPM_CACHE_RESTORED
+      restoreKeys: |
+        npm | "$(Agent.OS)"
+    displayName: 'Cache npm local cache directory'
+
   - script: npm ci
     displayName: 'Install node dependencies'
 
@@ -67,15 +77,6 @@ steps:
         pods | "$(Agent.OS)" | ${{ parameters.platform }}
     displayName: 'Cache CocoaPods local cache directory'
     condition: eq('${{ parameters.platform }}', 'ios')
-
-  - task: Cache@2
-    inputs:
-      key: 'npm | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json'
-      path: $(npm_config_cache)
-      cacheHitVar: NPM_CACHE_RESTORED
-      restoreKeys: |
-        npm | "$(Agent.OS)" | ${{ parameters.platform }}
-    displayName: 'Cache npm local cache directory'
 
   - task: Cache@2
     inputs:
