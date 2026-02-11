@@ -25,15 +25,6 @@ steps:
       jdkSourceOption: 'PreInstalled'
     condition: eq('${{ parameters.platform }}', 'android')
 
-  - task: Cache@2
-    inputs:
-      key: 'npm | "$(Agent.OS)" | **/package-lock.json'
-      path: $(npm_config_cache)
-      cacheHitVar: NPM_CACHE_RESTORED
-      restoreKeys: |
-        npm | "$(Agent.OS)"
-    displayName: 'Cache npm local cache directory'
-
   - script: npm ci
     displayName: 'Install node dependencies'
 

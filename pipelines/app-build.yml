@@ -17,8 +17,6 @@ variables:
     value: $(Pipeline.Workspace)/ccache
   - name: BUNDLE_PATH
     value: $(Pipeline.Workspace)/.bundle
-  - name: npm_config_cache
-    value: $(Pipeline.Workspace)/.npm
 
 jobs:
   - job: 'Build_Android'
