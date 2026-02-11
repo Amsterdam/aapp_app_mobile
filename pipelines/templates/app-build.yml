@@ -71,7 +71,7 @@ steps:
   - task: Cache@2
     inputs:
       key: 'npm | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json'
-      path: $(Pipeline.Workspace)/.npm
+      path: $(npm_config_cache)
       cacheHitVar: NPM_CACHE_RESTORED
       restoreKeys: |
         npm | "$(Agent.OS)" | ${{ parameters.platform }}
@@ -80,7 +80,7 @@ steps:
   - task: Cache@2
     inputs:
       key: 'gems | "$(Agent.OS)" | ${{ parameters.platform }} | **/gemfile.lock | **/gemfile'
-      path: $(Pipeline.Workspace)/.bundle
+      path: $(BUNDLE_PATH)
       cacheHitVar: GEMS_CACHE_RESTORED
       restoreKeys: |
         gems | "$(Agent.OS)" | ${{ parameters.platform }}
