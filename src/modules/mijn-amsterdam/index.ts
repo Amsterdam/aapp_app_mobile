@@ -1,7 +1,6 @@
-import {MijnAmsterdamRouteName} from '@/modules/mijn-amsterdam/routes'
 import {mijnAmsterdamSlice} from '@/modules/mijn-amsterdam/slice'
-import {mijnAmsterdamUserMenuSection} from '@/modules/mijn-amsterdam/utils/userMenuSection'
 import {ModuleSlug} from '@/modules/slugs'
+import {UserRouteName} from '@/modules/user/routes'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
@@ -14,15 +13,8 @@ export const mijnAmsterdamModule = createClientModule({
     },
   ],
   hiddenInMenu: true,
-  linking: {
-    [MijnAmsterdamRouteName.settings]: 'mijn-amsterdam/:loginResult',
-  },
   name: 'MijnAmsterdamModule',
   requiresFirebaseToken: true,
   slug: ModuleSlug['mijn-amsterdam'],
-  userMenuSection: mijnAmsterdamUserMenuSection,
-  loginRoute: [
-    ModuleSlug['mijn-amsterdam'],
-    {screen: MijnAmsterdamRouteName.settings},
-  ],
+  loginRoute: [ModuleSlug.user, {screen: UserRouteName.accounts}],
 })

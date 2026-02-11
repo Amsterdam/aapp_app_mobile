@@ -1,9 +1,9 @@
-import type {SvgIconName} from '@/components/ui/media/svgIcons'
+import type {IconProps} from '@/components/ui/media/Icon'
 import type {AccessCodeRouteName} from '@/modules/access-code/routes'
 import type {AddressRouteName} from '@/modules/address/routes'
+import type {OnboardingRouteName} from '@/modules/onboarding/routes'
 import type {ModuleSlug} from '@/modules/slugs'
 import type {UserRouteName} from '@/modules/user/routes'
-import {OnboardingRouteName} from '@/modules/onboarding/routes'
 
 export type UserMenuSection = {
   navigationItems: UserMenuSectionItem[]
@@ -11,7 +11,7 @@ export type UserMenuSection = {
 }
 
 export type UserMenuSectionItem = {
-  iconName?: SvgIconName
+  icon?: Pick<IconProps, 'name' | 'isFilled'>
   label: string
   moduleSlug?: ModuleSlug
   route?:

@@ -107,6 +107,22 @@ export const config: CodeGenConfig = [
     ],
   },
   {
+    inputDir,
+    match: 'Account.tsx',
+    output: 'src/modules/generated/account.generated.ts',
+    imports: [
+      {
+        import: 'Account',
+        exportName: 'Account',
+        optional: true,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
+        resultImports: defaultResultImports,
+        satisfies: defaultSatisfies,
+      },
+    ],
+  },
+  {
     inputDir: 'assets/images/map',
     match: '\\.png$',
     type: 'file',

@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/media/svgIcons'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {type ModuleSlug} from '@/modules/slugs'
-import {type UserMenuSection} from '@/modules/user/types'
 import {type CustomDimensionKeys} from '@/processes/piwik/types'
 import {type ReduxConfig} from '@/store/types/reduxConfig'
 import {type RootState} from '@/store/types/rootState'
@@ -23,6 +22,11 @@ import {type PushNotification} from '@/types/notification'
  * The config properties that are shared between core and non-core modules.
  */
 export type CoreModuleConfig<Slug extends ModuleSlug = ModuleSlug> = {
+  /**
+   * The module's deeplink configuration.
+   * @see https://reactnavigation.org/docs/configuring-links
+   */
+  linking?: PathConfigMap<RootStackParams>
   /**
    * The log dimension to log the enabled state of this module
    */
@@ -75,11 +79,6 @@ export type ModuleClientConfig<
    * Module specific icons.
    */
   icons?: Icons
-  /**
-   * The module's deeplink configuration.
-   * @see https://reactnavigation.org/docs/configuring-links
-   */
-  linking?: PathConfigMap<RootStackParams>
   /**
    * The route to navigate to when the user wants to log in. This can be either a direct route name or an array with the route name and params.
    * Should be passed an object with the screen name when the login screen is in the module's navigation stack, for example: {screen: 'Login'}.
@@ -134,7 +133,6 @@ export type ModuleClientConfig<
    * Determines whether the module requires a Firebase token.
    */
   requiresFirebaseToken?: boolean
-  userMenuSection?: UserMenuSection
 }
 
 /**

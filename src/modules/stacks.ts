@@ -29,7 +29,6 @@ import {modals as modalsGenerated} from '@/modules/generated/modals.generated'
 import {HomeStack} from '@/modules/home/Stack'
 import {HomeModalParams, HomeStackParams} from '@/modules/home/routes'
 import {MijnAmsterdamStack} from '@/modules/mijn-amsterdam/Stack'
-import {MijnAmsterdamStackParams} from '@/modules/mijn-amsterdam/routes'
 import {NotificationHistoryStack} from '@/modules/notification-history/Stack'
 import {OnboardingStack} from '@/modules/onboarding/Stack'
 import {OnboardingStackParams} from '@/modules/onboarding/routes'
@@ -67,7 +66,6 @@ export type ModuleStackParams = AccessCodeStackParams &
   ContactStackParams &
   ElectionsStackParams &
   HomeStackParams &
-  MijnAmsterdamStackParams &
   OnboardingStackParams &
   ParkingStackParams &
   RedirectsStackParams &
