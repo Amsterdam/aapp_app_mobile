@@ -3,6 +3,7 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 // Firebase
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "org.rnrepo.tools.prebuilds-plugin"
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
