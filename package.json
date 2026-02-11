@@ -40,7 +40,7 @@
     "@notifee/react-native": "^9.1.8",
     "@piwikpro/react-native-piwik-pro-sdk": "^1.1.0",
     "@react-native-async-storage/async-storage": "^1.24.0",
-    "@react-native-community/netinfo": "^11.4.1",
+    "@react-native-community/netinfo": "^11.5.2",
     "@react-native-firebase/app": "^21.3.0",
     "@react-native-firebase/messaging": "^21.3.0",
     "@react-native-masked-view/masked-view": "^0.2.9",
