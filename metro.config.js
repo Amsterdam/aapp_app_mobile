@@ -36,7 +36,7 @@ const config = {
 
       try {
         // eslint-disable-next-line sonarjs/no-os-command-from-path
-        execFile('node', ['nodescripts/codegen.watch.mts'], {
+        execFile('node', ['nodescripts/codegen/codegen.watch.mts'], {
           stdio: 'inherit',
           cwd: process.cwd(),
         })
