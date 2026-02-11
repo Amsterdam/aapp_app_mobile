@@ -81,7 +81,7 @@ export const AddressSwitchSaveMyAddress = ({
                   dispatch(
                     setShowSaveAsMyAddress({
                       moduleSlug,
-                      showSaveAsMyAddress: true,
+                      show: true,
                     }),
                   )
                 }

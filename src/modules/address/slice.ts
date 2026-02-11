@@ -107,20 +107,18 @@ export const addressSlice = createSlice({
     setShowSaveAsMyAddress: (
       state,
       {
-        payload: {moduleSlug, showSaveAsMyAddress},
+        payload: {moduleSlug, show},
       }: PayloadAction<{
         moduleSlug: ModuleSlug
-        showSaveAsMyAddress: boolean
+        show: boolean
       }>,
-    ) => ({
-      ...state,
-      moduleCustomAddress: {
-        ...state.moduleCustomAddress,
-        [moduleSlug]: state.moduleCustomAddress?.[moduleSlug]
-          ? {...state.moduleCustomAddress[moduleSlug], showSaveAsMyAddress}
-          : undefined,
-      },
-    }),
+    ) => {
+      const customAddress = state.moduleCustomAddress?.[moduleSlug]
+
+      if (customAddress) {
+        customAddress.showSaveAsMyAddress = show
+      }
+    },
   },
 })
 
