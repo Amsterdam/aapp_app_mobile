@@ -8,7 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {alerts} from '@/modules/mijn-amsterdam/alerts'
 import {useHandleLoginDeeplink} from '@/modules/mijn-amsterdam/hooks/useHandleLoginDeeplink'
-import {useIsLoggedInMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useIsLoggedInMijnAmsterdam'
+import {useIsLoggedIn} from '@/modules/mijn-amsterdam/hooks/useIsLoggedIn'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
 import {useMijnAmsterdamLogoutMutation} from '@/modules/mijn-amsterdam/service'
 import {useAlert} from '@/store/slices/alert'
@@ -19,7 +19,7 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
   const {loginResult} = route.params || {}
   const [logoutMutation] = useMijnAmsterdamLogoutMutation()
   const login = useLoginMijnAmsterdam()
-  const isLoggedIn = useIsLoggedInMijnAmsterdam()
+  const isLoggedIn = useIsLoggedIn()
   const {setAlert} = useAlert()
 
   const logout = () => {
