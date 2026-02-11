@@ -21,4 +21,8 @@ export const mijnAmsterdamModule = createClientModule({
   requiresFirebaseToken: true,
   slug: ModuleSlug['mijn-amsterdam'],
   userMenuSection: mijnAmsterdamUserMenuSection,
+  loginRoute: [
+    ModuleSlug['mijn-amsterdam'],
+    {screen: MijnAmsterdamRouteName.settings},
+  ],
 })

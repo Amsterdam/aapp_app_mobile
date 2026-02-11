@@ -21,15 +21,15 @@ export type UserMenuSectionItem = {
     | OnboardingRouteName
 }
 
+export type NotificationType = {
+  description: string
+  type: string
+}
+
 export type NotificationModule = {
   description: string
   module: ModuleSlug
-  types: [
-    {
-      description: string
-      type: string
-    },
-  ]
+  types: Array<NotificationType>
 }
 
 export type NotificationModulesResponse = NotificationModule[]

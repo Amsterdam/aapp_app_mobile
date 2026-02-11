@@ -22,7 +22,7 @@ import {type PushNotification} from '@/types/notification'
 /**
  * The config properties that are shared between core and non-core modules.
  */
-export type CoreModuleConfig = {
+export type CoreModuleConfig<Slug extends ModuleSlug = ModuleSlug> = {
   /**
    * The log dimension to log the enabled state of this module
    */
@@ -49,7 +49,7 @@ export type CoreModuleConfig = {
   /**
    * A unique human-readable identifier for the module.
    */
-  slug: ModuleSlug
+  slug: Slug
 }
 
 /**
@@ -61,7 +61,8 @@ export type ModuleClientConfig<
     unknown
   >,
   Icons extends SvgIconVariantConfig | void = void,
-> = CoreModuleConfig & {
+  Slug extends ModuleSlug = ModuleSlug,
+> = CoreModuleConfig<Slug> & {
   /**
    * If true, the user is not allowed to disable the module in the settings.
    */
@@ -79,6 +80,14 @@ export type ModuleClientConfig<
    * @see https://reactnavigation.org/docs/configuring-links
    */
   linking?: PathConfigMap<RootStackParams>
+  /**
+   * The route to navigate to when the user wants to log in. This can be either a direct route name or an array with the route name and params.
+   * Should be passed an object with the screen name when the login screen is in the module's navigation stack, for example: {screen: 'Login'}.
+   * When navigating to another module, an array should be passed where the first param is the module slug and the second param is an object with the screen name and params to navigate to.
+   */
+  loginRoute?:
+    | RootStackParams[Slug]
+    | [keyof RootStackParams, RootStackParams[Slug]]
   /**
    * Function to call the logout logic of the module.
    */

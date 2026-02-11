@@ -31,4 +31,5 @@ export const cityPassModule = createClientModule({
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['city-pass'],
+  loginRoute: {screen: CityPassRouteName.login},
 })
