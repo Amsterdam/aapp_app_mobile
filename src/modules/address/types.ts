@@ -61,7 +61,7 @@ export type AddressState = {
    * Custom address set for a specific module
    */
   moduleCustomAddress?: Partial<
-    Record<ModuleSlug, Address & {isSaveAsMyAddressShown: boolean}>
+    Record<ModuleSlug, Address & {showSaveAsMyAddress: boolean}>
   >
   /**
    * User preference for using location, address or custom
