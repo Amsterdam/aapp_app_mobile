@@ -1,20 +1,12 @@
-import {type ReactNode, useCallback} from 'react'
 import type {Module} from '@/modules/types'
 import type {NotificationModule} from '@/modules/user/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
-import {Switch} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {
-  useAddDisabledPushTypeMutation,
-  useDeleteDisabledPushModuleMutation,
-  useDeleteDisabledPushTypeMutation,
-  useGetDisabledPushTypesQuery,
-} from '@/modules/user/service'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {NotificationSettingSwitch} from '@/modules/user/components/NotificationSettingSwitch'
+import {useGetDisabledPushTypesQuery} from '@/modules/user/service'
 
 type Props = {
   isDisabled: boolean
@@ -24,7 +16,6 @@ type Props = {
 export const NotificationSetting = ({
   isDisabled,
   notificationModule: {
-    description,
     module,
     title,
     types,
@@ -33,39 +24,8 @@ export const NotificationSetting = ({
     slug,
   },
 }: Props) => {
-  const [deleteDisabledPushModule, {isLoading: isLoadingEnable}] =
-    useDeleteDisabledPushModuleMutation()
-  const [addDisabledPushType, {isLoading: isLoadingTypeDisable}] =
-    useAddDisabledPushTypeMutation()
-  const [deleteDisabledPushType, {isLoading: isLoadingTypeEnable}] =
-    useDeleteDisabledPushTypeMutation()
   const {data: disabledPushTypes} = useGetDisabledPushTypesQuery()
   const navigation = useNavigation()
-
-  const isLoading =
-    isLoadingEnable || isLoadingTypeDisable || isLoadingTypeEnable
-
-  const onChangeType = useCallback(
-    (type: string, newValue: boolean) => {
-      if (isLoading) {
-        return
-      }
-
-      if (newValue) {
-        void addDisabledPushType(type)
-      } else {
-        void deleteDisabledPushType(type)
-        void deleteDisabledPushModule(module)
-      }
-    },
-    [
-      isLoading,
-      deleteDisabledPushType,
-      deleteDisabledPushModule,
-      module,
-      addDisabledPushType,
-    ],
-  )
 
   const isLoggedIn = useIsLoggedIn()
 
@@ -81,20 +41,13 @@ export const NotificationSetting = ({
       <Column gutter="xxs">
         {isLoggedIn ? (
           types.map(type => (
-            <Switch
-              accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
-              disabled={isLoading}
+            <NotificationSettingSwitch
+              isDisabled={isDisabled}
               key={type.type}
-              label={<Phrase>{type.description}</Phrase>}
-              onChange={() =>
-                onChangeType(
-                  type.type,
-                  !disabledPushTypes?.includes(type.type) && !isDisabled,
-                )
-              }
-              testID={`NotificationSetting${module}Switch`}
+              module={module}
+              title={title}
+              type={type}
               value={!disabledPushTypes?.includes(type.type) && !isDisabled}
-              wrapper={SwitchWrapper}
             />
           ))
         ) : (
@@ -117,16 +70,3 @@ export const NotificationSetting = ({
     </Column>
   )
 }
-
-type SwitchWrapperProps = {
-  children: ReactNode
-}
-
-const SwitchWrapper = ({children}: SwitchWrapperProps) => (
-  <Box
-    insetHorizontal="md"
-    insetVertical="sm"
-    variant="distinct">
-    {children}
-  </Box>
-)
