@@ -1,4 +1,3 @@
-import {useIsLoggedIn} from '@/modules/parking/hooks/useIsLoggedIn'
 import {onNotificationEvent} from '@/modules/parking/onNotificationEvent'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingSlice, ParkingState} from '@/modules/parking/slice'
@@ -36,6 +35,5 @@ export const parkingModule = createClientModule({
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug.parking,
-  useIsLoggedIn,
   loginRoute: {screen: ParkingRouteName.login},
 })

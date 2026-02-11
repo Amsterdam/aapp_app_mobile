@@ -134,10 +134,6 @@ export type ModuleClientConfig<
    * Determines whether the module requires a Firebase token.
    */
   requiresFirebaseToken?: boolean
-  /**
-   * Provide a hook that returns whether the user is logged in.
-   */
-  useIsLoggedIn?: () => boolean
   userMenuSection?: UserMenuSection
 }
 

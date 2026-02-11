@@ -8,9 +8,9 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {alerts} from '@/modules/mijn-amsterdam/alerts'
 import {useHandleLoginDeeplink} from '@/modules/mijn-amsterdam/hooks/useHandleLoginDeeplink'
-import {useIsLoggedIn} from '@/modules/mijn-amsterdam/hooks/useIsLoggedIn'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
 import {useMijnAmsterdamLogoutMutation} from '@/modules/mijn-amsterdam/service'
+import {useIsLoggedIn} from '@/modules/mijn-amsterdam/useIsLoggedIn'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = NavigationProps<MijnAmsterdamRouteName.settings>

@@ -1,4 +1,3 @@
-import {useIsLoggedIn} from '@/modules/city-pass/hooks/useIsLoggedIn'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassSlice, CityPassState} from '@/modules/city-pass/slice'
 import {logout} from '@/modules/city-pass/utils/logout'
@@ -32,6 +31,5 @@ export const cityPassModule = createClientModule({
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['city-pass'],
-  useIsLoggedIn,
   loginRoute: {screen: CityPassRouteName.login},
 })

@@ -12,7 +12,6 @@ import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeI
 import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
-import {useIsLoggedIn} from '@/modules/parking/hooks/useIsLoggedIn'
 import {useIsRecentlyLoggedOut} from '@/modules/parking/hooks/useIsRecentlyLoggedOut'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -25,6 +24,7 @@ import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingFo
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
 import {useParkingAccountIsLoggingIn} from '@/modules/parking/slice'
+import {useIsLoggedIn} from '@/modules/parking/useIsLoggedIn'
 import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()

@@ -5,6 +5,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useIsLoggedIn} from '@/modules/generated/useIsLoggedIn.generated'
 import {NotificationSettingSwitch} from '@/modules/user/components/NotificationSettingSwitch'
 import {useGetDisabledPushTypesQuery} from '@/modules/user/service'
 
@@ -15,19 +16,13 @@ type Props = {
 
 export const NotificationSetting = ({
   isDisabled,
-  notificationModule: {
-    module,
-    title,
-    types,
-    useIsLoggedIn = () => true,
-    loginRoute,
-    slug,
-  },
+  notificationModule: {module, title, types, loginRoute, slug},
 }: Props) => {
   const {data: disabledPushTypes} = useGetDisabledPushTypesQuery()
   const navigation = useNavigation()
 
-  const isLoggedIn = useIsLoggedIn()
+  const isLoggedIn =
+    useIsLoggedIn[module as keyof typeof useIsLoggedIn]?.() ?? true
 
   return (
     <Column gutter="no">

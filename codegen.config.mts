@@ -91,6 +91,22 @@ export const config: CodeGenConfig = [
     ],
   },
   {
+    inputDir,
+    match: 'useIsLoggedIn.ts',
+    output: 'src/modules/generated/useIsLoggedIn.generated.ts',
+    imports: [
+      {
+        import: 'useIsLoggedIn',
+        exportName: 'useIsLoggedIn',
+        optional: true,
+        result: 'objectFunction',
+        resultFunction: moduleBasedResultFunction,
+        resultImports: defaultResultImports,
+        satisfies: defaultSatisfies,
+      },
+    ],
+  },
+  {
     inputDir: 'assets/images/map',
     match: '\\.png$',
     type: 'file',
