@@ -1,6 +1,10 @@
 import {appPrefix} from '@/app/navigation/constants'
 
-export const buildNotificationExternalLink = (externalRoute: string) => {
+export const buildNotificationExternalLink = (
+  externalRoute: string,
+  title?: string,
+  body?: string,
+) => {
   try {
     const urlCheck = new URL(externalRoute)
     const isValid =
@@ -13,6 +17,14 @@ export const buildNotificationExternalLink = (externalRoute: string) => {
     const url = new URL(`${appPrefix}notification-redirect`)
 
     url.searchParams.append('url', externalRoute)
+
+    if (title) {
+      url.searchParams.append('title', title)
+    }
+
+    if (body) {
+      url.searchParams.append('body', body)
+    }
 
     return url.toString()
   } catch {

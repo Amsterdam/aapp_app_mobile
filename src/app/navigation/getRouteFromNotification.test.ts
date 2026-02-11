@@ -1,4 +1,3 @@
-import {appPrefix} from '@/app/navigation/constants'
 import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotification'
 import {ModuleSlug} from '@/modules/slugs'
 
@@ -52,7 +51,7 @@ describe('getRouteFromNotification', () => {
     }
 
     expect(getRouteFromNotification(mockNotification)).toBe(
-      `${appPrefix}notification-redirect?url=${encodeURIComponent(mockNotification.data?.url)}`,
+      'amsterdam://notification-redirect?url=https%3A%2F%2Famsterdam.nl&title=testTitle&body=testBody',
     )
   })
 })

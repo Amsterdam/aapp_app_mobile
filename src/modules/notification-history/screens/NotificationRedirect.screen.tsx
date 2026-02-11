@@ -1,54 +1,61 @@
-import {useEffect, useState} from 'react'
 import type {NavigationProps} from '@/app/navigation/types'
 import type {NotificationHistoryRouteName} from '@/modules/notification-history/routes'
 import {Screen} from '@/components/features/screen/Screen'
+import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Phrase} from '@/components/ui/text/Phrase'
-import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {HomeRouteName} from '@/modules/home/routes'
-import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<NotificationHistoryRouteName.NotificationRedirect>
 
 export const NotificationRedirectScreen = ({route}: Props) => {
-  const [counter, setCounter] = useState(3)
-  const openUrl = useOpenUrl()
-  const {navigate} = useNavigation()
-
-  useEffect(() => {
-    if (counter <= 0) {
-      openUrl(route.params.url)
-      navigate(ModuleSlug.home, {screen: HomeRouteName.home})
-
-      return
-    }
-
-    const interval = setInterval(() => setCounter(prev => prev - 1), 1000)
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [counter, route.params.url, openUrl, navigate])
-
-  const strippedUrl = new URL(route.params.url).host
+  const {title, body, url} = route.params
+  const navigation = useNavigation()
 
   return (
     <Screen
       scroll={false}
       testID="NotificationRedirectScreen">
-      <Box grow>
-        <Column
-          align="center"
-          flex={1}>
-          <Paragraph textAlign="center">
-            U wordt doorgestuurd naar{' '}
-            <Phrase color="link">{strippedUrl}</Phrase> in{' '}
-            <Phrase emphasis="strong">{counter}</Phrase>
-            ...
-          </Paragraph>
+      <Box
+        grow
+        insetBottom="md"
+        insetHorizontal="md"
+        insetTop="xl">
+        <Column gutter="xl">
+          <Column halign="center">
+            <Icon
+              name="bell"
+              size="xxl"
+            />
+          </Column>
+          <Column
+            gutter="md"
+            halign="center">
+            {!!title && (
+              <Title
+                level="h2"
+                text={title}
+              />
+            )}
+            {!!body && <Paragraph variant="intro">{body}</Paragraph>}
+          </Column>
+          <Column gutter="md">
+            <ExternalLinkButton
+              label="Naar website"
+              testID="NotificationRedirectScreen.ExternalLinkButton"
+              url={url}
+            />
+            <Button
+              label="Annuleer"
+              onPress={() => navigation.pop()}
+              testID="NotificationRedirectScreenCancelButton"
+              variant="secondary"
+            />
+          </Column>
         </Column>
       </Box>
     </Screen>
