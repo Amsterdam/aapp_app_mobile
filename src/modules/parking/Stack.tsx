@@ -2,13 +2,18 @@ import {
   TransitionPresets,
   type StackNavigationOptions,
 } from '@react-navigation/stack'
-import {useMemo, type ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {
   RootStackParams,
   type HeaderContentOptions,
 } from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
+import {Screen} from '@/components/features/screen/Screen'
+import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {Column} from '@/components/ui/layout/Column'
 import {usePendingScreen} from '@/hooks/navigation/usePendingScreen'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
@@ -48,25 +53,27 @@ export const ParkingStack = () => {
     Object.entries(parkingScreenConfig),
     pendingScreen,
   )
+
+  const loginSteps = {
+    [ParkingRouteName.loginSteps]: {
+      component: LoginStepsScreen,
+      name: ParkingRouteName.loginSteps,
+      options: {
+        headerTitle: 'Inloggen',
+      },
+    },
+  }
+
   const {isLoginStepsActive} = useLoginSteps()
+
+  const accessCodeGate = useAccessCodeGate(loginSteps, isLoginStepsActive)
 
   const {isRecentlyLoggedOut} = useIsRecentlyLoggedOut()
 
   return (
-    <AccessCodeWrapper
-      hide={!hasAccounts}
-      isLoginStepsActive={isLoginStepsActive}
-      loginSteps={{
-        [ParkingRouteName.loginSteps]: {
-          component: LoginStepsScreen,
-          name: ParkingRouteName.loginSteps,
-          options: {
-            headerTitle: 'Inloggen',
-          },
-        },
-      }}>
-      <Stack.Navigator screenOptions={screenOptions}>
-        {hasAccounts ? (
+    <Stack.Navigator screenOptions={screenOptions}>
+      {hasAccounts ? (
+        accessCodeGate(
           <Stack.Group>
             {/*Logged in */}
             {!!isLoggingIn && (
@@ -82,41 +89,55 @@ export const ParkingStack = () => {
                 {...parkingRoute}
               />
             ))}
-          </Stack.Group>
-        ) : (
-          <Stack.Group>
-            {/*Logged out */}
-            {!isRecentlyLoggedOut && (
-              <Stack.Screen
-                component={ParkingIntroScreen}
-                name={ParkingRouteName.intro}
-                options={{headerTitle: 'Aanmelden parkeren'}}
-              />
-            )}
+          </Stack.Group>,
+        )
+      ) : (
+        <Stack.Group>
+          {/*Logged out */}
+          {!isRecentlyLoggedOut && (
             <Stack.Screen
-              component={ParkingLoginScreen}
-              name={ParkingRouteName.login}
-              options={{headerTitle: 'Inloggen'}}
+              component={ParkingIntroScreen}
+              name={ParkingRouteName.intro}
+              options={{headerTitle: 'Aanmelden parkeren'}}
             />
-          </Stack.Group>
-        )}
-      </Stack.Navigator>
-    </AccessCodeWrapper>
+          )}
+          <Stack.Screen
+            component={ParkingLoginScreen}
+            name={ParkingRouteName.login}
+            options={{headerTitle: 'Inloggen'}}
+          />
+        </Stack.Group>
+      )}
+    </Stack.Navigator>
   )
 }
 
-const AccessCodeStack = createStackNavigator<RootStackParams>()
+const AccessCodeLoadingScreen = () => (
+  <Screen testID="AccessCodeLoadingScreen">
+    <Box grow>
+      <Column
+        align="center"
+        flex={1}>
+        <PleaseWait testID="AccessCodeLoadingScreenPleaseWait" />
+      </Column>
+    </Box>
+  </Screen>
+)
 
-const AccessCodeWrapper = ({
-  children,
-  hide,
-  isLoginStepsActive,
-  loginSteps,
-}: {
-  children: ReactNode
-  hide?: boolean
-  isLoginStepsActive?: boolean
-  loginSteps?: Record<
+const AccessCodeErrorScreen = () => (
+  <Screen testID="AccessCodeLoadingScreen">
+    <Box grow>
+      <Column
+        align="center"
+        flex={1}>
+        <SomethingWentWrong testID="AccessCodeLoadingScreenSomethingWentWrong" />
+      </Column>
+    </Box>
+  </Screen>
+)
+
+const useAccessCodeGate = (
+  loginSteps: Record<
     string,
     {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -126,18 +147,46 @@ const AccessCodeWrapper = ({
       screenType?: 'default' | 'settings'
       title?: string
     }
-  >
-}) => {
-  const screenOptions = useScreenOptions()
-
+  >,
+  isLoginStepsActive?: boolean,
+) => {
   const {accessCode, isLoading} = useGetSecureAccessCode()
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
 
-  const accessCodeStackSwitch = useMemo(() => {
+  return (stack: ReactNode): ReactNode => {
+    if (useBiometrics === undefined && !!isEnrolled && isCodeValid) {
+      return (
+        /// TODO: test op echt device
+        <Stack.Screen
+          component={BiometricsPermissionScreen}
+          name={AccessCodeRouteName.biometricsPermission}
+          options={{
+            headerTitle: 'Sneller toegang',
+          }}
+        />
+      )
+    }
+
+    if (isCodeValid) {
+      return stack
+    }
+
+    if (isLoading) {
+      return (
+        <Stack.Screen
+          component={AccessCodeLoadingScreen}
+          name="loading"
+          options={{
+            ...TransitionPresets.ModalFadeTransition,
+          }}
+        />
+      )
+    }
+
     if (isForgotCode) {
       return (
-        <AccessCodeStack.Screen
+        <Stack.Screen // TODO: module specific forgot code screen
           component={ParkingForgotAccessCodeScreen}
           name={ParkingRouteName.forgotAccessCode}
           options={{headerTitle: 'Toegangscode vergeten'}}
@@ -147,31 +196,31 @@ const AccessCodeWrapper = ({
 
     if (!accessCode || isLoginStepsActive) {
       return (
-        <AccessCodeStack.Group>
+        <Stack.Group>
           {!!loginSteps &&
-            Object.entries(loginSteps).map(([key, parkingRoute]) => (
-              <AccessCodeStack.Screen
+            Object.entries(loginSteps).map(([key, route]) => (
+              <Stack.Screen
                 key={key}
-                {...parkingRoute}
+                {...route}
               />
             ))}
-          <AccessCodeStack.Screen
+          <Stack.Screen
             component={SetAccessCodeScreen}
             name={AccessCodeRouteName.setAccessCode}
             options={{headerTitle: 'Toegangscode kiezen'}}
           />
-          <AccessCodeStack.Screen
+          <Stack.Screen
             component={ConfirmAccessCodeScreen}
             name={AccessCodeRouteName.confirmAccessCode}
             options={{headerTitle: 'Toegangscode herhalen'}}
           />
-        </AccessCodeStack.Group>
+        </Stack.Group>
       )
     }
 
     if (attemptsLeft > 0) {
       return (
-        <AccessCodeStack.Screen
+        <Stack.Screen
           component={AccessCodeScreen}
           name={AccessCodeRouteName.accessCode}
           options={{
@@ -182,35 +231,20 @@ const AccessCodeWrapper = ({
       )
     }
 
+    if (attemptsLeft === 0) {
+      return (
+        <Stack.Screen
+          component={AccessCodeInvalidScreen}
+          name={AccessCodeRouteName.accessCodeInvalid}
+        />
+      )
+    }
+
     return (
-      <AccessCodeStack.Screen
-        component={AccessCodeInvalidScreen}
-        name={AccessCodeRouteName.accessCodeInvalid}
+      <Stack.Screen
+        component={AccessCodeErrorScreen}
+        name={'error'}
       />
     )
-  }, [isForgotCode, accessCode, attemptsLeft, loginSteps, isLoginStepsActive])
-
-  if (isLoading) {
-    return null
   }
-
-  if (hide || isCodeValid) {
-    return children
-  }
-
-  return (
-    <AccessCodeStack.Navigator screenOptions={screenOptions}>
-      {accessCodeStackSwitch}
-
-      {useBiometrics === undefined && !!isEnrolled && !!isCodeValid && (
-        <AccessCodeStack.Screen
-          component={BiometricsPermissionScreen}
-          name={AccessCodeRouteName.biometricsPermission}
-          options={{
-            headerTitle: 'Sneller toegang',
-          }}
-        />
-      )}
-    </AccessCodeStack.Navigator>
-  )
 }
