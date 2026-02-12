@@ -4,6 +4,7 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {ConstructionWorkFigure} from '@/components/ui/media/errors/ConstructionWorkFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {NotificationHistoryBanner} from '@/modules/mijn-amsterdam/exports/NotificationHistoryBanner'
 import {NotificationHistoryEmpty} from '@/modules/notification-history/components/NotificationHistoryEmpty'
 import {NotificationHistoryList} from '@/modules/notification-history/components/NotificationHistoryList'
 import {useGetNotificationsQuery} from '@/modules/notification-history/service'
@@ -36,7 +37,12 @@ export const NotificationHistory = () => {
   }
 
   if (data?.length === 0) {
-    return <NotificationHistoryEmpty />
+    return (
+      <>
+        <NotificationHistoryBanner />
+        <NotificationHistoryEmpty />
+      </>
+    )
   }
 
   return <NotificationHistoryList data={data} />
