@@ -16,7 +16,7 @@ import {BiometricsPermissionScreen} from '@/modules/access-code/screens/Biometri
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 
-enum AccessCodeGateStateName {
+enum AccessCodeGateRouteName {
   fallback = 'AccessCodeGateFallback',
   loading = 'AccessCodeGateLoading',
 }
@@ -84,7 +84,7 @@ export const useAccessCodeGate = (
     if (isLoading) {
       return (
         <Stack.Screen
-          name={AccessCodeGateStateName.loading}
+          name={AccessCodeGateRouteName.loading}
           options={{
             ...TransitionPresets.ModalFadeTransition,
           }}>
@@ -145,7 +145,7 @@ export const useAccessCodeGate = (
 
     return (
       <Stack.Screen
-        name={AccessCodeGateStateName.fallback}
+        name={AccessCodeGateRouteName.fallback}
         options={{
           ...TransitionPresets.ModalFadeTransition,
         }}>
