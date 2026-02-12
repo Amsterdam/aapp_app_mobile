@@ -22,7 +22,7 @@ export const screenConfig: StackNavigationRoutes<
     component: NotificationRedirectScreen,
     name: NotificationHistoryRouteName.NotificationRedirect,
     options: {
-      headerShown: false,
+      headerTitle: 'Melding',
     },
   },
 }
