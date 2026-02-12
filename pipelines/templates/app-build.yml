@@ -24,6 +24,7 @@ steps:
       jdkArchitectureOption: 'x64'
       jdkSourceOption: 'PreInstalled'
     condition: eq('${{ parameters.platform }}', 'android')
+
   - script: npm ci
     displayName: 'Install node dependencies'
 
@@ -37,6 +38,46 @@ steps:
   - template: ./copy-ios-files.yml
     parameters:
       condition: eq('${{ parameters.platform }}', 'ios')
+
+  # Install Ccache
+  - script: |
+      brew install ccache
+      echo "##vso[task.prependpath]/usr/local/opt/ccache/libexec"
+    displayName: 'Install Ccache'
+
+  # Set ccache compiler_check to content
+  - script: |
+      ccache --set-config=compiler_check=content
+    displayName: 'Set ccache compiler_check to content'
+
+  - task: Cache@2
+    inputs:
+      key: 'ccache | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json'
+      path: $(CCACHE_DIR)
+      cacheHitVar: CCACHE_CACHE_RESTORED
+      restoreKeys: |
+        ccache | "$(Agent.OS)" | ${{ parameters.platform }}
+    displayName: 'Cache ccache directory'
+
+  - task: Cache@2
+    inputs:
+      key: 'pods | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json | **/Podfile.lock'
+      path: $(HOME)/Library/Caches/CocoaPods
+      cacheHitVar: PODS_CACHE_RESTORED
+      restoreKeys: |
+        pods | "$(Agent.OS)" | ${{ parameters.platform }}
+    displayName: 'Cache CocoaPods local cache directory'
+    condition: eq('${{ parameters.platform }}', 'ios')
+
+  - task: Cache@2
+    inputs:
+      key: 'gems | "$(Agent.OS)" | ${{ parameters.platform }} | **/Gemfile.lock | **/Gemfile'
+      path: $(BUNDLE_PATH)
+      cacheHitVar: GEMS_CACHE_RESTORED
+      restoreKeys: |
+        gems | "$(Agent.OS)" | ${{ parameters.platform }}
+        gems | "$(Agent.OS)"
+    displayName: 'Cache gems local cache directory'
 
   # Install gems and run Fastlane
   - script: |
@@ -83,6 +124,10 @@ steps:
       CHAT_URL_PROD: $(CHAT_URL_PROD)
       GOOGLE_MAPS_API_KEY_ANDROID: $(GOOGLE_MAPS_API_KEY_ANDROID)
       GOOGLE_MAPS_API_KEY_IOS: $(GOOGLE_MAPS_API_KEY_IOS)
+
+  - script: |
+      ccache -s # Show ccache stats
+    displayName: 'Show ccache stats'
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml

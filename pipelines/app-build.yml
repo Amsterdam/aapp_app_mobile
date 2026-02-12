@@ -12,6 +12,12 @@ resources:
 
 name: $(Date:yyMMdd)$(Rev:rr)
 
+variables:
+  - name: CCACHE_DIR
+    value: $(Pipeline.Workspace)/ccache
+  - name: BUNDLE_PATH
+    value: $(Pipeline.Workspace)/.bundle
+
 jobs:
   - job: 'Build_Android'
     timeoutInMinutes: 180
