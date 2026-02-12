@@ -56,7 +56,6 @@ export const ParkingStack = () => {
       {hasAccounts ? (
         accessCodeGate(
           <Stack.Group>
-            {/*Logged in */}
             {!!isLoggingIn && (
               <Stack.Screen
                 component={ParkingLoginScreen}
@@ -74,7 +73,6 @@ export const ParkingStack = () => {
         )
       ) : (
         <Stack.Group>
-          {/*Logged out */}
           {!isRecentlyLoggedOut && (
             <Stack.Screen
               component={ParkingIntroScreen}

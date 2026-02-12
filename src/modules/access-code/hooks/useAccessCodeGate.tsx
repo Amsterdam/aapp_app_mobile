@@ -21,29 +21,17 @@ enum AccessCodeGateRouteName {
   loading = 'AccessCodeGateLoading',
 }
 
-/**
- * The type `AccessCodeGateConfig` defines configuration options for an access code gate feature in a
- * TypeScript React application.
- */
 type AccessCodeGateConfig = {
   /**
-   * forgotCodeScreen - The `forgotCodeScreen` property in the `AccessCodeGateConfig` type
-   * represents the configuration for the screen that allows users to retrieve or reset their access
-   * code. It is of type `StackNavigationRouteConfig`.
+   * forgotCodeScreen - The module specific configuration for the screen that allows users to reset their access code.
    */
   forgotCodeScreen?: StackNavigationRouteConfig<Record<string, unknown>>
   /**
-   * isLoginStepsActive - The `isLoginStepsActive` property in the
-   * `AccessCodeGateConfig` type is a boolean value that indicates whether the login steps should show.
-   * If `isLoginStepsActive` is set to `true`, it means that the login steps are active
-   * and should be displayed or processed as part of the access-code flow.
+   * isLoginStepsActive - Indicates whether the login steps should show.
    */
   isLoginStepsActive?: boolean
   /**
-   * loginSteps - The `loginSteps` property in the `AccessCodeGateConfig` type represents a
-   * stack navigation route configuration for the login steps. It is used to define the routes and
-   * screens that are part of the login process into the module, and that incorporates the access-code flow.
-   * Each route in the `loginSteps` stack represents a step or screen.
+   * loginSteps - Defines the routes and screens that are part of the login process into the module, as part of the access-code flow.
    */
   loginSteps?: StackNavigationRoutes<Record<string, unknown>>
 }
