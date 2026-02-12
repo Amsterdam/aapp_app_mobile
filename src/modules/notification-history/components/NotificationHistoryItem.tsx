@@ -3,7 +3,6 @@ import {StyleSheet, View} from 'react-native'
 import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
-import {Badge} from '@/components/ui/feedback/Badge'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -23,11 +22,20 @@ import {formatHistoryDateTime} from '@/utils/datetime/formatHistoryDateTime'
 
 type Props = {
   enabledModules: Module[] | undefined
-  item: Notification
+  notification: Notification
 }
 
 export const NotificationHistoryItem = ({
-  item: {body, context, created_at, id, image, is_read, module_slug, title},
+  notification: {
+    body,
+    context,
+    created_at,
+    id,
+    image,
+    is_read,
+    module_slug,
+    title,
+  },
   enabledModules = [],
 }: Props) => {
   const {navigate} = useNavigation()
@@ -52,6 +60,7 @@ export const NotificationHistoryItem = ({
         title,
         body,
         `ontvangen: ${createdAt}`,
+        context.url ? 'Opent in web brauwser.' : '',
       )}
       onPress={() => {
         if (context.url) {
@@ -81,30 +90,38 @@ export const NotificationHistoryItem = ({
         <Row
           gutter="md"
           valign="start">
-          <View style={styles.iconContainer}>
-            {image && image.sources[0] ? (
-              <Image
-                aspectRatio="square"
-                source={image.sources[0]}
-                testID={`NotificationHistoryItem${id}Image`}
-              />
-            ) : (
-              <Icon
-                color="inverse"
-                name={icon}
-                size="lg"
-                testID={`NotificationHistoryItem${id}Icon`}
-              />
+          <Row gutter="xs">
+            {!is_read && (
+              <View style={[styles.circle, styles.lineHeightCorrection]} />
             )}
-          </View>
+            <View style={[styles.iconContainer, styles.lineHeightCorrection]}>
+              {image && image.sources[0] ? (
+                <Image
+                  aspectRatio="square"
+                  source={image.sources[0]}
+                  testID={`NotificationHistoryItem${id}Image`}
+                />
+              ) : (
+                <Icon
+                  color="inverse"
+                  name={icon}
+                  size="lg"
+                  testID={`NotificationHistoryItem${id}Icon`}
+                />
+              )}
+            </View>
+          </Row>
           <Column
             grow={1}
             shrink={1}>
-            <Title
-              level="h5"
-              testID={`NotificationHistoryItem${id}Title`}
-              text={title}
-            />
+            <Row gutter="sm">
+              <Title
+                level="h5"
+                testID={`NotificationHistoryItem${id}Title`}
+                text={title}
+              />
+              {!context.url && <Icon name="link-external" />}
+            </Row>
             <Paragraph testID={`NotificationHistoryItem${id}DescriptionText`}>
               {body}
             </Paragraph>
@@ -115,14 +132,6 @@ export const NotificationHistoryItem = ({
               {createdAt}
             </Phrase>
           </Column>
-          {!is_read && (
-            <View style={styles.badgeContainer}>
-              <Badge
-                testID={`NotificationHistoryItem${id}IsUnreadBadge`}
-                variant="extraSmall"
-              />
-            </View>
-          )}
         </Row>
       </Box>
     </PressableBase>
@@ -130,20 +139,26 @@ export const NotificationHistoryItem = ({
 }
 
 const LINE_HEIGHT_CORRECTION = 6
+const CIRCLE_SIZE = 6
 
 const createStyles =
   (fontScale: number) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
+      circle: {
+        height: CIRCLE_SIZE * fontScale,
+        width: CIRCLE_SIZE * fontScale,
+        borderRadius: (CIRCLE_SIZE * fontScale) / 2,
+        backgroundColor: color.badge.background.warning,
+      },
       iconContainer: {
         backgroundColor: color.notificationHistory.itemIcon.background,
         justifyContent: 'center',
         alignItems: 'center',
         width: size.iconContainer.lg * fontScale,
         height: size.iconContainer.lg * fontScale,
-        marginTop: LINE_HEIGHT_CORRECTION * fontScale,
       },
-      badgeContainer: {
+      lineHeightCorrection: {
         marginTop: LINE_HEIGHT_CORRECTION * fontScale,
       },
     })

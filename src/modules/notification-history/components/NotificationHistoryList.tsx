@@ -22,7 +22,7 @@ export const NotificationHistoryList = ({data}: Props) => {
     ({item}) => (
       <NotificationHistoryItem
         enabledModules={enabledModules}
-        item={item}
+        notification={item}
       />
     ),
     [enabledModules],

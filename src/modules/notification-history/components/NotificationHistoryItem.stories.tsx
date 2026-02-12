@@ -31,7 +31,7 @@ export const Default: Story = {
         version: '1.0.0',
       },
     ],
-    item: {
+    notification: {
       title: 'De nieuwe brug is geplaatst',
       module_slug: slug,
       created_at: '2022-01-15 10:30:00',
