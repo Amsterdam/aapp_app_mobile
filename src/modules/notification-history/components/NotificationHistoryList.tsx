@@ -34,14 +34,12 @@ export const NotificationHistoryList = ({data}: Props) => {
   })
 
   return (
-    <>
-      <NotificationHistoryBanner />
-      <FlatList
-        data={data}
-        keyExtractor={({id}) => id}
-        ListFooterComponent={NotificationHistoryListFooter}
-        renderItem={renderItem}
-      />
-    </>
+    <FlatList
+      data={data}
+      keyExtractor={({id}) => id}
+      ListFooterComponent={NotificationHistoryListFooter}
+      ListHeaderComponent={NotificationHistoryBanner}
+      renderItem={renderItem}
+    />
   )
 }
