@@ -6,11 +6,6 @@ import {
   type StackNavigationRouteConfig,
   type StackNavigationRoutes,
 } from '@/app/navigation/types'
-import {Screen} from '@/components/features/screen/Screen'
-import {Box} from '@/components/ui/containers/Box'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {Column} from '@/components/ui/layout/Column'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
@@ -21,35 +16,14 @@ import {BiometricsPermissionScreen} from '@/modules/access-code/screens/Biometri
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 
-const AccessCodeLoadingScreen = () => (
-  <Screen testID="AccessCodeLoadingScreen">
-    <Box grow>
-      <Column
-        align="center"
-        flex={1}>
-        <PleaseWait testID="AccessCodeLoadingScreenPleaseWait" />
-      </Column>
-    </Box>
-  </Screen>
-)
-
-const AccessCodeErrorScreen = () => (
-  <Screen testID="AccessCodeLoadingScreen">
-    <Box grow>
-      <Column
-        align="center"
-        flex={1}>
-        <SomethingWentWrong testID="AccessCodeLoadingScreenSomethingWentWrong" />
-      </Column>
-    </Box>
-  </Screen>
-)
-
 /**
  * The type `AccessCodeGateConfig` defines configuration options for an access code gate feature in a
  * TypeScript React application.
  */
 type AccessCodeGateConfig = {
+  /**
+   * Stack - The `Stack` navigation object to add access-code Screens and Groups to, if the gate returns access-code flow.
+   */
   Stack: ReturnType<typeof createStackNavigator<RootStackParams>>
   /**
    * forgotCodeScreen - The `forgotCodeScreen` property in the `AccessCodeGateConfig` type
@@ -73,6 +47,12 @@ type AccessCodeGateConfig = {
   loginSteps?: StackNavigationRoutes<Record<string, unknown>>
 }
 
+/**
+ * `useAccessCodeGate` is responsible for managing access-code gate-keeping and providing the access-code flow
+ * within module navigation Stacks. It internally determines the state of the access code flow.
+ * @param config `useAccessCodeGate` Takes a configuration object `config` of type `AccessCodeGateConfig`
+ * @see AccessCodeGateConfig.
+ */
 export const useAccessCodeGate = (config: AccessCodeGateConfig) => {
   const {accessCode, isLoading} = useGetSecureAccessCode()
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
@@ -83,7 +63,6 @@ export const useAccessCodeGate = (config: AccessCodeGateConfig) => {
   return (stack: ReactNode): ReactNode => {
     if (useBiometrics === undefined && !!isEnrolled && isCodeValid) {
       return (
-        /// TODO: test op echt device
         <Stack.Screen
           component={BiometricsPermissionScreen}
           name={AccessCodeRouteName.biometricsPermission}
@@ -101,12 +80,12 @@ export const useAccessCodeGate = (config: AccessCodeGateConfig) => {
     if (isLoading) {
       return (
         <Stack.Screen
-          component={AccessCodeLoadingScreen}
           name="loading"
           options={{
             ...TransitionPresets.ModalFadeTransition,
-          }}
-        />
+          }}>
+          {() => null}
+        </Stack.Screen>
       )
     }
 
@@ -162,9 +141,12 @@ export const useAccessCodeGate = (config: AccessCodeGateConfig) => {
 
     return (
       <Stack.Screen
-        component={AccessCodeErrorScreen}
-        name="error"
-      />
+        name="fallback"
+        options={{
+          ...TransitionPresets.ModalFadeTransition,
+        }}>
+        {() => null}
+      </Stack.Screen>
     )
   }
 }
