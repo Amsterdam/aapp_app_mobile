@@ -12,6 +12,7 @@ export const NotificationHistoryEmpty = () => (
         halign="center">
         <Title
           level="h4"
+          testID="NotificationHistoryEmptyTitle"
           text="Geen meldingen"
         />
         <Phrase testID="NotificationHistoryEmptyPhrase">
