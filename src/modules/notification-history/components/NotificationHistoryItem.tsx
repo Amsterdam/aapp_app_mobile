@@ -22,11 +22,20 @@ import {formatHistoryDateTime} from '@/utils/datetime/formatHistoryDateTime'
 
 type Props = {
   enabledModules: Module[] | undefined
-  item: Notification
+  notification: Notification
 }
 
 export const NotificationHistoryItem = ({
-  item: {body, context, created_at, id, image, is_read, module_slug, title},
+  notification: {
+    body,
+    context,
+    created_at,
+    id,
+    image,
+    is_read,
+    module_slug,
+    title,
+  },
   enabledModules = [],
 }: Props) => {
   const {navigate} = useNavigation()
@@ -104,11 +113,14 @@ export const NotificationHistoryItem = ({
           <Column
             grow={1}
             shrink={1}>
-            <Title
-              level="h5"
-              testID={`NotificationHistoryItem${id}Title`}
-              text={title}
-            />
+            <Row gutter="sm">
+              <Title
+                level="h5"
+                testID={`NotificationHistoryItem${id}Title`}
+                text={title}
+              />
+              {!!context.url && <Icon name="link-external" />}
+            </Row>
             <Paragraph testID={`NotificationHistoryItem${id}DescriptionText`}>
               {body}
             </Paragraph>
