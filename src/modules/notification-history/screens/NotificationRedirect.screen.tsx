@@ -9,6 +9,8 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {HomeRouteName} from '@/modules/home/routes'
+import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<NotificationHistoryRouteName.NotificationRedirect>
 
@@ -51,7 +53,15 @@ export const NotificationRedirectScreen = ({route}: Props) => {
             />
             <Button
               label="Annuleer"
-              onPress={() => navigation.pop()}
+              onPress={() => {
+                if (navigation.canGoBack()) {
+                  navigation.goBack()
+                } else {
+                  navigation.navigate(ModuleSlug.home, {
+                    screen: HomeRouteName.home,
+                  })
+                }
+              }}
               testID="NotificationRedirectScreenCancelButton"
               variant="secondary"
             />
