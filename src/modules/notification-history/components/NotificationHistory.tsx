@@ -20,19 +20,27 @@ export const NotificationHistory = () => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="NotificationHistoryPleaseWait" />
+    return (
+      <>
+        <NotificationHistoryBanner />
+        <PleaseWait testID="NotificationHistoryPleaseWait" />
+      </>
+    )
   }
 
   if (isError) {
     return (
-      <FullScreenError
-        buttonLabel="Ga terug"
-        error={error}
-        Image={ConstructionWorkFigure}
-        onPress={() => navigation.goBack()}
-        testID="NotificationHistoryFullScreenError"
-        title="Er kunnen geen meldingen worden getoond"
-      />
+      <>
+        <NotificationHistoryBanner />
+        <FullScreenError
+          buttonLabel="Ga terug"
+          error={error}
+          Image={ConstructionWorkFigure}
+          onPress={() => navigation.goBack()}
+          testID="NotificationHistoryFullScreenError"
+          title="Er kunnen geen meldingen worden getoond"
+        />
+      </>
     )
   }
 
