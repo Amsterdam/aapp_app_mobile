@@ -60,6 +60,7 @@ export const NotificationHistoryItem = ({
         title,
         body,
         `ontvangen: ${createdAt}`,
+        context.url ? 'Opent in web brauwser.' : '',
       )}
       onPress={() => {
         if (context.url) {
@@ -119,7 +120,7 @@ export const NotificationHistoryItem = ({
                 testID={`NotificationHistoryItem${id}Title`}
                 text={title}
               />
-              {!!context.url && <Icon name="link-external" />}
+              {!context.url && <Icon name="link-external" />}
             </Row>
             <Paragraph testID={`NotificationHistoryItem${id}DescriptionText`}>
               {body}
