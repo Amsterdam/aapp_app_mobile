@@ -139,15 +139,16 @@ export const NotificationHistoryItem = ({
 }
 
 const LINE_HEIGHT_CORRECTION = 6
+const CIRCLE_SIZE = 6
 
 const createStyles =
   (fontScale: number) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
       circle: {
-        height: 6,
-        width: 6,
-        borderRadius: 3,
+        height: CIRCLE_SIZE * fontScale,
+        width: CIRCLE_SIZE * fontScale,
+        borderRadius: (CIRCLE_SIZE * fontScale) / 2,
         backgroundColor: color.badge.background.warning,
       },
       iconContainer: {
