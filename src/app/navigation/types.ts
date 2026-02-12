@@ -70,14 +70,16 @@ export type HeaderContentOptions = {
   preventInitialFocus?: boolean
 }
 
+export type StackNavigationRouteConfig<R> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: ComponentType<any>
+  name: keyof R
+  options?: StackNavigationOptions & HeaderContentOptions
+  screenType?: 'default' | 'settings'
+  title?: string
+}
+
 export type StackNavigationRoutes<R, Route extends string = string> = Record<
   Route,
-  {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    component: ComponentType<any>
-    name: keyof R
-    options?: StackNavigationOptions & HeaderContentOptions
-    screenType?: 'default' | 'settings'
-    title?: string
-  }
+  StackNavigationRouteConfig<R>
 >
