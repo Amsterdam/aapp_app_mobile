@@ -30,10 +30,10 @@ export const ParkingStack = () => {
     pendingScreen,
   )
 
+  const {isRecentlyLoggedOut} = useIsRecentlyLoggedOut()
   const {isLoginStepsActive} = useLoginSteps()
 
-  const accessCodeGate = useAccessCodeGate({
-    Stack,
+  const accessCodeGate = useAccessCodeGate(Stack, {
     loginSteps: {
       [ParkingRouteName.loginSteps]: {
         component: LoginStepsScreen,
@@ -50,8 +50,6 @@ export const ParkingStack = () => {
       options: {headerTitle: 'Toegangscode vergeten'},
     },
   })
-
-  const {isRecentlyLoggedOut} = useIsRecentlyLoggedOut()
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>

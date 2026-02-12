@@ -22,15 +22,11 @@ import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.s
  */
 type AccessCodeGateConfig = {
   /**
-   * Stack - The `Stack` navigation object to add access-code Screens and Groups to, if the gate returns access-code flow.
-   */
-  Stack: ReturnType<typeof createStackNavigator<RootStackParams>>
-  /**
    * forgotCodeScreen - The `forgotCodeScreen` property in the `AccessCodeGateConfig` type
    * represents the configuration for the screen that allows users to retrieve or reset their access
    * code. It is of type `StackNavigationRouteConfig`.
    */
-  forgotCodeScreen: StackNavigationRouteConfig<Record<string, unknown>>
+  forgotCodeScreen?: StackNavigationRouteConfig<Record<string, unknown>>
   /**
    * isLoginStepsActive - The `isLoginStepsActive` property in the
    * `AccessCodeGateConfig` type is a boolean value that indicates whether the login steps should show.
@@ -50,15 +46,18 @@ type AccessCodeGateConfig = {
 /**
  * `useAccessCodeGate` is responsible for managing access-code gate-keeping and providing the access-code flow
  * within module navigation Stacks. It internally determines the state of the access code flow.
- * @param config `useAccessCodeGate` Takes a configuration object `config` of type `AccessCodeGateConfig`
- * @see AccessCodeGateConfig.
+ * @param Stack The `Stack` navigation object to add access-code Screens and Groups to if the gate returns access-code flow.
+ * @param config An optional configuration object of type `AccessCodeGateConfig`
  */
-export const useAccessCodeGate = (config: AccessCodeGateConfig) => {
+export const useAccessCodeGate = (
+  Stack: ReturnType<typeof createStackNavigator<RootStackParams>>,
+  config?: AccessCodeGateConfig,
+) => {
   const {accessCode, isLoading} = useGetSecureAccessCode()
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
 
-  const {loginSteps, isLoginStepsActive, forgotCodeScreen, Stack} = config
+  const {loginSteps, isLoginStepsActive, forgotCodeScreen} = config || {}
 
   return (stack: ReactNode): ReactNode => {
     if (useBiometrics === undefined && !!isEnrolled && isCodeValid) {
@@ -89,7 +88,7 @@ export const useAccessCodeGate = (config: AccessCodeGateConfig) => {
       )
     }
 
-    if (isForgotCode) {
+    if (isForgotCode && forgotCodeScreen) {
       return <Stack.Screen {...forgotCodeScreen} />
     }
 
