@@ -3,7 +3,6 @@ import {StyleSheet, View} from 'react-native'
 import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
-import {Badge} from '@/components/ui/feedback/Badge'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -81,22 +80,27 @@ export const NotificationHistoryItem = ({
         <Row
           gutter="md"
           valign="start">
-          <View style={styles.iconContainer}>
-            {image && image.sources[0] ? (
-              <Image
-                aspectRatio="square"
-                source={image.sources[0]}
-                testID={`NotificationHistoryItem${id}Image`}
-              />
-            ) : (
-              <Icon
-                color="inverse"
-                name={icon}
-                size="lg"
-                testID={`NotificationHistoryItem${id}Icon`}
-              />
+          <Row gutter="xs">
+            {!is_read && (
+              <View style={[styles.circle, styles.lineHeightCorrection]} />
             )}
-          </View>
+            <View style={[styles.iconContainer, styles.lineHeightCorrection]}>
+              {image && image.sources[0] ? (
+                <Image
+                  aspectRatio="square"
+                  source={image.sources[0]}
+                  testID={`NotificationHistoryItem${id}Image`}
+                />
+              ) : (
+                <Icon
+                  color="inverse"
+                  name={icon}
+                  size="lg"
+                  testID={`NotificationHistoryItem${id}Icon`}
+                />
+              )}
+            </View>
+          </Row>
           <Column
             grow={1}
             shrink={1}>
@@ -115,14 +119,6 @@ export const NotificationHistoryItem = ({
               {createdAt}
             </Phrase>
           </Column>
-          {!is_read && (
-            <View style={styles.badgeContainer}>
-              <Badge
-                testID={`NotificationHistoryItem${id}IsUnreadBadge`}
-                variant="extraSmall"
-              />
-            </View>
-          )}
         </Row>
       </Box>
     </PressableBase>
@@ -135,15 +131,20 @@ const createStyles =
   (fontScale: number) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
+      circle: {
+        height: 6,
+        width: 6,
+        borderRadius: 3,
+        backgroundColor: color.badge.background.warning,
+      },
       iconContainer: {
         backgroundColor: color.notificationHistory.itemIcon.background,
         justifyContent: 'center',
         alignItems: 'center',
         width: size.iconContainer.lg * fontScale,
         height: size.iconContainer.lg * fontScale,
-        marginTop: LINE_HEIGHT_CORRECTION * fontScale,
       },
-      badgeContainer: {
+      lineHeightCorrection: {
         marginTop: LINE_HEIGHT_CORRECTION * fontScale,
       },
     })
