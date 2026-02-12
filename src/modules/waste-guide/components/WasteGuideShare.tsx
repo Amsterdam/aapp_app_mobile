@@ -3,6 +3,10 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {Address} from '@/modules/address/types'
+import {
+  getAddressLine1,
+  getAddressLine2,
+} from '@/modules/address/utils/addDerivedAddressFields'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   ExceptionLogKey,
@@ -56,7 +60,10 @@ const buildWasteGuideUrl = (address?: Address) => {
     return WASTE_GUIDE_BASE_URL
   }
 
-  const addressString = `${address.addressLine1}, ${address.postcode} ${address.city}`
+  const addressLine1 = getAddressLine1(address)
+  const addressLine2 = getAddressLine2(address)
+
+  const addressString = `${addressLine1}, ${addressLine2}`
   const encoded = encodeURIComponent(addressString)
 
   return `${WASTE_GUIDE_BASE_URL}?adres=${encoded}`

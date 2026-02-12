@@ -1,22 +1,11 @@
-import {Address, AddressCity} from '@/modules/address/types'
+import {Address} from '@/modules/address/types'
 
-export const getAddition = (
-  additionLetter?: string,
-  additionNumber?: string,
-): string | undefined => {
-  if (!additionLetter && !additionNumber) {
-    return
-  }
-
-  if (!additionLetter && additionNumber) {
-    return additionNumber
-  }
-
-  return `${additionLetter ?? ''}${additionNumber ? '-' + additionNumber : ''}`
-}
-
+/**
+ * Formats the address fields into:
+ * Street, number, addition letter and addition number (if available)
+ */
 export const getAddressLine1 = (
-  address: Pick<
+  address?: Pick<
     Address,
     'street' | 'number' | 'additionLetter' | 'additionNumber'
   >,
@@ -30,21 +19,18 @@ export const getAddressLine1 = (
   }
 }
 
-export const getAddressLine2 = (postcode: string, city: AddressCity) => {
+/**
+ * Formats the address fields into:
+ * Postcode and city
+ */
+export const getAddressLine2 = (
+  address?: Pick<Address, 'postcode' | 'city'>,
+) => {
+  const {postcode, city} = address ?? {}
+
   if (!postcode || !city) {
     return ''
   }
 
   return `${postcode.slice(0, 4)} ${postcode.slice(4).trim()} ${city}`
-}
-
-export const addDerivedAddressFields = (address: Address): Address => {
-  const {postcode, city, additionLetter, additionNumber} = address
-
-  return {
-    ...address,
-    addition: getAddition(additionLetter, additionNumber),
-    addressLine1: getAddressLine1(address),
-    addressLine2: getAddressLine2(postcode, city),
-  }
 }

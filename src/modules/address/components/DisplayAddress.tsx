@@ -37,9 +37,7 @@ export const DisplayAddress = () => {
             flex={1}
             hitSlop={{bottom: size.spacing.md, top: size.spacing.md}}
             icon={{name: 'house', size: 'lgx'}}
-            logName={
-              address?.addressLine1 ? 'AddressChangeButton' : 'AddressAddButton'
-            }
+            logName={address ? 'AddressChangeButton' : 'AddressAddButton'}
             onPress={() => navigation.navigate(AddressModalName.myAddressForm)}
             testID="AddressAddButton"
             text={

@@ -24,7 +24,6 @@ import {
   setModuleCustomAddress,
   useMyAddress,
 } from '@/modules/address/slice'
-import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
 import {ModuleSlug} from '@/modules/slugs'
 import {useAlert} from '@/store/slices/alert'
 
@@ -63,24 +62,22 @@ export const AddressForm = ({
   const {setAlert} = useAlert()
 
   const onPressAddress = useCallback(
-    (newAddress: Address) => {
-      const transformedAddress = addDerivedAddressFields(newAddress)
+    (address: Address) => {
+      dispatch(addRecentAddress(address))
 
-      dispatch(addRecentAddress(transformedAddress))
-
-      if (myAddress?.bagId === newAddress.bagId) {
+      if (myAddress?.bagId === address.bagId) {
         setLocationType('address')
       } else if (saveAsMyAddress) {
-        dispatch(addAddress(transformedAddress))
+        dispatch(addAddress(address))
         setLocationType('address')
         enabledModules?.forEach(({onMyAddressChanged}) => {
-          void onMyAddressChanged?.(transformedAddress, dispatch)
+          void onMyAddressChanged?.(address, dispatch)
         })
       } else {
         dispatch(
           setModuleCustomAddress({
             moduleSlug: moduleSlug!,
-            address: transformedAddress,
+            address,
           }),
         )
         setLocationType('custom')

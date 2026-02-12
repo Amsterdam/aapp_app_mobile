@@ -18,11 +18,8 @@ export type BaseAddress<Type = 'weg'> = {
 }
 
 export type Address = BaseAddress<'adres'> & {
-  addition?: string
   additionLetter?: string
   additionNumber?: string
-  addressLine1: string
-  addressLine2: string
   bagId: string
   number: number
   postcode: string
@@ -61,7 +58,7 @@ export type AddressState = {
    * Custom address set for a specific module
    */
   moduleCustomAddress?: Partial<
-    Record<ModuleSlug, Address & {isSaveAsMyAddressShown: boolean}>
+    Record<ModuleSlug, Address & {showSaveAsMyAddress: boolean}>
   >
   /**
    * User preference for using location, address or custom

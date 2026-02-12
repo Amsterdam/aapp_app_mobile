@@ -1,15 +1,14 @@
 import {Address} from '@/modules/address/types'
-import {AddressQueryArgs} from '@/types/api'
+import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 
-export const getAddressParam = (
-  address?: Address,
-): AddressQueryArgs | undefined => {
-  if (!address?.coordinates) {
-    return {address: address?.addressLine1}
+export const getAddressParam = (address?: Address) => {
+  if (address?.coordinates) {
+    return address.coordinates
   }
 
-  return {
-    address: undefined,
-    ...address.coordinates,
+  if (getAddressLine1(address)) {
+    return {address: getAddressLine1(address)}
   }
+
+  return undefined
 }

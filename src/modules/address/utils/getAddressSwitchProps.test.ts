@@ -28,8 +28,9 @@ describe('getAddressSwitchProps', () => {
 
   test('should return current location and gps-ios icon when locationType is location and location is fetched.', () => {
     const locationType: LocationType = 'location'
-    const address: Pick<Address, 'addressLine1'> = {
-      addressLine1: 'Cruquiusweg 5',
+    const address: Pick<Address, 'street' | 'number'> = {
+      street: 'Cruquiusweg',
+      number: 5,
     }
     const isFetching = false
 
@@ -58,8 +59,9 @@ describe('getAddressSwitchProps', () => {
 
   test('should return my address and house icon when locationType is address and user has entered an address that is similar to myAddress.', () => {
     const locationType: LocationType = 'address'
-    const address: Pick<Address, 'addressLine1'> = {
-      addressLine1: 'Cruquiusweg 5',
+    const address: Pick<Address, 'street' | 'number'> = {
+      street: 'Cruquiusweg',
+      number: 5,
     }
     const isFetching = false
 
@@ -88,8 +90,9 @@ describe('getAddressSwitchProps', () => {
 
   test('should return an address and location icon when locationType is address and user has entered an address that is different from myAddress.', () => {
     const locationType: LocationType = 'address'
-    const address: Pick<Address, 'addressLine1'> = {
-      addressLine1: 'Cruquiusweg 5',
+    const address: Pick<Address, 'street' | 'number'> = {
+      street: 'Cruquiusweg',
+      number: 5,
     }
     const isFetching = false
 

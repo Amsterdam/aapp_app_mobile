@@ -12,10 +12,7 @@ import {useModules} from '@/hooks/useModules'
 import {alerts} from '@/modules/address/alerts'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
-import {
-  addAddress,
-  setModuleIsSaveAsMyAddressShown,
-} from '@/modules/address/slice'
+import {addAddress, setShowSaveAsMyAddress} from '@/modules/address/slice'
 
 type Props = {
   moduleSlug: ModuleSlug
@@ -82,9 +79,9 @@ export const AddressSwitchSaveMyAddress = ({
                 label="Nee, later"
                 onPress={() =>
                   dispatch(
-                    setModuleIsSaveAsMyAddressShown({
+                    setShowSaveAsMyAddress({
                       moduleSlug,
-                      isSaveAsMyAddressShown: true,
+                      show: true,
                     }),
                   )
                 }

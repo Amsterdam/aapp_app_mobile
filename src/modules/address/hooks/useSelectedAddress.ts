@@ -34,6 +34,6 @@ export const useSelectedAddress = (moduleSlug: ModuleSlug) => {
       locationType === 'custom' &&
       !address &&
       customAddress &&
-      !customAddress.isSaveAsMyAddressShown,
+      !customAddress.showSaveAsMyAddress,
   }
 }

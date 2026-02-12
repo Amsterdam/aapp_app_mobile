@@ -14,6 +14,8 @@ import {type RootState} from '@/store/types/rootState'
 import {Permissions} from '@/types/permissions'
 
 const initialState: AddressState = {
+  address: undefined,
+  location: undefined,
   highAccuracyPurposeKey: HighAccuracyPurposeKey.PreciseLocationAddressLookup,
   locationType: undefined,
   locationFetchRequested: undefined,
@@ -98,27 +100,25 @@ export const addressSlice = createSlice({
       moduleCustomAddress: {
         ...state.moduleCustomAddress,
         [moduleSlug]: address
-          ? {...address, isSaveAsMyAddressShown: false}
+          ? {...address, showSaveAsMyAddress: false}
           : undefined,
       },
     }),
-    setModuleIsSaveAsMyAddressShown: (
+    setShowSaveAsMyAddress: (
       state,
       {
-        payload: {moduleSlug, isSaveAsMyAddressShown},
+        payload: {moduleSlug, show},
       }: PayloadAction<{
-        isSaveAsMyAddressShown: boolean
         moduleSlug: ModuleSlug
+        show: boolean
       }>,
-    ) => ({
-      ...state,
-      moduleCustomAddress: {
-        ...state.moduleCustomAddress,
-        [moduleSlug]: state.moduleCustomAddress?.[moduleSlug]
-          ? {...state.moduleCustomAddress[moduleSlug], isSaveAsMyAddressShown}
-          : undefined,
-      },
-    }),
+    ) => {
+      const customAddress = state.moduleCustomAddress?.[moduleSlug]
+
+      if (customAddress) {
+        customAddress.showSaveAsMyAddress = show
+      }
+    },
   },
 })
 
@@ -132,7 +132,7 @@ export const {
   setIsGettingLocation,
   setLocationType,
   setModuleCustomAddress,
-  setModuleIsSaveAsMyAddressShown,
+  setShowSaveAsMyAddress,
 } = addressSlice.actions
 
 export const selectMyAddress = (state: RootState) =>

@@ -2,9 +2,9 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetCoordinatesForLocation} from '@/modules/address/hooks/useGetCoordinatesForLocation'
-import {useSaveAddress} from '@/modules/address/hooks/useSaveAddress'
 import {useGetLocationQuery} from '@/modules/address/service'
 import {
+  addLocation,
   setGetLocationIsError,
   setIsGettingLocation,
 } from '@/modules/address/slice'
@@ -22,7 +22,13 @@ export const useGetLocation = () => {
     coordinatesForLocation ?? skipToken,
   )
 
-  useSaveAddress(currentData)
+  useEffect(() => {
+    if (!currentData?.length || currentData[0].type !== 'adres') {
+      return
+    }
+
+    dispatch(addLocation(currentData[0]))
+  }, [dispatch, currentData])
 
   useEffect(() => {
     dispatch(setIsGettingLocation(isGettingCoordinates || isFetching))

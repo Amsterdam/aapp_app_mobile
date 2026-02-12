@@ -83,7 +83,7 @@ export const Projects = () => {
         type="projects">
         <ProjectsList
           {...result}
-          byDistance={!!addressParam}
+          byDistance={!!result.data[0]?.meter}
           listHeader={
             <ProjectsListHeader>
               <AddressSwitch

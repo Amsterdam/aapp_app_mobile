@@ -34,7 +34,7 @@ export const MyAddressButton = ({testID, onPress, moduleSlug}: Props) => {
   return (
     <Row align="between">
       <AddressTopTaskButton
-        logName={`BottomSheetAddAddressButton${myAddress?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
+        logName={`BottomSheetAddAddressButton${myAddress ? 'SelectAddress' : 'AddAddress'}`}
         onPress={onPressAddressButton}
         testID={testID}
         text={
