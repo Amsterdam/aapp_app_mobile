@@ -30,17 +30,14 @@ export const NotificationHistory = () => {
 
   if (isError) {
     return (
-      <>
-        <NotificationHistoryBanner />
-        <FullScreenError
-          buttonLabel="Ga terug"
-          error={error}
-          Image={ConstructionWorkFigure}
-          onPress={() => navigation.goBack()}
-          testID="NotificationHistoryFullScreenError"
-          title="Er kunnen geen meldingen worden getoond"
-        />
-      </>
+      <FullScreenError
+        buttonLabel="Ga terug"
+        error={error}
+        Image={ConstructionWorkFigure}
+        onPress={() => navigation.goBack()}
+        testID="NotificationHistoryFullScreenError"
+        title="Er kunnen geen meldingen worden getoond"
+      />
     )
   }
 
