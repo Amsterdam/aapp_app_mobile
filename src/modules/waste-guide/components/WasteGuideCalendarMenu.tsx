@@ -11,6 +11,7 @@ import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useFeatureFlag} from '@/hooks/useFeatureFlag'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {ModuleSlug} from '@/modules/slugs'
 import {selectApi} from '@/store/slices/environment'
 import {useMenu} from '@/store/slices/menu'
@@ -21,6 +22,7 @@ export const WasteGuideCalendarMenu = () => {
   const {address} = useSelectedAddress(ModuleSlug['waste-guide'])
   const {close} = useMenu()
   const openWebUrl = useOpenWebUrl()
+  const addressLine1 = getAddressLine1(address)
 
   const wasteGuideCalendarSubscribeFeatureFlag = useFeatureFlag(
     Features.WasteGuideCalendarSubscribe,
@@ -60,9 +62,9 @@ export const WasteGuideCalendarMenu = () => {
 
     void saveFile({
       downloadUri: pdfUrl,
-      fileName: `Afvalkalender_${dayjs().format('DD-MM-YYYY')}_${address?.addressLine1.replaceAll(' ', '_')}.pdf`,
+      fileName: `Afvalkalender_${dayjs().format('DD-MM-YYYY')}_${addressLine1.replaceAll(' ', '_')}.pdf`,
     })
-  }, [close, pdfUrl, address?.addressLine1])
+  }, [close, pdfUrl, addressLine1])
 
   const menuItems = useMemo(
     () =>

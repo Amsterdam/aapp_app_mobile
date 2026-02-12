@@ -8,7 +8,8 @@ import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNaviga
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useLocation} from '@/modules/address/slice'
-import {HighAccuracyPurposeKey} from '@/modules/address/types'
+import {HighAccuracyPurposeKey, type Address} from '@/modules/address/types'
+import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
 import {type LogProps} from '@/processes/piwik/types'
 import {Permissions} from '@/types/permissions'
 
@@ -21,14 +22,14 @@ type Props = {
 const getText = (
   loading: boolean,
   hasPermission: boolean,
-  addressLine1?: string,
+  location?: Address,
 ) => {
   if (loading) {
     return '...'
   }
 
-  if (addressLine1 && hasPermission) {
-    return `In de buurt van ${addressLine1}`
+  if (location && hasPermission) {
+    return `In de buurt van ${getAddressLineWithCityIfNotAmsterdam(location)}`
   }
 
   return 'Geef uw locatie door'
@@ -86,7 +87,7 @@ export const LocationTopTaskButton = ({
       logName={`${testID}${hasPermission && location ? 'SelectLocation' : 'AddLocation'}`}
       onPress={onPressLocationButton}
       testID={testID}
-      text={getText(!!isGettingLocation, hasPermission, location?.addressLine1)}
+      text={getText(!!isGettingLocation, hasPermission, location)}
       title="Mijn huidige locatie"
       {...props}
     />

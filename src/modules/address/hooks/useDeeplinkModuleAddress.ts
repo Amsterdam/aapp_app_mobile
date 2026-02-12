@@ -9,7 +9,6 @@ import {
   setModuleCustomAddress,
   useMyAddress,
 } from '@/modules/address/slice'
-import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const useDeeplinkModuleAddress = (
@@ -41,14 +40,12 @@ export const useDeeplinkModuleAddress = (
         return
       }
 
-      const transformedAddress = addDerivedAddressFields(addressFromDeeplink)
-
-      dispatch(addRecentAddress(transformedAddress))
+      dispatch(addRecentAddress(addressFromDeeplink))
 
       dispatch(
         setModuleCustomAddress({
           moduleSlug,
-          address: transformedAddress,
+          address: addressFromDeeplink,
         }),
       )
       setLocationType('custom')

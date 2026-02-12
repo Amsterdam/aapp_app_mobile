@@ -21,7 +21,7 @@ export const WasteGuideRecyclePointTopTaskButton = ({recyclePoint}: Props) => {
     <TopTaskButton
       accessibilityHint="Tik om een ander recyclepunt te selecteren."
       accessibilityLabel={accessibleText(
-        `${address.cityDistrict ?? ''}${commercialWaste ? '' : ', geen bedrijfsafval'}, ${getAddressLine1(address)} ${getAddressLine2(address.postcode, address.city)}`,
+        `${address.cityDistrict ?? ''}${commercialWaste ? '' : ', geen bedrijfsafval'}, ${getAddressLine1(address)} ${getAddressLine2(address)}`,
       )}
       icon={{name: 'recycle'}}
       insetHorizontal="no"
@@ -36,7 +36,7 @@ export const WasteGuideRecyclePointTopTaskButton = ({recyclePoint}: Props) => {
             </Phrase>
           )}
           <Phrase>{getAddressLine1(address)}</Phrase>
-          <Phrase>{getAddressLine2(address.postcode, address.city)}</Phrase>
+          <Phrase>{getAddressLine2(address)}</Phrase>
         </Column>
       }
       title={name}

@@ -3,6 +3,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {useRecentAddresses} from '@/modules/address/slice'
+import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
 
 export const RecentAddresses = ({
   onPress,
@@ -28,7 +29,7 @@ export const RecentAddresses = ({
             address={address}
             icon={{name: 'time-back'}}
             key={address.bagId}
-            label={address.addressLine1}
+            label={getAddressLineWithCityIfNotAmsterdam(address)}
             onPress={onPress}
             testID="RecentAddressesSuggestionButton"
           />

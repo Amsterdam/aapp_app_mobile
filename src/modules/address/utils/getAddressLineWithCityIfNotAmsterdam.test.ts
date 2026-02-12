@@ -13,28 +13,37 @@ describe('getAddressLineWithCityIfNotAmsterdam', () => {
   })
 
   it('returns addressLine1 if city is Amsterdam', () => {
-    const address = {
-      addressLine1: 'Damrak 1',
+    const address: Pick<Address, 'street' | 'number' | 'city'> = {
+      street: 'Damrak',
+      number: 1,
       city: AddressCity.Amsterdam,
-    } as Address
+    }
 
-    expect(getAddressLineWithCityIfNotAmsterdam(address)).toBe('Damrak 1')
+    expect(getAddressLineWithCityIfNotAmsterdam(address as Address)).toBe(
+      'Damrak 1',
+    )
   })
 
   it('returns addressLine1 with city if city is not Amsterdam', () => {
-    const address = {
-      addressLine1: 'Sleutelsteeg 2',
+    const address: Pick<Address, 'street' | 'number' | 'city'> = {
+      street: 'Sleutelsteeg',
+      number: 2,
       city: AddressCity.Weesp,
-    } as Address
+    }
 
-    expect(getAddressLineWithCityIfNotAmsterdam(address)).toBe(
+    expect(getAddressLineWithCityIfNotAmsterdam(address as Address)).toBe(
       'Sleutelsteeg 2, Weesp',
     )
   })
 
   it('returns addressLine1 if city is missing', () => {
-    const address = {addressLine1: 'Sleutelsteeg 2'} as Address
+    const address: Pick<Address, 'street' | 'number'> = {
+      street: 'Sleutelsteeg',
+      number: 2,
+    }
 
-    expect(getAddressLineWithCityIfNotAmsterdam(address)).toBe('Sleutelsteeg 2')
+    expect(getAddressLineWithCityIfNotAmsterdam(address as Address)).toBe(
+      'Sleutelsteeg 2',
+    )
   })
 })

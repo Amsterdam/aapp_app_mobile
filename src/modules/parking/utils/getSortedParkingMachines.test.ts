@@ -31,8 +31,6 @@ describe('getSortedParkingMachines', () => {
   ]
 
   const address: Address = {
-    addressLine1: '',
-    addressLine2: '',
     bagId: '',
     city: AddressCity.Amsterdam,
     number: 1,

@@ -18,11 +18,8 @@ export type BaseAddress<Type = 'weg'> = {
 }
 
 export type Address = BaseAddress<'adres'> & {
-  addition?: string
   additionLetter?: string
   additionNumber?: string
-  addressLine1: string
-  addressLine2: string
   bagId: string
   number: number
   postcode: string

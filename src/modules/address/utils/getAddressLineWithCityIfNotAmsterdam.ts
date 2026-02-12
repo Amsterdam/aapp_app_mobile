@@ -1,7 +1,10 @@
 import {AddressCity, type Address} from '@/modules/address/types'
+import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 
 export const getAddressLineWithCityIfNotAmsterdam = (address?: Address) => {
-  if (!address?.addressLine1) {
+  const addressLine1 = getAddressLine1(address)
+
+  if (!addressLine1) {
     return ''
   }
 
@@ -10,5 +13,5 @@ export const getAddressLineWithCityIfNotAmsterdam = (address?: Address) => {
       ? ', ' + address?.city
       : ''
 
-  return `${address.addressLine1}${cityPart}`
+  return `${addressLine1}${cityPart}`
 }
