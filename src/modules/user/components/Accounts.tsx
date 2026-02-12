@@ -22,7 +22,7 @@ export const Accounts = () => {
               insetVertical="lg"
               key={module.slug}
               variant="distinct">
-              <AccountComponent key={module.slug} />
+              <AccountComponent />
             </Box>
           )
         })}
