@@ -13,7 +13,7 @@ export const getAddressSwitchIcon = (
   }
 
   if (locationType === 'location') {
-    if (address?.addressLine1) {
+    if (address) {
       return {isFilled: true, name: 'gps-ios'}
     } else if (isFetchingLocation) {
       return {name: 'spinner'}
@@ -32,14 +32,14 @@ export const getAddressSwitchLabel = (
     return 'Mijn huidige locatie'
   }
 
-  if (address?.addressLine1) {
+  if (address) {
     return getAddressLineWithCityIfNotAmsterdam(address)
   }
 
   return 'Adres invullen'
 }
 
-export const getLocationTypeLabel = (locationType?: LocationType) => {
+const getLocationTypeLabel = (locationType?: LocationType) => {
   switch (locationType) {
     case 'address':
       return 'Mijn adres'

@@ -91,12 +91,8 @@ export const projectsApi = baseApi.injectEndpoints({
       providesTags: ['FollowedProjects', 'Projects'],
       query: params => ({
         slug: MODULE_SLUG,
-        url: params
-          ? generateRequestUrl({
-              path: '/projects',
-              params,
-            })
-          : '/projects',
+        url: '/projects',
+        params,
         headers: deviceIdHeader,
       }),
 
