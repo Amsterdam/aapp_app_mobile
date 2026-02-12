@@ -16,6 +16,11 @@ import {BiometricsPermissionScreen} from '@/modules/access-code/screens/Biometri
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 
+enum AccessCodeGateStateName {
+  fallback = 'AccessCodeGateFallback',
+  loading = 'AccessCodeGateLoading',
+}
+
 /**
  * The type `AccessCodeGateConfig` defines configuration options for an access code gate feature in a
  * TypeScript React application.
@@ -60,7 +65,7 @@ export const useAccessCodeGate = (
   const {loginSteps, isLoginStepsActive, forgotCodeScreen} = config || {}
 
   return (stack: ReactNode): ReactNode => {
-    if (useBiometrics === undefined && !!isEnrolled && isCodeValid) {
+    if (useBiometrics === undefined && isEnrolled && isCodeValid) {
       return (
         <Stack.Screen
           component={BiometricsPermissionScreen}
@@ -79,7 +84,7 @@ export const useAccessCodeGate = (
     if (isLoading) {
       return (
         <Stack.Screen
-          name="loading"
+          name={AccessCodeGateStateName.loading}
           options={{
             ...TransitionPresets.ModalFadeTransition,
           }}>
@@ -140,7 +145,7 @@ export const useAccessCodeGate = (
 
     return (
       <Stack.Screen
-        name="fallback"
+        name={AccessCodeGateStateName.fallback}
         options={{
           ...TransitionPresets.ModalFadeTransition,
         }}>
