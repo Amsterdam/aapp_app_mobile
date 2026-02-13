@@ -11,27 +11,23 @@ import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccess
 import {useUnsetCodeOnBlur} from '@/modules/access-code/hooks/useUnsetCodeOnBlur'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
-import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<AccessCodeRouteName.confirmAccessCode>
 
-export const ConfirmAccessCodeScreen = ({navigation}: Props) => {
+export const ConfirmAccessCodeScreen = ({navigation, route}: Props) => {
   const {isCodeConfirmed} = useConfirmAccessCode()
 
   useUnsetCodeOnBlur(AccessCodeType.codeSet)
-  const isUserRoute =
-    (navigation.getParent()?.getState().routes.at(-2)?.name as ModuleSlug) ===
-    ModuleSlug.user
 
   useEffect(() => {
     if (!isCodeConfirmed) {
       return
-    } else if (isUserRoute) {
+    } else if (route.params?.showValidation) {
       navigation.navigate(AccessCodeRouteName.validAccessCode)
     } else {
       navigation.pop(2)
     }
-  }, [isCodeConfirmed, isUserRoute, navigation])
+  }, [isCodeConfirmed, route.params, navigation])
 
   const onResetAccessCode = useCallback(() => {
     navigation.pop()

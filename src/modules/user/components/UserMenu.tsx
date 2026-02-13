@@ -1,11 +1,10 @@
 import {View} from 'react-native'
+import type {UserMenuSection} from '@/modules/user/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useModules} from '@/hooks/useModules'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AddressRouteName} from '@/modules/address/routes'
@@ -13,49 +12,50 @@ import {ModuleSlug} from '@/modules/slugs'
 import {AppInfoCopyButtons} from '@/modules/user/components/AppInfoCopyButtons'
 import {aboutSections} from '@/modules/user/constants'
 import {UserRouteName} from '@/modules/user/routes'
-import {UserMenuSection, UserMenuSectionItem} from '@/modules/user/types'
 
 const accessCodeSection: UserMenuSection = {
   title: 'Beveiliging',
   navigationItems: [
     {
-      iconName: 'access-code',
+      icon: {name: 'access-code'},
       label: 'Wijzig toegangscode',
       moduleSlug: ModuleSlug['access-code'],
     },
     {
-      iconName: 'lock-closed',
+      icon: {name: 'lock-closed'},
       label: 'Toegang met biometrische gevens',
       route: UserRouteName.userBiometrics,
     },
   ],
 }
 
-const getSections = (
-  moduleSections: UserMenuSectionItem[],
-): UserMenuSection[] => [
+const generalSection = [
   {
     navigationItems: [
       {
-        iconName: 'house',
+        icon: {name: 'person-circle', isFilled: true},
+        label: 'Mijn accounts',
+        route: UserRouteName.accounts,
+      },
+      {
+        icon: {name: 'house'},
         label: 'Mijn adres',
         moduleSlug: ModuleSlug.address,
         route: AddressRouteName.address,
       },
       {
-        iconName: 'bell-push',
+        icon: {name: 'bell-push'},
         label: 'Pushmeldingen',
         route: UserRouteName.notificationSettings,
       },
-      ...moduleSections,
       {
-        iconName: 'settings',
+        icon: {name: 'settings'},
         label: 'Onderwerpen in de app',
         route: UserRouteName.moduleSettings,
       },
     ],
   },
-]
+] satisfies UserMenuSection[]
 
 const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   const {biometricsLabel, isEnrolled} = useAccessCodeBiometrics()
@@ -72,14 +72,14 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
         </Box>
       )}
       <Column gutter="xxs">
-        {navigationItems.map(item =>
+        {navigationItems.map(({icon, ...item}) =>
           item.route === UserRouteName.userBiometrics &&
           (!biometricsLabel || !isEnrolled) ? null : (
             <NavigationButton
               chevronSize="md"
               emphasis="default"
+              icon={icon ? {...icon, size: 'lg'} : undefined}
               key={item.label}
-              {...(item.iconName && {icon: {name: item.iconName, size: 'lgx'}})}
               {...item}
               onPress={() =>
                 navigate(item.moduleSlug ?? ModuleSlug.user, {
@@ -102,29 +102,17 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
 
 export const UserMenu = () => {
   const {accessCode} = useGetSecureAccessCode()
-  const {enabledModules, modulesLoading} = useModules()
-
-  const moduleMenuSections = enabledModules
-    ? enabledModules.flatMap(m => m.userMenuSection?.navigationItems || [])
-    : []
-
-  const sections = getSections(moduleMenuSections)
-
-  if (modulesLoading) {
-    return <PleaseWait testID="UserMenuPleaseWait" />
-  }
 
   return (
     <View testID="UserMenu">
       <Column gutter="md">
         <Column gutter="lg">
-          {!!sections.length &&
-            sections.map(section => (
-              <MenuSection
-                key={section.navigationItems[0].iconName}
-                {...section}
-              />
-            ))}
+          {generalSection.map(section => (
+            <MenuSection
+              key={section.navigationItems[0].icon?.name}
+              {...section}
+            />
+          ))}
 
           {!!accessCode && <MenuSection {...accessCodeSection} />}
 

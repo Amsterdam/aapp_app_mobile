@@ -1,11 +1,11 @@
 import {PathConfig, PathConfigMap} from '@react-navigation/native'
 import {RootStackParams} from '@/app/navigation/types'
-import {clientModules} from '@/modules/modules'
+import {allModules} from '@/modules/modules'
 
 export const moduleLinkings = (() => {
   const linkings: PathConfigMap<RootStackParams> = {}
 
-  clientModules.forEach(({linking, slug}) => {
+  allModules.forEach(({linking, slug}) => {
     if (!linking) {
       return
     }

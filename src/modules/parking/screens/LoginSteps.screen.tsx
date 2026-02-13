@@ -1,6 +1,5 @@
 import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
-import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -13,13 +12,9 @@ import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAc
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
-import {ParkingRouteName} from '@/modules/parking/routes'
-import {UserRouteName} from '@/modules/user/routes'
 import {SecureItemKey} from '@/utils/secureStorage'
 
-type Props = NavigationProps<ParkingRouteName.loginSteps>
-
-export const LoginStepsScreen = ({navigation}: Props) => {
+export const LoginStepsScreen = () => {
   const {navigate} = useNavigation()
   const {item: securePermitHolder, isLoading: isLoadingSecurePermitHolder} =
     useGetSecureItem(SecureItemKey.parkingPermitHolder)
@@ -29,10 +24,6 @@ export const LoginStepsScreen = ({navigation}: Props) => {
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isLoggedIn && accessCode
   const {setIsLoginStepsActive} = useLoginSteps()
-  const isUserRoute = navigation
-    .getParent()
-    ?.getState()
-    .routes.find(r => r.name === 'user')
 
   useEffect(() => {
     setIsLoginStepsActive(true)
@@ -47,15 +38,8 @@ export const LoginStepsScreen = ({navigation}: Props) => {
 
     if (isStepsComplete) {
       setIsLoginStepsActive(false)
-      isUserRoute && navigate(UserRouteName.user)
     }
-  }, [
-    accessCode,
-    isStepsComplete,
-    isUserRoute,
-    navigate,
-    setIsLoginStepsActive,
-  ])
+  }, [accessCode, isStepsComplete, navigate, setIsLoginStepsActive])
 
   if (isLoadingSecureVisitor || isLoadingSecurePermitHolder) {
     return null

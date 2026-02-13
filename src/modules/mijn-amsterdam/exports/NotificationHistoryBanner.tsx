@@ -11,19 +11,23 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {MijnAmsterdamRouteName} from '@/modules/mijn-amsterdam/routes'
 import {
   selectShouldShowBanner,
   setShouldShowBanner,
 } from '@/modules/mijn-amsterdam/slice'
 import {ModuleSlug} from '@/modules/slugs'
+import {UserRouteName} from '@/modules/user/routes'
 
 export const NotificationHistoryBanner = () => {
   const {navigate} = useNavigation()
   const dispatch = useDispatch()
   const shouldShowBanner = useSelector(selectShouldShowBanner)
 
-  return shouldShowBanner ? (
+  if (!shouldShowBanner) {
+    return null
+  }
+
+  return (
     <RenderIfModuleActive moduleSlug={ModuleSlug['mijn-amsterdam']}>
       <Animated.View
         exiting={FadeOutUp}
@@ -62,8 +66,8 @@ export const NotificationHistoryBanner = () => {
             <Button
               label="Ga naar Mijn accounts"
               onPress={() =>
-                navigate(ModuleSlug['mijn-amsterdam'], {
-                  screen: MijnAmsterdamRouteName.settings,
+                navigate(ModuleSlug.user, {
+                  screen: UserRouteName.accounts,
                 })
               }
               testID="NotificationHistoryBannerAccountsButton"
@@ -73,5 +77,5 @@ export const NotificationHistoryBanner = () => {
         </Box>
       </Animated.View>
     </RenderIfModuleActive>
-  ) : null
+  )
 }

@@ -1,6 +1,10 @@
+import type {RedirectErrorCodes} from '@/types/mijnAmsterdam'
+import type {LoginResult} from '@/types/navigation'
+
 export enum UserRouteName {
   aboutEnglish = 'AboutEnglish',
   accessibilityStatement = 'AccessibilityStatement',
+  accounts = 'Accounts',
   appSummary = 'AppSummary',
   feedback = 'Feedback',
   moduleSettings = 'ModuleSettings',
@@ -13,6 +17,14 @@ export enum UserRouteName {
 export type UserStackParams = {
   [UserRouteName.aboutEnglish]: undefined
   [UserRouteName.accessibilityStatement]: undefined
+  [UserRouteName.accounts]:
+    | {
+        'amp;errorCode'?: string
+        errorCode?: RedirectErrorCodes
+        errorMessage?: string
+        loginResult?: LoginResult
+      }
+    | undefined
   [UserRouteName.appSummary]: undefined
   [UserRouteName.feedback]: undefined
   [UserRouteName.privacyStatement]: undefined

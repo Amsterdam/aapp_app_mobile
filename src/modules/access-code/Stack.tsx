@@ -57,6 +57,7 @@ export const AccessCodeStack = () => {
                 />
                 <Stack.Screen
                   component={ConfirmAccessCodeScreen}
+                  initialParams={{showValidation: true}}
                   name={AccessCodeRouteName.confirmAccessCode}
                   options={{headerTitle: 'Toegangscode herhalen'}}
                 />

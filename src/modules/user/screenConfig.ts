@@ -7,6 +7,7 @@ import {
 import {AboutTheAppDutchScreen} from '@/modules/user/screens/AboutTheAppDutch.screen'
 import {AboutTheAppEnglishScreen} from '@/modules/user/screens/AboutTheAppEnglish.screen'
 import {AccessibilityStatementScreen} from '@/modules/user/screens/AccessibilityStatement.screen'
+import {AccountsScreen} from '@/modules/user/screens/Accounts.screen'
 import {FeedbackScreen} from '@/modules/user/screens/Feedback.screen'
 import {ModuleSettingsScreen} from '@/modules/user/screens/ModuleSettings.screen'
 import {NotificationSettingsScreen} from '@/modules/user/screens/NotificationSettings.screen'
@@ -86,6 +87,13 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Privacyverklaring',
     },
     screenType: 'default',
+  },
+  [UserRouteName.accounts]: {
+    component: AccountsScreen,
+    name: UserRouteName.accounts,
+    options: {
+      headerTitle: 'Mijn accounts',
+    },
   },
 }
 

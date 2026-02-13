@@ -17,12 +17,11 @@ import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
 import {useRegisterCityPassOwner} from '@/modules/city-pass/hooks/useRegisterCityPassOwner'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
-import {UserRouteName} from '@/modules/user/routes'
 import {RedirectErrorCodes} from '@/types/mijnAmsterdam'
 
 type Props = NavigationProps<CityPassRouteName.loginSteps>
 
-export const LoginStepsScreen = ({navigation, route}: Props) => {
+export const LoginStepsScreen = ({route}: Props) => {
   const {
     accessToken: deeplinkAccessToken,
     errorCode,
@@ -37,10 +36,6 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
   const isStepsComplete = isCityPassOwnerRegistered && accessCode
   const {setIsLoginStepsActive} = useLoginSteps()
   const login = useLogin()
-  const isUserRoute = navigation
-    .getParent()
-    ?.getState()
-    .routes.find(r => r.name === 'user')
 
   useEffect(() => {
     setIsLoginStepsActive(true)
@@ -70,13 +65,11 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
 
     if (isStepsComplete) {
       setIsLoginStepsActive(false)
-      isUserRoute && navigate(UserRouteName.user)
     }
   }, [
     accessCode,
     isCityPassOwnerRegistered,
     isStepsComplete,
-    isUserRoute,
     login,
     navigate,
     setIsLoginStepsActive,
