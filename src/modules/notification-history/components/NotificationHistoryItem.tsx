@@ -37,7 +37,9 @@ export const NotificationHistoryItem = ({
   const createdAt = formatHistoryDateTime(created_at)
 
   return (
-    <NotificationHistoryItemPressable notification={notification}>
+    <NotificationHistoryItemPressable
+      createdAt={createdAt}
+      notification={notification}>
       <Box
         insetHorizontal="md"
         insetVertical="smd">

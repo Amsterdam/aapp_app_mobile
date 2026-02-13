@@ -9,15 +9,16 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   children: ReactNode
+  createdAt: string
   notification: Notification
 }
 
 export const NotificationHistoryItemPressable = ({
   children,
+  createdAt,
   notification,
 }: Props) => {
-  const {body, context, created_at, id, module_slug, title, is_read} =
-    notification
+  const {body, context, id, module_slug, title, is_read} = notification
   const {navigate} = useNavigation()
   const openUrl = useOpenUrl()
 
@@ -29,8 +30,8 @@ export const NotificationHistoryItemPressable = ({
         is_read ? '' : 'Ongelezen bericht: ',
         title,
         body,
-        `ontvangen: ${created_at}`,
-        context.url ? 'Opent in web brauwser.' : '',
+        `ontvangen: ${createdAt}`,
+        context.url ? 'Opent in webbrowser.' : '',
       )}
       onPress={() => {
         if (context.url) {
