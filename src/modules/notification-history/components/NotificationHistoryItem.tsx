@@ -1,7 +1,4 @@
-import {useLinkTo} from '@react-navigation/native'
 import {StyleSheet, View} from 'react-native'
-import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
-import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -10,14 +7,12 @@ import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {NotificationHistoryItemPressable} from '@/modules/notification-history/components/NotificationHistoryItemPressable'
 import {Notification} from '@/modules/notification-history/types'
 import {Module} from '@/modules/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {formatHistoryDateTime} from '@/utils/datetime/formatHistoryDateTime'
 
 type Props = {
@@ -26,91 +21,48 @@ type Props = {
 }
 
 export const NotificationHistoryItem = ({
-  notification: {
-    body,
-    context,
-    created_at,
-    id,
-    image,
-    is_read,
-    module_slug,
-    title,
-  },
+  notification,
   enabledModules = [],
 }: Props) => {
-  const {navigate} = useNavigation()
+  const {body, context, created_at, id, image, is_read, module_slug, title} =
+    notification
   const {fontScale} = useDeviceContext()
   const module = enabledModules.find(({slug}) => slug === module_slug)
   const styles = useThemable(createStyles(fontScale))
-  const openUrl = useOpenUrl()
-
-  const linkTo = useLinkTo()
 
   if (!module) {
     return null
   }
 
-  const {icon} = module
   const createdAt = formatHistoryDateTime(created_at)
 
   return (
-    <PressableBase
-      accessibilityLabel={accessibleText(
-        !is_read ? 'Ongelezen bericht: ' : undefined,
-        title,
-        body,
-        `ontvangen: ${createdAt}`,
-        context.url ? 'Opent in web brauwser.' : '',
-      )}
-      onPress={() => {
-        if (context.url) {
-          return openUrl(context.url)
-        }
-
-        const deeplinkUrl = createPathFromNotification(
-          {
-            id,
-            title,
-            body,
-            data: context as Record<string, string | number | object>,
-          },
-          false,
-        )
-
-        if (deeplinkUrl) {
-          linkTo(deeplinkUrl)
-        } else if (module_slug) {
-          navigate(module_slug)
-        }
-      }}
-      testID={`NotificationHistoryItem${id}Button`}>
+    <NotificationHistoryItemPressable
+      createdAt={createdAt}
+      notification={notification}>
       <Box
         insetHorizontal="md"
         insetVertical="smd">
         <Row
           gutter="md"
           valign="start">
-          <Row gutter="xs">
-            {!is_read && (
-              <View style={[styles.circle, styles.lineHeightCorrection]} />
+          <View style={styles.iconContainer}>
+            {!is_read && <View style={styles.circle} />}
+            {image && image.sources[0] ? (
+              <Image
+                aspectRatio="square"
+                source={image.sources[0]}
+                testID={`NotificationHistoryItem${id}Image`}
+              />
+            ) : (
+              <Icon
+                color="inverse"
+                name={module.icon}
+                size="lg"
+                testID={`NotificationHistoryItem${id}Icon`}
+              />
             )}
-            <View style={[styles.iconContainer, styles.lineHeightCorrection]}>
-              {image && image.sources[0] ? (
-                <Image
-                  aspectRatio="square"
-                  source={image.sources[0]}
-                  testID={`NotificationHistoryItem${id}Image`}
-                />
-              ) : (
-                <Icon
-                  color="inverse"
-                  name={icon}
-                  size="lg"
-                  testID={`NotificationHistoryItem${id}Icon`}
-                />
-              )}
-            </View>
-          </Row>
+          </View>
           <Column
             grow={1}
             shrink={1}>
@@ -120,7 +72,7 @@ export const NotificationHistoryItem = ({
                 testID={`NotificationHistoryItem${id}Title`}
                 text={title}
               />
-              {!context.url && <Icon name="link-external" />}
+              {!!context.url && <Icon name="link-external" />}
             </Row>
             <Paragraph testID={`NotificationHistoryItem${id}DescriptionText`}>
               {body}
@@ -134,7 +86,7 @@ export const NotificationHistoryItem = ({
           </Column>
         </Row>
       </Box>
-    </PressableBase>
+    </NotificationHistoryItemPressable>
   )
 }
 
@@ -143,12 +95,16 @@ const CIRCLE_SIZE = 6
 
 const createStyles =
   (fontScale: number) =>
-  ({color, size}: Theme) =>
-    StyleSheet.create({
+  ({color, size}: Theme) => {
+    const scaledCircleSize = CIRCLE_SIZE * fontScale
+
+    return StyleSheet.create({
       circle: {
-        height: CIRCLE_SIZE * fontScale,
-        width: CIRCLE_SIZE * fontScale,
-        borderRadius: (CIRCLE_SIZE * fontScale) / 2,
+        position: 'absolute',
+        left: -scaledCircleSize - size.spacing.xs,
+        height: scaledCircleSize,
+        width: scaledCircleSize,
+        borderRadius: scaledCircleSize / 2,
         backgroundColor: color.badge.background.warning,
       },
       iconContainer: {
@@ -157,8 +113,7 @@ const createStyles =
         alignItems: 'center',
         width: size.iconContainer.lg * fontScale,
         height: size.iconContainer.lg * fontScale,
-      },
-      lineHeightCorrection: {
         marginTop: LINE_HEIGHT_CORRECTION * fontScale,
       },
     })
+  }
