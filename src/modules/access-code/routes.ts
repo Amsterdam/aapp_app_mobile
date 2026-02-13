@@ -12,6 +12,6 @@ export type AccessCodeStackParams = {
   [AccessCodeRouteName.accessCodeInvalid]: undefined
   [AccessCodeRouteName.biometricsPermission]: undefined
   [AccessCodeRouteName.setAccessCode]: undefined
-  [AccessCodeRouteName.confirmAccessCode]: undefined
+  [AccessCodeRouteName.confirmAccessCode]: {showValidation: boolean} | undefined
   [AccessCodeRouteName.validAccessCode]: undefined
 }

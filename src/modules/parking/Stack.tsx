@@ -25,7 +25,7 @@ export const ParkingStack = () => {
   const isLoggingIn = useParkingAccountIsLoggingIn()
   const hasAccounts = useIsLoggedIn()
   const {pendingScreen} = usePendingScreen<ParkingScreenConfigRoutes>()
-  const sortedScreenConfig = sortEntriesByKeyFirst(
+  const screenConfigPendingFirst = sortEntriesByKeyFirst(
     Object.entries(parkingScreenConfig),
     pendingScreen,
   )
@@ -63,7 +63,7 @@ export const ParkingStack = () => {
                 options={{headerTitle: 'Inloggen'}}
               />
             )}
-            {sortedScreenConfig.map(([key, parkingRoute]) => (
+            {screenConfigPendingFirst.map(([key, parkingRoute]) => (
               <Stack.Screen
                 key={key}
                 {...parkingRoute}
