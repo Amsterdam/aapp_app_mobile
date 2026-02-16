@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "~> " + File.read(File.join(__dir__, ".ruby-version")).strip.split(".").first(2).join(".")
 
 gem "openssl", "~> 3.3"
-gem "fastlane", "2.231.1"
+gem "fastlane", "2.232.1"
 
 group :iosAppBuildDependencies do
   # Exclude problematic versions of cocoapods and activesupport that causes build failures.
