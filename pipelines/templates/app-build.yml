@@ -81,11 +81,11 @@ steps:
 
   - task: Cache@2
     inputs:
-      key: 'android | "$(Agent.OS)" | **/package-lock.json'
-      path: $(Build.Repository.LocalPath)/android/app/build
+      key: 'gradle | "$(Agent.OS)" | **/package-lock.json'
+      path: $(Build.Repository.LocalPath)/android/build-cache
       cacheHitVar: ANDROID_BUILD_CACHE_RESTORED
       restoreKeys: |
-        android | "$(Agent.OS)"
+        gradle | "$(Agent.OS)"
     displayName: 'Cache android build directory'
     condition: eq('${{ parameters.platform }}', 'android')
 
