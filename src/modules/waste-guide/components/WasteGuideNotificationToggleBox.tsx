@@ -1,6 +1,5 @@
 import {useCallback} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
-import {Box} from '@/components/ui/containers/Box'
 import {useLocationType, useMyAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {
@@ -34,16 +33,12 @@ export const WasteGuideNotificationToggleBox = () => {
   }
 
   return (
-    <Box
-      insetHorizontal="md"
-      insetVertical="no">
-      <NotificationToggleBox
-        description="U krijgt meldingen over ophaaldagen voor ‘Mijn adres’."
-        disabled={isLoading}
-        onChange={onChange}
-        testID="WasteGuideNotificationSwitch"
-        value={!!isSuccess && data.status === 'success'}
-      />
-    </Box>
+    <NotificationToggleBox
+      description="U krijgt meldingen over ophaaldagen voor ‘Mijn adres’."
+      disabled={isLoading}
+      onChange={onChange}
+      testID="WasteGuideNotificationSwitch"
+      value={!!isSuccess && data.status === 'success'}
+    />
   )
 }
