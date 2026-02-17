@@ -1764,7 +1764,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-netinfo (11.5.2):
+  - react-native-netinfo (12.0.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2265,7 +2265,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNCAsyncStorage (1.24.0):
+  - RNCAsyncStorage (2.2.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -3095,7 +3095,7 @@ SPEC CHECKSUMS:
   react-native-get-random-values: d16467cf726c618e9c7a8c3c39c31faa2244bbba
   react-native-keyboard-controller: fa0177e376cda203c345452b794ae1e8c7a69570
   react-native-maps: 5f43afe72a397ace4fafcd2aa610d65e37a365ee
-  react-native-netinfo: 13eee913178a42d9ee572acfab58843cb56955d9
+  react-native-netinfo: fe66ddcc0f967fd682bafac636e2b134308e2675
   react-native-piwik-pro-sdk: 589782dace263b5560b1b09429b4bc86914a4f14
   react-native-render-html: 5afc4751f1a98621b3009432ef84c47019dcb2bd
   react-native-restart: 0bc732f4461709022a742bb29bcccf6bbc5b4863
@@ -3134,7 +3134,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 6a29ad4365aeeceecb951cfd6546a99ce617cc50
   ReactCommon: 4e460daed3ccb6af9e3de3176920362d8b888a17
   RNBootSplash: 295996a51f49baf0dff9f65e49b32ff93fbc7357
-  RNCAsyncStorage: 7c077de553127336f479393dba37e86d6c929db8
+  RNCAsyncStorage: a1c8cc8a99c32de1244a9cf707bf9d83d0de0f71
   RNCMaskedView: 4b5b12efdee55966f1d68f32d4b3401c2acf05c2
   RNDeviceInfo: d863506092aef7e7af3a1c350c913d867d795047
   RNFBApp: 4105e54d9ca4a1c10893a032268470f670181110
