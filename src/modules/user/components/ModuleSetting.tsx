@@ -30,7 +30,7 @@ export const ModuleSetting = ({
 }: Props) => {
   const dispatch = useDispatch()
   const disabledModules = useSelector(selectDisabledModules)
-  const logoutWithAlert = useLogoutWithAlert(slug)
+  const logoutWithAlert = useLogoutWithAlert(slug, title)
 
   const isModuleActive = status === ModuleStatus.active
 

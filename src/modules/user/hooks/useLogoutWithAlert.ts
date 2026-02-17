@@ -4,7 +4,7 @@ import {useStore} from '@/hooks/redux/useStore'
 import {useIsLoggedIn} from '@/modules/generated/useIsLoggedIn.generated'
 import {clientModules} from '@/modules/modules'
 
-export const useLogoutWithAlert = (slug: ModuleSlug) => {
+export const useLogoutWithAlert = (slug: ModuleSlug, title: string) => {
   const store = useStore()
   const isLoggedIn = useIsLoggedIn[slug as keyof typeof useIsLoggedIn]?.()
 
@@ -33,8 +33,8 @@ export const useLogoutWithAlert = (slug: ModuleSlug) => {
       }
 
       Alert.alert(
-        'Weet u het zeker?',
-        'Wanneer u de module uitzet, wordt u automatisch uitgelogd.',
+        ` ${title} uitzetten`,
+        'Als u dit uitzet, logt u uit. Log opnieuw in om het weer te gebruiken.',
         [
           {
             text: 'Annuleren',
