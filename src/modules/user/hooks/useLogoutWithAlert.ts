@@ -42,7 +42,10 @@ export const useLogoutWithAlert = (slug: ModuleSlug) => {
             },
           },
         ],
-        {cancelable: true},
+        {
+          cancelable: true,
+          onDismiss: () => reject(new Error('User dismissed logout')),
+        },
       )
     })
 }
