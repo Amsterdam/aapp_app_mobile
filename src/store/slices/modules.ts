@@ -1,7 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleStatus, type ModuleServerConfig} from '@/modules/types'
+import {
+  ModuleStatus,
+  type Module,
+  type ModuleServerConfig,
+} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
@@ -24,7 +28,7 @@ export const modulesSlice = createSlice({
     resetModules: () => initialState,
     toggleModuleDisabled: (
       state,
-      {payload: slug}: PayloadAction<ModuleSlug>,
+      {payload: slug}: PayloadAction<Module['slug']>,
     ) => {
       const index = state.disabledModules.indexOf(slug)
 

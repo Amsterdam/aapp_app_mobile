@@ -25,7 +25,7 @@ type Props = {
 } & TestProps
 
 export const ModuleSetting = ({
-  module: {description, icon: iconName, moduleSlug: slug, status, title},
+  module: {description, icon: iconName, slug, status, title},
   testID,
 }: Props) => {
   const dispatch = useDispatch()
@@ -42,13 +42,13 @@ export const ModuleSetting = ({
   const onChange = () => {
     void logoutWithAlert().then(() => {
       dispatch(toggleModuleDisabled(slug))
-    })
 
-    if (isDisabled) {
-      void deleteDisabledPushModule(slug)
-    } else {
-      void addDisabledPushModule(slug)
-    }
+      if (isDisabled) {
+        void deleteDisabledPushModule(slug)
+      } else {
+        void addDisabledPushModule(slug)
+      }
+    })
   }
 
   const EnhancedModuleSettingBox = useCallback(
