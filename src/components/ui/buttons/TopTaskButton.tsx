@@ -127,12 +127,14 @@ export const TopTaskButton = ({
             <Icon
               color={colorDescriptionAndIconRight}
               name="link-external"
+              testID={`${testID}ExternalLinkIcon`}
             />
           )}
           {!!isInternalLink && (
             <Icon
               color={colorDescriptionAndIconRight}
               name="chevron-right"
+              testID={`${testID}InternalLinkIcon`}
             />
           )}
           {!!iconRight && (
