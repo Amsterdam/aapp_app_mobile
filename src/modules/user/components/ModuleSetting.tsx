@@ -44,6 +44,7 @@ export const ModuleSetting = ({
       dispatch(toggleModuleDisabled(slug))
 
       if (isDisabled) {
+        // isDisabled here is the opposite of the new value, because the state is updated after this function runs.
         void deleteDisabledPushModule(slug)
       } else {
         void addDisabledPushModule(slug)
