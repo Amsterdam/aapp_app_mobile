@@ -17,6 +17,8 @@ variables:
     value: $(Pipeline.Workspace)/ccache
   - name: BUNDLE_PATH
     value: $(Pipeline.Workspace)/.bundle
+  - name: CMAKE_CXX_COMPILER_LAUNCHER
+    value: ccache
 
 jobs:
   - job: 'Build_Android'

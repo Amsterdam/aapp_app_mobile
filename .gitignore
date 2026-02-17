@@ -46,6 +46,7 @@ local.properties
 *.keystore
 !debug.keystore
 .kotlin/
+android/build-cache/
 
 # IntelliJ
 .idea

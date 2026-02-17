@@ -79,6 +79,16 @@ steps:
         gems | "$(Agent.OS)"
     displayName: 'Cache gems local cache directory'
 
+  - task: Cache@2
+    inputs:
+      key: 'gradle | "$(Agent.OS)" | **/package-lock.json'
+      path: $(Build.Repository.LocalPath)/android/build-cache
+      cacheHitVar: ANDROID_BUILD_CACHE_RESTORED
+      restoreKeys: |
+        gradle | "$(Agent.OS)"
+    displayName: 'Cache android build directory'
+    condition: eq('${{ parameters.platform }}', 'android')
+
   # Install gems and run Fastlane
   - script: |
       bundle config set --local without 'iosAppBuildDependencies'

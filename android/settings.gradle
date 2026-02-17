@@ -9,7 +9,11 @@ project(':react-native-webview').projectDir = new File(rootProject.projectDir, '
 include ':react-native-gesture-handler'
 project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
 
-
+buildCache {
+    local {
+        directory = new File(rootProject.projectDir, 'build-cache')
+    }
+}
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
 apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
