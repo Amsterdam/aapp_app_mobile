@@ -22,19 +22,17 @@ export const modulesSlice = createSlice({
   initialState,
   reducers: {
     resetModules: () => initialState,
-    toggleModule: (state, {payload: slug}: PayloadAction<string>) => {
-      const {disabledModules} = state
+    toggleModuleDisabled: (
+      state,
+      {payload: slug}: PayloadAction<ModuleSlug>,
+    ) => {
+      const index = state.disabledModules.indexOf(slug)
 
-      if (disabledModules?.includes(slug)) {
-        return {
-          ...state,
-          disabledModules: disabledModules.filter(
-            moduleSlug => moduleSlug !== slug,
-          ),
-        }
+      if (index === -1) {
+        state.disabledModules.push(slug)
+      } else {
+        state.disabledModules.splice(index, 1)
       }
-
-      state.disabledModules = [...state.disabledModules, slug]
     },
     addAuthorizedModule: (state, {payload: slug}: PayloadAction<string>) => {
       const {authorizedModules} = state
@@ -69,7 +67,7 @@ export const {
   addAuthorizedModule,
   removeAuthorizedModule,
   resetModules,
-  toggleModule,
+  toggleModuleDisabled,
   setCachedServerModules,
 } = modulesSlice.actions
 
