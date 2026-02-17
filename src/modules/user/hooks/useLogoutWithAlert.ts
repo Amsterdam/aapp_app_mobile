@@ -10,11 +10,18 @@ export const useLogoutWithAlert = (slug: ModuleSlug) => {
 
   const waitForLogout = () =>
     new Promise<void>((resolve, reject) => {
-      void clientModules
-        .find(module => module.slug === slug)
-        ?.logout?.(store.dispatch, store.getState())
-        ?.then(() => resolve())
-        ?.catch(() => reject(new Error('Logout failed')))
+      const module = clientModules.find(m => m.slug === slug)
+
+      if (!module?.logout) {
+        resolve()
+
+        return
+      }
+
+      module
+        .logout(store.dispatch, store.getState())
+        .then(() => resolve())
+        .catch(() => reject(new Error('Logout failed')))
     })
 
   return () =>
