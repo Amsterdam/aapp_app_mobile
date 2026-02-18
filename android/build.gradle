@@ -14,7 +14,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://packages.rnrepo.org/releases" }
+        maven { url = "https://packages.rnrepo.org/releases" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle'
@@ -31,16 +31,16 @@ allprojects {
     repositories {
         // Required by Notifee
         maven {
-            url "$rootDir/../node_modules/@notifee/react-native/android/libs"
+            url = "$rootDir/../node_modules/@notifee/react-native/android/libs"
         }
 
         maven {
-            url "https://s3.amazonaws.com/inapp.salesforce.com/public/android"
+            url = "https://s3.amazonaws.com/inapp.salesforce.com/public/android"
             content {
                 includeGroupByRegex "com\\.salesforce.*"
             }
         }
-        maven { url "https://packages.rnrepo.org/releases" }
+        maven { url = "https://packages.rnrepo.org/releases" }
     }
     afterEvaluate {
         if (it.hasProperty('android')){
