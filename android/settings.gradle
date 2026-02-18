@@ -16,5 +16,7 @@ buildCache {
 }
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
-apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
+// adjusted this line to enable configuration caching:
+// apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
+apply from: new File(rootProject.projectDir, "../node_modules/expo/scripts/autolinking.gradle")
 useExpoModules()

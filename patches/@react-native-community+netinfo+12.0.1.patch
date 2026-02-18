@@ -1,0 +1,26 @@
+diff --git a/node_modules/@react-native-community/netinfo/android/build.gradle b/node_modules/@react-native-community/netinfo/android/build.gradle
+index d5fda29..639f61b 100644
+--- a/node_modules/@react-native-community/netinfo/android/build.gradle
++++ b/node_modules/@react-native-community/netinfo/android/build.gradle
+@@ -118,14 +118,15 @@ repositories {
+     // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+ 
+     // Use node resolver to locate react-native package
+-    def reactNativePackage = file(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim())
+-    if (reactNativePackage.exists()) {
+-      url "$reactNativePackage.parentFile/android"
+-    }
++    // Next few lines are commented out to enable configuration caching, as they execute node commands during configuration phase, which is not allowed in configuration caching mode.
++    // def reactNativePackage = file(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim())
++    // if (reactNativePackage.exists()) {
++    //   url "$reactNativePackage.parentFile/android"
++    // }
+     // Fallback to react-native package colocated in node_modules
+-    else {
++    // else {
+       url "$rootDir/../node_modules/react-native/android"
+-    }
++    // }
+   }
+   google()
+   mavenLocal()
