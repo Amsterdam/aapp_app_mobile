@@ -1,7 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleStatus, type ModuleServerConfig} from '@/modules/types'
+import {
+  ModuleStatus,
+  type Module,
+  type ModuleServerConfig,
+} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
@@ -22,19 +26,17 @@ export const modulesSlice = createSlice({
   initialState,
   reducers: {
     resetModules: () => initialState,
-    toggleModule: (state, {payload: slug}: PayloadAction<string>) => {
-      const {disabledModules} = state
+    toggleModuleDisabled: (
+      state,
+      {payload: slug}: PayloadAction<Module['slug']>,
+    ) => {
+      const index = state.disabledModules.indexOf(slug)
 
-      if (disabledModules?.includes(slug)) {
-        return {
-          ...state,
-          disabledModules: disabledModules.filter(
-            moduleSlug => moduleSlug !== slug,
-          ),
-        }
+      if (index === -1) {
+        state.disabledModules.push(slug)
+      } else {
+        state.disabledModules.splice(index, 1)
       }
-
-      state.disabledModules = [...state.disabledModules, slug]
     },
     addAuthorizedModule: (state, {payload: slug}: PayloadAction<string>) => {
       const {authorizedModules} = state
@@ -69,7 +71,7 @@ export const {
   addAuthorizedModule,
   removeAuthorizedModule,
   resetModules,
-  toggleModule,
+  toggleModuleDisabled,
   setCachedServerModules,
 } = modulesSlice.actions
 
