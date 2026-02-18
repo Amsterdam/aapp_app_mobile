@@ -30,7 +30,7 @@ export const NotificationHistoryItem = ({
   const module = enabledModules.find(({slug}) => slug === module_slug)
   const styles = useThemable(createStyles(fontScale))
 
-  if (!module) {
+  if (!module && !!module_slug) {
     return null
   }
 
@@ -48,7 +48,7 @@ export const NotificationHistoryItem = ({
           valign="start">
           <View style={styles.iconContainer}>
             {!is_read && <View style={styles.circle} />}
-            {image && image.sources[0] ? (
+            {image?.sources[0] ? (
               <Image
                 aspectRatio="square"
                 source={image.sources[0]}
@@ -57,7 +57,7 @@ export const NotificationHistoryItem = ({
             ) : (
               <Icon
                 color="inverse"
-                name={module.icon}
+                name={module?.icon ?? 'saint-andrews-crosses'}
                 size="lg"
                 testID={`NotificationHistoryItem${id}Icon`}
               />
