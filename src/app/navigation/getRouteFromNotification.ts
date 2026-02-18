@@ -1,7 +1,7 @@
 import {buildNotificationExternalLink} from '@/app/navigation/buildNotificationExternalLink'
-import {appPrefix} from '@/app/navigation/constants'
 import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {PushNotification} from '@/types/notification'
+import {addAppPrefixToRoute} from '@/utils/addAppPrefixToRoute'
 
 export const getRouteFromNotification = (
   notification?: PushNotification | null,
@@ -10,7 +10,10 @@ export const getRouteFromNotification = (
     return null
   }
 
-  const route = createPathFromNotification(notification)
+  const route: string | undefined =
+    notification.data.deeplink ??
+    createPathFromNotification(notification) ??
+    undefined
   const externalRoute = notification.data.url // This assumes the url will exist inside the data object. TODO: adjust if needed once url's are added to notifications.
 
   if (externalRoute) {
@@ -21,5 +24,5 @@ export const getRouteFromNotification = (
     )
   }
 
-  return route ? appPrefix + route.slice(1) : null
+  return addAppPrefixToRoute(route)
 }
