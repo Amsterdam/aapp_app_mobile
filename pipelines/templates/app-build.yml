@@ -83,10 +83,20 @@ steps:
     inputs:
       key: 'gradle | "$(Agent.OS)" | **/package-lock.json'
       path: $(Build.Repository.LocalPath)/android/build-cache
-      cacheHitVar: ANDROID_BUILD_CACHE_RESTORED
+      cacheHitVar: GRADLE_CACHE_RESTORED
       restoreKeys: |
         gradle | "$(Agent.OS)"
     displayName: 'Cache android build directory'
+    condition: eq('${{ parameters.platform }}', 'android')
+
+  - task: Cache@2
+    inputs:
+      key: 'gradle_configuration | "$(Agent.OS)" | **/package-lock.json'
+      path: $(Build.Repository.LocalPath)/android/.gradle/configuration-cache
+      cacheHitVar: GRADLE_CONFIGURATION_CACHE_RESTORED
+      restoreKeys: |
+        gradle_configuration | "$(Agent.OS)"
+    displayName: 'Cache gradle configuration cache directory'
     condition: eq('${{ parameters.platform }}', 'android')
 
   # Install gems and run Fastlane
