@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const Modules = ({modules}: Props) => {
-  const availableModules = modules?.filter(m => !m.hiddenInMenu)
+  const availableModules = modules?.filter(m => !m.excludeFromHome)
 
   if (!modules.length) {
     return (

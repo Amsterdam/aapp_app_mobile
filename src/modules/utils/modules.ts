@@ -47,7 +47,7 @@ export const postProcessModules = (
     const {alwaysEnabled, slug} = module
 
     // only modules that are not "alwaysEnabled" may be toggled by the user
-    if (!alwaysEnabled) {
+    if (!alwaysEnabled && !module.excludeFromHome) {
       toggleableModules.push(module)
     }
 

@@ -74,7 +74,7 @@ export type ModuleClientConfig<
   /**
    * Determines whether the module should be hidden on the home screen.
    */
-  hiddenInMenu?: boolean
+  excludeFromHome?: boolean
   /**
    * Module specific icons.
    */

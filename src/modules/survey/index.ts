@@ -5,7 +5,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 
 export const surveyModule = createClientModule({
   alwaysEnabled: true,
-  hiddenInMenu: true,
+  excludeFromHome: true,
   name: 'SurveyModule',
   reduxConfigs: [
     {

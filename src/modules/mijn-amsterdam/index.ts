@@ -12,7 +12,7 @@ export const mijnAmsterdamModule = createClientModule({
       slice: mijnAmsterdamSlice,
     },
   ],
-  hiddenInMenu: true,
+  excludeFromHome: true,
   name: 'MijnAmsterdamModule',
   requiresFirebaseToken: true,
   slug: ModuleSlug['mijn-amsterdam'],
