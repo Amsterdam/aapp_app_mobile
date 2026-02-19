@@ -6,7 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useIsLoggedIn} from '@/modules/generated/useIsLoggedIn.generated'
-import {NotificationSettingSwitch} from '@/modules/user/components/NotificationSettingSwitch'
+import {NotificationSettingSwitch} from '@/modules/user/components/notification-settings/NotificationSettingSwitch'
 import {useGetDisabledPushTypesQuery} from '@/modules/user/service'
 
 type Props = {

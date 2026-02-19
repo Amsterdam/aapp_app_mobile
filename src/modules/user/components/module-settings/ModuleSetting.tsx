@@ -7,9 +7,9 @@ import {Module, ModuleStatus} from '@/modules/types'
 import {
   ModuleSettingBox,
   type ModuleSettingBoxProps,
-} from '@/modules/user/components/ModuleSettingBox'
-import {ModuleSettingInfo} from '@/modules/user/components/ModuleSettingInfo'
-import {useLogoutWithAlert} from '@/modules/user/hooks/useLogoutWithAlert'
+} from '@/modules/user/components/module-settings/ModuleSettingBox'
+import {ModuleSettingInfo} from '@/modules/user/components/module-settings/ModuleSettingInfo'
+import {useLogoutWithAlert} from '@/modules/user/hooks/module-settings/useLogoutWithAlert'
 import {
   useAddDisabledPushModuleMutation,
   useDeleteDisabledPushModuleMutation,
