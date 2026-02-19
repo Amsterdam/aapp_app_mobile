@@ -10,7 +10,7 @@ import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-const mijnAmsterdamApi = baseApi.injectEndpoints({
+export const mijnAmsterdamApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getMijnAmsterdamLoginStatus: builder.query<{isLoggedIn: boolean}, void>({
       providesTags: ['MijnAmsterdam'],

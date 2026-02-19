@@ -1,43 +1,37 @@
 import {Linking} from 'react-native'
-import type {UserRouteName} from '@/modules/user/routes'
 import {ModuleTitle} from '@/components/features/ModuleTitle'
 import {Button} from '@/components/ui/buttons/Button'
 import {DigiDButton} from '@/components/ui/buttons/DigiDButton'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {alerts} from '@/modules/mijn-amsterdam/alerts'
 import {useHandleLoginDeeplink} from '@/modules/mijn-amsterdam/hooks/useHandleLoginDeeplink'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
-import {useMijnAmsterdamLogoutMutation} from '@/modules/mijn-amsterdam/service'
 import {useIsLoggedIn} from '@/modules/mijn-amsterdam/useIsLoggedIn'
 import {ModuleSlug} from '@/modules/slugs'
-import {useAlert} from '@/store/slices/alert'
+import {UserRouteName} from '@/modules/user/routes'
 import {Permissions} from '@/types/permissions'
 
 export const Account = () => {
+  const {navigate} = useNavigation()
   const {loginResult} = useRoute<UserRouteName.accounts>().params || {}
-  const [logoutMutation] = useMijnAmsterdamLogoutMutation()
   const login = useLoginMijnAmsterdam()
-  const isLoggedIn = useIsLoggedIn()
-  const {setAlert} = useAlert()
-
-  const logout = () => {
-    logoutMutation()
-      .unwrap()
-      .catch(() => {
-        setAlert(alerts.logoutFailed)
-      })
-  }
+  const {isLoggedIn, isLoading} = useIsLoggedIn()
 
   useHandleLoginDeeplink(loginResult)
 
   const {hasPermission} = usePermission(Permissions.notifications)
+
+  if (isLoading) {
+    return <PleaseWait testID="MijnAmsterdamAccountPleaseWait" />
+  }
 
   return (
     <Column gutter="smd">
@@ -75,7 +69,12 @@ export const Account = () => {
             </Column>
             <Button
               label="Uitloggen"
-              onPress={logout}
+              onPress={() =>
+                navigate(ModuleSlug.user, {
+                  screen: UserRouteName.logoutModule,
+                  params: {slug: ModuleSlug['mijn-amsterdam']},
+                })
+              }
               testID="UserAccountMijnAmsterdamLogoutButton"
               variant="secondary"
             />

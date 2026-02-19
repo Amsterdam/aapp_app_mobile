@@ -10,7 +10,7 @@ import {useIsLoggedIn} from '@/modules/parking/useIsLoggedIn'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const Account = () => {
-  const isLoggedIn = useIsLoggedIn()
+  const {isLoggedIn} = useIsLoggedIn()
   const {navigate} = useNavigation()
   const accounts = useParkingAccounts()
   const numberOfAccounts = Object.keys(accounts ?? {}).length

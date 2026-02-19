@@ -1,4 +1,5 @@
 import {mijnAmsterdamSlice} from '@/modules/mijn-amsterdam/slice'
+import {logout} from '@/modules/mijn-amsterdam/utils/logout'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
 import {createClientModule} from '@/modules/utils/createModule'
@@ -14,6 +15,7 @@ export const mijnAmsterdamModule = createClientModule({
   ],
   hiddenInMenu: true,
   name: 'MijnAmsterdamModule',
+  logout: dispatch => logout(dispatch),
   requiresFirebaseToken: true,
   slug: ModuleSlug['mijn-amsterdam'],
   loginRoute: [ModuleSlug.user, {screen: UserRouteName.accounts}],

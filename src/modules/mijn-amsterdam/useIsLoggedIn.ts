@@ -5,7 +5,7 @@ import {selectIsLoggedIn} from '@/modules/mijn-amsterdam/slice'
 export const useIsLoggedIn = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
 
-  useGetMijnAmsterdamLoginStatusQuery()
+  const {isLoading} = useGetMijnAmsterdamLoginStatusQuery()
 
-  return isLoggedIn
+  return {isLoggedIn, isLoading}
 }

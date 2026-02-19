@@ -7,4 +7,6 @@ export const useIsLoggedIn = {
   [ModuleSlug['city-pass']]: useIsLoggedIn0,
   [ModuleSlug['mijn-amsterdam']]: useIsLoggedIn1,
   [ModuleSlug.parking]: useIsLoggedIn2,
-} satisfies Partial<Record<ModuleSlug, React.ComponentType>>
+} satisfies Partial<
+  Record<ModuleSlug, () => {isLoading?: boolean; isLoggedIn: boolean}>
+>
