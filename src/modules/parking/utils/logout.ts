@@ -3,6 +3,7 @@ import {parkingApi} from '@/modules/parking/service'
 import {
   parkingSlice,
   selectParkingAccount,
+  selectParkingAccounts,
   setIsRecentlyLoggedOutAction,
 } from '@/modules/parking/slice'
 import {removeSecureParkingAccount} from '@/modules/parking/utils/removeSecureParkingAccount'
@@ -13,8 +14,12 @@ export const logout = async (
   dispatch: ReduxDispatch,
   state: RootState,
   alert?: AlertState,
+  parkingAccountReportCode?: string,
 ) => {
-  const parkingAccount = selectParkingAccount(state)
+  const parkingAccounts = selectParkingAccounts(state)
+  const parkingAccount = parkingAccountReportCode
+    ? parkingAccounts[parkingAccountReportCode]
+    : selectParkingAccount(state)
   const {reportCode, scope} = parkingAccount || {}
 
   if (!reportCode || !scope) {
@@ -30,7 +35,7 @@ export const logout = async (
   }
 
   await removeSecureParkingAccount(reportCode, scope, dispatch)
-  dispatch(parkingSlice.actions.removeParkingAccount(undefined))
+  dispatch(parkingSlice.actions.removeParkingAccount(reportCode))
   dispatch(setIsRecentlyLoggedOutAction(true))
 
   // invalidate the parking data cache after logout with a delay to make sure all queries are unmounted, otherwise they will try to refetch and that will result in useless 401 errors
