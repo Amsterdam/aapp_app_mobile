@@ -1,3 +1,5 @@
+import {useFocusEffect} from '@react-navigation/native'
+import {useCallback} from 'react'
 import {Linking} from 'react-native'
 import {ModuleTitle} from '@/components/features/ModuleTitle'
 import {Button} from '@/components/ui/buttons/Button'
@@ -23,11 +25,18 @@ export const Account = () => {
   const {navigate} = useNavigation()
   const {loginResult} = useRoute<UserRouteName.accounts>().params || {}
   const login = useLoginMijnAmsterdam()
-  const {isLoggedIn, isLoading} = useIsLoggedIn()
+  const {isLoggedIn, isLoading, refetch} = useIsLoggedIn()
 
   useHandleLoginDeeplink(loginResult)
 
   const {hasPermission} = usePermission(Permissions.notifications)
+
+  useFocusEffect(
+    useCallback(() => {
+      // Needed because the API reset when user logs out, so we need to refetch the login status when coming back to this screen to update the UI correctly
+      void refetch()
+    }, [refetch]),
+  )
 
   if (isLoading) {
     return <PleaseWait testID="MijnAmsterdamAccountPleaseWait" />

@@ -8,5 +8,8 @@ export const useIsLoggedIn = {
   [ModuleSlug['mijn-amsterdam']]: useIsLoggedIn1,
   [ModuleSlug.parking]: useIsLoggedIn2,
 } satisfies Partial<
-  Record<ModuleSlug, () => {isLoading?: boolean; isLoggedIn: boolean}>
+  Record<
+    ModuleSlug,
+    () => {isLoading?: boolean; isLoggedIn: boolean; refetch?: () => void}
+  >
 >
