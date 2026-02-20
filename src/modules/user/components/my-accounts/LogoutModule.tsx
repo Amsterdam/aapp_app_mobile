@@ -40,7 +40,7 @@ export const LogoutModule = ({slug}: Props) => {
     }
   }, [module, navigation, store])
 
-  if (!slug) {
+  if (!slug || !module) {
     return <SomethingWentWrong testID="LogoutModuleNoSlugSomethingWentWrong" />
   }
 

@@ -17,7 +17,7 @@ export const ButtonIcon = ({
   variant,
   testID,
 }: Props) => {
-  const iconName = isLoading ? 'spinner' : isError ? 'warning' : icon?.name
+  const iconName = getIconName({isError, isLoading, icon})
   const iconColor =
     variant === 'primary'
       ? 'inverse'
@@ -35,4 +35,20 @@ export const ButtonIcon = ({
       testID={`${testID}Icon`}
     />
   )
+}
+
+const getIconName = ({
+  isError,
+  isLoading,
+  icon,
+}: Pick<Props, 'icon' | 'isError' | 'isLoading'>) => {
+  if (isLoading) {
+    return 'spinner'
+  }
+
+  if (isError) {
+    return 'warning'
+  }
+
+  return icon?.name
 }
