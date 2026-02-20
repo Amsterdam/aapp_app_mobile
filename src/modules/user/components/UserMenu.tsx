@@ -7,6 +7,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {AppInfoCopyButtons} from '@/modules/user/components/AppInfoCopyButtons'
@@ -20,6 +21,7 @@ const accessCodeSection: UserMenuSection = {
       icon: {name: 'access-code'},
       label: 'Wijzig toegangscode',
       moduleSlug: ModuleSlug['access-code'],
+      route: AccessCodeRouteName.accessCode,
     },
     {
       icon: {name: 'lock-closed'},
