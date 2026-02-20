@@ -6,6 +6,7 @@ import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {stripAppPrefixFromRoute} from '@/utils/stripAppPrefixFromRoute'
 
 type Props = {
   children: ReactNode
@@ -38,20 +39,26 @@ export const NotificationHistoryItemPressable = ({
           return openUrl(context.url)
         }
 
-        const deeplinkUrl = createPathFromNotification(
-          {
-            id,
-            title,
-            body,
-            data: context as Record<string, string | number | object>,
-          },
-          false,
-        )
+        const deeplinkUrl =
+          context.deeplink ??
+          createPathFromNotification(
+            {
+              id,
+              title,
+              body,
+              data: context as Record<string, string | number | object>,
+            },
+            false,
+          )
 
         if (deeplinkUrl) {
-          linkTo(deeplinkUrl)
+          const route = stripAppPrefixFromRoute(deeplinkUrl)
 
-          return
+          if (route) {
+            linkTo(route)
+
+            return
+          }
         }
 
         if (module_slug) {
