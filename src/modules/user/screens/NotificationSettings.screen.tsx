@@ -3,8 +3,8 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {NotificationPermissionSettings} from '@/modules/user/components/NotificationPermissionSettings'
-import {NotificationSettings} from '@/modules/user/components/NotificationSettings'
+import {NotificationPermissionSettings} from '@/modules/user/components/notification-settings/NotificationPermissionSettings'
+import {NotificationSettings} from '@/modules/user/components/notification-settings/NotificationSettings'
 import {Permissions} from '@/types/permissions'
 
 export const NotificationSettingsScreen = () => {

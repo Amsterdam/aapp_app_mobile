@@ -11,7 +11,7 @@ import {useModules} from '@/hooks/useModules'
 import {setLocationType} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {Module} from '@/modules/types'
-import {NotificationSetting} from '@/modules/user/components/NotificationSetting'
+import {NotificationSetting} from '@/modules/user/components/notification-settings/NotificationSetting'
 import {
   useGetDisabledPushModulesQuery,
   useGetNotificationModulesQuery,

@@ -4,21 +4,30 @@ import {
   UserRouteName,
   UserStackParams,
 } from '@/modules/user/routes'
-import {AboutTheAppDutchScreen} from '@/modules/user/screens/AboutTheAppDutch.screen'
-import {AboutTheAppEnglishScreen} from '@/modules/user/screens/AboutTheAppEnglish.screen'
 import {AccessibilityStatementScreen} from '@/modules/user/screens/AccessibilityStatement.screen'
-import {AccountsScreen} from '@/modules/user/screens/Accounts.screen'
 import {FeedbackScreen} from '@/modules/user/screens/Feedback.screen'
 import {ModuleSettingsScreen} from '@/modules/user/screens/ModuleSettings.screen'
 import {NotificationSettingsScreen} from '@/modules/user/screens/NotificationSettings.screen'
 import {PrivacyStatementScreen} from '@/modules/user/screens/PrivacyStatement.screen'
 import {UserScreen} from '@/modules/user/screens/User.screen'
 import {UserBiometricsScreen} from '@/modules/user/screens/UserBiometrics.screen'
+import {AboutTheAppDutchScreen} from '@/modules/user/screens/about/AboutTheAppDutch.screen'
+import {AboutTheAppEnglishScreen} from '@/modules/user/screens/about/AboutTheAppEnglish.screen'
+import {AccountsScreen} from '@/modules/user/screens/my-accounts/Accounts.screen'
+import {LogoutModuleScreen} from '@/modules/user/screens/my-accounts/LogoutModule.screen'
 
 export const screenConfig: StackNavigationRoutes<
   UserStackParams,
   UserRouteName
 > = {
+  [UserRouteName.logoutModule]: {
+    component: LogoutModuleScreen,
+    name: UserRouteName.logoutModule,
+    options: {
+      headerTitle: 'Uitloggen',
+    },
+    screenType: 'default',
+  },
   [UserRouteName.moduleSettings]: {
     component: ModuleSettingsScreen,
     name: UserRouteName.moduleSettings,

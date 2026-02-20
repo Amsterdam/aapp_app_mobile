@@ -1,3 +1,4 @@
+import type {ModuleSlug} from '@/modules/slugs'
 import type {RedirectErrorCodes} from '@/types/mijnAmsterdam'
 import type {LoginResult} from '@/types/navigation'
 
@@ -7,6 +8,7 @@ export enum UserRouteName {
   accounts = 'Accounts',
   appSummary = 'AppSummary',
   feedback = 'Feedback',
+  logoutModule = 'LogoutModule',
   moduleSettings = 'ModuleSettings',
   notificationSettings = 'NotificationSettings',
   privacyStatement = 'PrivacyStatement',
@@ -27,6 +29,7 @@ export type UserStackParams = {
     | undefined
   [UserRouteName.appSummary]: undefined
   [UserRouteName.feedback]: undefined
+  [UserRouteName.logoutModule]: {slug: ModuleSlug}
   [UserRouteName.privacyStatement]: undefined
   [UserRouteName.moduleSettings]: undefined
   [UserRouteName.notificationSettings]: undefined

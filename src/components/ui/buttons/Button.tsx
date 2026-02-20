@@ -1,12 +1,13 @@
 import {useCallback, useState} from 'react'
 import {FlexStyle, GestureResponderEvent, StyleSheet, View} from 'react-native'
+import {ButtonIcon} from '@/components/ui/buttons/ButtonIcon'
 import {
   PressableBaseProps,
   PressableBase,
 } from '@/components/ui/buttons/PressableBase'
 import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
-import {Icon, type IconProps} from '@/components/ui/media/Icon'
+import {type IconProps} from '@/components/ui/media/Icon'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
@@ -101,20 +102,14 @@ export const Button = ({
         gutter="sm"
         reverse={isExternalLink}
         valign={variant === 'tertiary' ? 'start' : 'center'}>
-        {!!icon && (
+        {(!!icon?.name || !!isLoading || !!isError) && (
           <View style={variant === 'tertiary' ? styles.iconWrapper : undefined}>
-            <Icon
-              {...icon}
-              color={
-                variant === 'primary'
-                  ? 'inverse'
-                  : variant === 'secondaryDestructive'
-                    ? 'warning'
-                    : 'link'
-              }
-              name={isLoading ? 'spinner' : isError ? 'warning' : icon.name}
-              size={icon.size ?? 'lg'}
-              testID={`${testID}Icon`}
+            <ButtonIcon
+              icon={icon}
+              isError={isError}
+              isLoading={isLoading}
+              testID={testID}
+              variant={variant}
             />
           </View>
         )}

@@ -5,7 +5,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {InactiveModuleMessage} from '@/modules/user/components/InactiveModuleMessage'
+import {InactiveModuleMessage} from '@/modules/user/components/module-settings/InactiveModuleMessage'
 
 type ModuleSettingInfoProps = {
   description: string

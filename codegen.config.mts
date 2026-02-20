@@ -102,7 +102,8 @@ export const config: CodeGenConfig = [
         result: 'objectFunction',
         resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
-        satisfies: defaultSatisfies,
+        satisfies:
+          'Partial<Record<ModuleSlug, () => {isLoading?: boolean; isLoggedIn: boolean}>>',
       },
     ],
   },

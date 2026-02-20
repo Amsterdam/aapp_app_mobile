@@ -8,7 +8,7 @@ describe('Button', () => {
     const {getByTestId, getByText} = render(
       <StoreProvider>
         <Button
-          icon={{name: 'warning'}}
+          icon={{name: 'asterisk'}}
           label="My Button"
           testID="Button"
         />
@@ -25,7 +25,7 @@ describe('Button', () => {
     const {getByTestId} = render(
       <StoreProvider>
         <Button
-          icon={{name: 'warning'}}
+          icon={{name: 'asterisk'}}
           isLoading
           testID="Button"
         />
@@ -35,11 +35,11 @@ describe('Button', () => {
     expect(getByTestId('ButtonIcon').parent?.parent?.props.name).toBe('spinner')
   })
 
-  it('renders alert icon when isError', () => {
+  it('renders warning icon when isError', () => {
     const {getByTestId} = render(
       <StoreProvider>
         <Button
-          icon={{name: 'warning'}}
+          icon={{name: 'asterisk'}}
           isError
           testID="Button"
         />

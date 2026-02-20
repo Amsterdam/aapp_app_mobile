@@ -23,7 +23,7 @@ const Stack = createStackNavigator<RootStackParams>()
 export const ParkingStack = () => {
   const screenOptions = useScreenOptions()
   const isLoggingIn = useParkingAccountIsLoggingIn()
-  const hasAccounts = useIsLoggedIn()
+  const {isLoggedIn} = useIsLoggedIn()
   const {pendingScreen} = usePendingScreen<ParkingScreenConfigRoutes>()
   const screenConfigPendingFirst = sortEntriesByKeyFirst(
     Object.entries(parkingScreenConfig),
@@ -53,7 +53,7 @@ export const ParkingStack = () => {
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      {hasAccounts ? (
+      {isLoggedIn ? (
         accessCodeGate(
           <Stack.Group>
             {!!isLoggingIn && (

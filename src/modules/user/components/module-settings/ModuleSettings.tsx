@@ -8,7 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {ModulesFigure} from '@/components/ui/media/errors/ModulesFigure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useModules} from '@/hooks/useModules'
-import {ModuleSetting} from '@/modules/user/components/ModuleSetting'
+import {ModuleSetting} from '@/modules/user/components/module-settings/ModuleSetting'
 
 export const ModuleSettings = () => {
   const {modulesError, toggleableModules, modulesLoading, refetchModules} =
