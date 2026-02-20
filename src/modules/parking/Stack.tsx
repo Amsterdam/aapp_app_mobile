@@ -14,7 +14,10 @@ import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
 import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingForgotAccessCode.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
-import {useParkingAccountIsLoggingIn} from '@/modules/parking/slice'
+import {
+  useParkingAccountIsLoggingIn,
+  useParkingAccountIsLoggingOut,
+} from '@/modules/parking/slice'
 import {useIsLoggedIn} from '@/modules/parking/useIsLoggedIn'
 import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 
@@ -23,6 +26,7 @@ const Stack = createStackNavigator<RootStackParams>()
 export const ParkingStack = () => {
   const screenOptions = useScreenOptions()
   const isLoggingIn = useParkingAccountIsLoggingIn()
+  const isLoggingOut = useParkingAccountIsLoggingOut()
   const {isLoggedIn} = useIsLoggedIn()
   const {pendingScreen} = usePendingScreen<ParkingScreenConfigRoutes>()
   const screenConfigPendingFirst = sortEntriesByKeyFirst(
@@ -53,7 +57,7 @@ export const ParkingStack = () => {
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      {isLoggedIn ? (
+      {isLoggedIn || isLoggingOut ? (
         accessCodeGate(
           <Stack.Group>
             {!!isLoggingIn && (

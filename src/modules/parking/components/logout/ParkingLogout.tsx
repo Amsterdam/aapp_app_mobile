@@ -1,6 +1,6 @@
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -9,7 +9,11 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingLogoutButton} from '@/modules/parking/components/logout/ParkingLogoutButton'
-import {useParkingAccounts, useParkingAccount} from '@/modules/parking/slice'
+import {
+  useParkingAccounts,
+  useParkingAccount,
+  useParkingAccountIsLoggingOut,
+} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 type Props = {
@@ -18,6 +22,7 @@ type Props = {
 
 export const ParkingLogout = ({routeReportCode}: Props) => {
   const navigation = useNavigation()
+  const isLoggingOut = useParkingAccountIsLoggingOut()
 
   const accounts = useParkingAccounts()
   const parkingAccountFromParams = routeReportCode && accounts[routeReportCode]
@@ -25,8 +30,8 @@ export const ParkingLogout = ({routeReportCode}: Props) => {
   const account = parkingAccountFromParams || parkingAccount
   const isVisitor = account?.scope === ParkingPermitScope.visitor
 
-  if (!account) {
-    return <SomethingWentWrong testID="ParkingLogoutSomethingWentWrong" />
+  if (isLoggingOut) {
+    return <PleaseWait testID="ParkingLogoutPleaseWait" />
   }
 
   return (
@@ -38,7 +43,7 @@ export const ParkingLogout = ({routeReportCode}: Props) => {
           altijd weer inloggen.
         </Paragraph>
       </Column>
-      {account.permits?.length ? (
+      {account?.permits?.length ? (
         <Column gutter="sm">
           <Title
             level="h4"
@@ -64,8 +69,9 @@ export const ParkingLogout = ({routeReportCode}: Props) => {
       ) : null}
       <Column gutter="md">
         <ParkingLogoutButton
-          accountReportCode={account.reportCode}
+          accountReportCode={account?.reportCode}
           hasMoreAccounts={Object.keys(accounts).length > 1}
+          routeReportCode={routeReportCode}
         />
         <Button
           label="Annuleren"

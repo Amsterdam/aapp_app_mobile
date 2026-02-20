@@ -1,6 +1,7 @@
 import simplur from 'simplur'
 import {ModuleTitle} from '@/components/features/ModuleTitle'
 import {Button} from '@/components/ui/buttons/Button'
+import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -27,15 +28,19 @@ export const Account = () => {
             <Paragraph>
               U bent ingelogd met {simplur`${numberOfAccounts} account[|s]`}.
             </Paragraph>
-            <Button
-              label="Uitloggen"
+            <NavigationButton
+              chevronSize="md"
+              emphasis="default"
+              horizontallyAlign="start"
+              insetHorizontal="no"
+              insetVertical="no"
               onPress={() =>
                 navigate(ModuleSlug.parking, {
                   screen: ParkingRouteName.logoutAccounts,
                 })
               }
-              testID="UserAccountParkingLogoutButton"
-              variant="secondary"
+              testID="UserAccountParkingLogoutNavigationButton"
+              title="Uitloggen bij accounts"
             />
           </>
         ) : (
