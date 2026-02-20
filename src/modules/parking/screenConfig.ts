@@ -155,7 +155,7 @@ export const parkingScreenConfig: StackNavigationRoutes<
     component: ParkingLogoutAccountsScreen,
     name: ParkingRouteName.logoutAccounts,
     options: {
-      headerTitle: 'Aanmelden Parkeren accounts',
+      headerTitle: 'Aanmelden parkeren accounts',
     },
   },
 }

@@ -52,7 +52,7 @@ export const ParkingLogoutAccountList = ({
                   testID={`ParkingLogoutAccounts-${account.reportCode}Phrase`}>
                   {`Op bezoek ${permit.permit_zone?.name}`}
                 </Phrase>
-                {<Phrase color="secondary">{permit.report_code}</Phrase>}
+                <Phrase color="secondary">{permit.report_code}</Phrase>
               </Column>
             )}
             <Button
