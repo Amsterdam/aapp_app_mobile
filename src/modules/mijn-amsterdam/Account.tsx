@@ -33,7 +33,6 @@ export const Account = () => {
 
   useFocusEffect(
     useCallback(() => {
-      // Needed because the API reset when user logs out, so we need to refetch the login status when coming back to this screen to update the UI correctly
       void refetch()
     }, [refetch]),
   )
