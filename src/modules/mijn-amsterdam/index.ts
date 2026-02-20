@@ -13,7 +13,7 @@ export const mijnAmsterdamModule = createClientModule({
       slice: mijnAmsterdamSlice,
     },
   ],
-  hiddenInMenu: true,
+  excludeFromHome: true,
   name: 'MijnAmsterdamModule',
   logout: (dispatch, _state) => logout(dispatch),
   requiresFirebaseToken: true,

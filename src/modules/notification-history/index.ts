@@ -3,7 +3,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 
 export const notificationHistoryModule = createClientModule({
-  hiddenInMenu: true,
+  excludeFromHome: true,
   name: 'NotificationHistoryModule',
   slug: ModuleSlug['notification-history'],
   alwaysEnabled: true,
