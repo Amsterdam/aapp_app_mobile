@@ -14,6 +14,7 @@ export enum ParkingRouteName {
   login = 'ParkingLogin',
   loginSteps = 'ParkingLoginSteps',
   logout = 'ParkingLogout',
+  logoutAccounts = 'ParkingLogoutAccounts',
   manageVisitor = 'ParkingManageVisitor',
   manageVisitorAdjustTimeBalance = 'ParkingManageVisitorAdjustTimeBalance',
   myLicensePlates = 'ParkingMyLicensePlates',
@@ -44,7 +45,8 @@ export type ParkingStackParams = {
         reportCode: string
       }
     | undefined
-  [ParkingRouteName.logout]: undefined
+  [ParkingRouteName.logout]: {reportCode: string} | undefined
+  [ParkingRouteName.logoutAccounts]: undefined
   [ParkingRouteName.loginSteps]: undefined
   [ParkingRouteName.myLicensePlates]: undefined
   [ParkingRouteName.parkingActiveSessions]: undefined

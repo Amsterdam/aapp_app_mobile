@@ -7,7 +7,6 @@ import {ParkingActiveSessionsScreen} from '@/modules/parking/screens/ParkingActi
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingEditSessionScreen} from '@/modules/parking/screens/ParkingEditSession.screen'
 import {ParkingIncreaseBalanceScreen} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
-import {ParkingLogoutScreen} from '@/modules/parking/screens/ParkingLogout.screen'
 import {ParkingMoneyTransactionsScreen} from '@/modules/parking/screens/ParkingMoneyTransactions.screen'
 import {ParkingMyLicensePlatesScreen} from '@/modules/parking/screens/ParkingMyLicensePlates.screen'
 import {ParkingPermitZonesScreen} from '@/modules/parking/screens/ParkingPermitZones.screen'
@@ -16,6 +15,8 @@ import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.scr
 import {ParkingSessionHistoryScreen} from '@/modules/parking/screens/ParkingSessionHistory.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
 import {ParkingVisitorEditSessionScreen} from '@/modules/parking/screens/ParkingVisitorEditSession.screen'
+import {ParkingLogoutScreen} from '@/modules/parking/screens/logout/ParkingLogout.screen'
+import {ParkingLogoutAccountsScreen} from '@/modules/parking/screens/logout/ParkingLogoutAccounts.screen'
 import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
 import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
 
@@ -148,6 +149,13 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.logout,
     options: {
       headerTitle: 'Uitloggen',
+    },
+  },
+  [ParkingRouteName.logoutAccounts]: {
+    component: ParkingLogoutAccountsScreen,
+    name: ParkingRouteName.logoutAccounts,
+    options: {
+      headerTitle: 'Aanmelden parkeren accounts',
     },
   },
 }

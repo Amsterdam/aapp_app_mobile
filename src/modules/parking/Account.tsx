@@ -27,12 +27,16 @@ export const Account = () => {
             <Paragraph>
               U bent ingelogd met {simplur`${numberOfAccounts} account[|s]`}.
             </Paragraph>
-            {/* <Button
+            <Button
               label="Uitloggen"
-              onPress={logout}
+              onPress={() =>
+                navigate(ModuleSlug.parking, {
+                  screen: ParkingRouteName.logoutAccounts,
+                })
+              }
               testID="UserAccountParkingLogoutButton"
               variant="secondary"
-            /> */}
+            />
           </>
         ) : (
           <>

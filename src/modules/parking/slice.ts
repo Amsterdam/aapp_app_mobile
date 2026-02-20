@@ -53,13 +53,16 @@ export const parkingSlice = createSlice({
   name: ReduxKey.parking,
   initialState,
   reducers: {
-    removeParkingAccount: state => {
-      if (!state.currentAccount) {
+    removeParkingAccount: (
+      state,
+      {payload: reportCode}: PayloadAction<string | undefined>,
+    ) => {
+      if (!reportCode) {
         return
       }
 
-      delete state.accessTokens[state.currentAccount]
-      delete state.accounts[state.currentAccount]
+      delete state.accessTokens[reportCode]
+      delete state.accounts[reportCode]
       state.currentAccount = Object.keys(state.accounts)[0]
       state.currentPermitReportCode = undefined
       state.visitorVehicleId = undefined
