@@ -1,3 +1,5 @@
+// This is added to enable Gradle configuration caching
+ext.REACT_NATIVE_NODE_MODULES_DIR = new File(rootProject.projectDir, "../node_modules/react-native").absolutePath
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
