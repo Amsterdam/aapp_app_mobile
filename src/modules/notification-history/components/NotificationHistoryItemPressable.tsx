@@ -5,7 +5,7 @@ import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {
-  NotificationModule,
+  NotificationModuleSlug,
   type Notification,
 } from '@/modules/notification-history/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -64,7 +64,7 @@ export const NotificationHistoryItemPressable = ({
           }
         }
 
-        if (module_slug && module_slug !== NotificationModule.Modules) {
+        if (module_slug && module_slug !== NotificationModuleSlug.Modules) {
           navigate(module_slug)
         }
       }}

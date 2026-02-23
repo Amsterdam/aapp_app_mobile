@@ -1,4 +1,6 @@
 import {StyleSheet, View} from 'react-native'
+import type {Module} from '@/modules/types'
+import type {Theme} from '@/themes/themes'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -10,11 +12,9 @@ import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {NotificationHistoryItemPressable} from '@/modules/notification-history/components/NotificationHistoryItemPressable'
 import {
-  Notification,
-  NotificationModule,
+  type Notification,
+  NotificationModuleSlug,
 } from '@/modules/notification-history/types'
-import {Module} from '@/modules/types'
-import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {formatHistoryDateTime} from '@/utils/datetime/formatHistoryDateTime'
 
@@ -33,7 +33,7 @@ export const NotificationHistoryItem = ({
   const module = enabledModules.find(({slug}) => slug === module_slug)
   const styles = useThemable(createStyles(fontScale))
 
-  if (!module && module_slug !== NotificationModule.Modules) {
+  if (!module && module_slug !== NotificationModuleSlug.Modules) {
     return null
   }
 

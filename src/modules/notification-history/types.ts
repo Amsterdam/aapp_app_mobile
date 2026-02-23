@@ -3,7 +3,7 @@ import {type PushNotificationDataDefault} from '@/types/notification'
 
 export type GetNotificationsResult = Notification[]
 
-export enum NotificationModule {
+export enum NotificationModuleSlug {
   Modules = 'modules',
 }
 
@@ -14,7 +14,7 @@ export type Notification = {
   id: string
   image?: NotificationImage
   is_read: boolean
-  module_slug: ModuleSlug | NotificationModule
+  module_slug: ModuleSlug | NotificationModuleSlug
   pushed_at: string
   title: string
 }
