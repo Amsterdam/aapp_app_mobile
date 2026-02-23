@@ -9,7 +9,10 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {NotificationHistoryItemPressable} from '@/modules/notification-history/components/NotificationHistoryItemPressable'
-import {Notification} from '@/modules/notification-history/types'
+import {
+  Notification,
+  NotificationModule,
+} from '@/modules/notification-history/types'
 import {Module} from '@/modules/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -30,7 +33,7 @@ export const NotificationHistoryItem = ({
   const module = enabledModules.find(({slug}) => slug === module_slug)
   const styles = useThemable(createStyles(fontScale))
 
-  if (!module && !!module_slug) {
+  if (!module && module_slug !== NotificationModule.Modules) {
     return null
   }
 
