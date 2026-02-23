@@ -1,10 +1,13 @@
 import {useLinkTo} from '@react-navigation/native'
-import type {Notification} from '@/modules/notification-history/types'
 import type {ReactNode} from 'react'
 import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {
+  NotificationModuleSlug,
+  type Notification,
+} from '@/modules/notification-history/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {stripAppPrefixFromRoute} from '@/utils/stripAppPrefixFromRoute'
 
@@ -61,7 +64,7 @@ export const NotificationHistoryItemPressable = ({
           }
         }
 
-        if (module_slug) {
+        if (module_slug && module_slug !== NotificationModuleSlug.Modules) {
           navigate(module_slug)
         }
       }}
