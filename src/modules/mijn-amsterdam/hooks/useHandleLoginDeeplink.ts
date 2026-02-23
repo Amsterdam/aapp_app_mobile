@@ -1,5 +1,7 @@
 import {useEffect} from 'react'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/mijn-amsterdam/alerts'
+import {mijnAmsterdamApi} from '@/modules/mijn-amsterdam/service'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useAlert} from '@/store/slices/alert'
@@ -9,12 +11,15 @@ export const useHandleLoginDeeplink = (loginResult?: LoginResult) => {
   const {setAlert} = useAlert()
   const trackException = useTrackException()
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
     if (loginResult === LoginResult.success) {
       setAlert(alerts.loginSuccess)
+      dispatch(mijnAmsterdamApi.util.invalidateTags(['MijnAmsterdam']))
     } else if (loginResult === LoginResult.failed) {
       setAlert(alerts.loginFailed)
       trackException(ExceptionLogKey.deepLink, 'useHandleLoginDeeplink.ts')
     }
-  }, [loginResult, setAlert, trackException])
+  }, [dispatch, loginResult, setAlert, trackException])
 }
