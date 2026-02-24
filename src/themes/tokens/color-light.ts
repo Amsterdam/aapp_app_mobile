@@ -221,13 +221,23 @@ export const lightColorTokens = {
     },
   },
   pagination: {
-    background: baseColor.primary.blue,
-    container: {
-      background: baseColor.transparent.grey50,
+    onDark: {
+      container: {
+        background: baseColor.transparent.grey50,
+      },
+      item: {
+        active: baseColor.primary.white,
+        inactive: baseColor.transparent.white30,
+      },
     },
-    item: {
-      active: baseColor.primary.white,
-      inactive: baseColor.transparent.white30,
+    onLight: {
+      container: {
+        background: baseColor.transparent.lightGrey44,
+      },
+      item: {
+        active: baseColor.primary.black,
+        inactive: baseColor.transparent.black30,
+      },
     },
   },
   pressable: {

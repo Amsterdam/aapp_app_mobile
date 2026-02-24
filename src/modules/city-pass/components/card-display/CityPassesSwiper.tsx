@@ -65,14 +65,15 @@ export const CityPassesSwiper = () => {
           parallaxAdjacentItemScale: 1,
         }}
         // onProgressChange={progress} // to be used with react-native-reanimated-carousel v4
+        onConfigurePanGesture={gesture => {
+          'worklet'
+          gesture.activeOffsetX([-10, 10])
+        }}
         onProgressChange={(_, absoluteProgress) => {
           setCurrentIndex(Math.round(absoluteProgress))
           progress.value = absoluteProgress < 0 ? 0 : absoluteProgress
         }}
         pagingEnabled
-        panGestureHandlerProps={{
-          activeOffsetX: [-10, 10],
-        }}
         ref={ref}
         renderItem={({item, index}: CarouselItem) => (
           <CityPass
@@ -116,7 +117,7 @@ const createStyles = ({color, size, border}: Theme) =>
     },
     pagination: {
       borderRadius: 25,
-      backgroundColor: color.pagination.container.background,
+      backgroundColor: color.pagination.onDark.container.background,
       alignItems: 'center',
       paddingHorizontal: size.spacing.sm,
       paddingVertical: 12,
@@ -125,10 +126,10 @@ const createStyles = ({color, size, border}: Theme) =>
       width: size.spacing.sm,
       height: size.spacing.sm,
       marginHorizontal: size.spacing.xs,
-      backgroundColor: color.pagination.item.inactive,
+      backgroundColor: color.pagination.onDark.item.inactive,
       borderRadius: border.radius.sm,
     },
     paginationItemActive: {
-      backgroundColor: color.pagination.item.active,
+      backgroundColor: color.pagination.onDark.item.active,
     },
   })

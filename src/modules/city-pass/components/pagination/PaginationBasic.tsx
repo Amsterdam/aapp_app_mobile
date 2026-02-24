@@ -5,7 +5,7 @@
 
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
+import {Pressable} from 'react-native-gesture-handler'
 
 import type {DotStyle} from '@/modules/city-pass/components/pagination/PaginationItem'
 import type {StyleProp, ViewStyle} from 'react-native'
@@ -50,7 +50,7 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
   return (
     <View style={[styles.container, containerStyle]}>
       {data.map((item, index) => (
-        <TouchableWithoutFeedback
+        <Pressable
           hitSlop={5}
           key={index}
           onPress={() => onPress?.(index)}>
@@ -69,7 +69,7 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
             size={size}>
             {renderItem?.(item, index)}
           </PaginationItem>
-        </TouchableWithoutFeedback>
+        </Pressable>
       ))}
     </View>
   )

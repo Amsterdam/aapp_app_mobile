@@ -38,6 +38,7 @@ const defaultVariant = 'primary'
 
 export const Button = ({
   ellipsizeMode,
+  flex,
   flexShrink,
   icon,
   isError,
@@ -57,7 +58,7 @@ export const Button = ({
   const theme = useTheme()
   const styles = createStyles(
     theme,
-    {flexShrink, small, variant},
+    {flex, flexShrink, small, variant},
     isPressed,
     noPadding,
     noPaddingHorizontal,
@@ -150,7 +151,7 @@ const LINE_HEIGHT_CORRECTION = 6
 
 const createStyles = (
   {border, color, text, size}: Theme,
-  {flexShrink, small, variant}: Partial<ButtonProps>,
+  {flex, flexShrink, small, variant}: Partial<ButtonProps>,
   isPressed: boolean,
   noPadding: boolean,
   noPaddingHorizontal: boolean,
@@ -180,6 +181,7 @@ const createStyles = (
       flexDirection: 'row',
       justifyContent: 'center',
       flexShrink: flexShrink ?? 1,
+      flex: flex ?? undefined,
       paddingHorizontal,
       paddingVertical,
       backgroundColor: getBackgroundColor(color, isPressed, variant),

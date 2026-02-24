@@ -1,20 +1,16 @@
-import {ImageURISource} from 'react-native'
+import type {IconProps} from '@/components/ui/media/Icon'
+import type {TestProps} from '@/components/ui/types'
+
+export type CarouselItem = {
+  button: {
+    label: string
+    onPress: () => void
+  }
+  iconName: IconProps['name']
+  text: string
+  title: string
+} & TestProps
 
 export type Onboarding = {
   hasSeenOnboarding: boolean
-}
-
-export type CarouselItems = {
-  items: CarouselSlideItem[]
-}
-
-export type CarouselItem = {
-  index: number
-  item: CarouselSlideItem
-}
-
-export type CarouselSlideItem = {
-  description: string
-  image: ImageURISource
-  title: string
 }
