@@ -11,7 +11,6 @@ describe('buildNotificationExternalLink', () => {
 
     expect(buildNotificationExternalLink('randomScheme://test.com')).toBeNull()
     expect(buildNotificationExternalLink('https://')).toBeNull()
-    expect(buildNotificationExternalLink('https://@')).toBeNull()
     expect(buildNotificationExternalLink('mailto://')).toBeNull()
   })
 

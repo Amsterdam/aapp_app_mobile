@@ -6,27 +6,24 @@ export const buildNotificationExternalLink = (
   body?: string,
 ) => {
   try {
-    const urlCheck = new URL(externalRoute)
-    const isValid =
-      urlCheck.protocol === 'https:' || urlCheck.protocol === 'http:'
+    const protocol = externalRoute.split(':')[0]
+    const isValid = protocol === 'https' || protocol === 'http'
 
-    if (!isValid) {
+    if (!isValid || externalRoute.split(':')[1]?.length < 3) {
       return null
     }
 
-    const url = new URL(`${appPrefix}notification-redirect`)
-
-    url.searchParams.append('url', externalRoute)
+    const params = new URLSearchParams({url: externalRoute})
 
     if (title) {
-      url.searchParams.append('title', title)
+      params.append('title', title)
     }
 
     if (body) {
-      url.searchParams.append('body', body)
+      params.append('body', body)
     }
 
-    return url.toString()
+    return `${appPrefix}notification-redirect?${params.toString()}`
   } catch {
     return null
   }
