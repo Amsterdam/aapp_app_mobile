@@ -6,10 +6,16 @@ export const buildNotificationExternalLink = (
   body?: string,
 ) => {
   try {
-    const protocol = externalRoute.split(':')[0]
-    const isValid = protocol === 'https' || protocol === 'http'
+    const splitRoute = externalRoute.split(':')
 
-    if (!isValid || externalRoute.split(':')[1]?.length < 3) {
+    if (splitRoute.length < 2) {
+      return null
+    }
+
+    const protocol = `${splitRoute[0]}:`
+    const isValid = protocol === 'https:' || protocol === 'http:'
+
+    if (!isValid || splitRoute[1]?.length < 3) {
       return null
     }
 
