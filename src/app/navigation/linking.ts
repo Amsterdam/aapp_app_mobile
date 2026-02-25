@@ -107,17 +107,20 @@ export const createLinking = (
     )
 
     // Firebase background notification
-    onNotificationOpenedApp(messaging, message => {
-      const url = getRouteFromNotification({
-        data: message.data,
-        title: message.notification?.title,
-        body: message.notification?.body,
-      })
+    const unsubscribeOnNotificationOpenedApp = onNotificationOpenedApp(
+      messaging,
+      message => {
+        const url = getRouteFromNotification({
+          data: message.data,
+          title: message.notification?.title,
+          body: message.notification?.body,
+        })
 
-      if (url) {
-        listener(url)
-      }
-    })
+        if (url) {
+          listener(url)
+        }
+      },
+    )
 
     // Notifee foreground notification
     const removeListener = notifee.onForegroundEvent(({type, detail}) => {
@@ -133,6 +136,7 @@ export const createLinking = (
     return () => {
       subscription.remove()
       removeListener()
+      unsubscribeOnNotificationOpenedApp()
     }
   },
 })
