@@ -1,28 +1,127 @@
+import {Linking} from 'react-native'
+import {RESULTS} from 'react-native-permissions'
 import type {CarouselItem} from '@/modules/onboarding/types'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {usePermission} from '@/hooks/permissions/usePermission'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {AddressModalName} from '@/modules/address/routes'
+import {useMyAddress} from '@/modules/address/slice'
+import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
+import {selectPermissions} from '@/store/slices/permissions'
+import {Permissions} from '@/types/permissions'
 
-export const onboardingData: CarouselItem[] = [
+export const onboardingData = [
   {
-    iconName: 'bell',
-    title: 'Wilt u meldingen ontvangen?',
-    text: 'Zoals herinneringen voor afval ophalen, einde parkeersessie en berichten over bijvoorbeeld storm of storingen.',
-    button: {
-      onPress: () => {
-        // do nothing
+    variants: {
+      default: {
+        icon: {
+          name: 'bell',
+        },
+        title: 'Wilt u meldingen ontvangen?',
+        text: 'Zoals herinneringen voor afval ophalen, einde parkeersessie en berichten over bijvoorbeeld storm of storingen.',
+        button: {
+          useOnPress: () => {
+            const {requestPermission} = usePermission(Permissions.notifications)
+
+            return requestPermission
+          },
+          label: 'Meldingen toestaan',
+        },
+        testID: 'OnboardingCarouselNotificationsSlide',
       },
-      label: 'Meldingen toestaan',
+      noPermission: {
+        icon: {
+          name: 'bell-off',
+        },
+        title: 'Meldingen staan uit',
+        text: 'U ontvangt geen meldingen van de app. Dit kunt u aanpassen via Instellingen.',
+        contentButton: {
+          onPress: () => Linking.openSettings(),
+          label: 'Ga naar Instellingen',
+          external: true,
+        },
+        testID: 'OnboardingCarouselNotificationsSlide',
+      },
+      permission: {
+        icon: {
+          name: 'success',
+          color: 'confirm',
+          isFilled: true,
+        },
+        title: 'Meldingen staan aan',
+        text: 'U ontvangt meldingen van de app. ',
+        testID: 'OnboardingCarouselNotificationsSlide',
+      },
     },
-    testID: 'OnboardingCarouselNotificationsSlide',
-  },
+    useVariant: () => {
+      const permission =
+        useSelector(selectPermissions)[Permissions.notifications]
+
+      if (permission?.granted) {
+        return 'permission'
+      } else if (permission?.status === RESULTS.BLOCKED) {
+        return 'noPermission'
+      } else {
+        return 'default'
+      }
+    },
+  } as CarouselItem<'default' | 'noPermission' | 'permission'>,
   {
-    iconName: 'house',
-    title: 'Stel Mijn adres in',
-    text: 'Veel informatie, zoals afvalwijzer, stookwijzer en werkzaamheden, wordt aangepast aan uw adres. Stel Mijn adres in om direct alles te zien dat bij u hoort.',
-    button: {
-      onPress: () => {
-        // do nothing
+    variants: {
+      noMyAddress: {
+        icon: {
+          name: 'house',
+        },
+        title: 'Stel Mijn adres in',
+        text: 'Veel informatie, zoals afvalwijzer, stookwijzer en werkzaamheden, wordt aangepast aan uw adres. Stel Mijn adres in om direct alles te zien dat bij u hoort.',
+        button: {
+          useOnPress: () => {
+            const {navigate} = useNavigation()
+
+            return () =>
+              navigate(AddressModalName.myAddressForm, {
+                showAlertAfterSuccess: false,
+              })
+          },
+          label: 'Mijn adres instellen',
+        },
+        testID: 'OnboardingCarouselMyAddressSlide',
       },
-      label: 'Mijn adres instellen',
+      hasMyAddress: {
+        icon: {
+          name: 'success',
+          color: 'confirm',
+          isFilled: true,
+        },
+        title: 'Mijn adres is ingesteld',
+        useText: () => {
+          const myAddress = useMyAddress()
+
+          return getAddressLineWithCityIfNotAmsterdam(myAddress)
+        },
+        contentButton: {
+          useOnPress: () => {
+            const {navigate} = useNavigation()
+
+            return () =>
+              navigate(AddressModalName.myAddressForm, {
+                showAlertAfterSuccess: false,
+              })
+          },
+          label: 'Adres wijzigen',
+        },
+        testID: 'OnboardingCarouselMyAddressSlide',
+      },
     },
-    testID: 'OnboardingCarouselMyAddressSlide',
-  },
-]
+    useVariant: () => {
+      const myAddress = useMyAddress()
+
+      if (myAddress) {
+        return 'hasMyAddress'
+      }
+
+      return 'noMyAddress'
+    },
+  } as CarouselItem<'noMyAddress' | 'hasMyAddress'>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+] satisfies CarouselItem<any>[]

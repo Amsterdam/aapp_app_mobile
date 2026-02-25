@@ -48,7 +48,7 @@ export const usePermission = (permission: Permissions) => {
           .then(result => {
             const granted = result === RESULTS.GRANTED
 
-            dispatch(setPermission({permission, granted}))
+            dispatch(setPermission({permission, granted, status: result}))
             resolve(granted)
           })
           .catch((error: unknown) => {

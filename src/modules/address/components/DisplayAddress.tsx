@@ -38,7 +38,11 @@ export const DisplayAddress = () => {
             hitSlop={{bottom: size.spacing.md, top: size.spacing.md}}
             icon={{name: 'house', size: 'lgx'}}
             logName={address ? 'AddressChangeButton' : 'AddressAddButton'}
-            onPress={() => navigation.navigate(AddressModalName.myAddressForm)}
+            onPress={() =>
+              navigation.navigate(AddressModalName.myAddressForm, {
+                showAlertAfterSuccess: true,
+              })
+            }
             testID="AddressAddButton"
             text={
               address

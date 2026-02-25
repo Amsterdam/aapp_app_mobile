@@ -20,6 +20,6 @@ export enum AddressModalName {
 }
 
 export type AddressModalParams = {
-  [AddressModalName.myAddressForm]: undefined
+  [AddressModalName.myAddressForm]: {showAlertAfterSuccess: boolean}
   [AddressModalName.privacyInfo]: undefined
 }

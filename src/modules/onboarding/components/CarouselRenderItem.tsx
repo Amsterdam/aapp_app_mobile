@@ -1,4 +1,10 @@
-import type {CarouselItem} from '@/modules/onboarding/types'
+import type {TestProps} from '@/components/ui/types'
+import type {
+  CarouselItem,
+  CarouselItemButton,
+  CarouselItemVariant,
+} from '@/modules/onboarding/types'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
@@ -11,8 +17,34 @@ import {CarouselRenderItemButtons} from '@/modules/onboarding/components/Carouse
 type Props = {
   isLastItem: boolean
   isPortrait: boolean
-  item: CarouselItem
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  item: CarouselItem<any>
   onPressNextButton: () => void
+}
+
+const ContentButton = ({
+  label,
+  external,
+  onPress,
+  useOnPress,
+  testID,
+}: CarouselItemButton & TestProps) => (
+  <Button
+    icon={external ? {name: 'link-external', size: 'md'} : undefined}
+    label={label}
+    onPress={useOnPress?.() ?? onPress}
+    testID={`${testID}ContentButton`}
+    variant="tertiary"
+  />
+)
+
+const CarouselRenderText = ({
+  text,
+  useText,
+}: Pick<CarouselItemVariant, 'text' | 'useText'>) => {
+  const descriptionText = useText?.() ?? text
+
+  return descriptionText
 }
 
 export const CarouselRenderItem = ({
@@ -20,61 +52,90 @@ export const CarouselRenderItem = ({
   item,
   isPortrait,
   onPressNextButton,
-}: Props) => (
-  <HorizontalSafeArea flex={1}>
-    <Box
-      grow
-      insetBottom="lg"
-      insetHorizontal={isPortrait ? 'md' : 'xl'}
-      insetTop="xl">
-      {isPortrait ? (
-        <Column
-          grow={1}
-          gutter={'xl'}
-          halign="center">
-          <Icon
-            name={item.iconName}
-            size="xxl"
-          />
+}: Props) => {
+  const {testID, icon, title, text, useText, button, contentButton} =
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    item.variants[item.useVariant()]
+
+  return (
+    <HorizontalSafeArea flex={1}>
+      <Box
+        grow
+        insetBottom="lg"
+        insetHorizontal={isPortrait ? 'md' : 'xl'}
+        insetTop={isPortrait ? 'xl' : 'no'}>
+        {isPortrait ? (
           <Column
-            gutter="md"
-            shrink={1}>
-            <Title
-              testID={`${item.testID}Title`}
-              text={item.title}
-              textAlign="center"
-            />
-            <Paragraph
-              textAlign="center"
-              variant="intro">
-              {item.text}
-            </Paragraph>
-          </Column>
-        </Column>
-      ) : (
-        <Column
-          grow={1}
-          gutter="md">
-          <Row gutter="md">
+            grow={1}
+            gutter={'xl'}
+            halign="center">
             <Icon
-              name={item.iconName}
-              size="xll"
+              {...icon}
+              size="xxl"
             />
-            <Title
-              testID={`${item.testID}Title`}
-              text={item.title}
-            />
-          </Row>
-          <Paragraph variant="intro">{item.text}</Paragraph>
-        </Column>
-      )}
-      <CarouselRenderItemButtons
-        button={item.button}
-        isLastItem={isLastItem}
-        isPortrait={isPortrait}
-        onPressNextButton={onPressNextButton}
-        testID={item.testID}
-      />
-    </Box>
-  </HorizontalSafeArea>
-)
+            <Column
+              gutter="md"
+              shrink={1}>
+              <Title
+                testID={`${testID}Title`}
+                text={title}
+                textAlign="center"
+              />
+              <Paragraph
+                textAlign="center"
+                variant="intro">
+                <CarouselRenderText
+                  key={typeof useText}
+                  text={text}
+                  useText={useText}
+                />
+              </Paragraph>
+
+              {!!contentButton && (
+                <ContentButton
+                  {...contentButton}
+                  testID={testID}
+                />
+              )}
+            </Column>
+          </Column>
+        ) : (
+          <Column
+            grow={1}
+            gutter="md">
+            <Row gutter="md">
+              <Icon
+                {...icon}
+                size="xll"
+              />
+              <Title
+                testID={`${testID}Title`}
+                text={title}
+              />
+            </Row>
+            <Paragraph variant="intro">
+              <CarouselRenderText
+                key={typeof useText}
+                text={text}
+                useText={useText}
+              />
+            </Paragraph>
+            {!!contentButton && (
+              <ContentButton
+                {...contentButton}
+                testID={testID}
+              />
+            )}
+          </Column>
+        )}
+        <CarouselRenderItemButtons
+          button={button}
+          isLastItem={isLastItem}
+          isPortrait={isPortrait}
+          onPressNextButton={onPressNextButton}
+          testID={testID}
+        />
+      </Box>
+    </HorizontalSafeArea>
+  )
+}

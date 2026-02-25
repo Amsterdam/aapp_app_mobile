@@ -83,7 +83,7 @@ export const AddressForm = ({
         setLocationType('custom')
       }
 
-      if (route?.name === AddressModalName.myAddressForm) {
+      if (route?.params.showAlertAfterSuccess) {
         setAlert(alerts.addAddressSuccess)
       }
 
@@ -93,7 +93,7 @@ export const AddressForm = ({
       dispatch,
       myAddress?.bagId,
       saveAsMyAddress,
-      route?.name,
+      route?.params.showAlertAfterSuccess,
       goBack,
       setLocationType,
       enabledModules,
