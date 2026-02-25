@@ -1,5 +1,9 @@
 import notifee, {EventType} from '@notifee/react-native'
-import {getMessaging} from '@react-native-firebase/messaging'
+import {
+  getMessaging,
+  getInitialNotification,
+  onNotificationOpenedApp,
+} from '@react-native-firebase/messaging'
 import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import type {RootStackParams} from '@/app/navigation/types'
@@ -13,6 +17,8 @@ import {type ModuleClientConfig} from '@/modules/types'
 import {moduleLinkings} from '@/modules/utils/moduleLinkings'
 import {devLog} from '@/processes/development'
 import {type RootState} from '@/store/types/rootState'
+
+const messaging = getMessaging()
 
 export const createLinking = (
   dispatch: ReduxDispatch,
@@ -41,7 +47,7 @@ export const createLinking = (
       }
 
       const initialFirebaseNotification =
-        await getMessaging().getInitialNotification()
+        await getInitialNotification(messaging)
 
       return getRouteFromNotification({
         data: initialFirebaseNotification?.data,
@@ -101,7 +107,7 @@ export const createLinking = (
     )
 
     // Firebase background notification
-    getMessaging().onNotificationOpenedApp(message => {
+    onNotificationOpenedApp(messaging, message => {
       const url = getRouteFromNotification({
         data: message.data,
         title: message.notification?.title,

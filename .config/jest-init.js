@@ -10,7 +10,12 @@ jest.mock('react-native-device-info', () => mockRNDeviceInfo)
 
 jest.mock('react-native-nitro-modules', () => ({}))
 
-jest.mock('@react-native-firebase/messaging', () => ({}))
+jest.mock('@react-native-firebase/messaging', () => ({
+  getMessaging: () => null,
+  getInitialNotification: () => null,
+  onNotificationOpenedApp: () => null,
+  getToken: () => null,
+}))
 jest.mock('redux-devtools-expo-dev-plugin', () => ({
   default:
     () =>

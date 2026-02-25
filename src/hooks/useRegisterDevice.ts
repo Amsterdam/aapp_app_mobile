@@ -1,4 +1,4 @@
-import {getMessaging} from '@react-native-firebase/messaging'
+import {getMessaging, getToken} from '@react-native-firebase/messaging'
 import {useCallback} from 'react'
 import {usePermission} from '@/hooks/permissions/usePermission'
 
@@ -12,6 +12,8 @@ import {
 } from '@/services/deviceRegistration.service'
 import {Permissions} from '@/types/permissions'
 
+const messaging = getMessaging()
+
 export const useRegisterDevice = () => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()
   const [unregisterDevice] = useUnregisterDeviceMutation()
@@ -21,8 +23,7 @@ export const useRegisterDevice = () => {
   )
 
   const registerDevice = useCallback(() => {
-    getMessaging()
-      .getToken()
+    getToken(messaging)
       .then(firebase_token => {
         void registerDeviceMutation({firebase_token})
       })
