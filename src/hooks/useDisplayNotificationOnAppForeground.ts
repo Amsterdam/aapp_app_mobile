@@ -1,6 +1,6 @@
 import notifee from '@notifee/react-native'
 import {
-  FirebaseMessagingTypes,
+  type FirebaseMessagingTypes,
   onMessage,
   getMessaging,
 } from '@react-native-firebase/messaging'
