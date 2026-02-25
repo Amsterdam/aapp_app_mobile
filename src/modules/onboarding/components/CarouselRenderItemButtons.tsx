@@ -51,7 +51,7 @@ export const CarouselRenderItemButtons = ({
         label={isLastItem ? 'Aan de slag' : 'Volgende'}
         onPress={isLastItem ? closeOnboarding : onPressNextButton}
         testID={`${testID}NextButton`}
-        variant="secondary"
+        variant={button ? 'secondary' : 'primary'}
       />
     </Track>
   )
