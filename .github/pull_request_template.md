@@ -1,3 +1,7 @@
-### Overige notities:
+# Changes
 
-GitHub Copilot is gebruikt bij het schrijven van de code
+## Test instructions
+
+## Other notes
+
+GitHub Copilot was used in writing the code
