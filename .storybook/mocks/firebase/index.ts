@@ -1,5 +1,8 @@
-export const getMessaging = () => ({
-  getToken: () => Promise.resolve(),
-})
+export const getMessaging = () => null
+export const getInitialNotification = () => Promise.resolve(null)
 
-export default getMessaging
+export const onNotificationOpenedApp = () => () => null
+
+export const getToken = () => Promise.resolve(null)
+
+export const onMessage = (_handler: unknown) => () => null

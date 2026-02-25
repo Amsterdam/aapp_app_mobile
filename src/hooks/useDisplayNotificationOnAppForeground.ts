@@ -1,6 +1,7 @@
 import notifee from '@notifee/react-native'
 import {
-  FirebaseMessagingTypes,
+  type FirebaseMessagingTypes,
+  onMessage,
   getMessaging,
 } from '@react-native-firebase/messaging'
 import {useEffect} from 'react'
@@ -8,6 +9,8 @@ import {useAppState} from '@/hooks/useAppState'
 import {useGetNotificationsQuery} from '@/modules/notification-history/service'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
+
+const messaging = getMessaging()
 
 /** display a notification when the app is in foreground-state
  * will be listened for in the useForegroundPushNotificationHandler hook which handles
@@ -24,7 +27,9 @@ export const useDisplayNotificationOnAppForeground = () => {
   })
 
   useEffect(() => {
-    const onMessage = async (message: FirebaseMessagingTypes.RemoteMessage) => {
+    const onMessageCallback = async (
+      message: FirebaseMessagingTypes.RemoteMessage,
+    ) => {
       void refetch()
       /**
        * example message:
@@ -90,6 +95,6 @@ export const useDisplayNotificationOnAppForeground = () => {
       }
     }
 
-    return getMessaging().onMessage(onMessage)
+    return onMessage(messaging, onMessageCallback)
   }, [refetch, trackCustomEvent])
 }
