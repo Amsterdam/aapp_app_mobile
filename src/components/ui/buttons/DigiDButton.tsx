@@ -8,7 +8,7 @@ import {Row} from '@/components/ui/layout/Row'
 
 type Props = {
   isLoading?: boolean
-  onPress: (event: GestureResponderEvent) => void
+  onPress?: (event: GestureResponderEvent) => void
 } & TestProps
 
 export const DigiDButton = ({onPress, isLoading, testID}: Props) => (

@@ -143,6 +143,7 @@ export const onboardingData = [
             return login
           },
           label: 'Inloggen met DigiD',
+          digid: true,
         },
         testID: 'OnboardingCarouselMijnAmsterdamNotLoggedInSlide',
       },
