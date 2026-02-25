@@ -177,6 +177,12 @@ module.exports = {
                 message:
                   'Import Clusterer from @/components/features/map/cluster/Clusterer.',
               },
+              {
+                name: 'react-native-reanimated-carousel',
+                importNames: ['default', 'Pagination'],
+                message:
+                  'Import Carousel and Pagination from @/components/ui/carousel/Carousel.',
+              },
             ],
           },
         ],

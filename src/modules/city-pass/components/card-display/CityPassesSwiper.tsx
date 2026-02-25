@@ -1,11 +1,11 @@
-import {useRef, useState} from 'react'
-import {StyleSheet, useWindowDimensions, View} from 'react-native'
-import {useSharedValue} from 'react-native-reanimated'
-import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
+import {StyleSheet, View} from 'react-native'
 import type {CityPassPass} from '@/modules/city-pass/types'
+import type {CarouselRenderItemInfo} from 'react-native-reanimated-carousel/lib/typescript/types'
+import {Carousel} from '@/components/ui/carousel/Carousel'
+import {Basic} from '@/components/ui/carousel/pagination/PaginationBasic'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useCarousel} from '@/hooks/useCarousel'
 import {CityPass} from '@/modules/city-pass/components/card-display/CityPass'
-import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
 import {
   CITY_PASS_HEIGHT,
   NEXT_CARD_VISIBLE_FRACTION_OF_AVAILABLE_SPACE,
@@ -19,62 +19,39 @@ import {useThemable} from '@/themes/useThemable'
 
 const PAGINATION_HEIGHT = 50
 
-type CarouselItem = {
-  index: number
-  item: CityPassPass
-}
-
 export const CityPassesSwiper = () => {
-  const initialPage = 0
   const styles = useThemable(createStyles)
   const cityPasses = useGetSecureCityPasses()
-  const {width: windowWidth} = useWindowDimensions()
-  const ref = useRef<ICarouselInstance>(null)
-  const [currentIndex, setCurrentIndex] = useState<number>(initialPage)
   const startIndex = useSelector(selectStartIndex)
+  const {
+    onPressPagination,
+    progress,
+    ref,
+    currentIndex,
+    onProgressChange,
+    width,
+  } = useCarousel()
 
-  const progress = useSharedValue<number>(initialPage)
-
-  const onPressPagination = (index: number) => {
-    ref.current?.scrollTo({
-      /**
-       * Calculate the difference between the current index and the target index
-       * to ensure that the carousel scrolls to the nearest index
-       */
-      count: index - progress.value,
-      animated: true,
-    })
-  }
-
-  const passWidth = getPassWidth(windowWidth)
+  const passWidth = getPassWidth(width)
 
   return (
     <View style={styles.container}>
-      <Carousel
+      <Carousel<CityPassPass>
         data={cityPasses}
         defaultIndex={startIndex}
-        loop={false}
         mode="parallax"
         modeConfig={{
           parallaxScrollingScale: 1,
           parallaxScrollingOffset: getParallaxScrollingOffset(
-            windowWidth,
+            width,
             passWidth,
             NEXT_CARD_VISIBLE_FRACTION_OF_AVAILABLE_SPACE,
           ),
           parallaxAdjacentItemScale: 1,
         }}
-        onConfigurePanGesture={gesture => {
-          'worklet'
-          gesture.activeOffsetX([-10, 10])
-        }}
-        onProgressChange={(_, absoluteProgress) => {
-          setCurrentIndex(Math.round(absoluteProgress))
-          progress.value = absoluteProgress < 0 ? 0 : absoluteProgress
-        }}
-        pagingEnabled
+        onProgressChange={onProgressChange}
         ref={ref}
-        renderItem={({item, index}: CarouselItem) => (
+        renderItem={({item, index}: CarouselRenderItemInfo<CityPassPass>) => (
           <CityPass
             cityPass={item}
             index={index}
@@ -82,12 +59,7 @@ export const CityPassesSwiper = () => {
             itemCount={cityPasses.length}
           />
         )}
-        snapEnabled
-        style={{
-          width: windowWidth,
-        }}
-        vertical={false}
-        width={windowWidth}
+        width={width}
       />
       <View style={styles.paginationContainer}>
         <Basic

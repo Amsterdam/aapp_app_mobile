@@ -1,10 +1,11 @@
 import {StyleSheet, View} from 'react-native'
 import {type SharedValue} from 'react-native-reanimated'
-import {Pagination} from 'react-native-reanimated-carousel'
 import type {Theme} from '@/themes/themes'
+import {Basic} from '@/components/ui/carousel/pagination/PaginationBasic'
 import {useThemable} from '@/themes/useThemable'
 
 type Props<T extends Record<string, unknown>> = {
+  currentIndex: number
   data: T[]
   onPress: (index: number) => void
   progress: SharedValue<number>
@@ -16,14 +17,16 @@ export const OnboardingCarouselPagination = <
   data,
   onPress,
   progress,
+  currentIndex,
 }: Props<T>) => {
   const styles = useThemable(createStyles)
 
   return (
     <View style={styles.paginationContainer}>
-      <Pagination.Basic
+      <Basic
         activeDotStyle={styles.paginationItemActive}
         containerStyle={styles.pagination}
+        currentIndex={currentIndex}
         data={data}
         dotStyle={styles.paginationItem}
         onPress={onPress}

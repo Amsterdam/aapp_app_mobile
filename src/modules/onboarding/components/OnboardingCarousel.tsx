@@ -1,31 +1,21 @@
-import {useRef} from 'react'
-import {useWindowDimensions} from 'react-native'
-import {useSharedValue} from 'react-native-reanimated'
-import {type ICarouselInstance} from 'react-native-reanimated-carousel'
-import Carousel from 'react-native-reanimated-carousel'
+import {Carousel} from '@/components/ui/carousel/Carousel'
 import {Box} from '@/components/ui/containers/Box'
+import {useCarousel} from '@/hooks/useCarousel'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {CarouselRenderItem} from '@/modules/onboarding/components/CarouselRenderItem'
 import {OnboardingCarouselPagination} from '@/modules/onboarding/components/OnboardingCarouselPagination'
 import {onboardingData} from '@/modules/onboarding/data/onboarding'
 
 export const OnboardingCarousel = () => {
-  const {width} = useWindowDimensions()
-  const progress = useSharedValue<number>(0)
   const {isPortrait} = useDeviceContext()
-
-  const ref = useRef<ICarouselInstance>(null)
-
-  const onPressPagination = (index: number) => {
-    ref.current?.scrollTo({
-      /**
-       * Calculate the difference between the current index and the target index
-       * to ensure that the carousel scrolls to the nearest index
-       */
-      count: index - progress.value,
-      animated: true,
-    })
-  }
+  const {
+    onPressPagination,
+    progress,
+    ref,
+    currentIndex,
+    onProgressChange,
+    width,
+  } = useCarousel()
 
   return (
     <Box
@@ -33,10 +23,7 @@ export const OnboardingCarousel = () => {
       shrink={1}>
       <Carousel
         data={onboardingData}
-        loop={false}
-        onProgressChange={(_offsetProgress, absoluteProgress) => {
-          progress.value = absoluteProgress
-        }}
+        onProgressChange={onProgressChange}
         ref={ref}
         renderItem={({item, index}) => (
           <CarouselRenderItem
@@ -49,6 +36,7 @@ export const OnboardingCarousel = () => {
         width={width}
       />
       <OnboardingCarouselPagination
+        currentIndex={currentIndex}
         data={onboardingData}
         onPress={onPressPagination}
         progress={progress}
