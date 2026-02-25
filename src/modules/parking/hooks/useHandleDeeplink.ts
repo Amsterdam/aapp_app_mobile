@@ -26,8 +26,6 @@ export const useHandleDeeplink = (
           order_id: params.order_id,
           status: params.status,
           signature: params.signature,
-        }).then(() => {
-          dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
         })
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
@@ -40,12 +38,9 @@ export const useHandleDeeplink = (
           status: params.status,
           signature: params.signature,
         }).then(() => {
+          // these are invalidated in addition to the invalidateTags of the confirmBalance endpoint in the service
           dispatch(
-            baseApi.util.invalidateTags([
-              'ParkingAccount',
-              'ParkingSessions',
-              'ParkingPermits',
-            ]),
+            baseApi.util.invalidateTags(['ParkingSessions', 'ParkingPermits']),
           )
         })
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
