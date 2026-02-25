@@ -1,6 +1,5 @@
 /**
- * TODO: remove this file once we have upgraded to react-native-reanimated-carousel v4
- * this component is comes from react-native-reanimated-carousel v4,but as that provided some other problems it is currently copied here
+ * this component is comes from react-native-reanimated-carousel v4, but as that provided some problems it is currently copied and adjusted here
  */
 
 import React from 'react'

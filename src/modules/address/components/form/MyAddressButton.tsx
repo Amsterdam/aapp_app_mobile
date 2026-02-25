@@ -23,7 +23,7 @@ export const MyAddressButton = ({testID, onPress, moduleSlug}: Props) => {
 
   const onPressAddressButton = useCallback(() => {
     if (!myAddress) {
-      navigate(AddressModalName.myAddressForm)
+      navigate(AddressModalName.myAddressForm, {showAlertAfterSuccess: true})
 
       return
     }

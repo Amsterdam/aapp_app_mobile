@@ -75,7 +75,7 @@ export const EnvironmentSelector = () => {
                 await persistor.purge()
                 dispatch(setEnvironment(env))
                 dispatch(setCustomEnvironment(custom))
-                dispatch(setHasSeenOnboarding(true))
+                // dispatch(setHasSeenOnboarding(true))
                 removeAllSecureItems().then(devLog).catch(devError)
                 await persistor.flush()
               }}

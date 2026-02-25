@@ -18,11 +18,18 @@ export const useAddTelemetryInitializer = () => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
   useEffect(() => {
+    const permissionsGranted = Object.entries(permissions).reduce(
+      (acc, [key, value]) => {
+        acc[key] = value.granted
+
+        return acc
+      },
+      {} as Record<string, boolean>,
+    )
+
     void Promise.all([isEmulatorDeviceInfo()]).then(([isEmulator]) => {
       const telemetryInitializer = (envelope: ITelemetryItem) => {
-        if (!envelope.data) {
-          envelope.data = {}
-        }
+        envelope.data ??= {}
 
         envelope.data.appVersion = VERSION_NUMBER_WITH_BUILD
         envelope.data.deviceId = SHA256EncryptedDeviceId
@@ -30,7 +37,7 @@ export const useAddTelemetryInitializer = () => {
         envelope.data.os = Platform.OS
         envelope.data.osVersion = Platform.Version
         envelope.data.environment = environment
-        envelope.data.permissions = permissions
+        envelope.data.permissions = permissionsGranted
         envelope.data.isScreenReaderEnabled = isScreenReaderEnabled
       }
 
