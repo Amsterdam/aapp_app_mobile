@@ -22,7 +22,9 @@ export const useHandleDeeplink = (
       if (params.status === 'COMPLETED') {
         setAlert(alerts.increaseBalanceSuccess)
         dispatch(setWalletBalanceIncreaseStartedAt(dayjs().toISOString()))
-        dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
+        dispatch(
+          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingPermits']),
+        )
         void confirmBalance({
           order_id: params.order_id,
           status: params.status,
@@ -35,7 +37,11 @@ export const useHandleDeeplink = (
       if (params.status === 'COMPLETED') {
         setAlert(alerts.startSessionSuccess)
         dispatch(
-          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
+          baseApi.util.invalidateTags([
+            'ParkingAccount',
+            'ParkingSessions',
+            'ParkingPermits',
+          ]),
         )
         void confirmBalance({
           order_id: params.order_id,
