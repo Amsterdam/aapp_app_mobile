@@ -14,7 +14,8 @@ jest.mock('@react-native-firebase/messaging', () => ({
   getMessaging: () => null,
   getInitialNotification: () => null,
   onNotificationOpenedApp: () => null,
-  getToken: () => null,
+  getToken: () => Promise.resolve('mock-fcm-token'),
+  onMessage: () => () => {},
 }))
 jest.mock('redux-devtools-expo-dev-plugin', () => ({
   default:
