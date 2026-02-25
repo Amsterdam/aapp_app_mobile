@@ -64,7 +64,6 @@ export const CityPassesSwiper = () => {
           ),
           parallaxAdjacentItemScale: 1,
         }}
-        // onProgressChange={progress} // to be used with react-native-reanimated-carousel v4
         onConfigurePanGesture={gesture => {
           'worklet'
           gesture.activeOffsetX([-10, 10])
