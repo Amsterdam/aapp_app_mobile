@@ -22,9 +22,6 @@ export const useHandleDeeplink = (
       if (params.status === 'COMPLETED') {
         setAlert(alerts.increaseBalanceSuccess)
         dispatch(setWalletBalanceIncreaseStartedAt(dayjs().toISOString()))
-        dispatch(
-          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingPermits']),
-        )
         void confirmBalance({
           order_id: params.order_id,
           status: params.status,
@@ -36,17 +33,15 @@ export const useHandleDeeplink = (
     } else if (params?.action === 'start-session-and-increase-balance') {
       if (params.status === 'COMPLETED') {
         setAlert(alerts.startSessionSuccess)
-        dispatch(
-          baseApi.util.invalidateTags([
-            'ParkingAccount',
-            'ParkingSessions',
-            'ParkingPermits',
-          ]),
-        )
         void confirmBalance({
           order_id: params.order_id,
           status: params.status,
           signature: params.signature,
+        }).then(() => {
+          // these are invalidated in addition to the invalidateTags of the confirmBalance endpoint in the service
+          dispatch(
+            baseApi.util.invalidateTags(['ParkingSessions', 'ParkingPermits']),
+          )
         })
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)

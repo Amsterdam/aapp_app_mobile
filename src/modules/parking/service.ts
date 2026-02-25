@@ -318,7 +318,7 @@ export const parkingApi = baseApi.injectEndpoints({
       void,
       ConfirmBalanceEndpointRequest
     >({
-      invalidatesTags: ['ParkingAccount', 'ParkingSessions'],
+      invalidatesTags: ['ParkingAccount'],
       query: body => ({
         headers: deviceIdHeader,
         body,
