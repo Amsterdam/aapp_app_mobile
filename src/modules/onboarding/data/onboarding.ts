@@ -3,8 +3,8 @@ import type {CarouselItem} from '@/modules/onboarding/types'
 export const onboardingData: CarouselItem[] = [
   {
     iconName: 'bell',
-    title: 'Wilt u meldingen  ontvangen?',
-    text: 'Zoals herinneringen voor afval ophalen, einde parkeersessie en berichten over bijvoorbeeld storm of storingen. ',
+    title: 'Wilt u meldingen ontvangen?',
+    text: 'Zoals herinneringen voor afval ophalen, einde parkeersessie en berichten over bijvoorbeeld storm of storingen.',
     button: {
       onPress: () => {
         // do nothing

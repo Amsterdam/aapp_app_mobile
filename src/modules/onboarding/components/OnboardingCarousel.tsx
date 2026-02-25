@@ -38,16 +38,12 @@ export const OnboardingCarousel = () => {
           progress.value = absoluteProgress
         }}
         ref={ref}
-        renderItem={({item}) => (
+        renderItem={({item, index}) => (
           <CarouselRenderItem
-            isLastItem={
-              onboardingData.indexOf(item) + 1 === onboardingData.length
-            }
+            isLastItem={index + 1 === onboardingData.length}
             isPortrait={isPortrait}
             item={item}
-            onPressNextButton={() =>
-              onPressPagination(onboardingData.indexOf(item) + 1)
-            }
+            onPressNextButton={() => onPressPagination(index + 1)}
           />
         )}
         width={width}

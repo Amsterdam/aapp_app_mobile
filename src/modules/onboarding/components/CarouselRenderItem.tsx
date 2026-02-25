@@ -42,10 +42,10 @@ export const CarouselRenderItem = ({
             <Title
               testID={`${item.testID}Title`}
               text={item.title}
-              textAlign={isPortrait ? 'center' : undefined}
+              textAlign="center"
             />
             <Paragraph
-              textAlign={isPortrait ? 'center' : undefined}
+              textAlign="center"
               variant="intro">
               {item.text}
             </Paragraph>
@@ -63,14 +63,9 @@ export const CarouselRenderItem = ({
             <Title
               testID={`${item.testID}Title`}
               text={item.title}
-              textAlign={isPortrait ? 'center' : undefined}
             />
           </Row>
-          <Paragraph
-            textAlign={isPortrait ? 'center' : undefined}
-            variant="intro">
-            {item.text}
-          </Paragraph>
+          <Paragraph variant="intro">{item.text}</Paragraph>
         </Column>
       )}
       <CarouselRenderItemButtons
