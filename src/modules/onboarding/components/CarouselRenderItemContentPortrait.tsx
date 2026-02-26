@@ -1,14 +1,16 @@
+import {View} from 'react-native'
 import type {CarouselItemVariant} from '@/modules/onboarding/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {CarouselRenderItemContentButton} from '@/modules/onboarding/components/CarouselRenderItemContentButton'
 import {CarouselRenderItemContentText} from '@/modules/onboarding/components/CarouselRenderItemContentText'
+import {CarouselRenderItemNotificationSettings} from '@/modules/onboarding/components/CarouselRenderItemNotificationSettings'
 
 type Props = {
   contentButton?: CarouselItemVariant['contentButton']
   icon: CarouselItemVariant['icon']
+  showNotificationPermissionSettings?: CarouselItemVariant['showNotificationPermissionSettings']
   testID: CarouselItemVariant['testID']
   text?: CarouselItemVariant['text']
   title: CarouselItemVariant['title']
@@ -22,6 +24,7 @@ export const CarouselRenderItemContentPortrait = ({
   text,
   useText,
   contentButton,
+  showNotificationPermissionSettings,
 }: Props) => (
   <Column
     grow={1}
@@ -37,15 +40,16 @@ export const CarouselRenderItemContentPortrait = ({
         text={title}
         textAlign="center"
       />
-      <Paragraph
-        textAlign="center"
-        variant="intro">
-        <CarouselRenderItemContentText
-          key={typeof useText}
-          text={text}
-          useText={useText}
-        />
-      </Paragraph>
+      <CarouselRenderItemContentText
+        text={text}
+        useText={useText}
+      />
+      {!!showNotificationPermissionSettings && (
+        <>
+          <View />
+          <CarouselRenderItemNotificationSettings testID={testID} />
+        </>
+      )}
       {!!contentButton && (
         <CarouselRenderItemContentButton
           {...contentButton}

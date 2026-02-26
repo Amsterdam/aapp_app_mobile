@@ -36,7 +36,7 @@ export const useHandleLoginDeeplink = (loginResult?: LoginResult) => {
       trackException(ExceptionLogKey.deepLink, 'useHandleLoginDeeplink.ts')
     }
 
-    if (fromOnboarding) {
+    if (loginResult && fromOnboarding) {
       navigation.goBack()
     }
   }, [dispatch, loginResult, setAlert, trackException, navigation])

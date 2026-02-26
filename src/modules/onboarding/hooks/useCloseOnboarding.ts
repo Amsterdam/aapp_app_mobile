@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {setHasSeenOnboarding} from '@/modules/onboarding/slice'
+import {setShouldShowOnboarding} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
 
 const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
@@ -11,7 +11,7 @@ export const useCloseOnboarding = () => {
   const dispatch = useDispatch()
 
   return useCallback(() => {
-    dispatch(setHasSeenOnboarding(true))
+    dispatch(setShouldShowOnboarding(false))
 
     if (navigation.canGoBack()) {
       navigation.goBack()

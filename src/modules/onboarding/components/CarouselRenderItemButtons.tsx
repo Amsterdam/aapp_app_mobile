@@ -55,7 +55,7 @@ export const CarouselRenderItemButtons = ({
       )}
       <Button
         flex={isPortrait ? undefined : 1}
-        label={isLastItem ? 'Aan de slag' : 'Volgende'}
+        label={isLastItem ? 'Ga naar startscherm' : 'Volgende'}
         onPress={isLastItem ? closeOnboarding : onPressNextButton}
         testID={`${testID}NextButton`}
         variant={button ? 'secondary' : 'primary'}

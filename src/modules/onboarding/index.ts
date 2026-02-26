@@ -8,7 +8,7 @@ export const onboardingModule = createCoreModule({
   reduxConfigs: [
     {
       key: ReduxKey.onboarding,
-      persistVersion: -1,
+      persistVersion: 0,
       slice: onboardingSlice,
     },
   ],

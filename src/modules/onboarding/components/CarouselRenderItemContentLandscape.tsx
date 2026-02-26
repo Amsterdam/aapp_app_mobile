@@ -1,15 +1,17 @@
+import {View} from 'react-native'
 import type {CarouselItemVariant} from '@/modules/onboarding/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {CarouselRenderItemContentButton} from '@/modules/onboarding/components/CarouselRenderItemContentButton'
 import {CarouselRenderItemContentText} from '@/modules/onboarding/components/CarouselRenderItemContentText'
+import {CarouselRenderItemNotificationSettings} from '@/modules/onboarding/components/CarouselRenderItemNotificationSettings'
 
 type Props = {
   contentButton?: CarouselItemVariant['contentButton']
   icon: CarouselItemVariant['icon']
+  showNotificationPermissionSettings?: CarouselItemVariant['showNotificationPermissionSettings']
   testID: CarouselItemVariant['testID']
   text?: CarouselItemVariant['text']
   title: CarouselItemVariant['title']
@@ -17,16 +19,18 @@ type Props = {
 }
 
 export const CarouselRenderItemContentLandscape = ({
+  contentButton,
   icon,
+  showNotificationPermissionSettings,
   testID,
   title,
   text,
   useText,
-  contentButton,
 }: Props) => (
   <Column
     grow={1}
-    gutter="md">
+    gutter="md"
+    halign="start">
     <Row gutter="md">
       <Icon
         {...icon}
@@ -37,16 +41,20 @@ export const CarouselRenderItemContentLandscape = ({
         text={title}
       />
     </Row>
-    <Paragraph variant="intro">
-      <CarouselRenderItemContentText
-        key={typeof useText}
-        text={text}
-        useText={useText}
-      />
-    </Paragraph>
+    <CarouselRenderItemContentText
+      text={text}
+      useText={useText}
+    />
+    {!!showNotificationPermissionSettings && (
+      <>
+        <View />
+        <CarouselRenderItemNotificationSettings testID={testID} />
+      </>
+    )}
     {!!contentButton && (
       <CarouselRenderItemContentButton
         {...contentButton}
+        noPadding
         testID={testID}
       />
     )}

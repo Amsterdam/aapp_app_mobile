@@ -22,9 +22,22 @@ export const CarouselRenderItem = ({
   isPortrait,
   onPressNextButton,
 }: Props) => {
-  const {testID, icon, title, text, useText, button, contentButton} =
+  const {
+    testID,
+    icon,
+    title,
+    text,
+    useText,
+    button,
+    contentButton,
+    showNotificationPermissionSettings,
+  } =
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     item.variants[item.useVariant()]
+
+  const Content = isPortrait
+    ? CarouselRenderItemContentPortrait
+    : CarouselRenderItemContentLandscape
 
   return (
     <HorizontalSafeArea flex={1}>
@@ -36,25 +49,17 @@ export const CarouselRenderItem = ({
           flex={1}
           gutter="md">
           <ScrollView style={styles.scrollView}>
-            {isPortrait ? (
-              <CarouselRenderItemContentPortrait
-                contentButton={contentButton}
-                icon={icon}
-                testID={testID}
-                text={text}
-                title={title}
-                useText={useText}
-              />
-            ) : (
-              <CarouselRenderItemContentLandscape
-                contentButton={contentButton}
-                icon={icon}
-                testID={testID}
-                text={text}
-                title={title}
-                useText={useText}
-              />
-            )}
+            <Content
+              contentButton={contentButton}
+              icon={icon}
+              showNotificationPermissionSettings={
+                showNotificationPermissionSettings
+              }
+              testID={testID}
+              text={text}
+              title={title}
+              useText={useText}
+            />
           </ScrollView>
           <CarouselRenderItemButtons
             button={button}

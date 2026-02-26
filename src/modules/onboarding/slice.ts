@@ -7,25 +7,26 @@ import {type RootState} from '@/store/types/rootState'
 export type OnboardingState = Onboarding
 
 const initialState: OnboardingState = {
-  hasSeenOnboarding: false,
+  shouldShowOnboarding: true,
 }
 
 export const onboardingSlice = createSlice({
   name: ReduxKey.onboarding,
   initialState,
   reducers: {
-    setHasSeenOnboarding: (
+    setShouldShowOnboarding: (
       state,
-      {payload: hasSeen}: PayloadAction<boolean>,
+      {payload: shouldShow}: PayloadAction<boolean>,
     ) => {
-      state.hasSeenOnboarding = hasSeen
+      state.shouldShowOnboarding = shouldShow
     },
   },
 })
 
-export const {setHasSeenOnboarding} = onboardingSlice.actions
+export const {setShouldShowOnboarding} = onboardingSlice.actions
 
-const selectHasSeenOnboarding = (state: RootState) =>
-  state[ReduxKey.onboarding].hasSeenOnboarding
+const selectShouldShowOnboarding = (state: RootState) =>
+  state[ReduxKey.onboarding].shouldShowOnboarding
 
-export const useHasSeenOnboarding = () => useSelector(selectHasSeenOnboarding)
+export const useShouldShowOnboarding = () =>
+  useSelector(selectShouldShowOnboarding)
