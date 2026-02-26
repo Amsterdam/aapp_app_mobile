@@ -1,5 +1,6 @@
+import {StyleSheet} from 'react-native'
 import {Carousel} from '@/components/ui/carousel/Carousel'
-import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
 import {useCarousel} from '@/hooks/useCarousel'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {CarouselRenderItem} from '@/modules/onboarding/components/CarouselRenderItem'
@@ -18,10 +19,11 @@ export const OnboardingCarousel = () => {
   } = useCarousel()
 
   return (
-    <Box
-      insetBottom={isPortrait ? 'md' : 'xl'}
-      shrink={1}>
+    <Column
+      flex={1}
+      gutter="md">
       <Carousel
+        containerStyle={styles.container}
         data={onboardingData}
         onProgressChange={onProgressChange}
         ref={ref}
@@ -41,6 +43,12 @@ export const OnboardingCarousel = () => {
         onPress={onPressPagination}
         progress={progress}
       />
-    </Box>
+    </Column>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexShrink: 1,
+  },
+})
