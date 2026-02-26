@@ -25,7 +25,6 @@ export const CarouselRenderItem = ({
   const {testID, icon, title, text, useText, button, contentButton} =
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     item.variants[item.useVariant()]
-  const styles = createStyles()
 
   return (
     <HorizontalSafeArea flex={1}>
@@ -70,9 +69,8 @@ export const CarouselRenderItem = ({
   )
 }
 
-const createStyles = () =>
-  StyleSheet.create({
-    scrollView: {
-      flexShrink: 1,
-    },
-  })
+const styles = StyleSheet.create({
+  scrollView: {
+    flexShrink: 1,
+  },
+})

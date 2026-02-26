@@ -17,7 +17,6 @@ export const OnboardingCarousel = () => {
     onProgressChange,
     width,
   } = useCarousel()
-  const styles = createStyles()
 
   return (
     <Column
@@ -48,9 +47,8 @@ export const OnboardingCarousel = () => {
   )
 }
 
-const createStyles = () =>
-  StyleSheet.create({
-    container: {
-      flexShrink: 1,
-    },
-  })
+const styles = StyleSheet.create({
+  container: {
+    flexShrink: 1,
+  },
+})
