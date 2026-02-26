@@ -1,6 +1,7 @@
 import type {TestProps} from '@/components/ui/types'
 import type {CarouselItemVariant} from '@/modules/onboarding/types'
 import {Button} from '@/components/ui/buttons/Button'
+import {DigiDButton} from '@/components/ui/buttons/DigiDButton'
 import {Track} from '@/components/ui/layout/Track'
 import {useCloseOnboarding} from '@/modules/onboarding/hooks/useCloseOnboarding'
 
@@ -16,14 +17,20 @@ const CarouselRenderItemButton = ({
   testID,
   isPortrait,
 }: Pick<Props, 'button' | 'testID' | 'isPortrait'>) =>
-  !!button && (
+  !!button &&
+  (button.digid ? (
+    <DigiDButton
+      onPress={button.useOnPress?.() ?? button.onPress}
+      testID={`${testID}Button`}
+    />
+  ) : (
     <Button
       flex={isPortrait ? undefined : 1}
       label={button.label}
       onPress={button.useOnPress?.() ?? button.onPress}
       testID={`${testID}Button`}
     />
-  )
+  ))
 
 export const CarouselRenderItemButtons = ({
   isPortrait,
@@ -51,7 +58,7 @@ export const CarouselRenderItemButtons = ({
         label={isLastItem ? 'Aan de slag' : 'Volgende'}
         onPress={isLastItem ? closeOnboarding : onPressNextButton}
         testID={`${testID}NextButton`}
-        variant="secondary"
+        variant={button ? 'secondary' : 'primary'}
       />
     </Track>
   )
