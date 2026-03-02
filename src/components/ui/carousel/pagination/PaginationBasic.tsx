@@ -59,8 +59,8 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
           <PaginationItem
             accessibilityLabel={
               currentIndex === index
-                ? `Huidige slide, ${index + 1}`
-                : `Ga naar slide ${index + 1}`
+                ? `Huidige stap, ${index + 1} van ${data.length}`
+                : `Ga naar stap ${index + 1} van ${data.length}`
             }
             accessibilityRole="button"
             activeDotStyle={activeDotStyle}

@@ -18,6 +18,7 @@ export const DigiDButton = ({onPress, isLoading, testID}: Props) => (
     halign="stretch">
     <Row gutter="sm">
       <Pressable
+        accessible={false}
         onPress={onPress}
         testID={`${testID}IconButton`}>
         <DigiD />
