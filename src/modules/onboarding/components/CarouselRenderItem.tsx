@@ -22,6 +22,7 @@ export const CarouselRenderItem = ({
   isPortrait,
   onPressNextButton,
 }: Props) => {
+  const variant = item.useVariant() as string
   const {
     testID,
     icon,
@@ -31,9 +32,7 @@ export const CarouselRenderItem = ({
     button,
     contentButton,
     showNotificationPermissionSettings,
-  } =
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    item.variants[item.useVariant()]
+  } = item.variants[variant]
 
   const Content = isPortrait
     ? CarouselRenderItemContentPortrait
@@ -59,6 +58,7 @@ export const CarouselRenderItem = ({
               text={text}
               title={title}
               useText={useText}
+              variant={variant}
             />
           </ScrollView>
           <CarouselRenderItemButtons

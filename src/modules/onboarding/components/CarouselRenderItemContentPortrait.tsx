@@ -15,6 +15,7 @@ type Props = {
   text?: CarouselItemVariant['text']
   title: CarouselItemVariant['title']
   useText: CarouselItemVariant['useText']
+  variant: string
 }
 
 export const CarouselRenderItemContentPortrait = ({
@@ -25,6 +26,7 @@ export const CarouselRenderItemContentPortrait = ({
   useText,
   contentButton,
   showNotificationPermissionSettings,
+  variant,
 }: Props) => (
   <Column
     grow={1}
@@ -41,6 +43,7 @@ export const CarouselRenderItemContentPortrait = ({
         textAlign="center"
       />
       <CarouselRenderItemContentText
+        key={variant} // Ensure the component is recreated when useText changes
         text={text}
         useText={useText}
       />
