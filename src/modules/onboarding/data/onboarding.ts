@@ -23,7 +23,7 @@ export const onboardingData = [
           name: 'bell',
         },
         title: 'Wilt u meldingen ontvangen?',
-        text: 'Zoals herinneringen voor afval ophalen, einde parkeersessie en berichten over bijvoorbeeld storm of storingen.',
+        text: 'U krijgt meldingen voor het ophalen van afval, het einde van uw parkeersessie en berichten over storm of storingen.',
         button: {
           useOnPress: () => {
             const {requestPermission} = usePermission(Permissions.notifications)
@@ -39,7 +39,7 @@ export const onboardingData = [
           name: 'bell-off',
         },
         title: 'Meldingen staan uit',
-        text: 'U ontvangt geen meldingen van de app. Dit kunt u aanpassen via Instellingen.',
+        text: 'Dit kunt u aanpassen via Instellingen.',
         contentButton: {
           onPress: () => Linking.openSettings(),
           label: 'Ga naar Instellingen',
@@ -54,7 +54,7 @@ export const onboardingData = [
           isFilled: true,
         },
         title: 'Meldingen staan aan',
-        text: 'U ontvangt meldingen van de app. ',
+        text: 'U kunt dit aanpassen in Mijn profiel.',
         testID: 'OnboardingCarouselNotificationsHasPermissionSlide',
       },
     },
@@ -77,8 +77,8 @@ export const onboardingData = [
         icon: {
           name: 'house',
         },
-        title: 'Stel Mijn adres in',
-        text: 'Veel informatie, zoals afvalwijzer, stookwijzer en werkzaamheden, wordt aangepast aan uw adres. Stel Mijn adres in om direct alles te zien dat bij u hoort.',
+        title: 'Stel uw adres in',
+        text: 'Ontvang informatie voor uw adres, zoals afvalwijzer, stookwijzer en werkzaamheden in uw buurt. U stelt dit in bij Mijn adres.',
         button: {
           useOnPress: () => {
             const {navigate} = useNavigation()
