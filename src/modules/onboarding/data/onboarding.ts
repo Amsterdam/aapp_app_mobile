@@ -163,13 +163,8 @@ export const onboardingData = [
           color: 'confirm',
           isFilled: true,
         },
-        contentButton: {
-          onPress: () => Linking.openSettings(),
-          label: 'Ga naar Instellingen',
-          external: true,
-        },
+        showNotificationPermissionSettings: true,
         title: 'U bent ingelogd bij Mijn Amsterdam',
-        text: 'Meldingen staan uit.',
         testID: 'OnboardingCarouselMijnAmsterdamLoggedInNoPermissionSlide',
       },
     },
@@ -180,7 +175,7 @@ export const onboardingData = [
       )
 
       if (isLoggedIn) {
-        if (permissionGranted) {
+        if (!permissionGranted) {
           return 'loggedIn'
         } else {
           return 'loggedInNoPermission'

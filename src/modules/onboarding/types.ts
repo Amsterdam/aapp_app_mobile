@@ -20,10 +20,11 @@ export type CarouselItemVariant = {
   button?: CarouselItemButton
   contentButton?: CarouselItemButton
   icon: Pick<IconProps, 'name' | 'color' | 'isFilled'>
+  showNotificationPermissionSettings?: boolean
   title: string
 } & (
   | {
-      text: string
+      text?: string
       useText?: never
     }
   | {
@@ -39,5 +40,5 @@ export type CarouselItem<T extends string> = {
 }
 
 export type Onboarding = {
-  hasSeenOnboarding: boolean
+  shouldShowOnboarding: boolean
 }

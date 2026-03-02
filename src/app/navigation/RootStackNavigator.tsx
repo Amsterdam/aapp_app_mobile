@@ -5,7 +5,7 @@ import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {allModules} from '@/modules/modules'
-import {useHasSeenOnboarding} from '@/modules/onboarding/slice'
+import {useShouldShowOnboarding} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {getModuleStack, modals} from '@/modules/stacks'
 
@@ -48,7 +48,7 @@ const modalStacks = Object.entries(modals).map(([key, route]) => (
 ))
 
 export const RootStackNavigator = () => {
-  const hasSeenOnboarding = useHasSeenOnboarding()
+  const shouldShowOnboarding = useShouldShowOnboarding()
   const screenOptions = useScreenOptions({
     isBelowStatusBar: Platform.OS === 'android',
   })
@@ -56,7 +56,7 @@ export const RootStackNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName={
-        hasSeenOnboarding ? ModuleSlug.home : ModuleSlug.onboarding
+        shouldShowOnboarding ? ModuleSlug.onboarding : ModuleSlug.home
       }
       screenOptions={{
         headerShown: false,
