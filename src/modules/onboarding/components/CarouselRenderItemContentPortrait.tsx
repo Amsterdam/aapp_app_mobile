@@ -56,6 +56,7 @@ export const CarouselRenderItemContentPortrait = ({
       {!!contentButton && (
         <CarouselRenderItemContentButton
           {...contentButton}
+          key={`${variant}ContentButton`} // Ensure the component is recreated when contentButton changes
           testID={testID}
         />
       )}

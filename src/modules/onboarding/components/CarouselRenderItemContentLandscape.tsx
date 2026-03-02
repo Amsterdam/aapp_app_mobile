@@ -57,6 +57,7 @@ export const CarouselRenderItemContentLandscape = ({
     {!!contentButton && (
       <CarouselRenderItemContentButton
         {...contentButton}
+        key={`${variant}ContentButton`} // Ensure the component is recreated when contentButton changes
         noPadding
         testID={testID}
       />
