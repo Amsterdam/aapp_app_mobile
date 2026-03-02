@@ -1,8 +1,6 @@
-import {FeatureFlag} from '@/components/features/FeatureFlag'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Features} from '@/constants/featureFlags'
 import {BurningGuide} from '@/modules/burning-guide/components/BurningGuide'
 import {BurningGuideAddress} from '@/modules/burning-guide/components/BurningGuideAddress'
 import {BurningGuideInfoButtons} from '@/modules/burning-guide/components/BurningGuideInfoButtons'
@@ -22,9 +20,7 @@ export const BurningGuideScreen = () => (
           <BurningGuide />
         </Column>
       </Box>
-      <FeatureFlag feature={Features.BurningGuideNotifications}>
-        <BurningGuideNotificationToggleBox />
-      </FeatureFlag>
+      <BurningGuideNotificationToggleBox />
       <BurningGuideInfoButtons />
     </Column>
   </Screen>

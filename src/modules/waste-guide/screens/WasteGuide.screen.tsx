@@ -1,9 +1,7 @@
-import {FeatureFlag} from '@/components/features/FeatureFlag'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
-import {Features} from '@/constants/featureFlags'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {BottomSheetSurvey} from '@/modules/survey/exports/BottomSheetSurvey'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
@@ -30,9 +28,7 @@ export const WasteGuideScreen = () => {
             <WasteGuideAddressSwitch />
             <WasteCardButton />
             <WasteGuide />
-            <FeatureFlag feature={Features.WasteGuideNotifications}>
-              <WasteGuideNotificationToggleBox />
-            </FeatureFlag>
+            <WasteGuideNotificationToggleBox />
             <WasteGuideMoreOptions />
             <WasteGuideInformation />
           </Column>
