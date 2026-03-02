@@ -3,6 +3,7 @@ import {Carousel} from '@/components/ui/carousel/Carousel'
 import {Column} from '@/components/ui/layout/Column'
 import {useCarousel} from '@/hooks/useCarousel'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {useModules} from '@/hooks/useModules'
 import {CarouselRenderItem} from '@/modules/onboarding/components/CarouselRenderItem'
 import {OnboardingCarouselPagination} from '@/modules/onboarding/components/OnboardingCarouselPagination'
 import {onboardingData} from '@/modules/onboarding/data/onboarding'
@@ -18,18 +19,28 @@ export const OnboardingCarousel = () => {
     width,
   } = useCarousel()
 
+  const {enabledModulesBySlug} = useModules()
+
+  const filteredOnboardingData = onboardingData.filter(item => {
+    if (!item.requiresEnabledModule) {
+      return true
+    }
+
+    return enabledModulesBySlug?.includes(item.requiresEnabledModule)
+  })
+
   return (
     <Column
       flex={1}
       gutter="md">
       <Carousel
         containerStyle={styles.container}
-        data={onboardingData}
+        data={filteredOnboardingData}
         onProgressChange={onProgressChange}
         ref={ref}
         renderItem={({item, index}) => (
           <CarouselRenderItem
-            isLastItem={index + 1 === onboardingData.length}
+            isLastItem={index + 1 === filteredOnboardingData.length}
             isPortrait={isPortrait}
             item={item}
             onPressNextButton={() => onPressPagination(index + 1)}
@@ -39,7 +50,7 @@ export const OnboardingCarousel = () => {
       />
       <OnboardingCarouselPagination
         currentIndex={currentIndex}
-        data={onboardingData}
+        data={filteredOnboardingData}
         onPress={onPressPagination}
         progress={progress}
       />
