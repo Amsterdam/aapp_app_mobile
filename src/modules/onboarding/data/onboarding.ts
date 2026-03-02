@@ -175,7 +175,7 @@ export const onboardingData = [
       )
 
       if (isLoggedIn) {
-        if (!permissionGranted) {
+        if (permissionGranted) {
           return 'loggedIn'
         } else {
           return 'loggedInNoPermission'
