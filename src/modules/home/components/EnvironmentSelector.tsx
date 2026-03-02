@@ -70,6 +70,7 @@ export const EnvironmentSelector = () => {
                   ),
                 )
                 dispatch(setCustomEnvironment({}))
+                dispatch(setShouldShowOnboarding(true))
                 await persistor.flush()
                 await persistor.purge()
                 dispatch(setEnvironment(env))
