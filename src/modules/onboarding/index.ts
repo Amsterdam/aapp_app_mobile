@@ -10,6 +10,12 @@ export const onboardingModule = createCoreModule({
       key: ReduxKey.onboarding,
       persistVersion: 0,
       slice: onboardingSlice,
+      migrations: {
+        0: () => ({
+          shouldShowOnboarding: true,
+          _persist: {version: 0, rehydrated: true},
+        }),
+      },
     },
   ],
   slug: ModuleSlug.onboarding,
