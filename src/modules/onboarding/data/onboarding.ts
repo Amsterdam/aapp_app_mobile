@@ -23,7 +23,7 @@ export const onboardingData = [
           name: 'bell',
         },
         title: 'Wilt u meldingen ontvangen?',
-        text: 'U krijgt meldingen voor het ophalen van afval, het einde van uw parkeersessie en berichten over  storm of storingen.',
+        text: 'U krijgt meldingen voor het ophalen van afval, het einde van uw parkeersessie en berichten over storm of storingen.',
         button: {
           useOnPress: () => {
             const {requestPermission} = usePermission(Permissions.notifications)
