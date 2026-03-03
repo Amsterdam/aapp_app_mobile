@@ -9,6 +9,7 @@ import {useMyAddress} from '@/modules/address/slice'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
 import {useIsLoggedIn} from '@/modules/mijn-amsterdam/useIsLoggedIn'
+import {ModuleSlug} from '@/modules/slugs'
 import {
   selectIsPermissionGranted,
   selectPermissions,
@@ -184,6 +185,7 @@ export const onboardingData = [
         return 'notLoggedIn'
       }
     },
+    requiresEnabledModule: ModuleSlug['mijn-amsterdam'],
   } as CarouselItem<'notLoggedIn' | 'loggedIn' | 'loggedInNoPermission'>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ] satisfies CarouselItem<any>[]

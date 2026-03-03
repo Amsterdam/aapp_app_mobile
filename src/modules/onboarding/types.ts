@@ -1,5 +1,6 @@
 import type {IconProps} from '@/components/ui/media/Icon'
 import type {TestProps} from '@/components/ui/types'
+import type {ModuleSlug} from '@/modules/slugs'
 
 export type CarouselItemButton = {
   digid?: boolean
@@ -35,6 +36,7 @@ export type CarouselItemVariant = {
   TestProps
 
 export type CarouselItem<T extends string> = {
+  requiresEnabledModule?: ModuleSlug
   useVariant: () => T
   variants: Record<T, CarouselItemVariant>
 }
