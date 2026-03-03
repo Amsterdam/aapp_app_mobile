@@ -17,7 +17,7 @@ export const OnboardingScreenHeader = () => {
         insetTop="md">
         <Row align="end">
           <IconButton
-            accessibilityLabel="Sluit onboarding"
+            accessibilityLabel="Sluiten en naar startscherm"
             icon={
               <Icon
                 name="close"
