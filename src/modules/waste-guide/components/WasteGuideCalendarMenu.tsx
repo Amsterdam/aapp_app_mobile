@@ -5,9 +5,11 @@ import {
   PopupMenuOrientation,
   type PopupMenuItem,
 } from '@/components/ui/menus/types'
+import {Features} from '@/constants/featureFlags'
 import {DeviatingApiSlug} from '@/environment'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useFeatureFlag} from '@/hooks/useFeatureFlag'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {ModuleSlug} from '@/modules/slugs'
@@ -21,6 +23,10 @@ export const WasteGuideCalendarMenu = () => {
   const {close} = useMenu()
   const openWebUrl = useOpenWebUrl()
   const addressLine1 = getAddressLine1(address)
+
+  const wasteGuideCalendarSubscribeFeatureFlag = useFeatureFlag(
+    Features.WasteGuideCalendarSubscribe,
+  )
 
   const apiBase = useSelector(
     selectApi(DeviatingApiSlug.waste, '/api/v1', 'https'),
@@ -63,12 +69,13 @@ export const WasteGuideCalendarMenu = () => {
   const menuItems = useMemo(
     () =>
       [
-        !!webCalUrl && {
-          color: 'default',
-          label: 'Toevoegen aan agenda',
-          onPress: onPressAddToCalendar,
-          testID: 'WasteGuideAddToCalendarButton',
-        },
+        !!webCalUrl &&
+          !!wasteGuideCalendarSubscribeFeatureFlag && {
+            color: 'default',
+            label: 'Toevoegen aan agenda',
+            onPress: onPressAddToCalendar,
+            testID: 'WasteGuideAddToCalendarButton',
+          },
         !!pdfUrl && {
           color: 'default',
           label: 'Download als PDF',
@@ -76,7 +83,13 @@ export const WasteGuideCalendarMenu = () => {
           testID: 'WasteGuideDownloadAsPdfButton',
         },
       ].filter((item): item is PopupMenuItem => Boolean(item)),
-    [webCalUrl, pdfUrl, onPressAddToCalendar, onPressDownloadAsPdf],
+    [
+      webCalUrl,
+      pdfUrl,
+      onPressAddToCalendar,
+      onPressDownloadAsPdf,
+      wasteGuideCalendarSubscribeFeatureFlag,
+    ],
   )
 
   if (!menuItems.length) {
