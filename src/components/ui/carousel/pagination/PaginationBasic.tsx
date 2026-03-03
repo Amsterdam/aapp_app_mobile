@@ -62,7 +62,7 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
           hitSlop={5}
           key={index}
           onPress={() => onPress?.(index)}
-          testID={`CarouselPagination${index}Of${data.length}Item`}>
+          testID={`CarouselPagination${index + 1}Of${data.length}Item`}>
           <PaginationItem
             activeDotStyle={activeDotStyle}
             animValue={progress}
