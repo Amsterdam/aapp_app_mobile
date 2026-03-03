@@ -58,11 +58,11 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
               ? `Huidige stap, ${index + 1} van ${data.length}`
               : `Ga naar stap ${index + 1} van ${data.length}`
           }
+          accessibilityRole="button"
           hitSlop={5}
           key={index}
           onPress={() => onPress?.(index)}>
           <PaginationItem
-            accessibilityRole="button"
             activeDotStyle={activeDotStyle}
             animValue={progress}
             count={data.length}
