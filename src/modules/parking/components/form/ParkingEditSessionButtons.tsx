@@ -78,6 +78,8 @@ export const ParkingEditSessionButtons = () => {
             }) => {
               if (error?.data?.code === 'SSP_SESSION_NOT_ACTIVE') {
                 setAlert(alerts.inactiveSessionFailed)
+              } else {
+                setAlert(alerts.adjustSessionFailed)
               }
             },
           )

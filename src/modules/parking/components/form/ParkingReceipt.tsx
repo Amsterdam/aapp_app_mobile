@@ -207,7 +207,9 @@ export const ParkingReceipt = () => {
     !currentPermit.time_balance_applicable &&
     !currentPermit.money_balance_applicable
   ) {
-    return null
+    return errors.root?.serverError?.message === 'SSP_BAD_REQUEST' ? (
+      <SomethingWentWrong testID="ParkingReceiptSomethingWentWrong" />
+    ) : null
   }
 
   return (
