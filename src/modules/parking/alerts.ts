@@ -21,6 +21,13 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingAdjustSessionSuccessAlert',
   },
+  adjustSessionFailed: {
+    variant: AlertVariant.negative,
+    text: 'We konden uw parkeersessie niet aanpassen.',
+    title: 'Mislukt',
+    hasIcon: true,
+    testID: 'ParkingAdjustSessionFailedAlert',
+  },
   adjustTimeBalanceFailed: {
     variant: AlertVariant.negative,
     text: 'We konden het tijdsaldo niet aanpassen.',
