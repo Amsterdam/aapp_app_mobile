@@ -70,6 +70,7 @@ export const CityPassesSwiper = () => {
           dotStyle={styles.paginationItem}
           onPress={onPressPagination}
           progress={progress}
+          testID="CityPassCarouselPagination"
         />
       </View>
     </View>

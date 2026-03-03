@@ -6,15 +6,16 @@
  */
 
 import {StyleSheet, View, type StyleProp, type ViewStyle} from 'react-native'
-import {Pressable} from 'react-native-gesture-handler'
 
+import type {TestProps} from '@/components/ui/types'
 import type {SharedValue} from 'react-native-reanimated'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {
   type DotStyle,
   PaginationItem,
 } from '@/components/ui/carousel/pagination/PaginationItem'
 
-export interface BasicProps<T extends object = object> {
+export type BasicProps<T extends object = object> = {
   activeDotStyle?: DotStyle
   containerStyle?: StyleProp<ViewStyle>
   currentIndex: number
@@ -25,7 +26,7 @@ export interface BasicProps<T extends object = object> {
   progress: SharedValue<number>
   renderItem?: (item: T, index: number) => React.ReactNode
   size?: number
-}
+} & TestProps
 
 export const Basic = <T extends object>(props: BasicProps<T>) => {
   const {
@@ -39,6 +40,7 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
     containerStyle,
     renderItem,
     onPress,
+    testID,
   } = props
 
   if (
@@ -52,7 +54,7 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
   return (
     <View style={[styles.container, containerStyle]}>
       {data.map((item, index) => (
-        <Pressable
+        <PressableBase
           accessibilityLabel={
             currentIndex === index
               ? `Huidige stap, ${index + 1} van ${data.length}`
@@ -61,7 +63,8 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
           accessibilityRole="button"
           hitSlop={5}
           key={index}
-          onPress={() => onPress?.(index)}>
+          onPress={() => onPress?.(index)}
+          testID={`${testID}${index + 1}Of${data.length}Item`}>
           <PaginationItem
             activeDotStyle={activeDotStyle}
             animValue={progress}
@@ -72,7 +75,7 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
             size={size}>
             {renderItem?.(item, index)}
           </PaginationItem>
-        </Pressable>
+        </PressableBase>
       ))}
     </View>
   )
