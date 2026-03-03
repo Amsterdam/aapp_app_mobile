@@ -1,14 +1,10 @@
 import {DeviatingApiSlug} from '@/environment'
 import {
   WasteGuideEndpointName,
-  WasteGuideResponse,
+  type WasteGuideResponse,
   type WasteGuideNotificationSettings,
   type WasteGuideRecyclePointsResponse,
 } from '@/modules/waste-guide/types'
-import {
-  updateCalendarEventLabels,
-  updateFractionLabels,
-} from '@/modules/waste-guide/utils/updateFractionLabels'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
@@ -25,21 +21,6 @@ export const wasteGuideApi = baseApi.injectEndpoints({
         url: '/guide',
       }),
       keepUnusedDataFor: CacheLifetime.day,
-      transformResponse: (
-        baseQueryReturnValue: unknown,
-      ): WasteGuideResponse => {
-        const value = baseQueryReturnValue as WasteGuideResponse
-
-        if (value && Array.isArray(value.waste_types)) {
-          return {
-            ...value,
-            calendar: updateCalendarEventLabels(value.calendar),
-            waste_types: updateFractionLabels(value.waste_types),
-          }
-        }
-
-        return value
-      },
     }),
     [WasteGuideEndpointName.getWasteGuideNotification]: builder.query<
       WasteGuideNotificationSettings,
