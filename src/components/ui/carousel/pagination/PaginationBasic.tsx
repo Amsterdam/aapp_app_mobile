@@ -53,15 +53,15 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
     <View style={[styles.container, containerStyle]}>
       {data.map((item, index) => (
         <Pressable
+          accessibilityLabel={
+            currentIndex === index
+              ? `Huidige stap, ${index + 1} van ${data.length}`
+              : `Ga naar stap ${index + 1} van ${data.length}`
+          }
           hitSlop={5}
           key={index}
           onPress={() => onPress?.(index)}>
           <PaginationItem
-            accessibilityLabel={
-              currentIndex === index
-                ? `Huidige stap, ${index + 1} van ${data.length}`
-                : `Ga naar stap ${index + 1} van ${data.length}`
-            }
             accessibilityRole="button"
             activeDotStyle={activeDotStyle}
             animValue={progress}
