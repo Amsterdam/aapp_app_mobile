@@ -1,7 +1,7 @@
 import {DeviatingApiSlug} from '@/environment'
 import {
   WasteGuideEndpointName,
-  WasteGuideResponse,
+  type WasteGuideResponse,
   type WasteGuideNotificationSettings,
   type WasteGuideRecyclePointsResponse,
 } from '@/modules/waste-guide/types'
