@@ -7,6 +7,7 @@
 
 import {StyleSheet, View, type StyleProp, type ViewStyle} from 'react-native'
 
+import type {TestProps} from '@/components/ui/types'
 import type {SharedValue} from 'react-native-reanimated'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {
@@ -14,7 +15,7 @@ import {
   PaginationItem,
 } from '@/components/ui/carousel/pagination/PaginationItem'
 
-export interface BasicProps<T extends object = object> {
+export type BasicProps<T extends object = object> = {
   activeDotStyle?: DotStyle
   containerStyle?: StyleProp<ViewStyle>
   currentIndex: number
@@ -25,7 +26,7 @@ export interface BasicProps<T extends object = object> {
   progress: SharedValue<number>
   renderItem?: (item: T, index: number) => React.ReactNode
   size?: number
-}
+} & TestProps
 
 export const Basic = <T extends object>(props: BasicProps<T>) => {
   const {
@@ -39,6 +40,7 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
     containerStyle,
     renderItem,
     onPress,
+    testID,
   } = props
 
   if (
@@ -62,7 +64,7 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
           hitSlop={5}
           key={index}
           onPress={() => onPress?.(index)}
-          testID={`CarouselPagination${index + 1}Of${data.length}Item`}>
+          testID={`${testID}${index + 1}Of${data.length}Item`}>
           <PaginationItem
             activeDotStyle={activeDotStyle}
             animValue={progress}

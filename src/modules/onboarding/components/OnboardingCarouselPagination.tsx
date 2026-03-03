@@ -31,6 +31,7 @@ export const OnboardingCarouselPagination = <
         dotStyle={styles.paginationItem}
         onPress={onPress}
         progress={progress}
+        testID="OnboardingCarouselPagination"
       />
     </View>
   )
