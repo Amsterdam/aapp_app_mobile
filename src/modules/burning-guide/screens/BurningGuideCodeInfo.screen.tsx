@@ -5,7 +5,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 
 export const BurningGuideCodeInfoScreen = () => (
-  <Screen testID="BurningGuideCodeOrangeScreen">
+  <Screen testID="BurningGuideCodeInfoScreen">
     <Box>
       <Column gutter="lg">
         <Column gutter="md">
