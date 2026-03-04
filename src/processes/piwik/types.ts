@@ -129,8 +129,6 @@ export type PiwikCategory = ModuleSlug | 'general'
 export enum PiwikAction {
   accessibilityAction = 'accessibilityAction',
   accessibilityChange = 'accessibilityChange',
-  addressAdd = 'addressAdd',
-  addressChange = 'addressChange',
   blur = 'blur',
   buttonPress = 'buttonPress',
   deviceInfoChange = 'deviceInfoChange',
@@ -138,10 +136,8 @@ export enum PiwikAction {
   locationOrAddressSelectionChange = 'locationOrAddressSelectionChange',
   moduleChange = 'moduleChange',
   pushNotificationDisplay = 'pushNotificationDisplay',
-  pushNotificationTap = 'pushNotificationTap',
   radioChange = 'radioChange',
   startUp = 'startUp',
-  swipeOut = 'swipeOut',
   toForeground = 'toForeground',
   toggle = 'toggle',
 }
