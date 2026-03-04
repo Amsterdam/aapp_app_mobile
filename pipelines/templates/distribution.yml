@@ -58,10 +58,11 @@ jobs:
                 bundle config set --local without 'iosAppBuildDependencies'
               workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
               displayName: 'Set Bundler to ignore iosAppBuildDependencies'
-            - template: ./cache-gems.yml
-              parameters:
-                platform: ${{ parameters.platform }}
-                gemfileLocation: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
+            # Next step is disabled because of a bug in azure pipelines: https://github.com/microsoft/azure-pipelines-tasks/issues/21567
+            # - template: ./cache-gems.yml
+            #   parameters:
+            #     platform: ${{ parameters.platform }}
+            #     gemfileLocation: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
             - script: 'bundle install'
               workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
               displayName: 'Install Ruby gems'
