@@ -19,7 +19,7 @@ export const WasteGuideAddressSwitch = () => {
       moduleSlug={ModuleSlug['waste-guide']}
       noAddressText="Vul uw adres in om te zien wat u met uw afval moet doen."
       noAddressTitle="Afvalinformatie"
-      testID="WasteGuideAddressAddressSwitch"
+      testID="WasteGuideAddressSwitch"
     />
   )
 }
