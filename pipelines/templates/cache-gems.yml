@@ -1,0 +1,15 @@
+parameters:
+  - name: platform
+    type: string
+    default: 'ios'
+
+steps:
+  - task: Cache@2
+    inputs:
+      key: 'gems | "$(Agent.OS)" | ${{ parameters.platform }} | **/Gemfile.lock | **/Gemfile'
+      path: $(BUNDLE_PATH)
+      cacheHitVar: GEMS_CACHE_RESTORED
+      restoreKeys: |
+        gems | "$(Agent.OS)" | ${{ parameters.platform }}
+        gems | "$(Agent.OS)"
+    displayName: 'Cache gems local cache directory'

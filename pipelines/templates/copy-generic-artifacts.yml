@@ -3,18 +3,9 @@ parameters:
     type: string
 
 steps:
-  - task: CopyFiles@2
-    displayName: 'Copy gemfile'
-    inputs:
-      contents: 'Gemfile'
-      targetFolder: $(Build.ArtifactStagingDirectory)
-  - task: CopyFiles@2
-    displayName: 'Copy .ruby-version'
-    inputs:
-      contents: '.ruby-version'
-      targetFolder: $(Build.ArtifactStagingDirectory)
-  - task: CopyFiles@2
-    displayName: 'Copy fastlane config'
-    inputs:
-      contents: '${{ parameters.platform }}/fastlane/**'
-      targetFolder: $(Build.ArtifactStagingDirectory)
+  - script: |
+      cp 'Gemfile' $(Build.ArtifactStagingDirectory)
+      cp 'Gemfile.lock' $(Build.ArtifactStagingDirectory)
+      cp '.ruby-version' $(Build.ArtifactStagingDirectory)
+      mkdir $(Build.ArtifactStagingDirectory)/${{ parameters.platform }} && cp -r '${{ parameters.platform }}/fastlane' $(Build.ArtifactStagingDirectory)/${{ parameters.platform }}
+    displayName: 'Copy generic artifacts'
