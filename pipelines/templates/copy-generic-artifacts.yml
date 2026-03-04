@@ -7,5 +7,6 @@ steps:
       cp 'Gemfile' $(Build.ArtifactStagingDirectory)
       cp 'Gemfile.lock' $(Build.ArtifactStagingDirectory)
       cp '.ruby-version' $(Build.ArtifactStagingDirectory)
-      mkdir $(Build.ArtifactStagingDirectory)/${{ parameters.platform }} && cp -r '${{ parameters.platform }}/fastlane' $(Build.ArtifactStagingDirectory)/${{ parameters.platform }}
+      mkdir $(Build.ArtifactStagingDirectory)/${{ parameters.platform }}
+      cp -r '${{ parameters.platform }}/fastlane' $(Build.ArtifactStagingDirectory)/${{ parameters.platform }}
     displayName: 'Copy generic artifacts'

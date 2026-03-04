@@ -12,6 +12,10 @@ resources:
             - main
             - hotfix/*
 
+variables:
+  - name: BUNDLE_PATH
+    value: $(Pipeline.Workspace)/.bundle
+
 stages:
   - stage: iOSInternal
     displayName: 'iOS Internal'
