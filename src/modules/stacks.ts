@@ -1,6 +1,10 @@
 import {ComponentType} from 'react'
 import type {BurningGuideStackParams} from '@/modules/burning-guide/routes'
 import type {NotificationHistoryStackParams} from '@/modules/notification-history/routes'
+import type {
+  ServiceModalParams,
+  ServiceStackParams,
+} from '@/modules/service/routes'
 import type {SurveyStackParams} from '@/modules/survey/routes'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {AccessCodeStack} from '@/modules/access-code/Stack'
@@ -41,6 +45,7 @@ import {
   ReportProblemModalParams,
   ReportProblemStackParams,
 } from '@/modules/report-problem/routes'
+import {ServiceStack} from '@/modules/service/Stack'
 import {ModuleSlug} from '@/modules/slugs'
 import {SurveyStack} from '@/modules/survey/Stack'
 import {UserStack} from '@/modules/user/Stack'
@@ -72,6 +77,7 @@ export type ModuleStackParams = AccessCodeStackParams &
   ReportProblemStackParams &
   SurveyStackParams &
   UserStackParams &
+  ServiceStackParams &
   WasteContainerStackParams &
   WasteGuideStackParams &
   NotificationHistoryStackParams
@@ -94,6 +100,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
+  [ModuleSlug.service]: ServiceStack,
   [ModuleSlug.survey]: SurveyStack,
   [ModuleSlug.elections]: ElectionsStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
@@ -107,6 +114,7 @@ export type ModalParams = AddressModalParams &
   WasteContainerModalParams &
   ReportProblemModalParams &
   UserModalParams &
+  ServiceModalParams &
   WasteGuideModalParams
 
 export const modals: StackNavigationRoutes<RootStackParams> = modalsGenerated
