@@ -61,6 +61,7 @@ jobs:
             - template: ./cache-gems.yml
               parameters:
                 platform: ${{ parameters.platform }}
+                gemfileLocation: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
             - script: 'bundle install'
               workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
               displayName: 'Install Ruby gems'

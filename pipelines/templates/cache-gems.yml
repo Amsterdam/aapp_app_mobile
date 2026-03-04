@@ -2,11 +2,14 @@ parameters:
   - name: platform
     type: string
     default: 'ios'
+  - name: gemfileLocation
+    type: string
+    default: '**'
 
 steps:
   - task: Cache@2
     inputs:
-      key: 'gems | "$(Agent.OS)" | ${{ parameters.platform }} | **/Gemfile.lock | **/Gemfile'
+      key: 'gems | "$(Agent.OS)" | ${{ parameters.platform }} | ${{ parameters.gemfileLocation }}/Gemfile.lock | ${{ parameters.gemfileLocation }}/Gemfile'
       path: $(BUNDLE_PATH)
       cacheHitVar: GEMS_CACHE_RESTORED
       restoreKeys: |
