@@ -27,7 +27,7 @@ export const WasteGuideMoreOptions = () => {
             screen: ReportProblemRouteName.reportProblemWebView,
           })
         }
-        testID="WasteGuideMoreOptionsButton"
+        testID="WasteGuideReportWasteProblemButton"
         title="Meld een afvalprobleem"
       />
       <NavigationButton
@@ -40,7 +40,7 @@ export const WasteGuideMoreOptions = () => {
         }
         insetHorizontal="sm"
         onPress={() => navigate(WasteGuideRouteName.wasteGuideRecyclePoints)}
-        testID="WasteGuideRecyclingNavigationButton"
+        testID="WasteGuideRecyclingButton"
         title="Recyclepunten"
       />
     </Column>

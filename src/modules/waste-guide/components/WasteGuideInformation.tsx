@@ -9,6 +9,7 @@ export const WasteGuideInformation = () => (
     <Column gutter="md">
       <Title
         level="h2"
+        testID="WasteGuideInformationTitle"
         text="Alles over afval"
       />
       <Paragraph>

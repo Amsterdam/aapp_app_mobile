@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import {ReactNode} from 'react'
 import {TextProps} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
@@ -88,7 +89,7 @@ export const NavigationButton = ({
                 size="lg"
                 {...icon}
                 color={color}
-                testID={`${testID}Icon`}
+                testID={`${testID}${pascalCase(icon.name)}Icon`}
               />
             )}
             {!!props.Icon && !icon ? props.Icon : null}
