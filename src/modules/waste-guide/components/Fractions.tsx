@@ -1,4 +1,3 @@
-import {pascalCase} from 'pascal-case'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -39,7 +38,7 @@ export const Fractions = ({fractions, isCollectionByAppointment}: Props) => {
                 fractionCode: fraction.code,
               })
             }}
-            testID={`WasteGuide${pascalCase(label ?? '')}FractionNavigationButton`}
+            testID={`WasteGuide${code ?? ''}FractionNavigationButton`}
             title={label}
           />
         )

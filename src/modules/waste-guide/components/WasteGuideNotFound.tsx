@@ -12,7 +12,7 @@ export const WasteGuideNotFound = () => {
     <Column gutter="lg">
       <Column gutter="sm">
         <Title
-          testID="BurningGuideAddressOutsideAmsterdamTitle"
+          testID="WasteGuideAddressOutsideAmsterdamTitle"
           text="Afvalinformatie"
         />
         <Phrase>We hebben geen informatie gevonden bij dit adres.</Phrase>

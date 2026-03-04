@@ -77,13 +77,18 @@ export const AddressSwitch = ({
       {!address && !!noAddressText && (
         <Column gutter="md">
           <Column gutter="sm">
-            <Title text={noAddressTitle ?? 'Geen adres'} />
-            <Paragraph>{noAddressText}</Paragraph>
+            <Title
+              testID={`${testID}NoAddressTitle`}
+              text={noAddressTitle ?? 'Geen adres'}
+            />
+            <Paragraph testID={`${testID}NoAddressText`}>
+              {noAddressText}
+            </Paragraph>
           </Column>
           <Button
             label="Adres invullen"
             onPress={onNavigateToAddressForm}
-            testID="AddressSwitchChooseAddressButton"
+            testID={`${testID}ChooseAddressButton`}
           />
         </Column>
       )}
