@@ -54,6 +54,13 @@ jobs:
             - template: ./install-ruby.yml
               parameters:
                 workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
+            - script: |
+                bundle config set --local without 'iosAppBuildDependencies'
+              workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
+              displayName: 'Set Bundler to ignore iosAppBuildDependencies'
+            - template: ./cache-gems.yml
+              parameters:
+                platform: ${{ parameters.platform }}
             - script: 'bundle install'
               workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
               displayName: 'Install Ruby gems'
