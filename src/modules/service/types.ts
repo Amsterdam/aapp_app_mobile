@@ -1,6 +1,6 @@
 export enum ServiceEndpointName {
-  mapsOverview = 'mapsOverview',
   serviceMap = 'serviceMap',
+  serviceOverview = 'serviceOverview',
 }
 
 export type ServiceItem = {

@@ -7,7 +7,7 @@ import {baseApi} from '@/services/baseApi'
 
 export const serviceApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [ServiceEndpointName.mapsOverview]: builder.query<
+    [ServiceEndpointName.serviceOverview]: builder.query<
       ServiceOverViewResponse,
       void
     >({
@@ -20,4 +20,4 @@ export const serviceApi = baseApi.injectEndpoints({
   overrideExisting: false,
 })
 
-export const {useMapsOverviewQuery} = serviceApi
+export const {useServiceOverviewQuery} = serviceApi
