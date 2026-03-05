@@ -18,7 +18,9 @@ export const ServiceList = () => {
   return (
     <SimpleGrid
       data={serviceMaps}
+      keyExtractor={item => item.id}
       listKey="serviceMaps"
+      maxItemsPerRow={2}
       renderItem={({item}) => <ServiceListItem {...item} />}
     />
   )

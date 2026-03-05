@@ -8,7 +8,7 @@ export type ServiceItem = {
    * Svg path data
    */
   icon: string
-  id: number
+  id: string
   title: string
 }
 
