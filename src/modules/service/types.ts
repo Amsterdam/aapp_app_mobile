@@ -12,4 +12,4 @@ export type ServiceItem = {
   title: string
 }
 
-export type ServiceOverViewResponse = ServiceItem[]
+export type ServiceOverviewResponse = ServiceItem[]
