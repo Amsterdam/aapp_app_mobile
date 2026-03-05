@@ -36,25 +36,54 @@ export type IconProps = {
    * The name of the icon to display.
    */
   name: SvgIconName
+  path?: never
   /**
    * The size of the icon.
    */
   size?: keyof typeof IconSize
 } & Partial<TestProps>
 
+type ExternalIconProps = Omit<IconProps, 'name' | 'isFilled' | 'path'> & {
+  name?: never
+  /**
+   * Svg icon path data.
+   */
+  path: string
+}
+
 const DEFAULT_VIEW_BOX = '0 0 24 24'
 
 export const Icon = ({
   color = 'default',
-  name,
   size = 'md',
   testID,
   'logging-label': loggingLabel,
-  isFilled = false,
-}: IconProps) => {
+  ...rest
+}: IconProps | ExternalIconProps) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
+
+  if ('path' in rest) {
+    return (
+      <View
+        logging-label={loggingLabel}
+        testID={testID}>
+        <Svg
+          fillRule="evenodd"
+          height={scaledSize}
+          viewBox={DEFAULT_VIEW_BOX}
+          width={scaledSize}>
+          <Path
+            d={rest.path}
+            fill={colorTokens.text[color]}
+          />
+        </Svg>
+      </View>
+    )
+  }
+
+  const {name, isFilled = false} = rest
 
   const iconVariants: Partial<Record<SvgIconVariant, SvgIconConfig>> =
     SvgIconsConfig[name]
