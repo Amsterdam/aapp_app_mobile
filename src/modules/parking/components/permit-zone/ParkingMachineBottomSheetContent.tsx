@@ -31,6 +31,8 @@ import {
 } from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
 
+const ROUTE_ICON_LINE_HEIGHT_CORRECTION = 4
+
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
   const {isOpen} = useBottomSheetSelectors()
@@ -114,7 +116,7 @@ export const ParkingMachineBottomSheetContent = () => {
             alignSelf="flex-start"
             icon={{name: 'navigate', size: 'ml'}}
             label="Route"
-            lineHeightCorrection={4}
+            lineHeightCorrection={ROUTE_ICON_LINE_HEIGHT_CORRECTION}
             noPadding
             testID="ParkingMachineDetailsRouteExternalLinkButton"
             url={directionsUrl}
