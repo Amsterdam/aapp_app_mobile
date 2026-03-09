@@ -28,8 +28,8 @@ export const ParkingPermitZoneHeaderButton = () => {
 
   return (
     <IconButton
-      accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
+      accessibilityLabel={accessibilityLabel}
       icon={
         <Icon
           color="link"
