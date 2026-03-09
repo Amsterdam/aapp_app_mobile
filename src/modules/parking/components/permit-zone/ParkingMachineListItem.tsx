@@ -33,7 +33,9 @@ export const ParkingMachineListItem = ({
 
   return (
     <Pressable
-      accessibilityLabel={`Parkeerautomaat ${parkingMachine.id}`}
+      accessibilityLabel={`Parkeerautomaat ${parkingMachine.id}${
+        parkingMachine?.address ? ` op adres ${parkingMachine.address}` : ''
+      }${isFavorite ? ', ingesteld als favoriet' : ''}`}
       onPress={() => onPress(parkingMachine.id)}
       testID="ParkingMachineListItemButton">
       <Box
