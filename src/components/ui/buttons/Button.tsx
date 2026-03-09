@@ -24,6 +24,10 @@ export type ButtonProps = {
   isError?: boolean
   isLoading?: boolean
   label?: string
+  /**
+   * Line height correction is only applied to tertiary buttons, 6 by default.
+   */
+  lineHeightCorrection?: number
   noPadding?: boolean
   noPaddingHorizontal?: boolean
   noPaddingVertical?: boolean
@@ -52,6 +56,7 @@ export const Button = ({
   testID,
   underline = false,
   variant = defaultVariant,
+  lineHeightCorrection,
   ...pressableProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
@@ -64,6 +69,7 @@ export const Button = ({
     noPaddingHorizontal,
     noPaddingVertical,
     underline,
+    lineHeightCorrection,
   )
   const {onPressIn, onPressOut} = pressableProps
 
@@ -157,6 +163,7 @@ const createStyles = (
   noPaddingHorizontal: boolean,
   noPaddingVertical: boolean,
   underline?: boolean,
+  lineHeightCorrection: number = LINE_HEIGHT_CORRECTION,
 ) => {
   const buttonHeight = config.buttonHeight
   const borderWidth =
@@ -190,7 +197,7 @@ const createStyles = (
       borderWidth,
     },
     iconWrapper: {
-      marginTop: LINE_HEIGHT_CORRECTION, // Only applied to tertiary buttons
+      marginTop: lineHeightCorrection,
     },
     // TODO Use `Phrase` instead, after merging line height branch
     label: {

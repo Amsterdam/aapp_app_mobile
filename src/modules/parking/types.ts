@@ -431,3 +431,5 @@ export type ConfirmBalanceEndpointRequest = {
   signature: string
   status: string
 }
+
+export type ParkingPermitMapViewType = 'map' | 'list' | 'search'

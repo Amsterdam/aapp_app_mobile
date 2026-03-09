@@ -3,6 +3,8 @@ import {FlatList} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {Column} from '@/components/ui/layout/Column'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
@@ -42,22 +44,31 @@ export const ParkingMachineList = () => {
         data={parkingMachinesByDistance}
         ListHeaderComponent={
           <Box
+            insetBottom="sm"
             insetHorizontal="md"
-            insetVertical="lg">
-            {!address && (
-              <Title
-                level="h3"
-                shrink={0}
-                text="Voer een adres in en zie parkeerautomaten in de buurt"
+            insetTop="lg">
+            <Column gutter="lg">
+              {!address && (
+                <Title
+                  level="h3"
+                  shrink={0}
+                  text="Voer een adres in en zie parkeerautomaten in de buurt"
+                />
+              )}
+              <AddressSwitch
+                highAccuracyPurposeKey={
+                  HighAccuracyPurposeKey.PreciseLocationAddressParking
+                }
+                moduleSlug={ModuleSlug.parking}
+                testID="ParkingMachineListAddressSwitch"
               />
-            )}
-            <AddressSwitch
-              highAccuracyPurposeKey={
-                HighAccuracyPurposeKey.PreciseLocationAddressParking
-              }
-              moduleSlug={ModuleSlug.parking}
-              testID="ParkingMachineListAddressSwitch"
-            />
+
+              {!!address && (
+                <Phrase color="secondary">
+                  Resultaten gesorteerd op afstand:
+                </Phrase>
+              )}
+            </Column>
           </Box>
         }
         renderItem={({item: parkingMachine}) => (
