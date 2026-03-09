@@ -90,7 +90,7 @@ export const ParkingMachineBottomSheetContent = () => {
             <Title
               level="h3"
               ref={autoFocus}
-              text={`${selectedParkingMachineId} parkeerautomaat`}
+              text={`Parkeerautomaat ${selectedParkingMachineId}`}
             />
             <IconButton
               accessibilityLabel="Sluit parkeerautomaat details venster"
@@ -110,7 +110,7 @@ export const ParkingMachineBottomSheetContent = () => {
           )}
 
           <ExternalLinkButton
-            accessibilityLabel={`Open de routeplanner op uw telefoon met de route naar parkeermachine ${parkingMachine.id}.`}
+            accessibilityLabel={`Open de routeplanner op uw telefoon met de route naar parkeerautomaat ${parkingMachine.id}.`}
             alignSelf="flex-start"
             icon={{name: 'navigate', size: 'ml'}}
             label="Route"

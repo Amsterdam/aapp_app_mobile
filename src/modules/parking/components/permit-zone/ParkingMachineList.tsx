@@ -72,10 +72,12 @@ export const ParkingMachineList = () => {
           </Box>
         }
         renderItem={({item: parkingMachine}) => (
-          <ParkingMachineListItem
-            onPress={onSelectParkingMachine}
-            parkingMachine={parkingMachine}
-          />
+          <Box insetHorizontal="md">
+            <ParkingMachineListItem
+              onPress={onSelectParkingMachine}
+              parkingMachine={parkingMachine}
+            />
+          </Box>
         )}
       />
     </Box>
