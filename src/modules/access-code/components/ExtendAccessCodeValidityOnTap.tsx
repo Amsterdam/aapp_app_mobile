@@ -1,6 +1,6 @@
 import {ReactNode, useMemo} from 'react'
 import {Gesture, GestureDetector} from 'react-native-gesture-handler'
-import {runOnJS} from 'react-native-reanimated'
+import {scheduleOnRN} from 'react-native-worklets'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 
 type Props = {
@@ -13,7 +13,7 @@ export const ExtendAccessCodeValidityOnTap = ({children}: Props) => {
   const gesture = useMemo(
     () =>
       Gesture.Tap().onBegin(() => {
-        runOnJS(onExtendAccessCodeValidity)()
+        scheduleOnRN(onExtendAccessCodeValidity)
       }),
     [onExtendAccessCodeValidity],
   )

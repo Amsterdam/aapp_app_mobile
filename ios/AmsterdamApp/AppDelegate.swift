@@ -1,4 +1,4 @@
-import Expo
+internal import Expo
 import Firebase  // added for Firebase
 import RNBootSplash  // Added for react-native-bootsplash
 import React
@@ -76,7 +76,6 @@ class AppDelegate: ExpoAppDelegate {
 
         reactNativeDelegate = delegate
         reactNativeFactory = factory
-        bindReactNativeFactory(factory)
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
@@ -89,7 +88,7 @@ class AppDelegate: ExpoAppDelegate {
             launchOptions: launchOptions
         )
 
-        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+        return true
     }
 
     // Handle custom URL schemes (deep links)

@@ -47,7 +47,7 @@ module.exports = {
         alias,
       },
     ],
-    'react-native-reanimated/plugin',
     ['@babel/plugin-transform-flow-strip-types', {allowDeclareFields: true}],
+    'react-native-worklets/plugin',
   ],
 }

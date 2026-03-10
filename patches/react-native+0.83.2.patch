@@ -1,0 +1,32 @@
+diff --git a/node_modules/react-native/React/AccessibilityResources/nl.lproj/Localizable.strings b/node_modules/react-native/React/AccessibilityResources/nl.lproj/Localizable.strings
+new file mode 100644
+index 0000000..fc52f85
+--- /dev/null
++++ b/node_modules/react-native/React/AccessibilityResources/nl.lproj/Localizable.strings
+@@ -0,0 +1,26 @@
++/*
++  Localizable.strings
++  React
++*/
++"alert"="melding";
++"checkbox"="selectievakje";
++"combobox"="combobox";
++"menu"="menu";
++"menubar"="menu balk";
++"menuitem"="menu onderdeel";
++"progressbar"="Voortgangsbalk";
++"radio"="radio knop";
++"radiogroup"="Radiogroep";
++"scrollbar"="Schuifbalk";
++"spinbutton"="Pijltjesknop";
++"switch"="switch";
++"tab"="tab";
++"tablist"="tablijst";
++"timer"="timer";
++"toolbar"="werkbalk";
++"checked"="geselecteerd";
++"unchecked"="ongeselecteerd";
++"busy"="bezig";
++"expanded"="uitgeklapt";
++"collapsed"="ingeklapt";
++"mixed"="gemengd";

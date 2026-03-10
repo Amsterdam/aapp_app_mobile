@@ -1,15 +1,14 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     ext {
-        buildToolsVersion = "35.0.0"
+        buildToolsVersion = "36.0.0"
         minSdkVersion = 28
-        compileSdkVersion = 35
-        targetSdkVersion = 35
+        compileSdkVersion = 36
+        targetSdkVersion = 36
         enableHermes = true
         ndkVersion = "27.1.12297006"
-        kotlinVersion = "2.0.21"
-        playServicesLocationVersion = "21.0.1" // Fix for geo-location crash in combination with react-native maps: https://stackoverflow.com/questions/77274148/could-not-invoke-rnfusedlocation-getcurrentposition-react-native-geolocation-s
+        kotlinVersion = "2.1.20"
+        playServicesLocationVersion = "21.0.1"
+        // Fix for geo-location crash in combination with react-native maps: https://stackoverflow.com/questions/77274148/could-not-invoke-rnfusedlocation-getcurrentposition-react-native-geolocation-s
     }
     repositories {
         google()
@@ -21,7 +20,7 @@ buildscript {
         classpath 'com.facebook.react:react-native-gradle-plugin'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin'
         // Firebase
-        classpath 'com.google.gms:google-services:4.3.2'
+        classpath 'com.google.gms:google-services:4.4.2'
         // NOTE: Do not place your application dependencies here; they belong in the individual module build.gradle files
         classpath("org.rnrepo.tools:prebuilds-plugin:0.2.2")
     }
@@ -43,7 +42,7 @@ allprojects {
         maven { url = "https://packages.rnrepo.org/releases" }
     }
     afterEvaluate {
-        if (it.hasProperty('android')){
+        if (it.hasProperty('android')) {
             android {
                 defaultConfig {
                     minSdkVersion 24
@@ -54,3 +53,4 @@ allprojects {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+apply plugin: "expo-root-project"

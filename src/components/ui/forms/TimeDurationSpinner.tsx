@@ -5,11 +5,11 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  runOnJS,
   useDerivedValue,
   useAnimatedProps,
 } from 'react-native-reanimated'
 import Svg, {Circle, Defs, LinearGradient, Stop} from 'react-native-svg'
+import {scheduleOnRN} from 'react-native-worklets'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {TimeDurationSpinnerDirectionArrowFigure} from '@/components/ui/forms/TimeDurationSpinnerDirectionArrowFigure'
 import {useBoolean} from '@/hooks/useBoolean'
@@ -116,7 +116,7 @@ export const TimeDurationSpinner = ({
       const dy = event.y - centerY
 
       startAngle.value = Math.atan2(dy, dx)
-      runOnJS(enablePanActive)()
+      scheduleOnRN(enablePanActive)
     })
     .onUpdate(event => {
       const centerX = CIRCLE_SIZE / 2
@@ -148,7 +148,7 @@ export const TimeDurationSpinner = ({
 
       velocity.value = deltaDegrees // Calculate velocity
 
-      runOnJS(onChange)(hours, minutes)
+      scheduleOnRN(onChange, hours, minutes)
     })
     .onEnd(() => {
       if (velocity.value > 1) {
@@ -172,8 +172,8 @@ export const TimeDurationSpinner = ({
       )
 
       rotation.value = convertHoursAndMinutesToDegrees(hours, minutes)
-      runOnJS(onChange)(hours, minutes)
-      runOnJS(disablePanActive)()
+      scheduleOnRN(onChange, hours, minutes)
+      scheduleOnRN(disablePanActive)
     })
 
   const animatedStyle = useAnimatedStyle(() => ({
