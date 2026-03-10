@@ -134,12 +134,6 @@ module.exports = {
                   'Do not use getUniqueId, this is considered personal (privacy sensitive) information.',
               },
               {
-                name: 'react-native-super-grid',
-                importNames: ['SimpleGrid'],
-                message:
-                  'Import SimpleGrid from @/components/ui/containers/SimpleGrid.',
-              },
-              {
                 name: 'react-redux',
                 importNames: ['useDispatch', 'useSelector', 'useStore'],
                 message:

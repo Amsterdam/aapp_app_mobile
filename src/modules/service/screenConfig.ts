@@ -5,6 +5,7 @@ import {
   type ServiceStackParams,
 } from '@/modules/service/routes'
 import {ServiceHomeScreen} from '@/modules/service/screens/ServiceHome.screen'
+import {ServiceMapScreen} from '@/modules/service/screens/ServiceMap.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ServiceStackParams,
@@ -16,6 +17,10 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Handig in de stad',
     },
+  },
+  [ServiceRouteName.map]: {
+    component: ServiceMapScreen,
+    name: ServiceRouteName.map,
   },
 }
 
