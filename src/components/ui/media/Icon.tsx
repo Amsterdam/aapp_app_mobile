@@ -44,6 +44,7 @@ export type IconProps = {
 } & Partial<TestProps>
 
 type ExternalIconProps = Omit<IconProps, 'name' | 'isFilled' | 'path'> & {
+  isFilled?: never
   name?: never
   /**
    * Svg icon path data.
@@ -64,29 +65,11 @@ export const Icon = ({
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
 
-  if ('path' in rest) {
-    return (
-      <View
-        logging-label={loggingLabel}
-        testID={testID}>
-        <Svg
-          fillRule="evenodd"
-          height={scaledSize}
-          viewBox={DEFAULT_VIEW_BOX}
-          width={scaledSize}>
-          <Path
-            d={rest.path}
-            fill={colorTokens.text[color]}
-          />
-        </Svg>
-      </View>
-    )
-  }
+  const {name, path, isFilled = false} = rest
 
-  const {name, isFilled = false} = rest
-
-  const iconVariants: Partial<Record<SvgIconVariant, SvgIconConfig>> =
-    SvgIconsConfig[name]
+  const iconVariants: Partial<Record<SvgIconVariant, SvgIconConfig>> = name
+    ? SvgIconsConfig[name]
+    : {[SvgIconVariant.default]: {path}}
 
   const icon =
     iconVariants?.[isFilled ? SvgIconVariant.filled : SvgIconVariant.default]
@@ -95,7 +78,7 @@ export const Icon = ({
     Wrapper = Fragment,
     stroke,
     fillRule = 'evenodd',
-  } = AdditionalIconConfigs[name] ?? {}
+  } = (name && AdditionalIconConfigs[name]) || {}
 
   if (!icon) {
     devError(`Icon with name "${name}" does not exist.`)

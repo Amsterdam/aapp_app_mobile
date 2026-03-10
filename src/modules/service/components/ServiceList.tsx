@@ -20,7 +20,6 @@ export const ServiceList = () => {
       data={serviceMaps}
       keyExtractor={item => item.id}
       listKey="serviceMaps"
-      maxItemsPerRow={2}
       renderItem={({item}) => <ServiceListItem {...item} />}
     />
   )
