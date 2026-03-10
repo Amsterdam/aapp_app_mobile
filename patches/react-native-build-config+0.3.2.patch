@@ -1,0 +1,12 @@
+diff --git a/node_modules/react-native-build-config/android/build.gradle b/node_modules/react-native-build-config/android/build.gradle
+index 8eb2638..d8dd0c6 100644
+--- a/node_modules/react-native-build-config/android/build.gradle
++++ b/node_modules/react-native-build-config/android/build.gradle
+@@ -1,6 +1,6 @@
+ buildscript {
+     repositories {
+-        jcenter()
++        mavenCentral()
+     }
+ 
+     dependencies {

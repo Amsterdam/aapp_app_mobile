@@ -14,7 +14,8 @@
     "node_modules",
     "babel.config.js",
     "metro.config.js",
-    "jest.config.js"
+    "jest.config.js",
+    "**/Pods"
   ],
   "include": [
     "src",
@@ -28,5 +29,5 @@
     "*.mts",
     "nodescripts"
   ],
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config"
 }

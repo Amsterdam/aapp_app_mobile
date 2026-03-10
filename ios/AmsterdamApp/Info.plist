@@ -4,8 +4,8 @@
 <dict>
 	<key>BUILD_VARIANT</key>
 	<string>$(BUILD_VARIANT)</string>
-	<key>LSMinimumSystemVersion</key>
-	<string>12.0.0</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>nl</string>
 	<key>CFBundleDisplayName</key>
@@ -52,6 +52,8 @@
 		<string>https</string>
 		<string>itms-apps</string>
 	</array>
+	<key>LSMinimumSystemVersion</key>
+	<string>12.0.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -73,16 +75,16 @@
 	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<dict>
-		<key>PreciseLocationAddressConstructionWork</key>
-		<string>De Amsterdam app wil uw precieze locatie weten om werkzaamheden in de buurt te tonen.</string>
 		<key>PreciseLocationAddressBurningGuide</key>
 		<string>De Amsterdam app wil uw precieze locatie weten om het stookadvies bij u in de buurt te tonen.</string>
+		<key>PreciseLocationAddressConstructionWork</key>
+		<string>De Amsterdam app wil uw precieze locatie weten om werkzaamheden in de buurt te tonen.</string>
+		<key>PreciseLocationAddressLookup</key>
+		<string>De Amsterdam app wil uw precieze locatie weten om een adres op te zoeken.</string>
 		<key>PreciseLocationAddressParking</key>
 		<string>De Amsterdam app wil uw precieze locatie weten om parkeerpalen in uw buurt te tonen.</string>
 		<key>PreciseLocationAddressPollingStations</key>
 		<string>De Amsterdam app wil uw precieze locatie weten om stembureaus in uw buurt te tonen.</string>
-		<key>PreciseLocationAddressLookup</key>
-		<string>De Amsterdam app wil uw precieze locatie weten om een adres op te zoeken.</string>
 		<key>PreciseLocationAddressWasteGuide</key>
 		<string>De Amsterdam app wil uw precieze locatie weten afvalinformatie bij u in de buurt te tonen.</string>
 	</dict>
@@ -90,6 +92,8 @@
 	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>De Amsterdam app wil toegang tot je foto’s om die te kunnen delen.</string>
+	<key>RCTNewArchEnabled</key>
+	<true/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AmsterdamSans-ExtraBold.otf</string>
@@ -101,6 +105,8 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -118,7 +124,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIDesignRequiresCompatibility</key> <!-- Only necessary until React Native 0.82 -->
-	<true/>
 </dict>
 </plist>
