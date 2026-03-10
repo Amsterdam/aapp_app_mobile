@@ -17,16 +17,16 @@ import {ModuleSlug} from '@/modules/slugs'
 import {type ModuleClientConfig} from '@/modules/types'
 import {moduleLinkings} from '@/modules/utils/moduleLinkings'
 import {devLog} from '@/processes/development'
-import {store} from '@/store/store'
 import {type RootState} from '@/store/types/rootState'
 
 const messaging = getMessaging()
 
 const markNotificationAsRead = (
   notificationId: string | number | object | undefined,
+  dispatch: ReduxDispatch,
 ) => {
   if (typeof notificationId === 'string') {
-    void store.dispatch(
+    void dispatch(
       notificationHistoryApi.endpoints.markSingleNotificationRead.initiate({
         notificationId,
         isRead: true,
@@ -55,6 +55,7 @@ export const createLinking = (
 
       markNotificationAsRead(
         initialNotifeeNotification?.notification.data?.notificationId,
+        dispatch,
       )
 
       const notifeeUrl = getRouteFromNotification(
@@ -68,7 +69,10 @@ export const createLinking = (
       const initialFirebaseNotification =
         await getInitialNotification(messaging)
 
-      markNotificationAsRead(initialFirebaseNotification?.data?.notificationId)
+      markNotificationAsRead(
+        initialFirebaseNotification?.data?.notificationId,
+        dispatch,
+      )
 
       return getRouteFromNotification({
         data: initialFirebaseNotification?.data,
@@ -131,7 +135,7 @@ export const createLinking = (
     const unsubscribeOnNotificationOpenedApp = onNotificationOpenedApp(
       messaging,
       message => {
-        markNotificationAsRead(message.data?.notificationId)
+        markNotificationAsRead(message.data?.notificationId, dispatch)
 
         const url = getRouteFromNotification({
           data: message.data,
@@ -148,7 +152,10 @@ export const createLinking = (
     // Notifee foreground notification
     const removeListener = notifee.onForegroundEvent(({type, detail}) => {
       if (type === EventType.PRESS) {
-        markNotificationAsRead(detail.notification?.data?.notificationId)
+        markNotificationAsRead(
+          detail.notification?.data?.notificationId,
+          dispatch,
+        )
 
         const url = getRouteFromNotification(detail.notification)
 
