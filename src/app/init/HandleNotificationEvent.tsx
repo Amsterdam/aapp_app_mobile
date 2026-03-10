@@ -13,18 +13,18 @@ export const HandleNotificationEvent = () => {
   enabledModulesRef.current = enabledModules
 
   useEffect(() => {
-    notifee.onBackgroundEvent(({type, detail}) => {
+    notifee.onBackgroundEvent(async ({type, detail}) => {
       const notificationId = detail.notification?.data?.notificationId
 
       if (type === EventType.PRESS && typeof notificationId === 'string') {
-        void markNotificationAsRead({notificationId, isRead: true})
+        await markNotificationAsRead({notificationId, isRead: true})
       }
 
-      enabledModulesRef.current
-        ?.find(module => module.slug === detail.notification?.data?.module)
-        ?.onNotificationEvent?.(type, detail, true, store.dispatch)
-
-      return Promise.resolve()
+      await Promise.resolve(
+        enabledModulesRef.current
+          ?.find(module => module.slug === detail.notification?.data?.module)
+          ?.onNotificationEvent?.(type, detail, true, store.dispatch),
+      )
     })
   }, [markNotificationAsRead])
 
