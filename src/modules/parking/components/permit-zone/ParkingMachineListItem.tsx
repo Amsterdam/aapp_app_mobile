@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import type {ParkingMachine} from '@/modules/parking/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -5,7 +6,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Title} from '@/components/ui/text/Title'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 
 type Props = {
   onPress: (parkingMachineId: ParkingMachine['id']) => void
@@ -18,46 +20,57 @@ export const ParkingMachineListItem = ({
   parkingMachine,
   onPress,
 }: Props) => {
+  const {parking_machine_favorite} = useCurrentParkingPermit()
+
+  const isFavorite = useMemo(
+    () => parking_machine_favorite === parkingMachine?.id,
+    [parking_machine_favorite, parkingMachine],
+  )
+
   if (!parkingMachine) {
     return null
   }
 
   return (
-    <Box insetHorizontal="md">
-      <Pressable
-        accessibilityLabel={`Parkeerautomaat ${parkingMachine.id}`}
-        onPress={() => onPress(parkingMachine.id)}
-        testID="ParkingMachineListItemButton">
-        <Box
-          insetLeft="sm"
-          insetVertical={parkingMachine?.address ? 'sm' : 'md'}>
-          <Row gutter="smd">
-            {!!showIcon && (
-              <Icon
-                color="link"
-                logging-label="ParkingMachineListItemIcon"
-                name="map-marker"
-                size="lg"
-                testID="ParkingMachineListItemIcon"
-              />
-            )}
-            <Column>
-              <Title
-                accessible={false}
-                color="link"
-                level="h5"
-                text={parkingMachine.id}
-              />
+    <Pressable
+      accessibilityLabel={`Parkeerautomaat ${parkingMachine.id}${
+        parkingMachine?.address ? ` op adres ${parkingMachine.address}` : ''
+      }${isFavorite ? ', ingesteld als favoriet' : ''}`}
+      onPress={() => onPress(parkingMachine.id)}
+      testID="ParkingMachineListItemButton">
+      <Box
+        insetLeft="sm"
+        insetVertical={parkingMachine?.address ? 'sm' : 'md'}>
+        <Row gutter="smd">
+          {!!showIcon && (
+            <Icon
+              color="link"
+              isFilled={isFavorite}
+              logging-label="ParkingMachineListItemIcon"
+              name={isFavorite ? 'star' : 'map-marker'}
+              size="lg"
+              testID="ParkingMachineListItemIcon"
+            />
+          )}
+          <Column>
+            <Phrase
+              accessible={false}
+              color="link"
+              emphasis="strong">
+              {parkingMachine.id}
+              {!!isFavorite && <Phrase> - Ingesteld als favoriet </Phrase>}
+            </Phrase>
 
-              {!!parkingMachine?.address && (
-                <Paragraph accessible={false}>
-                  {parkingMachine.address}
-                </Paragraph>
-              )}
-            </Column>
-          </Row>
-        </Box>
-      </Pressable>
-    </Box>
+            {!!parkingMachine?.address && (
+              <Paragraph
+                accessible={false}
+                color="secondary">
+                {parkingMachine.address}
+              </Paragraph>
+            )}
+          </Column>
+        </Row>
+      </Box>
+    </Pressable>
   )
 }

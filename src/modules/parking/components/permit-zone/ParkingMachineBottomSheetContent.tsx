@@ -10,6 +10,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -29,6 +30,8 @@ import {
   useBottomSheetSelectors,
 } from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
+
+const ROUTE_ICON_LINE_HEIGHT_CORRECTION = 4
 
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -84,48 +87,42 @@ export const ParkingMachineBottomSheetContent = () => {
   return (
     <Box>
       <Column gutter="lg">
-        <Row align="between">
-          <Title
-            level="h3"
-            ref={autoFocus}
-            text={`Parkeerautomaat ${selectedParkingMachineId}`}
-          />
-          <IconButton
-            accessibilityLabel="Sluit parkeerautomaat details venster"
-            icon={
-              <Icon
-                name="close"
-                size="ml"
-              />
-            }
-            onPress={closeBottomSheet}
-            testID="ParkingMachineDetailsCloseButton"
-          />
-        </Row>
-
-        <Row
-          gutter="smd"
-          valign="start">
-          <Icon
-            name="map-marker"
-            size="lg"
-          />
-          <Column>
-            {!!parkingMachine?.address && (
-              <Title
-                level="h5"
-                text={parkingMachine.address}
-              />
-            )}
-            <ExternalLinkButton
-              label="Route openen"
-              noPadding
-              testID="ParkingMachineDetailsRouteExternalLinkButton"
-              url={directionsUrl}
-              variant="tertiary"
+        <Column gutter="xs">
+          <Row align="between">
+            <Title
+              level="h3"
+              ref={autoFocus}
+              text={`Parkeerautomaat ${selectedParkingMachineId}`}
             />
-          </Column>
-        </Row>
+            <IconButton
+              accessibilityLabel="Sluit parkeerautomaat details venster"
+              icon={
+                <Icon
+                  name="close"
+                  size="ml"
+                />
+              }
+              onPress={closeBottomSheet}
+              testID="ParkingMachineDetailsCloseButton"
+            />
+          </Row>
+
+          {currentPermit?.parking_machine_favorite === parkingMachine.id && (
+            <Phrase color="secondary">Ingesteld als favoriet</Phrase>
+          )}
+
+          <ExternalLinkButton
+            accessibilityLabel={`Open de routeplanner op uw telefoon met de route naar parkeerautomaat ${parkingMachine.id}.`}
+            alignSelf="flex-start"
+            icon={{name: 'navigate', size: 'ml'}}
+            label="Route"
+            lineHeightCorrection={ROUTE_ICON_LINE_HEIGHT_CORRECTION}
+            noPadding
+            testID="ParkingMachineDetailsRouteExternalLinkButton"
+            url={directionsUrl}
+            variant="tertiary"
+          />
+        </Column>
 
         {isError ? (
           <ParkingMachineBottomSheetErrorMessage error={error} />
