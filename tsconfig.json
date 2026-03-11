@@ -11,11 +11,11 @@
     "sourceMap": true
   },
   "exclude": [
-    "node_modules",
+    "**/node_modules",
+    "**/Pods",
     "babel.config.js",
     "metro.config.js",
-    "jest.config.js",
-    "**/Pods"
+    "jest.config.js"
   ],
   "include": [
     "src",
