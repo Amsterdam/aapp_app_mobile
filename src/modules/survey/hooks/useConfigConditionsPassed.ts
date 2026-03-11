@@ -9,6 +9,7 @@ import {
   selectSurveyParams,
   updateLastSeenAt,
 } from '@/modules/survey/slice'
+import {devLog} from '@/processes/development'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const useConfigConditionsPassed = (entryPoint: string) => {
@@ -37,31 +38,41 @@ export const useConfigConditionsPassed = (entryPoint: string) => {
   }, [dispatch, id, surveyParams])
 
   useEffect(
-    () => () => {
-      if (isCooldownOver) {
-        dispatch(updateLastSeenAt(id))
-      }
-
-      if (isMinimumActionsMet) {
-        dispatch(resetActionCount(id))
-      }
-
+    () => {
+      // Every mount of this hook assumes an (inter)action with the feature/module to which the survey belongs.
       if (
         surveyParams?.actionCount !== undefined &&
-        surveyParams?.actionCount < minimum_actions!
+        minimum_actions &&
+        surveyParams.actionCount < minimum_actions
       ) {
+        devLog(
+          `Adding action count for survey ${entryPoint}(ID: ${id}) from ${surveyParams.actionCount} -> ${surveyParams.actionCount + 1}`,
+        )
         dispatch(addActionCount(id))
       }
     },
-    [
-      dispatch,
-      id,
-      isCooldownOver,
-      isMinimumActionsMet,
-      isRandomlySelected,
-      minimum_actions,
-      surveyParams?.actionCount,
-    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dispatch, id, minimum_actions],
+  )
+
+  useEffect(
+    () => {
+      devLog('isConditionsPassed:', isConditionsPassed)
+      //TODO: move reset logic to place where we can be certain that the survey has been shown, in order to prevent false reset.
+
+      return () => {
+        // If conditions passed, the survey will show. Regardless of the trigger (fraction, action count, or cooldown) we need to update last seen and reset action count to 0 when this hook unmounts.
+        if (isConditionsPassed) {
+          devLog(
+            `Conditions passed and survey ${entryPoint}(ID: ${id}) has shown (at ${dayjs(surveyParams?.lastSeenAt).format('DD/MM/YYYY - HH:mm:ss')}), we need to reset counters.`,
+          )
+          dispatch(resetActionCount(id))
+          dispatch(updateLastSeenAt(id))
+        }
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dispatch, id, isConditionsPassed],
   )
 
   return {isConditionsPassed, survey, surveyId: id}
