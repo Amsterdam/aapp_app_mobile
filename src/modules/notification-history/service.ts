@@ -5,7 +5,7 @@ import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-const notificationHistoryApi = baseApi.injectEndpoints({
+export const notificationHistoryApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getNotifications: builder.query<GetNotificationsResult | undefined, void>({
       providesTags: ['Notifications'],
@@ -31,9 +31,25 @@ const notificationHistoryApi = baseApi.injectEndpoints({
         headers: deviceIdHeader,
       }),
     }),
+    markSingleNotificationRead: builder.mutation<
+      void,
+      {isRead: boolean; notificationId: string}
+    >({
+      invalidatesTags: ['Notifications'],
+      query: ({notificationId, isRead}) => ({
+        slug: GlobalApiSlug.notification,
+        method: 'PATCH',
+        url: `/notifications/${notificationId}`,
+        headers: deviceIdHeader,
+        body: {is_read: isRead},
+      }),
+    }),
   }),
   overrideExisting: true,
 })
 
-export const {useGetNotificationsQuery, useMarkAllNotificationsReadMutation} =
-  notificationHistoryApi
+export const {
+  useGetNotificationsQuery,
+  useMarkAllNotificationsReadMutation,
+  useMarkSingleNotificationReadMutation,
+} = notificationHistoryApi

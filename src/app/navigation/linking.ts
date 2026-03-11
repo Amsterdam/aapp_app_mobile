@@ -12,6 +12,7 @@ import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotificatio
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {clientModules} from '@/modules/modules'
+import {notificationHistoryApi} from '@/modules/notification-history/service'
 import {ModuleSlug} from '@/modules/slugs'
 import {type ModuleClientConfig} from '@/modules/types'
 import {moduleLinkings} from '@/modules/utils/moduleLinkings'
@@ -19,6 +20,20 @@ import {devLog} from '@/processes/development'
 import {type RootState} from '@/store/types/rootState'
 
 const messaging = getMessaging()
+
+const markNotificationAsRead = (
+  notificationId: string | number | object | undefined,
+  dispatch: ReduxDispatch,
+) => {
+  if (typeof notificationId === 'string') {
+    void dispatch(
+      notificationHistoryApi.endpoints.markSingleNotificationRead.initiate({
+        notificationId,
+        isRead: true,
+      }),
+    )
+  }
+}
 
 export const createLinking = (
   dispatch: ReduxDispatch,
@@ -38,6 +53,11 @@ export const createLinking = (
 
       const initialNotifeeNotification = await notifee.getInitialNotification()
 
+      markNotificationAsRead(
+        initialNotifeeNotification?.notification.data?.notificationId,
+        dispatch,
+      )
+
       const notifeeUrl = getRouteFromNotification(
         initialNotifeeNotification?.notification,
       )
@@ -48,6 +68,11 @@ export const createLinking = (
 
       const initialFirebaseNotification =
         await getInitialNotification(messaging)
+
+      markNotificationAsRead(
+        initialFirebaseNotification?.data?.notificationId,
+        dispatch,
+      )
 
       return getRouteFromNotification({
         data: initialFirebaseNotification?.data,
@@ -110,6 +135,8 @@ export const createLinking = (
     const unsubscribeOnNotificationOpenedApp = onNotificationOpenedApp(
       messaging,
       message => {
+        markNotificationAsRead(message.data?.notificationId, dispatch)
+
         const url = getRouteFromNotification({
           data: message.data,
           title: message.notification?.title,
@@ -125,6 +152,11 @@ export const createLinking = (
     // Notifee foreground notification
     const removeListener = notifee.onForegroundEvent(({type, detail}) => {
       if (type === EventType.PRESS) {
+        markNotificationAsRead(
+          detail.notification?.data?.notificationId,
+          dispatch,
+        )
+
         const url = getRouteFromNotification(detail.notification)
 
         if (url) {
