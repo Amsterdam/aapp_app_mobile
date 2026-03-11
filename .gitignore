@@ -104,3 +104,6 @@ tsconfig.tsbuildinfo
 
 # Expo
 .expo/
+
+# other
+ioslog.txt
