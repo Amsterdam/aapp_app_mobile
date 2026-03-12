@@ -8,7 +8,6 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {ServicePointDetailsProperties} from '@/modules/service/components/ServicePointDetailsProperties'
 import {useSelectedServicePointDetails} from '@/modules/service/hooks/useSelectedServicePointDetails'
 import {resetSelectedServicePointId} from '@/modules/service/slice'
@@ -22,14 +21,7 @@ export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
   const {close: closeBottomSheet} = useBottomSheet()
   const {isOpen} = useBottomSheetSelectors()
   const dispatch = useDispatch()
-
   const servicePointDetails = useSelectedServicePointDetails(serviceId)
-
-  const directionsUrl = useGetGoogleMapsDirectionsUrl({
-    lat: servicePointDetails?.coordinates.lat,
-    lon: servicePointDetails?.coordinates.lon,
-  })
-
   const autoFocus = useAccessibilityFocus()
 
   useEffect(() => {
@@ -67,12 +59,13 @@ export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
             />
           </Row>
 
-          {!!directionsUrl && (
-            <RouteButton
-              directionsUrl={directionsUrl}
-              testID="ServiceDetailsRouteButton"
-            />
-          )}
+          <RouteButton
+            coordinates={{
+              lat: servicePointDetails.coordinates.lat,
+              lon: servicePointDetails.coordinates.lon,
+            }}
+            testID="ServiceDetailsRouteButton"
+          />
         </Column>
 
         <ServicePointDetailsProperties properties={properties} />

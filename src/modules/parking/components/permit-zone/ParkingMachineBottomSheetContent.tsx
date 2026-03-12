@@ -15,7 +15,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
-import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {ParkingMachineBottomSheetErrorMessage} from '@/modules/parking/components/permit-zone/ParkingMachineBottomSheetErrorMessage'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
@@ -47,11 +46,6 @@ export const ParkingMachineBottomSheetContent = () => {
   const parkingMachine = data?.find(
     machine => machine.id === selectedParkingMachineId,
   )
-
-  const directionsUrl = useGetGoogleMapsDirectionsUrl({
-    lat: parkingMachine?.lat,
-    lon: parkingMachine?.lon,
-  })
 
   const {
     data: parkingMachineDetails,
@@ -109,13 +103,14 @@ export const ParkingMachineBottomSheetContent = () => {
             <Phrase color="secondary">Ingesteld als favoriet</Phrase>
           )}
 
-          {!!directionsUrl && (
-            <RouteButton
-              accessibilityLabel={`Open de routeplanner op uw telefoon met de route naar parkeerautomaat ${parkingMachine.id}.`}
-              directionsUrl={directionsUrl}
-              testID="ParkingMachineDetailsRouteButton"
-            />
-          )}
+          <RouteButton
+            accessibilityLabel={`Open de routeplanner op uw telefoon met de route naar parkeerautomaat ${parkingMachine.id}.`}
+            coordinates={{
+              lat: parkingMachine.lat,
+              lon: parkingMachine.lon,
+            }}
+            testID="ParkingMachineDetailsRouteButton"
+          />
         </Column>
 
         {isError ? (
