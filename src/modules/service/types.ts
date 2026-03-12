@@ -1,9 +1,9 @@
 import type {EmptyObject} from '@/types/utils'
-import type {FeatureCollection, Feature} from 'geojson'
+import type {Feature} from 'geojson'
 import type {LatLng} from 'react-native-maps'
 
 export enum ServiceEndpointName {
-  serviceMap = 'serviceMap',
+  service = 'service',
   serviceOverview = 'serviceOverview',
 }
 
@@ -26,10 +26,18 @@ type FeatureProperties = {
   aapp_title: string
 } & Record<string, unknown>
 
-export type ServiceFeature = Feature<FeatureGeometry, FeatureProperties>
+export type ServiceFeature = Omit<
+  Feature<FeatureGeometry, FeatureProperties>,
+  'id'
+> & {id: string}
+
+type ServiceGeoJSON = {
+  features: Array<ServiceFeature>
+  type: 'FeatureCollection'
+}
 
 export type ServiceMapResponse = {
-  data: FeatureCollection<FeatureGeometry, FeatureProperties> | EmptyObject
+  data: ServiceGeoJSON | EmptyObject
   /**
    * @todo verify and refine
    */

@@ -19,7 +19,7 @@ export const serviceApi = baseApi.injectEndpoints({
         url: '/maps',
       }),
     }),
-    [ServiceEndpointName.serviceMap]: builder.query<
+    [ServiceEndpointName.service]: builder.query<
       ServiceMapResponse,
       ServiceItem['id']
     >({
@@ -33,4 +33,4 @@ export const serviceApi = baseApi.injectEndpoints({
   overrideExisting: false,
 })
 
-export const {useServiceOverviewQuery, useServiceMapQuery} = serviceApi
+export const {useServiceOverviewQuery, useServiceQuery} = serviceApi

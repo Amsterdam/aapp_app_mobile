@@ -7,35 +7,29 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {
-  resetSelectedServiceDetails,
-  useSelectedServicePointDetails,
-} from '@/modules/service/slice'
+import {resetSelectedServicePointId} from '@/modules/service/slice'
+import {type ServiceItem} from '@/modules/service/types'
 import {
   useBottomSheet,
   useBottomSheetSelectors,
 } from '@/store/slices/bottomSheet'
 
-export const ServiceDetails = () => {
+export const ServicePointDetails = ({
+  id: serviceId,
+}: {
+  id: ServiceItem['id']
+}) => {
   const {close: closeBottomSheet} = useBottomSheet()
   const {isOpen} = useBottomSheetSelectors()
   const dispatch = useDispatch()
-
-  const serviceDetails = useSelectedServicePointDetails()
 
   const autoFocus = useAccessibilityFocus()
 
   useEffect(() => {
     if (!isOpen) {
-      dispatch(resetSelectedServiceDetails())
+      dispatch(resetSelectedServicePointId())
     }
   }, [dispatch, isOpen])
-
-  if (!serviceDetails) {
-    return null
-  }
-
-  const {title} = serviceDetails
 
   return (
     <Box>
@@ -45,10 +39,10 @@ export const ServiceDetails = () => {
             <Title
               level="h3"
               ref={autoFocus}
-              text={title}
+              text={`Service: ${serviceId}`} // Placeholder
             />
             <IconButton
-              accessibilityLabel={`Sluit ${title} details venster`}
+              accessibilityLabel={`Sluit ${serviceId} details venster`} // Placeholder
               icon={
                 <Icon
                   name="close"
