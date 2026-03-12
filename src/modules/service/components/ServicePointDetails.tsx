@@ -68,7 +68,7 @@ export const ServicePointDetails = ({
               lat: servicePointDetails.coordinates.lat,
               lon: servicePointDetails.coordinates.lon,
             }}
-            testID="ServiceDetailsRouteButton"
+            testID="ServicePointDetailsRouteButton"
           />
         </Column>
 
