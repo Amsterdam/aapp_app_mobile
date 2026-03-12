@@ -1,8 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
-import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
+import {RouteButton} from '@/components/ui/buttons/RouteButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -30,8 +30,6 @@ import {
   useBottomSheetSelectors,
 } from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
-
-const ROUTE_ICON_LINE_HEIGHT_CORRECTION = 4
 
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -111,17 +109,13 @@ export const ParkingMachineBottomSheetContent = () => {
             <Phrase color="secondary">Ingesteld als favoriet</Phrase>
           )}
 
-          <ExternalLinkButton
-            accessibilityLabel={`Open de routeplanner op uw telefoon met de route naar parkeerautomaat ${parkingMachine.id}.`}
-            alignSelf="flex-start"
-            icon={{name: 'navigate', size: 'ml'}}
-            label="Route"
-            lineHeightCorrection={ROUTE_ICON_LINE_HEIGHT_CORRECTION}
-            noPadding
-            testID="ParkingMachineDetailsRouteExternalLinkButton"
-            url={directionsUrl}
-            variant="tertiary"
-          />
+          {!!directionsUrl && (
+            <RouteButton
+              accessibilityLabel={`Open de routeplanner op uw telefoon met de route naar parkeerautomaat ${parkingMachine.id}.`}
+              directionsUrl={directionsUrl}
+              testID="ParkingMachineDetailsRouteButton"
+            />
+          )}
         </Column>
 
         {isError ? (

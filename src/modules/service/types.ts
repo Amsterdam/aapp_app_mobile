@@ -24,7 +24,7 @@ type FeatureProperties = {
    * Title of service point
    */
   aapp_title: string
-} & Record<string, unknown>
+} & Record<string, string | number | null>
 
 export type ServiceFeature = Omit<
   Feature<FeatureGeometry, FeatureProperties>,
@@ -72,3 +72,8 @@ export type ServicePointDetails = {
   coordinates: LatLng
   id: string
 } & Record<string, unknown>
+
+export type ServiceFeatureProperty = {
+  icon: string | null
+  label: string | null
+} & Partial<Record<ServiceDetailPropertyType, string | number | null>>
