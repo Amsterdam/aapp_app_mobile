@@ -39,19 +39,17 @@ export const ServicePointDetailsProperties = ({
       }
 
       const content = formatPropertyValue(propertyType, value)
-      const hasIcons = properties.some(p => p.icon)
 
       return (
         <Row
           gutter="smd"
           key={label || index}
           valign="start">
-          {!!hasIcons && (
-            <Icon
-              path={icon || ''} // We show an empty Icon when no icon is provided, to match the padding with rows that do have an icon
-              size="lg"
-            />
-          )}
+          <Icon
+            path={icon || ''} // We show an empty Icon when no icon is provided, to match the horizontal alignment with rows that do have an icon
+            size="lg"
+          />
+
           {label ? (
             <SingleSelectable
               accessibilityLabel={`${label}${content && ', '}${content}`}>
