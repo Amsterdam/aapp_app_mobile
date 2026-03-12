@@ -21,6 +21,9 @@ export const screenConfig: StackNavigationRoutes<
   [ServiceRouteName.map]: {
     component: ServiceMapScreen,
     name: ServiceRouteName.map,
+    options: {
+      headerShown: false,
+    },
   },
 }
 

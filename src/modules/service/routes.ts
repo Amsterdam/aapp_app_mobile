@@ -7,7 +7,7 @@ export enum ServiceRouteName {
 
 export type ServiceStackParams = {
   [ServiceRouteName.overview]: undefined
-  [ServiceRouteName.map]: {id: ServiceItem['id']}
+  [ServiceRouteName.map]: {id: ServiceItem['id']; title: ServiceItem['title']}
 }
 
 export enum ServiceModalName {}

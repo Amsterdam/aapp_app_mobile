@@ -36,3 +36,14 @@ export type Common<A, B> = OmitNever<Pick<A & B, keyof A & keyof B>>
  * Make selected properties in a type required
  */
 export type RequirePick<T, K extends keyof T> = T & Required<Pick<T, K>>
+
+declare const $Empty: unique symbol
+/**
+ * The `EmptyObject` type in TypeScript represents an object with no properties.
+ * @property {never}  - The `EmptyObject` type is defined as an object type with a single property
+ * `[]` that is optional and can never have a value. This type essentially represents an empty
+ * object with no properties.
+ */
+export type EmptyObject = {
+  readonly [$Empty]?: never
+}

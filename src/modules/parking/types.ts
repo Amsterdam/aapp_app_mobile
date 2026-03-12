@@ -1,3 +1,4 @@
+import type {EmptyObject} from '@/types/utils'
 import type {FeatureCollection} from 'geojson'
 import {Paginated, PaginationQueryArgs} from '@/types/api'
 
@@ -157,11 +158,6 @@ export enum PermitType {
   codevergunning = 'Codevergunning',
   kraskaartvergunning = 'Kraskaartvergunning',
   mantelzorgvergunning = 'Mantelzorgvergunning',
-}
-
-declare const $Empty: unique symbol
-export type EmptyObject = {
-  readonly [$Empty]?: never
 }
 
 export type PermitZoneGeoJsonResponse = {

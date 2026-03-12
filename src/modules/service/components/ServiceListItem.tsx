@@ -16,7 +16,7 @@ export const ServiceListItem = ({icon, title, id}: ServiceItem) => {
 
   return (
     <Pressable
-      onPress={() => navigate(ServiceRouteName.map, {id})}
+      onPress={() => navigate(ServiceRouteName.map, {id, title})}
       testID={`ServiceItem${pascalCase(title)}Button`}>
       <View style={styles.item}>
         <Column
