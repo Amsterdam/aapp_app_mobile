@@ -1,3 +1,4 @@
+import {Fragment} from 'react'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -9,7 +10,6 @@ import {
   ServiceDetailPropertyType,
   type ServiceFeatureProperty,
 } from '@/modules/service/types'
-import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 
 export const ServicePointDetailsProperties = ({
   properties,
@@ -17,28 +17,18 @@ export const ServicePointDetailsProperties = ({
   properties: ServiceFeatureProperty[]
 }) => (
   <Column gutter="lg">
-    {properties.map(({icon, label, ...property}, index) => {
-      const [propertyType, value] = Object.entries(property)[0] as [
-        ServiceDetailPropertyType,
-        string | number | null,
-      ]
-
-      if (
-        propertyType === ServiceDetailPropertyType.image &&
-        typeof value === 'string'
-      ) {
+    {properties.map(({icon, label, type, value}, index) => {
+      if (type === ServiceDetailPropertyType.image) {
         return (
           <LazyImage
             aspectRatio="wide"
             fallbackInheritsAspectRatio={false}
-            key={`${propertyType}-${index}`}
-            source={{uri: value}}
+            key={`${type}-${index}`}
+            source={{uri: value as string}}
             testID="ServicePointDetailsPropertiesImage"
           />
         )
       }
-
-      const content = formatPropertyValue(propertyType, value)
 
       return (
         <Row
@@ -52,18 +42,18 @@ export const ServicePointDetailsProperties = ({
 
           {label ? (
             <SingleSelectable
-              accessibilityLabel={`${label}${content && ', '}${content}`}>
+              accessibilityLabel={`${[label, value].join(', ')}`}>
               <Column>
                 <Title
                   level="h5"
                   text={label}
                 />
 
-                {!!content && <Paragraph>{content}</Paragraph>}
+                {!!value && <Paragraph>{value}</Paragraph>}
               </Column>
             </SingleSelectable>
           ) : (
-            <Paragraph>{content}</Paragraph>
+            <Fragment>{!!value && <Paragraph>{value}</Paragraph>}</Fragment>
           )}
         </Row>
       )

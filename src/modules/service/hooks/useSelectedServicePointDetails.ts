@@ -1,9 +1,13 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import type {ServiceFeatureProperty} from '@/modules/service/types'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useServiceQuery} from '@/modules/service/service'
 import {selectSelectedServicePointId} from '@/modules/service/slice'
+import {
+  ServiceFeatureProperty,
+  ServiceDetailPropertyKey,
+} from '@/modules/service/types'
+import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 
 type SelectedServicePointDetails = {
   coordinates: {
@@ -43,23 +47,33 @@ export const useSelectedServicePointDetails = (serviceId: string) => {
         lon: servicePoint.geometry.coordinates[0],
       },
       properties: properties_to_include
-        .map(({property_key, property_type, icon, label}) => {
-          const isOpeningHours = property_key === 'aapp_opening_hours'
-          const isDaysOpen = property_key === 'aapp_days_open'
-
-          if (isDaysOpen) {
-            return {icon, label}
+        .map(({property_key, property_type: type, ...rest}) => {
+          if (property_key === ServiceDetailPropertyKey.aapp_days_open) {
+            // Skip app_days_open as it will be concatenated to aapp_opening_hours as per design
+            return {
+              ...rest,
+              type,
+              value: null,
+            }
           }
 
-          const openingHoursCombined =
-            `${servicePoint.properties[property_key]}\n${servicePoint.properties.aapp_days_open ?? ''}`.trim()
+          // app_days_open must be concatenated to aapp_opening_hours as per design
+          const openingHoursAndDaysCombined = [
+            servicePoint.properties[property_key],
+            servicePoint.properties.aapp_days_open,
+          ]
+            .join('\n')
+            .trim()
 
           return {
-            [property_type]: isOpeningHours
-              ? openingHoursCombined
-              : servicePoint.properties[property_key],
-            icon,
-            label,
+            ...rest,
+            type,
+            value: formatPropertyValue(
+              type,
+              property_key === ServiceDetailPropertyKey.aapp_opening_hours
+                ? openingHoursAndDaysCombined
+                : servicePoint.properties[property_key],
+            ),
           }
         })
         .filter(property => Object.entries(property)[0][1] !== null),

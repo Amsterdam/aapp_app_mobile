@@ -64,7 +64,7 @@ export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
               lat: servicePointDetails.coordinates.lat,
               lon: servicePointDetails.coordinates.lon,
             }}
-            testID="ServiceDetailsRouteButton"
+            testID="ServicePointDetailsRouteButton"
           />
         </Column>
 
