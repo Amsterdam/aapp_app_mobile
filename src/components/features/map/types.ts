@@ -1,6 +1,6 @@
 import type {MarkerVariant} from '@/components/features/map/marker/markers.generated'
+import type {IconProps} from '@/components/ui/media/Icon'
 import type {Supercluster} from 'react-native-clusterer'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'
 
 export enum ControlVariant {
@@ -10,7 +10,7 @@ export enum ControlVariant {
 
 export type MapControlOption = {
   accessibilityLabel: string
-  iconName: SvgIconName
+  icon: IconProps
   key: ControlVariant
   onPress: () => void
 } & TestProps

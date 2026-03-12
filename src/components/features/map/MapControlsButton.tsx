@@ -1,18 +1,17 @@
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
-import {Icon} from '@/components/ui/media/Icon'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
 
 type Props = {
   accessibilityLabel: string
-  iconName: SvgIconName
+  icon: IconProps
   onPress: () => void
 } & TestProps
 
 export const MapControlsButton = ({
   accessibilityLabel,
-  iconName,
+  icon,
   onPress,
   testID,
 }: Props) => (
@@ -26,7 +25,7 @@ export const MapControlsButton = ({
       inset="sm">
       <Icon
         color="link"
-        name={iconName}
+        {...icon}
         size="lg"
       />
     </Box>
