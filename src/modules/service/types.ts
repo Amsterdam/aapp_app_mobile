@@ -1,5 +1,5 @@
-import type {FeatureCollection, Feature} from 'geojson'
 import type {EmptyObject} from '@/types/utils'
+import type {FeatureCollection, Feature} from 'geojson'
 import type {LatLng} from 'react-native-maps'
 
 export enum ServiceEndpointName {
@@ -18,39 +18,13 @@ export type ServiceItem = {
 
 export type ServiceOverviewResponse = ServiceItem[]
 
-/**
- * @todo verify and refine
- */
-type FeaturePropertiesToilet = {
-  Prijs_per_gebruik: number
-  aapp_days_open: null
-  aapp_description: string
-  aapp_image_url: string
-  aapp_is_accessible: boolean
-  aapp_is_toilet: boolean
-  aapp_opening_hours: string
-  aapp_title: string
-}
-
-/**
- * @todo verify and refine
- */
-type FeaturePropertiesWater = {
-  aapp_addres: null | {
-    bagId: string
-    city: string
-    coordinates: [number, number]
-    number: string
-    postcode: string
-    street: string
-  }
-  aapp_title: string
-  type: string
-}
-
-type FeatureProperties = FeaturePropertiesToilet | FeaturePropertiesWater
-
 type FeatureGeometry = {coordinates: [number, number]; type: 'Point'}
+type FeatureProperties = {
+  /**
+   * Title of service point
+   */
+  aapp_title: string
+} & Record<string, unknown>
 
 export type ServiceFeature = Feature<FeatureGeometry, FeatureProperties>
 
