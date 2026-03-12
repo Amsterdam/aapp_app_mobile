@@ -21,20 +21,20 @@ export const useMapControlsOptions = (
     () => ({
       [ControlVariant.location]: {
         accessibilityLabel: 'Mijn locatie',
-        iconName: locationIcon.name,
+        icon: {...locationIcon},
         key: ControlVariant.location,
         onPress: onPressLocationButton,
         testID: 'MapControlsLocationButton',
       },
       [ControlVariant.legend]: {
         accessibilityLabel: 'Legenda weergeven',
-        iconName: 'layers',
+        icon: {name: 'layers'},
         key: ControlVariant.legend,
         onPress: onPressLegendButton,
         testID: 'MapControlsLegendButton',
       },
     }),
-    [locationIcon.name, onPressLocationButton, onPressLegendButton],
+    [locationIcon, onPressLocationButton, onPressLegendButton],
   )
 
   return useMemo(
