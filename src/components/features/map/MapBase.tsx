@@ -83,7 +83,7 @@ export const MapBase = ({
                   />
                 </View>
               )}
-              {!isError && (
+              {!!isError && (
                 <View
                   pointerEvents="auto"
                   style={styles.error}>
