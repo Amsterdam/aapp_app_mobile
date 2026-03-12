@@ -25,7 +25,7 @@ export const ServiceListItem = ({icon, title, id}: ServiceItem) => {
           <Icon
             color="inverse"
             path={icon}
-            size="xl"
+            size="xll"
           />
           <Phrase
             color="inverse"

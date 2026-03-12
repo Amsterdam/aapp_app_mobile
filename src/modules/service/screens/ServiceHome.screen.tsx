@@ -7,12 +7,15 @@ import {Survey} from '@/modules/survey/exports/Survey'
 
 export const ServiceHomeScreen = () => (
   <Screen testID="ServiceHomeScreen">
-    <Box>
+    <Box
+      insetHorizontal="sm"
+      insetVertical="md">
       <Column gutter="xl">
-        <Paragraph variant="intro">
-          Kies een onderwerp en u vindt alle plekken op de kaart.
-        </Paragraph>
-
+        <Box insetHorizontal="sm">
+          <Paragraph variant="intro">
+            Kies een onderwerp en u vindt alle plekken op de kaart.
+          </Paragraph>
+        </Box>
         <ServiceList />
       </Column>
     </Box>
