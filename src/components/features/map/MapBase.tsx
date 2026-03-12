@@ -68,30 +68,32 @@ export const MapBase = ({
   return (
     <MapContext.Provider value={context}>
       <View style={styles.container}>
-        <View style={styles.overlay}>
-          <Column gutter="md">
-            {!!controls?.length && (
-              <View style={styles.controls}>
-                <MapControls
-                  moduleSlug={moduleSlug}
-                  variants={controls}
-                />
-              </View>
-            )}
-            {!!isError && (
-              <View style={styles.error}>
-                <AlertInline
-                  hasCloseIcon
-                  inset="no"
-                  testID="MapBaseSomethingWentWrong"
-                  text="Probeer het later nog eens."
-                  title="De gegevens kunnen niet worden geladen"
-                  variant={AlertVariant.negative}
-                />
-              </View>
-            )}
-          </Column>
-        </View>
+        {(!!controls?.length || !!isError) && (
+          <View style={styles.overlay}>
+            <Column gutter="md">
+              {!!controls?.length && (
+                <View style={styles.controls}>
+                  <MapControls
+                    moduleSlug={moduleSlug}
+                    variants={controls}
+                  />
+                </View>
+              )}
+              {!!isError && (
+                <View style={styles.error}>
+                  <AlertInline
+                    hasCloseIcon
+                    inset="no"
+                    testID="MapBaseSomethingWentWrong"
+                    text="Probeer het later nog eens."
+                    title="De gegevens kunnen niet worden geladen"
+                    variant={AlertVariant.negative}
+                  />
+                </View>
+              )}
+            </Column>
+          </View>
+        )}
         <MapView
           collapsable={false}
           initialRegion={AMSTERDAM_REGION} // Default initial region is overview of Amsterdam.
