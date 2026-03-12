@@ -1,5 +1,7 @@
 import {
   ServiceEndpointName,
+  type ServiceItem,
+  type ServiceMapResponse,
   type ServiceOverviewResponse,
 } from '@/modules/service/types'
 import {ModuleSlug} from '@/modules/slugs'
@@ -12,12 +14,23 @@ export const serviceApi = baseApi.injectEndpoints({
       void
     >({
       query: () => ({
+        method: 'GET',
         slug: ModuleSlug.service,
         url: '/maps',
+      }),
+    }),
+    [ServiceEndpointName.service]: builder.query<
+      ServiceMapResponse,
+      ServiceItem['id']
+    >({
+      query: serviceId => ({
+        method: 'GET',
+        slug: ModuleSlug.service,
+        url: `/maps/${serviceId}`,
       }),
     }),
   }),
   overrideExisting: false,
 })
 
-export const {useServiceOverviewQuery} = serviceApi
+export const {useServiceOverviewQuery, useServiceQuery} = serviceApi

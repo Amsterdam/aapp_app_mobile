@@ -4,8 +4,8 @@ import {
   type ServiceModalParams,
   type ServiceStackParams,
 } from '@/modules/service/routes'
+import {ServiceScreen} from '@/modules/service/screens/Service.screen'
 import {ServiceHomeScreen} from '@/modules/service/screens/ServiceHome.screen'
-import {ServiceMapScreen} from '@/modules/service/screens/ServiceMap.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ServiceStackParams,
@@ -19,8 +19,11 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
   [ServiceRouteName.map]: {
-    component: ServiceMapScreen,
+    component: ServiceScreen,
     name: ServiceRouteName.map,
+    options: {
+      headerShown: false,
+    },
   },
 }
 
