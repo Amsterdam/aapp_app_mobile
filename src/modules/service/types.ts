@@ -1,4 +1,4 @@
-import {FeatureCollection, type Feature} from 'geojson'
+import type {FeatureCollection, Feature} from 'geojson'
 import type {EmptyObject} from '@/types/utils'
 import type {LatLng} from 'react-native-maps'
 
