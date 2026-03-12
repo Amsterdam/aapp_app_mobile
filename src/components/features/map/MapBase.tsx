@@ -69,18 +69,24 @@ export const MapBase = ({
     <MapContext.Provider value={context}>
       <View style={styles.container}>
         {(!!controls?.length || !!isError) && (
-          <View style={styles.overlay}>
+          <View
+            pointerEvents="box-none"
+            style={styles.overlay}>
             <Column gutter="md">
               {!!controls?.length && (
-                <View style={styles.controls}>
+                <View
+                  pointerEvents="auto"
+                  style={styles.controls}>
                   <MapControls
                     moduleSlug={moduleSlug}
                     variants={controls}
                   />
                 </View>
               )}
-              {!!isError && (
-                <View style={styles.error}>
+              {!isError && (
+                <View
+                  pointerEvents="auto"
+                  style={styles.error}>
                   <AlertInline
                     hasCloseIcon
                     inset="no"
