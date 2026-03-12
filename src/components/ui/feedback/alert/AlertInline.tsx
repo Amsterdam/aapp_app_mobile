@@ -10,7 +10,7 @@ import {isEmptyObject} from '@/utils/object'
 /**
  * Inline alert that can be dismissed by the user.
  */
-export const AlertInline = ({...alert}: AlertBaseProps) => {
+export const AlertInline = ({inset = 'md', ...alert}: AlertBaseProps) => {
   const [isVisible, setIsVisible] = useState(true)
 
   useBlurEffect(() => setIsVisible(false))
@@ -31,7 +31,7 @@ export const AlertInline = ({...alert}: AlertBaseProps) => {
       <AlertBase
         hasCloseIcon
         hasIcon
-        inset="md"
+        inset={inset}
         {...alert}
       />
     </Pressable>

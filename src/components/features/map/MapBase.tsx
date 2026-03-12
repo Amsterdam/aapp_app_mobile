@@ -15,11 +15,15 @@ import {
   ANIMATION_DURATION,
 } from '@/components/features/map/constants'
 import {ControlVariant} from '@/components/features/map/types'
+import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
+import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
+import {Column} from '@/components/ui/layout/Column'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = PropsWithChildren<{
   controls?: ControlVariant[]
+  isError?: boolean
   moduleSlug: ModuleSlug
 }> &
   MapViewProps
@@ -27,6 +31,7 @@ type Props = PropsWithChildren<{
 export const MapBase = ({
   children,
   controls,
+  isError,
   initialRegion,
   moduleSlug,
   ...mapViewProps
@@ -63,14 +68,30 @@ export const MapBase = ({
   return (
     <MapContext.Provider value={context}>
       <View style={styles.container}>
-        {!!controls?.length && (
-          <View style={styles.controls}>
-            <MapControls
-              moduleSlug={moduleSlug}
-              variants={controls}
-            />
-          </View>
-        )}
+        <View style={styles.overlay}>
+          <Column gutter="md">
+            {!!controls?.length && (
+              <View style={styles.controls}>
+                <MapControls
+                  moduleSlug={moduleSlug}
+                  variants={controls}
+                />
+              </View>
+            )}
+            {!!isError && (
+              <View style={styles.error}>
+                <AlertInline
+                  hasCloseIcon
+                  inset="no"
+                  testID="MapBaseSomethingWentWrong"
+                  text="Probeer het later nog eens."
+                  title="De gegevens kunnen niet worden geladen"
+                  variant={AlertVariant.negative}
+                />
+              </View>
+            )}
+          </Column>
+        </View>
         <MapView
           collapsable={false}
           initialRegion={AMSTERDAM_REGION} // Default initial region is overview of Amsterdam.
@@ -101,12 +122,17 @@ const createStyles = ({size}: Theme) =>
       flex: 1,
     },
     controls: {
-      position: 'absolute',
-      top: size.spacing.md,
-      right: size.spacing.md,
-      zIndex: 1,
+      alignSelf: 'flex-end',
     },
+    error: {},
     mapView: {
       flex: 1,
+    },
+    overlay: {
+      width: '100%',
+      position: 'absolute',
+      top: size.spacing.md,
+      padding: size.spacing.md,
+      zIndex: 1,
     },
   })

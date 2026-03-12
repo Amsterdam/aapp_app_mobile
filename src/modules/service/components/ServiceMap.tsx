@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback, useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import type {ServiceItem} from '@/modules/service/types'
 import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
@@ -19,8 +19,12 @@ import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
-  const {data, isLoading, isError} = useServiceQuery(serviceId || skipToken)
-  const {data: geojson} = data || {}
+  const {
+    data: service,
+    isLoading,
+    isError,
+  } = useServiceQuery(serviceId || skipToken)
+  const geojson = service?.data
 
   const [region, setRegion] = useState<Region | undefined>()
 
@@ -38,34 +42,33 @@ export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
     [dispatch, open],
   )
 
+  const data = useMemo(
+    () =>
+      geojson && 'features' in geojson
+        ? geojson?.features?.map(({id, ...feature}) => ({
+            ...feature,
+            properties: {
+              id,
+              variant: markerVariant(id, MarkerVariant.pin),
+              onMarkerPress: () => onServicePointPress(id),
+            },
+          }))
+        : [],
+    [geojson, markerVariant, onServicePointPress],
+  )
+
   if (isLoading) {
     return <PleaseWait testID="ServiceMapPleaseWait" />
-  }
-
-  if (
-    isError ||
-    !geojson ||
-    !('features' in geojson) ||
-    Object.keys(geojson).length === 0
-  ) {
-    //TODO: error overlay
-    return null
   }
 
   return (
     <MapBase
       controls={[ControlVariant.location]}
+      isError={isError || !data?.length}
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
       <Clusterer
-        data={geojson.features.map(({id, ...feature}) => ({
-          ...feature,
-          properties: {
-            id,
-            variant: markerVariant(id, MarkerVariant.pin),
-            onMarkerPress: () => onServicePointPress(id),
-          },
-        }))}
+        data={data}
         region={region}
       />
     </MapBase>

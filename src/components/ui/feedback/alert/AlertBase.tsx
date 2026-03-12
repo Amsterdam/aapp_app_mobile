@@ -96,10 +96,12 @@ export const AlertBase = ({
                       />
                     </View>
                   )}
-                  <Column shrink={1}>
+                  <Column
+                    gutter="sm"
+                    shrink={1}>
                     {!!title && (
                       <Title
-                        level="h4"
+                        level="h5"
                         text={title}
                       />
                     )}
@@ -150,6 +152,7 @@ const createStyles =
         backgroundColor: color.alert[variant].background,
         borderWidth: 2,
         borderColor: color.alert[variant].border,
+        flexShrink: 1,
         paddingHorizontal: size.spacing.lg,
         paddingVertical: size.spacing.md,
       },
