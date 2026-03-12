@@ -89,7 +89,8 @@ export const Button = ({
     [onPressOut],
   )
 
-  const isExternalLink = icon?.name === 'link-external'
+  const isExternalLink =
+    icon?.name === 'link-external' || icon?.name === 'close'
 
   return (
     <PressableBase

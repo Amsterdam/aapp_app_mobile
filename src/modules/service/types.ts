@@ -20,20 +20,30 @@ export type ServiceOverviewResponse = ServiceItem[]
 
 type FeatureGeometry = {coordinates: [number, number]; type: 'Point'}
 type FeatureProperties = {
-  /**
-   * Title of service point
-   */
+  Prijs_per_gebruik: number
+  aapp_days_open: null | string
+  aapp_description: string
+  aapp_image_url: string
+  aapp_is_accessible: boolean
+  aapp_is_toilet: boolean
+  aapp_opening_hours: string
   aapp_title: string
-} & Record<string, unknown>
+}
 
-export type ServiceFeature = Omit<
-  Feature<FeatureGeometry, FeatureProperties>,
-  'id'
-> & {id: string}
+export type ServiceFeature = Omit<Feature<FeatureGeometry>, 'id'> & {
+  id: string
+  properties: FeatureProperties
+}
 
-type ServiceGeoJSON = {
+export type ServiceGeoJSON = {
   features: Array<ServiceFeature>
   type: 'FeatureCollection'
+}
+
+export type ServiceMapResponseFilter = {
+  filter_key: keyof FeatureProperties
+  filter_value: number | string | boolean
+  label: string
 }
 
 export type ServiceMapResponse = {
@@ -41,11 +51,7 @@ export type ServiceMapResponse = {
   /**
    * @todo verify and refine
    */
-  filters: {
-    filter_key: string
-    filter_value: number | string | boolean
-    label: string
-  }[]
+  filters: ServiceMapResponseFilter[]
   /**
    * @todo verify and refine
    */

@@ -4,6 +4,7 @@ import {
   useRef,
   useState,
   type PropsWithChildren,
+  type ReactNode,
 } from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps, type Region} from 'react-native-maps'
@@ -14,7 +15,7 @@ import {
   AMSTERDAM_REGION,
   ANIMATION_DURATION,
 } from '@/components/features/map/constants'
-import {ControlVariant} from '@/components/features/map/types'
+import {type ControlVariant} from '@/components/features/map/types'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
 import {Column} from '@/components/ui/layout/Column'
@@ -22,6 +23,7 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = PropsWithChildren<{
+  Filters?: ReactNode
   controls?: ControlVariant[]
   isError?: boolean
   moduleSlug: ModuleSlug
@@ -31,6 +33,7 @@ type Props = PropsWithChildren<{
 export const MapBase = ({
   children,
   controls,
+  Filters,
   isError,
   initialRegion,
   moduleSlug,
@@ -68,11 +71,12 @@ export const MapBase = ({
   return (
     <MapContext.Provider value={context}>
       <View style={styles.container}>
-        {(!!controls?.length || !!isError) && (
+        {(!!controls?.length || !!isError || !!Filters) && (
           <View
             pointerEvents="box-none"
             style={styles.overlay}>
             <Column gutter="md">
+              {!!Filters && Filters}
               {!!controls?.length && (
                 <View
                   pointerEvents="auto"
