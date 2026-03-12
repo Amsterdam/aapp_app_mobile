@@ -29,7 +29,10 @@ export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
   const [region, setRegion] = useState<Region | undefined>()
 
   const selectedServicePointId = useSelector(selectSelectedServicePointId)
-  const markerVariant = getMarkerVariant(selectedServicePointId)
+  const markerVariant = useMemo(
+    () => getMarkerVariant(selectedServicePointId),
+    [selectedServicePointId],
+  )
 
   const dispatch = useDispatch()
   const {open} = useBottomSheet()
