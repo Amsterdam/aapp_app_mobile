@@ -32,7 +32,7 @@ export const ServiceDetails = () => {
   }, [dispatch, isOpen])
 
   if (!serviceDetails) {
-    return
+    return null
   }
 
   const {title} = serviceDetails
