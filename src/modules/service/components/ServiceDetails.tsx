@@ -8,7 +8,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {
-  resetSelecteServiceDetails,
+  resetSelectedServiceDetails,
   useSelectedServicePointDetails,
 } from '@/modules/service/slice'
 import {
@@ -27,7 +27,7 @@ export const ServiceDetails = () => {
 
   useEffect(() => {
     if (!isOpen) {
-      dispatch(resetSelecteServiceDetails())
+      dispatch(resetSelectedServiceDetails())
     }
   }, [dispatch, isOpen])
 

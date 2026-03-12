@@ -33,7 +33,7 @@ export const serviceSlice = createSlice({
     ) => {
       state.selectedServicePointDetails = payload
     },
-    resetSelecteServiceDetails: state => {
+    resetSelectedServiceDetails: state => {
       state.selectedServicePointDetails = undefined
     },
   },
@@ -41,7 +41,7 @@ export const serviceSlice = createSlice({
 
 export const {
   setSelectedServiceDetails,
-  resetSelecteServiceDetails,
+  resetSelectedServiceDetails,
   setPropertiesToInclude,
   resetPropertiesToInclude,
 } = serviceSlice.actions
