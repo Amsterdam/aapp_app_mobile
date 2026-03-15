@@ -18,13 +18,16 @@ export const ServicePointDetailsProperties = ({
 }) => (
   <Column gutter="lg">
     {properties.map(({icon, label, type, value}, index) => {
-      if (type === ServiceDetailPropertyType.image) {
+      if (
+        type === ServiceDetailPropertyType.image &&
+        typeof value === 'string'
+      ) {
         return (
           <LazyImage
             aspectRatio="wide"
             fallbackInheritsAspectRatio={false}
             key={`${type}-${index}`}
-            source={{uri: value as string}}
+            source={{uri: value}}
             testID="ServicePointDetailsPropertiesImage"
           />
         )

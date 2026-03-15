@@ -76,7 +76,10 @@ export const useSelectedServicePointDetails = (serviceId: string) => {
             ),
           }
         })
-        .filter(property => Object.entries(property)[0][1] !== null),
+        .filter(
+          (property): property is ServiceFeatureProperty =>
+            property.value !== null && property.value !== '',
+        ),
     } satisfies SelectedServicePointDetails
   }, [data, selectedServicePointId])
 }
