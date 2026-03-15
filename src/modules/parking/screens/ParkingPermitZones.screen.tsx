@@ -18,10 +18,10 @@ const ParkingPermitZonesScreenInner = () => {
   return (
     <PermitMapProvider>
       <MapViewSwitchProvider
-        variants={
+        variant={
           previousRouteName === ParkingRouteName.startSession
-            ? [MapViewVariant.map, MapViewVariant.search]
-            : [MapViewVariant.map, MapViewVariant.list]
+            ? MapViewVariant.search
+            : MapViewVariant.list
         }>
         <Screen
           bottomSheet={

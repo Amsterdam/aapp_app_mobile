@@ -6,8 +6,8 @@ import {
 
 export const MapViewSwitchProvider = ({
   children,
-  variants = [MapViewVariant.map, MapViewVariant.list],
-}: PropsWithChildren<{variants?: [MapViewVariant, MapViewVariant]}>) => {
+  variant = MapViewVariant.list,
+}: PropsWithChildren<{variant?: MapViewVariant}>) => {
   const [viewTypeIndex, setViewTypeIndex] = useState(0)
 
   const toggleViewType = useCallback(() => {
@@ -15,8 +15,12 @@ export const MapViewSwitchProvider = ({
   }, [])
 
   const value = useMemo(
-    () => ({viewType: variants[viewTypeIndex], toggleViewType, variants}),
-    [viewTypeIndex, toggleViewType, variants],
+    () => ({
+      viewType: [MapViewVariant.map, variant][viewTypeIndex],
+      toggleViewType,
+      variant,
+    }),
+    [viewTypeIndex, toggleViewType, variant],
   )
 
   return (
