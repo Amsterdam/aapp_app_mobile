@@ -1,4 +1,5 @@
 import {ServiceDetailPropertyType} from '@/modules/service/types'
+import {formatNumber} from '@/utils/formatNumber'
 
 export const formatPropertyValue = (
   type: ServiceDetailPropertyType,
@@ -9,7 +10,7 @@ export const formatPropertyValue = (
     content !== null &&
     !Number.isNaN(Number(content))
   ) {
-    return `€ ${Number(content).toFixed(2)}`
+    return formatNumber(Number(content), 'EUR')
   }
 
   return content

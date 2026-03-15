@@ -16,7 +16,7 @@ describe('formatPropertyValue', () => {
     expect(valueImage).toBe('test')
   })
 
-  it('returns null is the base value null.', () => {
+  it('returns null if the base value is null.', () => {
     const valueString = formatPropertyValue(
       ServiceDetailPropertyType.string,
       null,
@@ -54,8 +54,8 @@ describe('formatPropertyValue', () => {
 
     expect(valueString).toBe('test')
     expect(valueNull).toBe(null)
-    expect(valueNumber1).toBe('€ 0.50')
-    expect(valueNumber2).toBe('€ 0.00')
-    expect(valueNumber3).toBe('€ 99999999.00')
+    expect(valueNumber1).toBe('€\u00A00,50')
+    expect(valueNumber2).toBe('€\u00A00,00')
+    expect(valueNumber3).toBe('€\u00A099.999.999,00')
   })
 })

@@ -86,5 +86,5 @@ export type ServiceFeatureProperty = {
   icon: string | null
   label: string | null
   type: ServiceDetailPropertyType
-  value: string | number | null
+  value: string | number
 }
