@@ -1,4 +1,6 @@
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
+import {MapViewVariant} from '@/components/features/map/MapViewSwitchContext'
+import {MapViewSwitchProvider} from '@/components/features/map/MapViewSwitchProvider'
 import {Screen} from '@/components/features/screen/Screen'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {ParkingMachineBottomSheetContent} from '@/modules/parking/components/permit-zone/ParkingMachineBottomSheetContent'
@@ -14,30 +16,34 @@ const ParkingPermitZonesScreenInner = () => {
   const {name: previousRouteName} = usePreviousRoute() ?? {}
 
   return (
-    <PermitMapProvider
-      variant={
-        previousRouteName === ParkingRouteName.startSession ? 'search' : 'list'
-      }>
-      <Screen
-        bottomSheet={
-          <BottomSheet
-            scroll
-            testID="ParkingPermitZonesBottomSheet">
-            <ParkingMachineBottomSheetContent />
-          </BottomSheet>
-        }
-        headerOptions={{
-          headerTitle:
-            previousRouteName === ParkingRouteName.startSession
-              ? 'Kies parkeerautomaat'
-              : permit_zone.name,
-          SideComponent: ParkingPermitZoneHeaderButton,
-        }}
-        scroll={false}
-        testID="ParkingPermitZonesScreen"
-        withBottomInset={false}>
-        <ParkingPermitZone />
-      </Screen>
+    <PermitMapProvider>
+      <MapViewSwitchProvider
+        variants={
+          previousRouteName === ParkingRouteName.startSession
+            ? [MapViewVariant.map, MapViewVariant.search]
+            : [MapViewVariant.map, MapViewVariant.list]
+        }>
+        <Screen
+          bottomSheet={
+            <BottomSheet
+              scroll
+              testID="ParkingPermitZonesBottomSheet">
+              <ParkingMachineBottomSheetContent />
+            </BottomSheet>
+          }
+          headerOptions={{
+            headerTitle:
+              previousRouteName === ParkingRouteName.startSession
+                ? 'Kies parkeerautomaat'
+                : permit_zone.name,
+            SideComponent: ParkingPermitZoneHeaderButton,
+          }}
+          scroll={false}
+          testID="ParkingPermitZonesScreen"
+          withBottomInset={false}>
+          <ParkingPermitZone />
+        </Screen>
+      </MapViewSwitchProvider>
     </PermitMapProvider>
   )
 }

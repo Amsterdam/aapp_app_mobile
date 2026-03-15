@@ -1,16 +1,17 @@
+import {MapViewVariant} from '@/components/features/map/MapViewSwitchContext'
+import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
 import {ParkingMachineList} from '@/modules/parking/components/permit-zone/ParkingMachineList'
 import {ParkingMachineSearch} from '@/modules/parking/components/permit-zone/ParkingMachineSearch'
 import {ParkingPermitZoneMap} from '@/modules/parking/components/permit-zone/ParkingPermitZoneMap'
-import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 
 export const ParkingPermitZone = () => {
-  const {viewType} = usePermitMapContext()
+  const {viewType} = useMapViewSwitch()
 
-  if (viewType === 'list') {
+  if (viewType === MapViewVariant.list) {
     return <ParkingMachineList />
   }
 
-  if (viewType === 'search') {
+  if (viewType === MapViewVariant.search) {
     return <ParkingMachineSearch />
   }
 

@@ -1,15 +1,15 @@
 import {useMemo} from 'react'
 import type {SvgIconName} from '@/components/ui/media/svgIcons'
+import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
-import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 
 export const ParkingPermitZoneHeaderButton = () => {
-  const {toggleViewType, viewType, viewVariants} = usePermitMapContext()
+  const {toggleViewType, viewType, variants} = useMapViewSwitch()
 
   const iconName: Extract<SvgIconName, 'map' | 'list' | 'search'> = useMemo(
-    () => viewVariants.find(variant => variant !== viewType) || 'map',
-    [viewType, viewVariants],
+    () => variants.find(variant => variant !== viewType) || 'map',
+    [viewType, variants],
   )
 
   const accessibilityLabel = useMemo(() => {

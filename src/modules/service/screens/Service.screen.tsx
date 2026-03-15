@@ -1,27 +1,33 @@
 import type {NavigationProps} from '@/app/navigation/types'
-import type {ServiceRouteName} from '@/modules/service/routes'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
+import {MapViewSwitchProvider} from '@/components/features/map/MapViewSwitchProvider'
 import {Screen} from '@/components/features/screen/Screen'
-import {ServiceMap} from '@/modules/service/components/ServiceMap'
+import {ServiceHeaderButton} from '@/modules/service/components/ServiceHeaderButton'
 import {ServicePointDetails} from '@/modules/service/components/ServicePointDetails'
+import {ServicePointView} from '@/modules/service/components/ServicePointView'
+import {ServiceRouteName} from '@/modules/service/routes'
 
 type Props = NavigationProps<ServiceRouteName.map>
 
 export const ServiceScreen = ({route}: Props) => (
-  <Screen
-    bottomSheet={
-      <BottomSheet
-        scroll
-        testID="ServiceMapBottomSheet">
-        <ServicePointDetails id={route.params.id} />
-      </BottomSheet>
-    }
-    headerOptions={{
-      disableHorizontalInsets: true,
-      headerTitle: route.params.title,
-    }}
-    testID="ServiceMapScreen"
-    withBottomInset={false}>
-    <ServiceMap id={route.params.id} />
-  </Screen>
+  <MapViewSwitchProvider>
+    <Screen
+      bottomSheet={
+        <BottomSheet
+          scroll
+          testID="ServiceScreenBottomSheet">
+          <ServicePointDetails id={route.params.id} />
+        </BottomSheet>
+      }
+      headerOptions={{
+        disableHorizontalInsets: true,
+        headerTitle: route.params.title,
+        SideComponent: ServiceHeaderButton,
+      }}
+      scroll={false}
+      testID="ServiceScreen"
+      withBottomInset={false}>
+      <ServicePointView id={route.params.id} />
+    </Screen>
+  </MapViewSwitchProvider>
 )

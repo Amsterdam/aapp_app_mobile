@@ -10,7 +10,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ServiceRouteName} from '@/modules/service/routes'
 import {useThemable} from '@/themes/useThemable'
 
-export const ServiceListItem = ({icon, title, id}: ServiceItem) => {
+export const ServicesGridItem = ({icon, title, id}: ServiceItem) => {
   const styles = useThemable(createStyles)
   const {navigate} = useNavigation()
 

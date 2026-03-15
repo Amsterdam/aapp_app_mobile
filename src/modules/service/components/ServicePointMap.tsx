@@ -14,7 +14,7 @@ import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 
-export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
+export const ServicePointMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
   const {
     data: service,
     isLoading,
