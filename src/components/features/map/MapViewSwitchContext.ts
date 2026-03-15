@@ -7,6 +7,6 @@ export enum MapViewVariant {
 }
 export const MapViewSwitchContext = createContext<{
   toggleViewType: () => void
-  variants: MapViewVariant[]
+  variant: MapViewVariant
   viewType: MapViewVariant
 } | null>(null)
