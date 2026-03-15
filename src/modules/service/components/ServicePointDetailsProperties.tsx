@@ -36,7 +36,7 @@ export const ServicePointDetailsProperties = ({
       return (
         <Row
           gutter="smd"
-          key={label || index}
+          key={`property-${label || index}`}
           valign="start">
           <Icon
             path={icon || ''} // We show an empty Icon when no icon is provided, to match the horizontal alignment with rows that do have an icon
