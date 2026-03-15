@@ -2,7 +2,7 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {ServiceList} from '@/modules/service/components/ServiceList'
+import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const ServiceHomeScreen = () => (
@@ -16,7 +16,7 @@ export const ServiceHomeScreen = () => (
             Kies een onderwerp en u vindt alle plekken op de kaart.
           </Paragraph>
         </Box>
-        <ServiceList />
+        <ServicesGrid />
       </Column>
     </Box>
     <Survey entryPoint="service-overview-info" />
