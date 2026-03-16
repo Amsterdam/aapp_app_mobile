@@ -4,6 +4,7 @@ import {
   useRef,
   useState,
   type PropsWithChildren,
+  type ReactNode,
 } from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps, type Region} from 'react-native-maps'
@@ -14,14 +15,16 @@ import {
   AMSTERDAM_REGION,
   ANIMATION_DURATION,
 } from '@/components/features/map/constants'
-import {ControlVariant} from '@/components/features/map/types'
+import {type ControlVariant} from '@/components/features/map/types'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = PropsWithChildren<{
+  FilterComponent?: ReactNode
   controls?: ControlVariant[]
   isError?: boolean
   moduleSlug: ModuleSlug
@@ -31,6 +34,7 @@ type Props = PropsWithChildren<{
 export const MapBase = ({
   children,
   controls,
+  FilterComponent,
   isError,
   initialRegion,
   moduleSlug,
@@ -68,21 +72,28 @@ export const MapBase = ({
   return (
     <MapContext.Provider value={context}>
       <View style={styles.container}>
-        {(!!controls?.length || !!isError) && (
+        {(!!controls?.length || !!isError || !!FilterComponent) && (
           <View
             pointerEvents="box-none"
             style={styles.overlay}>
             <Column gutter="md">
-              {!!controls?.length && (
-                <View
-                  pointerEvents="auto"
-                  style={styles.controls}>
-                  <MapControls
-                    moduleSlug={moduleSlug}
-                    variants={controls}
-                  />
-                </View>
-              )}
+              <Row
+                align="end"
+                gutter="md"
+                valign="start"
+                wrap>
+                {!!FilterComponent && FilterComponent}
+                {!!controls?.length && (
+                  <View
+                    pointerEvents="auto"
+                    style={styles.controls}>
+                    <MapControls
+                      moduleSlug={moduleSlug}
+                      variants={controls}
+                    />
+                  </View>
+                )}
+              </Row>
               {!!isError && (
                 <View
                   pointerEvents="auto"
@@ -130,7 +141,9 @@ const createStyles = ({size}: Theme) =>
       flex: 1,
     },
     controls: {
+      flexShrink: 1,
       alignSelf: 'flex-end',
+      paddingHorizontal: size.spacing.md,
     },
     error: {},
     mapView: {
@@ -140,7 +153,7 @@ const createStyles = ({size}: Theme) =>
       width: '100%',
       position: 'absolute',
       top: size.spacing.md,
-      padding: size.spacing.md,
+      paddingVertical: size.spacing.md,
       zIndex: 1,
     },
   })

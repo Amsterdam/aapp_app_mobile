@@ -31,9 +31,17 @@ export type ServiceFeature = Omit<
   'id'
 > & {id: string}
 
-type ServiceGeoJSON = {
+export type ServiceGeoJSON = {
   features: Array<ServiceFeature>
   type: 'FeatureCollection'
+}
+
+export type ServiceMapResponseFilter<
+  K extends keyof FeatureProperties = keyof FeatureProperties,
+> = {
+  filter_key: K
+  filter_value: FeatureProperties[K]
+  label: string
 }
 
 export type ServiceMapResponse = {
@@ -41,11 +49,7 @@ export type ServiceMapResponse = {
   /**
    * @todo verify and refine
    */
-  filters: {
-    filter_key: string
-    filter_value: number | string | boolean
-    label: string
-  }[]
+  filters: ServiceMapResponseFilter[]
   /**
    * @todo verify and refine
    */
