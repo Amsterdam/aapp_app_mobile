@@ -15,7 +15,7 @@ export const redirects: RedirectResponse[] = [
   {
     iconName: 'vote',
     testID: 'RedirectsElectionsButton',
-    text: '18 maart 2026',
+    text: 'Blijf op de hoogte van de verkiezingsuitslagen.',
     title: 'Verkiezingen',
     urlKey: RedirectKey.elections,
   },
