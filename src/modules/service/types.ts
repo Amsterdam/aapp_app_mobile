@@ -20,22 +20,16 @@ export type ServiceOverviewResponse = ServiceItem[]
 
 type FeatureGeometry = {coordinates: [number, number]; type: 'Point'}
 type FeatureProperties = {
-  Prijs_per_gebruik: number
-  aapp_days_open: null | string
-  aapp_description: string
-  aapp_image_url: string
-  aapp_is_accessible: boolean
-  aapp_is_toilet: boolean
-  aapp_opening_hours: string
+  /**
+   * Title of service point
+   */
   aapp_title: string
 } & Record<string, unknown>
 
 export type ServiceFeature = Omit<
   Feature<FeatureGeometry, FeatureProperties>,
   'id'
-> & {
-  id: string
-}
+> & {id: string}
 
 export type ServiceGeoJSON = {
   features: Array<ServiceFeature>
