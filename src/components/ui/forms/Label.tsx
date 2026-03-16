@@ -5,12 +5,14 @@ import {Emphasis} from '@/themes/tokens/text'
 type Props = {
   emphasis?: keyof typeof Emphasis
   isAccessible?: boolean
+  isLabelDescription?: boolean
   required?: boolean
   text: string
 }
 
 export const Label = ({
   isAccessible,
+  isLabelDescription,
   text,
   emphasis = 'strong',
   required,
@@ -24,7 +26,9 @@ export const Label = ({
       emphasis={emphasis}
       testID="TextInputLabel">
       {text}
-      <Phrase>{required ? '' : ' (Niet verplicht)'}</Phrase>
+      <Phrase>
+        {!required && !isLabelDescription ? ' (Niet verplicht)' : ''}
+      </Phrase>
     </Phrase>
   </View>
 )

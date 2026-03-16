@@ -80,6 +80,7 @@ export const TextInput = ({
           <Label
             emphasis="default"
             isAccessible={false}
+            isLabelDescription
             required={required}
             text={inputInstructions}
           />
