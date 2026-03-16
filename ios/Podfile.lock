@@ -3239,7 +3239,7 @@ PODS:
     - RNFBApp
     - SocketRocket
     - Yoga
-  - RNGestureHandler (2.30.0):
+  - RNGestureHandler (3.0.0-nightly-20260313-3918d8ae5):
     - boost
     - DoubleConversion
     - fast_float
@@ -4207,7 +4207,7 @@ SPEC CHECKSUMS:
   RNDeviceInfo: bcce8752b5043a623fe3c26789679b473f705d3c
   RNFBApp: b574c08010a6d3e995e654d03e34e789ebe55a35
   RNFBMessaging: da2d7f511df0368011a126b156f1a7f4be0c1b72
-  RNGestureHandler: cd4be101cfa17ea6bbd438710caa02e286a84381
+  RNGestureHandler: caed3c65e8ce96afb5400c04054b6fed2d112c64
   RNImageCropPicker: 08c22898faa0172bf04811dfd4b857f5d9bb7498
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
   RNPermissions: a21c8e8b8eef2af63f5292e11366c67022064b8a
