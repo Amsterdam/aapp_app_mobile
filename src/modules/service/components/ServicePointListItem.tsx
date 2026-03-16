@@ -1,19 +1,25 @@
 import {useMemo} from 'react'
-import type {ServiceFeature} from '@/modules/service/types'
+import type {
+  ServiceDetailPropertyType,
+  ServiceFeature,
+  ServiceMapResponse,
+} from '@/modules/service/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 import {ModuleSlug} from '@/modules/slugs'
-import {formatNumber} from '@/utils/formatNumber'
 import {getDistance} from '@/utils/getDistance'
 
 export const ServicePointListItem = ({
+  listProperty,
   servicePoint,
   onPress,
 }: {
+  listProperty: ServiceMapResponse['list_property']
   onPress: (servicePointId: ServiceFeature['id']) => void
   servicePoint: ServiceFeature
 }) => {
@@ -37,29 +43,25 @@ export const ServicePointListItem = ({
       : `${Math.round(distance)} meter`
   }, [servicePoint, address])
 
-  const price = useMemo(() => {
-    if (
-      servicePoint &&
-      'Prijs_per_gebruik' in servicePoint.properties &&
-      !Number.isNaN(servicePoint.properties.Prijs_per_gebruik)
-    ) {
-      return formatNumber(
-        servicePoint.properties.Prijs_per_gebruik as number,
-        'EUR',
+  const listPropertyValue = useMemo(() => {
+    if (servicePoint?.properties && listProperty) {
+      return formatPropertyValue(
+        listProperty.type as ServiceDetailPropertyType,
+        servicePoint.properties[listProperty.key] as number | string | null,
       )
     }
-  }, [servicePoint])
+  }, [servicePoint, listProperty])
 
   const accessibilityLabel = useMemo(
     () =>
       [
         servicePoint.properties.aapp_title,
-        price,
+        listPropertyValue,
         distanceToPoint ? `Afstand: ${distanceToPoint}` : undefined,
       ]
         .filter(Boolean)
         .join(', '),
-    [servicePoint, price, distanceToPoint],
+    [servicePoint, listPropertyValue, distanceToPoint],
   )
 
   return (
@@ -76,7 +78,9 @@ export const ServicePointListItem = ({
               level="h5"
               text={servicePoint.properties.aapp_title}
             />
-            {!!price && <Paragraph accessible={false}>{price}</Paragraph>}
+            {!!listPropertyValue && (
+              <Paragraph accessible={false}>{listPropertyValue}</Paragraph>
+            )}
             {!!distanceToPoint && (
               <Paragraph
                 accessible={false}

@@ -48,7 +48,7 @@ export const ServicePointList = ({
     return <PleaseWait testID="ServicePointListPleaseWait" />
   }
 
-  if (!servicePointsByDistance?.length || isError) {
+  if (!service || !servicePointsByDistance?.length || isError) {
     return <SomethingWentWrong testID="ServicePointListSomethingWentWrong" />
   }
 
@@ -78,6 +78,7 @@ export const ServicePointList = ({
         }
         renderItem={({item: servicePoint}) => (
           <ServicePointListItem
+            listProperty={service.list_property}
             onPress={onServicePointPress}
             servicePoint={servicePoint}
           />
