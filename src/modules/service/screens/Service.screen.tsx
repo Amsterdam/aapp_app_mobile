@@ -16,7 +16,10 @@ export const ServiceScreen = ({route}: Props) => (
         <ServicePointDetails id={route.params.id} />
       </BottomSheet>
     }
-    headerOptions={{headerTitle: route.params.title}}
+    headerOptions={{
+      disableHorizontalInsets: true,
+      headerTitle: route.params.title,
+    }}
     testID="ServiceMapScreen"
     withBottomInset={false}>
     <ServiceMap id={route.params.id} />
