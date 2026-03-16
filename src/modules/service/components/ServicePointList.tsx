@@ -10,8 +10,8 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useServiceQuery} from '@/modules/service/service'
-import {getSortedServicePoints} from '@/modules/service/utils/getSortedServicePoints'
 import {ModuleSlug} from '@/modules/slugs'
+import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 export const ServicePointList = ({id: serviceId}: {id: ServiceItem['id']}) => {
   const {
@@ -27,7 +27,14 @@ export const ServicePointList = ({id: serviceId}: {id: ServiceItem['id']}) => {
       return []
     }
 
-    return getSortedServicePoints(service?.data.features || [], address)
+    return sortByDistanceToAddress(
+      service?.data.features.map(feat => ({
+        ...feat,
+        lat: feat.geometry.coordinates[1],
+        lon: feat.geometry.coordinates[0],
+      })),
+      address,
+    )
   }, [service, address])
 
   if (isLoading) {
