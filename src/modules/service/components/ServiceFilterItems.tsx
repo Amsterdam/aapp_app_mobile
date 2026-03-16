@@ -31,7 +31,7 @@ export const ServiceFilterItems = ({
 
           return (
             <Button
-              icon={isActive ? {name: 'close'} : undefined}
+              icon={isActive ? {name: 'close', size: 'md'} : undefined}
               key={filter.filter_key}
               label={filter.label}
               onPress={() => onPressFilter?.(filter)}
