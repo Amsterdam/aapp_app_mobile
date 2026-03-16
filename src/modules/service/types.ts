@@ -28,11 +28,13 @@ type FeatureProperties = {
   aapp_is_toilet: boolean
   aapp_opening_hours: string
   aapp_title: string
-}
+} & Record<string, unknown>
 
-export type ServiceFeature = Omit<Feature<FeatureGeometry>, 'id'> & {
+export type ServiceFeature = Omit<
+  Feature<FeatureGeometry, FeatureProperties>,
+  'id'
+> & {
   id: string
-  properties: FeatureProperties
 }
 
 export type ServiceGeoJSON = {
