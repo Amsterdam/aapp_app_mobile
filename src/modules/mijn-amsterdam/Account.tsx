@@ -25,7 +25,7 @@ export const Account = () => {
   const {navigate} = useNavigation()
   const {loginResult} = useRoute<UserRouteName.accounts>().params || {}
   const login = useLoginMijnAmsterdam()
-  const {isLoggedIn, isLoading, refetch} = useIsLoggedIn()
+  const {isLoggedIn, isLoading, profileName, refetch} = useIsLoggedIn()
 
   useHandleLoginDeeplink(loginResult)
 
@@ -52,7 +52,16 @@ export const Account = () => {
         {isLoggedIn ? (
           <>
             <Column gutter="smd">
-              <Paragraph>U bent ingelogd.</Paragraph>
+              <Paragraph>
+                U bent ingelogd
+                {!!profileName && (
+                  <Phrase>
+                    {' '}
+                    als <Phrase emphasis="strong">{profileName}</Phrase>
+                  </Phrase>
+                )}
+                .
+              </Paragraph>
               {hasPermission ? (
                 <Paragraph>
                   U ontvangt nu meldingen van Mijn Amsterdam.

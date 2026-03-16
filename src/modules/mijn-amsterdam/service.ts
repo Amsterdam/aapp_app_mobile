@@ -26,7 +26,10 @@ export const mijnAmsterdamApi = baseApi.injectEndpoints({
           {dispatch},
         ) => {
           dispatch(
-            setIsLoggedIn(data?.status === MijnAmsterdamLoginStatus.loggedIn),
+            setIsLoggedIn({
+              isLoggedIn: data?.status === MijnAmsterdamLoginStatus.loggedIn,
+              profileName: data?.profile_name,
+            }),
           )
         },
       }),
