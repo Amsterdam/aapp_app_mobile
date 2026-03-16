@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import type {ServiceItem} from '@/modules/service/types'
+import type {ServiceFeature, ServiceItem} from '@/modules/service/types'
 import {MapViewVariant} from '@/components/features/map/MapViewSwitchContext'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -15,7 +15,7 @@ export const ServicePointView = (props: {id: ServiceItem['id']}) => {
   const {open} = useBottomSheet()
 
   const onServicePointPress = useCallback(
-    (id: string) => {
+    (id: ServiceFeature['id']) => {
       dispatch(setSelectedServicePointId(id))
       open()
     },

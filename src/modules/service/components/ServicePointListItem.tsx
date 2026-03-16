@@ -50,10 +50,22 @@ export const ServicePointListItem = ({
     }
   }, [servicePoint])
 
+  const accessibilityLabel = useMemo(
+    () =>
+      [
+        servicePoint.properties.aapp_title,
+        price,
+        distanceToPoint ? `Afstand: ${distanceToPoint}` : undefined,
+      ]
+        .filter(Boolean)
+        .join(', '),
+    [servicePoint, price, distanceToPoint],
+  )
+
   return (
     <Box insetHorizontal="md">
       <Pressable
-        accessibilityLabel={`${servicePoint.properties.aapp_title}, ${price}, ${distanceToPoint ? 'Afstand: ' + distanceToPoint : ''}`}
+        accessibilityLabel={accessibilityLabel}
         onPress={() => onPress(servicePoint.id)}
         testID="ServicePointListItemButton">
         <Box insetVertical="sm">
