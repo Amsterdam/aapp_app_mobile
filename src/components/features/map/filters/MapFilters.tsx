@@ -30,15 +30,23 @@ export const MapFilters = ({
       showsHorizontalScrollIndicator={false}>
       <Box insetHorizontal="md">
         <Row gutter="sm">
-          {filters.map(filter => (
-            <FilterButton
-              filter={filter}
-              isActive={activeFilters?.includes(filter)}
-              key={filter.filter_key}
-              onPressFilter={onPressFilter}
-              testID={testID}
-            />
-          ))}
+          {filters.map(filter => {
+            const isActive = activeFilters?.some(
+              activeFilter =>
+                activeFilter.filter_key === filter.filter_key &&
+                activeFilter.filter_value === filter.filter_value,
+            )
+
+            return (
+              <FilterButton
+                filter={filter}
+                isActive={isActive}
+                key={`${filter.filter_key}-${String(filter.filter_value)}`}
+                onPressFilter={onPressFilter}
+                testID={testID}
+              />
+            )
+          })}
         </Row>
       </Box>
     </ScrollView>

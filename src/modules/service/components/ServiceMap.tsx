@@ -29,8 +29,8 @@ export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
 
   const onPressFilter = useCallback((filter: ServiceMapResponseFilter) => {
     setActiveFilters(filters =>
-      filters.some(f => f === filter)
-        ? filters.filter(f => f !== filter)
+      filters.some(f => getFilterIsEqual(f, filter))
+        ? filters.filter(f => !getFilterIsEqual(f, filter))
         : [...filters, filter],
     )
   }, [])
@@ -60,3 +60,10 @@ export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
     </MapBase>
   )
 }
+
+const getFilterIsEqual = (
+  filterA: ServiceMapResponseFilter,
+  filterB: ServiceMapResponseFilter,
+) =>
+  filterA.filter_key === filterB.filter_key &&
+  filterA.filter_value === filterB.filter_value
