@@ -19,6 +19,7 @@ import {type ControlVariant} from '@/components/features/map/types'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -76,17 +77,23 @@ export const MapBase = ({
             pointerEvents="box-none"
             style={styles.overlay}>
             <Column gutter="md">
-              {!!FilterComponent && FilterComponent}
-              {!!controls?.length && (
-                <View
-                  pointerEvents="auto"
-                  style={styles.controls}>
-                  <MapControls
-                    moduleSlug={moduleSlug}
-                    variants={controls}
-                  />
-                </View>
-              )}
+              <Row
+                align="end"
+                gutter="md"
+                valign="start"
+                wrap>
+                {!!FilterComponent && FilterComponent}
+                {!!controls?.length && (
+                  <View
+                    pointerEvents="auto"
+                    style={styles.controls}>
+                    <MapControls
+                      moduleSlug={moduleSlug}
+                      variants={controls}
+                    />
+                  </View>
+                )}
+              </Row>
               {!!isError && (
                 <View
                   pointerEvents="auto"
@@ -134,7 +141,9 @@ const createStyles = ({size}: Theme) =>
       flex: 1,
     },
     controls: {
+      flexShrink: 1,
       alignSelf: 'flex-end',
+      paddingHorizontal: size.spacing.md,
     },
     error: {},
     mapView: {
@@ -144,7 +153,7 @@ const createStyles = ({size}: Theme) =>
       width: '100%',
       position: 'absolute',
       top: size.spacing.md,
-      padding: size.spacing.md,
+      paddingVertical: size.spacing.md,
       zIndex: 1,
     },
   })
