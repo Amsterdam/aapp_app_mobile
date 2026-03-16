@@ -5,30 +5,32 @@ import {Emphasis} from '@/themes/tokens/text'
 type Props = {
   emphasis?: keyof typeof Emphasis
   isAccessible?: boolean
-  isLabelDescription?: boolean
   required?: boolean
+  shouldShowSuffix?: boolean
   text: string
 }
 
 export const Label = ({
   isAccessible,
-  isLabelDescription,
+  shouldShowSuffix = true,
   text,
   emphasis = 'strong',
   required,
-}: Props) => (
-  <View
-    accessibilityElementsHidden={!isAccessible} // in case of iOS
-    accessibilityLanguage="nl-NL"
-    importantForAccessibility={!isAccessible ? 'no-hide-descendants' : 'auto'} // in case of Android
-  >
-    <Phrase
-      emphasis={emphasis}
-      testID="TextInputLabel">
-      {text}
-      <Phrase>
-        {!required && !isLabelDescription ? ' (Niet verplicht)' : ''}
+}: Props) => {
+  const suffix = !required && shouldShowSuffix ? ' (Niet verplicht)' : ''
+
+  return (
+    <View
+      accessibilityElementsHidden={!isAccessible} // in case of iOS
+      accessibilityLanguage="nl-NL"
+      importantForAccessibility={!isAccessible ? 'no-hide-descendants' : 'auto'} // in case of Android
+    >
+      <Phrase
+        emphasis={emphasis}
+        testID="TextInputLabel">
+        {text}
+        {suffix ? <Phrase>{suffix}</Phrase> : null}
       </Phrase>
-    </Phrase>
-  </View>
-)
+    </View>
+  )
+}
