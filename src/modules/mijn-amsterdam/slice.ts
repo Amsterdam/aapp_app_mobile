@@ -29,6 +29,9 @@ export const mijnAmsterdamSlice = createSlice({
       if (isLoggedIn) {
         state.profileName = profileName
         state.shouldShowBanner = false
+      } else {
+        state.profileName = undefined
+        state.shouldShowBanner = initialState.shouldShowBanner
       }
     },
     setShouldShowBanner: (
