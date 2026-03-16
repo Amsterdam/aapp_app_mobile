@@ -1,19 +1,14 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
+import type {Coordinates} from '@/types/location'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useServiceQuery} from '@/modules/service/service'
 import {selectSelectedServicePointId} from '@/modules/service/slice'
-import {
-  ServiceFeatureProperty,
-  ServiceDetailPropertyKey,
-} from '@/modules/service/types'
+import {ServiceFeatureProperty} from '@/modules/service/types'
 import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 
 type SelectedServicePointDetails = {
-  coordinates: {
-    lat: number
-    lon: number
-  }
+  coordinates: Coordinates
   id: string
   properties: Array<ServiceFeatureProperty>
   title: string
@@ -46,40 +41,16 @@ export const useSelectedServicePointDetails = (serviceId: string) => {
         lat: servicePoint.geometry.coordinates[1],
         lon: servicePoint.geometry.coordinates[0],
       },
-      properties: properties_to_include
-        .map(({property_key, property_type: type, ...rest}) => {
-          if (property_key === ServiceDetailPropertyKey.aapp_days_open) {
-            // Skip app_days_open as it will be concatenated to aapp_opening_hours as per design
-            return {
-              ...rest,
-              type,
-              value: null,
-            }
-          }
-
-          // app_days_open must be concatenated to aapp_opening_hours as per design
-          const openingHoursAndDaysCombined = [
-            servicePoint.properties[property_key],
-            servicePoint.properties.aapp_days_open,
-          ]
-            .join('\n')
-            .trim()
-
-          return {
-            ...rest,
+      properties: properties_to_include.map(
+        ({property_key, property_type: type, ...rest}) => ({
+          ...rest,
+          type,
+          value: formatPropertyValue(
             type,
-            value: formatPropertyValue(
-              type,
-              property_key === ServiceDetailPropertyKey.aapp_opening_hours
-                ? openingHoursAndDaysCombined
-                : servicePoint.properties[property_key],
-            ),
-          }
-        })
-        .filter(
-          (property): property is ServiceFeatureProperty =>
-            property.value !== null && property.value !== '',
-        ),
+            servicePoint.properties[property_key],
+          ),
+        }),
+      ),
     } satisfies SelectedServicePointDetails
   }, [data, selectedServicePointId])
 }

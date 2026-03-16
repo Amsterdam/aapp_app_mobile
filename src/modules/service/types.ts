@@ -60,7 +60,7 @@ export type ServiceMapResponse = {
   properties_to_include: {
     icon: string | null
     label: string | null
-    property_key: ServiceDetailPropertyKey
+    property_key: string
     property_type: ServiceDetailPropertyType
   }[]
 }
@@ -71,15 +71,6 @@ export enum ServiceDetailPropertyType {
   string = 'string',
 }
 
-export enum ServiceDetailPropertyKey {
-  Prijs_per_gebruik = 'Prijs_per_gebruik',
-  aapp_days_open = 'aapp_days_open',
-  aapp_description = 'aapp_description',
-  aapp_image_url = 'aapp_image_url',
-  aapp_is_accessible = 'aapp_is_accessible',
-  aapp_is_toilet = 'aapp_is_toilet',
-  aapp_opening_hours = 'aapp_opening_hours',
-}
 export type ServicePointDetails = {
   aapp_title: string
   coordinates: LatLng
@@ -90,5 +81,5 @@ export type ServiceFeatureProperty = {
   icon: string | null
   label: string | null
   type: ServiceDetailPropertyType
-  value: string | number
+  value: string | number | null
 }

@@ -1,3 +1,5 @@
+import type {Coordinates} from '@/types/location'
+
 export type ImageSource = {
   description: string
   filename: string
@@ -51,11 +53,6 @@ type Address = {
   postalCode: string
   streetName: string
   streetNumber: string
-}
-
-type Coordinates = {
-  lat: number
-  lon: number
 }
 
 export type VisitingHour = {

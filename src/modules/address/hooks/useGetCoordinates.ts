@@ -3,8 +3,9 @@ import {Platform} from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import Geolocation, {GeoOptions} from 'react-native-geolocation-service'
 import {requestLocationAccuracy} from 'react-native-permissions'
+import type {Coordinates} from '@/types/location'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 
 import {
   ExceptionLogKey,

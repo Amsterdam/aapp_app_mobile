@@ -1,13 +1,9 @@
 import type {ModuleSlug} from '@/modules/slugs'
+import type {Coordinates} from '@/types/location'
 
 export enum AddressCity {
   Amsterdam = 'Amsterdam',
   Weesp = 'Weesp',
-}
-
-export type Coordinates = {
-  lat: number
-  lon: number
 }
 
 export type BaseAddress<Type = 'weg'> = {
