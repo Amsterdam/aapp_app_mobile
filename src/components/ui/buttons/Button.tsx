@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react'
 import {FlexStyle, GestureResponderEvent, StyleSheet, View} from 'react-native'
+import type {SpacingTokens} from '@/themes/tokens/size'
 import {ButtonIcon} from '@/components/ui/buttons/ButtonIcon'
 import {
   PressableBaseProps,
@@ -21,8 +22,10 @@ export type ButtonVariant =
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
   icon?: IconProps
+  insetHorizontal?: keyof SpacingTokens
   isError?: boolean
   isLoading?: boolean
+  isReverseOrder?: boolean
   label?: string
   /**
    * Line height correction is only applied to tertiary buttons, 6 by default.
@@ -45,6 +48,8 @@ export const Button = ({
   flex,
   flexShrink,
   icon,
+  insetHorizontal,
+  isReverseOrder,
   isError,
   isLoading,
   label,
@@ -63,7 +68,7 @@ export const Button = ({
   const theme = useTheme()
   const styles = createStyles(
     theme,
-    {flex, flexShrink, small, variant},
+    {flex, flexShrink, small, variant, insetHorizontal, isReverseOrder},
     isPressed,
     noPadding,
     noPaddingHorizontal,
@@ -89,8 +94,7 @@ export const Button = ({
     [onPressOut],
   )
 
-  const isExternalLink =
-    icon?.name === 'link-external' || icon?.name === 'close'
+  const isExternalLink = icon?.name === 'link-external' || isReverseOrder
 
   return (
     <PressableBase
@@ -158,7 +162,7 @@ const LINE_HEIGHT_CORRECTION = 6
 
 const createStyles = (
   {border, color, text, size}: Theme,
-  {flex, flexShrink, small, variant}: Partial<ButtonProps>,
+  {flex, flexShrink, small, variant, insetHorizontal}: Partial<ButtonProps>,
   isPressed: boolean,
   noPadding: boolean,
   noPaddingHorizontal: boolean,
@@ -177,7 +181,10 @@ const createStyles = (
   const paddingHorizontal =
     noPadding || noPaddingHorizontal
       ? 0
-      : size.spacing.md + 2 + border.width.md - borderWidth
+      : size.spacing[insetHorizontal ?? 'md'] +
+        2 +
+        border.width.md -
+        borderWidth
 
   const paddingVertical =
     noPadding || noPaddingVertical

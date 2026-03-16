@@ -7,9 +7,9 @@ import type {
 import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
+import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {ServiceFilterItems} from '@/modules/service/components/ServiceFilterItems'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
@@ -43,10 +43,11 @@ export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
     <MapBase
       controls={[ControlVariant.location]}
       FilterComponent={
-        <ServiceFilterItems
+        <MapFilters
           activeFilters={activeFilters}
           filters={service?.filters}
           onPressFilter={onPressFilter}
+          testID="ServiceMapFilters"
         />
       }
       isError={isError || !data?.length}
