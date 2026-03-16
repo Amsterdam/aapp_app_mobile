@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import {FlatList} from 'react-native'
-import type {ServiceItem} from '@/modules/service/types'
+import type {ServiceFeature, ServiceItem} from '@/modules/service/types'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -19,7 +19,7 @@ export const ServicePointList = ({
   onServicePointPress,
 }: {
   id: ServiceItem['id']
-  onServicePointPress: (id: ServiceItem['id']) => void
+  onServicePointPress: (id: ServiceFeature['id']) => void
 }) => {
   const {
     data: service,

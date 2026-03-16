@@ -28,7 +28,7 @@ export const MapViewSwitchHeaderButton = ({testID}: TestProps) => {
 
   return (
     <IconButton
-      accessibilityHint="'Wissel van weergave'"
+      accessibilityHint="Wissel van weergave"
       accessibilityLabel={accessibilityLabel}
       icon={
         <Icon

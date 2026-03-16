@@ -1,4 +1,4 @@
-import {type Address, Coordinates} from '@/modules/address/types'
+import type {Address, Coordinates} from '@/modules/address/types'
 import {getDistance} from '@/utils/getDistance'
 
 /**

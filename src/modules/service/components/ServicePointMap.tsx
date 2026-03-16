@@ -2,6 +2,7 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useState} from 'react'
 import type {
   ServiceItem,
+  ServiceFeature,
   ServiceMapResponseFilter,
 } from '@/modules/service/types'
 import type {Region} from 'react-native-maps'
@@ -19,7 +20,7 @@ export const ServicePointMap = ({
   onServicePointPress,
 }: {
   id: ServiceItem['id']
-  onServicePointPress: (id: ServiceItem['id']) => void
+  onServicePointPress: (id: ServiceFeature['id']) => void
 }) => {
   const {
     data: service,

@@ -7,7 +7,9 @@ import {
 export const MapViewSwitchProvider = ({
   children,
   variant = MapViewVariant.list,
-}: PropsWithChildren<{variant?: MapViewVariant}>) => {
+}: PropsWithChildren<{
+  variant?: Exclude<MapViewVariant, MapViewVariant.map>
+}>) => {
   const [viewTypeIndex, setViewTypeIndex] = useState(0)
 
   const toggleViewType = useCallback(() => {
