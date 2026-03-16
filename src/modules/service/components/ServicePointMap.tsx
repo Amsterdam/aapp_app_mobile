@@ -14,7 +14,13 @@ import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 
-export const ServicePointMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
+export const ServicePointMap = ({
+  id: serviceId,
+  onServicePointPress,
+}: {
+  id: ServiceItem['id']
+  onServicePointPress: (id: ServiceItem['id']) => void
+}) => {
   const {
     data: service,
     isLoading,
@@ -24,7 +30,7 @@ export const ServicePointMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
   const [activeFilters, setActiveFilters] = useState<
     ServiceMapResponseFilter[]
   >([])
-  const data = useGetMapData(activeFilters, geojson)
+  const data = useGetMapData(activeFilters, geojson, onServicePointPress)
   const [region, setRegion] = useState<Region | undefined>()
 
   const onPressFilter = useCallback((filter: ServiceMapResponseFilter) => {

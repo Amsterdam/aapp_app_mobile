@@ -9,11 +9,18 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
-export const ServicePointList = ({id: serviceId}: {id: ServiceItem['id']}) => {
+export const ServicePointList = ({
+  id: serviceId,
+  onServicePointPress,
+}: {
+  id: ServiceItem['id']
+  onServicePointPress: (id: ServiceItem['id']) => void
+}) => {
   const {
     data: service,
     isLoading,
@@ -49,6 +56,7 @@ export const ServicePointList = ({id: serviceId}: {id: ServiceItem['id']}) => {
     <Box insetBottom="md">
       <FlatList
         data={servicePointsByDistance}
+        keyExtractor={point => point.id}
         ListHeaderComponent={
           <Box
             insetBottom="sm"
@@ -69,9 +77,10 @@ export const ServicePointList = ({id: serviceId}: {id: ServiceItem['id']}) => {
           </Box>
         }
         renderItem={({item: servicePoint}) => (
-          <Box insetHorizontal="md">
-            <Phrase>{servicePoint.id}</Phrase>
-          </Box>
+          <ServicePointListItem
+            onPress={onServicePointPress}
+            servicePoint={servicePoint}
+          />
         )}
       />
     </Box>
