@@ -23,7 +23,7 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = PropsWithChildren<{
-  Filters?: ReactNode
+  FilterComponent?: ReactNode
   controls?: ControlVariant[]
   isError?: boolean
   moduleSlug: ModuleSlug
@@ -33,7 +33,7 @@ type Props = PropsWithChildren<{
 export const MapBase = ({
   children,
   controls,
-  Filters,
+  FilterComponent,
   isError,
   initialRegion,
   moduleSlug,
@@ -71,12 +71,12 @@ export const MapBase = ({
   return (
     <MapContext.Provider value={context}>
       <View style={styles.container}>
-        {(!!controls?.length || !!isError || !!Filters) && (
+        {(!!controls?.length || !!isError || !!FilterComponent) && (
           <View
             pointerEvents="box-none"
             style={styles.overlay}>
             <Column gutter="md">
-              {!!Filters && Filters}
+              {!!FilterComponent && FilterComponent}
               {!!controls?.length && (
                 <View
                   pointerEvents="auto"

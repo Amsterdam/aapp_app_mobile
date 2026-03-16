@@ -42,7 +42,7 @@ export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
   return (
     <MapBase
       controls={[ControlVariant.location]}
-      Filters={
+      FilterComponent={
         <ServiceFilterItems
           activeFilters={activeFilters}
           filters={service?.filters}
