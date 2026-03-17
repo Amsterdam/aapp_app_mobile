@@ -1,8 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
-import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
+import {RouteButton} from '@/components/ui/buttons/RouteButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -15,7 +15,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
-import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {ParkingMachineBottomSheetErrorMessage} from '@/modules/parking/components/permit-zone/ParkingMachineBottomSheetErrorMessage'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
@@ -30,8 +29,6 @@ import {
   useBottomSheetSelectors,
 } from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
-
-const ROUTE_ICON_LINE_HEIGHT_CORRECTION = 4
 
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -49,11 +46,6 @@ export const ParkingMachineBottomSheetContent = () => {
   const parkingMachine = data?.find(
     machine => machine.id === selectedParkingMachineId,
   )
-
-  const directionsUrl = useGetGoogleMapsDirectionsUrl({
-    lat: parkingMachine?.lat,
-    lon: parkingMachine?.lon,
-  })
 
   const {
     data: parkingMachineDetails,
@@ -111,16 +103,13 @@ export const ParkingMachineBottomSheetContent = () => {
             <Phrase color="secondary">Ingesteld als favoriet</Phrase>
           )}
 
-          <ExternalLinkButton
+          <RouteButton
             accessibilityLabel={`Open de routeplanner op uw telefoon met de route naar parkeerautomaat ${parkingMachine.id}.`}
-            alignSelf="flex-start"
-            icon={{name: 'navigate', size: 'ml'}}
-            label="Route"
-            lineHeightCorrection={ROUTE_ICON_LINE_HEIGHT_CORRECTION}
-            noPadding
-            testID="ParkingMachineDetailsRouteExternalLinkButton"
-            url={directionsUrl}
-            variant="tertiary"
+            coordinates={{
+              lat: parkingMachine.lat,
+              lon: parkingMachine.lon,
+            }}
+            testID="ParkingMachineDetailsRouteButton"
           />
         </Column>
 

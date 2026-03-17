@@ -1,4 +1,5 @@
-import type {Address, Coordinates} from '@/modules/address/types'
+import type {Address} from '@/modules/address/types'
+import type {Coordinates} from '@/types/location'
 import {getFormattedDistanceToPoint} from '@/modules/service/utils/getFormattedDistanceToPoint'
 
 describe('getFormattedDistanceToPoint', () => {

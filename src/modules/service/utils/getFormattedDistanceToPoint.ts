@@ -1,4 +1,4 @@
-import type {Coordinates} from '@/modules/address/types'
+import type {Coordinates} from '@/types/location'
 import {getDistance} from '@/utils/getDistance'
 
 export const getFormattedDistanceToPoint = (

@@ -1,6 +1,7 @@
 import type {ParkingMachine} from '@/modules/parking/types'
 import type {ServiceFeature} from '@/modules/service/types'
-import {Address, AddressCity, type Coordinates} from '@/modules/address/types'
+import type {Coordinates} from '@/types/location'
+import {type Address, AddressCity} from '@/modules/address/types'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 describe('sortByDistanceToAddress', () => {

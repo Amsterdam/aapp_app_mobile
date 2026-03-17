@@ -1,8 +1,5 @@
-import {
-  AddressList,
-  Coordinates,
-  type PostalArea,
-} from '@/modules/address/types'
+import type {Coordinates} from '@/types/location'
+import {AddressList, type PostalArea} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'

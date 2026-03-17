@@ -1,6 +1,5 @@
 import type {EmptyObject} from '@/types/utils'
 import type {Feature} from 'geojson'
-import type {LatLng} from 'react-native-maps'
 
 export enum ServiceEndpointName {
   service = 'service',
@@ -24,7 +23,7 @@ type FeatureProperties = {
    * Title of service point
    */
   aapp_title: string
-} & Record<string, unknown>
+} & Record<string, string | number | boolean | null>
 
 export type ServiceFeature = Omit<
   Feature<FeatureGeometry, FeatureProperties>,
@@ -46,13 +45,7 @@ export type ServiceMapResponseFilter<
 
 export type ServiceMapResponse = {
   data: ServiceGeoJSON | EmptyObject
-  /**
-   * @todo verify and refine
-   */
   filters: ServiceMapResponseFilter[]
-  /**
-   * @todo verify and refine
-   */
   list_property: {key: string; type: string}
   /**
    * These are used to match against the specific service feature properties to determine which properties are shown in bottom sheet details list
@@ -67,12 +60,15 @@ export type ServiceMapResponse = {
 
 export enum ServiceDetailPropertyType {
   image = 'image',
+  malfunction = 'malfunction',
   price = 'price',
+
   string = 'string',
 }
 
-export type ServicePointDetails = {
-  aapp_title: string
-  coordinates: LatLng
-  id: string
-} & Record<string, unknown>
+export type ServiceFeatureProperty = {
+  icon: string | null
+  label: string | null
+  type: ServiceDetailPropertyType
+  value: string | number | boolean | null
+}

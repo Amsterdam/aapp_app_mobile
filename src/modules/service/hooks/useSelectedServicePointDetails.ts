@@ -1,10 +1,20 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
+import type {Coordinates} from '@/types/location'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useServiceQuery} from '@/modules/service/service'
 import {selectSelectedServicePointId} from '@/modules/service/slice'
+import {ServiceFeatureProperty, type Service} from '@/modules/service/types'
+import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 
-export const useSelectedServicePointDetails = (serviceId: string) => {
+type SelectedServicePointDetails = {
+  coordinates: Coordinates
+  id: string
+  properties: Array<ServiceFeatureProperty>
+  title: string
+}
+
+export const useSelectedServicePointDetails = (serviceId: Service['id']) => {
   const selectedServicePointId = useSelector(selectSelectedServicePointId)
 
   const {data} = useServiceQuery(serviceId || skipToken)
@@ -20,20 +30,29 @@ export const useSelectedServicePointDetails = (serviceId: string) => {
       feature => feature.id === selectedServicePointId,
     )
 
+    if (!servicePoint) {
+      return
+    }
+
     return {
       id: selectedServicePointId,
-      title: servicePoint?.properties.aapp_title,
+      title: servicePoint.properties.aapp_title,
       coordinates: {
-        lat: servicePoint?.geometry.coordinates[1],
-        lon: servicePoint?.geometry.coordinates[0],
+        lat: servicePoint.geometry.coordinates[1],
+        lon: servicePoint.geometry.coordinates[0],
       },
-      properties: properties_to_include.map(
-        ({property_key, property_type, icon, label}) => ({
-          [property_type]: servicePoint?.properties[property_key],
-          icon,
-          label,
-        }),
-      ),
-    }
+      properties: properties_to_include
+        .map(({property_key, property_type: type, ...rest}) => ({
+          ...rest,
+          type,
+          value: formatPropertyValue(
+            type,
+            servicePoint.properties[property_key],
+          ),
+        }))
+        .filter(
+          (property): property is ServiceFeatureProperty => !!property.value,
+        ),
+    } satisfies SelectedServicePointDetails
   }, [data, selectedServicePointId])
 }

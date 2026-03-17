@@ -1,8 +1,8 @@
 import {useState, useCallback, useEffect} from 'react'
+import type {Coordinates} from '@/types/location'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetCoordinates} from '@/modules/address/hooks/useGetCoordinates'
 import {useLocation, setGetLocationIsError} from '@/modules/address/slice'
-import {Coordinates} from '@/modules/address/types'
 import {getPropertyFromMaybeObject} from '@/utils/object'
 
 export const useGetCoordinatesForLocation = () => {
