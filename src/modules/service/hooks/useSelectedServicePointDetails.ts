@@ -41,16 +41,18 @@ export const useSelectedServicePointDetails = (serviceId: string) => {
         lat: servicePoint.geometry.coordinates[1],
         lon: servicePoint.geometry.coordinates[0],
       },
-      properties: properties_to_include.map(
-        ({property_key, property_type: type, ...rest}) => ({
+      properties: properties_to_include
+        .map(({property_key, property_type: type, ...rest}) => ({
           ...rest,
           type,
           value: formatPropertyValue(
             type,
             servicePoint.properties[property_key],
           ),
-        }),
-      ),
+        }))
+        .filter(
+          (property): property is ServiceFeatureProperty => !!property.value,
+        ),
     } satisfies SelectedServicePointDetails
   }, [data, selectedServicePointId])
 }

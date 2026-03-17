@@ -17,8 +17,19 @@ export const ServicePointDetailsProperties = ({
 }) => (
   <Column gutter="lg">
     {properties.map(({icon, label, type, value}, index) => {
-      if (!label && !value) {
-        return null
+      if (type === ServiceDetailPropertyType.malfunction) {
+        return (
+          <Row
+            gutter="sm"
+            key={`${ServiceDetailPropertyType.malfunction}-${value}`}>
+            <Icon
+              color="warning"
+              name="alert"
+              size="lg"
+            />
+            <Paragraph color="warning">{value}</Paragraph>
+          </Row>
+        )
       }
 
       if (
@@ -55,7 +66,7 @@ export const ServicePointDetailsProperties = ({
                 level="h5"
                 text={label}
               />
-              <Paragraph>{value || '-'}</Paragraph>
+              <Paragraph>{value}</Paragraph>
             </SingleSelectable>
           ) : (
             <Paragraph>{value}</Paragraph>

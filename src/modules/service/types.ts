@@ -67,7 +67,9 @@ export type ServiceMapResponse = {
 
 export enum ServiceDetailPropertyType {
   image = 'image',
+  malfunction = 'malfunction',
   price = 'price',
+
   string = 'string',
 }
 
@@ -81,5 +83,5 @@ export type ServiceFeatureProperty = {
   icon: string | null
   label: string | null
   type: ServiceDetailPropertyType
-  value: string | number | null
+  value: string | number
 }
