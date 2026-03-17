@@ -10,7 +10,9 @@ export const formatPropertyValue = (
     content !== null &&
     !Number.isNaN(Number(content))
   ) {
-    return formatNumber(Number(content), 'EUR')
+    return Number(content) === 0
+      ? 'Gratis'
+      : formatNumber(Number(content), 'EUR')
   }
 
   return content

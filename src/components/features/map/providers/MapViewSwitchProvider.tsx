@@ -2,7 +2,7 @@ import {type PropsWithChildren, useState, useCallback, useMemo} from 'react'
 import {
   MapViewSwitchContext,
   MapViewVariant,
-} from '@/components/features/map/MapViewSwitchContext'
+} from '@/components/features/map/providers/MapViewSwitchContext'
 
 export const MapViewSwitchProvider = ({
   children,

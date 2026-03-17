@@ -1,5 +1,5 @@
-import {MapViewVariant} from '@/components/features/map/MapViewSwitchContext'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
+import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
 import {ParkingMachineList} from '@/modules/parking/components/permit-zone/ParkingMachineList'
 import {ParkingMachineSearch} from '@/modules/parking/components/permit-zone/ParkingMachineSearch'
 import {ParkingPermitZoneMap} from '@/modules/parking/components/permit-zone/ParkingPermitZoneMap'

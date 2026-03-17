@@ -55,7 +55,7 @@ describe('formatPropertyValue', () => {
     expect(valueString).toBe('test')
     expect(valueNull).toBe(null)
     expect(valueNumber1).toBe('€\u00A00,50')
-    expect(valueNumber2).toBe('€\u00A00,00')
+    expect(valueNumber2).toBe('Gratis')
     expect(valueNumber3).toBe('€\u00A099.999.999,00')
   })
 })

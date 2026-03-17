@@ -1,8 +1,8 @@
 import {useMemo} from 'react'
 import type {SvgIconName} from '@/components/ui/media/svgIcons'
 import type {TestProps} from '@/components/ui/types'
-import {MapViewVariant} from '@/components/features/map/MapViewSwitchContext'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
+import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 

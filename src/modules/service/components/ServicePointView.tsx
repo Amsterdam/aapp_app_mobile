@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import type {ServiceFeature, ServiceItem} from '@/modules/service/types'
-import {MapViewVariant} from '@/components/features/map/MapViewSwitchContext'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
+import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ServicePointList} from '@/modules/service/components/ServicePointList'
 import {ServicePointMap} from '@/modules/service/components/ServicePointMap'

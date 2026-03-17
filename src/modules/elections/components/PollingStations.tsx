@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
-import {Tabs} from '@/components/ui/Tabs'
+import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
+import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {PollingStationsList} from '@/modules/elections/components/PollingStationsList'
@@ -16,6 +17,7 @@ export const PollingStations = () => {
   const {data, isLoading, isError} = usePollingStationsQuery()
   const {address} = useSelectedAddress(ModuleSlug.elections)
   const {open} = useBottomSheet()
+  const {viewType} = useMapViewSwitch()
 
   const onSelectPollingStation = useCallback(
     (id: PollingStation['id']) => {
@@ -25,32 +27,25 @@ export const PollingStations = () => {
     [dispatch, open],
   )
 
+  if (viewType === MapViewVariant.list) {
+    return (
+      <PollingStationsList
+        address={address}
+        isError={isError}
+        isLoading={isLoading}
+        onPress={onSelectPollingStation}
+        pollingStations={data}
+      />
+    )
+  }
+
   return (
-    <Tabs
-      grow={1}
-      testID="PollingStationsViewTabs">
-      <Tabs.Tab
-        accessibilityLabel="Kaartweergave"
-        label="Kaart">
-        <PollingStationsMap
-          address={address}
-          isError={isError}
-          isLoading={isLoading}
-          onPress={onSelectPollingStation}
-          pollingStations={data}
-        />
-      </Tabs.Tab>
-      <Tabs.Tab
-        accessibilityLabel="Lijstweergave"
-        label="Lijst">
-        <PollingStationsList
-          address={address}
-          isError={isError}
-          isLoading={isLoading}
-          onPress={onSelectPollingStation}
-          pollingStations={data}
-        />
-      </Tabs.Tab>
-    </Tabs>
+    <PollingStationsMap
+      address={address}
+      isError={isError}
+      isLoading={isLoading}
+      onPress={onSelectPollingStation}
+      pollingStations={data}
+    />
   )
 }
