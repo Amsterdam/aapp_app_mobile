@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {usePermission} from '@/hooks/permissions/usePermission'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/mijn-amsterdam/alerts'
 import {mijnAmsterdamApi} from '@/modules/mijn-amsterdam/service'
@@ -8,10 +9,12 @@ import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useAlert} from '@/store/slices/alert'
 import {LoginResult} from '@/types/navigation'
+import {Permissions} from '@/types/permissions'
 
 export const useHandleLoginDeeplink = (loginResult?: LoginResult) => {
   const {setAlert} = useAlert()
   const trackException = useTrackException()
+  const {requestPermission} = usePermission(Permissions.notifications)
 
   const dispatch = useDispatch()
   const navigation = useNavigation()
@@ -23,6 +26,8 @@ export const useHandleLoginDeeplink = (loginResult?: LoginResult) => {
     )
 
     if (loginResult === LoginResult.success) {
+      void requestPermission()
+
       if (!fromOnboarding) {
         setAlert(alerts.loginSuccess)
       }
@@ -39,5 +44,12 @@ export const useHandleLoginDeeplink = (loginResult?: LoginResult) => {
     if (loginResult && fromOnboarding) {
       navigation.goBack()
     }
-  }, [dispatch, loginResult, setAlert, trackException, navigation])
+  }, [
+    dispatch,
+    loginResult,
+    setAlert,
+    trackException,
+    navigation,
+    requestPermission,
+  ])
 }
