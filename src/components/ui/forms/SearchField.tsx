@@ -18,17 +18,11 @@ import {usePiwikTrackSearchFromProps} from '@/processes/piwik/hooks/usePiwikTrac
 import {PiwikDimension} from '@/processes/piwik/types'
 import {useThemable} from '@/themes/useThemable'
 
-export type SearchFieldProps = {
-  onChangeText?: (event: string) => void
-  onFocus?: () => void
-} & TestProps &
-  TextInputProps
+export type SearchFieldProps = TestProps & TextInputProps
 
 export const SearchField = forwardRef<TextInput, SearchFieldProps>(
   (
     {
-      onChangeText,
-      onFocus,
       testID,
       value = '',
       multiline = true,
@@ -59,27 +53,26 @@ export const SearchField = forwardRef<TextInput, SearchFieldProps>(
       },
     })
 
-    const handleBlur = (
-      event: NativeSyntheticEvent<TextInputFocusEventData>,
-    ) => {
+    const onBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setHasFocus(false)
       onEvent(event)
+      textInputProps.onBlur?.(event)
     }
 
-    const handleChangeText = (text: string) => {
+    const onChangeText = (text: string) => {
       setSearchFieldValue(text)
-      onChangeText?.(text)
+      textInputProps.onChangeText?.(text)
     }
 
-    const handleClearText = (event: GestureResponderEvent) => {
+    const onPressClearText = (event: GestureResponderEvent) => {
       setSearchFieldValue('')
-      onChangeText?.('')
+      textInputProps.onChangeText?.('')
       onEvent(event)
     }
 
-    const handleFocus = () => {
+    const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setHasFocus(true)
-      onFocus?.()
+      textInputProps.onFocus?.(e)
     }
 
     const handleBackspaceKeyPress = (
@@ -88,6 +81,8 @@ export const SearchField = forwardRef<TextInput, SearchFieldProps>(
       if (event.nativeEvent.key === 'Backspace') {
         onEvent(event)
       }
+
+      textInputProps.onKeyPress?.(event)
     }
 
     return (
@@ -97,9 +92,9 @@ export const SearchField = forwardRef<TextInput, SearchFieldProps>(
           {...themedTextInputProps}
           accessibilityLanguage={accessibilityLanguage}
           multiline={multiline}
-          onBlur={handleBlur}
-          onChangeText={handleChangeText}
-          onFocus={handleFocus}
+          onBlur={onBlur}
+          onChangeText={onChangeText}
+          onFocus={onFocus}
           onKeyPress={handleBackspaceKeyPress}
           ref={ref}
           style={styles.textInput}
@@ -119,7 +114,7 @@ export const SearchField = forwardRef<TextInput, SearchFieldProps>(
                   testID={`${testID}Icon`}
                 />
               }
-              onPress={handleClearText}
+              onPress={onPressClearText}
               testID={`${testID}ClearButton`}
             />
           </View>
