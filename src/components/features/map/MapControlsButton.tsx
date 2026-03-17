@@ -1,4 +1,3 @@
-import {StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Icon, type IconProps} from '@/components/ui/media/Icon'
@@ -9,8 +8,6 @@ type Props = {
   icon: IconProps
   onPress: () => void
 } & TestProps
-
-const EXTRA_PADDING = 2
 
 export const MapControlsButton = ({
   accessibilityLabel,
@@ -26,20 +23,11 @@ export const MapControlsButton = ({
       borderColor="distinct"
       borderWidth="md"
       inset="sm">
-      <View style={styles.extraPadding}>
-        <Icon
-          color="link"
-          {...icon}
-          size="lg"
-        />
-      </View>
+      <Icon
+        color="link"
+        {...icon}
+        size="lg"
+      />
     </Box>
   </Pressable>
 )
-
-const styles = StyleSheet.create({
-  /**
-   * Aligns the height of the map control button with the map filters
-   */
-  extraPadding: {padding: EXTRA_PADDING},
-})
