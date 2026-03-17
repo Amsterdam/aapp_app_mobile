@@ -28,7 +28,6 @@ export const SearchFieldControlled = <
   shouldUnregister,
   disabled,
   rules,
-  ref,
   ...searchFieldProps
 }: Props<TFieldValues, TName>) => {
   const {field} = useController<TFieldValues, TName>({
@@ -43,9 +42,7 @@ export const SearchFieldControlled = <
   return (
     <SearchField
       onBlur={field.onBlur}
-      onChange={field.onChange}
       onChangeText={field.onChange}
-      ref={ref}
       testID={testID}
       value={field.value}
       {...searchFieldProps}

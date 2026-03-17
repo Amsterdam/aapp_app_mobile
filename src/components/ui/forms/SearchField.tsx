@@ -1,4 +1,4 @@
-import {type Ref, useState} from 'react'
+import {forwardRef, useState} from 'react'
 import {
   type GestureResponderEvent,
   type NativeSyntheticEvent,
@@ -18,111 +18,113 @@ import {usePiwikTrackSearchFromProps} from '@/processes/piwik/hooks/usePiwikTrac
 import {PiwikDimension} from '@/processes/piwik/types'
 import {useThemable} from '@/themes/useThemable'
 
-export type SearchFieldProps = {
-  onChangeText?: (event: string) => void
-  onFocus?: () => void
-  ref?: Ref<TextInput | null>
-} & TestProps &
-  TextInputProps
+export type SearchFieldProps = TestProps & TextInputProps
 
-export const SearchField = ({
-  ref,
-  onChangeText,
-  onFocus,
-  testID,
-  value = '',
-  multiline = true,
-  accessibilityLanguage = 'nl-NL',
-  ...textInputProps
-}: SearchFieldProps) => {
-  const [hasFocus, setHasFocus] = useState(false)
-  const styles = useThemable(createStyles({hasFocus}))
-  const themedTextInputProps = useThemable(createTextInputProps)
-  const {
-    type: searchType,
-    amount: searchResultAmount,
-    setSearchFieldValue,
-  } = useSearchField()
-
-  const onEvent = usePiwikTrackSearchFromProps({
-    keyword: value,
-    options: {
-      customDimensions: {
-        [PiwikDimension.searchTerm]: value,
-        [PiwikDimension.searchType]: searchType,
-        [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
-      },
-      category: searchType,
-      count: searchResultAmount,
-    },
-  })
-
-  const handleBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    setHasFocus(false)
-    onEvent(event)
-  }
-
-  const handleChangeText = (text: string) => {
-    setSearchFieldValue(text)
-    onChangeText?.(text)
-  }
-
-  const handleClearText = (event: GestureResponderEvent) => {
-    setSearchFieldValue('')
-    onChangeText?.('')
-    onEvent(event)
-  }
-
-  const handleFocus = () => {
-    setHasFocus(true)
-    onFocus?.()
-  }
-
-  const handleBackspaceKeyPress = (
-    event: NativeSyntheticEvent<TextInputKeyPressEventData>,
+export const SearchField = forwardRef<TextInput, SearchFieldProps>(
+  (
+    {
+      testID,
+      value = '',
+      multiline = true,
+      accessibilityLanguage = 'nl-NL',
+      ...textInputProps
+    }: SearchFieldProps,
+    ref,
   ) => {
-    if (event.nativeEvent.key === 'Backspace') {
+    const [hasFocus, setHasFocus] = useState(false)
+    const styles = useThemable(createStyles({hasFocus}))
+    const themedTextInputProps = useThemable(createTextInputProps)
+    const {
+      type: searchType,
+      amount: searchResultAmount,
+      setSearchFieldValue,
+    } = useSearchField()
+
+    const onEvent = usePiwikTrackSearchFromProps({
+      keyword: value,
+      options: {
+        customDimensions: {
+          [PiwikDimension.searchTerm]: value,
+          [PiwikDimension.searchType]: searchType,
+          [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
+        },
+        category: searchType,
+        count: searchResultAmount,
+      },
+    })
+
+    const onBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      setHasFocus(false)
+      onEvent(event)
+      textInputProps.onBlur?.(event)
+    }
+
+    const onChangeText = (text: string) => {
+      setSearchFieldValue(text)
+      textInputProps.onChangeText?.(text)
+    }
+
+    const onPressClearText = (event: GestureResponderEvent) => {
+      setSearchFieldValue('')
+      textInputProps.onChangeText?.('')
       onEvent(event)
     }
-  }
 
-  return (
-    <View style={styles.frame}>
-      <TextInput
-        {...textInputProps}
-        {...themedTextInputProps}
-        accessibilityLanguage={accessibilityLanguage}
-        multiline={multiline}
-        onBlur={handleBlur}
-        onChangeText={handleChangeText}
-        onFocus={handleFocus}
-        onKeyPress={handleBackspaceKeyPress}
-        ref={ref}
-        style={styles.textInput}
-        testID={testID}
-        textAlignVertical="top"
-        value={value}
-      />
-      {!!value && (
-        <View>
-          <IconButton
-            accessibilityHint="Maak dit zoekveld leeg"
-            accessibilityLanguage={accessibilityLanguage}
-            icon={
-              <Icon
-                name="close"
-                size="ml"
-                testID={`${testID}Icon`}
-              />
-            }
-            onPress={handleClearText}
-            testID={`${testID}ClearButton`}
-          />
-        </View>
-      )}
-    </View>
-  )
-}
+    const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      setHasFocus(true)
+      textInputProps.onFocus?.(e)
+    }
+
+    const handleBackspaceKeyPress = (
+      event: NativeSyntheticEvent<TextInputKeyPressEventData>,
+    ) => {
+      if (event.nativeEvent.key === 'Backspace') {
+        onEvent(event)
+      }
+
+      textInputProps.onKeyPress?.(event)
+    }
+
+    return (
+      <View style={styles.frame}>
+        <TextInput
+          {...textInputProps}
+          {...themedTextInputProps}
+          accessibilityLanguage={accessibilityLanguage}
+          multiline={multiline}
+          onBlur={onBlur}
+          onChangeText={onChangeText}
+          onFocus={onFocus}
+          onKeyPress={handleBackspaceKeyPress}
+          ref={ref}
+          style={styles.textInput}
+          testID={testID}
+          textAlignVertical="top"
+          value={value}
+        />
+        {!!value && (
+          <View>
+            <IconButton
+              accessibilityHint="Maak dit zoekveld leeg"
+              accessibilityLanguage={accessibilityLanguage}
+              icon={
+                <Icon
+                  name="close"
+                  size="ml"
+                  testID={`${testID}Icon`}
+                />
+              }
+              onPress={onPressClearText}
+              testID={`${testID}ClearButton`}
+            />
+          </View>
+        )}
+      </View>
+    )
+  },
+)
+
+SearchField.displayName = 'SearchField'
 
 const createStyles =
   ({hasFocus}: {hasFocus?: boolean} & Partial<SearchFieldProps>) =>

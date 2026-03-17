@@ -12,7 +12,7 @@ export const ExtendAccessCodeValidityOnTap = ({children}: Props) => {
 
   const gesture = useMemo(
     () =>
-      Gesture.Tap().onBegin(() => {
+      Gesture.Tap().onEnd(() => {
         runOnJS(onExtendAccessCodeValidity)()
       }),
     [onExtendAccessCodeValidity],
