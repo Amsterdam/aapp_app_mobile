@@ -81,6 +81,7 @@ export const TextInput = ({
             emphasis="default"
             isAccessible={false}
             required={required}
+            shouldShowSuffix={!label}
             text={inputInstructions}
           />
         )}
