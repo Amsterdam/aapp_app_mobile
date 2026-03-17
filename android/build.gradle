@@ -14,7 +14,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url = "https://packages.rnrepo.org/releases" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle'
@@ -23,7 +22,6 @@ buildscript {
         // Firebase
         classpath 'com.google.gms:google-services:4.3.2'
         // NOTE: Do not place your application dependencies here; they belong in the individual module build.gradle files
-        classpath("org.rnrepo.tools:prebuilds-plugin:0.2.2")
     }
 }
 
@@ -40,7 +38,6 @@ allprojects {
                 includeGroupByRegex "com\\.salesforce.*"
             }
         }
-        maven { url = "https://packages.rnrepo.org/releases" }
     }
     afterEvaluate {
         if (it.hasProperty('android')){
