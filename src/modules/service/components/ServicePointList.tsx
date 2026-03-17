@@ -2,6 +2,8 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import {FlatList} from 'react-native'
 import type {ServiceFeature, ServiceItem} from '@/modules/service/types'
+import {MapFilters} from '@/components/features/map/filters/MapFilters'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -10,6 +12,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
+import {useGetFilteredFeatures} from '@/modules/service/hooks/useGetFilteredFeatures'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
@@ -26,23 +29,30 @@ export const ServicePointList = ({
     isLoading,
     isError,
   } = useServiceQuery(serviceId || skipToken)
+  const geojson = service?.data
+
+  const {activeFilters, filters, onPressFilter} = useMapFilters()
+  const filteredFeatures = useGetFilteredFeatures({
+    activeFilters,
+    features: geojson && 'features' in geojson ? geojson?.features : [],
+  })
 
   const {address} = useSelectedAddress(ModuleSlug.service)
 
   const servicePointsByDistance = useMemo(() => {
-    if (!service || !('features' in service.data)) {
+    if (!filteredFeatures?.length) {
       return []
     }
 
     return sortByDistanceToAddress(
-      service?.data.features.map(feat => ({
+      filteredFeatures.map(feat => ({
         ...feat,
         lat: feat.geometry.coordinates[1],
         lon: feat.geometry.coordinates[0],
       })),
       address,
     )
-  }, [service, address])
+  }, [filteredFeatures, address])
 
   if (isLoading) {
     return <PleaseWait testID="ServicePointListPleaseWait" />
@@ -58,23 +68,33 @@ export const ServicePointList = ({
         data={servicePointsByDistance}
         keyExtractor={point => point.id}
         ListHeaderComponent={
-          <Box
-            insetBottom="sm"
-            insetHorizontal="md"
-            insetTop="lg">
-            <Column gutter="lg">
-              <AddressSwitch
-                moduleSlug={ModuleSlug.service}
-                testID="ServicePointListAddressSwitch"
-              />
+          <>
+            {!!filters?.length && (
+              <Box insetVertical="smd">
+                <MapFilters
+                  activeFilters={activeFilters}
+                  filters={filters}
+                  onPressFilter={onPressFilter}
+                  testID="ServiceListFilters"
+                />
+              </Box>
+            )}
 
-              {!!address && (
-                <Phrase color="secondary">
-                  Resultaten gesorteerd op afstand:
-                </Phrase>
-              )}
-            </Column>
-          </Box>
+            <Box insetHorizontal="md">
+              <Column gutter="lg">
+                <AddressSwitch
+                  moduleSlug={ModuleSlug.service}
+                  testID="ServicePointListAddressSwitch"
+                />
+
+                {!!address && (
+                  <Phrase color="secondary">
+                    Resultaten gesorteerd op afstand:
+                  </Phrase>
+                )}
+              </Column>
+            </Box>
+          </>
         }
         renderItem={({item: servicePoint}) => (
           <ServicePointListItem

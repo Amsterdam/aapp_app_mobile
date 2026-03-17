@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
 import type {ServiceFeature, ServiceItem} from '@/modules/service/types'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
+import {MapFiltersProvider} from '@/components/features/map/providers/MapFiltersProvider'
 import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ServicePointList} from '@/modules/service/components/ServicePointList'
@@ -26,9 +27,11 @@ export const ServicePointView = (props: {id: ServiceItem['id']}) => {
     viewType === MapViewVariant.map ? ServicePointMap : ServicePointList
 
   return (
-    <ServiceViewComponent
-      {...props}
-      onServicePointPress={onServicePointPress}
-    />
+    <MapFiltersProvider serviceId={props.id}>
+      <ServiceViewComponent
+        {...props}
+        onServicePointPress={onServicePointPress}
+      />
+    </MapFiltersProvider>
   )
 }
