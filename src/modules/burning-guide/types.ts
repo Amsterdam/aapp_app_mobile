@@ -30,12 +30,8 @@ export type BurningGuideApiResponse = {
   definitive_12: boolean
   definitive_18: boolean
   definitive_6: boolean
-  lki: number
   model_runtime: string
   postal_code: string
-  wind: number
-  wind_bft: number
-  wind_direction: number
 }
 
 export type BurningGuideNotificationSettings =
