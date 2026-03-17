@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import type {ServiceFeature, ServiceItem} from '@/modules/service/types'
+import type {ServiceFeature, Service} from '@/modules/service/types'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
 import {MapFiltersProvider} from '@/components/features/map/providers/MapFiltersProvider'
 import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
@@ -9,7 +9,7 @@ import {ServicePointMap} from '@/modules/service/components/ServicePointMap'
 import {setSelectedServicePointId} from '@/modules/service/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
-export const ServicePointView = (props: {id: ServiceItem['id']}) => {
+export const ServicePointView = (props: {id: Service['id']}) => {
   const {viewType} = useMapViewSwitch()
 
   const dispatch = useDispatch()

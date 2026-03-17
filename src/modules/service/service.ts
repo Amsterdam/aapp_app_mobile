@@ -1,6 +1,6 @@
 import {
   ServiceEndpointName,
-  type ServiceItem,
+  type Service,
   type ServiceMapResponse,
   type ServiceOverviewResponse,
 } from '@/modules/service/types'
@@ -21,7 +21,7 @@ export const serviceApi = baseApi.injectEndpoints({
     }),
     [ServiceEndpointName.service]: builder.query<
       ServiceMapResponse,
-      ServiceItem['id']
+      Service['id']
     >({
       query: serviceId => ({
         method: 'GET',

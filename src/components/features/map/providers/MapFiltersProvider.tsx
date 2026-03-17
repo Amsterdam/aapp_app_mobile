@@ -1,16 +1,13 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {type PropsWithChildren, useState, useCallback, useMemo} from 'react'
-import type {
-  ServiceItem,
-  ServiceMapResponseFilter,
-} from '@/modules/service/types'
+import type {Service, ServiceMapResponseFilter} from '@/modules/service/types'
 import {MapFiltersContext} from '@/components/features/map/providers/MapFiltersContext'
 import {useServiceQuery} from '@/modules/service/service'
 
 export const MapFiltersProvider = ({
   children,
   serviceId,
-}: PropsWithChildren<{serviceId: ServiceItem['id']}>) => {
+}: PropsWithChildren<{serviceId: Service['id']}>) => {
   const [activeFilters, setActiveFilters] = useState<
     ServiceMapResponseFilter[]
   >([])

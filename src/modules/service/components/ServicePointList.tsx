@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import {FlatList} from 'react-native'
-import type {ServiceFeature, ServiceItem} from '@/modules/service/types'
+import type {ServiceFeature, Service} from '@/modules/service/types'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {Box} from '@/components/ui/containers/Box'
@@ -21,7 +21,7 @@ export const ServicePointList = ({
   id: serviceId,
   onServicePointPress,
 }: {
-  id: ServiceItem['id']
+  id: Service['id']
   onServicePointPress: (id: ServiceFeature['id']) => void
 }) => {
   const {

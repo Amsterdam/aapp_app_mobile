@@ -1,6 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useState} from 'react'
-import type {ServiceItem, ServiceFeature} from '@/modules/service/types'
+import type {Service, ServiceFeature} from '@/modules/service/types'
 import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
@@ -16,7 +16,7 @@ export const ServicePointMap = ({
   id: serviceId,
   onServicePointPress,
 }: {
-  id: ServiceItem['id']
+  id: Service['id']
   onServicePointPress: (id: ServiceFeature['id']) => void
 }) => {
   const [region, setRegion] = useState<Region | undefined>()

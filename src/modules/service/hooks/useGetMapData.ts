@@ -1,7 +1,7 @@
 import {useMemo} from 'react'
 import type {
+  ServiceFeature,
   ServiceGeoJSON,
-  ServiceItem,
   ServiceMapResponseFilter,
 } from '@/modules/service/types'
 import type {EmptyObject} from '@/types/utils'
@@ -14,7 +14,7 @@ import {selectSelectedServicePointId} from '@/modules/service/slice'
 export const useGetMapData = (
   activeFilters: ServiceMapResponseFilter[],
   geojson: ServiceGeoJSON | EmptyObject | undefined,
-  onServicePointPress: (id: ServiceItem['id']) => void,
+  onServicePointPress: (id: ServiceFeature['id']) => void,
 ) => {
   const filteredFeatures = useGetFilteredFeatures({
     activeFilters,

@@ -7,7 +7,7 @@ export enum ServiceEndpointName {
   serviceOverview = 'serviceOverview',
 }
 
-export type ServiceItem = {
+export type Service = {
   /**
    * Svg path data
    */
@@ -16,7 +16,7 @@ export type ServiceItem = {
   title: string
 }
 
-export type ServiceOverviewResponse = ServiceItem[]
+export type ServiceOverviewResponse = Service[]
 
 type FeatureGeometry = {coordinates: [number, number]; type: 'Point'}
 type FeatureProperties = {
