@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import {FlatList} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -9,9 +10,9 @@ import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {HighAccuracyPurposeKey, type Address} from '@/modules/address/types'
 import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
 import {PollingStation} from '@/modules/elections/types'
-import {getSortedPollingStations} from '@/modules/elections/utils/getSortedPollingStations'
 import {ModuleSlug} from '@/modules/slugs'
 import {getDistance} from '@/utils/getDistance'
+import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 type Props = {
   address?: Address
@@ -28,6 +29,21 @@ export const PollingStationsList = ({
   onPress,
   pollingStations,
 }: Props) => {
+  const pollingStationsByDistance = useMemo(() => {
+    if (!pollingStations?.length) {
+      return []
+    }
+
+    return sortByDistanceToAddress(
+      pollingStations.map(station => ({
+        ...station,
+        lat: station.position.lat,
+        lon: station.position.lng,
+      })),
+      address,
+    )
+  }, [pollingStations, address])
+
   if (isLoading) {
     return <PleaseWait testID="PollingStationsListPleaseWait" />
   }
@@ -35,11 +51,6 @@ export const PollingStationsList = ({
   if (!pollingStations || !pollingStations.length || isError) {
     return <SomethingWentWrong testID="PollingStationsListSomethingWentWrong" />
   }
-
-  const pollingStationsByDistance = getSortedPollingStations(
-    pollingStations,
-    address,
-  )
 
   return (
     <Box

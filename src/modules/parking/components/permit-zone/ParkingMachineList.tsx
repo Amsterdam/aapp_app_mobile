@@ -12,8 +12,8 @@ import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
-import {getSortedParkingMachines} from '@/modules/parking/utils/getSortedParkingMachines'
 import {ModuleSlug} from '@/modules/slugs'
+import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 export const ParkingMachineList = () => {
   const {address} = useSelectedAddress(ModuleSlug.parking)
@@ -26,7 +26,7 @@ export const ParkingMachineList = () => {
   } = useParkingMachinesQuery()
 
   const parkingMachinesByDistance = useMemo(
-    () => getSortedParkingMachines(parkingMachinesData || [], address),
+    () => sortByDistanceToAddress(parkingMachinesData || [], address),
     [parkingMachinesData, address],
   )
 

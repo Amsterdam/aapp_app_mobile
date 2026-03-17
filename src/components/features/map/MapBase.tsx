@@ -8,6 +8,7 @@ import {
 } from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps, type Region} from 'react-native-maps'
+import type {ControlVariant} from '@/components/features/map/types'
 import type {ModuleSlug} from '@/modules/slugs'
 import {MapContext} from '@/components/features/map/MapContext'
 import {MapControls} from '@/components/features/map/MapControls'
@@ -15,7 +16,6 @@ import {
   AMSTERDAM_REGION,
   ANIMATION_DURATION,
 } from '@/components/features/map/constants'
-import {type ControlVariant} from '@/components/features/map/types'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
 import {Column} from '@/components/ui/layout/Column'
@@ -79,8 +79,8 @@ export const MapBase = ({
             <Column gutter="md">
               <Row
                 align="end"
-                gutter="md"
                 valign="start"
+                vgutter="md"
                 wrap>
                 {!!FilterComponent && FilterComponent}
                 {!!controls?.length && (
@@ -142,18 +142,18 @@ const createStyles = ({size}: Theme) =>
     },
     controls: {
       flexShrink: 1,
+      height: '100%',
       alignSelf: 'flex-end',
-      paddingHorizontal: size.spacing.md,
+      marginRight: size.spacing.md,
     },
-    error: {},
+    error: {paddingHorizontal: size.spacing.md},
     mapView: {
       flex: 1,
     },
     overlay: {
       width: '100%',
       position: 'absolute',
-      top: size.spacing.md,
-      paddingVertical: size.spacing.md,
+      paddingVertical: size.spacing.smd,
       zIndex: 1,
     },
   })

@@ -1,39 +1,35 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback, useState} from 'react'
-import type {
-  ServiceItem,
-  ServiceMapResponseFilter,
-} from '@/modules/service/types'
+import {useState} from 'react'
+import type {Service, ServiceFeature} from '@/modules/service/types'
 import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 
-export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
+export const ServicePointMap = ({
+  id: serviceId,
+  onServicePointPress,
+}: {
+  id: Service['id']
+  onServicePointPress: (id: ServiceFeature['id']) => void
+}) => {
+  const [region, setRegion] = useState<Region | undefined>()
+
   const {
     data: service,
     isLoading,
     isError,
   } = useServiceQuery(serviceId || skipToken)
   const geojson = service?.data
-  const [activeFilters, setActiveFilters] = useState<
-    ServiceMapResponseFilter[]
-  >([])
-  const data = useGetMapData(activeFilters, geojson)
-  const [region, setRegion] = useState<Region | undefined>()
 
-  const onPressFilter = useCallback((filter: ServiceMapResponseFilter) => {
-    setActiveFilters(filters =>
-      filters.some(f => getFilterIsEqual(f, filter))
-        ? filters.filter(f => !getFilterIsEqual(f, filter))
-        : [...filters, filter],
-    )
-  }, [])
+  const {activeFilters, filters, onPressFilter} = useMapFilters()
+  const data = useGetMapData(activeFilters, geojson, onServicePointPress)
 
   if (isLoading) {
     return <PleaseWait testID="ServiceMapPleaseWait" />
@@ -45,7 +41,7 @@ export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
       FilterComponent={
         <MapFilters
           activeFilters={activeFilters}
-          filters={service?.filters}
+          filters={filters}
           onPressFilter={onPressFilter}
           testID="ServiceMapFilters"
         />
@@ -60,10 +56,3 @@ export const ServiceMap = ({id: serviceId}: {id: ServiceItem['id']}) => {
     </MapBase>
   )
 }
-
-const getFilterIsEqual = (
-  filterA: ServiceMapResponseFilter,
-  filterB: ServiceMapResponseFilter,
-) =>
-  filterA.filter_key === filterB.filter_key &&
-  filterA.filter_value === filterB.filter_value

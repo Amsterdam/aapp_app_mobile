@@ -9,17 +9,13 @@ import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelectedServicePointDetails} from '@/modules/service/hooks/useSelectedServicePointDetails'
 import {resetSelectedServicePointId} from '@/modules/service/slice'
-import {type ServiceItem} from '@/modules/service/types'
+import {type Service} from '@/modules/service/types'
 import {
   useBottomSheet,
   useBottomSheetSelectors,
 } from '@/store/slices/bottomSheet'
 
-export const ServicePointDetails = ({
-  id: serviceId,
-}: {
-  id: ServiceItem['id']
-}) => {
+export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
   const {close: closeBottomSheet} = useBottomSheet()
   const {isOpen} = useBottomSheetSelectors()
   const dispatch = useDispatch()

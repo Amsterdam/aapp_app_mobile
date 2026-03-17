@@ -1,6 +1,6 @@
 import {pascalCase} from 'pascal-case'
 import {StyleSheet, View} from 'react-native'
-import type {ServiceItem} from '@/modules/service/types'
+import type {Service} from '@/modules/service/types'
 import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
@@ -10,14 +10,14 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ServiceRouteName} from '@/modules/service/routes'
 import {useThemable} from '@/themes/useThemable'
 
-export const ServiceListItem = ({icon, title, id}: ServiceItem) => {
+export const ServicesGridItem = ({icon, title, id}: Service) => {
   const styles = useThemable(createStyles)
   const {navigate} = useNavigation()
 
   return (
     <Pressable
       onPress={() => navigate(ServiceRouteName.map, {id, title})}
-      testID={`ServiceItem${pascalCase(title)}Button`}>
+      testID={`ServiceGridItem${pascalCase(title)}Button`}>
       <View style={styles.item}>
         <Column
           gutter="sm"
