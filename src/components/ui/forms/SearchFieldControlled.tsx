@@ -42,7 +42,6 @@ export const SearchFieldControlled = <
   return (
     <SearchField
       onBlur={field.onBlur}
-      onChange={field.onChange}
       onChangeText={field.onChange}
       testID={testID}
       value={field.value}
