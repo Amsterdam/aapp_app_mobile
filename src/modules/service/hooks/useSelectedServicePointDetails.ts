@@ -4,7 +4,7 @@ import type {Coordinates} from '@/types/location'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useServiceQuery} from '@/modules/service/service'
 import {selectSelectedServicePointId} from '@/modules/service/slice'
-import {ServiceFeatureProperty} from '@/modules/service/types'
+import {ServiceFeatureProperty, type ServiceItem} from '@/modules/service/types'
 import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 
 type SelectedServicePointDetails = {
@@ -14,7 +14,9 @@ type SelectedServicePointDetails = {
   title: string
 }
 
-export const useSelectedServicePointDetails = (serviceId: string) => {
+export const useSelectedServicePointDetails = (
+  serviceId: ServiceItem['id'],
+) => {
   const selectedServicePointId = useSelector(selectSelectedServicePointId)
 
   const {data} = useServiceQuery(serviceId || skipToken)

@@ -1,9 +1,12 @@
-import {ServiceDetailPropertyType} from '@/modules/service/types'
+import {
+  ServiceDetailPropertyType,
+  type ServiceFeatureProperty,
+} from '@/modules/service/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const formatPropertyValue = (
   type: ServiceDetailPropertyType,
-  content: string | number | null,
+  content: ServiceFeatureProperty['value'],
 ) => {
   if (
     type === ServiceDetailPropertyType.price &&
