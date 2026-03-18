@@ -1,10 +1,10 @@
 import type {Dayjs} from 'dayjs'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {WasteGuideCalenderWeek} from '@/modules/waste-guide/components/calendar/WasteGuideCalenderWeek'
+import {WasteGuideCalendarWeek} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarWeek'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
-export const WasteGuideCalenderMonth = ({
+export const WasteGuideCalendarMonth = ({
   month,
   weeks,
 }: {
@@ -19,7 +19,7 @@ export const WasteGuideCalenderMonth = ({
 
     <Column>
       {Object.entries(weeks).map(([week, days], weekIndex) => (
-        <WasteGuideCalenderWeek
+        <WasteGuideCalendarWeek
           days={days}
           isFirstOfMonth={weekIndex === 0}
           isLastRow={weekIndex === Object.values(weeks).length - 1}

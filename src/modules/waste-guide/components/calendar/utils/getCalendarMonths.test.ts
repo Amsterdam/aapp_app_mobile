@@ -1,5 +1,5 @@
-import dayjs from '@/utils/datetime/dayjs'
 import {getCalendarMonths} from '@/modules/waste-guide/components/calendar/utils/getCalendarMonths'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 const AMOUNT_OF_DAYS = 10
 

@@ -2,7 +2,7 @@ import type {Dayjs} from 'dayjs'
 import {WasteGuideCalendarDay} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDay'
 import {WasteGuideCalendarDaysRow} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDaysRow'
 
-export const WasteGuideCalenderWeek = ({
+export const WasteGuideCalendarWeek = ({
   days,
   isFirstOfMonth,
   isLastRow,

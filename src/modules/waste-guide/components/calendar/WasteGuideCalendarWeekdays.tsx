@@ -1,6 +1,6 @@
 import {Phrase} from '@/components/ui/text/Phrase'
+import {WasteGuideCalendarCell} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarCell'
 import {WasteGuideCalendarDaysRow} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDaysRow'
-import {WasteGuideCalendarCell} from '@/modules/waste-guide/components/calendar/WasteGuideCalenderCell'
 import {getWeekdaysStartingFrom} from '@/utils/datetime/getWeekdaysStartingFrom'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 

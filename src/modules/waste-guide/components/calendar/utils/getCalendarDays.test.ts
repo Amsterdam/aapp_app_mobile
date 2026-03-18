@@ -1,8 +1,8 @@
-import dayjs from '@/utils/datetime/dayjs'
 import {getCalendarDays} from '@/modules/waste-guide/components/calendar/utils/getCalendarDays'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 describe('getCalendarDays', () => {
-  const FIXED_DATE = new Date('2023-01-15T12:00:00.000Z')
+  const FIXED_DATE = new Date('2026-03-18T12:00:00.000Z')
 
   beforeAll(() => {
     jest.useFakeTimers()
@@ -34,7 +34,7 @@ describe('getCalendarDays', () => {
 
       const lastDayDifference = getCalendarDays(days)
         [days - 1].add(1, 'day') // in order to include last day in count
-        .diff(now.subtract(1, 'day'), 'day') // in order to include today in count
+        .diff(now, 'day') // in order to include today in count
 
       expect(lastDayDifference).toBe(days)
     },
