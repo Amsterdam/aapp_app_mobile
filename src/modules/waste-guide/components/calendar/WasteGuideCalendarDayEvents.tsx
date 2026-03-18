@@ -1,5 +1,6 @@
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Column} from '@/components/ui/layout/Column'
+import {Icon} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
@@ -12,13 +13,9 @@ type Props = {
 export const WasteGuideCalendarDayEvents = ({dayEvents}: Props) => {
   const {navigate} = useNavigation()
 
-  if (dayEvents?.length === 0) {
-    return null
-  }
-
   return (
     <Column gutter="sm">
-      {dayEvents.map(({code}, idx) => (
+      {dayEvents?.map(({code}, idx) => (
         <IconButton
           icon={<WasteFractionIcon fractionCode={code} />}
           key={idx}
@@ -33,3 +30,24 @@ export const WasteGuideCalendarDayEvents = ({dayEvents}: Props) => {
     </Column>
   )
 }
+
+const EmptyWasteGuideCalendarDayEvents = () => (
+  <IconButton
+    accessible={false}
+    disabled
+    focusable={false}
+    icon={
+      <Icon
+        path=""
+        size="xl"
+        testID="EmptyWasteGuideCalendarDayEventsIcon"
+      />
+    }
+    testID="EmptyWasteGuideCalendarDayEventsButton"
+  />
+)
+
+/**
+ * This component can be used to force similar vertical sizing on empty days and rows. We can achieve this by rendering an empty Icon inside the IconButton
+ */
+WasteGuideCalendarDayEvents.Empty = EmptyWasteGuideCalendarDayEvents

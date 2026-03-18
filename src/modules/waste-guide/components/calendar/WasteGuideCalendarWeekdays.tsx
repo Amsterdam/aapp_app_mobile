@@ -1,6 +1,6 @@
 import {Phrase} from '@/components/ui/text/Phrase'
-import {WasteGuideCalendarDay} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDay'
 import {WasteGuideCalendarDaysRow} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDaysRow'
+import {WasteGuideCalendarCell} from '@/modules/waste-guide/components/calendar/WasteGuideCalenderCell'
 import {getWeekdaysStartingFrom} from '@/utils/datetime/getWeekdaysStartingFrom'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
@@ -8,12 +8,12 @@ const dayNames = getWeekdaysStartingFrom(1, true)
 const dayNamesLong = getWeekdaysStartingFrom(1, false)
 
 export const WasteGuideCalendarWeekdays = () => (
-  <WasteGuideCalendarDaysRow insetHorizontal="md">
+  <WasteGuideCalendarDaysRow>
     {dayNames.map((name, index) => (
-      <WasteGuideCalendarDay
+      <WasteGuideCalendarCell
         accessibilityLabel={dayNamesLong[index]}
-        isWeekDayLabel
-        key={index}>
+        key={name}
+        size="md">
         <Phrase
           accessible={false}
           color={
@@ -23,7 +23,7 @@ export const WasteGuideCalendarWeekdays = () => (
           }>
           {capitalizeString(name)}
         </Phrase>
-      </WasteGuideCalendarDay>
+      </WasteGuideCalendarCell>
     ))}
   </WasteGuideCalendarDaysRow>
 )

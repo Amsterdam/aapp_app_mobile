@@ -1,7 +1,8 @@
-import {Fragment} from 'react'
 import type {Dayjs} from 'dayjs'
-import {WasteGuideCalendarMonthTitle} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarMonthTitle'
+import {Column} from '@/components/ui/layout/Column'
+import {Title} from '@/components/ui/text/Title'
 import {WasteGuideCalenderWeek} from '@/modules/waste-guide/components/calendar/WasteGuideCalenderWeek'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const WasteGuideCalenderMonth = ({
   month,
@@ -10,16 +11,21 @@ export const WasteGuideCalenderMonth = ({
   month: string
   weeks: Record<number, Array<Dayjs | null>>
 }) => (
-  <Fragment>
-    <WasteGuideCalendarMonthTitle monthName={month} />
+  <Column gutter="sm">
+    <Title
+      level="h5"
+      text={capitalizeString(month)}
+    />
 
-    {Object.entries(weeks).map(([week, days], weekIndex) => (
-      <WasteGuideCalenderWeek
-        days={days}
-        isFirstOfMonth={weekIndex === 0}
-        isLastRow={weekIndex === Object.values(weeks).length - 1}
-        key={week}
-      />
-    ))}
-  </Fragment>
+    <Column>
+      {Object.entries(weeks).map(([week, days], weekIndex) => (
+        <WasteGuideCalenderWeek
+          days={days}
+          isFirstOfMonth={weekIndex === 0}
+          isLastRow={weekIndex === Object.values(weeks).length - 1}
+          key={week}
+        />
+      ))}
+    </Column>
+  </Column>
 )

@@ -5,10 +5,10 @@ import {WasteGuideCalendarWeekdays} from '@/modules/waste-guide/components/calen
 import {WasteGuideCalenderMonth} from '@/modules/waste-guide/components/calendar/WasteGuideCalenderMonth'
 import {getCalendarMonths} from '@/modules/waste-guide/components/calendar/utils/getCalendarMonths'
 
-const TOTAL_DAYS = 42 // 6 weeks
+const TOTAL_WEEKS = 6
 
 export const WasteGuideCalendarGridView = () => {
-  const months = getCalendarMonths(TOTAL_DAYS)
+  const months = getCalendarMonths(TOTAL_WEEKS * 7)
 
   return (
     <View style={styles.container}>
