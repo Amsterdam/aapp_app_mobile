@@ -77,9 +77,9 @@ export const getParkingMachineDetailsLabel = (
 
 export const getParkingMachinePaymentTimes = (
   parkingMachineDetails: PaymentZone | undefined,
-) => {
+): Record<string, string> => {
   if (!parkingMachineDetails) {
-    return []
+    return {}
   }
 
   const daysPerPaymentTimes = weekDayNumbers.reduce(
