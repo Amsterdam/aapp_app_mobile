@@ -3,7 +3,7 @@ import {getParkingMachinePaymentTimes} from '@/modules/parking/utils/paymentZone
 
 describe('getParkingMachinePaymentTimes', () => {
   it('returns empty array if no zone provided', () => {
-    expect(getParkingMachinePaymentTimes(undefined)).toEqual([])
+    expect(getParkingMachinePaymentTimes(undefined)).toEqual({})
   })
 
   it('groups weekdays that share the same payment time span', () => {
