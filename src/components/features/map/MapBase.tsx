@@ -78,7 +78,7 @@ export const MapBase = ({
             style={styles.overlay}>
             <Column gutter="md">
               <Row
-                align="end"
+                align="between"
                 valign="start"
                 vgutter="md"
                 wrap>
@@ -141,9 +141,7 @@ const createStyles = ({size}: Theme) =>
       flex: 1,
     },
     controls: {
-      flexShrink: 1,
-      height: '100%',
-      alignSelf: 'flex-end',
+      marginLeft: 'auto',
       marginRight: size.spacing.md,
     },
     error: {paddingHorizontal: size.spacing.md},
