@@ -14,6 +14,14 @@ export const formatWeekdayNumberToDisplay = (
     return 'Elke dag'
   }
 
+  if (
+    weekdayNumbers.length === 2 &&
+    weekdayNumbers.includes(0) &&
+    weekdayNumbers.includes(6)
+  ) {
+    return 'zaterdag en zondag'
+  }
+
   if (weekdayNumbers.length === 1) {
     return weekdayNumberToString(weekdayNumbers[0])
   }

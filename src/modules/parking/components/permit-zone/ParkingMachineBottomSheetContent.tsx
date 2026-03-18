@@ -23,12 +23,15 @@ import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
-import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
+import {
+  getParkingMachinePaymentTimes,
+  sortPaymentTimes,
+} from '@/modules/parking/utils/paymentZone'
 import {
   useBottomSheet,
   useBottomSheetSelectors,
 } from '@/store/slices/bottomSheet'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -49,7 +52,7 @@ export const ParkingMachineBottomSheetContent = () => {
 
   const {
     data: parkingMachineDetails,
-    isLoading,
+    isFetching,
     isError,
     error,
   } = useZoneByMachineQuery(
@@ -61,8 +64,8 @@ export const ParkingMachineBottomSheetContent = () => {
       : skipToken,
   )
 
-  const machineDetailsLabel = useMemo(
-    () => getParkingMachineDetailsLabel(parkingMachineDetails, dayjs()),
+  const paymentTimes = useMemo(
+    () => getParkingMachinePaymentTimes(parkingMachineDetails),
     [parkingMachineDetails],
   )
 
@@ -75,6 +78,16 @@ export const ParkingMachineBottomSheetContent = () => {
   if (!parkingMachine) {
     return null
   }
+
+  const paymentTimesAccessibilityLabel = isFetching
+    ? 'Betaald parkeren, tijden worden geladen.'
+    : `Betaald parkeren, ${Object.entries(paymentTimes)
+        .sort(sortPaymentTimes)
+        .map(
+          ([days, timeSpan]) =>
+            `${capitalizeString(days)} ${timeSpan ? 'van ' + timeSpan : 'geen betaald parkeren'}`,
+        )
+        .join(', ')}.`
 
   return (
     <Box>
@@ -124,16 +137,24 @@ export const ParkingMachineBottomSheetContent = () => {
               size="lg"
             />
             <SingleSelectable
-              accessibilityLabel={`Betaald parkeren, van ${machineDetailsLabel}.`}>
+              accessibilityLabel={paymentTimesAccessibilityLabel}>
               <Column>
                 <Title
                   level="h5"
                   text="Betaald parkeren"
                 />
-                {isLoading ? (
+                {isFetching ? (
                   <PleaseWait testID="ParkingMachineDetailsPleaseWait" />
                 ) : (
-                  <Paragraph>{machineDetailsLabel}</Paragraph>
+                  <Paragraph>
+                    {Object.entries(paymentTimes)
+                      .sort(sortPaymentTimes)
+                      .map(
+                        ([days, timeSpan]) =>
+                          `${capitalizeString(days)}: ${timeSpan || 'geen betaald parkeren'}`,
+                      )
+                      .join('\n')}
+                  </Paragraph>
                 )}
               </Column>
             </SingleSelectable>
@@ -142,8 +163,8 @@ export const ParkingMachineBottomSheetContent = () => {
 
         {previousRouteName === ParkingRouteName.startSession && !isError && (
           <Button
-            disabled={isLoading}
-            isLoading={isLoading}
+            disabled={isFetching}
+            isLoading={isFetching}
             label="Selecteer deze automaat"
             onPress={() => {
               closeBottomSheet()

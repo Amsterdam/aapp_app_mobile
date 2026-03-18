@@ -90,4 +90,13 @@ describe('formatWeekdayNumberToDisplay', () => {
       ]),
     ).toBe('zondag, dinsdag en zaterdag')
   })
+
+  it('formats weekend correctly', () => {
+    expect(
+      formatWeekdayNumberToDisplay([
+        weekDayMapping.zondag,
+        weekDayMapping.zaterdag,
+      ]),
+    ).toBe('zaterdag en zondag')
+  })
 })
