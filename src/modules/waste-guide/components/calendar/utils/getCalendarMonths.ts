@@ -44,14 +44,18 @@ export const getCalendarMonths = (totalDays: number = 1) => {
     const week = day.clone().week()
     const dayIndex = day.clone().subtract(1, 'day').day()
 
-    const nullArray = Array.from({length: 7}).fill(null) as Array<null>
-    const existingWeek: Array<Dayjs | null> = acc[month]?.[week] || nullArray
-
-    existingWeek[dayIndex] = day
-
-    return {
-      ...acc,
-      [month]: {...acc[month], [week]: existingWeek},
+    if (!acc[month]) {
+      acc[month] = {}
     }
+
+    if (!acc[month][week]) {
+      acc[month][week] = Array.from({length: 7}).fill(
+        null,
+      ) as Array<Dayjs | null>
+    }
+
+    acc[month][week][dayIndex] = day
+
+    return acc
   }, {})
 }

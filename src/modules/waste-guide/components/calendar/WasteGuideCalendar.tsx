@@ -35,6 +35,6 @@ export const WasteGuideCalendar = () => {
   return calendarView === 'list' ? (
     <WasteGuideCalendarListView calendar={wasteGuide.calendar} />
   ) : (
-    <WasteGuideCalendarGridView />
+    <WasteGuideCalendarGridView calendar={wasteGuide.calendar} />
   )
 }

@@ -1,32 +1,40 @@
 import {StyleSheet, View} from 'react-native'
+import type {WasteGuideCalendarEvent} from '@/modules/waste-guide/types'
 import {Box} from '@/components/ui/containers/Box'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {WasteGuideCalendarMonth} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarMonth'
 import {WasteGuideCalendarWeekdays} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarWeekdays'
 import {getCalendarMonths} from '@/modules/waste-guide/components/calendar/utils/getCalendarMonths'
+import {CalendarProvider} from '@/modules/waste-guide/providers/CalendarProvider'
 
 const TOTAL_WEEKS = 6
 
-export const WasteGuideCalendarGridView = () => {
+type Props = {
+  calendar: WasteGuideCalendarEvent[]
+}
+
+export const WasteGuideCalendarGridView = ({calendar}: Props) => {
   const months = getCalendarMonths(TOTAL_WEEKS * 7)
 
   return (
-    <View style={styles.container}>
-      <WasteGuideCalendarWeekdays />
-      <ScrollView>
-        <Box
-          insetHorizontal="md"
-          insetTop="md">
-          {Object.entries(months).map(([month, weeks]) => (
-            <WasteGuideCalendarMonth
-              key={month}
-              month={month}
-              weeks={weeks}
-            />
-          ))}
-        </Box>
-      </ScrollView>
-    </View>
+    <CalendarProvider calendar={calendar}>
+      <View style={styles.container}>
+        <WasteGuideCalendarWeekdays />
+        <ScrollView>
+          <Box
+            insetHorizontal="md"
+            insetTop="md">
+            {Object.entries(months).map(([month, weeks]) => (
+              <WasteGuideCalendarMonth
+                key={month}
+                month={month}
+                weeks={weeks}
+              />
+            ))}
+          </Box>
+        </ScrollView>
+      </View>
+    </CalendarProvider>
   )
 }
 
