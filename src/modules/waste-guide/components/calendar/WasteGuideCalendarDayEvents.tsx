@@ -31,7 +31,10 @@ export const WasteGuideCalendarDayEvents = ({dayEvents}: Props) => {
   )
 }
 
-const EmptyWasteGuideCalendarDayEvents = () => (
+/**
+ * This component can be used to force similar vertical sizing on empty days and rows. We can achieve this by rendering an empty Icon inside the IconButton
+ */
+export const EmptyWasteGuideCalendarDayEvents = () => (
   <IconButton
     accessible={false}
     disabled
@@ -46,8 +49,3 @@ const EmptyWasteGuideCalendarDayEvents = () => (
     testID="EmptyWasteGuideCalendarDayEventsButton"
   />
 )
-
-/**
- * This component can be used to force similar vertical sizing on empty days and rows. We can achieve this by rendering an empty Icon inside the IconButton
- */
-WasteGuideCalendarDayEvents.Empty = EmptyWasteGuideCalendarDayEvents

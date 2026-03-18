@@ -2,7 +2,10 @@ import {useMemo} from 'react'
 import type {Dayjs} from 'dayjs'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {WasteGuideCalendarCell} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarCell'
-import {WasteGuideCalendarDayEvents} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDayEvents'
+import {
+  EmptyWasteGuideCalendarDayEvents,
+  WasteGuideCalendarDayEvents,
+} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDayEvents'
 import {getCalendarEventsByDate} from '@/modules/waste-guide/components/calendar/utils/getCalendarEventsByDate'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {isToday} from '@/utils/datetime/isToday'
@@ -61,7 +64,7 @@ export const WasteGuideCalendarDay = ({day}: {day: Dayjs | null}) => {
           {dayEvents?.length ? (
             <WasteGuideCalendarDayEvents dayEvents={dayEvents} />
           ) : (
-            <WasteGuideCalendarDayEvents.Empty />
+            <EmptyWasteGuideCalendarDayEvents />
           )}
         </>
       )}
