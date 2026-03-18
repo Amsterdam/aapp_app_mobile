@@ -4,6 +4,7 @@ import localeData from 'dayjs/plugin/localeData'
 import minMax from 'dayjs/plugin/minMax'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
 import 'dayjs/locale/nl'
 
 export {Dayjs} from 'dayjs'
@@ -13,6 +14,7 @@ const defaultTimezone = 'Europe/Amsterdam'
 dayjsFn.extend(utc)
 dayjsFn.extend(timezone)
 dayjsFn.extend(minMax)
+dayjsFn.extend(weekOfYear)
 
 dayjsFn.extend(localeData)
 dayjsFn.locale('nl')

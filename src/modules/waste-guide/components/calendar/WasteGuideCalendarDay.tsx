@@ -5,7 +5,7 @@ import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   accessibilityLabel?: string
-  children: ReactNode
+  children?: ReactNode
   isAfter?: boolean
   isBeforeToday?: boolean
   isFirstWeekOfMonth?: boolean
