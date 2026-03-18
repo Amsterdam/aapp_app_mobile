@@ -1,3 +1,4 @@
+import {StyleSheet} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
 import type {
   ServiceMapResponse,
@@ -26,8 +27,10 @@ export const MapFilters = ({
 
   return (
     <ScrollView
+      alwaysBounceHorizontal={false}
       horizontal
-      showsHorizontalScrollIndicator={false}>
+      showsHorizontalScrollIndicator={false}
+      style={styles.scrollView}>
       <Box insetHorizontal="md">
         <Row gutter="sm">
           {filters.map(filter => {
@@ -52,3 +55,7 @@ export const MapFilters = ({
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  scrollView: {flexGrow: 0},
+})
