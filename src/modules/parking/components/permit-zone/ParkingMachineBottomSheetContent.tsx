@@ -79,6 +79,16 @@ export const ParkingMachineBottomSheetContent = () => {
     return null
   }
 
+  const paymentTimesAccessibilityLabel = isLoading
+    ? 'Betaald parkeren, tijden worden geladen.'
+    : `Betaald parkeren, ${Object.entries(paymentTimes)
+        .sort(sortPaymentTimes)
+        .map(
+          ([days, timeSpan]) =>
+            `${capitalizeString(days)} ${timeSpan ? 'van ' + timeSpan : 'geen betaald parkeren'}`,
+        )
+        .join(', ')}.`
+
   return (
     <Box>
       <Column gutter="lg">
@@ -127,15 +137,7 @@ export const ParkingMachineBottomSheetContent = () => {
               size="lg"
             />
             <SingleSelectable
-              accessibilityLabel={`Betaald parkeren, ${Object.entries(
-                paymentTimes,
-              )
-                .sort(sortPaymentTimes)
-                .map(
-                  ([days, timeSpan]) =>
-                    `${capitalizeString(days)} ${timeSpan ? 'van ' + timeSpan : 'geen betaald parkeren'}`,
-                )
-                .join(',')}.`}>
+              accessibilityLabel={paymentTimesAccessibilityLabel}>
               <Column>
                 <Title
                   level="h5"
