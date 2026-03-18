@@ -113,7 +113,7 @@ export const ParkingReceipt = () => {
   useRefetchInterval(checkStartTime, 5000)
 
   const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
-    nowRounded,
+    startTime,
     endTime,
     originalEndTime,
     parking_machine,
