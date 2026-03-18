@@ -52,7 +52,7 @@ export const ParkingMachineBottomSheetContent = () => {
 
   const {
     data: parkingMachineDetails,
-    isLoading,
+    isFetching,
     isError,
     error,
   } = useZoneByMachineQuery(
@@ -79,7 +79,7 @@ export const ParkingMachineBottomSheetContent = () => {
     return null
   }
 
-  const paymentTimesAccessibilityLabel = isLoading
+  const paymentTimesAccessibilityLabel = isFetching
     ? 'Betaald parkeren, tijden worden geladen.'
     : `Betaald parkeren, ${Object.entries(paymentTimes)
         .sort(sortPaymentTimes)
@@ -143,7 +143,7 @@ export const ParkingMachineBottomSheetContent = () => {
                   level="h5"
                   text="Betaald parkeren"
                 />
-                {isLoading ? (
+                {isFetching ? (
                   <PleaseWait testID="ParkingMachineDetailsPleaseWait" />
                 ) : (
                   <Paragraph>
@@ -163,8 +163,8 @@ export const ParkingMachineBottomSheetContent = () => {
 
         {previousRouteName === ParkingRouteName.startSession && !isError && (
           <Button
-            disabled={isLoading}
-            isLoading={isLoading}
+            disabled={isFetching}
+            isLoading={isFetching}
             label="Selecteer deze automaat"
             onPress={() => {
               closeBottomSheet()
