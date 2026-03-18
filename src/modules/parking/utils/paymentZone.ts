@@ -90,10 +90,7 @@ export const getParkingMachinePaymentTimes = (
           true,
         ) ?? ''
 
-      acc[timeSpan] = [...(acc[timeSpan] || []), day].filter(
-        (dayOfWeek): dayOfWeek is WeekdayNumber =>
-          typeof dayOfWeek === 'number' && dayOfWeek >= 0 && dayOfWeek <= 6,
-      )
+      acc[timeSpan] = [...(acc[timeSpan] || []), day]
 
       return acc
     },
