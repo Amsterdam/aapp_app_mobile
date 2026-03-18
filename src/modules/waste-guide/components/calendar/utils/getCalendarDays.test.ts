@@ -1,7 +1,18 @@
-import dayjs from 'dayjs'
+import dayjs from '@/utils/datetime/dayjs'
 import {getCalendarDays} from '@/modules/waste-guide/components/calendar/utils/getCalendarDays'
 
 describe('getCalendarDays', () => {
+  const FIXED_DATE = new Date('2023-01-15T12:00:00.000Z')
+
+  beforeAll(() => {
+    jest.useFakeTimers()
+    jest.setSystemTime(FIXED_DATE)
+  })
+
+  afterAll(() => {
+    jest.useRealTimers()
+  })
+
   it.each([
     {days: 999, expectedLength: 999},
     {days: 10, expectedLength: 10},
