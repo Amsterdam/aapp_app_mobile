@@ -1,8 +1,10 @@
 import type {Dayjs} from 'dayjs'
 import {PaymentZone, PaymentZoneDay} from '@/modules/parking/types'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
+import {formatWeekdayNumberToDisplay} from '@/utils/datetime/formatWeekdayNumberToDisplay'
 import {
   type WeekdayNumber,
+  weekDayNumbers,
   weekdayToNumber,
 } from '@/utils/datetime/weekdayToNumber'
 
@@ -17,9 +19,12 @@ export const getPaymentZoneDay = (
 ) =>
   paymentZone?.days.find(day => weekdayToNumber(day.day_of_week) === dayOfWeek)
 
-export const getPaymentZoneDayTimeSpan = (paymentZoneDay?: PaymentZoneDay) =>
+export const getPaymentZoneDayTimeSpan = (
+  paymentZoneDay?: PaymentZoneDay,
+  wordTill: boolean = false,
+) =>
   paymentZoneDay
-    ? `${formatTimeToDisplay(paymentZoneDay.start_time)} - ${formatTimeToDisplay(paymentZoneDay.end_time, {includeHoursLabel: true, replaceMidnightBy24: true})}`
+    ? `${formatTimeToDisplay(paymentZoneDay.start_time)} ${wordTill ? 'tot' : '-'} ${formatTimeToDisplay(paymentZoneDay.end_time, {includeHoursLabel: true, replaceMidnightBy24: true})}`
     : undefined
 
 export const areAllPaymentZonesEqualOnDayOfWeek = (
@@ -37,7 +42,7 @@ export const areAllPaymentZonesEqualOnDayOfWeek = (
   )
 
 export const areAllPaymentZonesEqual = (paymentZones: PaymentZone[]) =>
-  ([0, 1, 2, 3, 4, 5, 6] as WeekdayNumber[]).every(dayOfWeek =>
+  weekDayNumbers.every(dayOfWeek =>
     areAllPaymentZonesEqualOnDayOfWeek(paymentZones, dayOfWeek),
   )
 
@@ -68,4 +73,55 @@ export const getParkingMachineDetailsLabel = (
   }
 
   return ''
+}
+
+export const getParkingMachinePaymentTimes = (
+  parkingMachineDetails: PaymentZone | undefined,
+) => {
+  if (!parkingMachineDetails) {
+    return []
+  }
+
+  const daysPerPaymentTimes = weekDayNumbers.reduce(
+    (acc, day) => {
+      const timeSpan =
+        getPaymentZoneDayTimeSpan(
+          getPaymentZoneDay(parkingMachineDetails, day),
+          true,
+        ) ?? ''
+
+      acc[timeSpan] = [...(acc[timeSpan] || []), day].filter(
+        (dayOfWeek): dayOfWeek is WeekdayNumber =>
+          typeof dayOfWeek === 'number' && dayOfWeek >= 0 && dayOfWeek <= 6,
+      )
+
+      return acc
+    },
+    {} as Record<string, WeekdayNumber[]>,
+  )
+
+  const paymentTimes = Object.entries(daysPerPaymentTimes).reduce(
+    (acc, [timeSpan, days]) => ({
+      ...acc,
+      [formatWeekdayNumberToDisplay(days)]: timeSpan,
+    }),
+    {} as Record<string, string>,
+  )
+
+  return paymentTimes
+}
+
+export const sortPaymentTimes = (
+  [_, timeSpanA]: [unknown, string],
+  [__, timeSpanB]: [unknown, string],
+) => {
+  if (timeSpanA && !timeSpanB) {
+    return -1
+  }
+
+  if (!timeSpanA && timeSpanB) {
+    return 1
+  }
+
+  return 0
 }

@@ -23,12 +23,15 @@ import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
-import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
+import {
+  getParkingMachinePaymentTimes,
+  sortPaymentTimes,
+} from '@/modules/parking/utils/paymentZone'
 import {
   useBottomSheet,
   useBottomSheetSelectors,
 } from '@/store/slices/bottomSheet'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -61,8 +64,8 @@ export const ParkingMachineBottomSheetContent = () => {
       : skipToken,
   )
 
-  const machineDetailsLabel = useMemo(
-    () => getParkingMachineDetailsLabel(parkingMachineDetails, dayjs()),
+  const paymentTimes = useMemo(
+    () => getParkingMachinePaymentTimes(parkingMachineDetails),
     [parkingMachineDetails],
   )
 
@@ -124,7 +127,15 @@ export const ParkingMachineBottomSheetContent = () => {
               size="lg"
             />
             <SingleSelectable
-              accessibilityLabel={`Betaald parkeren, van ${machineDetailsLabel}.`}>
+              accessibilityLabel={`Betaald parkeren, ${Object.entries(
+                paymentTimes,
+              )
+                .sort(sortPaymentTimes)
+                .map(
+                  ([days, timeSpan]) =>
+                    `${capitalizeString(days)} ${timeSpan ? 'van ' + timeSpan : 'geen betaald parkeren'}`,
+                )
+                .join(',')}.`}>
               <Column>
                 <Title
                   level="h5"
@@ -133,7 +144,15 @@ export const ParkingMachineBottomSheetContent = () => {
                 {isLoading ? (
                   <PleaseWait testID="ParkingMachineDetailsPleaseWait" />
                 ) : (
-                  <Paragraph>{machineDetailsLabel}</Paragraph>
+                  <Paragraph>
+                    {Object.entries(paymentTimes)
+                      .sort(sortPaymentTimes)
+                      .map(
+                        ([days, timeSpan]) =>
+                          `${capitalizeString(days)}: ${timeSpan || 'geen betaald parkeren'}`,
+                      )
+                      .join('\n')}
+                  </Paragraph>
                 )}
               </Column>
             </SingleSelectable>

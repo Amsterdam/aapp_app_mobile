@@ -17,6 +17,8 @@ export const weekDayMapping: Record<
   zaterdag: 6,
 }
 
+export const weekDayNumbers = [0, 1, 2, 3, 4, 5, 6] as WeekdayNumber[]
+
 /**
  * Returns numbers from 0 (Sunday) to 6 (Saturday).
  */
