@@ -22,7 +22,7 @@ export const NotificationSetting = ({
   const navigation = useNavigation()
 
   const isLoggedIn =
-    useIsLoggedIn[module as keyof typeof useIsLoggedIn]?.() ?? true
+    useIsLoggedIn[module as keyof typeof useIsLoggedIn]?.()?.isLoggedIn ?? true
 
   return (
     <Column gutter="no">
