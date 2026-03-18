@@ -6,7 +6,9 @@ import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const ServiceHomeScreen = () => (
-  <Screen testID="ServiceHomeScreen">
+  <Screen
+    keyboardAware
+    testID="ServiceHomeScreen">
     <Box
       insetHorizontal="sm"
       insetVertical="md">
