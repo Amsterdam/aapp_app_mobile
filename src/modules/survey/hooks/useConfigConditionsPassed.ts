@@ -21,6 +21,7 @@ export const useConfigConditionsPassed = (entryPoint: string) => {
     cooldown &&
     surveyParams &&
     dayjs().diff(surveyParams.lastSeenAt, 'days') >= cooldown
+
   const isMinimumActionsMet =
     surveyParams &&
     minimum_actions &&
