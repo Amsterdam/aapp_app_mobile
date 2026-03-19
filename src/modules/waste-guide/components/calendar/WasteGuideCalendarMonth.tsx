@@ -1,4 +1,4 @@
-import type {Dayjs} from 'dayjs'
+import {months, type Dayjs} from 'dayjs'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {WasteGuideCalendarWeek} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarWeek'
@@ -14,7 +14,7 @@ export const WasteGuideCalendarMonth = ({
   <Column gutter="sm">
     <Title
       level="h5"
-      text={capitalizeString(month)}
+      text={capitalizeString(months()[Number(month)])}
     />
 
     <Column>
