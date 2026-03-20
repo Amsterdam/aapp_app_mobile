@@ -1,3 +1,4 @@
+import type {RefObject} from 'react'
 import type {Text} from 'react-native'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
@@ -6,7 +7,7 @@ import {ParkingPermitScope, type ParkingAccount} from '@/modules/parking/types'
 
 type Props = {
   accounts: Record<string, ParkingAccount>
-  focusRef: React.RefObject<Text>
+  focusRef: RefObject<Text>
 }
 
 export const ParkingSelectPermitAccounts = ({accounts, focusRef}: Props) =>
