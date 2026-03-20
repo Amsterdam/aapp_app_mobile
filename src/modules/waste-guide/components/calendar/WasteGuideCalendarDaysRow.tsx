@@ -9,7 +9,6 @@ type Props = {
   children: ReactNode
   insetHorizontal?: keyof SpacingTokens
   isFirstOfMonth?: boolean
-  isLastOfMonth?: boolean
   isLastRow?: boolean
 }
 
@@ -17,7 +16,6 @@ export const WasteGuideCalendarDaysRow = ({
   children,
   insetHorizontal,
   isFirstOfMonth,
-  isLastOfMonth,
   isLastRow,
 }: Props) => {
   const styles = useThemable(theme => createStyles(theme, insetHorizontal))
@@ -27,7 +25,7 @@ export const WasteGuideCalendarDaysRow = ({
       style={[
         styles.daysRow,
         isFirstOfMonth && styles.daysRowMonthFirst,
-        (isLastOfMonth || isLastRow) && styles.noBorderBottom,
+        isLastRow && styles.noBorderBottom,
       ]}>
       <Row>{children}</Row>
     </View>

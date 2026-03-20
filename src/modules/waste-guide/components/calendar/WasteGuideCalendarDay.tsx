@@ -1,68 +1,71 @@
-import {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
-import {Theme} from '@/themes/themes'
-import {useTheme} from '@/themes/useTheme'
+import {useMemo} from 'react'
+import type {Dayjs} from 'dayjs'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {WasteGuideCalendarCell} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarCell'
+import {
+  EmptyWasteGuideCalendarDayEvents,
+  WasteGuideCalendarDayEvents,
+} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDayEvents'
+import {useEventsByDate} from '@/modules/waste-guide/hooks/useEventsByDate'
+import {isToday} from '@/utils/datetime/isToday'
+import {isTomorrow} from '@/utils/datetime/isTomorrow'
 
-type Props = {
-  accessibilityLabel?: string
-  children: ReactNode
-  isAfter?: boolean
-  isBeforeToday?: boolean
-  isFirstWeekOfMonth?: boolean
-  isInNextMonth?: boolean
-  isInPreviousMonth?: boolean
-  isToday?: boolean
-  isWeekDayLabel?: boolean
-}
+export const WasteGuideCalendarDay = ({day}: {day: Dayjs | null}) => {
+  const eventsByDate = useEventsByDate()
 
-export const WasteGuideCalendarDay = ({
-  children,
-  isBeforeToday,
-  isAfter,
-  isToday,
-  isFirstWeekOfMonth,
-  isInNextMonth,
-  isInPreviousMonth,
-  isWeekDayLabel,
-  accessibilityLabel,
-}: Props) => {
-  const theme = useTheme()
-  const styles = createStyles(theme, isWeekDayLabel)
+  const {
+    accessibilityLabel,
+    emphasis,
+    secondary,
+    dayEvents = [],
+  } = useMemo(() => {
+    if (!day) {
+      return {}
+    }
 
-  const isInvisible =
-    isBeforeToday || isAfter || isInPreviousMonth || isInNextMonth
+    const events = eventsByDate[day.format('YYYY-MM-DD')]
+    const isTomorrowDay = isTomorrow(day)
+    const isTodayDay = isToday(day)
+    const isWeekendDay = day.day() === 6 || day.day() === 0
+
+    const label = [
+      day.format('dddd D MMMM'),
+      isTodayDay && 'vandaag',
+      isTomorrowDay && 'morgen',
+      events?.length
+        ? events.map(event => event.label).join(', ')
+        : 'Geen ophaaldag',
+    ]
+      .filter(Boolean)
+      .join(', ')
+
+    return {
+      accessibilityLabel: label,
+      emphasis: isTodayDay,
+      secondary: isWeekendDay,
+      dayEvents: events,
+    }
+  }, [day, eventsByDate])
 
   return (
-    <View
+    <WasteGuideCalendarCell
       accessibilityLabel={accessibilityLabel}
-      accessible={!isBeforeToday}
-      style={[
-        styles.cell,
-        isInvisible && styles.dayInvisible,
-        isToday && styles.cellToday,
-        isFirstWeekOfMonth && isToday && styles.cellTodayCurrentWeek,
-      ]}>
-      {children}
-    </View>
+      emphasis={emphasis}>
+      {!!day && (
+        <>
+          <Phrase
+            accessible={false}
+            color={secondary ? 'secondary' : undefined}
+            emphasis={emphasis ? 'strong' : undefined}>
+            {day.date()}
+          </Phrase>
+          {dayEvents?.length ? (
+            <WasteGuideCalendarDayEvents dayEvents={dayEvents} />
+          ) : (
+            <EmptyWasteGuideCalendarDayEvents />
+          )}
+        </>
+      )}
+    </WasteGuideCalendarCell>
   )
 }
-
-const createStyles = ({border, color, size}: Theme, isWeekDayLabel = false) =>
-  StyleSheet.create({
-    cell: {
-      alignItems: 'center',
-      height: '100%',
-      paddingBottom: size.spacing[isWeekDayLabel ? 'md' : 'lg'],
-      width: `${100 / 7}%`,
-    },
-    cellToday: {
-      borderWidth: border.width.xl,
-      borderColor: color.box.border.emphasis,
-    },
-    cellTodayCurrentWeek: {
-      borderTopWidth: border.width.md,
-    },
-    dayInvisible: {
-      opacity: 0,
-    },
-  })
