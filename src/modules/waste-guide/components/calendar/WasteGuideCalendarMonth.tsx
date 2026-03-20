@@ -9,7 +9,7 @@ export const WasteGuideCalendarMonth = ({
   weeks,
 }: {
   month: string
-  weeks: Record<number, Array<Dayjs | null>>
+  weeks: Record<string, Array<Dayjs | null>>
 }) => (
   <Column gutter="sm">
     <Title

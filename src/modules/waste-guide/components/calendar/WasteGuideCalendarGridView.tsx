@@ -6,7 +6,7 @@ import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {WasteGuideCalendarMonth} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarMonth'
 import {WasteGuideCalendarWeekdays} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarWeekdays'
 import {getFormattedCalendar} from '@/modules/waste-guide/components/calendar/utils/getFormattedCalendar'
-import {CalendarProvider} from '@/modules/waste-guide/providers/CalendarProvider'
+import {EventsByDateProvider} from '@/modules/waste-guide/providers/EventsByDateProvider'
 
 const TOTAL_WEEKS = 6
 
@@ -21,7 +21,7 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
   )
 
   return (
-    <CalendarProvider calendar={calendar}>
+    <EventsByDateProvider calendar={calendar}>
       <View style={styles.container}>
         <WasteGuideCalendarWeekdays />
         <ScrollView>
@@ -40,7 +40,7 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
           </Box>
         </ScrollView>
       </View>
-    </CalendarProvider>
+    </EventsByDateProvider>
   )
 }
 

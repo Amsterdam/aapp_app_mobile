@@ -6,18 +6,12 @@ import {
   EmptyWasteGuideCalendarDayEvents,
   WasteGuideCalendarDayEvents,
 } from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDayEvents'
-import {getCalendarEventsByDate} from '@/modules/waste-guide/components/calendar/utils/getCalendarEventsByDate'
-import {useCalendar} from '@/modules/waste-guide/hooks/useCalendar'
+import {useEventsByDate} from '@/modules/waste-guide/hooks/useEventsByDate'
 import {isToday} from '@/utils/datetime/isToday'
 import {isTomorrow} from '@/utils/datetime/isTomorrow'
 
 export const WasteGuideCalendarDay = ({day}: {day: Dayjs | null}) => {
-  const calendar = useCalendar()
-
-  const eventsByDate = useMemo(
-    () => getCalendarEventsByDate(calendar || []),
-    [calendar],
-  )
+  const eventsByDate = useEventsByDate()
 
   const {
     accessibilityLabel,
