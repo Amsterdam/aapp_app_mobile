@@ -11,9 +11,13 @@ type Props = {
 
 export const ParkingSelectPermitAccounts = ({accounts, focusRef}: Props) =>
   Object.entries(accounts)
-    .sort(([, a], [, _b]) =>
-      a.scope === ParkingPermitScope.permitHolder ? -1 : 1,
-    )
+    .sort(([, a], [, b]) => {
+      if (a.scope === b.scope) {
+        return 0
+      }
+
+      return a.scope === ParkingPermitScope.permitHolder ? -1 : 1
+    })
     .map(([reportCodeParkingAccount, account], accountIndex) => (
       <Column
         gutter="no"
