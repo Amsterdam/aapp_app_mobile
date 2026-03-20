@@ -25,6 +25,9 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const ParkingStack = () => {
   const screenOptions = useScreenOptions()
+  const screenOptionsSettings = useScreenOptions({
+    screenType: 'settings',
+  })
   const isLoggingIn = useParkingAccountIsLoggingIn()
   const isLoggingOut = useParkingAccountIsLoggingOut()
   const {isLoggedIn} = useIsLoggedIn()
@@ -71,6 +74,11 @@ export const ParkingStack = () => {
               <Stack.Screen
                 key={key}
                 {...parkingRoute}
+                options={{
+                  ...parkingRoute.options,
+                  ...(parkingRoute.screenType === 'settings' &&
+                    screenOptionsSettings),
+                }}
               />
             ))}
           </Stack.Group>,

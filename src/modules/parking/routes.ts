@@ -5,6 +5,8 @@ import {
 } from '@/modules/parking/types'
 
 export enum ParkingRouteName {
+  account = 'ParkingAccount',
+  accounts = 'ParkingAccounts',
   addLicensePlate = 'ParkingAddLicensePlate',
   dashboard = 'ParkingDashboard',
   editSession = 'ParkingEditSession',
@@ -14,7 +16,6 @@ export enum ParkingRouteName {
   login = 'ParkingLogin',
   loginSteps = 'ParkingLoginSteps',
   logout = 'ParkingLogout',
-  logoutAccounts = 'ParkingLogoutAccounts',
   manageVisitor = 'ParkingManageVisitor',
   manageVisitorAdjustTimeBalance = 'ParkingManageVisitorAdjustTimeBalance',
   myLicensePlates = 'ParkingMyLicensePlates',
@@ -29,6 +30,8 @@ export enum ParkingRouteName {
 }
 
 export type ParkingStackParams = {
+  [ParkingRouteName.account]: {reportCode: string} | undefined
+  [ParkingRouteName.accounts]: undefined
   [ParkingRouteName.addLicensePlate]: undefined
   [ParkingRouteName.dashboard]:
     | {
@@ -46,7 +49,6 @@ export type ParkingStackParams = {
       }
     | undefined
   [ParkingRouteName.logout]: {reportCode: string} | undefined
-  [ParkingRouteName.logoutAccounts]: undefined
   [ParkingRouteName.loginSteps]: undefined
   [ParkingRouteName.myLicensePlates]: undefined
   [ParkingRouteName.parkingActiveSessions]: undefined

@@ -36,11 +36,11 @@ export const Account = () => {
               insetVertical="no"
               onPress={() =>
                 navigate(ModuleSlug.parking, {
-                  screen: ParkingRouteName.logoutAccounts,
+                  screen: ParkingRouteName.accounts,
                 })
               }
-              testID="UserAccountParkingLogoutNavigationButton"
-              title="Uitloggen bij accounts"
+              testID="UserAccountParkingAccountsNavigationButton"
+              title="Beheer account en uitloggen"
             />
           </>
         ) : (
