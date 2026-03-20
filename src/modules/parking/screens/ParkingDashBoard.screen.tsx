@@ -11,8 +11,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Placement} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
-import {DashboardHeaderButton} from '@/modules/parking/components/DashboardHeaderButton'
-import {DashboardMenu} from '@/modules/parking/components/DashboardMenu'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
 import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
@@ -52,9 +50,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
         hasStickyAlert
         headerOptions={{
           disableHorizontalInsets: true,
-          SideComponent: DashboardHeaderButton,
         }}
-        stickyHeader={<DashboardMenu />}
         testID="ParkingDashboardScreen">
         <PleaseWait testID="ParkingDashboardScreenPleaseWait" />
       </Screen>
@@ -68,9 +64,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
         hasStickyAlert
         headerOptions={{
           disableHorizontalInsets: true,
-          SideComponent: DashboardHeaderButton,
         }}
-        stickyHeader={<DashboardMenu />}
         testID="ParkingDashboardScreen">
         <Box>
           <SomethingWentWrong testID="ParkingDashboardScreenSomethingWentWrong" />
@@ -86,10 +80,8 @@ export const ParkingDashboardScreen = ({route}: Props) => {
         hasStickyAlert
         headerOptions={{
           disableHorizontalInsets: true,
-          SideComponent: DashboardHeaderButton,
         }}
         keyboardAware
-        stickyHeader={<DashboardMenu />}
         testID="ParkingDashboardScreen">
         <BackgroundColorArea
           color="primary"
