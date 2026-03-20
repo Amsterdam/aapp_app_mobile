@@ -2,7 +2,7 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {ParkingLoginForm} from '@/modules/parking/components/login/ParkingLoginForm'
+import {ParkingLoginForm} from '@/modules/parking/components/form/ParkingLoginForm'
 import {setDeeplinkAccount} from '@/modules/parking/slice'
 
 export const ParkingLoginScreen = () => {
