@@ -1,5 +1,5 @@
 import {useFocusEffect} from '@react-navigation/native'
-import {useState, useEffect, useCallback} from 'react'
+import {useState, useCallback} from 'react'
 import type {
   ParkingPermitScope,
   SecureParkingAccount,
@@ -17,6 +17,9 @@ export const useGetSecureParkingAccount = (
   >(undefined)
 
   const getSecureAccount = useCallback(async () => {
+    setIsError(false)
+    setIsLoading(true)
+
     try {
       const account = await getSecureParkingAccount(reportCode, scope)
 
@@ -28,10 +31,6 @@ export const useGetSecureParkingAccount = (
       setIsLoading(false)
     }
   }, [reportCode, scope])
-
-  useEffect(() => {
-    void getSecureAccount()
-  }, [getSecureAccount])
 
   useFocusEffect(
     useCallback(() => {

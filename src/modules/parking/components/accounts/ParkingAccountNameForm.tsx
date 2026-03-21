@@ -62,12 +62,12 @@ export const ParkingAccountNameForm = ({account}: Props) => {
               message: 'De ingevoerde naam is te lang',
             },
           }}
-          testID="ParkingAddLicensePlateFormNameInputField"
+          testID="ParkingAccountNameFormInputField"
         />
         <Button
           label="Opslaan"
           onPress={handleSubmit(onSubmit)}
-          testID="ParkingAddLicensePlateFormSubmitButton"
+          testID="ParkingAccountNameFormSubmitButton"
         />
       </Column>
     </FormProvider>

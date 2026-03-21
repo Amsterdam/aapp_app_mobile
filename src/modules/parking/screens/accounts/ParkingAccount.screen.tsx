@@ -9,7 +9,7 @@ type Props = NavigationProps<ParkingRouteName.account>
 export const ParkingAccountScreen = ({route}: Props) => (
   <Screen testID="ParkingAccountScreen">
     <Box>
-      <ParkingAccountDetail reportCode={route.params?.reportCode} />
+      <ParkingAccountDetail reportCode={route.params.reportCode} />
     </Box>
   </Screen>
 )

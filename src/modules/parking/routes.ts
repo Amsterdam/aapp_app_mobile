@@ -30,7 +30,7 @@ export enum ParkingRouteName {
 }
 
 export type ParkingStackParams = {
-  [ParkingRouteName.account]: {reportCode: string} | undefined
+  [ParkingRouteName.account]: {reportCode: string}
   [ParkingRouteName.accounts]: undefined
   [ParkingRouteName.addLicensePlate]: undefined
   [ParkingRouteName.dashboard]:

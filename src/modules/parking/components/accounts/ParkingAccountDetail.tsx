@@ -8,6 +8,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingAccountNameForm} from '@/modules/parking/components/accounts/ParkingAccountNameForm'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccounts} from '@/modules/parking/slice'
+import {ParkingPermitScope} from '@/modules/parking/types'
 
 type Props = {
   reportCode?: string
@@ -34,7 +35,12 @@ export const ParkingAccountDetail = ({reportCode}: Props) => {
               testID="ParkingAccountDetailTitle"
               text={reportCode}
             />
-            <Phrase color="secondary">Meldcode - Mijn account</Phrase>
+            <Phrase color="secondary">
+              Meldcode -{' '}
+              {account.scope === ParkingPermitScope.permitHolder
+                ? 'Mijn account'
+                : 'Bezoekersaccount'}
+            </Phrase>
           </Column>
           <ParkingAccountNameForm account={account} />
         </Column>
