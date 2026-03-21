@@ -37,7 +37,8 @@ export const useAddSecureParkingAccountName = () => {
               (item): item is ParkingAccountLogin =>
                 typeof item === 'object' &&
                 item !== null &&
-                'reportCode' in item,
+                'reportCode' in item &&
+                'pin' in item,
             )
           }
         }
