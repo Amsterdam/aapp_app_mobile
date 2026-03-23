@@ -12,7 +12,7 @@ import {Placement} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
-import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
+import {ParkingPermitSwitcher} from '@/modules/parking/components/ParkingPermitSwitcher'
 import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
 import {ParkingPaymentByVisitorButton} from '@/modules/parking/components/dashboard/ParkingPaymentByVisitorButton'
 import {ParkingPermitBalance} from '@/modules/parking/components/dashboard/ParkingPermitBalance'
@@ -96,7 +96,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
               placement={Placement.below}
               testID="ParkingPermitTopTaskButtonTooltip"
               tipSlug={Tip.parkingPermitTopTaskButtonTooltip}>
-              <ParkingPermitTopTaskButton />
+              <ParkingPermitSwitcher />
             </ProductTourTipWrapper>
             <Column gutter="xl">
               <ParkingPermitSessions />
