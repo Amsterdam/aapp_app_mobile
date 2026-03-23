@@ -61,6 +61,13 @@ export const ParkingAccountNameForm = ({account}: Props) => {
               value: 50,
               message: 'De ingevoerde naam is te lang',
             },
+            validate: (value: string) => {
+              if (value.trim().length === 0) {
+                return 'Vul een naam in'
+              }
+
+              return true
+            },
           }}
           testID="ParkingAccountNameFormInputField"
         />
