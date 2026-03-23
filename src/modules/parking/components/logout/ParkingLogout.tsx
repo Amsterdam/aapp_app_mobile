@@ -1,12 +1,9 @@
 import {Button} from '@/components/ui/buttons/Button'
-import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
-import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {List} from '@/components/ui/text/list/List'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingLogoutButton} from '@/modules/parking/components/logout/ParkingLogoutButton'
 import {
@@ -14,7 +11,6 @@ import {
   useParkingAccount,
   useParkingAccountIsLoggingOut,
 } from '@/modules/parking/slice'
-import {ParkingPermitScope} from '@/modules/parking/types'
 
 type Props = {
   routeReportCode?: string
@@ -28,7 +24,6 @@ export const ParkingLogout = ({routeReportCode}: Props) => {
   const parkingAccountFromParams = routeReportCode && accounts[routeReportCode]
   const parkingAccount = useParkingAccount()
   const account = parkingAccountFromParams || parkingAccount
-  const isVisitor = account?.scope === ParkingPermitScope.visitor
 
   if (isLoggingOut) {
     return <PleaseWait testID="ParkingLogoutPleaseWait" />
@@ -45,26 +40,13 @@ export const ParkingLogout = ({routeReportCode}: Props) => {
       </Column>
       {account?.permits?.length ? (
         <Column gutter="sm">
-          <Title
-            level="h4"
-            testID="ParkingLogoutScreenSubtitle"
-            text="Deze vergunningen worden uitgelogd:"
+          <Paragraph testID="ParkingLogoutScreenLogoutParagraph">
+            Deze vergunningen worden uitgelogd:
+          </Paragraph>
+          <List
+            items={account.permits.map(permit => permit.permit_name)}
+            testID="ParkingLogoutScreenPermitList"
           />
-          {account.permits.map(permit => (
-            <Box key={permit.report_code}>
-              <Row gutter="md">
-                <Icon
-                  name={isVisitor ? 'person' : 'document-check-mark'}
-                  size="lg"
-                  testID="ParkingLogoutScreenPermitIcon"
-                />
-                <Phrase
-                  testID={`ParkingLogoutScreenPermit-${permit.report_code}Phrase`}>
-                  {permit.permit_name}
-                </Phrase>
-              </Row>
-            </Box>
-          ))}
         </Column>
       ) : null}
       <Column gutter="md">
