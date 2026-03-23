@@ -62,8 +62,7 @@ export type ParkingAccountLogin = {
   reportCode: string
 }
 
-// eslint-disable-next-line sonarjs/redundant-type-aliases
-export type SecureParkingAccount = ParkingAccountLogin
+export type SecureParkingAccount = ParkingAccountLogin & {name?: string}
 
 export type ParkingAccount = {
   name?: string

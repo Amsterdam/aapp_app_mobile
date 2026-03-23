@@ -3,6 +3,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useStore} from '@/hooks/redux/useStore'
 import {alerts} from '@/modules/parking/alerts'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {logout} from '@/modules/parking/utils/logout'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
@@ -30,12 +31,15 @@ export const ParkingLogoutButton = ({
       onPress={async () => {
         await logout(dispatch, store.getState(), undefined, accountReportCode)
 
-        if (hasMoreAccounts) {
+        if (routeReportCode) {
+          if (hasMoreAccounts) {
+            navigation.popTo(ParkingRouteName.accounts)
+          } else {
+            navigation.popTo(ModuleSlug.user, {screen: UserRouteName.accounts})
+          }
+        } else if (hasMoreAccounts) {
           setAlert(alerts.logoutWithAnotherAccountSuccess)
           navigation.goBack()
-        } else {
-          routeReportCode &&
-            navigation.popTo(ModuleSlug.user, {screen: UserRouteName.accounts})
         }
       }}
       testID="ParkingLogoutScreenLogoutButton"
