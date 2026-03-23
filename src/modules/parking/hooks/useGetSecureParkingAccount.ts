@@ -24,7 +24,7 @@ export const useGetSecureParkingAccount = (
       const account = await getSecureParkingAccount(reportCode, scope)
 
       setSecureAccount(account)
-    } catch (e) {
+    } catch {
       setIsError(true)
       setSecureAccount(undefined)
     } finally {
