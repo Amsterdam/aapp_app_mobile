@@ -1,5 +1,5 @@
 import type {FC} from 'react'
-import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
+import {ParkingSelectPermit} from '@/modules/parking/components/select-permit/ParkingSelectPermit'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export enum ParkingDashboardBottomSheetVariant {
