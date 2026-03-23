@@ -13,7 +13,7 @@ export const ConstructionWorkSearchHeaderButton = () => {
         <Icon
           color="link"
           name="search"
-          size="ml"
+          size="lg"
           testID="ConstructionWorkSearchHeaderButtonIcon"
         />
       }
