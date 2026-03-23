@@ -16,9 +16,9 @@ export const useAddSecureParkingAccountName = () => {
   const setSecureItem = useSetSecureItem()
 
   return useCallback(
-    async (account: ParkingAccount, name: string) => {
-      const key = getKey(account.scope)
-      let currentArr: ParkingAccountLogin[] = []
+    async (parkingAccount: ParkingAccount, name: string) => {
+      const key = getKey(parkingAccount.scope)
+      let accounts: ParkingAccountLogin[] = []
 
       try {
         const existing = await getSecureItem(key)
@@ -33,7 +33,7 @@ export const useAddSecureParkingAccountName = () => {
           }
 
           if (Array.isArray(parsed)) {
-            currentArr = parsed.filter(
+            accounts = parsed.filter(
               (item): item is ParkingAccountLogin =>
                 typeof item === 'object' &&
                 item !== null &&
@@ -43,22 +43,22 @@ export const useAddSecureParkingAccountName = () => {
           }
         }
       } catch (e) {
-        currentArr = []
+        accounts = []
       }
 
-      const hasExistingAccount = currentArr.some(
-        item => item.reportCode === account.reportCode,
+      const hasExistingAccount = accounts.some(
+        item => item.reportCode === parkingAccount.reportCode,
       )
 
       if (!hasExistingAccount) {
         return
       }
 
-      const updatedArr = currentArr.map(item =>
-        item.reportCode === account.reportCode ? {...item, name} : item,
+      const account = accounts.map(item =>
+        item.reportCode === parkingAccount.reportCode ? {...item, name} : item,
       )
 
-      await setSecureItem(key, JSON.stringify(updatedArr))
+      await setSecureItem(key, JSON.stringify(account))
     },
     [setSecureItem],
   )
