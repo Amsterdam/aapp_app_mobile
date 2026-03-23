@@ -6,6 +6,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
   useCurrentParkingPermitReportCode,
   useParkingAccount,
@@ -18,6 +19,10 @@ export const ParkingPermitSwitcher = () => {
   const currentPermitReportCode = useCurrentParkingPermitReportCode()
   const parkingAccount = useParkingAccount()
   const {permit_name, report_code} = useCurrentParkingPermit()
+  const {secureAccount} = useGetSecureParkingAccount(
+    parkingAccount?.reportCode ?? '',
+    parkingAccount?.scope ?? ParkingPermitScope.visitor,
+  )
 
   if (!currentPermitReportCode) {
     return (
@@ -41,8 +46,10 @@ export const ParkingPermitSwitcher = () => {
             testID="ParkingPermitSwitcherTitle"
             text={title}
           />
-          <Phrase>Mama - {report_code}</Phrase>
-          {/* TODO: Change Mama to the account name if present, wait until PR #248 is merged */}
+          <Phrase>
+            {secureAccount?.name && `${secureAccount?.name} - `}
+            {report_code}
+          </Phrase>
         </Column>
         <ContextSwitchButton
           accessibilityHint="Tik om een andere vergunning te selecteren."
