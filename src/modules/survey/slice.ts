@@ -28,29 +28,45 @@ export const surveySlice = createSlice({
     },
     addSurveyParams: (
       state,
+      {payload}: PayloadAction<{actionCount?: number; id?: number} | undefined>,
+    ) => {
+      const {id, actionCount} = payload ?? {}
+
+      if (id === undefined) {
+        return
+      }
+
+      state[id] = {
+        surveyId: id,
+        actionCount: actionCount ?? 0,
+        lastSeenAt: dayjs().toISOString(),
+      }
+    },
+    deleteSurveyParams: (
+      state,
       {payload: surveyId}: PayloadAction<number | undefined>,
     ) => {
       if (surveyId === undefined) {
         return
       }
 
-      state[surveyId] = {
-        surveyId,
-        actionCount: 0,
-        lastSeenAt: dayjs().toISOString(),
-      }
+      delete state[surveyId]
     },
-    addActionCount: (
+    decreaseActionCount: (
       state,
       {payload: surveyId}: PayloadAction<number | undefined>,
     ) => {
-      if (surveyId === undefined || !state[surveyId]) {
+      if (
+        surveyId === undefined ||
+        !state[surveyId] ||
+        state[surveyId].actionCount === 0
+      ) {
         return
       }
 
       const survey = state[surveyId]
 
-      survey.actionCount += 1
+      survey.actionCount -= 1
     },
     resetActionCount: (
       state,
@@ -81,9 +97,10 @@ export const surveySlice = createSlice({
 
 export const {
   addSurveyParams,
-  addActionCount,
+  decreaseActionCount,
   resetActionCount,
   updateLastSeenAt,
+  deleteSurveyParams,
 } = surveySlice.actions
 
 export const useBottomSheetSurveyEntryPoint = () => {

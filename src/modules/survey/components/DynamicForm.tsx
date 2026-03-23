@@ -2,13 +2,15 @@ import {FormProvider, useForm} from 'react-hook-form'
 import {useIsInBottomSheet} from '@/components/features/bottom-sheet/BottomSheetPresenceContext'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
 import {Column} from '@/components/ui/layout/Column'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {alerts} from '@/modules/survey/alerts'
 import {FormFields} from '@/modules/survey/components/FormFields'
-import {useConfigConditionsPassed} from '@/modules/survey/hooks/useConfigConditionsPassed'
 import {useOnSurveyFormSubmit} from '@/modules/survey/hooks/useOnSurveyFormSubmit'
+import {useSurveyConfigByLocationQuery} from '@/modules/survey/service'
 import {UserRouteName} from '@/modules/user/routes'
 
 type Props = {
@@ -25,11 +27,8 @@ export const DynamicForm = ({entryPoint}: Props) => {
   const isInBottomSheet = useIsInBottomSheet()
   const isFeedbackScreen = route.name === UserRouteName.feedback
 
-  const {
-    isConditionsPassed: showSurvey,
-    survey,
-    surveyId,
-  } = useConfigConditionsPassed(entryPoint)
+  const {data, isFetching, isError} = useSurveyConfigByLocationQuery(entryPoint)
+  const {survey, id: surveyId} = data ?? {}
   const {
     onSubmit,
     createSurveyIsLoading,
@@ -43,8 +42,12 @@ export const DynamicForm = ({entryPoint}: Props) => {
     surveyId,
   })
 
-  if (!showSurvey) {
-    return null
+  if (isFetching) {
+    return <PleaseWait testID="DynamicFormPleaseWait" />
+  }
+
+  if (isError) {
+    return <SomethingWentWrong testID="DynamicFormSomethingWentWrong" />
   }
 
   if (createSurveyIsError && !isInBottomSheet && !isFeedbackScreen) {

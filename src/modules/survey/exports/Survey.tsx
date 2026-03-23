@@ -9,7 +9,7 @@ type Props = {FallbackComponent?: ReactNode; entryPoint?: string}
 export const Survey = ({entryPoint, FallbackComponent}: Props) => {
   const {entryPoint: bottomSheetEntryPoint} = useBottomSheetSurveyEntryPoint()
 
-  if (!entryPoint && !bottomSheetEntryPoint) {
+  if (!(entryPoint || bottomSheetEntryPoint)) {
     return null
   }
 
