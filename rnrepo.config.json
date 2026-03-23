@@ -1,0 +1,24 @@
+{
+  "denyList": {
+    "android": [
+      "react-native-screens",
+      "@react-native-firebase/app",
+      "@react-native-community/netinfo",
+      "react-native-device-info",
+      "react-native-permissions",
+      "react-native-gesture-handler",
+      "react-native-keyboard-controller",
+      "react-native-webview",
+      "react-native-bootsplash",
+      "react-native-svg",
+      "react-native-safe-area-context",
+      "react-native-edge-to-edge",
+      "react-native-nitro-modules",
+      "react-native-maps",
+      "@react-native-async-storage/async-storage",
+      "@react-native-firebase/messaging",
+      "react-native-reanimated"
+    ],
+    "ios": ["library-name-3", "library-name-4"]
+  }
+}
