@@ -2,8 +2,6 @@ import type {TestProps} from '@/components/ui/types'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 
-const ROUTE_ICON_LINE_HEIGHT_CORRECTION = 4
-
 type RouteButtonProps = {
   accessibilityLabel?: string
   coordinates: {lat?: number; lon?: number}
@@ -26,7 +24,6 @@ export const RouteButton = ({
       alignSelf="flex-start"
       icon={{name: 'navigate', size: 'ml'}}
       label="Route"
-      lineHeightCorrection={ROUTE_ICON_LINE_HEIGHT_CORRECTION}
       noPadding
       testID={testID}
       url={directionsUrl}

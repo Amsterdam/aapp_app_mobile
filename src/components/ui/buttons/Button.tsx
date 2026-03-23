@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react'
-import {FlexStyle, GestureResponderEvent, StyleSheet, View} from 'react-native'
+import {FlexStyle, GestureResponderEvent, StyleSheet} from 'react-native'
 import type {SpacingTokens} from '@/themes/tokens/size'
 import {ButtonIcon} from '@/components/ui/buttons/ButtonIcon'
 import {
@@ -27,10 +27,6 @@ export type ButtonProps = {
   isLoading?: boolean
   isReverseOrder?: boolean
   label?: string
-  /**
-   * Line height correction is only applied to tertiary buttons, 6 by default.
-   */
-  lineHeightCorrection?: number
   noPadding?: boolean
   noPaddingHorizontal?: boolean
   noPaddingVertical?: boolean
@@ -61,7 +57,6 @@ export const Button = ({
   testID,
   underline = false,
   variant = defaultVariant,
-  lineHeightCorrection,
   ...pressableProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
@@ -74,7 +69,6 @@ export const Button = ({
     noPaddingHorizontal,
     noPaddingVertical,
     underline,
-    lineHeightCorrection,
   )
   const {onPressIn, onPressOut} = pressableProps
 
@@ -113,18 +107,15 @@ export const Button = ({
       {...pressableProps}>
       <Row
         gutter="sm"
-        reverse={isExternalLink}
-        valign={variant === 'tertiary' ? 'start' : 'center'}>
+        reverse={isExternalLink}>
         {(!!icon?.name || !!isLoading || !!isError) && (
-          <View style={variant === 'tertiary' ? styles.iconWrapper : undefined}>
-            <ButtonIcon
-              icon={icon}
-              isError={isError}
-              isLoading={isLoading}
-              testID={testID}
-              variant={variant}
-            />
-          </View>
+          <ButtonIcon
+            icon={icon}
+            isError={isError}
+            isLoading={isLoading}
+            testID={testID}
+            variant={variant}
+          />
         )}
         {!!label && (
           <AccessibleText
@@ -158,8 +149,6 @@ const getBackgroundColor = (
   variant: ButtonProps['variant'] = defaultVariant,
 ) => color.pressable[variant][isPressed ? 'pressed' : 'default'].background
 
-const LINE_HEIGHT_CORRECTION = 6
-
 const createStyles = (
   {border, color, text, size}: Theme,
   {flex, flexShrink, small, variant, insetHorizontal}: Partial<ButtonProps>,
@@ -168,7 +157,6 @@ const createStyles = (
   noPaddingHorizontal: boolean,
   noPaddingVertical: boolean,
   underline?: boolean,
-  lineHeightCorrection: number = LINE_HEIGHT_CORRECTION,
 ) => {
   const buttonHeight = config.buttonHeight
   const borderWidth =
@@ -203,9 +191,6 @@ const createStyles = (
       borderColor: getBorderColor(color, isPressed, variant),
       borderStyle: 'solid',
       borderWidth,
-    },
-    iconWrapper: {
-      marginTop: lineHeightCorrection,
     },
     // TODO Use `Phrase` instead, after merging line height branch
     label: {
