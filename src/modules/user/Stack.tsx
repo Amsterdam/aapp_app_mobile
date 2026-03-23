@@ -9,32 +9,34 @@ import {capitalizeString} from '@/utils/transform/capitalizeString'
 const Stack = createStackNavigator<RootStackParams>()
 
 export const UserStack = () => {
-  const screenOptions = useScreenOptions({
+  const screenOptions = useScreenOptions()
+  const screenOptionsSettings = useScreenOptions({
     screenType: 'settings',
   })
-  const altScreenOptions = useScreenOptions({
-    screenType: 'default',
-  })
-
   const {biometricsLabel} = useAccessCodeBiometrics()
 
   return (
-    <Stack.Navigator initialRouteName={UserRouteName.user}>
-      {Object.entries(screenConfig).map(([key, route]) => (
-        <Stack.Screen
-          key={key}
-          {...route}
-          options={{
-            ...(route.screenType === 'default'
-              ? altScreenOptions
-              : screenOptions),
-            headerTitle:
-              route.name === UserRouteName.userBiometrics && biometricsLabel
-                ? capitalizeString(biometricsLabel)
-                : route.options?.headerTitle,
-          }}
-        />
-      ))}
+    <Stack.Navigator
+      initialRouteName={UserRouteName.user}
+      screenOptions={screenOptionsSettings}>
+      {Object.entries(screenConfig).map(([key, route]) => {
+        const headerTitle =
+          route.name === UserRouteName.userBiometrics && biometricsLabel
+            ? capitalizeString(biometricsLabel)
+            : route.options?.headerTitle
+
+        return (
+          <Stack.Screen
+            key={key}
+            {...route}
+            options={{
+              ...(route.screenType === 'default' && screenOptions),
+              ...route.options,
+              headerTitle,
+            }}
+          />
+        )
+      })}
     </Stack.Navigator>
   )
 }

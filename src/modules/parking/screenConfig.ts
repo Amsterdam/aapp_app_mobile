@@ -15,8 +15,9 @@ import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.scr
 import {ParkingSessionHistoryScreen} from '@/modules/parking/screens/ParkingSessionHistory.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
 import {ParkingVisitorEditSessionScreen} from '@/modules/parking/screens/ParkingVisitorEditSession.screen'
+import {ParkingAccountScreen} from '@/modules/parking/screens/accounts/ParkingAccount.screen'
+import {ParkingAccountsScreen} from '@/modules/parking/screens/accounts/ParkingAccounts.screen'
 import {ParkingLogoutScreen} from '@/modules/parking/screens/logout/ParkingLogout.screen'
-import {ParkingLogoutAccountsScreen} from '@/modules/parking/screens/logout/ParkingLogoutAccounts.screen'
 import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
 import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
 
@@ -151,11 +152,20 @@ export const parkingScreenConfig: StackNavigationRoutes<
       headerTitle: 'Uitloggen',
     },
   },
-  [ParkingRouteName.logoutAccounts]: {
-    component: ParkingLogoutAccountsScreen,
-    name: ParkingRouteName.logoutAccounts,
+  [ParkingRouteName.account]: {
+    component: ParkingAccountScreen,
+    name: ParkingRouteName.account,
     options: {
-      headerTitle: 'Aanmelden parkeren accounts',
+      headerTitle: 'Account',
     },
+    screenType: 'settings',
+  },
+  [ParkingRouteName.accounts]: {
+    component: ParkingAccountsScreen,
+    name: ParkingRouteName.accounts,
+    options: {
+      headerTitle: 'Aanmelden parkeren account',
+    },
+    screenType: 'settings',
   },
 }
