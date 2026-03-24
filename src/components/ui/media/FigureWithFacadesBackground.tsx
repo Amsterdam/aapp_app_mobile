@@ -5,7 +5,7 @@ import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
-import {IllustratioAspectRatio, ImageAspectRatio} from '@/themes/tokens/media'
+import {IllustrationAspectRatio, ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   backgroundImageHeightFraction?: number
   children?: ReactNode
   height?: number
-  illustrationAspectRatio?: IllustratioAspectRatio
+  illustrationAspectRatio?: IllustrationAspectRatio
   withWeesp?: boolean
 } & TestProps
 
