@@ -9,7 +9,10 @@ import {useThemable} from '@/themes/useThemable'
 
 type FontSize = Extract<keyof Theme['text']['fontSize'], 'body' | 'small'>
 
-const scaleMap: Record<FontSize, number> = {
+/**
+ * Sets the width of the tag based on the fontSize. This is used to prevent text wrap on the larger fontSize option.
+ */
+const TAG_WIDTH_MAP: Record<FontSize, number> = {
   body: 126,
   small: 116,
 }
@@ -25,7 +28,7 @@ export const BurningGuideRecommendationTag = ({
   const styles = useThemable(createStyles(variant))
 
   return (
-    <Size width={scaleMap[fontSize] * fontScale}>
+    <Size width={TAG_WIDTH_MAP[fontSize] * fontScale}>
       <View
         style={styles.tag}
         testID={`BurningGuideRecommendation${variant}`}>
