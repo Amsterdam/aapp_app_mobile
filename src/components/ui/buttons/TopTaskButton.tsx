@@ -2,7 +2,7 @@ import {ReactNode} from 'react'
 import {StyleSheet, View, type DimensionValue} from 'react-native'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
-import {Column} from '@/components/ui/layout/Column'
+import {Column, type ColumnProps} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon, IconProps} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
@@ -15,6 +15,7 @@ const DEFAULT_MIN_HEIGHT = 49
 export type TopTaskButtonProps = {
   border?: boolean
   flex?: number
+  gutter?: ColumnProps['gutter']
   icon: IconProps
   iconRight?: IconProps
   isError?: boolean
@@ -43,6 +44,7 @@ export const TopTaskButton = ({
   insetHorizontal = 'md',
   insetVertical = 'sm',
   variant = 'tertiary',
+  gutter = 'no',
   minHeight = DEFAULT_MIN_HEIGHT,
   ...pressableProps
 }: TopTaskButtonProps) => {
@@ -79,6 +81,7 @@ export const TopTaskButton = ({
           <Column
             align="center"
             grow={1}
+            gutter={gutter}
             shrink={1}>
             <Row gutter="sm">
               {!!title && (

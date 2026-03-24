@@ -13,6 +13,17 @@ export type SvgIconVariantConfig = Record<
   Partial<Record<SvgIconVariant, SvgIconConfig>>
 >
 
+const helperIcons = {
+  /**
+   * This 'icon' can be used as a faux icon, which helps in cases where alignment needs to match views that DO have actual icons
+   */
+  empty: {
+    [SvgIconVariant.default]: {
+      path: '',
+    },
+  },
+}
+
 export const SystemSvgIcons = {
   backspace: {
     [SvgIconVariant.default]: {
@@ -123,6 +134,11 @@ export const DesignSystemSvgIcons = {
   'check-mark': {
     [SvgIconVariant.default]: {
       path: 'M8.64233 17.0316L20.0136 4L21.5 5.30419L8.67655 20L2.5 13.2434L3.95594 11.9051L8.64233 17.0316Z',
+    },
+  },
+  'check-mark-bold': {
+    [SvgIconVariant.default]: {
+      path: 'M21.6865 6.67676L9.82422 19.8486L2.5 11.7139L5.47266 9.03711L9.8252 13.8711L18.7139 4L21.6865 6.67676Z',
     },
   },
   'chevron-down': {
@@ -734,6 +750,7 @@ export const SvgIconsConfig = {
   ...DesignSystemSvgIcons,
   ...DesignSystemSvgIconsDeprecated,
   ...moduleIcons,
+  ...helperIcons,
 } satisfies SvgIconVariantConfig
 
 export type SvgIconName = keyof typeof SvgIconsConfig

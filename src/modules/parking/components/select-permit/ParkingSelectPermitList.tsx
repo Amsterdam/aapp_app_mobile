@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import type {ParkingPermit} from '@/modules/parking/types'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {ParkingSelectPermitListItem} from '@/modules/parking/components/select-permit/ParkingSelectPermitListItem'
 import {useSwitchPermit} from '@/modules/parking/hooks/useSwitchPermit'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -30,31 +30,16 @@ export const ParkingSelectPermitList = ({
     [close, switchPermit, reportCodeParkingAccount],
   )
 
-  return permits?.map(
-    ({permit_name, report_code, permit_zone, permit_type}, permitIndex) => (
-      <TopTaskButton
-        icon={{
-          isFilled: scope === ParkingPermitScope.visitor,
-          name:
-            scope === ParkingPermitScope.visitor
-              ? 'person'
-              : 'document-check-mark',
-          size: 'lg',
-        }}
-        insetHorizontal="sm"
-        key={
-          scope === ParkingPermitScope.visitor
-            ? `visitor-${permit_name}`
-            : `holder-${permit_name}`
-        }
-        onPress={() => onPress(report_code.toString())}
-        testID={`ParkingSelectPermit${permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
-        title={
-          scope === ParkingPermitScope.visitor
-            ? `Op bezoek ${permit_zone.name} - ${report_code}`
-            : permit_name
-        }
-      />
-    ),
-  )
+  return permits?.map((permit, permitIndex) => (
+    <ParkingSelectPermitListItem
+      key={
+        scope === ParkingPermitScope.visitor
+          ? `visitor-${permit.permit_name}`
+          : `holder-${permit.permit_name}`
+      }
+      onPress={onPress}
+      permitItem={{...permit, scope}}
+      testID={`ParkingSelectPermit${permit.permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
+    />
+  ))
 }

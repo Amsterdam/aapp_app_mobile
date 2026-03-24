@@ -47,7 +47,7 @@ export const ParkingSelectPermit = () => {
             chevronSize="md"
             emphasis="default"
             horizontallyAlign="center"
-            onPress={() => navigate(ParkingRouteName.logout)}
+            onPress={() => navigate(ParkingRouteName.accounts)}
             testID="ParkingSelectPermitLogoutNavigationButton"
             title="Beheer account en uitloggen"
           />
