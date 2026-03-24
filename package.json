@@ -206,5 +206,8 @@
     "react-native-reanimated-carousel": {
       "react-native-worklets": "$react-native-worklets"
     }
+  },
+  "volta": {
+    "node": "24.14.0"
   }
 }
