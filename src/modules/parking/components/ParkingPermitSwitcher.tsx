@@ -7,24 +7,20 @@ import {Title} from '@/components/ui/text/Title'
 import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
-import {
-  useCurrentParkingPermitReportCode,
-  useParkingAccount,
-} from '@/modules/parking/slice'
+import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ParkingPermitSwitcher = () => {
   const {toggle} = useBottomSheet()
-  const currentPermitReportCode = useCurrentParkingPermitReportCode()
   const parkingAccount = useParkingAccount()
   const {permit_name, report_code} = useCurrentParkingPermit()
   const {secureAccount} = useGetSecureParkingAccount(
-    parkingAccount?.reportCode ?? '',
     parkingAccount?.scope ?? ParkingPermitScope.visitor,
+    parkingAccount?.reportCode,
   )
 
-  if (!currentPermitReportCode) {
+  if (!report_code) {
     return (
       <SomethingWentWrong testID="ParkingPermitSwitcherSomethingWentWrong" />
     )

@@ -13,8 +13,8 @@ export const ParkingAccountLink = ({account}: Props) => {
   const {reportCode, scope} = account
   const {navigate} = useNavigation()
   const {secureAccount, isError, isLoading} = useGetSecureParkingAccount(
-    reportCode,
     scope,
+    reportCode,
   )
 
   if (isLoading) {

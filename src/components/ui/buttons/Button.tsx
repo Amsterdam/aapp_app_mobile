@@ -88,7 +88,7 @@ export const Button = ({
     [onPressOut],
   )
 
-  const isExternalLink = icon?.name === 'link-external' || isReverseOrder
+  const isReversed = icon?.name === 'link-external' || isReverseOrder
 
   return (
     <PressableBase
@@ -107,7 +107,7 @@ export const Button = ({
       {...pressableProps}>
       <Row
         gutter="sm"
-        reverse={isExternalLink}>
+        reverse={isReversed}>
         {(!!icon?.name || !!isLoading || !!isError) && (
           <ButtonIcon
             icon={icon}
