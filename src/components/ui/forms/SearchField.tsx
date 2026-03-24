@@ -1,6 +1,7 @@
 import {forwardRef, useState} from 'react'
 import {
   type BlurEvent,
+  type FocusEvent,
   type GestureResponderEvent,
   StyleSheet,
   TextInput,
