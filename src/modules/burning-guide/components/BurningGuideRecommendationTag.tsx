@@ -9,6 +9,11 @@ import {useThemable} from '@/themes/useThemable'
 
 type FontSize = Extract<keyof Theme['text']['fontSize'], 'body' | 'small'>
 
+const scaleMap: Record<FontSize, number> = {
+  body: 126,
+  small: 116,
+}
+
 export const BurningGuideRecommendationTag = ({
   variant,
   fontSize = 'body',
@@ -20,7 +25,7 @@ export const BurningGuideRecommendationTag = ({
   const styles = useThemable(createStyles(variant))
 
   return (
-    <Size width={116 * fontScale}>
+    <Size width={scaleMap[fontSize] * fontScale}>
       <View
         style={styles.tag}
         testID={`BurningGuideRecommendation${variant}`}>
