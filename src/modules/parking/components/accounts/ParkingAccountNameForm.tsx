@@ -24,8 +24,8 @@ export const ParkingAccountNameForm = ({account}: Props) => {
   const {handleSubmit} = form
   const addSecureAccountName = useAddSecureParkingAccountName()
   const {secureAccount, isError, isLoading} = useGetSecureParkingAccount(
-    reportCode,
     scope,
+    reportCode,
   )
 
   const onSubmit = async ({accountName}: ParkingAccountNameFormValues) => {

@@ -7,8 +7,8 @@ import type {
 import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
 
 export const useGetSecureParkingAccount = (
-  reportCode: string,
   scope: ParkingPermitScope,
+  reportCode?: string,
 ) => {
   const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -16,26 +16,33 @@ export const useGetSecureParkingAccount = (
     SecureParkingAccount | undefined
   >(undefined)
 
-  const getSecureAccount = useCallback(async () => {
-    setIsError(false)
-    setIsLoading(true)
+  const getSecureAccount = useCallback(
+    async (accountReportCode: string) => {
+      setIsError(false)
+      setIsLoading(true)
 
-    try {
-      const account = await getSecureParkingAccount(reportCode, scope)
+      try {
+        const account = await getSecureParkingAccount(accountReportCode, scope)
 
-      setSecureAccount(account)
-    } catch {
-      setIsError(true)
-      setSecureAccount(undefined)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [reportCode, scope])
+        setSecureAccount(account)
+      } catch {
+        setIsError(true)
+        setSecureAccount(undefined)
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [scope],
+  )
 
   useFocusEffect(
     useCallback(() => {
-      void getSecureAccount()
-    }, [getSecureAccount]),
+      if (!reportCode) {
+        return
+      }
+
+      void getSecureAccount(reportCode)
+    }, [getSecureAccount, reportCode]),
   )
 
   return {secureAccount, isError, isLoading}
