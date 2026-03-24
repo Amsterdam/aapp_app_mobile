@@ -90,7 +90,7 @@ jest.mock(
 )
 jest.mock('expo-document-picker', () => ({}))
 jest.mock('expo-image-picker', () => ({}))
-jest.mock('expo-file-system', () => ({}))
+jest.mock('expo-file-system/legacy', () => ({}))
 jest.mock('expo-sharing', () => ({}))
 jest.mock('expo-clipboard', () => ({}))
 jest.mock('expo-brightness', () => ({}))
