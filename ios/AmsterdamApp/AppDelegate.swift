@@ -1,5 +1,6 @@
 internal import Expo
 import Firebase  // added for Firebase
+import GoogleMaps
 import RNBootSplash  // Added for react-native-bootsplash
 import React
 import ReactAppDependencyProvider
@@ -18,6 +19,10 @@ class AppDelegate: ExpoAppDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        if let apiKey = Bundle.main.object(forInfoDictionaryKey: "GOOGLE_MAPS_API_KEY") as? String {
+            GMSServices.provideAPIKey(apiKey)
+        }
+
         //Added for Firebase
         FirebaseApp.configure()
 

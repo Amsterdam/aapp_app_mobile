@@ -55,6 +55,9 @@ target 'AmsterdamApp' do
     ]
   end
 
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-maps/Google', :path => rn_maps_path
+
   config = use_native_modules!(config_command)
 
   use_react_native!(

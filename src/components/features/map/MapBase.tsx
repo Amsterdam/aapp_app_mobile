@@ -6,7 +6,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
 } from 'react'
-import {Platform, StyleSheet, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps, type Region} from 'react-native-maps'
 import type {ControlVariant} from '@/components/features/map/types'
 import type {ModuleSlug} from '@/modules/slugs'
@@ -120,7 +120,7 @@ export const MapBase = ({
             regionRef.current = regionData
             mapViewProps.onRegionChangeComplete?.(regionData, details)
           }}
-          provider={Platform.OS === 'android' ? 'google' : undefined}
+          provider="google"
           ref={mapRef}
           showsBuildings={false}
           showsMyLocationButton={false}
