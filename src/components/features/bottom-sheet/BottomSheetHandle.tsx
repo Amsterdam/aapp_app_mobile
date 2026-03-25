@@ -63,6 +63,9 @@ export const BottomSheetHandle = ({
   return (
     <GestureDetector gesture={panGesture}>
       <View
+        accessibilityHint="Veeg omlaag om te sluiten"
+        accessibilityLabel="Sluiten"
+        accessible
         onLayout={e => setHandleHeight(e.nativeEvent.layout.height)}
         style={styles.handleContainer}>
         <View style={styles.handleIndicator} />
