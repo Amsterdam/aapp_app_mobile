@@ -56,7 +56,7 @@ export const RootStackNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName={
-        !shouldShowOnboarding ? ModuleSlug.onboarding : ModuleSlug.home
+        shouldShowOnboarding ? ModuleSlug.onboarding : ModuleSlug.home
       }
       screenOptions={{
         headerShown: false,
