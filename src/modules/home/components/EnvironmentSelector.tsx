@@ -1,5 +1,4 @@
 import {pascalCase} from 'pascal-case'
-import {useEffect} from 'react'
 import RNRestart from 'react-native-restart-newarch'
 import {destroyStorageAndAuthorization} from 'react-native-salesforce-messaging-in-app/src'
 import {Button} from '@/components/ui/buttons/Button'
@@ -46,8 +45,6 @@ export const EnvironmentSelector = () => {
   const dispatch = useDispatch()
   const {environment, custom} = useSelector(selectEnvironment)
 
-  useEffect(() => () => RNRestart.Restart(), [])
-
   if (!isDevApp) {
     return null
   }
@@ -78,6 +75,7 @@ export const EnvironmentSelector = () => {
                 dispatch(setShouldShowOnboarding(false))
                 removeAllSecureItems().then(devLog).catch(devError)
                 await persistor.flush()
+                RNRestart.Restart()
               }}
               testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
               variant={environment === env ? 'secondary' : 'primary'}
