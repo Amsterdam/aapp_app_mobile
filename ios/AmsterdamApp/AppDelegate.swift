@@ -94,7 +94,7 @@ class AppDelegate: ExpoAppDelegate {
             launchOptions: launchOptions
         )
 
-        return true
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 
     // Handle custom URL schemes (deep links)
