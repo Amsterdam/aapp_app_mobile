@@ -1,5 +1,7 @@
+import {useContext} from 'react'
 import {useController, useFormContext} from 'react-hook-form'
 import {View} from 'react-native'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Title} from '@/components/ui/text/Title'
@@ -9,7 +11,6 @@ import {ParkingSessionDurationTimePicker} from '@/modules/parking/components/for
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 type FieldValues = {endTime?: Dayjs; originalEndTime?: Dayjs; startTime: Dayjs}
@@ -22,7 +23,7 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
   } = useController<FieldValues, 'endTime'>({
     name: 'endTime',
   })
-  const {close} = useBottomSheet()
+  const {close} = useContext(BottomSheetContext)
 
   const currentPermit = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()

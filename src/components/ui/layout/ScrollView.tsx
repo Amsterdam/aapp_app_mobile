@@ -18,17 +18,25 @@ export const ScrollView = ({
   children,
   grow,
   withBottomInset = false,
+  contentContainerStyle,
+  style,
   ...scrollViewProps
 }: ScrollViewProps) => {
   const insets = useSafeAreaInsets()
 
   return (
     <RNScrollView
-      contentContainerStyle={!!grow && layoutStyles.grow}
+      contentContainerStyle={[
+        grow ? layoutStyles.grow : undefined,
+        contentContainerStyle,
+      ]}
       keyboardShouldPersistTaps={grow ? 'handled' : undefined}
       ref={ref}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
-      style={!!withBottomInset && {paddingBottom: insets.bottom}}
+      style={[
+        withBottomInset ? {paddingBottom: insets.bottom} : undefined,
+        style,
+      ]}
       {...scrollViewProps}>
       {children}
     </RNScrollView>

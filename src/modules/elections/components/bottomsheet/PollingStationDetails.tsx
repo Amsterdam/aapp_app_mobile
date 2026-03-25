@@ -1,4 +1,5 @@
-import {useEffect} from 'react'
+import {useContext, useEffect} from 'react'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -16,10 +17,9 @@ import {useSelectedPollingStation} from '@/modules/elections/hooks/useSelectedPo
 import {resetSelectedPollingStationId} from '@/modules/elections/slice'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 import {RedirectKey} from '@/modules/redirects/types'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStationDetails = () => {
-  const {close: closeBottomSheet} = useBottomSheet()
+  const {close: closeBottomSheet} = useContext(BottomSheetContext)
   const dispatch = useDispatch()
   const pollingStation = useSelectedPollingStation()
   const {lat, lng} = pollingStation?.position || {}

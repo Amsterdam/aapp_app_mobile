@@ -1,14 +1,14 @@
-import {BottomSheetTextInput as BottomSheetTextInputBase} from '@gorhom/bottom-sheet'
-import {useEffect} from 'react'
+import {useContext, useEffect} from 'react'
+import {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import type {TextInputProps} from '@/components/ui/forms/input/types'
-import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 
 export const BottomSheetTextInput = ({
   autoFocus,
   ref,
   ...props
 }: TextInputProps) => {
-  const {isOpen} = useBottomSheetSelectors()
+  const {isOpen} = useContext(BottomSheetContext)
 
   useEffect(() => {
     if (!isOpen) {
@@ -19,7 +19,7 @@ export const BottomSheetTextInput = ({
   }, [autoFocus, isOpen, ref])
 
   return (
-    <BottomSheetTextInputBase
+    <TextInputRN
       ref={ref}
       {...props}
     />

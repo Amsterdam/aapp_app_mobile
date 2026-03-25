@@ -79,6 +79,9 @@ export const lightColorTokens = {
   },
   bottomSheet: {
     background: baseColor.primary.white,
+    handleIndicator: baseColor.neutral.grey3,
+    overlay: baseColor.transparent.black40,
+    shadow: baseColor.primary.black,
   },
   box: {
     background: {

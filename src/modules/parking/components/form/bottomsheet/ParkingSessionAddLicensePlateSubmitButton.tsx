@@ -1,6 +1,6 @@
-import {useBottomSheet} from '@gorhom/bottom-sheet'
-import {useEffect} from 'react'
+import {useContext, useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {Button} from '@/components/ui/buttons/Button'
 import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -17,7 +17,7 @@ type Props = {
 export const ParkingSessionAddLicensePlateSubmitButton = ({
   setLicensePlate,
 }: Props) => {
-  const {close} = useBottomSheet()
+  const {close} = useContext(BottomSheetContext)
   const {
     clearErrors,
     handleSubmit,

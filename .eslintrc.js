@@ -105,12 +105,6 @@ module.exports = {
                   'Do not use PiwikContext directly. The logging methods are exposed via the usePiwik hook.',
               },
               {
-                name: '@gorhom/bottom-sheet',
-                importNames: ['BottomSheet'],
-                message:
-                  'Import BottomSheet from @/components/ui/containers/BottomSheet.',
-              },
-              {
                 name: '@react-navigation/stack',
                 importNames: ['createStackNavigator'],
                 message:

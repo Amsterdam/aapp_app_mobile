@@ -1,3 +1,5 @@
+import {useContext} from 'react'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {Button} from '@/components/ui/buttons/Button'
 import {MoreInfoButton} from '@/components/ui/buttons/MoreInfoButton'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,10 +9,9 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ReportProblemSection = () => {
-  const {open} = useBottomSheet()
+  const {open} = useContext(BottomSheetContext)
   const {navigate} = useNavigation()
 
   return (

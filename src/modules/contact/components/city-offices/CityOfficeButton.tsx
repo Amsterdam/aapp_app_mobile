@@ -1,3 +1,5 @@
+import {useContext} from 'react'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
@@ -6,7 +8,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {setSelectedCityOffice} from '@/modules/contact/slice'
 import {CityOffice} from '@/modules/contact/types'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
   cityOffice: CityOffice
@@ -14,7 +15,7 @@ type Props = {
 
 export const CityOfficeButton = ({cityOffice}: Props) => {
   const dispatch = useDispatch()
-  const {close: closeBottomSheet} = useBottomSheet()
+  const {close: closeBottomSheet} = useContext(BottomSheetContext)
 
   const selectCityOffice = () => {
     dispatch(setSelectedCityOffice(cityOffice.identifier))

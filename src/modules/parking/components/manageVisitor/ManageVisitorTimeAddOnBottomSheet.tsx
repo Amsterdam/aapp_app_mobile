@@ -1,12 +1,13 @@
+import {useContext} from 'react'
 import {useController} from 'react-hook-form'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 
 type Props = {
@@ -67,7 +68,7 @@ export const ManageVisitorTimeAddOnBottomSheet = ({isNegative}: Props) => {
   } = useController<{time?: number}>({
     name: 'time',
   })
-  const {close} = useBottomSheet()
+  const {close} = useContext(BottomSheetContext)
 
   if (!currentPermit.visitor_account) {
     return null

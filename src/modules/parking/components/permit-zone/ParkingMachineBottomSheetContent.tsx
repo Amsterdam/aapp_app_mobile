@@ -1,5 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect, useMemo} from 'react'
+import {useContext, useEffect, useMemo} from 'react'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {Button} from '@/components/ui/buttons/Button'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {RouteButton} from '@/components/ui/buttons/RouteButton'
@@ -27,15 +28,10 @@ import {
   getParkingMachinePaymentTimes,
   sortPaymentTimes,
 } from '@/modules/parking/utils/paymentZone'
-import {
-  useBottomSheet,
-  useBottomSheetSelectors,
-} from '@/store/slices/bottomSheet'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const ParkingMachineBottomSheetContent = () => {
-  const {close: closeBottomSheet} = useBottomSheet()
-  const {isOpen} = useBottomSheetSelectors()
+  const {close: closeBottomSheet, isOpen} = useContext(BottomSheetContext)
   const autoFocus = useAccessibilityFocus()
   const navigation = useNavigation()
 

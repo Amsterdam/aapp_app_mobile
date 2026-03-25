@@ -1,5 +1,6 @@
-import {useCallback} from 'react'
+import {useCallback, useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -8,14 +9,13 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {ParkingLicensePlate} from '@/modules/parking/types'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
   setLicensePlate: (licensePlate: ParkingLicensePlate) => void
 }
 
 export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
-  const {close} = useBottomSheet()
+  const {close} = useContext(BottomSheetContext)
   const styles = createStyles()
 
   const {licensePlates, isLoading} = useGetLicensePlates()

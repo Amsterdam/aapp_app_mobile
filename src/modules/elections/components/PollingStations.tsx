@@ -1,4 +1,5 @@
-import {useCallback} from 'react'
+import {useCallback, useContext} from 'react'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
 import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -10,13 +11,12 @@ import {usePollingStationsQuery} from '@/modules/elections/service'
 import {setSelectedPollingStationId} from '@/modules/elections/slice'
 import {PollingStation} from '@/modules/elections/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStations = () => {
   const dispatch = useDispatch()
   const {data, isLoading, isError} = usePollingStationsQuery()
   const {address} = useSelectedAddress(ModuleSlug.elections)
-  const {open} = useBottomSheet()
+  const {open} = useContext(BottomSheetContext)
   const {viewType} = useMapViewSwitch()
 
   const onSelectPollingStation = useCallback(

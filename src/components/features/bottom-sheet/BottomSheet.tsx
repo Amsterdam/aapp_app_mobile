@@ -1,33 +1,22 @@
-import BottomSheetOriginal, {
-  BottomSheetProps as OriginalBottomSheetProps,
-  BottomSheetScrollView,
-  BottomSheetView,
-} from '@gorhom/bottom-sheet'
 import {useIsFocused} from '@react-navigation/native'
-import {useEffect, type FC, type ReactNode} from 'react'
-import {StyleSheet} from 'react-native'
+import {useEffect, useMemo, useState, type FC, type ReactNode} from 'react'
+import {StyleSheet, View, Platform, useWindowDimensions} from 'react-native'
+import {useSharedValue} from 'react-native-reanimated'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {Backdrop} from '@/components/features/bottom-sheet/Backdrop'
 import {BackgroundComponent} from '@/components/features/bottom-sheet/BackgroundComponent'
+import {BottomSheetBackdrop} from '@/components/features/bottom-sheet/BottomSheetBackdrop'
+import {BottomSheetContainer} from '@/components/features/bottom-sheet/BottomSheetContainer'
+import {BottomSheetHandle} from '@/components/features/bottom-sheet/BottomSheetHandle'
 import {BottomSheetPresenceContext} from '@/components/features/bottom-sheet/BottomSheetPresenceContext'
-import {Handle} from '@/components/features/bottom-sheet/Handle'
+import {BottomSheetScrollWrapper} from '@/components/features/bottom-sheet/BottomSheetScrollWrapper'
 import {useBottomSheetHandler} from '@/components/features/bottom-sheet/hooks/useBottomSheetHandler'
+import {useToggleBottomSheet} from '@/components/features/bottom-sheet/hooks/useToggleBottomSheet'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
 
-export type BottomSheetProps = Partial<
-  Omit<
-    OriginalBottomSheetProps,
-    | 'children'
-    | 'contentHeight'
-    | 'handleHeight'
-    | 'onChange'
-    | 'ref'
-    | 'snapPoints'
-  >
-> & {
-  flex?: number
+export type BottomSheetProps = {
   scroll?: boolean
+  topInset?: number
 } & TestProps &
   (
     | {children: ReactNode; variants?: never}
@@ -40,80 +29,113 @@ export type BottomSheetProps = Partial<
       }
   )
 
-const ScrollWrapper = ({children}: {children: ReactNode}) => (
-  <BottomSheetScrollView keyboardShouldPersistTaps="handled">
-    {children}
-  </BottomSheetScrollView>
-)
-
 /**
  * To autofocus on an element within the bottom sheet, use the `useSetBottomSheetElementFocus` hook.
  */
 export const BottomSheet = ({
   children,
-  flex,
   scroll,
   testID,
+  topInset,
   variants,
-  ...rest
 }: BottomSheetProps) => {
-  const {onChange, onClose, ref, variant} = useBottomSheetHandler()
-  const {top: topInset} = useSafeAreaInsets()
-  const ViewComponent = scroll ? ScrollWrapper : BottomSheetView
-  const styles = createStyles(flex)
+  const {onChange, onClose, variant, isOpen} = useBottomSheetHandler()
+  const [isVisible, setIsVisible] = useState(isOpen)
+  const [sheetHeight, setSheetHeight] = useState(1)
+  const {top: safeTopInset, bottom: bottomInset} = useSafeAreaInsets()
+  const {height: windowHeight} = useWindowDimensions()
   const isFocused = useIsFocused()
+  const topOffset = topInset ?? safeTopInset
 
+  const styles = createStyles()
+
+  const ViewComponent = scroll ? BottomSheetScrollWrapper : View
   const VariantComponent: FC | undefined = variants
     ? (variants[variant ?? ''] ?? (() => null))
     : undefined
 
-  useEffect(() => {
-    if (variants && !variants[variant ?? '']) {
-      ref.current?.close()
-    }
-  }, [variant, variants, ref])
+  const closedOffset = useMemo(
+    () => sheetHeight + bottomInset,
+    [bottomInset, sheetHeight],
+  )
+  const translateY = useSharedValue(closedOffset)
+  const isOpenShared = useSharedValue(isOpen ? 1 : 0)
+  const isAndroid = Platform.OS === 'android'
 
-  if (!isFocused) {
+  useEffect(() => {
+    isOpenShared.value = isOpen ? 1 : 0
+  }, [isOpen, isOpenShared])
+
+  useToggleBottomSheet({
+    closedOffset,
+    isAndroid,
+    isOpen,
+    isOpenShared,
+    onChange,
+    setIsVisible,
+    translateY,
+  })
+
+  useEffect(() => {
+    if (!(isOpen || isVisible)) {
+      translateY.value = closedOffset
+    }
+  }, [closedOffset, isOpen, isVisible, translateY])
+
+  const [handleHeight, setHandleHeight] = useState(0)
+  const scrollMaxHeight = windowHeight - topOffset - handleHeight
+
+  if (!isFocused || !isVisible) {
     return null
   }
 
   return (
     <BottomSheetPresenceContext.Provider value={true}>
-      <BottomSheetOriginal
-        accessible={false}
-        backdropComponent={Backdrop}
-        backgroundComponent={BackgroundComponent}
-        enableContentPanningGesture={false}
-        enablePanDownToClose
-        handleComponent={Handle}
-        index={-1}
-        keyboardBlurBehavior="restore"
-        onChange={onChange}
-        onClose={onClose}
-        ref={ref}
-        topInset={topInset}
-        {...rest}>
-        <ViewComponent
-          style={styles.container}
-          testID={testID}>
-          <SafeArea
-            bottom
-            flex={flex}
-            left
-            right
-            testID={testID}>
-            {VariantComponent ? <VariantComponent /> : children}
-          </SafeArea>
-        </ViewComponent>
-      </BottomSheetOriginal>
+      <View
+        pointerEvents="box-none"
+        style={StyleSheet.absoluteFill}>
+        <BottomSheetBackdrop
+          closedOffset={closedOffset}
+          onClose={onClose}
+          translateY={translateY}
+        />
+
+        <BottomSheetContainer
+          setSheetHeight={setSheetHeight}
+          testID={testID}
+          topOffset={topOffset}
+          translateY={translateY}
+          windowHeight={windowHeight}>
+          <BackgroundComponent>
+            <BottomSheetHandle
+              closedOffset={closedOffset}
+              isAndroid={isAndroid}
+              isVisible={isVisible}
+              onClose={onClose}
+              setHandleHeight={setHandleHeight}
+              sheetHeight={sheetHeight}
+              translateY={translateY}
+            />
+            <ViewComponent
+              maxHeight={scroll ? scrollMaxHeight : undefined}
+              style={styles.container}>
+              <SafeArea
+                bottom
+                left
+                right>
+                {VariantComponent ? <VariantComponent /> : children}
+              </SafeArea>
+            </ViewComponent>
+          </BackgroundComponent>
+        </BottomSheetContainer>
+      </View>
     </BottomSheetPresenceContext.Provider>
   )
 }
 
-const createStyles = (flex?: number) =>
+const createStyles = () =>
   StyleSheet.create({
     container: {
-      flex,
       flexGrow: 1,
     },
   })

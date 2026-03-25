@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {Switch} from '@/components/ui/forms/Switch'
@@ -10,10 +11,9 @@ import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/Parki
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {useGetMaxLicensePlates} from '@/modules/parking/hooks/useGetMaxLicensePlates'
 import {useMaxLicensePlatesAlert} from '@/modules/parking/hooks/useMaxLicensePlatesAlert'
-import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
 
 export const ParkingSessionAddLicensePlate = () => {
-  const {isOpen} = useBottomSheetSelectors()
+  const {isOpen} = useContext(BottomSheetContext)
   const [isVisitorNameVisible, setIsVisitorNameVisible] = useState(false)
   const {licensePlates, isLoading} = useGetLicensePlates()
   const maxLicensePlates = useGetMaxLicensePlates()

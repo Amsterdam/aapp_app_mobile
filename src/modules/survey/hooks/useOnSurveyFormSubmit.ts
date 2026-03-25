@@ -1,5 +1,6 @@
-import {useCallback} from 'react'
+import {useCallback, useContext} from 'react'
 import type {Survey} from '@/modules/survey/types'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/survey/alerts'
 import {useBuildSurveyMetaData} from '@/modules/survey/hooks/useBuildSurveyMetaData'
@@ -8,7 +9,6 @@ import {getAnswers} from '@/modules/survey/utils/getAnswers'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useAlert} from '@/store/slices/alert'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Params = {
   entryPoint: string
@@ -30,7 +30,7 @@ export const useOnSurveyFormSubmit = ({
     useCreateSurveyVersionEntryMutation()
   const {setAlert} = useAlert()
   const trackException = useTrackException()
-  const {close} = useBottomSheet()
+  const {close} = useContext(BottomSheetContext)
   const metadata = useBuildSurveyMetaData()
 
   const onSubmit = useCallback(

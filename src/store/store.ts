@@ -9,7 +9,6 @@ import {baseApi} from '@/services/baseApi'
 import {devStoreEnhancer} from '@/store/devStoreEnhancer'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {alertSlice} from '@/store/slices/alert'
-import {bottomSheetSlice} from '@/store/slices/bottomSheet'
 import {environmentSlice} from '@/store/slices/environment'
 import {internetConnectionSlice} from '@/store/slices/internetConnection'
 import {menuSlice} from '@/store/slices/menu'
@@ -25,7 +24,6 @@ import {themeSlice} from '@/themes/slice'
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.accessCode, slice: accessCodeSlice},
   {key: ReduxKey.alert, slice: alertSlice},
-  {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
   {key: ReduxKey.elections, slice: electionsSlice},
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: 0},
   {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
