@@ -90,7 +90,7 @@
     "react-native-reanimated": "4.2.1",
     "react-native-reanimated-carousel": "5.0.0-beta.5",
     "react-native-render-html": "^6.3.4",
-    "react-native-restart": "^0.0.27",
+    "react-native-restart-newarch": "^1.0.85",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-salesforce-messaging-in-app": "file:./react-native-salesforce-messaging-in-app",
     "react-native-screens": "^4.23.0",

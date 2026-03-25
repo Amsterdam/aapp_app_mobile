@@ -1,6 +1,6 @@
 import {pascalCase} from 'pascal-case'
 import {useEffect} from 'react'
-import RNRestart from 'react-native-restart'
+import RNRestart from 'react-native-restart-newarch'
 import {destroyStorageAndAuthorization} from 'react-native-salesforce-messaging-in-app/src'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'

@@ -98,7 +98,7 @@ jest.mock('expo-haptics', () => ({}))
 jest.mock('react-native-block-screenshot', () => ({}))
 jest.mock('react-native-webview', () => ({}))
 jest.mock('react-native-maps', () => ({}))
-
+jest.mock('react-native-restart-newarch', () => ({}))
 jest.mock('react-native-geolocation-service', () => ({
   __esModule: true,
   default: jest.fn(() => ({})),

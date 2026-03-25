@@ -2451,8 +2451,6 @@ PODS:
     - React-Core
   - react-native-render-html (6.3.4):
     - React-Core
-  - react-native-restart (0.0.27):
-    - React-Core
   - react-native-safe-area-context (5.7.0):
     - boost
     - DoubleConversion
@@ -3154,6 +3152,34 @@ PODS:
     - React-perflogger (= 0.83.4)
     - React-utils (= 0.83.4)
     - SocketRocket
+  - RestartNewArch (1.0.85):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - RNBootSplash (6.3.12):
     - boost
     - DoubleConversion
@@ -3778,7 +3804,6 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - "react-native-piwik-pro-sdk (from `../node_modules/@piwikpro/react-native-piwik-pro-sdk`)"
   - react-native-render-html (from `../node_modules/react-native-render-html`)
-  - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-salesforce-messaging-in-app (from `../react-native-salesforce-messaging-in-app`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -3815,6 +3840,7 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios/ReactAppDependencyProvider`)
   - ReactCodegen (from `build/generated/ios/ReactCodegen`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RestartNewArch (from `../node_modules/react-native-restart-newarch`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
@@ -4006,8 +4032,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@piwikpro/react-native-piwik-pro-sdk"
   react-native-render-html:
     :path: "../node_modules/react-native-render-html"
-  react-native-restart:
-    :path: "../node_modules/react-native-restart"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-salesforce-messaging-in-app:
@@ -4080,6 +4104,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios/ReactCodegen
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RestartNewArch:
+    :path: "../node_modules/react-native-restart-newarch"
   RNBootSplash:
     :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
@@ -4203,7 +4229,6 @@ SPEC CHECKSUMS:
   react-native-netinfo: a0be8c77f8420a60ddf07eb87be1a36f02a1bd65
   react-native-piwik-pro-sdk: d4faddcbbf90b54299cd432daae64fd6f8666cca
   react-native-render-html: 5afc4751f1a98621b3009432ef84c47019dcb2bd
-  react-native-restart: 0bc732f4461709022a742bb29bcccf6bbc5b4863
   react-native-safe-area-context: befb5404eb8a16fdc07fa2bebab3568ecabcbb8a
   react-native-salesforce-messaging-in-app: 69d82261c78e379a838c0de67e2a2b9556d5242e
   react-native-webview: 8407aaaf6b539b1e38b72fabb55d6885de03beaf
@@ -4240,6 +4265,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 2b19d66e5ddfe8dc7afb6338a4626156cbf2bab1
   ReactCodegen: 53a01767e04b3a23f128b5a3c6542b4ab24fb921
   ReactCommon: 5901ef412ae35cc727b9584d4f7e3e1f7f17c251
+  RestartNewArch: cde4d7b557eded1c0147c81b194762cf21b66765
   RNBootSplash: a50a2908e25aa4a3e5e2eb429bcf5ed54cbcb9e2
   RNCAsyncStorage: 29f0230e1a25f36c20b05f65e2eb8958d6526e82
   RNCMaskedView: 4b5b12efdee55966f1d68f32d4b3401c2acf05c2
