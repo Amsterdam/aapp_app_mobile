@@ -2,7 +2,13 @@ import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-
 import {BurningGuideCodeVariant} from '@/modules/burning-guide/types'
 import {baseColor} from '@/themes/tokens/base-color'
 
-export type ColorTokens = typeof lightColorTokens
+type StringMap<T> = T extends object
+  ? {[K in keyof T]: StringMap<T[K]>}
+  : T extends string
+    ? string
+    : T
+
+export type ColorTokens = StringMap<typeof lightColorTokens>
 
 /**
  * The light color theme, the keys of the object should not contain any color name at all
