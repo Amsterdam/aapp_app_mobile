@@ -1,0 +1,47 @@
+diff --git a/node_modules/react-native-maps/src/Geojson.tsx b/node_modules/react-native-maps/src/Geojson.tsx
+index 1df4fb0..da9e060 100644
+--- a/node_modules/react-native-maps/src/Geojson.tsx
++++ b/node_modules/react-native-maps/src/Geojson.tsx
+@@ -434,6 +434,31 @@ const getRgbaFromHex = (hex: string, alpha: number = 1) => {
+   return `rgba(${r},${g},${b},${alpha})`;
+ };
+ 
++const getHexFromColorName = (colorName: string): string => {
++  switch (colorName.toLowerCase()) {
++    case 'black':
++      return '#000000'
++    case 'white':
++      return '#FFFFFF'
++    case 'red':
++      return '#FF0000'
++    case 'green':
++      return '#008000'
++    case 'blue':
++      return '#0000FF'
++    case 'yellow':
++      return '#FFFF00'
++    case 'cyan':
++      return '#00FFFF'
++    case 'magenta':
++      return '#FF00FF'
++    case 'gray':
++      return '#808080'
++    default:
++      return colorName
++  }
++}
++
+ const getColor = (
+   prop: string | undefined,
+   overlay: Overlay,
+@@ -445,6 +470,10 @@ const getColor = (
+     const opacityProperty = colorType + '-opacity';
+     const alpha = overlay.feature.properties?.[opacityProperty];
+ 
++    if (color[0] !== '#') {
++      color = getHexFromColorName(color);
++    }
++
+     if (alpha && alpha !== '0' && color[0] === '#') {
+       color = getRgbaFromHex(color, alpha);
+     }
