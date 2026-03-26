@@ -16,12 +16,7 @@ const meta: Meta<typeof AlertBase> = {
       type: 'boolean',
     },
     link: {
-      label: {
-        control: {type: 'text'},
-      },
-      onPress: {
-        control: {disable: true},
-      },
+      control: {type: 'object'},
     },
     inset: {
       table: {

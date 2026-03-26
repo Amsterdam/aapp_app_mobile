@@ -2,7 +2,6 @@ import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import type {ModuleSlug} from '@/modules/slugs'
-import type {TextProps} from 'react-native-svg'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
@@ -31,15 +30,9 @@ type WrapperProps = {
   inset: AlertBaseProps['inset']
 }
 
-const Wrapper = ({children, inset, testID}: WrapperProps & TextProps) => {
+const Wrapper = ({children, inset}: WrapperProps) => {
   if (inset !== undefined) {
-    return (
-      <Box
-        inset={inset}
-        testID={testID}>
-        {children}
-      </Box>
-    )
+    return <Box inset={inset}>{children}</Box>
   }
 
   return <>{children}</>
@@ -72,9 +65,7 @@ export const AlertBase = ({
   }
 
   return (
-    <Wrapper
-      inset={inset}
-      testID={`${testID}Wrapper`}>
+    <Wrapper inset={inset}>
       <View
         accessibilityLanguage="nl-NL"
         accessibilityRole="alert"

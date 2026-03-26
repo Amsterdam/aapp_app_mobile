@@ -39,7 +39,7 @@ export type AlertProps = {
    * link: {
    *    label: 'Dit is een link',
    *    to: [
-   *        ModuleSlug.Address,
+   *        ModuleSlug.address,
    *        {
    *            name: AddressRouteName.chooseAddress,
    *            params: { id: 123 } },
