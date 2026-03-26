@@ -39,7 +39,7 @@ export const Pressable = ({
   insetHorizontal,
   insetVertical,
   variant = 'tertiary',
-  flex = undefined,
+  flex,
   border = false,
   ...pressableProps
 }: PressableProps) => {
