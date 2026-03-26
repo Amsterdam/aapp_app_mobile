@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import type {ParkingPermit} from '@/modules/parking/types'
-import {ParkingSelectPermitListItem} from '@/modules/parking/components/select-permit/ParkingSelectPermitListItem'
+import {ParkingPermitSelectButton} from '@/modules/parking/components/select-permit/ParkingPermitSelectButton'
 import {useSwitchPermit} from '@/modules/parking/hooks/useSwitchPermit'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -31,14 +31,13 @@ export const ParkingSelectPermitList = ({
   )
 
   return permits?.map((permit, permitIndex) => (
-    <ParkingSelectPermitListItem
-      key={
-        scope === ParkingPermitScope.visitor
-          ? `visitor-${permit.permit_name}`
-          : `holder-${permit.permit_name}`
-      }
+    <ParkingPermitSelectButton
+      accountReportCode={reportCodeParkingAccount}
+      key={`${scope}-${permit.report_code}`}
       onPress={onPress}
-      permitItem={{...permit, scope}}
+      permitName={permit.permit_name}
+      permitReportCode={permit.report_code}
+      permitScope={scope}
       testID={`ParkingSelectPermit${permit.permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
     />
   ))
