@@ -1,10 +1,12 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
+import {Platform} from 'react-native'
 import {WebViewMessageEvent} from 'react-native-webview'
 import {NavigationProps} from '@/app/navigation/types'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {WebView, type WebViewRef} from '@/components/ui/containers/WebView'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
+import {usePermission} from '@/hooks/permissions/usePermission'
 import {useOnAndroidBackPress} from '@/hooks/useOnAndroidBackPress'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
@@ -17,6 +19,7 @@ import {
   PiwikAction,
   useTrackEvents,
 } from '@/processes/logging/hooks/useTrackEvents'
+import {Permissions} from '@/types/permissions'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 
@@ -32,6 +35,7 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
   const [hasFinishedAtLeastOnce, setHasFinishedAtLeastOnce] = useState(false)
   const {trackCustomEvent} = useTrackEvents()
   const open = useOpenBottomsheetIfSurveyShouldShow('report-problem')
+  const {requestPermission} = usePermission(Permissions.camera)
 
   const onBlur = useCallback(() => {
     trackCustomEvent(
@@ -86,6 +90,12 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
       setTimeout(open, 500)
     }
   }, [open])
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      void requestPermission()
+    }
+  }, [requestPermission])
 
   return (
     <Screen
