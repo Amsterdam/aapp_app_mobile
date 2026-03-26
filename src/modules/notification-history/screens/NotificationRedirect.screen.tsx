@@ -48,7 +48,11 @@ export const NotificationRedirectScreen = ({route}: Props) => {
               label="Naar website"
               testID="NotificationRedirectScreen.ExternalLinkButton"
               url={url}
-            />
+{!!url && (<ExternalLinkButton
+label="Naar website"
+testID="NotificationRedirectScreen.ExternalLinkButton"
+url={url}
+/>)}
             <Button
               label="Annuleer"
               onPress={() => {
