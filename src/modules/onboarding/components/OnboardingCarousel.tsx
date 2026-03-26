@@ -34,7 +34,6 @@ export const OnboardingCarousel = () => {
       flex={1}
       gutter="md">
       <Carousel
-        containerStyle={styles.container}
         data={filteredOnboardingData}
         onProgressChange={onProgressChange}
         ref={ref}
@@ -46,6 +45,7 @@ export const OnboardingCarousel = () => {
             onPressNextButton={() => onPressPagination(index + 1)}
           />
         )}
+        style={styles.container}
         width={width}
       />
       <OnboardingCarouselPagination

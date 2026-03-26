@@ -1,11 +1,11 @@
 import {forwardRef, useState} from 'react'
 import {
+  type BlurEvent,
+  type FocusEvent,
   type GestureResponderEvent,
-  type NativeSyntheticEvent,
   StyleSheet,
   TextInput,
-  type TextInputFocusEventData,
-  type TextInputKeyPressEventData,
+  type TextInputKeyPressEvent,
   type TextInputProps,
   View,
 } from 'react-native'
@@ -53,7 +53,7 @@ export const SearchField = forwardRef<TextInput, SearchFieldProps>(
       },
     })
 
-    const onBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    const onBlur = (event: BlurEvent) => {
       setHasFocus(false)
       onEvent(event)
       textInputProps.onBlur?.(event)
@@ -70,14 +70,12 @@ export const SearchField = forwardRef<TextInput, SearchFieldProps>(
       onEvent(event)
     }
 
-    const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    const onFocus = (e: FocusEvent) => {
       setHasFocus(true)
       textInputProps.onFocus?.(e)
     }
 
-    const handleBackspaceKeyPress = (
-      event: NativeSyntheticEvent<TextInputKeyPressEventData>,
-    ) => {
+    const handleBackspaceKeyPress = (event: TextInputKeyPressEvent) => {
       if (event.nativeEvent.key === 'Backspace') {
         onEvent(event)
       }

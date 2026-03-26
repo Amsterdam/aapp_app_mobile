@@ -3,8 +3,8 @@ import {
   EncodingType,
   StorageAccessFramework,
   writeAsStringAsync,
-} from 'expo-file-system'
-import * as FileSystem from 'expo-file-system'
+  downloadAsync,
+} from 'expo-file-system/legacy'
 import {shareAsync} from 'expo-sharing'
 import {Platform} from 'react-native'
 import {devLog} from '@/processes/development'
@@ -167,9 +167,9 @@ const saveFileOnDevice = async (
 }
 
 const downloadFile = async (downloadUri: string, filename: string) => {
-  const {headers, uri} = await FileSystem.downloadAsync(
+  const {headers, uri} = await downloadAsync(
     downloadUri,
-    FileSystem.documentDirectory + filename,
+    documentDirectory + filename,
   )
 
   return {uri, mimeType: headers['content-type']}

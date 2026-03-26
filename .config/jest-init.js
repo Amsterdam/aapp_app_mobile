@@ -47,6 +47,10 @@ jest.mock('react-native-reanimated', () => {
   return Reanimated
 })
 
+jest.mock('react-native-worklets', () =>
+  require('react-native-worklets/src/mock'),
+)
+
 jest.mock('react-native-image-crop-picker', () => ({}))
 
 jest.mock('@notifee/react-native', () =>
@@ -86,7 +90,7 @@ jest.mock(
 )
 jest.mock('expo-document-picker', () => ({}))
 jest.mock('expo-image-picker', () => ({}))
-jest.mock('expo-file-system', () => ({}))
+jest.mock('expo-file-system/legacy', () => ({}))
 jest.mock('expo-sharing', () => ({}))
 jest.mock('expo-clipboard', () => ({}))
 jest.mock('expo-brightness', () => ({}))
@@ -94,7 +98,7 @@ jest.mock('expo-haptics', () => ({}))
 jest.mock('react-native-block-screenshot', () => ({}))
 jest.mock('react-native-webview', () => ({}))
 jest.mock('react-native-maps', () => ({}))
-
+jest.mock('react-native-restart-newarch', () => ({}))
 jest.mock('react-native-geolocation-service', () => ({
   __esModule: true,
   default: jest.fn(() => ({})),

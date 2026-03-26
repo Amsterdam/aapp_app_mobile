@@ -1,4 +1,7 @@
+import {Platform} from 'react-native'
+import {getDeviceNameSync} from 'react-native-device-info'
 import type {ConfigureStoreOptions, StoreEnhancer} from '@reduxjs/toolkit'
+import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 
 export const devStoreEnhancer: ConfigureStoreOptions['enhancers'] =
   enhancers => {
@@ -8,20 +11,12 @@ export const devStoreEnhancer: ConfigureStoreOptions['enhancers'] =
           default: (options: unknown) => StoreEnhancer
         }
       ).default
-      const {polyfillGlobal} =
-        require('react-native/Libraries/Utilities/PolyfillFunctions') as {
-          polyfillGlobal: (name: string, fn: () => unknown) => void
-        }
 
-      const {TextEncoder, TextDecoder} = require('text-encoding') as {
-        TextDecoder: unknown
-        TextEncoder: unknown
-      }
-
-      polyfillGlobal('TextEncoder', () => TextEncoder)
-      polyfillGlobal('TextDecoder', () => TextDecoder)
-
-      return enhancers.concat(devToolsEnhancer({}))
+      return enhancers.concat(
+        devToolsEnhancer({
+          name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()} - ${SHA256EncryptedDeviceId}`,
+        }),
+      )
     }
 
     return enhancers

@@ -175,7 +175,6 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
     }),
     [ParkingEndpointName.permitZones]: builder.query<
-      // Endpoint is only V2
       PermitZoneGeoJsonResponse,
       string
     >({
@@ -189,7 +188,6 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
     }),
     [ParkingEndpointName.parkingMachines]: builder.query<
-      // Endpoint is only V2
       ParkingMachine[],
       void
     >({
@@ -204,7 +202,6 @@ export const parkingApi = baseApi.injectEndpoints({
     }),
 
     [ParkingEndpointName.zoneByMachine]: builder.query<
-      // Endpoint is only V2
       PaymentZone,
       ParkingZoneByMachineEndpointRequest
     >({

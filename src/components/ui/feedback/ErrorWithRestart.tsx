@@ -1,5 +1,5 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native'
-import RNRestart from 'react-native-restart'
+import RNRestart from 'react-native-restart-newarch'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {lightColorTokens} from '@/themes/tokens/color-light'
 import {sizeTokens} from '@/themes/tokens/size'

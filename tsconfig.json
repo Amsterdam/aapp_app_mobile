@@ -11,7 +11,8 @@
     "sourceMap": true
   },
   "exclude": [
-    "node_modules",
+    "**/node_modules",
+    "**/Pods",
     "babel.config.js",
     "metro.config.js",
     "jest.config.js"
@@ -24,9 +25,10 @@
     "eslint-plugin-amsterdam",
     "react-native-block-screenshot",
     "react-native-salesforce-messaging-in-app",
-    "*.ts",
-    "*.mts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mts",
     "nodescripts"
   ],
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config"
 }

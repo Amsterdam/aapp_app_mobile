@@ -22,8 +22,14 @@ export const ClusterMarker = ({count}: {count: number}) => {
   )
 }
 
-const createStyles = (theme: Theme, count: number) =>
-  StyleSheet.create({
+const createStyles = (theme: Theme, count: number) => {
+  const innerClusterSize = calculateClusterDimensions(count)
+  const outerClusterSize = calculateClusterDimensions(
+    count,
+    DEFAULT_OUTER_PADDING,
+  )
+
+  return StyleSheet.create({
     clusterBase: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -31,12 +37,13 @@ const createStyles = (theme: Theme, count: number) =>
     },
     clusterOuter: {
       backgroundColor: `${theme.color.backgroundArea.primary}30`,
-      width: calculateClusterDimensions(count, DEFAULT_OUTER_PADDING),
-      height: calculateClusterDimensions(count, DEFAULT_OUTER_PADDING),
+      width: outerClusterSize,
+      height: outerClusterSize,
     },
     clusterInner: {
       backgroundColor: theme.color.backgroundArea.primary,
-      width: calculateClusterDimensions(count),
-      height: calculateClusterDimensions(count),
+      width: innerClusterSize,
+      height: innerClusterSize,
     },
   })
+}

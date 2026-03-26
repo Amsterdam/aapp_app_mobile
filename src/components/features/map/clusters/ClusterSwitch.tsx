@@ -50,7 +50,7 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
       }
       onPress={handlePress}
       onSelect={handlePress}
-      tracksViewChanges={false}
+      tracksViewChanges
       variant={
         'cluster_id' in item.properties ? undefined : item.properties.variant
       }>

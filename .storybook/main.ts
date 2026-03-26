@@ -73,9 +73,8 @@ const config: StorybookConfig = {
           },
           {
             find: 'react-native-barcode-creator',
-            replacement: require.resolve(
-              './mocks/react-native-barcode-creator',
-            ),
+            replacement:
+              require.resolve('./mocks/react-native-barcode-creator'),
           },
           {
             find: 'react-native-safe-area-context',
@@ -83,9 +82,8 @@ const config: StorybookConfig = {
           },
           {
             find: 'react-native-keyboard-controller',
-            replacement: require.resolve(
-              './mocks/react-native-keyboard-controller',
-            ),
+            replacement:
+              require.resolve('./mocks/react-native-keyboard-controller'),
           },
           {
             find: 'react-native-svg',

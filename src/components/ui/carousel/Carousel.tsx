@@ -6,12 +6,7 @@ import type {TParallaxModeProps} from 'react-native-reanimated-carousel/lib/type
 
 type Props<T> = Pick<
   TCarouselProps<T>,
-  | 'data'
-  | 'defaultIndex'
-  | 'ref'
-  | 'onProgressChange'
-  | 'renderItem'
-  | 'containerStyle'
+  'data' | 'defaultIndex' | 'ref' | 'onProgressChange' | 'renderItem' | 'style'
 > & {width: number} & TParallaxModeProps
 
 const onConfigurePanGesture = (panGesture: PanGesture) => {
@@ -27,14 +22,13 @@ export const Carousel = <T,>({
   data,
   defaultIndex,
   modeConfig,
-  containerStyle,
+  style,
   onProgressChange,
   renderItem,
   width,
   mode,
 }: Props<T>) => (
   <ReanimatedCarousel<T>
-    containerStyle={containerStyle}
     data={data}
     defaultIndex={defaultIndex}
     loop={false}
@@ -46,8 +40,7 @@ export const Carousel = <T,>({
     ref={ref}
     renderItem={renderItem}
     snapEnabled
-    style={{width}}
+    style={[{width}, style]}
     vertical={false}
-    width={width}
   />
 )
