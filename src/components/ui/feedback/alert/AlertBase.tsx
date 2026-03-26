@@ -1,6 +1,8 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
+import type {ModuleSlug} from '@/modules/slugs'
+import type {TextProps} from 'react-native-svg'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
@@ -8,16 +10,16 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {Theme} from '@/themes/themes'
 import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 import {Duration} from '@/types/duration'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-
-const TEXT_ALIGN_CORRECTION = 3
 
 export type AlertBaseProps = {
   accessibilityLabel?: string
@@ -29,9 +31,15 @@ type WrapperProps = {
   inset: AlertBaseProps['inset']
 }
 
-const Wrapper = ({children, inset}: WrapperProps) => {
+const Wrapper = ({children, inset, testID}: WrapperProps & TextProps) => {
   if (inset !== undefined) {
-    return <Box inset={inset}>{children}</Box>
+    return (
+      <Box
+        inset={inset}
+        testID={testID}>
+        {children}
+      </Box>
+    )
   }
 
   return <>{children}</>
@@ -48,12 +56,14 @@ export const AlertBase = ({
   testID,
   hasIcon = false,
   text,
+  link,
   title,
   variant = AlertVariant.information,
 }: AlertBaseProps) => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const iconName = alertVariantIcon[variant]
-  const styles = useThemable(createStyles(variant))
+  const styles = useThemable(createStyles(variant, hasIcon))
+  const {navigate} = useNavigation()
 
   const hasContent = !!text || !!title || !!children
 
@@ -62,15 +72,28 @@ export const AlertBase = ({
   }
 
   return (
-    <Wrapper inset={inset}>
-      <View testID={`${testID}Wrapper`}>
-        <View
-          accessibilityLanguage="nl-NL"
-          accessibilityRole="alert"
-          accessible
-          ref={setAccessibilityFocus}
-          style={styles?.view}
-          testID={testID}>
+    <Wrapper
+      inset={inset}
+      testID={`${testID}Wrapper`}>
+      <View
+        accessibilityLanguage="nl-NL"
+        accessibilityRole="alert"
+        accessible
+        ref={setAccessibilityFocus}
+        style={styles.outerContainer}
+        testID={testID}>
+        {!!hasIcon && (
+          <View style={[styles.iconWrapper, styles.variantBackground]}>
+            <Icon
+              color="inverse"
+              isFilled
+              name={iconName}
+              size="lg"
+              testID={`${testID}Icon`}
+            />
+          </View>
+        )}
+        <View style={styles.innerContainer}>
           {children ?? (
             <Row
               align="between"
@@ -84,47 +107,51 @@ export const AlertBase = ({
                 }
                 accessibilityLanguage="nl-NL"
                 accessibilityRole="alert">
-                <Row
-                  gutter="md"
-                  valign="start">
-                  {!!hasIcon && (
-                    <View style={styles?.iconWrapper}>
-                      <Icon
-                        name={iconName}
-                        size="lg"
-                        testID={`${testID}Icon`}
-                      />
-                    </View>
+                <Column
+                  gutter="sm"
+                  shrink={1}>
+                  {!!title && (
+                    <Title
+                      level="h5"
+                      text={title}
+                    />
                   )}
-                  <Column
-                    gutter="sm"
-                    shrink={1}>
-                    {!!title && (
-                      <Title
-                        level="h5"
-                        text={title}
-                      />
-                    )}
-                    {!!text && typeof text === 'string' ? (
-                      <Paragraph>{text}</Paragraph>
-                    ) : (
-                      text
-                    )}
-                  </Column>
-                </Row>
+                  {!!text && typeof text === 'string' ? (
+                    <Paragraph>{text}</Paragraph>
+                  ) : (
+                    text
+                  )}
+                </Column>
               </SingleSelectable>
-              {!!hasCloseIcon && (
-                <View>
-                  <Icon
-                    name="close"
-                    size="lg"
-                    testID={`${testID}CloseIcon`}
-                  />
-                </View>
-              )}
             </Row>
           )}
+
+          {!!link && (
+            <Link
+              label={link.label}
+              onPress={e => {
+                e?.preventDefault()
+
+                if (Array.isArray(link.to)) {
+                  navigate(...(link.to as [ModuleSlug, never]))
+                } else {
+                  navigate(link.to as never)
+                }
+              }}
+              testID={`${testID}Link`}
+              variant="forward"
+            />
+          )}
         </View>
+        {!!hasCloseIcon && (
+          <View style={styles.iconWrapper}>
+            <Icon
+              name="close"
+              size="ml"
+              testID={`${testID}CloseIcon`}
+            />
+          </View>
+        )}
       </View>
     </Wrapper>
   )
@@ -138,23 +165,27 @@ const alertVariantIcon: Record<AlertVariant, SvgIconName> = {
 }
 
 const createStyles =
-  (variant: AlertVariant) =>
-  ({color, size}: Theme) => {
-    if (!variant) {
-      return
-    }
-
-    return StyleSheet.create({
+  (variant: AlertVariant, hasIcon: boolean) =>
+  ({color, size, border}: Theme) =>
+    StyleSheet.create({
       iconWrapper: {
-        top: TEXT_ALIGN_CORRECTION,
-      },
-      view: {
-        backgroundColor: color.alert[variant].background,
-        borderWidth: 2,
-        borderColor: color.alert[variant].border,
-        flexShrink: 1,
-        paddingHorizontal: size.spacing.lg,
+        paddingHorizontal: size.spacing.smd,
         paddingVertical: size.spacing.md,
       },
+      variantBackground: {
+        backgroundColor: color.alert[variant].border,
+      },
+      outerContainer: {
+        backgroundColor: color.alert[variant].background,
+        borderWidth: border.width.xl,
+        borderLeftWidth: hasIcon ? 0 : undefined,
+        borderColor: color.alert[variant].border,
+        flexDirection: 'row',
+      },
+      innerContainer: {
+        paddingHorizontal: size.spacing.lg,
+        paddingVertical: size.spacing.md,
+        gap: size.spacing.sm,
+        flex: 1,
+      },
     })
-  }

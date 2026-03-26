@@ -1,10 +1,5 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
-import type {
-  Address,
-  AddressCity,
-  HighAccuracyPurposeKey,
-} from '@/modules/address/types'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
@@ -24,6 +19,12 @@ import {
   setModuleCustomAddress,
   useMyAddress,
 } from '@/modules/address/slice'
+import {
+  Address,
+  AddressCity,
+  HighAccuracyPurposeKey,
+} from '@/modules/address/types'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {useAlert} from '@/store/slices/alert'
 
@@ -84,7 +85,19 @@ export const AddressForm = ({
       }
 
       if (route?.params.showAlertAfterSuccess) {
-        setAlert(alerts.addAddressSuccess)
+        setAlert({
+          ...alerts.addAddressSuccess,
+          link: {
+            label: 'Naam aanpassen',
+            to: [
+              ModuleSlug.parking,
+              {
+                name: ParkingRouteName.accounts,
+                params: undefined,
+              },
+            ],
+          },
+        })
       }
 
       goBack()

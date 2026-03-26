@@ -42,6 +42,13 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingManageVisitorAdjustTimeBalanceSuccessAlert',
   },
+  changeParkingPermitAliasInfo: {
+    variant: AlertVariant.information,
+    text: 'Zo herkent u ze direct.',
+    title: 'Geef uw accounts een naam',
+    hasIcon: true,
+    testID: 'ParkingPermitAccountsChangeAliasInfoAlert',
+  },
   createVisitorAccountSuccess: {
     variant: AlertVariant.positive,
     text: 'Voeg tijdsaldo toe en deel de meldcode en pincode met uw bezoek.',

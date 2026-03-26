@@ -1,3 +1,4 @@
+import type {GestureResponderEvent} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
@@ -9,7 +10,7 @@ import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   label: string
-  onPress: () => void
+  onPress: (e?: GestureResponderEvent) => void
   variant?: 'backward' | 'default' | 'forward'
 } & TestProps
 
