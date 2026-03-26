@@ -30,7 +30,7 @@ export const ParkingAccountNameForm = ({account}: Props) => {
 
   const onSubmit = async ({accountName}: ParkingAccountNameFormValues) => {
     try {
-      await addSecureAccountName(account, accountName)
+      await addSecureAccountName(account, accountName.trim())
       navigation.goBack()
     } catch (e) {
       devLog('Error updating parking account name', e)
