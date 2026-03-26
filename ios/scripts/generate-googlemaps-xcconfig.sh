@@ -17,7 +17,7 @@ if [ -z "$API_KEY" ]; then
   exit 1
 fi
 
-target_plist="$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH"
+target_plist="$TARGET_BUILD_DIR/$INFOPLIST_PATH"
 
 if [ ! -f "$target_plist" ]; then
   echo "error: Plist file not found: $target_plist" >&2
