@@ -23,6 +23,31 @@ export type AlertProps = {
   children?: ReactNode
   hasCloseIcon?: boolean
   hasIcon?: boolean
+  /**
+   * If the Alert should include a link to an internal route, use this property
+   * @example
+   * This example fills the link with a route and params within the current Navigator Stack
+   * ```ts
+   * link: {
+   *    label: 'Dit is een link',
+   *    to: { name: AddressRouteName.address, params: undefined },
+   * }
+   * ```
+   * @example
+   * This example fills the link with a route and params to another Navigator Stack
+   * ```ts
+   * link: {
+   *    label: 'Dit is een link',
+   *    to: [
+   *        ModuleSlug.Address,
+   *        {
+   *            name: AddressRouteName.chooseAddress,
+   *            params: { id: 123 } },
+   *        }
+   *    ],
+   * }
+   * ```
+   */
   link?: {
     label: string
     to: NavigateTo | [ModuleSlug, NavigateTo]

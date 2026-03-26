@@ -51,7 +51,7 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingPermitAccountsChangeAliasInfoAlert',
     link: {
-      label: 'Naam aanpassen',
+      label: 'Namen aanpassen',
       to: [
         ModuleSlug.parking,
         {name: ParkingRouteName.accounts, params: undefined},
