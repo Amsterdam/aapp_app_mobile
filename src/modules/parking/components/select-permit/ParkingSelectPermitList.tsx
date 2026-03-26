@@ -7,8 +7,8 @@ import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
   accountIndex: number
+  parkingAccountReportCode: string
   permits?: ParkingPermit[]
-  reportCodeParkingAccount: string
   scope: ParkingPermitScope
 }
 
@@ -16,29 +16,31 @@ export const ParkingSelectPermitList = ({
   scope,
   permits,
   accountIndex,
-  reportCodeParkingAccount,
+  parkingAccountReportCode,
 }: Props) => {
   const {close} = useBottomSheet()
 
   const switchPermit = useSwitchPermit()
   const onPress = useCallback(
     (reportCode: string) => {
-      switchPermit(reportCodeParkingAccount, reportCode)
+      switchPermit(parkingAccountReportCode, reportCode)
 
       close()
     },
-    [close, switchPermit, reportCodeParkingAccount],
+    [close, switchPermit, parkingAccountReportCode],
   )
 
-  return permits?.map((permit, permitIndex) => (
-    <ParkingPermitSelectButton
-      accountReportCode={reportCodeParkingAccount}
-      key={`${scope}-${permit.report_code}`}
-      onPress={onPress}
-      permitName={permit.permit_name}
-      permitReportCode={permit.report_code}
-      permitScope={scope}
-      testID={`ParkingSelectPermit${permit.permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
-    />
-  ))
+  return permits?.map(
+    ({report_code, permit_name, permit_type}, permitIndex) => (
+      <ParkingPermitSelectButton
+        accountReportCode={parkingAccountReportCode}
+        key={`${scope}-${report_code}`}
+        onPress={onPress}
+        permitName={permit_name}
+        permitReportCode={report_code}
+        permitScope={scope}
+        testID={`ParkingSelectPermit${permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
+      />
+    ),
+  )
 }

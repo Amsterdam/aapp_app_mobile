@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 import type {TestProps} from '@/components/ui/types'
-import type {ParkingPermit} from '@/modules/parking/types'
+import type {ParkingAccount, ParkingPermit} from '@/modules/parking/types'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
@@ -8,7 +8,7 @@ import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 type Props = {
-  accountReportCode: ParkingPermit['report_code']
+  accountReportCode: ParkingAccount['reportCode']
   onPress: (reportCode: string) => void
   permitName: ParkingPermit['permit_name']
   permitReportCode: ParkingPermit['report_code']
