@@ -44,15 +44,13 @@ export const NotificationRedirectScreen = ({route}: Props) => {
             {!!body && <Paragraph variant="intro">{body}</Paragraph>}
           </Column>
           <Column gutter="md">
-            <ExternalLinkButton
-              label="Naar website"
-              testID="NotificationRedirectScreen.ExternalLinkButton"
-              url={url}
-{!!url && (<ExternalLinkButton
-label="Naar website"
-testID="NotificationRedirectScreen.ExternalLinkButton"
-url={url}
-/>)}
+            {!!url && (
+              <ExternalLinkButton
+                label="Naar website"
+                testID="NotificationRedirectScreen.ExternalLinkButton"
+                url={url}
+              />
+            )}
             <Button
               label="Annuleer"
               onPress={() => {
