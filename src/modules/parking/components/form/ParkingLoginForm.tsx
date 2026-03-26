@@ -10,12 +10,14 @@ import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {alerts} from '@/modules/parking/alerts'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
   parkingSlice,
   setIsLoggingIn,
   useParkingAccessToken,
+  useParkingAccounts,
   useParkingDeeplinkAccount,
 } from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
@@ -36,6 +38,7 @@ export const ParkingLoginForm = () => {
   const {resetAlert, setAlert} = useAlert()
   const trackException = useTrackException()
   const {openRedirect} = useOpenRedirect()
+  const accounts = useParkingAccounts()
 
   const {handleSubmit, setValue} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
@@ -58,6 +61,10 @@ export const ParkingLoginForm = () => {
       dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
       dispatch(parkingApi.util.resetApiState())
       dispatch(setIsLoggingIn(false))
+
+      if (Object.keys(accounts).length) {
+        setAlert(alerts.changeParkingPermitAliasInfo)
+      }
     } catch (err) {
       trackException(
         ExceptionLogKey.parkingLoginFailed,
