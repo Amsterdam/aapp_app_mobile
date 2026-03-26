@@ -15,13 +15,11 @@ import {ModuleSlug} from '@/modules/slugs'
 type Props = NavigationProps<NotificationHistoryRouteName.NotificationRedirect>
 
 export const NotificationRedirectScreen = ({route}: Props) => {
-  const {title, body, url} = route.params
+  const {title, body, url} = route.params ?? {}
   const navigation = useNavigation()
 
   return (
-    <Screen
-      scroll={false}
-      testID="NotificationRedirectScreen">
+    <Screen testID="NotificationRedirectScreen">
       <Box
         grow
         insetBottom="md"
@@ -50,7 +48,11 @@ export const NotificationRedirectScreen = ({route}: Props) => {
               label="Naar website"
               testID="NotificationRedirectScreen.ExternalLinkButton"
               url={url}
-            />
+{!!url && (<ExternalLinkButton
+label="Naar website"
+testID="NotificationRedirectScreen.ExternalLinkButton"
+url={url}
+/>)}
             <Button
               label="Annuleer"
               onPress={() => {

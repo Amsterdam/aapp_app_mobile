@@ -5,11 +5,13 @@ export enum NotificationHistoryRouteName {
 
 export type NotificationHistoryStackParams = {
   [NotificationHistoryRouteName.NotificationHistory]: undefined
-  [NotificationHistoryRouteName.NotificationRedirect]: {
-    body?: string
-    title?: string
-    url: string
-  }
+  [NotificationHistoryRouteName.NotificationRedirect]:
+    | {
+        body?: string
+        title?: string
+        url: string
+      }
+    | undefined
 }
 
 export enum NotificationHistoryModalName {}
