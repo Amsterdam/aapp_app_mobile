@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import {Platform} from 'react-native'
 import type {ClusterItem} from '@/components/features/map/types'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
 import {useMap} from '@/components/features/map/hooks/useMap'
@@ -50,7 +51,7 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
       }
       onPress={handlePress}
       onSelect={handlePress}
-      tracksViewChanges
+      tracksViewChanges={Platform.OS === 'android'}
       variant={
         'cluster_id' in item.properties ? undefined : item.properties.variant
       }>
