@@ -2,7 +2,9 @@ import {
   type AlertsRecord,
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {getFirstMonthOfNextQuarter} from '@/modules/parking/utils/getFirstMonthOfNextQuarter'
+import {ModuleSlug} from '@/modules/slugs'
 
 const loginFailedTitle = 'Inloggen mislukt'
 
@@ -48,6 +50,13 @@ export const alerts = {
     title: 'Geef uw accounts een naam',
     hasIcon: true,
     testID: 'ParkingPermitAccountsChangeAliasInfoAlert',
+    link: {
+      label: 'Naam aanpassen',
+      to: [
+        ModuleSlug.parking,
+        {name: ParkingRouteName.accounts, params: undefined},
+      ],
+    },
   },
   createVisitorAccountSuccess: {
     variant: AlertVariant.positive,
