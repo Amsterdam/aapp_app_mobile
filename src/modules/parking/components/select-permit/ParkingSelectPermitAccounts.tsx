@@ -39,8 +39,8 @@ export const ParkingSelectPermitAccounts = ({accounts, focusRef}: Props) =>
         )}
         <ParkingSelectPermitList
           accountIndex={accountIndex}
+          parkingAccountReportCode={reportCodeParkingAccount}
           permits={account.permits}
-          reportCodeParkingAccount={reportCodeParkingAccount}
           scope={account.scope}
         />
       </Column>
