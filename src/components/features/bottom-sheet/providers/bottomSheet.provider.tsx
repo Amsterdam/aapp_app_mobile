@@ -1,10 +1,4 @@
-import {
-  createElement,
-  useCallback,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
+import {useCallback, useMemo, useState, type ReactNode} from 'react'
 import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {useMenu} from '@/store/slices/menu'
 
@@ -59,5 +53,9 @@ export const BottomSheetProvider = ({children}: {children: ReactNode}) => {
     [close, open, state, toggle],
   )
 
-  return createElement(BottomSheetContext.Provider, {value}, children)
+  return (
+    <BottomSheetContext.Provider value={value}>
+      {children}
+    </BottomSheetContext.Provider>
+  )
 }
