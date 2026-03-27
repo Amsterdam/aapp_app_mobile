@@ -34,7 +34,7 @@ export type BottomSheetProps = {
  */
 export const BottomSheet = ({
   children,
-  scroll,
+  scroll = true,
   testID,
   topInset,
   variants,

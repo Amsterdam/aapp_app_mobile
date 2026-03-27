@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native'
+import {KeyboardAvoidingView} from 'react-native-keyboard-controller'
 import Animated, {
   useAnimatedStyle,
   type SharedValue,
@@ -47,7 +48,7 @@ export const BottomSheetContainer = ({
         sheetAnimatedStyle,
       ]}
       testID={testID}>
-      {children}
+      <KeyboardAvoidingView behavior="padding">{children}</KeyboardAvoidingView>
     </Animated.View>
   )
 }
