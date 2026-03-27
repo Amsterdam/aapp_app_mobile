@@ -39,14 +39,20 @@ export const WasteGuideContent = () => {
     <Column gutter="xl">
       <ReportWrongBuildingType testID="WasteGuideReportWrongBuildingType" />
       <SelectContract bagNummeraanduidingId={address.bagId} />
-      {contract?.hasContract === false ? (
-        <WasteGuideCollectionInformation
-          fractions={fractions}
-          hasCalendar={!!wasteGuide.calendar.length}
-          isCollectionByAppointment={wasteGuide.is_collection_by_appointment}
-        />
-      ) : (
-        <ContactCollector />
+      {!!contract && (
+        <>
+          {contract.hasContract ? (
+            <ContactCollector />
+          ) : (
+            <WasteGuideCollectionInformation
+              fractions={fractions}
+              hasCalendar={!!wasteGuide.calendar.length}
+              isCollectionByAppointment={
+                wasteGuide.is_collection_by_appointment
+              }
+            />
+          )}
+        </>
       )}
     </Column>
   )
