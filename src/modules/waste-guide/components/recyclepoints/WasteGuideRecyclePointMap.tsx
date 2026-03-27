@@ -52,6 +52,7 @@ export const WasteGuideRecyclePointMap = () => {
     <View style={styles.container}>
       <MapBase
         controls={[ControlVariant.location]}
+        focusOnUser={false}
         initialRegion={{
           latitude,
           longitude,
