@@ -1,5 +1,4 @@
-import {useContext} from 'react'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -12,7 +11,7 @@ import {crowdStateMap} from '@/modules/elections/constants/crowdDetails'
 import {ElectionsState} from '@/modules/elections/types'
 
 export const PollingStationsMapLegend = () => {
-  const {close: closeBottomSheet} = useContext(BottomSheetContext)
+  const {close: closeBottomSheet} = useBottomSheet()
 
   const autoFocus = useAccessibilityFocus()
 

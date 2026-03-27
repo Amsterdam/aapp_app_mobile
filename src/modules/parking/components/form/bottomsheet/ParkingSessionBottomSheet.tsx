@@ -1,6 +1,6 @@
-import {useContext, type FC} from 'react'
+import {type FC} from 'react'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ParkingSessionAmountBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionAmountBottomSheetContent'
 import {ParkingSessionEndTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionEndTimeBottomSheetContent'
 import {ParkingSessionLicensePlateBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionLicensePlateBottomSheetContent'
@@ -22,7 +22,7 @@ const variantMap: Record<ParkingSessionBottomSheetVariant, FC> = {
 }
 
 export const ParkingSessionBottomSheet = () => {
-  const {variant} = useContext(BottomSheetContext)
+  const {variant} = useBottomSheet()
 
   return (
     <BottomSheet

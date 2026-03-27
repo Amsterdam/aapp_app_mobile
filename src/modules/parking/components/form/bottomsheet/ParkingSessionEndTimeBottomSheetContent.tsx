@@ -1,7 +1,6 @@
-import {useContext} from 'react'
 import {useController, useFormContext} from 'react-hook-form'
 import {View} from 'react-native'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Title} from '@/components/ui/text/Title'
@@ -23,7 +22,7 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
   } = useController<FieldValues, 'endTime'>({
     name: 'endTime',
   })
-  const {close} = useContext(BottomSheetContext)
+  const {close} = useBottomSheet()
 
   const currentPermit = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()

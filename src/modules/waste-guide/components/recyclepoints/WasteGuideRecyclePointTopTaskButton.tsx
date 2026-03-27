@@ -1,6 +1,5 @@
-import {useContext} from 'react'
 import type {WasteGuideRecyclePoint} from '@/modules/waste-guide/types'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -15,7 +14,7 @@ type Props = {
 }
 
 export const WasteGuideRecyclePointTopTaskButton = ({recyclePoint}: Props) => {
-  const {open: openBottomSheet} = useContext(BottomSheetContext)
+  const {open: openBottomSheet} = useBottomSheet()
   const {address, commercialWaste, name} = recyclePoint
 
   return (

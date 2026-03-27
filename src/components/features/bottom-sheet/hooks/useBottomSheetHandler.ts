@@ -1,11 +1,11 @@
-import {useRef, useEffect, useCallback, useContext} from 'react'
+import {useRef, useEffect, useCallback} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {useCloseBottomSheetOnBackPress} from '@/components/features/bottom-sheet/hooks/useCloseBottomSheetOnBackPress'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useScreen} from '@/store/slices/screen'
 
 export const useBottomSheetHandler = () => {
-  const {close, open, isOpen, variant} = useContext(BottomSheetContext)
+  const {close, open, isOpen, variant} = useBottomSheet()
   const {setHideContentFromAccessibility} = useScreen()
   const variantRef = useRef(variant)
 

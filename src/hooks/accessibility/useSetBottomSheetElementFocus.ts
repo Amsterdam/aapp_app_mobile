@@ -1,5 +1,5 @@
-import {type Component, useContext, useEffect, useRef} from 'react'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {type Component, useEffect, useRef} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {Duration} from '@/types/duration'
 
@@ -9,7 +9,7 @@ import {Duration} from '@/types/duration'
  */
 export const useSetBottomSheetElementFocus = () => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
-  const {isOpen} = useContext(BottomSheetContext)
+  const {isOpen} = useBottomSheet()
 
   // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents, @typescript-eslint/no-explicit-any
   const ref = useRef<any | Component | null>(null)

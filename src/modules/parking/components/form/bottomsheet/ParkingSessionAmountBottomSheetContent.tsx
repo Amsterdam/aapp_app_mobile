@@ -1,6 +1,5 @@
-import {useContext} from 'react'
 import {useController} from 'react-hook-form'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
@@ -19,7 +18,7 @@ export const ParkingSessionAmountBottomSheetContent = () => {
   } = useController<{amount?: number}>({
     name: 'amount',
   })
-  const {close} = useContext(BottomSheetContext)
+  const {close} = useBottomSheet()
 
   return (
     <Box grow>

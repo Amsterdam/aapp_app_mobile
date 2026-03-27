@@ -10,9 +10,9 @@ type BottomSheetContextValue = BottomSheetState & {
 const defaultValue: BottomSheetContextValue = {
   isOpen: false,
   variant: undefined,
-  close: () => undefined,
-  open: () => undefined,
-  toggle: () => undefined,
+  close: () => null,
+  open: () => null,
+  toggle: () => null,
 }
 
 export const BottomSheetContext =

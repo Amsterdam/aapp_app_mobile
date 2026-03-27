@@ -1,6 +1,5 @@
-import {useContext} from 'react'
 import {useController, useFormContext} from 'react-hook-form'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
@@ -24,7 +23,7 @@ export const ParkingSessionPaymentZoneBottomSheetContent = () => {
   const {watch} = useFormContext<FieldValues>()
   const startTime = watch('startTime')
   const currentPermit = useCurrentParkingPermit()
-  const {close} = useContext(BottomSheetContext)
+  const {close} = useBottomSheet()
   const {
     field: {value: paymentZoneId, onChange},
   } = useController<FieldValues, 'paymentZoneId'>({

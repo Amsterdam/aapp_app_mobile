@@ -1,5 +1,5 @@
-import {useCallback, useContext} from 'react'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useCallback} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -14,7 +14,7 @@ export const WasteGuideSelectRecyclePoint = () => {
   const focusRef = useSetBottomSheetElementFocus()
   const {data: recyclePoints, isLoading} = useGetWasteGuideRecyclePointsQuery()
   const {setActiveRecyclePointId} = useActiveRecyclePointId()
-  const {close} = useContext(BottomSheetContext)
+  const {close} = useBottomSheet()
 
   const onPress = useCallback(
     (id: number) => {

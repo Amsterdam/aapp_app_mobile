@@ -1,6 +1,6 @@
-import {useCallback, useContext} from 'react'
+import {useCallback} from 'react'
 import type {Survey} from '@/modules/survey/types'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/survey/alerts'
 import {useBuildSurveyMetaData} from '@/modules/survey/hooks/useBuildSurveyMetaData'
@@ -30,7 +30,7 @@ export const useOnSurveyFormSubmit = ({
     useCreateSurveyVersionEntryMutation()
   const {setAlert} = useAlert()
   const trackException = useTrackException()
-  const {close} = useContext(BottomSheetContext)
+  const {close} = useBottomSheet()
   const metadata = useBuildSurveyMetaData()
 
   const onSubmit = useCallback(

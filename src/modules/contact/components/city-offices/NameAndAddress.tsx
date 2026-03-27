@@ -1,5 +1,4 @@
-import {useContext} from 'react'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -11,7 +10,7 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>
 
 export const NameAndAddress = ({address, addressContent, title}: Props) => {
-  const {open: openBottomSheet} = useContext(BottomSheetContext)
+  const {open: openBottomSheet} = useBottomSheet()
 
   return (
     <Column gutter="md">

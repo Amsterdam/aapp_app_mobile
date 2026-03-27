@@ -1,14 +1,14 @@
-import {useContext, useEffect} from 'react'
+import {useEffect} from 'react'
 import {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import type {TextInputProps} from '@/components/ui/forms/input/types'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 
 export const BottomSheetTextInput = ({
   autoFocus,
   ref,
   ...props
 }: TextInputProps) => {
-  const {isOpen} = useContext(BottomSheetContext)
+  const {isOpen} = useBottomSheet()
 
   useEffect(() => {
     if (!isOpen) {

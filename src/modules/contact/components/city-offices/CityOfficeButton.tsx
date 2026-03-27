@@ -1,5 +1,4 @@
-import {useContext} from 'react'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
@@ -15,7 +14,7 @@ type Props = {
 
 export const CityOfficeButton = ({cityOffice}: Props) => {
   const dispatch = useDispatch()
-  const {close: closeBottomSheet} = useContext(BottomSheetContext)
+  const {close: closeBottomSheet} = useBottomSheet()
 
   const selectCityOffice = () => {
     dispatch(setSelectedCityOffice(cityOffice.identifier))

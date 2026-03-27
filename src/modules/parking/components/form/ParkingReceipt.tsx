@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback, useContext, useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
@@ -63,7 +63,7 @@ export const ParkingReceipt = () => {
   const isVisitor = parkingAccount?.scope === ParkingPermitScope.visitor
 
   const currentPermit = useCurrentParkingPermit()
-  const {isOpen} = useContext(BottomSheetContext)
+  const {isOpen} = useBottomSheet()
   const nowRounded = dayjs().set('second', 0)
   const {isEndTimeBeforeOriginal, calculatedEndTime, calculatedStartTime} =
     getDateForCostCalculation({

@@ -1,5 +1,5 @@
-import {useCallback, useContext} from 'react'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useCallback} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {useIsModuleActive} from '@/hooks/useIsModuleActive'
 import {ModuleSlug} from '@/modules/slugs'
 import {useShouldShowBottomsheetSurvey} from '@/modules/survey/hooks/useShouldShowBottomsheetSurvey'
@@ -10,7 +10,7 @@ export const useOpenSurveyBottomsheet = (
   entryPoint: string,
   onHasShownSurvey: () => void,
 ) => {
-  const {open} = useContext(BottomSheetContext)
+  const {open} = useBottomSheet()
   const {addEntryPoint} = useBottomSheetSurveyEntryPoint()
   const isSurveyModuleActive = useIsModuleActive(ModuleSlug.survey)
   const shouldShowSurvey = useShouldShowBottomsheetSurvey(entryPoint)

@@ -1,5 +1,4 @@
-import {useContext} from 'react'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ContextSwitchButton} from '@/components/ui/buttons/ContextSwitchButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -13,7 +12,7 @@ import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPermitSwitcher = () => {
-  const {toggle} = useContext(BottomSheetContext)
+  const {toggle} = useBottomSheet()
   const parkingAccount = useParkingAccount()
   const {permit_name, report_code} = useCurrentParkingPermit()
   const {secureAccount} = useGetSecureParkingAccount(

@@ -1,6 +1,6 @@
-import {useCallback, useContext} from 'react'
+import {useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
-  const {close} = useContext(BottomSheetContext)
+  const {close} = useBottomSheet()
   const styles = createStyles()
 
   const {licensePlates, isLoading} = useGetLicensePlates()

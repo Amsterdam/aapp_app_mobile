@@ -1,6 +1,6 @@
-import {useCallback, useContext} from 'react'
+import {useCallback} from 'react'
 import type {ParkingPermit} from '@/modules/parking/types'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ParkingPermitSelectButton} from '@/modules/parking/components/select-permit/ParkingPermitSelectButton'
 import {useSwitchPermit} from '@/modules/parking/hooks/useSwitchPermit'
 import {ParkingPermitScope} from '@/modules/parking/types'
@@ -18,7 +18,7 @@ export const ParkingSelectPermitList = ({
   accountIndex,
   reportCodeParkingAccount,
 }: Props) => {
-  const {close} = useContext(BottomSheetContext)
+  const {close} = useBottomSheet()
 
   const switchPermit = useSwitchPermit()
   const onPress = useCallback(

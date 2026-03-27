@@ -1,5 +1,5 @@
-import {useContext, useEffect} from 'react'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useEffect} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {RouteButton} from '@/components/ui/buttons/RouteButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -15,7 +15,7 @@ import {resetSelectedServicePointId} from '@/modules/service/slice'
 import {type Service} from '@/modules/service/types'
 
 export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
-  const {close: closeBottomSheet, isOpen} = useContext(BottomSheetContext)
+  const {close: closeBottomSheet, isOpen} = useBottomSheet()
   const dispatch = useDispatch()
   const servicePointDetails = useSelectedServicePointDetails(serviceId)
   const autoFocus = useAccessibilityFocus()

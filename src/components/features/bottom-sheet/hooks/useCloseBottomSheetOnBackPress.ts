@@ -1,9 +1,9 @@
-import {useContext, useEffect} from 'react'
+import {useEffect} from 'react'
 import {BackHandler} from 'react-native'
-import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 
 export const useCloseBottomSheetOnBackPress = () => {
-  const {close, isOpen} = useContext(BottomSheetContext)
+  const {close, isOpen} = useBottomSheet()
 
   useEffect(() => {
     const onBackPress = () => {
