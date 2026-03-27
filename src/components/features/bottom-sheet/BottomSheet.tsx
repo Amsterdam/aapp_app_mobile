@@ -7,10 +7,10 @@ import {BackgroundComponent} from '@/components/features/bottom-sheet/Background
 import {BottomSheetBackdrop} from '@/components/features/bottom-sheet/BottomSheetBackdrop'
 import {BottomSheetContainer} from '@/components/features/bottom-sheet/BottomSheetContainer'
 import {BottomSheetHandle} from '@/components/features/bottom-sheet/BottomSheetHandle'
-import {BottomSheetPresenceContext} from '@/components/features/bottom-sheet/BottomSheetPresenceContext'
 import {BottomSheetScrollWrapper} from '@/components/features/bottom-sheet/BottomSheetScrollWrapper'
 import {useBottomSheetHandler} from '@/components/features/bottom-sheet/hooks/useBottomSheetHandler'
 import {useToggleBottomSheet} from '@/components/features/bottom-sheet/hooks/useToggleBottomSheet'
+import {BottomSheetPresenceContext} from '@/components/features/bottom-sheet/providers/bottomSheetPresence.context'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
 
@@ -82,9 +82,6 @@ export const BottomSheet = ({
     }
   }, [closedOffset, isOpen, isVisible, translateY])
 
-  const [handleHeight, setHandleHeight] = useState(0)
-  const scrollMaxHeight = windowHeight - topOffset - handleHeight
-
   if (!isFocused || !isVisible) {
     return null
   }
@@ -112,13 +109,10 @@ export const BottomSheet = ({
               isAndroid={isAndroid}
               isVisible={isVisible}
               onClose={onClose}
-              setHandleHeight={setHandleHeight}
               sheetHeight={sheetHeight}
               translateY={translateY}
             />
-            <ViewComponent
-              maxHeight={scroll ? scrollMaxHeight : undefined}
-              style={styles.container}>
+            <ViewComponent style={styles.container}>
               <SafeArea
                 bottom
                 left

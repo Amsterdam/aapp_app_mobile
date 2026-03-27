@@ -2,7 +2,9 @@ import {useEffect} from 'react'
 import {withTiming, withSpring, SharedValue} from 'react-native-reanimated'
 import {scheduleOnRN} from 'react-native-worklets'
 import {
+  ANDROID_CLOSE_TIMING_CONFIG,
   ANDROID_TIMING_CONFIG,
+  IOS_CLOSE_TIMING_CONFIG,
   IOS_SPRING_CONFIG,
 } from '@/components/features/bottom-sheet/constants'
 
@@ -35,12 +37,12 @@ export const useToggleBottomSheet = ({
     }
 
     translateY.value = isAndroid
-      ? withTiming(closedOffset, ANDROID_TIMING_CONFIG, finished => {
+      ? withTiming(closedOffset, ANDROID_CLOSE_TIMING_CONFIG, finished => {
           if (finished && isOpenShared.value === 0) {
             scheduleOnRN(setIsVisible, false)
           }
         })
-      : withSpring(closedOffset, IOS_SPRING_CONFIG, finished => {
+      : withTiming(closedOffset, IOS_CLOSE_TIMING_CONFIG, finished => {
           if (finished && isOpenShared.value === 0) {
             scheduleOnRN(setIsVisible, false)
           }

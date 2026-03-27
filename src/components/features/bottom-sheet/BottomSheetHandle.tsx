@@ -18,7 +18,6 @@ type Props = {
   isAndroid: boolean
   isVisible: boolean
   onClose: () => void
-  setHandleHeight: (height: number) => void
   sheetHeight: number
   translateY: SharedValue<number>
 }
@@ -28,7 +27,6 @@ export const BottomSheetHandle = ({
   isAndroid,
   isVisible,
   onClose,
-  setHandleHeight,
   sheetHeight,
   translateY,
 }: Props) => {
@@ -56,7 +54,10 @@ export const BottomSheetHandle = ({
       } else {
         translateY.value = isAndroid
           ? withTiming(0, ANDROID_TIMING_CONFIG)
-          : withSpring(0, IOS_SPRING_CONFIG)
+          : withSpring(0, {
+              ...IOS_SPRING_CONFIG,
+              velocity: event.velocityY,
+            })
       }
     })
 
@@ -66,7 +67,6 @@ export const BottomSheetHandle = ({
         accessibilityHint="Veeg omlaag om te sluiten"
         accessibilityLabel="Sluiten"
         accessible
-        onLayout={e => setHandleHeight(e.nativeEvent.layout.height)}
         style={styles.handleContainer}>
         <View style={styles.handleIndicator} />
       </View>

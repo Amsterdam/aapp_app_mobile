@@ -1,17 +1,24 @@
+import {
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+  useEffect,
+  useRef,
+} from 'react'
 import {StyleSheet} from 'react-native'
-import {KeyboardAvoidingView} from 'react-native-keyboard-controller'
+import {useKeyboardHandler} from 'react-native-keyboard-controller'
 import Animated, {
   useAnimatedStyle,
+  useSharedValue,
   type SharedValue,
 } from 'react-native-reanimated'
 import type {TestProps} from '@/components/ui/types'
 import type {Theme} from '@/themes/themes'
-import type {ReactNode} from 'react'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   children: ReactNode
-  setSheetHeight: (height: number) => void
+  setSheetHeight: Dispatch<SetStateAction<number>>
   topOffset: number
   translateY: SharedValue<number>
   windowHeight: number
@@ -26,29 +33,73 @@ export const BottomSheetContainer = ({
   testID,
 }: Props) => {
   const styles = useThemable(createStyles)
+  const keyboardHeight = useSharedValue(0)
+  const layoutDebounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  )
+  const hasCommittedLayoutRef = useRef(false)
+
+  useEffect(
+    () => () => {
+      if (layoutDebounceRef.current !== undefined) {
+        clearTimeout(layoutDebounceRef.current)
+      }
+    },
+    [],
+  )
+
+  useKeyboardHandler(
+    {
+      onMove: e => {
+        'worklet'
+        keyboardHeight.value = e.height
+      },
+      onEnd: e => {
+        'worklet'
+        keyboardHeight.value = e.height
+      },
+    },
+    [],
+  )
 
   const sheetAnimatedStyle = useAnimatedStyle(() => ({
+    bottom: keyboardHeight.value,
+    maxHeight: windowHeight - topOffset - keyboardHeight.value,
     transform: [{translateY: translateY.value}],
   }))
 
   return (
     <Animated.View
       onLayout={event => {
-        const measuredHeight = event.nativeEvent.layout.height
+        const height = event.nativeEvent.layout.height
 
-        if (measuredHeight > 0) {
-          setSheetHeight(measuredHeight)
+        if (height <= 0) {
+          return
         }
+
+        const apply = () => {
+          setSheetHeight(prev => Math.max(prev, height))
+        }
+
+        if (!hasCommittedLayoutRef.current) {
+          hasCommittedLayoutRef.current = true
+          apply()
+
+          return
+        }
+
+        if (layoutDebounceRef.current !== undefined) {
+          clearTimeout(layoutDebounceRef.current)
+        }
+
+        layoutDebounceRef.current = setTimeout(() => {
+          layoutDebounceRef.current = undefined
+          apply()
+        }, 48)
       }}
-      style={[
-        styles.sheetContainer,
-        {
-          maxHeight: windowHeight - topOffset,
-        },
-        sheetAnimatedStyle,
-      ]}
+      style={[styles.sheetContainer, sheetAnimatedStyle]}
       testID={testID}>
-      <KeyboardAvoidingView behavior="padding">{children}</KeyboardAvoidingView>
+      {children}
     </Animated.View>
   )
 }
