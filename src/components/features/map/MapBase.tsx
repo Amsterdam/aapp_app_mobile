@@ -1,24 +1,17 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type PropsWithChildren,
-  type ReactNode,
-} from 'react'
+import {useMemo, useRef, type PropsWithChildren, type ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import MapView, {MapViewProps, type Region} from 'react-native-maps'
+import MapView, {type MapViewProps, type Region} from 'react-native-maps'
 import type {ControlVariant} from '@/components/features/map/types'
 import type {ModuleSlug} from '@/modules/slugs'
+import type {Theme} from '@/themes/themes'
 import {MapContext} from '@/components/features/map/MapContext'
 import {MapControls} from '@/components/features/map/MapControls'
 import {AMSTERDAM_REGION} from '@/components/features/map/constants'
-import {useFocusOnUserLocation} from '@/components/features/map/hooks/useFocusOnUserLocation'
+import {useInitializeMap} from '@/components/features/map/hooks/useInitializeMap'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = PropsWithChildren<{
@@ -39,23 +32,11 @@ export const MapBase = ({
   focusOnUser = true,
   ...mapViewProps
 }: Props) => {
-  const [isMapReady, setIsMapReady] = useState(false)
   const mapRef = useRef<MapView>(null)
   const regionRef = useRef<Region>(null)
   const styles = useThemable(createStyles)
-  const focusOnUserLocation = useFocusOnUserLocation(moduleSlug, mapRef)
 
-  const handleOnMapReady = () => {
-    setIsMapReady(true)
-  }
-
-  useEffect(() => {
-    if (!isMapReady || !focusOnUser) {
-      return
-    }
-
-    void focusOnUserLocation()
-  }, [focusOnUser, isMapReady, focusOnUserLocation])
+  const {isMapReady, ...initialize} = useInitializeMap(focusOnUser, mapRef)
 
   const context = useMemo(
     () => ({
@@ -111,7 +92,6 @@ export const MapBase = ({
           collapsable={false}
           initialRegion={AMSTERDAM_REGION}
           moveOnMarkerPress={false}
-          onMapReady={handleOnMapReady}
           onRegionChangeComplete={(regionData, details) => {
             regionRef.current = regionData
             mapViewProps.onRegionChangeComplete?.(regionData, details)
@@ -123,7 +103,8 @@ export const MapBase = ({
           showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
           style={styles.mapView}
           userInterfaceStyle="light"
-          {...mapViewProps}>
+          {...mapViewProps}
+          {...initialize}>
           {children}
         </MapView>
       </View>
