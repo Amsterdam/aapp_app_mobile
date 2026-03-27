@@ -33,7 +33,13 @@ jest.mock('react-native-bootsplash', () => ({
 jest.mock('react-native-keyboard-controller', () => {
   const KeyboardAwareScrollView = ({children}) => children
 
-  return {KeyboardAwareScrollView}
+  return {
+    KeyboardAwareScrollView,
+    KeyboardAvoidingView: ({children}) => children,
+    KeyboardProvider: ({children}) => children,
+    KeyboardStickyView: ({children}) => children,
+    useKeyboardHandler: () => {},
+  }
 })
 
 // include this section and the NativeAnimatedHelper section for mocking react-native-reanimated
