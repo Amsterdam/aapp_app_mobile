@@ -35,7 +35,7 @@ export const useFocusOnUserLocation = (
       return
     }
 
-    if (!locationFetchRequested || isGettingLocation) {
+    if (!locationFetchRequested && !isGettingLocation) {
       dispatch(requestLocationFetch())
     }
 
