@@ -33,3 +33,8 @@ export const ANDROID_CLOSE_TIMING_CONFIG = {
   duration: ANDROID_CLOSE_DURATION_MS,
   easing: ANDROID_ANIMATION_EASING,
 } as const
+
+export const HANDLE_INDICATOR = {
+  WIDTH: 48,
+  HEIGHT: 4,
+}

@@ -9,6 +9,7 @@ import {
 import type {Theme} from '@/themes/themes'
 import {
   ANDROID_TIMING_CONFIG,
+  HANDLE_INDICATOR,
   IOS_SPRING_CONFIG,
 } from '@/components/features/bottom-sheet/constants'
 import {useThemable} from '@/themes/useThemable'
@@ -72,11 +73,6 @@ export const BottomSheetHandle = ({
       </View>
     </GestureDetector>
   )
-}
-
-const HANDLE_INDICATOR = {
-  WIDTH: 48,
-  HEIGHT: 4,
 }
 
 const createStyles = ({border, color, size}: Theme) =>
