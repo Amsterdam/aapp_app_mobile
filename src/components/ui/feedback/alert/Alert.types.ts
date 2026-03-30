@@ -1,16 +1,6 @@
 import {ReactNode} from 'react'
-import type {ModuleSlug} from '@/modules/slugs'
-import type {ModuleStackParams} from '@/modules/stacks'
+import type {NavigateTo} from '@/app/navigation/types'
 import {TestProps} from '@/components/ui/types'
-
-export type NavigateTo = {
-  [RouteName in keyof ModuleStackParams]: {
-    name: RouteName
-    params: ModuleStackParams[RouteName] extends undefined
-      ? undefined
-      : ModuleStackParams[RouteName]
-  }
-}[keyof ModuleStackParams]
 
 export enum AlertVariant {
   information = 'information',
@@ -28,9 +18,9 @@ export type AlertProps = {
    * @example
    * This example fills the link with a route and params within the current Navigator Stack
    * ```ts
-   * link: {
+   * navigateTo: {
    *    label: 'Dit is een link',
-   *    to: { name: AddressRouteName.address, params: undefined },
+   *    params: [AddressRouteName.chooseAddress, { moduleSlug: ModuleSlug.address }],
    * }
    * ```
    * @example
@@ -41,16 +31,16 @@ export type AlertProps = {
    *    to: [
    *        ModuleSlug.address,
    *        {
-   *            name: AddressRouteName.chooseAddress,
-   *            params: { id: 123 } },
+   *            screen: AddressRouteName.chooseAddress,
+   *            params: { moduleSlug: ModuleSlug.address } },
    *        }
    *    ],
    * }
    * ```
    */
-  link?: {
+  navigateTo?: {
     label: string
-    to: NavigateTo | [ModuleSlug, NavigateTo]
+    params: NavigateTo
   }
   text?: string | ReactNode
   title?: string

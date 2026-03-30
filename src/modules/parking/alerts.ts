@@ -49,9 +49,9 @@ export const alerts = {
     title: 'Geef uw accounts een naam',
     hasIcon: true,
     testID: 'ParkingPermitAccountsChangeAliasInfoAlert',
-    link: {
+    navigateTo: {
       label: 'Namen aanpassen',
-      to: {name: ParkingRouteName.accounts, params: undefined},
+      params: [ParkingRouteName.accounts],
     },
   },
   createVisitorAccountSuccess: {

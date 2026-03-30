@@ -15,7 +15,7 @@ const meta: Meta<typeof AlertBase> = {
     hasCloseIcon: {
       type: 'boolean',
     },
-    link: {
+    navigateTo: {
       control: {type: 'object'},
     },
     inset: {
@@ -47,7 +47,7 @@ type Story = StoryObj<Omit<AlertProps, 'testID' | 'inset'>>
 
 export const Default: Story = {
   args: {
-    link: undefined,
+    navigateTo: undefined,
   },
 }
 
@@ -58,12 +58,9 @@ export const WithLink: Story = {
     hasCloseIcon: true,
     title: 'Deze Alert heeft een link',
     text: 'Klik op de link hieronder',
-    link: {
+    navigateTo: {
       label: 'Navigeer naar link',
-      to: {
-        name: ParkingRouteName.accounts,
-        params: undefined,
-      },
+      params: [ParkingRouteName.accounts],
     },
   },
 }

@@ -1,19 +1,17 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
-import type {ModuleSlug} from '@/modules/slugs'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
+import {AlertNavigateButton} from '@/components/ui/feedback/alert/AlertNavigateButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
-import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {Theme} from '@/themes/themes'
 import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
@@ -49,14 +47,13 @@ export const AlertBase = ({
   testID,
   hasIcon = false,
   text,
-  link,
+  navigateTo,
   title,
   variant = AlertVariant.information,
 }: AlertBaseProps) => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const iconName = alertVariantIcon[variant]
   const styles = useThemable(createStyles(variant, hasIcon))
-  const {navigate} = useNavigation()
 
   const hasContent = !!text || !!title || !!children
 
@@ -117,20 +114,10 @@ export const AlertBase = ({
             </Row>
           )}
 
-          {!!link && (
-            <Link
-              label={link.label}
-              onPress={e => {
-                e?.preventDefault()
-
-                if (Array.isArray(link.to)) {
-                  navigate(...(link.to as [ModuleSlug, never]))
-                } else {
-                  navigate(link.to as never)
-                }
-              }}
-              testID={`${testID}Link`}
-              variant="forward"
+          {!!navigateTo && (
+            <AlertNavigateButton
+              {...navigateTo}
+              testID={testID}
             />
           )}
         </View>
