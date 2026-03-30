@@ -85,7 +85,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
         testID="ParkingDashboardScreen">
         <BackgroundColorArea
           color="primary"
-          height={240}
+          height={320}
         />
         <Box
           insetBottom="md"

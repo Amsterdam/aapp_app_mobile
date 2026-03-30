@@ -44,7 +44,7 @@ export const ParkingPermitSwitcher = () => {
           />
           <Phrase>
             {secureAccount?.name && `${secureAccount?.name} - `}
-            {report_code}
+            {parkingAccount?.reportCode}
           </Phrase>
         </Column>
         <ContextSwitchButton
