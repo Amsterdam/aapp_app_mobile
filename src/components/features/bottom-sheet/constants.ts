@@ -38,3 +38,6 @@ export const HANDLE_INDICATOR = {
   WIDTH: 48,
   HEIGHT: 4,
 }
+
+/** 2 × spacing.md (16) padding + indicator height. */
+export const HANDLE_HEIGHT = 36

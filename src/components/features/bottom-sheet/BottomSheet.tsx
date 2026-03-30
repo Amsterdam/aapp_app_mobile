@@ -48,8 +48,6 @@ export const BottomSheet = ({
   const topOffset = topInset ?? safeTopInset
 
   const styles = createStyles()
-
-  const ViewComponent = scroll ? BottomSheetScrollWrapper : View
   const VariantComponent: FC | undefined = variants
     ? (variants[variant ?? ''] ?? (() => null))
     : undefined
@@ -112,14 +110,27 @@ export const BottomSheet = ({
               sheetHeight={sheetHeight}
               translateY={translateY}
             />
-            <ViewComponent style={styles.container}>
-              <SafeArea
-                bottom
-                left
-                right>
-                {VariantComponent ? <VariantComponent /> : children}
-              </SafeArea>
-            </ViewComponent>
+            {scroll ? (
+              <BottomSheetScrollWrapper
+                topOffset={topOffset}
+                windowHeight={windowHeight}>
+                <SafeArea
+                  bottom
+                  left
+                  right>
+                  {VariantComponent ? <VariantComponent /> : children}
+                </SafeArea>
+              </BottomSheetScrollWrapper>
+            ) : (
+              <View style={styles.container}>
+                <SafeArea
+                  bottom
+                  left
+                  right>
+                  {VariantComponent ? <VariantComponent /> : children}
+                </SafeArea>
+              </View>
+            )}
           </BackgroundComponent>
         </BottomSheetContainer>
       </View>
@@ -130,6 +141,8 @@ export const BottomSheet = ({
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      flexGrow: 1,
+      flex: 1,
+      flexShrink: 1,
+      minHeight: 0,
     },
   })
