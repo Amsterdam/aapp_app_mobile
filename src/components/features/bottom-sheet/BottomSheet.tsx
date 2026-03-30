@@ -56,7 +56,7 @@ export const BottomSheet = ({
     () => sheetHeight + bottomInset,
     [bottomInset, sheetHeight],
   )
-  const translateY = useSharedValue(closedOffset)
+  const translateY = useSharedValue(windowHeight)
   const isOpenShared = useSharedValue(isOpen ? 1 : 0)
   const isAndroid = Platform.OS === 'android'
 
@@ -67,11 +67,13 @@ export const BottomSheet = ({
   useToggleBottomSheet({
     closedOffset,
     isAndroid,
+    isLayoutReady: sheetHeight > 1,
     isOpen,
     isOpenShared,
     onChange,
     setIsVisible,
     translateY,
+    windowHeight,
   })
 
   useEffect(() => {

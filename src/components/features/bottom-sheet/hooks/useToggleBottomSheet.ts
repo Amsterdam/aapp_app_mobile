@@ -1,5 +1,10 @@
-import {useEffect} from 'react'
-import {withTiming, withSpring, SharedValue} from 'react-native-reanimated'
+import {useEffect, useRef} from 'react'
+import {
+  withTiming,
+  withSpring,
+  withSequence,
+  SharedValue,
+} from 'react-native-reanimated'
 import {scheduleOnRN} from 'react-native-worklets'
 import {
   ANDROID_CLOSE_TIMING_CONFIG,
@@ -15,24 +20,55 @@ export const useToggleBottomSheet = ({
   isAndroid,
   closedOffset,
   isOpenShared,
+  isLayoutReady,
+  windowHeight,
   onChange,
 }: {
   closedOffset: number
   isAndroid: boolean
+  isLayoutReady: boolean
   isOpen: boolean
   isOpenShared: SharedValue<number>
   onChange: (value: number) => void
   setIsVisible: (visible: boolean) => void
   translateY: SharedValue<number>
+  windowHeight: number
 }) => {
+  const hasStartedOpenRef = useRef(false)
+
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true)
-      translateY.value = isAndroid
-        ? withTiming(0, ANDROID_TIMING_CONFIG)
-        : withSpring(0, IOS_SPRING_CONFIG)
+
+      if (!isLayoutReady) {
+        hasStartedOpenRef.current = false
+        translateY.value = windowHeight
+
+        return
+      }
+
+      if (!hasStartedOpenRef.current) {
+        hasStartedOpenRef.current = true
+        translateY.value = withSequence(
+          withTiming(closedOffset, {duration: 0}),
+          isAndroid
+            ? withTiming(0, ANDROID_TIMING_CONFIG)
+            : withSpring(0, IOS_SPRING_CONFIG),
+        )
+      } else {
+        translateY.value = isAndroid
+          ? withTiming(0, ANDROID_TIMING_CONFIG)
+          : withSpring(0, IOS_SPRING_CONFIG)
+      }
+
       onChange(0)
 
+      return
+    }
+
+    hasStartedOpenRef.current = false
+
+    if (!isLayoutReady) {
       return
     }
 
@@ -51,10 +87,12 @@ export const useToggleBottomSheet = ({
   }, [
     closedOffset,
     isAndroid,
+    isLayoutReady,
     isOpen,
     isOpenShared,
     onChange,
     setIsVisible,
     translateY,
+    windowHeight,
   ])
 }
