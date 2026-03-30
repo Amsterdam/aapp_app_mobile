@@ -41,3 +41,5 @@ export const HANDLE_INDICATOR = {
 
 /** 2 × spacing.md (16) padding + indicator height. */
 export const HANDLE_HEIGHT = 36
+
+export const LAYOUT_DEBOUNCE_DURATION_MS = 48

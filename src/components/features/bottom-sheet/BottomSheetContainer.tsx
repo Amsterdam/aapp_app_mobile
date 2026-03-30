@@ -14,6 +14,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import type {TestProps} from '@/components/ui/types'
 import type {Theme} from '@/themes/themes'
+import {LAYOUT_DEBOUNCE_DURATION_MS} from '@/components/features/bottom-sheet/constants'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
@@ -95,7 +96,7 @@ export const BottomSheetContainer = ({
         layoutDebounceRef.current = setTimeout(() => {
           layoutDebounceRef.current = undefined
           apply()
-        }, 48)
+        }, LAYOUT_DEBOUNCE_DURATION_MS)
       }}
       style={[styles.sheetContainer, sheetAnimatedStyle]}
       testID={testID}>
