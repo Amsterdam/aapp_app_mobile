@@ -1,4 +1,5 @@
 import {pascalCase} from 'pascal-case'
+import {useWatch} from 'react-hook-form'
 import {View} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
 import {OptionsControlled} from '@/components/ui/forms/OptionsControlled'
@@ -20,6 +21,9 @@ export type SurveyFormFieldProps = {
 export const SurveyFormField = ({index, question}: SurveyFormFieldProps) => {
   const {choices, id, orientation, required, question_type} = question
   const testID: TestProps['testID'] = `Survey${pascalCase(question_type)}FormField`
+  const conditionAnswer = useWatch({
+    name: question.conditions?.[0]?.reference_question.toString() ?? '',
+  }) as string
 
   const formattedChoices = choices?.map(c => ({
     label: c.label,
@@ -52,6 +56,7 @@ export const SurveyFormField = ({index, question}: SurveyFormFieldProps) => {
         )}
         {!!isInputFieldType && (
           <TextInputField
+            autoFocus={!!conditionAnswer}
             fieldType={
               mapQuestionTypeToInputFieldType[
                 question_type as keyof typeof mapQuestionTypeToInputFieldType
