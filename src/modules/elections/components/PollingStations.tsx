@@ -41,7 +41,6 @@ export const PollingStations = () => {
 
   return (
     <PollingStationsMap
-      address={address}
       isError={isError}
       isLoading={isLoading}
       onPress={onSelectPollingStation}

@@ -59,6 +59,7 @@ export const ParkingPermitZoneMap = () => {
   return (
     <MapBase
       controls={[ControlVariant.location]}
+      focusOnUser={false}
       initialRegion={initialRegion}
       moduleSlug={ModuleSlug.parking}
       onRegionChange={debounce(setRegion, DEBOUNCE_DELAY)}>

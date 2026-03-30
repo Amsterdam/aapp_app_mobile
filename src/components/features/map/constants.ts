@@ -7,4 +7,6 @@ export const AMSTERDAM_REGION: Region = {
   longitudeDelta: 0.0421,
 }
 
+export const USER_LOCATION_DELTA = 0.01
+
 export const ANIMATION_DURATION = 0
