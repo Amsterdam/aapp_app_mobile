@@ -3,10 +3,10 @@ import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {ServicePointDetailsImage} from '@/modules/service/components/ServicePointDetailsImage'
 import {
   ServiceDetailPropertyType,
   type ServiceFeatureProperty,
@@ -43,12 +43,9 @@ export const ServicePointDetailsProperties = ({
           typeof value === 'string'
         ) {
           return (
-            <LazyImage
-              aspectRatio="wide"
-              fallbackInheritsAspectRatio={false}
+            <ServicePointDetailsImage
               key={`${ServiceDetailPropertyType.image}-${index}`}
-              source={{uri: value}}
-              testID="ServicePointDetailsPropertiesImage"
+              uri={value}
             />
           )
         }

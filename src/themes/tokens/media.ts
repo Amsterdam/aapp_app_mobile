@@ -12,6 +12,7 @@ export const mediaTokens = {
     square: 1,
     wide: 16 / 9,
     tight: 1 / 2,
+    portrait: 3 / 4,
   },
   figureHeight: {
     md: 192,
