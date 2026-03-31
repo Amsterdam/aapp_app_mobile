@@ -12,6 +12,7 @@ import type {MijnAmsterdamState} from '@/modules/mijn-amsterdam/slice'
 import type {OnboardingState} from '@/modules/onboarding/slice'
 import type {ParkingState} from '@/modules/parking/slice'
 import type {ServiceState} from '@/modules/service/slice'
+import type {SportState} from '@/modules/sport/slice'
 import type {SurveyState} from '@/modules/survey/slice'
 import type {WasteGuideState} from '@/modules/waste-guide/slice'
 import type {baseApi} from '@/services/baseApi'
@@ -52,6 +53,7 @@ export type RootState = {
   [ReduxKey.productTour]: ProductTourState
   [ReduxKey.secureStorage]: SecureStorageState
   [ReduxKey.service]: ServiceState
+  [ReduxKey.sport]: SportState
   [ReduxKey.theme]: ThemeState
   [ReduxKey.screen]: ScreenState
   [ReduxKey.survey]: SurveyState

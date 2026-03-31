@@ -10,6 +10,7 @@ import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
+import {zwembaden} from '@/modules/service/zwembaden'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const ServicePointMap = ({
@@ -25,8 +26,8 @@ export const ServicePointMap = ({
     data: service,
     isLoading,
     isError,
-  } = useServiceQuery(serviceId || skipToken)
-  const geojson = service?.data
+  } = useServiceQuery((serviceId !== '3' && serviceId) || skipToken)
+  const geojson = service?.data || zwembaden
 
   const {activeFilters, filters, onPressFilter} = useMapFilters()
   const data = useGetMapData(activeFilters, geojson, onServicePointPress)

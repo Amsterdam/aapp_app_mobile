@@ -5,6 +5,7 @@ import type {
   ServiceModalParams,
   ServiceStackParams,
 } from '@/modules/service/routes'
+import type {SportModalParams, SportStackParams} from '@/modules/sport/routes'
 import type {SurveyStackParams} from '@/modules/survey/routes'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {AccessCodeStack} from '@/modules/access-code/Stack'
@@ -47,6 +48,7 @@ import {
 } from '@/modules/report-problem/routes'
 import {ServiceStack} from '@/modules/service/Stack'
 import {ModuleSlug} from '@/modules/slugs'
+import {SportStack} from '@/modules/sport/Stack'
 import {SurveyStack} from '@/modules/survey/Stack'
 import {UserStack} from '@/modules/user/Stack'
 import {UserModalParams, UserStackParams} from '@/modules/user/routes'
@@ -78,6 +80,7 @@ export type ModuleStackParams = AccessCodeStackParams &
   SurveyStackParams &
   UserStackParams &
   ServiceStackParams &
+  SportStackParams &
   WasteContainerStackParams &
   WasteGuideStackParams &
   NotificationHistoryStackParams
@@ -101,6 +104,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
   [ModuleSlug.service]: ServiceStack,
+  [ModuleSlug.sport]: SportStack,
   [ModuleSlug.survey]: SurveyStack,
   [ModuleSlug.elections]: ElectionsStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
@@ -115,6 +119,7 @@ export type ModalParams = AddressModalParams &
   ReportProblemModalParams &
   UserModalParams &
   ServiceModalParams &
+  SportModalParams &
   WasteGuideModalParams
 
 export const modals: StackNavigationRoutes<RootStackParams> = modalsGenerated
