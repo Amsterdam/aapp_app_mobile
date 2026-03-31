@@ -84,6 +84,7 @@ jest.mock('react-native-barcode-creator', () => ({
   getConstants: jest.fn(),
 }))
 jest.mock('react-native-salesforce-messaging-in-app', () => ({}))
+jest.mock('react-native-live-updates', () => ({}))
 jest.mock(
   'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp.ts',
   () => require('react-native-salesforce-messaging-in-app/src/jestMock.ts'),

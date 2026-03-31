@@ -5,5 +5,5 @@ import LiveUpdates, {
 
 export const startLiveUpdate = (
   state: LiveUpdateState,
-  config?: LiveUpdateConfig,
+  config: LiveUpdateConfig,
 ): number | undefined => LiveUpdates.startLiveUpdate(state, config)
