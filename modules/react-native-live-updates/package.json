@@ -1,0 +1,25 @@
+{
+  "name": "react-native-live-updates",
+  "version": "0.0.0",
+  "description": "live update for react native",
+  "main": "src/index",
+  "codegenConfig": {
+    "name": "LiveUpdatesSpec",
+    "type": "modules",
+    "jsSrcsDir": "src"
+  },
+  "author": "Rik Scheffer <r.scheffer@amsterdam.nl> (https://github.com/RikSchefferAmsterdam)",
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/RikSchefferAmsterdam/react-native-live-updates#readme",
+  "create-react-native-library": {
+    "type": "turbo-module",
+    "languages": "kotlin-objc",
+    "tools": [
+      "eslint",
+      "jest",
+      "lefthook",
+      "release-it"
+    ],
+    "version": "0.57.2"
+  }
+}

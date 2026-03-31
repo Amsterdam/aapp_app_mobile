@@ -267,6 +267,8 @@ module.exports = {
       files: [
         'react-native-salesforce-messaging-in-app/**/*.ts',
         'react-native-salesforce-messaging-in-app/**/*.tsx',
+        'modules/react-native-live-updates/**/*.ts',
+        'modules/react-native-live-updates/**/*.tsx',
       ],
       rules: {
         'import-x/no-default-export': 'off',

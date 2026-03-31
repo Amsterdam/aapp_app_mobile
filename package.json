@@ -104,7 +104,8 @@
     "redux-devtools-expo-dev-plugin": "^2.0.0",
     "redux-persist": "^6.0.0",
     "simplur": "^3.0.1",
-    "text-encoding": "^0.7.0"
+    "text-encoding": "^0.7.0",
+    "react-native-live-updates": "file:./modules/react-native-live-updates"
   },
   "devDependencies": {
     "@actions/core": "^3.0.0",

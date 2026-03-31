@@ -1,3 +1,4 @@
+import {startLiveUpdate} from 'modules/react-native-live-updates/src'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
@@ -9,6 +10,8 @@ import {Modules} from '@/modules/home/components/Modules'
 export const Home = () => {
   const {enabledModules, modulesError, modulesLoading, refetchModules} =
     useModules()
+
+  startLiveUpdate({title: 'Test notifications'}, {})
 
   if (modulesLoading) {
     return <PleaseWait testID="HomeLoadingSpinner" />
