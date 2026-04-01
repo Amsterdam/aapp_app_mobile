@@ -254,11 +254,9 @@ GEM
     nanaimo (0.3.0)
     nap (1.1.0)
     naturally (2.3.0)
-    net-http (0.9.1)
-      uri (>= 0.11.1)
     netrc (0.11.0)
     nkf (0.2.0)
-    openssl (4.0.1)
+    openssl (3.3.2)
     optparse (0.8.1)
     os (1.1.4)
     ostruct (0.6.3)
@@ -300,7 +298,6 @@ GEM
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unicode-display_width (2.6.0)
-    uri (1.1.1)
     word_wrap (1.0.0)
     xcodeproj (1.25.1)
       CFPropertyList (>= 2.3.3, < 4.0)
@@ -336,8 +333,7 @@ DEPENDENCIES
   fastlane (= 2.232.2)
   logger
   mutex_m
-  net-http (~> 0.9.1)
-  openssl (~> 4.0.1)
+  openssl (~> 3.3)
   xcodeproj (< 1.26.0)
 
 CHECKSUMS
@@ -440,10 +436,9 @@ CHECKSUMS
   nanaimo (0.3.0) sha256=aaaedc60497070b864a7e220f7c4b4cad3a0daddda2c30055ba8dae306342376
   nap (1.1.0) sha256=949691660f9d041d75be611bb2a8d2fd559c467537deac241f4097d9b5eea576
   naturally (2.3.0) sha256=459923cf76c2e6613048301742363200c3c7e4904c324097d54a67401e179e01
-  net-http (0.9.1) sha256=25ba0b67c63e89df626ed8fac771d0ad24ad151a858af2cc8e6a716ca4336996
   netrc (0.11.0) sha256=de1ce33da8c99ab1d97871726cba75151113f117146becbe45aa85cb3dabee3f
   nkf (0.2.0) sha256=fbc151bda025451f627fafdfcb3f4f13d0b22ae11f58c6d3a2939c76c5f5f126
-  openssl (4.0.1) sha256=e27974136b7b02894a1bce46c5397ee889afafe704a839446b54dc81cb9c5f7d
+  openssl (3.3.2) sha256=7f4e01215dc9c4be1fca71d692406be3e6340b39c1f71a47fea9c497decd0f6c
   optparse (0.8.1) sha256=42bea10d53907ccff4f080a69991441d611fbf8733b60ed1ce9ee365ce03bd1a
   os (1.1.4) sha256=57816d6a334e7bd6aed048f4b0308226c5fb027433b67d90a9ab435f35108d3f
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
@@ -472,7 +467,6 @@ CHECKSUMS
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   uber (0.1.0) sha256=5beeb407ff807b5db994f82fa9ee07cfceaa561dad8af20be880bc67eba935dc
   unicode-display_width (2.6.0) sha256=12279874bba6d5e4d2728cef814b19197dbb10d7a7837a869bab65da943b7f5a
-  uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
   word_wrap (1.0.0) sha256=f556d4224c812e371000f12a6ee8102e0daa724a314c3f246afaad76d82accc7
   xcodeproj (1.25.1) sha256=9a2310dccf6d717076e86f602b17c640046b6f1dfe64480044596f6f2f13dc84
   xcpretty (0.4.1) sha256=b14c50e721f6589ee3d6f5353e2c2cfcd8541fa1ea16d6c602807dd7327f3892
