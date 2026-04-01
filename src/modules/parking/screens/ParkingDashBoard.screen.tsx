@@ -21,6 +21,7 @@ import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/
 import {ParkingDashboardBottomSheet} from '@/modules/parking/components/dashboard/bottomsheet/ParkingDashboardBottomSheet'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useHandleDeeplink} from '@/modules/parking/hooks/useHandleDeeplink'
+import {useTransferReduxAccountNameToSecureStorage} from '@/modules/parking/hooks/useTransferReduxAccountNameToSecureStorage'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
@@ -32,6 +33,8 @@ type Props = NavigationProps<ParkingRouteName.dashboard>
 
 export const ParkingDashboardScreen = ({route}: Props) => {
   const dispatch = useDispatch()
+
+  useTransferReduxAccountNameToSecureStorage()
 
   useHandleDeeplink(route)
   const {permits, isLoading} = useGetPermits()

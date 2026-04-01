@@ -23,18 +23,12 @@ export const ParkingSelectPermitAccounts = ({accounts, focusRef}: Props) =>
       <Column
         gutter="no"
         key={`ParkingSelectPermitTitle-${accountIndex}`}>
-        {((account.scope === ParkingPermitScope.permitHolder &&
-          !!account.name) ||
-          account.scope === ParkingPermitScope.visitor) && (
+        {account.scope === ParkingPermitScope.visitor && (
           <Title
             level="h4"
             ref={focusRef}
             testID="ParkingSelectPermitTitle"
-            text={
-              account.scope === ParkingPermitScope.visitor
-                ? 'Bezoekersaccount'
-                : (account.name ?? '')
-            }
+            text="Bezoekersaccount"
           />
         )}
         <ParkingSelectPermitList

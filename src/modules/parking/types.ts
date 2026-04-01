@@ -65,7 +65,6 @@ export type ParkingAccountLogin = {
 export type SecureParkingAccount = ParkingAccountLogin & {name?: string}
 
 export type ParkingAccount = {
-  name?: string
   permits?: ParkingPermit[]
   reportCode: string
   scope: ParkingPermitScope
