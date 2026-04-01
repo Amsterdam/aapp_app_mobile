@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {Image} from 'react-native'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {getClosestAspectRatio} from '@/modules/service/utils/getClosestAspectRatio'
@@ -17,9 +17,13 @@ export const ServicePointDetailsImage = ({uri}: {uri: string}) => {
     )
   }, [uri])
 
-  const aspectRatio = dimensions
-    ? getClosestAspectRatio(dimensions.width, dimensions.height)
-    : undefined
+  const aspectRatio = useMemo(
+    () =>
+      dimensions
+        ? getClosestAspectRatio(dimensions.width, dimensions.height)
+        : undefined,
+    [dimensions],
+  )
 
   return (
     <LazyImage
