@@ -1,5 +1,5 @@
+import type {CodeGenConfig} from './nodescripts/codegen/types.mts'
 import type {Dirent} from 'node:fs'
-import type {CodeGenConfig} from 'nodescripts/codegen/types.mts'
 
 const inputDir = 'src/modules'
 const defaultResultImports = ['import { ModuleSlug } from "@/modules/slugs";']
