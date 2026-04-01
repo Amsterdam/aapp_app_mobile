@@ -1,6 +1,5 @@
 import {useEffect, useMemo} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSetParkingAccountName} from '@/modules/parking/hooks/useSetParkingAccountName'
 import {usePermitsQuery} from '@/modules/parking/service'
 import {
   parkingSlice,
@@ -24,8 +23,6 @@ export const useGetPermits = (skip = false) => {
 
     return filterPermits(fixPermitNames(data))
   }, [data])
-
-  useSetParkingAccountName(!permits)
 
   useEffect(() => {
     if (permits?.length && !currentPermitReportCode) {

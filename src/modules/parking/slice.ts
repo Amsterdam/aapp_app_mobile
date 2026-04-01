@@ -67,6 +67,17 @@ export const parkingSlice = createSlice({
       state.currentPermitReportCode = undefined
       state.visitorVehicleId = undefined
     },
+    /**
+     * This action is used to remove names stored in Redux from Parking v1 which are now stored in SecureStorage
+     */
+    removeNamesFromParkingAccount: state => {
+      state.accounts = Object.fromEntries(
+        Object.entries(state.accounts).map(([reportCode, account]) => [
+          reportCode,
+          {...account, name: undefined},
+        ]),
+      )
+    },
     setAccessToken: (
       state,
       {

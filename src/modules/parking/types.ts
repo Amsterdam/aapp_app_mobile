@@ -31,21 +31,6 @@ export enum ParkingEndpointName {
 
 // Account
 export type ParkingAccountDetails = {
-  account_type: string
-  address: {
-    city: string
-    concatenated_address: string
-    house_letter: string
-    house_number: string
-    street: string
-    suffix: string
-    zip_code: string
-  }
-  client_id: number
-  email: string
-  initials?: string
-  last_name?: string
-  phone_number: string
   wallet?: {
     balance: number | null
     currency: string
@@ -65,7 +50,6 @@ export type ParkingAccountLogin = {
 export type SecureParkingAccount = ParkingAccountLogin & {name?: string}
 
 export type ParkingAccount = {
-  name?: string
   permits?: ParkingPermit[]
   reportCode: string
   scope: ParkingPermitScope
