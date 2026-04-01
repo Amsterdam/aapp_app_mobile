@@ -473,7 +473,7 @@ CHECKSUMS
   xcpretty-travis-formatter (1.0.1) sha256=aacc332f17cb7b2cba222994e2adc74223db88724fe76341483ad3098e232f93
 
 RUBY VERSION
-  ruby 3.4.7
+  ruby 3.3.9
 
 BUNDLED WITH
   4.0.4
