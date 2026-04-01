@@ -1,10 +1,5 @@
 import {useCallback} from 'react'
-import type {
-  CrossStackTo,
-  InStackTo,
-  NavigateTo,
-  RootStackParams,
-} from '@/app/navigation/types'
+import type {CrossStackTo, InStackTo, NavigateTo} from '@/app/navigation/types'
 import type {TestProps} from '@/components/ui/types'
 import type {GestureResponderEvent} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
@@ -36,7 +31,8 @@ export const AlertNavigateButton = ({label, params, testID}: Props) => {
       if (isInStackTo(params)) {
         const [route, props] = params
 
-        navigate(route as keyof RootStackParams, {...props} as never) // Navigate in-Stack with associated params
+        // @ts-expect-error - This is a valid navigation route, but somehow it does not understand the params type
+        navigate(route, {...props}) // Navigate in-Stack with associated params
       }
     },
     [params, navigate],
