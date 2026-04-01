@@ -10,9 +10,7 @@ export const ServicePointDetailsImage = ({uri}: {uri: string}) => {
   } | null>(null)
 
   useEffect(() => {
-    void Image.getSize(uri)
-      .then(({height, width}) => setDimensions({width, height}))
-      .catch(() => setDimensions(null))
+    Image.getSize(uri, (width, height) => setDimensions({width, height}))
   }, [uri])
 
   const aspectRatio = dimensions
