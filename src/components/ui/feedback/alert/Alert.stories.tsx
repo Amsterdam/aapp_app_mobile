@@ -4,6 +4,7 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
 import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
+import {ParkingRouteName} from '@/modules/parking/routes'
 
 const title = 'Titel'
 const text = 'U kunt een dagontheffing of jaarontheffing aanvragen'
@@ -13,6 +14,9 @@ const meta: Meta<typeof AlertBase> = {
   argTypes: {
     hasCloseIcon: {
       type: 'boolean',
+    },
+    navigateTo: {
+      control: {type: 'object'},
     },
     inset: {
       table: {
@@ -41,4 +45,22 @@ export default meta
 
 type Story = StoryObj<Omit<AlertProps, 'testID' | 'inset'>>
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {
+    navigateTo: undefined,
+  },
+}
+
+export const WithLink: Story = {
+  args: {
+    variant: AlertVariant.information,
+    hasIcon: true,
+    hasCloseIcon: true,
+    title: 'Deze Alert heeft een link',
+    text: 'Klik op de link hieronder',
+    navigateTo: {
+      label: 'Navigeer naar link',
+      params: [ParkingRouteName.accounts],
+    },
+  },
+}

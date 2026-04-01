@@ -22,7 +22,7 @@ export const lightColorTokens = {
   },
   alert: {
     information: {
-      border: baseColor.primary.blue,
+      border: baseColor.secondary.lightblue,
       background: baseColor.primary.white,
     },
     negative: {

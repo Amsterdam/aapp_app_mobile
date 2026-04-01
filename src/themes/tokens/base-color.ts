@@ -16,6 +16,7 @@ export const baseColor = {
   },
   secondary: {
     darkgreen: '#00a03c',
+    lightblue: '#009DE6',
     lightgreen: '#bed200',
     orange: '#ff9100',
     magenta: '#e50082',
