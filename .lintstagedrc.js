@@ -3,6 +3,6 @@ const definitions = ['src/custom.d.ts']
 
 module.exports = {
   '*.(js|jsx|ts|tsx|json)': 'npx eslint --cache --fix',
-  '*.(js|jsx|ts|tsx|json|md|yml|yaml|css)': 'npx prettier --check',
+  '*.(js|jsx|ts|tsx|json|md|yml|yaml|css)': 'npx oxfmt',
   '*.(ts|tsx)': `npx tsc-files --noEmit ${definitions.join(' ')}`,
 }

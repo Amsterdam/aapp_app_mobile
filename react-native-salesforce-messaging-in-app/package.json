@@ -2,15 +2,15 @@
   "name": "react-native-salesforce-messaging-in-app",
   "version": "0.0.0",
   "description": "Salesforce messaging in app for react native",
+  "homepage": "#readme",
+  "license": "UNLICENSED",
+  "author": " <> ()",
   "main": "src/index",
   "codegenConfig": {
     "name": "RNSalesforceMessagingInAppSpec",
     "type": "modules",
     "jsSrcsDir": "src"
   },
-  "author": " <> ()",
-  "license": "UNLICENSED",
-  "homepage": "#readme",
   "create-react-native-library": {
     "type": "turbo-module",
     "languages": "kotlin-objc",

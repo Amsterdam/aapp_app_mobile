@@ -2,15 +2,15 @@
   "name": "react-native-block-screenshot",
   "version": "0.2.0",
   "description": "Adds functions to block screenshots",
+  "homepage": "#readme",
+  "license": "UNLICENSED",
+  "author": " <> ()",
   "main": "src/index",
   "codegenConfig": {
     "name": "RNBlockScreenshotSpec",
     "type": "modules",
     "jsSrcsDir": "src"
   },
-  "author": " <> ()",
-  "license": "UNLICENSED",
-  "homepage": "#readme",
   "create-react-native-library": {
     "type": "turbo-module",
     "languages": "kotlin-objc",
