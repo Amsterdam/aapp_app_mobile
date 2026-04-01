@@ -69,6 +69,11 @@ export const BottomSheetContainer = ({
     transform: [{translateY: translateY.value}],
   }))
 
+  const keyboardBgStyle = useAnimatedStyle(() => ({
+    bottom: -keyboardHeight.value,
+    height: keyboardHeight.value,
+  }))
+
   return (
     <Animated.View
       onLayout={event => {
@@ -101,12 +106,22 @@ export const BottomSheetContainer = ({
       style={[styles.sheetContainer, sheetAnimatedStyle]}
       testID={testID}>
       {children}
+      <Animated.View
+        pointerEvents="none"
+        style={[styles.keyboardBackground, keyboardBgStyle]}
+      />
     </Animated.View>
   )
 }
 
 const createStyles = ({color}: Theme) =>
   StyleSheet.create({
+    keyboardBackground: {
+      backgroundColor: color.bottomSheet.background,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+    },
     sheetContainer: {
       bottom: 0,
       left: 0,
