@@ -1,5 +1,5 @@
 import {FormProvider, useForm} from 'react-hook-form'
-import {useIsInBottomSheet} from '@/components/features/bottom-sheet/BottomSheetPresenceContext'
+import {useIsInBottomSheet} from '@/components/features/bottom-sheet/providers/bottomSheetPresence.context'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'

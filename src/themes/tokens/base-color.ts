@@ -37,6 +37,7 @@ export const baseColor = {
     grey50: '#46464680',
     black90: '#000000e6',
     black30: '#0000004d',
+    black40: '#00000066',
     blue25: '#00469940',
   },
 } as const

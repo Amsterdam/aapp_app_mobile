@@ -13,11 +13,11 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ChatMenu} from '@/modules/chat/components/ChatMenu'
 import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
-import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
 import {useScreen} from '@/store/slices/screen'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
@@ -32,7 +32,7 @@ type Props = {
 
 export const ChatAnimatedWrapper = ({children}: Props) => {
   const theme = useTheme()
-  const {isOpen} = useBottomSheetSelectors()
+  const {isOpen} = useBottomSheet()
 
   const {isMaximized} = useChat()
   const [maxHeight, setMaxHeight] = useState(0)

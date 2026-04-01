@@ -1,4 +1,5 @@
 import {useController, useFormContext} from 'react-hook-form'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
@@ -11,7 +12,6 @@ import {
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,
 } from '@/modules/parking/utils/paymentZone'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
 type FieldValues = {

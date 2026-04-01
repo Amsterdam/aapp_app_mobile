@@ -16,7 +16,6 @@ import type {SurveyState} from '@/modules/survey/slice'
 import type {WasteGuideState} from '@/modules/waste-guide/slice'
 import type {baseApi} from '@/services/baseApi'
 import type {AlertState} from '@/store/slices/alert'
-import type {BottomSheetState} from '@/store/slices/bottomSheet'
 import type {EnvironmentState} from '@/store/slices/environment'
 import type {InternetConnectionState} from '@/store/slices/internetConnection'
 import type {MenuState} from '@/store/slices/menu'
@@ -33,7 +32,6 @@ export type RootState = {
   [ReduxKey.accessCode]: AccessCodeState
   [ReduxKey.address]: AddressState
   [ReduxKey.alert]: AlertState
-  [ReduxKey.bottomSheet]: BottomSheetState
   [ReduxKey.chat]: ChatState
   [ReduxKey.cityPass]: CityPassState
   [ReduxKey.constructionWork]: ConstructionWorkState

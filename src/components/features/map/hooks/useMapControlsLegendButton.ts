@@ -1,8 +1,8 @@
-import {useCallback} from 'react'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {useCallback, useContext} from 'react'
+import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 
 export const useMapControlsLegendButton = () => {
-  const {toggle} = useBottomSheet()
+  const {toggle} = useContext(BottomSheetContext)
 
   const onPressLegendButton = useCallback(() => {
     toggle('legend')

@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -8,7 +9,6 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {ParkingLicensePlate} from '@/modules/parking/types'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
   setLicensePlate: (licensePlate: ParkingLicensePlate) => void

@@ -1,6 +1,6 @@
-import {useBottomSheet} from '@gorhom/bottom-sheet'
 import {useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'

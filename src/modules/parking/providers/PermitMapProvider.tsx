@@ -1,8 +1,8 @@
 import {useCallback, useMemo, useState, type ReactNode} from 'react'
 import type {Region} from 'react-native-maps'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {PermitMapContext} from '@/modules/parking/providers/PermitMap.context'
 import {type ParkingMachine} from '@/modules/parking/types'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PermitMapProvider = ({children}: {children: ReactNode}) => {
   const [selectedMachineId, setSelectedMachineId] = useState<

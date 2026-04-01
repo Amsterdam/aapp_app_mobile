@@ -1,5 +1,6 @@
 import {useController} from 'react-hook-form'
 import {View} from 'react-native'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Title} from '@/components/ui/text/Title'
@@ -7,7 +8,6 @@ import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {ParkingSessionDateTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDateTime'
 import {ParkingSessionTodayTomorrowStartTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionTodayTomorrowStartTime'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingSessionStartTimeBottomSheetContent = () => {

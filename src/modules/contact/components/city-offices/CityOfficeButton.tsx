@@ -1,3 +1,4 @@
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
@@ -6,7 +7,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {setSelectedCityOffice} from '@/modules/contact/slice'
 import {CityOffice} from '@/modules/contact/types'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
   cityOffice: CityOffice

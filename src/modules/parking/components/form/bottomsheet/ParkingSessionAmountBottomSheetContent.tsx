@@ -1,10 +1,10 @@
 import {useController} from 'react-hook-form'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {formatNumber} from '@/utils/formatNumber'
 
 const options = [2.5, 5.0, 10.0, 15.0, 20, 50, 100].map(value => ({

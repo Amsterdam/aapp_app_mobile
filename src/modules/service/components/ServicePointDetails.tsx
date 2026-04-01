@@ -1,4 +1,5 @@
 import {useEffect} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {RouteButton} from '@/components/ui/buttons/RouteButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -12,14 +13,9 @@ import {ServicePointDetailsProperties} from '@/modules/service/components/Servic
 import {useSelectedServicePointDetails} from '@/modules/service/hooks/useSelectedServicePointDetails'
 import {resetSelectedServicePointId} from '@/modules/service/slice'
 import {type Service} from '@/modules/service/types'
-import {
-  useBottomSheet,
-  useBottomSheetSelectors,
-} from '@/store/slices/bottomSheet'
 
 export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
-  const {close: closeBottomSheet} = useBottomSheet()
-  const {isOpen} = useBottomSheetSelectors()
+  const {close: closeBottomSheet, isOpen} = useBottomSheet()
   const dispatch = useDispatch()
   const servicePointDetails = useSelectedServicePointDetails(serviceId)
   const autoFocus = useAccessibilityFocus()

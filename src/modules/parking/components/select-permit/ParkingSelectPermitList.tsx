@@ -1,9 +1,9 @@
 import {useCallback} from 'react'
 import type {ParkingPermit} from '@/modules/parking/types'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ParkingPermitSelectButton} from '@/modules/parking/components/select-permit/ParkingPermitSelectButton'
 import {useSwitchPermit} from '@/modules/parking/hooks/useSwitchPermit'
 import {ParkingPermitScope} from '@/modules/parking/types'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
   accountIndex: number

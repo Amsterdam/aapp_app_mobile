@@ -1,6 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
@@ -19,7 +20,6 @@ import {
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
 import {getDateForCostCalculation} from '@/modules/parking/utils/getDateForCostCalculation'
-import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
 import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
@@ -63,7 +63,7 @@ export const ParkingReceipt = () => {
   const isVisitor = parkingAccount?.scope === ParkingPermitScope.visitor
 
   const currentPermit = useCurrentParkingPermit()
-  const {isOpen} = useBottomSheetSelectors()
+  const {isOpen} = useBottomSheet()
   const nowRounded = dayjs().set('second', 0)
   const {isEndTimeBeforeOriginal, calculatedEndTime, calculatedStartTime} =
     getDateForCostCalculation({
