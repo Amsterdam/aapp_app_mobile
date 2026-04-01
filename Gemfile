@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "~> " + File.read(File.join(__dir__, ".ruby-version")).strip.split(".").first(2).join(".")
 
-gem "openssl", "~> 3.3"
+gem "openssl", "~> 4.0.1"
 gem "net-http", "~> 0.9.1"
 gem "fastlane", "2.232.2"
 

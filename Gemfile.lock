@@ -258,7 +258,7 @@ GEM
       uri (>= 0.11.1)
     netrc (0.11.0)
     nkf (0.2.0)
-    openssl (3.3.2)
+    openssl (4.0.1)
     optparse (0.8.1)
     os (1.1.4)
     ostruct (0.6.3)
@@ -337,7 +337,7 @@ DEPENDENCIES
   logger
   mutex_m
   net-http (~> 0.9.1)
-  openssl (~> 3.3)
+  openssl (~> 4.0.1)
   xcodeproj (< 1.26.0)
 
 CHECKSUMS
@@ -443,7 +443,7 @@ CHECKSUMS
   net-http (0.9.1) sha256=25ba0b67c63e89df626ed8fac771d0ad24ad151a858af2cc8e6a716ca4336996
   netrc (0.11.0) sha256=de1ce33da8c99ab1d97871726cba75151113f117146becbe45aa85cb3dabee3f
   nkf (0.2.0) sha256=fbc151bda025451f627fafdfcb3f4f13d0b22ae11f58c6d3a2939c76c5f5f126
-  openssl (3.3.2) sha256=7f4e01215dc9c4be1fca71d692406be3e6340b39c1f71a47fea9c497decd0f6c
+  openssl (4.0.1) sha256=e27974136b7b02894a1bce46c5397ee889afafe704a839446b54dc81cb9c5f7d
   optparse (0.8.1) sha256=42bea10d53907ccff4f080a69991441d611fbf8733b60ed1ce9ee365ce03bd1a
   os (1.1.4) sha256=57816d6a334e7bd6aed048f4b0308226c5fb027433b67d90a9ab435f35108d3f
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
