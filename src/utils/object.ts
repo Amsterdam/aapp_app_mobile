@@ -63,7 +63,8 @@ export const filterOutUndefinedProperties = <
 
   return (Object.keys(input) as T[])
     .filter(key => input[key] !== undefined)
-    .reduce<
-      Record<T, S>
-    >((acc, key) => ({...acc, [key]: input[key]}), {} as Record<T, S>)
+    .reduce<Record<T, S>>(
+      (acc, key) => ({...acc, [key]: input[key]}),
+      {} as Record<T, S>,
+    )
 }
