@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
-      "@/storybook/*": [".storybook/*"],
-      "@/*": ["src/*"]
+      "@/storybook/*": ["./.storybook/*"],
+      "@/*": ["./src/*"]
     },
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
