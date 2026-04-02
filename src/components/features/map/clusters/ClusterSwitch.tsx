@@ -4,6 +4,7 @@ import type {ClusterItem} from '@/components/features/map/types'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
 import {useMap} from '@/components/features/map/hooks/useMap'
 import {Marker} from '@/components/features/map/marker/Marker'
+import {MapMarkerPin} from '@/components/features/map/marker/Pin'
 import {isNearlyEqualFloat} from '@/components/features/map/utils/isNearlyEqualFloat'
 
 export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
@@ -55,8 +56,10 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
       variant={
         'cluster_id' in item.properties ? undefined : item.properties.variant
       }>
-      {'cluster_id' in item.properties && (
+      {'cluster_id' in item.properties ? (
         <ClusterMarker count={item.properties.point_count} />
+      ) : (
+        <MapMarkerPin />
       )}
     </Marker>
   )
