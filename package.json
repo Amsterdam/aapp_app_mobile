@@ -167,7 +167,6 @@
     "react-native-clean-project": "^4.0.3",
     "react-native-dotenv": "^3.4.11",
     "react-native-svg-transformer": "^1.5.3",
-    "react-native-svg-web": "^1.0.9",
     "react-native-web": "^0.21.2",
     "react-test-renderer": "19.2.0",
     "storybook": "10.2.12",
