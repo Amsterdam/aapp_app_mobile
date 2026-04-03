@@ -2,8 +2,11 @@ import {StyleSheet, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import type {Theme} from '@/themes/themes'
 import {MapBase} from '@/components/features/map/MapBase'
+import {
+  MapMarkerVariant,
+  MapMarkerVariants,
+} from '@/components/features/map/marker/MapMarkerVariants'
 import {Marker} from '@/components/features/map/marker/Marker'
-import {MarkerVariant} from '@/components/features/map/marker/markers.generated'
 import {ControlVariant} from '@/components/features/map/types'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -63,9 +66,9 @@ export const WasteGuideRecyclePointMap = () => {
         <Marker
           coordinate={{latitude, longitude}}
           description={recyclePoint.address.street}
-          title={recyclePoint.name}
-          variant={MarkerVariant.selectedPin}
-        />
+          title={recyclePoint.name}>
+          {MapMarkerVariants[MapMarkerVariant.selectedPin]}
+        </Marker>
       </MapBase>
       <View style={styles.routeButtonContainer}>
         <ExternalLinkButton

@@ -2,7 +2,7 @@ import {useState} from 'react'
 import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
-import {MarkerVariant} from '@/components/features/map/marker/markers.generated'
+import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import {ControlVariant} from '@/components/features/map/types'
 import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -18,11 +18,11 @@ type Props = {
   pollingStations?: PollingStation[]
 }
 
-const ElectionsMarkerVariantMap: Record<ElectionsState, MarkerVariant> = {
-  [ElectionsState.calm]: MarkerVariant.electionsCrowdCalmPin,
-  [ElectionsState.medium]: MarkerVariant.electionsCrowdMediumPin,
-  [ElectionsState.busy]: MarkerVariant.electionsCrowdBusyPin,
-  [ElectionsState.unknown]: MarkerVariant.electionsCrowdUnknownPin,
+const ElectionsMarkerVariantMap: Record<ElectionsState, MapMarkerVariant> = {
+  [ElectionsState.calm]: MapMarkerVariant.electionsCrowdCalmPin,
+  [ElectionsState.medium]: MapMarkerVariant.electionsCrowdMediumPin,
+  [ElectionsState.busy]: MapMarkerVariant.electionsCrowdBusyPin,
+  [ElectionsState.unknown]: MapMarkerVariant.electionsCrowdUnknownPin,
 }
 
 export const PollingStationsMap = ({
