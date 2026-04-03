@@ -9,9 +9,6 @@ const moduleBasedResultFunction = (
   name: string,
 ): string => `[ModuleSlug["${path.name}"]]: ${name}`
 
-const capitalizeString = (s: string) =>
-  s ? s.charAt(0).toUpperCase() + s.slice(1) : ''
-
 export const config: CodeGenConfig = [
   {
     inputDir,
@@ -120,73 +117,6 @@ export const config: CodeGenConfig = [
         resultFunction: moduleBasedResultFunction,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
-      },
-    ],
-  },
-  {
-    inputDir: 'assets/images/map',
-    match: '\\.png$',
-    type: 'file',
-    output: 'src/components/features/map/marker/markers.generated.ts',
-    imports: [
-      {
-        import: 'none',
-        exportName: 'MarkerVariant',
-        optional: true,
-        result: 'enumFunction',
-        resultFunction: (path: Dirent<string>): string => {
-          const file = path.name.replace(/\.png$/, '')
-          const markerVariant = file.replaceAll(/_([a-z])/g, p =>
-            capitalizeString(p[1]),
-          )
-
-          return `${markerVariant}= '${markerVariant}'`
-        },
-      },
-      {
-        import: 'none',
-        exportName: 'MARKER_IMAGES',
-        optional: true,
-        // resultImports: [
-        //   'import { MarkerVariant } from "@/components/features/map/marker/markers";',
-        // ],
-        satisfies: 'Record<MarkerVariant, {uri: string}>',
-        result: 'objectFunction',
-        resultFunction: (path: Dirent<string>): string => {
-          const file = path.name.replace(/\.png$/, '')
-          const markerVariant = file.replaceAll(/_([a-z])/g, p =>
-            capitalizeString(p[1]),
-          )
-
-          return `[MarkerVariant["${markerVariant}"]]: {uri: '${file}'}`
-        },
-      },
-    ],
-  },
-  {
-    inputDir: 'assets/images/map',
-    match: '\\.png$',
-    type: 'file',
-    output: 'src/components/features/map/marker/Marker.stories.mock.ts',
-    imports: [
-      {
-        import: 'none',
-        exportName: 'MOCK_MARKER_MAP',
-        optional: true,
-        result: 'objectFunction',
-        resultFunction: (path: Dirent<string>): string => {
-          const file = path.name.replace(/\.png$/, '')
-          const markerVariant = file.replaceAll(/_([a-z])/g, p =>
-            capitalizeString(p[1]),
-          )
-
-          return `[MarkerVariant.${markerVariant}]: require('@/../assets/images/map/${file}.png') as ImageSourcePropType`
-        },
-        resultImports: [
-          "import {MarkerVariant} from '@/components/features/map/marker/markers.generated'",
-          "import type {ImageSourcePropType} from 'react-native'",
-        ],
-        satisfies: 'Record<MarkerVariant, ImageSourcePropType>',
       },
     ],
   },

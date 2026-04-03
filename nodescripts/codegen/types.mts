@@ -7,7 +7,6 @@ export type CodeGenConfigItem = {
   inputDir: string
   match: string
   output: string
-  type?: 'directory' | 'file'
 }
 
 export type ImportConfig = {
@@ -18,8 +17,8 @@ export type ImportConfig = {
    * - 'namespace' for namespace import
    * - string for named import
    */
-  // eslint-disable-next-line sonarjs/no-useless-intersection, @typescript-eslint/ban-types
-  import: 'default' | 'namespace' | 'none' | (string & {})
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  import: 'default' | 'namespace' | (string & {})
   optional?: boolean
   /**
    * 'result' can be:
@@ -33,9 +32,7 @@ export type ImportConfig = {
     | 'spreadArray'
     | 'spreadObject'
     | 'array'
-    | 'objectFunction'
-    | 'enumFunction'
-  resultFunction?: (path: fs.Dirent<string>, name: string) => string
+    | ((path: fs.Dirent<string>, name: string) => string)
   resultImports?: string[]
   satisfies?: string
 }
