@@ -4,10 +4,8 @@ import type {Dirent} from 'node:fs'
 const inputDir = 'src/modules'
 const defaultResultImports = ['import { ModuleSlug } from "@/modules/slugs";']
 const defaultSatisfies = 'Partial<Record<ModuleSlug, React.ComponentType>>'
-const moduleBasedResultFunction = (
-  path: Dirent<string>,
-  name: string,
-): string => `[ModuleSlug["${path.name}"]]: ${name}`
+const moduleBasedResult = (path: Dirent<string>, name: string): string =>
+  `[ModuleSlug["${path.name}"]]: ${name}`
 
 export const config: CodeGenConfig = [
   {
@@ -32,8 +30,7 @@ export const config: CodeGenConfig = [
         import: 'PreRenderComponent',
         exportName: 'preRenderComponents',
         optional: true,
-        result: 'objectFunction',
-        resultFunction: moduleBasedResultFunction,
+        result: moduleBasedResult,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -48,8 +45,7 @@ export const config: CodeGenConfig = [
         import: 'PostRenderComponent',
         exportName: 'postRenderComponents',
         optional: true,
-        result: 'objectFunction',
-        resultFunction: moduleBasedResultFunction,
+        result: moduleBasedResult,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -64,8 +60,7 @@ export const config: CodeGenConfig = [
         import: 'HeaderComponent',
         exportName: 'headerComponents',
         optional: true,
-        result: 'objectFunction',
-        resultFunction: moduleBasedResultFunction,
+        result: moduleBasedResult,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -80,8 +75,7 @@ export const config: CodeGenConfig = [
         import: 'ActionButton',
         exportName: 'actionButtons',
         optional: true,
-        result: 'objectFunction',
-        resultFunction: moduleBasedResultFunction,
+        result: moduleBasedResult,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
@@ -96,8 +90,7 @@ export const config: CodeGenConfig = [
         import: 'useIsLoggedIn',
         exportName: 'useIsLoggedIn',
         optional: true,
-        result: 'objectFunction',
-        resultFunction: moduleBasedResultFunction,
+        result: moduleBasedResult,
         resultImports: defaultResultImports,
         satisfies:
           'Partial<Record<ModuleSlug, () => {isLoading?: boolean; isLoggedIn: boolean, refetch?: () => void}>>',
@@ -113,8 +106,7 @@ export const config: CodeGenConfig = [
         import: 'Account',
         exportName: 'Account',
         optional: true,
-        result: 'objectFunction',
-        resultFunction: moduleBasedResultFunction,
+        result: moduleBasedResult,
         resultImports: defaultResultImports,
         satisfies: defaultSatisfies,
       },
