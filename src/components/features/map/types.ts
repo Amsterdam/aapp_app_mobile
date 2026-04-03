@@ -1,4 +1,4 @@
-import type {MarkerVariant} from '@/components/features/map/marker/markers.generated'
+import type {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import type {IconProps} from '@/components/ui/media/Icon'
 import type {Supercluster} from 'react-native-clusterer'
 import {TestProps} from '@/components/ui/types'
@@ -18,7 +18,7 @@ export type MapControlOption = {
 export type MarkerProperties = {
   id: string
   onMarkerPress?: () => void
-  variant?: MarkerVariant
+  variant?: MapMarkerVariant
 }
 
 export type ClusterProperties = Supercluster.ClusterProperties &

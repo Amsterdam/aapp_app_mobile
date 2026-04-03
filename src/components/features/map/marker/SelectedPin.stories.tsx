@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native'
-import {PinSelected} from './PinSelected'
+import {MapMarkerSelectedPin} from './SelectedPin'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const styles = StyleSheet.create({
@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const meta: Meta<typeof PinSelected> = {
-  component: PinSelected,
+const meta: Meta<typeof MapMarkerSelectedPin> = {
+  component: MapMarkerSelectedPin,
   parameters: {
     backgrounds: {
       default: 'custom-grey0',
@@ -21,7 +21,7 @@ const meta: Meta<typeof PinSelected> = {
 
 export default meta
 
-type Story = StoryObj<typeof PinSelected>
+type Story = StoryObj<typeof MapMarkerSelectedPin>
 
 export const Default: Story = {
   args: {
@@ -30,7 +30,7 @@ export const Default: Story = {
   },
   render: args => (
     <View style={styles.wrapper}>
-      <PinSelected {...args} />
+      <MapMarkerSelectedPin {...args} />
     </View>
   ),
 }

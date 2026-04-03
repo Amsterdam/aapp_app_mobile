@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native'
-import {ElectionsCrowdBusyPin} from './ElectionsCrowdBusyPin'
+import {MapMarkerElectionsCrowdBusyPin} from './ElectionsCrowdBusyPin'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const styles = StyleSheet.create({
@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const meta: Meta<typeof ElectionsCrowdBusyPin> = {
-  component: ElectionsCrowdBusyPin,
+const meta: Meta<typeof MapMarkerElectionsCrowdBusyPin> = {
+  component: MapMarkerElectionsCrowdBusyPin,
   parameters: {
     backgrounds: {
       default: 'custom-grey0',
@@ -21,7 +21,7 @@ const meta: Meta<typeof ElectionsCrowdBusyPin> = {
 
 export default meta
 
-type Story = StoryObj<typeof ElectionsCrowdBusyPin>
+type Story = StoryObj<typeof MapMarkerElectionsCrowdBusyPin>
 
 export const Default: Story = {
   args: {
@@ -30,7 +30,7 @@ export const Default: Story = {
   },
   render: args => (
     <View style={styles.wrapper}>
-      <ElectionsCrowdBusyPin {...args} />
+      <MapMarkerElectionsCrowdBusyPin {...args} />
     </View>
   ),
 }

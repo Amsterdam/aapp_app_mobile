@@ -17,7 +17,7 @@ import Svg, {
 
 const DEFAULT_SIZE = 40
 
-export const ElectionsCrowdCalmPin = ({
+export const MapMarkerElectionsCrowdCalmPin = ({
   width = DEFAULT_SIZE,
   height = DEFAULT_SIZE,
   ...props

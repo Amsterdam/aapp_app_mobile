@@ -2,7 +2,7 @@ import Svg, {Circle, Path, SvgProps} from 'react-native-svg'
 
 const DEFAULT_SIZE = 52
 
-export const PinSelected = ({
+export const MapMarkerSelectedPin = ({
   width = DEFAULT_SIZE,
   height = DEFAULT_SIZE,
   ...props

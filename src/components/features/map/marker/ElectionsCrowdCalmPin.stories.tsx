@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native'
-import {ElectionsCrowdCalmPin} from './ElectionsCrowdCalmPin'
+import {MapMarkerElectionsCrowdCalmPin} from './ElectionsCrowdCalmPin'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const styles = StyleSheet.create({
@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const meta: Meta<typeof ElectionsCrowdCalmPin> = {
-  component: ElectionsCrowdCalmPin,
+const meta: Meta<typeof MapMarkerElectionsCrowdCalmPin> = {
+  component: MapMarkerElectionsCrowdCalmPin,
   parameters: {
     backgrounds: {
       default: 'custom-grey0',
@@ -21,7 +21,7 @@ const meta: Meta<typeof ElectionsCrowdCalmPin> = {
 
 export default meta
 
-type Story = StoryObj<typeof ElectionsCrowdCalmPin>
+type Story = StoryObj<typeof MapMarkerElectionsCrowdCalmPin>
 
 export const Default: Story = {
   args: {
@@ -30,7 +30,7 @@ export const Default: Story = {
   },
   render: args => (
     <View style={styles.wrapper}>
-      <ElectionsCrowdCalmPin {...args} />
+      <MapMarkerElectionsCrowdCalmPin {...args} />
     </View>
   ),
 }

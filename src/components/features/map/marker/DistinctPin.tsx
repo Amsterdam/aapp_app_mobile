@@ -1,5 +1,6 @@
 import Svg, {
   Circle,
+  ClipPath,
   Defs,
   FeBlend,
   FeColorMatrix,
@@ -10,45 +11,51 @@ import Svg, {
   Filter,
   G,
   Path,
+  Rect,
   SvgProps,
 } from 'react-native-svg'
 
-const DEFAULT_WIDTH = 38
-const DEFAULT_HEIGHT = 39
+const DEFAULT_SIZE = 40
 
-export const DistinctPin = ({
-  width = DEFAULT_WIDTH,
-  height = DEFAULT_HEIGHT,
+export const MapMarkerDistinctPin = ({
+  width = DEFAULT_SIZE,
+  height = DEFAULT_SIZE,
   ...props
 }: SvgProps) => (
   <Svg
     fill="none"
     height={height}
-    viewBox="0 0 38 39"
+    viewBox="0 0 40 40"
     width={width}
     {...props}>
-    <G filter="url(#filter0_d_8082_2266)">
+    <G clipPath="url(#clip0_6414_6831)">
+      <G filter="url(#filter0_d_6414_6831)">
+        <Path
+          clipRule="evenodd"
+          d="M3.33325 20C3.33325 28.1482 14.4444 35.6173 19.9999 38.3333C25.5555 35.6173 36.6666 28.1482 36.6666 20C31.2499 20 14.4444 20 3.33325 20Z"
+          fill="white"
+          fillRule="evenodd"
+        />
+        <Circle
+          cx={19.9999}
+          cy={18.3332}
+          fill="white"
+          r={16.6667}
+        />
+      </G>
       <Path
-        clipRule="evenodd"
-        d="M2 18.3335C2 26.4816 13.1111 33.9508 18.6667 36.6668C24.2222 33.9508 35.3333 26.4816 35.3333 18.3335C29.9167 18.3335 13.1111 18.3335 2 18.3335Z"
-        fill="white"
-        fillRule="evenodd"
-      />
-      <Circle
-        cx={18.6667}
-        cy={16.6667}
-        fill="white"
-        r={16.6667}
+        d="M19.9999 24.1231L14.2104 27.5003L15.1754 20.7459L10.8333 16.4038L17.1052 15.4389L19.9999 9.16699L22.8947 15.4389L29.1666 16.4038L24.8245 20.7459L25.7894 27.5003L19.9999 24.1231Z"
+        fill="#004699"
       />
     </G>
     <Defs>
       <Filter
         filterUnits="userSpaceOnUse"
         height={40.667}
-        id="filter0_d_8082_2266"
-        width={37.3334}
-        x={0}
-        y={0}>
+        id="filter0_d_6414_6831"
+        width={37.3333}
+        x={1.33325}
+        y={1.6665}>
         <FeFlood
           floodOpacity={0}
           result="BackgroundImageFix"
@@ -72,15 +79,22 @@ export const DistinctPin = ({
         <FeBlend
           in2="BackgroundImageFix"
           mode="normal"
-          result="effect1_dropShadow_8082_2266"
+          result="effect1_dropShadow_6414_6831"
         />
         <FeBlend
           in="SourceGraphic"
-          in2="effect1_dropShadow_8082_2266"
+          in2="effect1_dropShadow_6414_6831"
           mode="normal"
           result="shape"
         />
       </Filter>
+      <ClipPath id="clip0_6414_6831">
+        <Rect
+          fill="white"
+          height={40}
+          width={40}
+        />
+      </ClipPath>
     </Defs>
   </Svg>
 )

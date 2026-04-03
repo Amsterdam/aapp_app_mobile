@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native'
-import {DistinctPin} from './DistinctPin'
+import {MapMarkerDistinctPin} from './DistinctPin'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const styles = StyleSheet.create({
@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const meta: Meta<typeof DistinctPin> = {
-  component: DistinctPin,
+const meta: Meta<typeof MapMarkerDistinctPin> = {
+  component: MapMarkerDistinctPin,
   parameters: {
     backgrounds: {
       default: 'custom-grey0',
@@ -21,16 +21,16 @@ const meta: Meta<typeof DistinctPin> = {
 
 export default meta
 
-type Story = StoryObj<typeof DistinctPin>
+type Story = StoryObj<typeof MapMarkerDistinctPin>
 
 export const Default: Story = {
   args: {
-    height: 39,
-    width: 38,
+    height: 40,
+    width: 40,
   },
   render: args => (
     <View style={styles.wrapper}>
-      <DistinctPin {...args} />
+      <MapMarkerDistinctPin {...args} />
     </View>
   ),
 }
