@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {useWindowDimensions} from 'react-native'
 import {
   // eslint-disable-next-line no-restricted-imports
@@ -35,6 +36,11 @@ const defaultClusterOptions: Supercluster.Options<
   extent: 512,
 }
 
+const getItemKey = (item: ClusterItem) =>
+  'cluster_id' in item.properties
+    ? `cluster-${item.properties?.cluster_id}-${item.properties.point_count}`
+    : `point-${item.properties?.id}`
+
 export const Clusterer = ({
   data,
   region = AMSTERDAM_REGION,
@@ -43,22 +49,23 @@ export const Clusterer = ({
 }: ClustererProps) => {
   const dimensions = useWindowDimensions()
 
+  const renderItem = useCallback(
+    (item: ClusterItem) => (
+      <ClusterSwitch
+        item={item}
+        key={getItemKey(item)}
+      />
+    ),
+    [],
+  )
+
   return (
     <RNClusterer
       data={data}
       mapDimensions={mapDimensions || dimensions}
       options={clusterOptions}
       region={region}
-      renderItem={(item: ClusterItem) => (
-        <ClusterSwitch
-          item={item}
-          key={
-            'cluster_id' in item.properties
-              ? `cluster-${item.properties?.cluster_id}-${item.properties.point_count}`
-              : `point-${item.properties?.id}`
-          }
-        />
-      )}
+      renderItem={renderItem}
     />
   )
 }

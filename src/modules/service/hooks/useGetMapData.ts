@@ -5,7 +5,7 @@ import type {
   ServiceMapResponseFilter,
 } from '@/modules/service/types'
 import type {EmptyObject} from '@/types/utils'
-import {MarkerVariant} from '@/components/features/map/marker/markers.generated'
+import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetFilteredFeatures} from '@/modules/service/hooks/useGetFilteredFeatures'
@@ -33,7 +33,7 @@ export const useGetMapData = (
         ...feature,
         properties: {
           id,
-          variant: markerVariant(id, MarkerVariant.pin),
+          variant: markerVariant(id, MapMarkerVariant.pin),
           onMarkerPress: () => onServicePointPress(id),
         },
       })),
