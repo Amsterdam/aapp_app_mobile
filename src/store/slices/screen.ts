@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
+import {Platform} from 'react-native'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -64,10 +65,11 @@ export const selectScreenBottomExtraSpace = (state: RootState) =>
   state[ReduxKey.screen].spaceBottom
 
 export const selectIsHiddenFromAccessibility = (state: RootState) =>
-  state[ReduxKey.screen].isHiddenFromAccessibility
+  state[ReduxKey.screen].isHiddenFromAccessibility && Platform.OS === 'ios' // on Android, setting importantForAccessibility to "no-hide-descendants" on the root view of the screen works to hide all content from accessibility, but on iOS we need to set this flag on each element, so we only set it when the screen is hidden from accessibility
 
 export const selectIsContentHiddenFromAccessibility = (state: RootState) =>
-  state[ReduxKey.screen].isContentHiddenFromAccessibility
+  state[ReduxKey.screen].isContentHiddenFromAccessibility &&
+  Platform.OS === 'ios' // on Android, setting importantForAccessibility to "no-hide-descendants" on the root view of the screen works to hide all content from accessibility, but on iOS we need to set it on each element, so we only set it when the screen content is hidden from accessibility
 
 export const selectHeaderHeight = (state: RootState) =>
   state[ReduxKey.screen].headerHeight
