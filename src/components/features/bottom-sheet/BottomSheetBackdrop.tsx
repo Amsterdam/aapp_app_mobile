@@ -36,8 +36,7 @@ export const BottomSheetBackdrop = ({
       pointerEvents="box-none"
       style={[styles.backdropContainer, backdropAnimatedStyle]}>
       <Pressable
-        accessibilityHint="Dubbeltik om te sluiten"
-        accessibilityLabel="Sluiten"
+        accessible={false}
         onPress={onClose}
         style={StyleSheet.absoluteFill}
       />
