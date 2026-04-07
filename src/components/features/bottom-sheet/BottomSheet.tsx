@@ -3,6 +3,7 @@ import {useEffect, useMemo, useState, type FC, type ReactNode} from 'react'
 import {StyleSheet, View, Platform, useWindowDimensions} from 'react-native'
 import {useSharedValue} from 'react-native-reanimated'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import type {Theme} from '@/themes/themes'
 import {BackgroundComponent} from '@/components/features/bottom-sheet/BackgroundComponent'
 import {BottomSheetBackdrop} from '@/components/features/bottom-sheet/BottomSheetBackdrop'
 import {BottomSheetContainer} from '@/components/features/bottom-sheet/BottomSheetContainer'
@@ -13,6 +14,7 @@ import {useToggleBottomSheet} from '@/components/features/bottom-sheet/hooks/use
 import {BottomSheetPresenceContext} from '@/components/features/bottom-sheet/providers/bottomSheetPresence.context'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
+import {useThemable} from '@/themes/useThemable'
 
 export type BottomSheetProps = {
   scroll?: boolean
@@ -47,7 +49,7 @@ export const BottomSheet = ({
   const isFocused = useIsFocused()
   const topOffset = topInset ?? safeTopInset
 
-  const styles = createStyles()
+  const styles = useThemable(createStyles)
   const VariantComponent: FC | undefined = variants
     ? (variants[variant ?? ''] ?? (() => null))
     : undefined
@@ -90,7 +92,7 @@ export const BottomSheet = ({
     <BottomSheetPresenceContext.Provider value={true}>
       <View
         pointerEvents="box-none"
-        style={StyleSheet.absoluteFill}>
+        style={[StyleSheet.absoluteFill, styles.wrapper]}>
         <BottomSheetBackdrop
           closedOffset={closedOffset}
           onClose={onClose}
@@ -140,11 +142,14 @@ export const BottomSheet = ({
   )
 }
 
-const createStyles = () =>
+const createStyles = ({z}: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
       flexShrink: 1,
       minHeight: 0,
+    },
+    wrapper: {
+      zIndex: z.bottomSheet,
     },
   })
