@@ -1,118 +1,22 @@
-import Svg, {
-  Circle,
-  ClipPath,
-  Defs,
-  FeBlend,
-  FeColorMatrix,
-  FeComposite,
-  FeFlood,
-  FeGaussianBlur,
-  FeOffset,
-  Filter,
-  G,
-  Path,
-  Rect,
-  SvgProps,
-} from 'react-native-svg'
+import {Circle} from 'react-native-svg'
+import {
+  MapMarkerBase,
+  type MapMarkerBaseProps,
+} from '@/components/features/map/marker/MarkerBase'
 
-const DEFAULT_SIZE = 40
-
-export const MapMarkerElectionsCrowdCalmPin = ({
-  width = DEFAULT_SIZE,
-  height = DEFAULT_SIZE,
-  ...props
-}: SvgProps) => (
-  <Svg
-    fill="none"
-    height={height}
-    viewBox="0 0 40 40"
-    width={width}
-    {...props}>
-    <G clipPath="url(#clip0_10147_3119)">
-      <G filter="url(#filter0_d_10147_3119)">
-        <Path
-          clipRule="evenodd"
-          d="M3.3335 20C3.3335 28.1482 14.4446 35.6173 20.0002 38.3333C25.5557 35.6173 36.6668 28.1482 36.6668 20C31.2502 20 14.4446 20 3.3335 20Z"
-          fill="white"
-          fillRule="evenodd"
-        />
-        <Circle
-          cx={20.0002}
-          cy={18.3334}
-          fill="white"
-          r={16.6667}
-        />
-      </G>
-      <G clipPath="url(#clip1_10147_3119)">
-        <Circle
-          cx={20.0001}
-          cy={18.3333}
-          fill="#00A03C"
-          r={10.6944}
-        />
-        <Circle
-          cx={20.0001}
-          cy={18}
-          fill="white"
-          r={1.94444}
-        />
-      </G>
-    </G>
-    <Defs>
-      <Filter
-        filterUnits="userSpaceOnUse"
-        height={40.6666}
-        id="filter0_d_10147_3119"
-        width={37.3335}
-        x={1.3335}
-        y={1.66669}>
-        <FeFlood
-          floodOpacity={0}
-          result="BackgroundImageFix"
-        />
-        <FeColorMatrix
-          in="SourceAlpha"
-          result="hardAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-        />
-        <FeOffset dy={2} />
-        <FeGaussianBlur stdDeviation={1} />
-        <FeComposite
-          in2="hardAlpha"
-          operator="out"
-        />
-        <FeColorMatrix
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-        />
-        <FeBlend
-          in2="BackgroundImageFix"
-          mode="normal"
-          result="effect1_dropShadow_10147_3119"
-        />
-        <FeBlend
-          in="SourceGraphic"
-          in2="effect1_dropShadow_10147_3119"
-          mode="normal"
-          result="shape"
-        />
-      </Filter>
-      <ClipPath id="clip0_10147_3119">
-        <Rect
-          fill="white"
-          height={40}
-          width={40}
-        />
-      </ClipPath>
-      <ClipPath id="clip1_10147_3119">
-        <Rect
-          fill="white"
-          height={23.3333}
-          transform="translate(8.3335 6.33331)"
-          width={23.3333}
-        />
-      </ClipPath>
-    </Defs>
-  </Svg>
+export const MapMarkerElectionsCrowdCalmPin = (props: MapMarkerBaseProps) => (
+  <MapMarkerBase {...props}>
+    <Circle
+      cx={20.0001}
+      cy={18.3333}
+      fill="#00A03C"
+      r={10.6944}
+    />
+    <Circle
+      cx={20.0001}
+      cy={18}
+      fill="white"
+      r={1.94444}
+    />
+  </MapMarkerBase>
 )
