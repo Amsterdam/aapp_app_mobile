@@ -15,7 +15,7 @@ type Props = {
 
 export const ProjectContacts = ({contacts, emailSubject}: Props) => (
   <Column gutter="xl">
-    {contacts.map(({address, email, id, name, phone, position}) => (
+    {contacts.map(({address, email, id, name, phone, position, extra}) => (
       <Column
         gutter="md"
         key={id}>
@@ -32,6 +32,11 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
               </Paragraph>
             )}
           </View>
+        )}
+        {!!extra && (
+          <Paragraph testID="ConstructionWorkProjectContactExtraText">
+            {extra}
+          </Paragraph>
         )}
         {!!phone && (
           <Row>

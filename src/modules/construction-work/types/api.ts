@@ -97,6 +97,7 @@ export type ProjectDetailsQueryArgs = {
 export type ProjectContact = {
   address: string | null // @TODO: not in API definition (100764)
   email: string | null
+  extra: string | null
   id: number
   name: string | null
   phone: string | null

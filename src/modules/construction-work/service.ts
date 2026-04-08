@@ -95,7 +95,6 @@ export const projectsApi = baseApi.injectEndpoints({
         params,
         headers: deviceIdHeader,
       }),
-
       keepUnusedDataFor: CacheLifetime.hour,
     }),
 
