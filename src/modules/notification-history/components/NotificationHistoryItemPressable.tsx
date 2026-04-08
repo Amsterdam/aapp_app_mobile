@@ -8,6 +8,8 @@ import {
   NotificationModuleSlug,
   type Notification,
 } from '@/modules/notification-history/types'
+import {ModuleSlug} from '@/modules/slugs'
+import {devError} from '@/processes/development'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {stripAppPrefixFromRoute} from '@/utils/stripAppPrefixFromRoute'
 
@@ -58,9 +60,22 @@ export const NotificationHistoryItemPressable = ({
           const route = stripAppPrefixFromRoute(deeplinkUrl)
 
           if (route) {
-            linkTo(route)
+            try {
+              linkTo(route)
 
-            return
+              return
+            } catch (err) {
+              devError(err, deeplinkUrl)
+              const module = route.split('/').find(Boolean) as
+                | ModuleSlug
+                | undefined
+
+              if (module && Object.values(ModuleSlug).includes(module)) {
+                navigate(module)
+
+                return
+              }
+            }
           }
         }
 
