@@ -6,7 +6,7 @@ const DEFAULT_DROP_SHADOW_OFFSET = 3
 export type MapMarkerBaseProps = Omit<
   SvgProps,
   'translateY' | 'translateX' | 'translate' | 'transform'
-> & {translateY: number}
+> & {translateY?: number}
 
 export const MapMarkerBase = ({
   width = DEFAULT_SIZE,
@@ -34,9 +34,7 @@ const MapMarkerBasePin = (props: Omit<PathProps, 'd'>) => (
   />
 )
 
-const MapMarkerBaseDropShadow = ({
-  translateY,
-}: Pick<MapMarkerBaseProps, 'translateY'>) => (
+const MapMarkerBaseDropShadow = ({translateY}: {translateY: number}) => (
   <G transform={`translate(0, ${translateY})`}>
     <MapMarkerBasePin
       fill="black"

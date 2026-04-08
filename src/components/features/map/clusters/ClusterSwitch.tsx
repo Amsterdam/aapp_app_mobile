@@ -1,5 +1,4 @@
-import {useCallback} from 'react'
-import {Platform} from 'react-native'
+import {useCallback, useMemo} from 'react'
 import type {
   ClusterItem,
   ClusterProperties,
@@ -18,20 +17,20 @@ import {isNearlyEqualFloat} from '@/components/features/map/utils/isNearlyEqualF
 export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
   const {map, getCurrentRegion} = useMap()
   const isCluster = 'cluster_id' in item.properties
-  const clusterProps = isCluster
-    ? (item.properties as ClusterProperties)
-    : undefined
-  const markerProps = isCluster
-    ? undefined
-    : (item.properties as MarkerProperties)
+
+  const [clusterProps, markerProps] = useMemo(
+    () => [
+      isCluster ? (item.properties as ClusterProperties) : undefined,
+      isCluster ? undefined : (item.properties as MarkerProperties),
+    ],
+    [isCluster, item],
+  )
 
   const isSelected = useIsMarkerSelected(markerProps?.id)
 
-  const variant = markerProps
-    ? isSelected
-      ? MapMarkerVariant.selectedPin
-      : markerProps.variant
-    : undefined
+  const variant = isSelected
+    ? MapMarkerVariant.selectedPin
+    : markerProps?.variant
 
   const handlePress = useCallback(() => {
     if ('cluster_id' in item.properties) {
@@ -62,6 +61,18 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
     item.properties.onMarkerPress?.()
   }, [item.properties, map, getCurrentRegion])
 
+  const MarkerContent = useCallback(() => {
+    if (clusterProps) {
+      return <ClusterMarker count={clusterProps.point_count} />
+    }
+
+    if (variant) {
+      return MapMarkerVariants[variant]
+    }
+
+    return null
+  }, [variant, clusterProps])
+
   return (
     <Marker
       coordinate={{
@@ -74,13 +85,8 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
           : `point-${markerProps?.id}-${variant}`
       }
       onPress={handlePress}
-      onSelect={handlePress}
-      tracksViewChanges={Platform.OS === 'android'}>
-      {clusterProps ? (
-        <ClusterMarker count={clusterProps.point_count} />
-      ) : variant ? (
-        MapMarkerVariants[variant]
-      ) : null}
+      onSelect={handlePress}>
+      <MarkerContent />
     </Marker>
   )
 }
