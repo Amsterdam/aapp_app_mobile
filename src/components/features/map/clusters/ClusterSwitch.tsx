@@ -7,6 +7,7 @@ import type {
 import {useIsMarkerSelected} from '@/components/features/map/MapSelectionContext'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
 import {useMap} from '@/components/features/map/hooks/useMap'
+import {CustomMarker} from '@/components/features/map/marker/CustomMarker'
 import {
   MapMarkerVariants,
   MapMarkerVariant,
@@ -70,8 +71,10 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
       return MapMarkerVariants[variant]
     }
 
+    if (markerProps?.icon) return <CustomMarker icon={markerProps.icon} />
+
     return null
-  }, [variant, clusterProps])
+  }, [variant, clusterProps, markerProps])
 
   return (
     <Marker

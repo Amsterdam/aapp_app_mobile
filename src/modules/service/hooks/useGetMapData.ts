@@ -1,7 +1,9 @@
 import {useMemo} from 'react'
+import type {MarkerProperties} from '@/components/features/map/types'
 import type {
   ServiceFeature,
   ServiceGeoJSON,
+  ServiceMapResponse,
   ServiceMapResponseFilter,
 } from '@/modules/service/types'
 import type {EmptyObject} from '@/types/utils'
@@ -14,6 +16,7 @@ import {selectSelectedServicePointId} from '@/modules/service/slice'
 export const useGetMapData = (
   activeFilters: ServiceMapResponseFilter[],
   geojson: ServiceGeoJSON | EmptyObject | undefined,
+  icons: ServiceMapResponse['icons_to_include'],
   onServicePointPress: (id: ServiceFeature['id']) => void,
 ) => {
   const filteredFeatures = useGetFilteredFeatures({
@@ -31,10 +34,12 @@ export const useGetMapData = (
         ...feature,
         properties: {
           id,
-          variant: MapMarkerVariant.pin,
+          ...(feature.properties.aapp_icon_type && icons
+            ? {icon: icons[feature.properties.aapp_icon_type]}
+            : {variant: MapMarkerVariant.pin}),
           onMarkerPress: () => onServicePointPress(id),
-        },
+        } satisfies MarkerProperties,
       })),
-    [filteredFeatures, onServicePointPress],
+    [filteredFeatures, onServicePointPress, icons],
   )
 }

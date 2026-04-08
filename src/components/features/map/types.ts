@@ -1,5 +1,6 @@
 import type {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import type {IconProps} from '@/components/ui/media/Icon'
+import type {ServiceMapResponseIcon} from '@/modules/service/types'
 import type {Supercluster} from 'react-native-clusterer'
 import {TestProps} from '@/components/ui/types'
 
@@ -16,8 +17,15 @@ export type MapControlOption = {
 } & TestProps
 
 export type MarkerProperties = {
+  /**
+   * A custom icon, which will render onto a circle inside the MapMarkerBase SVG
+   */
+  icon?: ServiceMapResponseIcon
   id: string
   onMarkerPress?: () => void
+  /**
+   * One of the Marker variants within the predefined set @see MapMarkerVariants
+   */
   variant?: MapMarkerVariant
 }
 
