@@ -1,7 +1,6 @@
-import {memo, useEffect, useMemo, useRef} from 'react'
-import {Platform} from 'react-native'
+import {memo, useMemo, useRef} from 'react'
 import type {ParkingMachine} from '@/modules/parking/types'
-import {setMapSelection} from '@/components/features/map/MapSelectionContext'
+import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {
   Clusterer,
   type ClustererProps,
@@ -63,11 +62,7 @@ export const ParkingPermitZoneMapMarkers = memo(() => {
     parking_machine_favorite,
   )
 
-  useEffect(() => {
-    setMapSelection(selectedParkingMachineId)
-
-    return () => setMapSelection(undefined)
-  }, [selectedParkingMachineId])
+  useSetMapSelection(selectedParkingMachineId)
 
   return (
     <>
@@ -86,7 +81,6 @@ export const ParkingPermitZoneMapMarkers = memo(() => {
           key={favoriteMachine.id}
           onPress={() => onSelectParkingMachine(favoriteMachine.id)}
           onSelect={() => onSelectParkingMachine(favoriteMachine.id)}
-          tracksViewChanges={Platform.OS === 'android'}
           zIndex={MarkerZIndex.filteredMarker}>
           {MapMarkerVariants[favoriteVariant(favoriteMachine.id)]}
         </Marker>

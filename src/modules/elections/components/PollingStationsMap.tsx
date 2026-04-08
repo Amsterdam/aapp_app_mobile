@@ -1,10 +1,10 @@
 import {useState} from 'react'
 import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
+import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import {ControlVariant} from '@/components/features/map/types'
-import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useSelectedPollingStationId} from '@/modules/elections/slice'
@@ -32,8 +32,9 @@ export const PollingStationsMap = ({
   pollingStations,
 }: Props) => {
   const selectedPollingStationId = useSelectedPollingStationId()
-  const markerVariant = getMarkerVariant(selectedPollingStationId)
   const [region, setRegion] = useState<Region | undefined>()
+
+  useSetMapSelection(String(selectedPollingStationId))
 
   if (isLoading) {
     return <PleaseWait testID="PollingStationsMapPleaseWait" />
@@ -54,14 +55,13 @@ export const PollingStationsMap = ({
           properties: {
             ...props,
             id: String(id),
-            variant: markerVariant(
-              id,
+            variant:
               ElectionsMarkerVariantMap[
                 props.lastUpdate.time
                   ? props.lastUpdate.state
                   : ElectionsState.unknown
               ],
-            ),
+
             onMarkerPress: () => onPress(id),
           },
 

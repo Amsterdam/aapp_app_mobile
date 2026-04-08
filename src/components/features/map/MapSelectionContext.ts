@@ -1,8 +1,9 @@
-import {useCallback, useSyncExternalStore} from 'react'
+import {useCallback, useEffect, useSyncExternalStore} from 'react'
 
 type Listener = () => void
+type MarkerID = string | number | undefined
 
-let currentSelectedId: string | undefined
+let currentSelectedId: MarkerID
 const listeners = new Set<Listener>()
 
 const subscribe = (listener: Listener) => {
@@ -15,7 +16,7 @@ const subscribe = (listener: Listener) => {
 
 const getSnapshot = () => currentSelectedId
 
-export const setMapSelection = (id: string | undefined) => {
+export const setMapSelection = (id: MarkerID) => {
   if (currentSelectedId === id) {
     return
   }
@@ -29,7 +30,7 @@ export const setMapSelection = (id: string | undefined) => {
  * so selecting a marker only re-renders 2 ClusterSwitch instances (old + new)
  * instead of all visible markers.
  */
-export const useIsMarkerSelected = (markerId: string | undefined): boolean =>
+export const useIsMarkerSelected = (markerId: MarkerID): boolean =>
   useSyncExternalStore(
     subscribe,
 
@@ -38,3 +39,11 @@ export const useIsMarkerSelected = (markerId: string | undefined): boolean =>
       [markerId],
     ),
   )
+
+export const useSetMapSelection = (id: MarkerID) => {
+  useEffect(() => {
+    setMapSelection(id)
+
+    return () => setMapSelection(undefined)
+  }, [id])
+}
