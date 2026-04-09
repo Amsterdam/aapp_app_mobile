@@ -7,6 +7,7 @@ import type {Theme} from '@/themes/themes'
 import {MapContext} from '@/components/features/map/MapContext'
 import {MapControls} from '@/components/features/map/MapControls'
 import {AMSTERDAM_REGION} from '@/components/features/map/constants'
+import {customMapStyle} from '@/components/features/map/customMapStyle'
 import {useInitializeMap} from '@/components/features/map/hooks/useInitializeMap'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
@@ -90,6 +91,7 @@ export const MapBase = ({
         )}
         <MapView
           collapsable={false}
+          customMapStyle={customMapStyle}
           initialRegion={AMSTERDAM_REGION}
           moveOnMarkerPress={false}
           onRegionChangeComplete={(regionData, details) => {
