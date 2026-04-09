@@ -10,10 +10,7 @@ export const getRouteFromNotification = (
     return null
   }
 
-  const route: string | undefined =
-    notification.data.deeplink ??
-    createPathFromNotification(notification) ??
-    undefined
+  const route = createPathFromNotification(notification)
   const externalRoute = notification.data.url // This assumes the url will exist inside the data object. TODO: adjust if needed once url's are added to notifications.
 
   if (externalRoute) {

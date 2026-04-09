@@ -1,9 +1,15 @@
+import {OnboardingRouteName} from '@/modules/onboarding/routes'
 import {onboardingSlice} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {createCoreModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export const onboardingModule = createCoreModule({
+  linking: {
+    [OnboardingRouteName.onboarding]: {
+      path: `/${ModuleSlug.onboarding}`,
+    },
+  },
   name: 'OnboardingModule',
   reduxConfigs: [
     {

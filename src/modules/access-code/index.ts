@@ -1,3 +1,4 @@
+import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {accessCodeSlice, AccessCodeState} from '@/modules/access-code/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {createCoreModule} from '@/modules/utils/createModule'
@@ -10,6 +11,11 @@ const persistWhitelist: (keyof AccessCodeState)[] = [
 
 export const accessCodeModule = createCoreModule({
   name: 'AccessCodeModule',
+  linking: {
+    [AccessCodeRouteName.accessCode]: {
+      path: `/${ModuleSlug['access-code']}`,
+    },
+  },
   reduxConfigs: [
     {
       key: ReduxKey.accessCode,

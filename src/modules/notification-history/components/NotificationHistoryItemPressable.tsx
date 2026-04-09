@@ -3,15 +3,8 @@ import type {ReactNode} from 'react'
 import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {
-  NotificationModuleSlug,
-  type Notification,
-} from '@/modules/notification-history/types'
-import {ModuleSlug} from '@/modules/slugs'
-import {devError} from '@/processes/development'
+import {type Notification} from '@/modules/notification-history/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-import {stripAppPrefixFromRoute} from '@/utils/stripAppPrefixFromRoute'
 
 type Props = {
   children: ReactNode
@@ -24,8 +17,7 @@ export const NotificationHistoryItemPressable = ({
   createdAt,
   notification,
 }: Props) => {
-  const {body, context, id, module_slug, title, is_read} = notification
-  const {navigate} = useNavigation()
+  const {body, context, id, title, is_read} = notification
   const openUrl = useOpenUrl()
 
   const linkTo = useLinkTo()
@@ -44,44 +36,21 @@ export const NotificationHistoryItemPressable = ({
           return openUrl(context.url)
         }
 
-        const deeplinkUrl =
-          context.deeplink ??
-          createPathFromNotification(
-            {
-              id,
-              title,
-              body,
-              data: context as Record<string, string | number | object>,
-            },
-            false,
-          )
+        const deeplinkUrl = createPathFromNotification(
+          {
+            id,
+            title,
+            body,
+            data: context as Record<string, string | number | object>,
+          },
+          false,
+        )
 
-        if (deeplinkUrl) {
-          const route = stripAppPrefixFromRoute(deeplinkUrl)
-
-          if (route) {
-            try {
-              linkTo(route)
-
-              return
-            } catch (err) {
-              devError(err, deeplinkUrl)
-              const module = route.split('/').find(Boolean) as
-                | ModuleSlug
-                | undefined
-
-              if (module && Object.values(ModuleSlug).includes(module)) {
-                navigate(module)
-
-                return
-              }
-            }
-          }
+        if (!deeplinkUrl) {
+          return
         }
 
-        if (module_slug && module_slug !== NotificationModuleSlug.Modules) {
-          navigate(module_slug)
-        }
+        linkTo(deeplinkUrl)
       }}
       testID={`NotificationHistoryItem${id}Button`}>
       {children}

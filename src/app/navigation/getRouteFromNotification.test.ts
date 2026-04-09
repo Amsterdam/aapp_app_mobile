@@ -1,7 +1,17 @@
+jest.mock('@/store/store', () => ({
+  store: {
+    dispatch: jest.fn(),
+  },
+}))
+
 import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotification'
 import {ModuleSlug} from '@/modules/slugs'
 
 describe('getRouteFromNotification', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should return an in-app module based route when no external url is provided', () => {
     const mockNotificationBG = {
       data: {
@@ -36,7 +46,9 @@ describe('getRouteFromNotification', () => {
     expect(getRouteFromNotification(mockNotificationWG)).toBe(
       'amsterdam://afval/afvalinformatie/',
     )
-    expect(getRouteFromNotification(mockNotificationMyAms)).toBeNull()
+    expect(getRouteFromNotification(mockNotificationMyAms)).toBe(
+      'amsterdam://mijn-amsterdam',
+    )
   })
 
   it('should return an in-app deeplink with external url as param when an external url is provided', () => {

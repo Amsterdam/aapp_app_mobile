@@ -5,6 +5,11 @@ import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 
 export const reportProblemModule = createClientModule({
+  linking: {
+    [ReportProblemRouteName.reportProblem]: {
+      path: `/${ModuleSlug['report-problem']}`,
+    },
+  },
   logDimension: PiwikSessionDimension.reportProblemModule,
   name: 'ReportProblemModule',
   slug: ModuleSlug['report-problem'],

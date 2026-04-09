@@ -1,8 +1,18 @@
+jest.mock('@/store/store', () => ({
+  store: {
+    dispatch: jest.fn(),
+  },
+}))
+
 import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {ModuleSlug} from '@/modules/slugs'
 import {PushNotification} from '@/types/notification'
 
-describe('createRoute', () => {
+describe('createPathFromNotification', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   const mockConstructionWorkNotification = {
     data: {
       type: 'NewsUpdatedByProjectManager',
@@ -49,5 +59,18 @@ describe('createRoute', () => {
         body: 'Test/body',
       }),
     ).toBe('/news/123/Test%20title/Test%20title%20-%20Test%2Fbody/true')
+  })
+
+  it('should return stripped deeplink when module is unknown', () => {
+    expect(
+      createPathFromNotification({
+        data: {
+          module_slug: 'non-existent-module' as unknown as ModuleSlug,
+          deeplink: 'amsterdam://foo/bar',
+        },
+        title: 'Title',
+        body: 'Body',
+      } as PushNotification),
+    ).toBe('/foo/bar')
   })
 })
