@@ -86,10 +86,6 @@ const config: StorybookConfig = {
               require.resolve('./mocks/react-native-keyboard-controller'),
           },
           {
-            find: 'react-native-svg',
-            replacement: 'react-native-svg-web',
-          },
-          {
             find: 'react-native',
             replacement: 'react-native-web',
           },

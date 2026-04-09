@@ -7,21 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FF6A6245A7946B0BFBB97C5 /* selected_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B73F9FF267F4F70AE09B20E /* selected_pin.png */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		1647DA37B50C4309ACA53659 /* elections_crowd_unknown_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 736FB0E4FAF249F79614368C /* elections_crowd_unknown_pin.png */; };
 		16E64D5303EDA3A3C3754E93 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E6F5517E541BA96138764AFE /* PrivacyInfo.xcprivacy */; };
-		2472A7ADCA0B4FA887BC06DF /* distinct_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = C51914104B2A40E4A43A34B1 /* distinct_pin.png */; };
-		30B9CB232AC741FA94628965 /* elections_crowd_busy_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = AEBF63522C15464CA8B11976 /* elections_crowd_busy_pin.png */; };
 		315F40D329098DCA009B5A4A /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 315F40D229098DCA009B5A4A /* BootSplash.storyboard */; };
 		331F44806EDA4117B8CF871A /* AmsterdamSans-Bold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 580D2E4D9C6D4ACD90462D0A /* AmsterdamSans-Bold.woff2 */; };
 		3862AE132E1D10D700BC8924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3862AE122E1D10D700BC8924 /* AppDelegate.swift */; };
 		4485991D72904DD6B24042A2 /* AmsterdamSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 82A0C79240B6480CB8D82694 /* AmsterdamSans-Regular.otf */; };
 		6A19800B395FA72D9E5D77B7 /* libPods-AmsterdamApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */; };
-		7BC2C69F912A447BBB83D90B /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C944DB2335F4E82A1602A7B /* pin.png */; };
 		9D74DB31FAE447818E2F23C1 /* AmsterdamSans-ExtraBold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = F070658E8FA54B3FAC6B88BA /* AmsterdamSans-ExtraBold.woff2 */; };
-		B1C30405BC054560A007429B /* elections_crowd_calm_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = A8643F1D2BB54823B6A54DE2 /* elections_crowd_calm_pin.png */; };
-		B6202174C4144C4883FBA252 /* elections_crowd_medium_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 34F15997A34949978222A66E /* elections_crowd_medium_pin.png */; };
 		D0E144962A52447992D50ED4 /* AmsterdamSans-Regular.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = D932E7ACEC72448998A21771 /* AmsterdamSans-Regular.woff2 */; };
 		D71BAD6826FA2FE7001B5972 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71BAD6726FA2FE7001B5972 /* File.swift */; };
 		E799C6585E4E37E592D6AA0A /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD915A4441343B8B41BE39B /* ExpoModulesProvider.swift */; };
@@ -245,13 +238,6 @@
 				D0E144962A52447992D50ED4 /* AmsterdamSans-Regular.woff2 in Resources */,
 				9D74DB31FAE447818E2F23C1 /* AmsterdamSans-ExtraBold.woff2 in Resources */,
 				331F44806EDA4117B8CF871A /* AmsterdamSans-Bold.woff2 in Resources */,
-				7BC2C69F912A447BBB83D90B /* pin.png in Resources */,
-				2472A7ADCA0B4FA887BC06DF /* distinct_pin.png in Resources */,
-				30B9CB232AC741FA94628965 /* elections_crowd_busy_pin.png in Resources */,
-				B1C30405BC054560A007429B /* elections_crowd_calm_pin.png in Resources */,
-				0FF6A6245A7946B0BFBB97C5 /* selected_pin.png in Resources */,
-				B6202174C4144C4883FBA252 /* elections_crowd_medium_pin.png in Resources */,
-				1647DA37B50C4309ACA53659 /* elections_crowd_unknown_pin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

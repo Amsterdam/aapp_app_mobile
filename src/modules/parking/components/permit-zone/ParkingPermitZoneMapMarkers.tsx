@@ -1,5 +1,14 @@
-import {useMemo} from 'react'
-import {Clusterer} from '@/components/features/map/clusters/Clusterer'
+import {memo, useMemo, useRef} from 'react'
+import type {ParkingMachine} from '@/modules/parking/types'
+import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
+import {
+  Clusterer,
+  type ClustererProps,
+} from '@/components/features/map/clusters/Clusterer'
+import {
+  MapMarkerVariants,
+  MapMarkerVariant,
+} from '@/components/features/map/marker/MapMarkerVariants'
 import {Marker} from '@/components/features/map/marker/Marker'
 import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -11,41 +20,54 @@ enum MarkerZIndex {
   filteredMarker,
 }
 
-export const ParkingPermitZoneMapMarkers = () => {
+export const ParkingPermitZoneMapMarkers = memo(() => {
   const {parking_machine_favorite} = useCurrentParkingPermit()
   const {onSelectParkingMachine, selectedParkingMachineId, region} =
     usePermitMapContext()
 
   const {data: parkingMachines} = useParkingMachinesQuery()
 
-  const [favoriteMachine, otherMachines] = useMemo(
-    () => [
-      parkingMachines?.find(machine => machine.id === parking_machine_favorite),
-      parkingMachines?.filter(
-        machine => machine.id !== parking_machine_favorite,
-      ) || [],
-    ],
-    [parkingMachines, parking_machine_favorite],
-  )
+  const onSelectRef = useRef(onSelectParkingMachine)
 
-  const markerVariant = getMarkerVariant(
+  onSelectRef.current = onSelectParkingMachine
+
+  const [favoriteMachine, data] = useMemo(() => {
+    let favorite: ParkingMachine | undefined
+    const features: ClustererProps['data'] = []
+
+    for (const machine of parkingMachines ?? []) {
+      const {lon, lat, id} = machine
+
+      if (id === parking_machine_favorite) {
+        favorite = machine
+        continue
+      }
+
+      features.push({
+        type: 'Feature',
+        properties: {
+          id,
+          variant: MapMarkerVariant.pin,
+          onMarkerPress: () => onSelectRef.current(id),
+        },
+        geometry: {type: 'Point', coordinates: [lon, lat]},
+      })
+    }
+
+    return [favorite, features]
+  }, [parkingMachines, parking_machine_favorite])
+
+  const favoriteVariant = getMarkerVariant(
     selectedParkingMachineId,
     parking_machine_favorite,
   )
 
+  useSetMapSelection(selectedParkingMachineId)
+
   return (
     <>
       <Clusterer
-        data={otherMachines.map(({lon, lat, id, ...props}) => ({
-          type: 'Feature',
-          properties: {
-            ...props,
-            id,
-            variant: markerVariant(id),
-            onMarkerPress: () => onSelectParkingMachine(id),
-          },
-          geometry: {type: 'Point', coordinates: [lon, lat]},
-        }))}
+        data={data}
         region={region}
         zIndex={MarkerZIndex.cluster}
       />
@@ -59,10 +81,10 @@ export const ParkingPermitZoneMapMarkers = () => {
           key={favoriteMachine.id}
           onPress={() => onSelectParkingMachine(favoriteMachine.id)}
           onSelect={() => onSelectParkingMachine(favoriteMachine.id)}
-          variant={markerVariant(favoriteMachine.id)}
-          zIndex={MarkerZIndex.filteredMarker}
-        />
+          zIndex={MarkerZIndex.filteredMarker}>
+          {MapMarkerVariants[favoriteVariant(favoriteMachine.id)]}
+        </Marker>
       )}
     </>
   )
-}
+})

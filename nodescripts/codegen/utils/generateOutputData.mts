@@ -21,7 +21,7 @@ export const ${exportName} = {
   ${list.map(item => `...${item}`).join(', \n  ')}
 }${satisfiesString};`
 
-const generateOutputDataObjectFunction = (
+const generateOutputDataSpreadObjectFunction = (
   exportName: string | undefined,
   dirImportMapping: (dirName: Dirent<string>, varName: string) => string,
   entriesWithImports: EntriesWithImports,
@@ -31,16 +31,6 @@ const generateOutputDataObjectFunction = (
 export const ${exportName} = {
   ${entriesWithImports.map(({dir}, i) => dirImportMapping(dir, `${exportName}${i}`)).join(',\n  ')}
 }${satisfiesString};`
-
-const generateOutputDataEnumFunction = (
-  exportName: string | undefined,
-  dirImportMapping: (dirName: Dirent<string>, varName: string) => string,
-  entriesWithImports: EntriesWithImports,
-) => `
-
-export enum ${exportName} {
-  ${entriesWithImports.map(({dir}, i) => dirImportMapping(dir, `${exportName}${i}`)).join(',\n  ')}
-};`
 
 const generateOutputDataArray = (
   exportName: string | undefined,
@@ -59,7 +49,7 @@ export const generateOutputData = (
   importsEntries: string[],
 ) => `${importsEntries.join('\n')}
 ${imports.flatMap(({resultImports}) => resultImports ?? []).join('\n')}${imports
-  .map(({exportName, result, resultFunction, satisfies}) => {
+  .map(({exportName, result, satisfies}) => {
     const satisfiesString = satisfies ? ` satisfies ${satisfies}` : ''
     // Only include items that are present in entriesWithImports
     const list = entriesWithImports.map((_, i) => `${exportName}${i}`)
@@ -68,18 +58,12 @@ ${imports.flatMap(({resultImports}) => resultImports ?? []).join('\n')}${imports
       return generateOutputDataSpreadArray(exportName, list, satisfiesString)
     } else if (result === 'spreadObject') {
       return generateOutputDataSpreadObject(exportName, list, satisfiesString)
-    } else if (result === 'objectFunction' && resultFunction) {
-      return generateOutputDataObjectFunction(
+    } else if (typeof result === 'function') {
+      return generateOutputDataSpreadObjectFunction(
         exportName,
-        resultFunction,
+        result,
         entriesWithImports,
         satisfiesString,
-      )
-    } else if (result === 'enumFunction' && resultFunction) {
-      return generateOutputDataEnumFunction(
-        exportName,
-        resultFunction,
-        entriesWithImports,
       )
     } else {
       return generateOutputDataArray(exportName, list, satisfiesString)

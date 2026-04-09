@@ -1,4 +1,4 @@
-import {MarkerVariant} from '@/components/features/map/marker/markers.generated'
+import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 
 /**
  *
@@ -17,9 +17,9 @@ export const getMarkerVariant =
    * @param customMarker A custom marker to render instead of the default pin.
    * @returns The correct MarkerVariant.
    */
-  (markerId: string | number, customMarker?: MarkerVariant) => {
+  (markerId: string | number, customMarker?: MapMarkerVariant) => {
     if (markerId === selectedMarkerId) {
-      return MarkerVariant.selectedPin
+      return MapMarkerVariant.selectedPin
     }
 
     if (
@@ -27,8 +27,8 @@ export const getMarkerVariant =
         distinctMarkerIds?.includes(markerId)) ||
       distinctMarkerIds === markerId
     ) {
-      return MarkerVariant.distinctPin
+      return MapMarkerVariant.distinctPin
     }
 
-    return customMarker || MarkerVariant.pin
+    return customMarker || MapMarkerVariant.pin
   }

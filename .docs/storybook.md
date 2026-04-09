@@ -76,7 +76,6 @@ These mocked packages are referenced in the alias config in `main.ts`:
 - `lodash/merge` - Helper to merge the Vite config objects. One would usually use Vite's `mergeConfig` function, but that would require making Vite a dev dependency.
 - `path` - Helper to resolve various folders in the Storybook `main.ts` config.
 - `react-docgen-typescript-plugin` - Generates Storybook controls and documentation from props, types, JSDoc comments and other code patterns.
-- `react-native-svg-web` - `react-native-svg` claims to support web, but doesn't, so we use this as a fix.
 - `react-native-web` - React Native Web itself.
 - `storybook` - Storybook core.
 - `vite-plugin-svgr` -Required by Vite to render raw SVG files.

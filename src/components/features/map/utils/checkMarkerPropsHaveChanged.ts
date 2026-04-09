@@ -13,4 +13,4 @@ export const checkMarkerPropsHaveChanged = (
   prevMarker.id === nextMarker.id &&
   prevMarker.coordinate.latitude === nextMarker.coordinate.latitude &&
   prevMarker.coordinate.longitude === nextMarker.coordinate.longitude &&
-  prevMarker.variant === nextMarker.variant
+  prevMarker.children === nextMarker.children

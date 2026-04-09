@@ -1,13 +1,36 @@
-import {useCallback} from 'react'
-import {Platform} from 'react-native'
-import type {ClusterItem} from '@/components/features/map/types'
+import {useCallback, useMemo} from 'react'
+import type {
+  ClusterItem,
+  ClusterProperties,
+  MarkerProperties,
+} from '@/components/features/map/types'
+import {useIsMarkerSelected} from '@/components/features/map/MapSelectionContext'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
 import {useMap} from '@/components/features/map/hooks/useMap'
+import {
+  MapMarkerVariants,
+  MapMarkerVariant,
+} from '@/components/features/map/marker/MapMarkerVariants'
 import {Marker} from '@/components/features/map/marker/Marker'
 import {isNearlyEqualFloat} from '@/components/features/map/utils/isNearlyEqualFloat'
 
 export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
   const {map, getCurrentRegion} = useMap()
+  const isCluster = 'cluster_id' in item.properties
+
+  const [clusterProps, markerProps] = useMemo(
+    () => [
+      isCluster ? (item.properties as ClusterProperties) : undefined,
+      isCluster ? undefined : (item.properties as MarkerProperties),
+    ],
+    [isCluster, item],
+  )
+
+  const isSelected = useIsMarkerSelected(markerProps?.id)
+
+  const variant = isSelected
+    ? MapMarkerVariant.selectedPin
+    : markerProps?.variant
 
   const handlePress = useCallback(() => {
     if ('cluster_id' in item.properties) {
@@ -38,6 +61,18 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
     item.properties.onMarkerPress?.()
   }, [item.properties, map, getCurrentRegion])
 
+  const MarkerContent = useCallback(() => {
+    if (clusterProps) {
+      return <ClusterMarker count={clusterProps.point_count} />
+    }
+
+    if (variant) {
+      return MapMarkerVariants[variant]
+    }
+
+    return null
+  }, [variant, clusterProps])
+
   return (
     <Marker
       coordinate={{
@@ -45,19 +80,13 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
         longitude: item.geometry.coordinates[0],
       }}
       id={
-        'cluster_id' in item.properties
-          ? `cluster-${item.properties?.cluster_id}-${item.properties.point_count}`
-          : `point-${item.properties?.id}`
+        isCluster
+          ? `cluster-${clusterProps?.cluster_id}-${clusterProps?.point_count}`
+          : `point-${markerProps?.id}-${variant}`
       }
       onPress={handlePress}
-      onSelect={handlePress}
-      tracksViewChanges={Platform.OS === 'android'}
-      variant={
-        'cluster_id' in item.properties ? undefined : item.properties.variant
-      }>
-      {'cluster_id' in item.properties && (
-        <ClusterMarker count={item.properties.point_count} />
-      )}
+      onSelect={handlePress}>
+      <MarkerContent />
     </Marker>
   )
 }
