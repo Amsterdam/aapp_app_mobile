@@ -1,4 +1,3 @@
-import {View} from 'react-native'
 import {EmailButton} from '@/components/ui/buttons/EmailButton'
 import {PhoneButton} from '@/components/ui/buttons/PhoneButton'
 import {Column} from '@/components/ui/layout/Column'
@@ -20,18 +19,16 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
         gutter="md"
         key={id}>
         {!!name && (
-          <View>
-            <Title
-              level="h3"
-              testID="ConstructionWorkProjectContactTitle"
-              text={name}
-            />
-            {!!position && (
-              <Paragraph testID="ConstructionWorkProjectContactJobTitle">
-                {capitalizeString(position)}
-              </Paragraph>
-            )}
-          </View>
+          <Title
+            level="h3"
+            testID="ConstructionWorkProjectContactTitle"
+            text={name}
+          />
+        )}
+        {!!position && (
+          <Paragraph testID="ConstructionWorkProjectContactJobTitle">
+            {capitalizeString(position)}
+          </Paragraph>
         )}
         {!!extra && (
           <Paragraph testID="ConstructionWorkProjectContactExtraText">
