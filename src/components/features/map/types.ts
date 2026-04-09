@@ -1,6 +1,6 @@
 import type {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import type {IconProps} from '@/components/ui/media/Icon'
-import type {ReactNode} from 'react'
+import type {ReactElement} from 'react'
 import type {Supercluster} from 'react-native-clusterer'
 import {TestProps} from '@/components/ui/types'
 
@@ -20,7 +20,7 @@ export type MarkerProperties = {
   /**
    * A custom Icon, which will render as a Marker on the Map
    */
-  Icon?: ReactNode
+  Icon?: ReactElement
   id: string
   onMarkerPress?: () => void
   /**
