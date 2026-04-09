@@ -10,6 +10,7 @@ import type {EmptyObject} from '@/types/utils'
 import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {ServicePointCustomMarker} from '@/modules/service/components/ServicePointCustomMarker'
 import {useGetFilteredFeatures} from '@/modules/service/hooks/useGetFilteredFeatures'
 import {selectSelectedServicePointId} from '@/modules/service/slice'
 
@@ -35,7 +36,13 @@ export const useGetMapData = (
         properties: {
           id,
           ...(feature.properties.aapp_icon_type && icons
-            ? {icon: icons[feature.properties.aapp_icon_type]}
+            ? {
+                Icon: (
+                  <ServicePointCustomMarker
+                    icon={icons?.[feature.properties.aapp_icon_type]}
+                  />
+                ),
+              }
             : {variant: MapMarkerVariant.pin}),
           onMarkerPress: () => onServicePointPress(id),
         } satisfies MarkerProperties,

@@ -1,6 +1,6 @@
 import type {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import type {IconProps} from '@/components/ui/media/Icon'
-import type {ServiceMapResponseIcon} from '@/modules/service/types'
+import type {ReactNode} from 'react'
 import type {Supercluster} from 'react-native-clusterer'
 import {TestProps} from '@/components/ui/types'
 
@@ -18,9 +18,9 @@ export type MapControlOption = {
 
 export type MarkerProperties = {
   /**
-   * A custom icon, which will render onto a circle inside the MapMarkerBase SVG
+   * A custom Icon, which will render as a Marker on the Map
    */
-  icon?: ServiceMapResponseIcon
+  Icon?: ReactNode
   id: string
   onMarkerPress?: () => void
   /**

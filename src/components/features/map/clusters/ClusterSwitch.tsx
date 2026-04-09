@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import type {
   ClusterItem,
   ClusterProperties,
@@ -7,7 +7,6 @@ import type {
 import {useIsMarkerSelected} from '@/components/features/map/MapSelectionContext'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
 import {useMap} from '@/components/features/map/hooks/useMap'
-import {CustomMarker} from '@/components/features/map/marker/CustomMarker'
 import {
   MapMarkerVariants,
   MapMarkerVariant,
@@ -71,7 +70,9 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
       return MapMarkerVariants[variant]
     }
 
-    if (markerProps?.icon) return <CustomMarker icon={markerProps.icon} />
+    if (markerProps?.Icon && React.isValidElement(markerProps.Icon)) {
+      return markerProps.Icon
+    }
 
     return null
   }, [variant, clusterProps, markerProps])
