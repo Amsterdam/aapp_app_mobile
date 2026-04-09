@@ -79,7 +79,7 @@ const createStyles = ({border, color, size}: Theme) =>
   StyleSheet.create({
     handleContainer: {
       alignItems: 'center',
-      paddingVertical: size.spacing.md,
+      paddingVertical: size.spacing.smd,
     },
     handleIndicator: {
       backgroundColor: color.bottomSheet.handleIndicator,
