@@ -100,8 +100,6 @@ export const MapBase = ({
           }}
           provider="google"
           ref={mapRef}
-          showsBuildings={false}
-          showsMyLocationButton={false}
           showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
           style={styles.mapView}
           userInterfaceStyle="light"

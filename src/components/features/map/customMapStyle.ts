@@ -1,4 +1,6 @@
-export const customMapStyle = [
+import type {MapStyleElement} from 'react-native-maps'
+
+export const customMapStyle: MapStyleElement[] = [
   {
     featureType: 'poi.attraction',
     stylers: [
