@@ -31,22 +31,23 @@ export const useGetMapData = (
 
   return useMemo(
     () =>
-      filteredFeatures?.map(({id, ...feature}) => ({
-        ...feature,
-        properties: {
-          id,
-          ...(feature.properties.aapp_icon_type && icons
-            ? {
-                Icon: (
-                  <ServicePointCustomMarker
-                    icon={icons?.[feature.properties.aapp_icon_type]}
-                  />
-                ),
-              }
-            : {variant: MapMarkerVariant.pin}),
-          onMarkerPress: () => onServicePointPress(id),
-        } satisfies MarkerProperties,
-      })),
+      filteredFeatures?.map(({id, properties, ...feature}) => {
+        const {aapp_icon_type, ...restProperties} = properties
+        const iconProps =
+          aapp_icon_type && icons
+            ? {Icon: <ServicePointCustomMarker icon={icons[aapp_icon_type]} />}
+            : {variant: MapMarkerVariant.pin}
+
+        return {
+          ...feature,
+          properties: {
+            id,
+            ...restProperties,
+            ...iconProps,
+            onMarkerPress: () => onServicePointPress(id),
+          } satisfies MarkerProperties,
+        }
+      }),
     [filteredFeatures, onServicePointPress, icons],
   )
 }
