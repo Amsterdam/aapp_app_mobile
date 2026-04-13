@@ -29,7 +29,7 @@ export const ServicePointList = ({
     isLoading,
     isError,
   } = useServiceQuery(serviceId || skipToken)
-  const geojson = service?.data
+  const {data: geojson, icons_to_include: icons} = service || {}
 
   const {activeFilters, filters, onPressFilter} = useMapFilters()
   const filteredFeatures = useGetFilteredFeatures({
@@ -98,6 +98,11 @@ export const ServicePointList = ({
         }
         renderItem={({item: servicePoint}) => (
           <ServicePointListItem
+            icon={
+              servicePoint.properties.aapp_icon_type
+                ? icons?.[servicePoint.properties.aapp_icon_type]
+                : undefined
+            }
             listProperty={service.list_property}
             onPress={onServicePointPress}
             servicePoint={servicePoint}

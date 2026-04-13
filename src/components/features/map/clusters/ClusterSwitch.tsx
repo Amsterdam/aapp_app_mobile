@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react'
+import {isValidElement, useCallback, useMemo} from 'react'
 import type {
   ClusterItem,
   ClusterProperties,
@@ -70,8 +70,12 @@ export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
       return MapMarkerVariants[variant]
     }
 
+    if (markerProps?.Icon && isValidElement(markerProps.Icon)) {
+      return markerProps.Icon
+    }
+
     return null
-  }, [variant, clusterProps])
+  }, [variant, clusterProps, markerProps])
 
   return (
     <Marker

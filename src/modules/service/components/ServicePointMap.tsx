@@ -26,10 +26,10 @@ export const ServicePointMap = ({
     isLoading,
     isError,
   } = useServiceQuery(serviceId || skipToken)
-  const geojson = service?.data
+  const {data: geojson, icons_to_include: icons} = service || {}
 
   const {activeFilters, filters, onPressFilter} = useMapFilters()
-  const data = useGetMapData(activeFilters, geojson, onServicePointPress)
+  const data = useGetMapData(activeFilters, geojson, icons, onServicePointPress)
 
   if (isLoading) {
     return <PleaseWait testID="ServiceMapPleaseWait" />

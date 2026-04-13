@@ -20,6 +20,10 @@ export type ServiceOverviewResponse = Service[]
 type FeatureGeometry = {coordinates: [number, number]; type: 'Point'}
 type FeatureProperties = {
   /**
+   * Optional custom icon reference, used in conjunction with icons_to_include
+   */
+  aapp_icon_type?: string
+  /**
    * Title of service point
    */
   aapp_title: string
@@ -42,10 +46,24 @@ export type ServiceMapResponseFilter<
   filter_value: FeatureProperties[K]
   label: string
 }
+export type ServiceMapResponseIcon = {
+  circle_color: string
+  path: string
+  path_color: string
+}
+
+type ServiceMapResponseIcons = Record<string, ServiceMapResponseIcon>
 
 export type ServiceMapResponse = {
   data: ServiceGeoJSON | EmptyObject
   filters: ServiceMapResponseFilter[]
+  /**
+   * A mapping of icons to use within custom markers
+   */
+  icons_to_include?: ServiceMapResponseIcons
+  /**
+   * These are used to match against the specific service feature properties to determine which properties are shown in the list view
+   */
   list_property: {key: string; type: string}
   /**
    * These are used to match against the specific service feature properties to determine which properties are shown in bottom sheet details list
