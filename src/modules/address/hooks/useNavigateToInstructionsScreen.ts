@@ -1,10 +1,7 @@
 import {useCallback} from 'react'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {HomeModalName} from '@/modules/home/routes'
-import {
-  IconComponentName,
-  PermissionInstructionScreenParams,
-} from '@/modules/home/types'
+import {PermissionInstructionScreenParams} from '@/modules/home/types'
 import {Permissions} from '@/types/permissions'
 
 const navigationParams: Record<
@@ -19,7 +16,7 @@ const navigationParams: Record<
     title: 'Geef toegang tot Face ID',
   },
   [Permissions.bluetooth]: {
-    iconComponentName: IconComponentName.bluetooth,
+    iconName: 'bluetooth',
     paragraph: 'Ga naar Instellingen en geef de app toegang tot bluetooth.',
     permission: Permissions.bluetooth,
     screenTitle: 'Bluetooth delen',

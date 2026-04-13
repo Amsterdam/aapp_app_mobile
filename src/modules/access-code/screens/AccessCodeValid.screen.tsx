@@ -4,7 +4,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {SuccessIcon} from '@/components/ui/media/icons/SuccessIcon'
+import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useUnsetCodeOnBlur} from '@/modules/access-code/hooks/useUnsetCodeOnBlur'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
@@ -36,7 +36,12 @@ export const AccessCodeValidScreen = ({navigation}: Props) => {
           grow={1}
           gutter="lg">
           <Row align="center">
-            <SuccessIcon />
+            <Icon
+              color="confirm"
+              isFilled
+              name="success"
+              size="xxl"
+            />
           </Row>
           <Title
             level="h2"

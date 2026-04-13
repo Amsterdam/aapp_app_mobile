@@ -13,24 +13,14 @@ import {Title} from '@/components/ui/text/Title'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {HomeModalName} from '@/modules/home/routes'
-import {iconComponentNameToIcon} from '@/modules/home/utils/iconComponentNameToIcon'
 
 type Props = NavigationProps<HomeModalName.permissionInstructions>
 
 export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
   const {
-    params: {
-      iconComponentName,
-      iconName,
-      paragraph,
-      permission,
-      screenTitle,
-      title,
-    },
+    params: {iconName, paragraph, permission, screenTitle, title},
   } = route
   const {hasPermission, requestPermission} = usePermission(permission)
-  const IconComponent =
-    iconComponentName && iconComponentNameToIcon[iconComponentName]
 
   useEffect(() => {
     if (!hasPermission) {
@@ -75,7 +65,6 @@ export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
                 testID="PermissionInstructionScreenIcon"
               />
             )}
-            {!!IconComponent && <IconComponent />}
           </Row>
           <Column gutter="md">
             <Title

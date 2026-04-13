@@ -5,7 +5,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
-import {FailedIcon} from '@/components/ui/media/icons/FailedIcon'
+import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useRestartLogin} from '@/modules/access-code/hooks/useRestartLogin'
@@ -42,7 +42,11 @@ export const AccessCodeInvalidScreen = () => {
           grow={1}
           gutter="lg">
           <Row align="center">
-            <FailedIcon />
+            <Icon
+              color="warning"
+              name="failed"
+              size="xxl"
+            />
           </Row>
           <Title
             level="h2"
