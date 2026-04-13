@@ -6,7 +6,9 @@ import {clientModules} from '@/modules/modules'
 
 export const useLogoutWithAlert = (slug: ModuleSlug, title: string) => {
   const store = useStore()
-  const isLoggedIn = useIsLoggedIn[slug as keyof typeof useIsLoggedIn]?.()
+  const {isLoggedIn} = useIsLoggedIn[
+    slug as keyof typeof useIsLoggedIn
+  ]?.() ?? {isLoggedIn: false}
 
   const waitForLogout = () =>
     new Promise<void>((resolve, reject) => {
