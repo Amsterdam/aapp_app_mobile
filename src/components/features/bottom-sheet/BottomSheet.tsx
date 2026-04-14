@@ -96,6 +96,7 @@ export const BottomSheet = ({
         <BottomSheetBackdrop
           closedOffset={closedOffset}
           onClose={onClose}
+          sheetHeight={sheetHeight}
           translateY={translateY}
         />
 
