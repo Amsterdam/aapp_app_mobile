@@ -4,21 +4,27 @@ import type {
   ServiceFeature,
 } from '@/modules/service/types'
 
+export enum ConditionType {
+  and = 'every',
+  or = 'some',
+}
 export const useGetFilteredFeatures = ({
   features,
   activeFilters,
+  conditionType = ConditionType.and,
 }: {
   activeFilters: ServiceMapResponseFilter[]
+  conditionType?: ConditionType
   features: ServiceFeature[]
 }) =>
-  useMemo(
-    () =>
-      features.filter(feature =>
-        activeFilters.every(filter => {
-          const featureValue = feature.properties?.[filter.filter_key]
+  useMemo(() => {
+    if (!activeFilters.length) return features
 
-          return featureValue === filter.filter_value
-        }),
-      ),
-    [features, activeFilters],
-  )
+    return features.filter(feature =>
+      activeFilters[conditionType](filter => {
+        const featureValue = feature.properties?.[filter.filter_key]
+
+        return featureValue === filter.filter_value
+      }),
+    )
+  }, [features, activeFilters, conditionType])

@@ -4,8 +4,8 @@ import type {
   ClusterItem,
 } from '@/components/features/map/types'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {getClusterChildren} from '@/components/features/map/utils/getClusterChildren'
-import {groupByKey} from '@/utils/object'
 
 export const GroupedClusterMarker = ({
   properties,
@@ -14,23 +14,27 @@ export const GroupedClusterMarker = ({
   getChildren: (id: number) => ClusterItem[]
   properties: ClusterProperties
 }) => {
-  const clusterGroupedMakers = useMemo(() => {
-    if (!properties || !('cluster_id' in properties)) {
-      return
-    }
+  const {layers} = useMapFilters()
+
+  const clusterGroupedMarkers = useMemo(() => {
+    if (!layers?.length) return
 
     const nestedMarkers = getClusterChildren(properties, getChildren)
 
-    return groupByKey(
-      nestedMarkers as ClusterItem<{aapp_subtitle: string}>[],
-      marker => marker.properties.aapp_subtitle,
-    )
-  }, [properties, getChildren])
+    return layers.map(({filter_value, filter_key, color}) => ({
+      items: nestedMarkers.filter(
+        marker =>
+          (marker.properties as Record<string, unknown>)[filter_key] ===
+          filter_value,
+      ),
+      color,
+    }))
+  }, [properties, getChildren, layers])
 
   return (
     <ClusterMarker
       count={properties.point_count}
-      groupedMarkers={clusterGroupedMakers}
+      groupedMarkers={clusterGroupedMarkers}
     />
   )
 }
