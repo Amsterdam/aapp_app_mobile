@@ -56,6 +56,7 @@ export const lightColorTokens = {
   },
   backgroundArea: {
     primary: baseColor.primary.blue,
+    kingsday: baseColor.secondary.orange,
   },
   badge: {
     background: {

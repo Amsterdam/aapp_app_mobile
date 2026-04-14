@@ -25,6 +25,7 @@ export const KingsdayOverviewScreen = () => (
           </Column>
         </Box>
         <ServicesGrid
+          background="kingsday"
           detailsRouteName={KingsdayRouteName.details}
           source={ServiceModuleSource.kingsday}
         />
