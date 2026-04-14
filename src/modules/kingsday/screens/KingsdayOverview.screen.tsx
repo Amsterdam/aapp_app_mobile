@@ -6,6 +6,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {KingsdayRouteName} from '@/modules/kingsday/routes'
 import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
+import {ServiceModuleSource} from '@/modules/service/types'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const KingsdayOverviewScreen = () => (
@@ -29,7 +30,10 @@ export const KingsdayOverviewScreen = () => (
             />
           </Column>
         </Box>
-        <ServicesGrid detailsRouteName={KingsdayRouteName.details} />
+        <ServicesGrid
+          detailsRouteName={KingsdayRouteName.details}
+          source={ServiceModuleSource.kingsday}
+        />
         <Box
           insetHorizontal="sm"
           insetVertical="no">

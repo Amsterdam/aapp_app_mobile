@@ -6,6 +6,11 @@ export enum ServiceEndpointName {
   serviceOverview = 'serviceOverview',
 }
 
+export enum ServiceModuleSource {
+  kingsday = 'koningsdag',
+  service = 'handig-in-de-stad',
+}
+
 export type Service = {
   /**
    * Svg path data

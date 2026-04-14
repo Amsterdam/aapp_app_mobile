@@ -1,6 +1,6 @@
 import {SimpleGrid} from 'react-native-super-grid'
 import type {RoutesAcceptingParams} from '@/app/navigation/types'
-import type {Service} from '@/modules/service/types'
+import type {Service, ServiceModuleSource} from '@/modules/service/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ServicesGridItem} from '@/modules/service/components/ServicesGridItem'
@@ -10,10 +10,15 @@ const MIN_WIDTH = 150
 
 type Props = {
   detailsRouteName: RoutesAcceptingParams<Pick<Service, 'id' | 'title'>>
+  source: ServiceModuleSource
 }
 
-export const ServicesGrid = ({detailsRouteName}: Props) => {
-  const {data: serviceMaps, isLoading, isError} = useServiceOverviewQuery()
+export const ServicesGrid = ({detailsRouteName, source}: Props) => {
+  const {
+    data: serviceMaps,
+    isLoading,
+    isError,
+  } = useServiceOverviewQuery(source)
 
   if (isLoading) {
     return <PleaseWait testID="ServiceListPleaseWait" />
