@@ -10,15 +10,17 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   closedOffset: number
   onClose: () => void
+  sheetHeight: number
   translateY: SharedValue<number>
 }
 
 export const BottomSheetBackdrop = ({
   closedOffset,
+  sheetHeight,
   translateY,
   onClose,
 }: Props) => {
-  const styles = useThemable(createStyles)
+  const styles = useThemable(createStyles(sheetHeight))
 
   const backdropAnimatedStyle = useAnimatedStyle(() => {
     const progress = Math.max(
@@ -38,17 +40,28 @@ export const BottomSheetBackdrop = ({
       <Pressable
         accessibilityHint="Dubbeltik om te sluiten"
         accessibilityLabel="Sluiten"
+        accessibilityRole="button"
         onPress={onClose}
-        style={StyleSheet.absoluteFill}
+        style={styles.button}
       />
     </Animated.View>
   )
 }
 
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    backdropContainer: {
-      ...StyleSheet.absoluteFill,
-      backgroundColor: color.bottomSheet.overlay,
-    },
-  })
+const createStyles =
+  (sheetHeight: number) =>
+  ({color}: Theme) =>
+    StyleSheet.create({
+      backdropContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: color.bottomSheet.overlay,
+      },
+      button: {
+        flex: 1,
+        marginBottom: sheetHeight - 20,
+      },
+    })
