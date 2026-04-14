@@ -16,18 +16,12 @@ export const KingsdayOverviewScreen = () => (
     <Box
       insetHorizontal="sm"
       insetVertical="md">
-      <Column gutter="sm">
+      <Column gutter="lg">
         <Box insetHorizontal="sm">
           <Column gutter="xl">
             <Paragraph variant="intro">
-              27 april viert Amsterdam Koningsdag met festiviteiten in en rond
-              de stad.
+              Bekijk praktische informatie voor Koningsdag op de kaart.
             </Paragraph>
-
-            <Title
-              level="h3"
-              text="Koningsdag op de kaart"
-            />
           </Column>
         </Box>
         <ServicesGrid
@@ -40,6 +34,15 @@ export const KingsdayOverviewScreen = () => (
           <Column
             gutter="md"
             halign="start">
+            <Title
+              level="h3"
+              text="Meer over Koningsdag in Amsterdam"
+            />
+            <Paragraph>
+              Lees meer over veiligheid, verkeer, openbaar vervoer, varen, afval
+              en evenementen tijdens Koningsdag. Bekijk alle informatie over
+              Koningsdag
+            </Paragraph>
             <ExternalLinkButton
               label="Meer informatie over koningsdag"
               noPadding
