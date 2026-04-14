@@ -1,6 +1,6 @@
 import {Image} from './Image'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
-import source from '@/../assets/images/map/distinct_pin.png'
+import source from '@/../ios/AmsterdamApp/Images.xcassets/AppIcon.appiconset/Favicon.png'
 
 const meta: Meta<typeof Image> = {
   component: Image,
