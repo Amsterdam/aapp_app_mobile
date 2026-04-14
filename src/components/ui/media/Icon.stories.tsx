@@ -14,6 +14,7 @@ import {
 import type {FractionCode} from '@/modules/waste-guide/types'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {electionsSvgIcons} from '@/modules/elections/constants/icons'
+import {kingsdaySvgIcons} from '@/modules/kingsday/constants/icons'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {fractionIconConfig} from '@/modules/waste-guide/constants'
 import {Theme} from '@/themes/themes'
@@ -23,12 +24,14 @@ enum IconCategory {
   deprecated = 'deprecated',
   designSystem = 'designSystem',
   elections = 'elections',
+  kingsday = 'kingsday',
   system = 'system',
   wasteGuide = 'wasteGuide',
 }
 
 const ICONS_PER_CATEGORY: Record<IconCategory, SvgIconVariantConfig> = {
   [IconCategory.elections]: electionsSvgIcons,
+  [IconCategory.kingsday]: kingsdaySvgIcons,
   [IconCategory.wasteGuide]: fractionIconConfig,
   [IconCategory.system]: SystemSvgIcons,
   [IconCategory.designSystem]: DesignSystemSvgIcons,
@@ -150,6 +153,14 @@ export const WasteGuideIcons: StoryObj<typeof MultipleIconsTemplate> = {
   args: {
     color: 'default',
     category: IconCategory.wasteGuide,
+  },
+}
+
+export const KingsdayIcons: StoryObj<typeof MultipleIconsTemplate> = {
+  render: MultipleIconsTemplate,
+  args: {
+    color: 'default',
+    category: IconCategory.kingsday,
   },
 }
 

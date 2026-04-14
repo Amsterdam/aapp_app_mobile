@@ -1,5 +1,9 @@
 import {ComponentType} from 'react'
 import type {BurningGuideStackParams} from '@/modules/burning-guide/routes'
+import type {
+  KingsdayModalParams,
+  KingsdayStackParams,
+} from '@/modules/kingsday/routes'
 import type {NotificationHistoryStackParams} from '@/modules/notification-history/routes'
 import type {
   ServiceModalParams,
@@ -32,6 +36,7 @@ import {ElectionsStackParams} from '@/modules/elections/routes'
 import {modals as modalsGenerated} from '@/modules/generated/modals.generated'
 import {HomeStack} from '@/modules/home/Stack'
 import {HomeModalParams, HomeStackParams} from '@/modules/home/routes'
+import {KingsdayStack} from '@/modules/kingsday/Stack'
 import {MijnAmsterdamStack} from '@/modules/mijn-amsterdam/Stack'
 import {NotificationHistoryStack} from '@/modules/notification-history/Stack'
 import {OnboardingStack} from '@/modules/onboarding/Stack'
@@ -71,6 +76,7 @@ export type ModuleStackParams = AccessCodeStackParams &
   ContactStackParams &
   ElectionsStackParams &
   HomeStackParams &
+  KingsdayStackParams &
   OnboardingStackParams &
   ParkingStackParams &
   RedirectsStackParams &
@@ -92,6 +98,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
   [ModuleSlug.contact]: ContactStack,
   [ModuleSlug.home]: HomeStack,
+  [ModuleSlug.kingsday]: KingsdayStack,
   [ModuleSlug['mijn-amsterdam']]: MijnAmsterdamStack,
   [ModuleSlug['notification-history']]: NotificationHistoryStack,
   [ModuleSlug.onboarding]: OnboardingStack,
@@ -111,6 +118,7 @@ export type ModalParams = AddressModalParams &
   ConstructionWorkEditorModalParams &
   ContactModalParams &
   HomeModalParams &
+  KingsdayModalParams &
   WasteContainerModalParams &
   ReportProblemModalParams &
   UserModalParams &
