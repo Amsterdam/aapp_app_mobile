@@ -82,10 +82,10 @@ export type ServiceMapResponse = {
 }
 
 export enum ServiceDetailPropertyType {
+  address = 'address',
   image = 'image',
   malfunction = 'malfunction',
   price = 'price',
-
   string = 'string',
 }
 

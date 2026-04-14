@@ -14,6 +14,8 @@ export const getAddressLine1 = (
     return `${address.street} ${address.number}${
       address.additionLetter ?? ''
     }${address.additionNumber ? '-' + address.additionNumber : ''}`
+  } else if (address?.street) {
+    return address.street
   } else {
     return ''
   }
@@ -28,9 +30,11 @@ export const getAddressLine2 = (
 ) => {
   const {postcode, city} = address ?? {}
 
-  if (!postcode || !city) {
-    return ''
+  if (postcode && city) {
+    return `${postcode.slice(0, 4)} ${postcode.slice(4).trim()} ${city}`
+  } else if (city) {
+    return city
   }
 
-  return `${postcode.slice(0, 4)} ${postcode.slice(4).trim()} ${city}`
+  return ''
 }
