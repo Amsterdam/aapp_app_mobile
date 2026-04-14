@@ -91,7 +91,7 @@ export const ModuleButton = ({
 }: ModuleButtonProps) => {
   const navigation = useNavigation<HomeRouteName>()
 
-  const style = useThemable(styles(background))
+  const styles = useThemable(createStyles(background))
 
   return (
     <Pressable
@@ -99,7 +99,7 @@ export const ModuleButton = ({
       onPress={() => {
         navigation.navigate(slug)
       }}
-      style={style.background}
+      style={styles.background}
       testID={`${testID}Button`}
       variant={variant}>
       <ModuleButtonContent
@@ -113,7 +113,7 @@ export const ModuleButton = ({
   )
 }
 
-const styles =
+const createStyles =
   (highlightColor: keyof Theme['color']['module']['highlight'] | undefined) =>
   ({color}: Theme) =>
     StyleSheet.create({
