@@ -4,6 +4,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {KingsdayRouteName} from '@/modules/kingsday/routes'
 import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
 import {Survey} from '@/modules/survey/exports/Survey'
 
@@ -28,7 +29,7 @@ export const KingsdayOverviewScreen = () => (
             />
           </Column>
         </Box>
-        <ServicesGrid />
+        <ServicesGrid detailsRouteName={KingsdayRouteName.details} />
         <Box
           insetHorizontal="sm"
           insetVertical="no">
