@@ -16,14 +16,16 @@ export const useGetFilteredFeatures = ({
 }) =>
   useMemo(
     () =>
-      features.filter(feature =>
-        activeFilters[filterType === MapFilterType.layers ? 'some' : 'every'](
-          filter => {
-            const featureValue = feature.properties?.[filter.filter_key]
+      features.filter(
+        feature =>
+          activeFilters.length === 0 ||
+          activeFilters[filterType === MapFilterType.layers ? 'some' : 'every'](
+            filter => {
+              const featureValue = feature.properties?.[filter.filter_key]
 
-            return featureValue === filter.filter_value
-          },
-        ),
+              return featureValue === filter.filter_value
+            },
+          ),
       ),
     [features, activeFilters, filterType],
   )
