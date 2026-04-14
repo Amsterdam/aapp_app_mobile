@@ -31,6 +31,8 @@ module.exports = {
     'ios',
     '.jest',
     '.expo',
+    'android/link-assets-manifest.json',
+    'ios/link-assets-manifest.json',
   ],
 
   overrides: [
