@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/native'
 import {type StackNavigationOptions} from '@react-navigation/stack'
 import type {Address} from '@/modules/address/types'
+import type {Theme} from '@/themes/themes'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {
   type SvgIconName,
@@ -31,6 +32,10 @@ export type CoreModuleConfig<Slug extends ModuleSlug = ModuleSlug> = {
    * The log dimension to log the enabled state of this module
    */
   logDimension?: CustomDimensionKeys
+  /**
+   * The highlight color for the module.
+   */
+  moduleHighlightColor?: keyof Theme['color']['module']['highlight']
   /**
    * The module’s route name.
    * @see https://reactnavigation.org/docs/stack-navigator/#api-definition

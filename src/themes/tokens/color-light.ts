@@ -221,6 +221,11 @@ export const lightColorTokens = {
     border: baseColor.primary.blue,
   },
   logo: baseColor.primary.red,
+  module: {
+    highlight: {
+      kingsday: baseColor.secondary.orange,
+    },
+  },
   noInternet: {
     background: baseColor.primary.red,
   },
