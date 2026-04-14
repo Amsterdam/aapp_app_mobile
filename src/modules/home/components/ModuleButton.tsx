@@ -1,4 +1,6 @@
 import {useMemo} from 'react'
+import {StyleSheet} from 'react-native'
+import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Row} from '@/components/ui/layout/Row'
@@ -9,6 +11,7 @@ import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
+import {useThemable} from '@/themes/useThemable'
 
 type ModuleButtonContentProps = {
   disabled: boolean | undefined
@@ -69,6 +72,7 @@ const ModuleButtonContent = ({
 type ButtonVariants = 'primary' | 'tertiary'
 
 type ModuleButtonProps = {
+  background?: keyof Theme['color']['module']['highlight']
   disabled?: boolean
   iconName: SvgIconName
   label: string
@@ -77,6 +81,7 @@ type ModuleButtonProps = {
 } & TestProps
 
 export const ModuleButton = ({
+  background,
   disabled,
   iconName,
   label,
@@ -86,18 +91,7 @@ export const ModuleButton = ({
 }: ModuleButtonProps) => {
   const navigation = useNavigation<HomeRouteName>()
 
-  const button = useMemo(
-    () => (
-      <ModuleButtonContent
-        disabled={disabled}
-        iconName={iconName}
-        label={label}
-        testID={testID}
-        variant={variant}
-      />
-    ),
-    [disabled, iconName, label, testID, variant],
-  )
+  const style = useThemable(styles(background))
 
   return (
     <Pressable
@@ -105,9 +99,27 @@ export const ModuleButton = ({
       onPress={() => {
         navigation.navigate(slug)
       }}
+      style={style.background}
       testID={`${testID}Button`}
       variant={variant}>
-      {button}
+      <ModuleButtonContent
+        disabled={disabled}
+        iconName={iconName}
+        label={label}
+        testID={testID}
+        variant={variant}
+      />
     </Pressable>
   )
 }
+
+const styles =
+  (highlightColor: keyof Theme['color']['module']['highlight'] | undefined) =>
+  ({color}: Theme) =>
+    StyleSheet.create({
+      background: {
+        backgroundColor: highlightColor
+          ? color.module.highlight[highlightColor]
+          : undefined,
+      },
+    })

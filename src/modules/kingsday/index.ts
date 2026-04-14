@@ -6,4 +6,5 @@ export const kingsdayModule = createClientModule({
   name: 'KingsdayModule',
   slug: ModuleSlug.kingsday,
   icons: kingsdaySvgIcons,
+  moduleHighlightColor: 'kingsday',
 })
