@@ -66,6 +66,7 @@ export type ServiceMapResponse = {
    * A mapping of icons to use within custom markers
    */
   icons_to_include?: ServiceMapResponseIcons
+  layers: ServiceMapResponseFilter[]
   /**
    * These are used to match against the specific service feature properties to determine which properties are shown in the list view
    */

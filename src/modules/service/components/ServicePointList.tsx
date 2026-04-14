@@ -31,9 +31,10 @@ export const ServicePointList = ({
   } = useServiceQuery(serviceId || skipToken)
   const {data: geojson, icons_to_include: icons} = service || {}
 
-  const {activeFilters, filters, onPressFilter} = useMapFilters()
+  const {activeFilters, filters, onPressFilter, filterType} = useMapFilters()
   const filteredFeatures = useGetFilteredFeatures({
     activeFilters,
+    filterType,
     features: geojson && 'features' in geojson ? geojson?.features : [],
   })
 
