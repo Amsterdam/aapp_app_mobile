@@ -46,12 +46,13 @@ export const ServicePointMap = ({
           testID="ServiceMapFilters"
         />
       }
-      isError={isError || !data?.length}
+      isError={isError}
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
       <Clusterer
         data={data}
         region={region}
+        shouldGroup
       />
     </MapBase>
   )

@@ -68,3 +68,27 @@ export const filterOutUndefinedProperties = <
       {} as Record<T, S>,
     )
 }
+
+/**
+ * Groups an array based on a key that can be set in the getKey callback
+ * @param items
+ * @param getKey
+ * @returns
+ */
+export const groupByKey = <T>(
+  items: T[],
+  getKey: (item: T) => string | undefined | null,
+): Record<string, T[]> =>
+  items.reduce<Record<string, T[]>>((acc, item) => {
+    const key = getKey(item)
+
+    if (!key) return acc
+
+    if (!acc[key]) {
+      acc[key] = []
+    }
+
+    acc[key].push(item)
+
+    return acc
+  }, {})

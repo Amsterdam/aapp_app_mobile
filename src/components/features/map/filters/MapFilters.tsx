@@ -21,7 +21,7 @@ export const MapFilters = ({
   onPressFilter,
   testID,
 }: Props) => {
-  if (!filters) {
+  if (!filters?.length) {
     return null
   }
 

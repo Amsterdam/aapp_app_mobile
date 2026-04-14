@@ -4,6 +4,7 @@ import {
   getPropertyFromMaybeObject,
   isEmptyObject,
   isErrorObject,
+  groupByKey,
 } from '@/utils/object'
 
 describe('isEmptyObject', () => {
@@ -87,5 +88,69 @@ describe('filterOutUndefinedProperties', () => {
   })
   test('should work with undefined input', () => {
     expect(filterOutUndefinedProperties(undefined)).toStrictEqual(undefined)
+  })
+})
+
+describe('groupByKey', () => {
+  it('should group an array by given key', () => {
+    const array = [
+      {key: '1'},
+      {key: '1'},
+      {key: '3'},
+      {key: '2'},
+      {key: '1'},
+      {key: '1'},
+      {key: '3'},
+      {key: '1'},
+      {key: '2'},
+      {key: '2'},
+      {key: '2'},
+    ]
+
+    const grouped = groupByKey(array, item => item.key)
+
+    expect(grouped).toEqual({
+      1: [{key: '1'}, {key: '1'}, {key: '1'}, {key: '1'}, {key: '1'}],
+      2: [{key: '2'}, {key: '2'}, {key: '2'}, {key: '2'}],
+      3: [{key: '3'}, {key: '3'}],
+    })
+  })
+
+  it('should group an array with deeply nested objects by given nested key', () => {
+    const array = [
+      {nest1: {nest2: {key: '3'}}},
+      {nest1: {nest2: {key: '1'}}},
+      {nest1: {nest2: {key: '2'}}},
+      {nest1: {nest2: {key: '3'}}},
+      {nest1: {nest2: {key: '1'}}},
+      {nest1: {nest2: {key: '3'}}},
+      {nest1: {nest2: {key: '2'}}},
+      {nest1: {nest2: {key: '2'}}},
+      {nest1: {nest2: {key: '3'}}},
+      {nest1: {nest2: {key: '1'}}},
+      {nest1: {nest2: {key: '1'}}},
+    ]
+
+    const grouped = groupByKey(array, item => item.nest1.nest2.key)
+
+    expect(grouped).toEqual({
+      1: [
+        {nest1: {nest2: {key: '1'}}},
+        {nest1: {nest2: {key: '1'}}},
+        {nest1: {nest2: {key: '1'}}},
+        {nest1: {nest2: {key: '1'}}},
+      ],
+      2: [
+        {nest1: {nest2: {key: '2'}}},
+        {nest1: {nest2: {key: '2'}}},
+        {nest1: {nest2: {key: '2'}}},
+      ],
+      3: [
+        {nest1: {nest2: {key: '3'}}},
+        {nest1: {nest2: {key: '3'}}},
+        {nest1: {nest2: {key: '3'}}},
+        {nest1: {nest2: {key: '3'}}},
+      ],
+    })
   })
 })
