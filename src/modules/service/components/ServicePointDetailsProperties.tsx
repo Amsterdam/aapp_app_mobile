@@ -56,30 +56,42 @@ export const ServicePointDetailsProperties = ({
           type === ServiceDetailPropertyType.keyValueTable &&
           Array.isArray(value)
         ) {
-          return value.map((row, rowIndex) => {
-            if (
-              isObjectWithKeys(row, {
-                key: ['string', 'number'],
-                value: ['string', 'number'],
-              })
-            ) {
-              return (
-                <Row
-                  flex={1}
-                  gutter="sm"
-                  key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}>
-                  <Row flex={1}>
-                    <Phrase>{row.key}</Phrase>
-                  </Row>
-                  <Row flex={1}>
-                    <Phrase emphasis="strong">{row.value}</Phrase>
-                  </Row>
-                </Row>
-              )
-            }
+          return (
+            <Column
+              gutter="sm"
+              key={`${ServiceDetailPropertyType.keyValueTable}-${index}`}>
+              {!!label && (
+                <Title
+                  level="h5"
+                  text={label}
+                />
+              )}
+              {value.map((row, rowIndex) => {
+                if (
+                  isObjectWithKeys(row, {
+                    key: ['string', 'number'],
+                    value: ['string', 'number'],
+                  })
+                ) {
+                  return (
+                    <Row
+                      flex={1}
+                      gutter="sm"
+                      key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}>
+                      <Row flex={1}>
+                        <Phrase>{row.key}</Phrase>
+                      </Row>
+                      <Row flex={1}>
+                        <Phrase emphasis="strong">{row.value}</Phrase>
+                      </Row>
+                    </Row>
+                  )
+                }
 
-            return null
-          })
+                return null
+              })}
+            </Column>
+          )
         }
 
         return (
