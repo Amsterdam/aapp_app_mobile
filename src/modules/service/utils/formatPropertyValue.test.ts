@@ -58,4 +58,12 @@ describe('formatPropertyValue', () => {
     expect(valueNumber2).toBe('Gratis')
     expect(valueNumber3).toBe('€\u00A099.999.999,00')
   })
+  it('returns empty string if the type is not recognized and content is not a string', () => {
+    const value = formatPropertyValue('unknown' as ServiceDetailPropertyType, {
+      // @ts-expect-error testing unrecognized type with non-string content
+      a: 1234,
+    })
+
+    expect(value).toBe('')
+  })
 })

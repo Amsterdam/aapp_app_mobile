@@ -20,8 +20,11 @@ export const formatPropertyValue = (
       : formatNumber(Number(content), 'EUR')
   }
 
-  if (!(type in ServiceDetailPropertyType) && typeof content !== 'string') {
-    return undefined
+  if (
+    !Object.values(ServiceDetailPropertyType).includes(type) &&
+    typeof content !== 'string'
+  ) {
+    return ''
   }
 
   if (
