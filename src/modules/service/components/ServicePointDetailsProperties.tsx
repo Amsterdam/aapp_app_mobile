@@ -58,10 +58,10 @@ export const ServicePointDetailsProperties = ({
         ) {
           return value.map((row, rowIndex) => {
             if (
-              isObjectWithKeys<{key: string; value: string}>(row, [
-                'key',
-                'value',
-              ])
+              isObjectWithKeys(row, {
+                key: ['string', 'number'],
+                value: ['string', 'number'],
+              })
             ) {
               return (
                 <Row
