@@ -42,7 +42,7 @@ export const ParkingSessionsListVisitor = ({
     <SectionList
       ListEmptyComponent={isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
-      renderItem={ParkingSessionListRenderItem}
+      renderItem={({item}) => <ParkingSessionListRenderItem item={item} />}
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
         <Box insetHorizontal="md">

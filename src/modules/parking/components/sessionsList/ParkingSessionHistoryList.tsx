@@ -33,7 +33,7 @@ type Props = {
   sortAscending?: boolean
 }
 
-const pageSize = 20
+const pageSize = 40
 
 export const ParkingSessionHistoryList = ({
   ListEmptyComponent,
@@ -117,7 +117,7 @@ export const ParkingSessionHistoryList = ({
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
-      renderItem={ParkingSessionListRenderItem}
+      renderItem={({item}) => <ParkingSessionListRenderItem item={item} />}
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
         <Box insetHorizontal="md">

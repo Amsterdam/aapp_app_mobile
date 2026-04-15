@@ -25,4 +25,4 @@ export const ParkingSessionListRenderItem = memo(({item}: Props) => (
       <ParkingSessionNavigationButton parkingSession={item} />
     )}
   </Box>
-)) as (props: Props) => React.JSX.Element
+))

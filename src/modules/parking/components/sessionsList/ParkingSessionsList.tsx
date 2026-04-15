@@ -129,14 +129,14 @@ export const ParkingSessionsList = ({
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListFooterComponent={<Gutter height="md" />}
       onViewableItemsChanged={onViewableItemsChanged}
-      renderItem={ParkingSessionListRenderItem}
+      renderItem={({item}) => <ParkingSessionListRenderItem item={item} />}
     />
   ) : (
     <SectionList
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
-      renderItem={ParkingSessionListRenderItem}
+      renderItem={({item}) => <ParkingSessionListRenderItem item={item} />}
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
         <Box insetHorizontal="md">
