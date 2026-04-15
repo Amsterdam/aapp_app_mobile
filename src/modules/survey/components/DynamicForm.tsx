@@ -47,12 +47,16 @@ export const DynamicForm = ({entryPoint, showError = false}: Props) => {
     return <PleaseWait testID="DynamicFormPleaseWait" />
   }
 
-  if (isError && (showError || isInBottomSheet)) {
-    return (
-      <Box>
-        <SomethingWentWrong testID="DynamicFormSomethingWentWrong" />
-      </Box>
-    )
+  if (isError) {
+    if (showError || isInBottomSheet) {
+      return (
+        <Box testID="SurveyMainContainer">
+          <SomethingWentWrong testID="DynamicFormSomethingWentWrong" />
+        </Box>
+      )
+    }
+
+    return null
   }
 
   if (createSurveyIsError && !isInBottomSheet && !isFeedbackScreen) {
