@@ -13,6 +13,7 @@ export const FeedbackScreen = () => (
     <Survey
       entryPoint="profile"
       FallbackComponent={<FallbackComponent />}
+      showError
     />
   </Screen>
 )
