@@ -5,6 +5,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {KingsdayRouteName} from '@/modules/kingsday/routes'
+import {RedirectKey} from '@/modules/redirects/types'
 import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
 import {ServiceModuleSource} from '@/modules/service/types'
 import {Survey} from '@/modules/survey/exports/Survey'
@@ -47,8 +48,8 @@ export const KingsdayOverviewScreen = () => (
             <ExternalLinkButton
               label="Meer informatie over koningsdag"
               noPadding
+              redirectKey={RedirectKey.kingsday}
               testID="KingsdayMoreInfoButton"
-              url="https://toegankelijkheidsverklaring.nl/register/13502"
               variant="tertiary"
             />
           </Column>

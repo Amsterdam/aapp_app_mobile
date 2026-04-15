@@ -18,6 +18,7 @@ export enum RedirectKey {
   feedbackForm = 'feedbackForm',
   immigration = 'immigration',
   income_help = 'income_help',
+  kingsday = 'kingsday',
   lifelessBirth = 'lifelessBirth',
   makeAppointMentWeesp = 'makeAppointMentWeesp',
   marriage = 'marriage',
