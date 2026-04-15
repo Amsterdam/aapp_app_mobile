@@ -1,7 +1,9 @@
 import {useMemo} from 'react'
 import type {ServiceMapResponse} from '@/modules/service/types'
 
-export const useMapLayers = (service?: ServiceMapResponse) =>
+//TODO: Remove once layers data includes colors
+
+export const useMapLayersWithColor = (service?: ServiceMapResponse) =>
   useMemo(() => {
     const {layers, icons_to_include, data} = service || {}
     const items = data && 'type' in data ? data.features : []
