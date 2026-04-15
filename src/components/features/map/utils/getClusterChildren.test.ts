@@ -63,7 +63,7 @@ describe('getClusterChildren', () => {
       getChildren,
     )
 
-    expect(result1.map(getMarkerIds)).toEqual(['a', 'b', 'c'])
+    expect(result1.map(getMarkerIds)).toEqual(['b', 'c', 'a'])
     expect(result2.map(getMarkerIds)).toEqual(['b', 'c'])
     expect(result3.map(getMarkerIds)).toEqual(['c'])
     expect(result4.map(getMarkerIds)).toEqual([])

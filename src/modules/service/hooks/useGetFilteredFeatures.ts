@@ -17,14 +17,14 @@ export const useGetFilteredFeatures = ({
   conditionType?: ConditionType
   features: ServiceFeature[]
 }) =>
-  useMemo(() => {
-    if (!activeFilters.length) return features
+  useMemo(
+    () =>
+      features.filter(feature =>
+        activeFilters[conditionType](filter => {
+          const featureValue = feature.properties?.[filter.filter_key]
 
-    return features.filter(feature =>
-      activeFilters[conditionType](filter => {
-        const featureValue = feature.properties?.[filter.filter_key]
-
-        return featureValue === filter.filter_value
-      }),
-    )
-  }, [features, activeFilters, conditionType])
+          return featureValue === filter.filter_value
+        }),
+      ),
+    [features, activeFilters, conditionType],
+  )
