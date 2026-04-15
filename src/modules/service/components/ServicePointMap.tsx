@@ -7,7 +7,6 @@ import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {ControlVariant} from '@/components/features/map/types'
-import {getFillColor} from '@/components/features/map/utils/getFillColor'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {ConditionType} from '@/modules/service/hooks/useGetFilteredFeatures'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
@@ -76,10 +75,7 @@ export const ServicePointMap = ({
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
       {!!polygonGeoJson?.features.length && (
-        <Geojson
-          fillColor={getFillColor('red', 0.5)}
-          geojson={polygonGeoJson}
-        />
+        <Geojson geojson={polygonGeoJson} />
       )}
       <Clusterer
         data={data}
