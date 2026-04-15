@@ -1,5 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {type PropsWithChildren, useState, useCallback, useMemo} from 'react'
+import {
+  type PropsWithChildren,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+} from 'react'
 import type {Service, ServiceMapResponseFilter} from '@/modules/service/types'
 import {useMapLayersWithColor} from '@/components/features/map/hooks/useMapLayersWithColor'
 import {MapFiltersContext} from '@/components/features/map/providers/MapFiltersContext'
@@ -9,13 +15,19 @@ export const MapFiltersProvider = ({
   children,
   serviceId,
 }: PropsWithChildren<{serviceId: Service['id']}>) => {
+  const [activeFilters, setActiveFilters] = useState<
+    ServiceMapResponseFilter[]
+  >([])
+
   const {data: service} = useServiceQuery(serviceId || skipToken)
   const filters = service?.filters
   const layers = useMapLayersWithColor(service)
 
-  const [activeFilters, setActiveFilters] = useState<
-    ServiceMapResponseFilter[]
-  >(layers || [])
+  useEffect(() => {
+    if (layers?.length) {
+      setActiveFilters(layers)
+    }
+  }, [layers])
 
   const onPressFilter = useCallback((filter: ServiceMapResponseFilter) => {
     setActiveFilters(currentFilters =>

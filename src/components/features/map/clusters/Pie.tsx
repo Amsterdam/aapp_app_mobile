@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native'
 import Svg, {Circle, G} from 'react-native-svg'
 
 const RADIUS = 50
-const STROKE_WIDTH = RADIUS / 5
+const STROKE_WIDTH = 20
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 
 type PieSlice = {
@@ -31,23 +31,24 @@ export const Pie = ({children, size, data = []}: PieProps) => {
   }, [data])
 
   return (
-    <Svg
-      height={size}
-      viewBox="0 0 120 120"
-      width={size}>
-      <G transform="rotate(-90 60 60)">
-        {slices.map(slice => (
-          <PieSlice
-            {...slice}
-            key={slice.color}
-            radius={RADIUS}
-            strokeWidth={STROKE_WIDTH}
-          />
-        ))}
-      </G>
-
+    <View style={styles.container}>
+      <Svg
+        height={size}
+        viewBox="0 0 120 120"
+        width={size}>
+        <G transform="rotate(-90 60 60)">
+          {slices.map((slice, index) => (
+            <PieSlice
+              {...slice}
+              key={index}
+              radius={RADIUS}
+              strokeWidth={STROKE_WIDTH}
+            />
+          ))}
+        </G>
+      </Svg>
       <View style={styles.center}>{children}</View>
-    </Svg>
+    </View>
   )
 }
 
@@ -76,9 +77,13 @@ const PieSlice = ({
 )
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+  },
   center: {
-    flex: 1,
+    position: 'absolute',
+    alignSelf: 'center',
+    height: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
   },
 })

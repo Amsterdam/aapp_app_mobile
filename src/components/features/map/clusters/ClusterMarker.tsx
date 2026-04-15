@@ -1,6 +1,4 @@
-import {useMemo} from 'react'
-import {View, StyleSheet} from 'react-native'
-import type {ClusterItem} from '@/components/features/map/types'
+import {View, StyleSheet, type ViewProps} from 'react-native'
 import type {Theme} from '@/themes/themes'
 import {Pie} from '@/components/features/map/clusters/Pie'
 import {calculateClusterDimensions} from '@/components/features/map/utils/calculateClusterDimensions'
@@ -11,37 +9,31 @@ const DEFAULT_OUTER_PADDING = 12
 
 type Props = {
   count: number
-  groupedMarkers?: {
+  pie?: {
     color: string
-    items: ClusterItem[]
+    percentage: number
   }[]
 }
 
-export const ClusterMarker = ({count, groupedMarkers}: Props) => {
-  const styles = useThemable(theme =>
-    createStyles(theme, count, !!groupedMarkers),
-  )
+export const ClusterMarker = ({count, pie}: Props) => {
+  const styles = useThemable(theme => createStyles(theme, count, !!pie))
   const size = calculateClusterDimensions(count, DEFAULT_OUTER_PADDING)
 
-  const pie = useMemo(() => {
-    if (!groupedMarkers) return []
-
-    return groupedMarkers.map(({items, ...rest}) => ({
-      ...rest,
-      percentage: items.length / count,
-    }))
-  }, [groupedMarkers, count])
-
-  const Wrapper = groupedMarkers ? Pie : View
+  const Wrapper = pie
+    ? (props: ViewProps) => (
+        <Pie
+          data={pie}
+          size={size}
+          {...props}
+        />
+      )
+    : View
 
   return (
-    <Wrapper
-      data={pie}
-      size={size}
-      style={[styles.clusterBase, styles.clusterOuter]}>
+    <Wrapper style={[styles.clusterBase, styles.clusterOuter]}>
       <View style={[styles.clusterBase, styles.clusterInner]}>
         <Phrase
-          color={groupedMarkers ? 'default' : 'inverse'}
+          color={pie ? 'default' : 'inverse'}
           emphasis="strong">
           {count}
         </Phrase>

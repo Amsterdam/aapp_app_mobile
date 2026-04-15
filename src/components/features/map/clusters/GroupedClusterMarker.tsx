@@ -16,17 +16,18 @@ export const GroupedClusterMarker = ({
 }) => {
   const {layers} = useMapFilters()
 
-  const clusterGroupedMarkers = useMemo(() => {
+  const pie = useMemo(() => {
     if (!layers?.length) return
 
     const nestedMarkers = getClusterChildren(properties, getChildren)
 
     return layers.map(({filter_value, filter_key, color}) => ({
-      items: nestedMarkers.filter(
-        marker =>
-          (marker.properties as Record<string, unknown>)[filter_key] ===
-          filter_value,
-      ),
+      percentage:
+        nestedMarkers.filter(
+          marker =>
+            (marker.properties as Record<string, unknown>)[filter_key] ===
+            filter_value,
+        ).length / properties.point_count,
       color,
     }))
   }, [properties, getChildren, layers])
@@ -34,7 +35,7 @@ export const GroupedClusterMarker = ({
   return (
     <ClusterMarker
       count={properties.point_count}
-      groupedMarkers={clusterGroupedMarkers}
+      pie={pie}
     />
   )
 }

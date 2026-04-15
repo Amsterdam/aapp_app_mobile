@@ -27,6 +27,7 @@ export const ServicePointCustomMarker = ({
   <ServicePointCustomIcon
     icon={icon}
     offset={OFFSET}
+    size={ICON_SIZE}
     testID="ServicePointCustomMarker"
     Wrapper={MapMarkerBase}
   />
