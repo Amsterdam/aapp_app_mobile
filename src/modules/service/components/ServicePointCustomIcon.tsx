@@ -40,22 +40,26 @@ export const ServicePointCustomIcon = ({
   testID,
   size = DEFAULT_SIZE,
   offset = DEFAULT_OFFSET,
-}: Props) => (
-  <Wrapper
-    size={size}
-    testID={testID}>
-    <G transform={`translate(${offset.x}, ${offset.y})`}>
-      <Circle
-        cx={size / 2}
-        cy={size / 2}
-        fill={circle_color}
-        r={size / 2}
-      />
-      <Path
-        d={path}
-        fill={path_color}
-        transform={`scale(${size / PATH_SIZE})`}
-      />
-    </G>
-  </Wrapper>
-)
+}: Props) => {
+  const center = size / 2
+
+  return (
+    <Wrapper
+      size={size}
+      testID={testID}>
+      <G transform={`translate(${offset.x}, ${offset.y})`}>
+        <Circle
+          cx={center}
+          cy={center}
+          fill={circle_color}
+          r={center}
+        />
+        <Path
+          d={path}
+          fill={path_color}
+          transform={`translate(${center}, ${center}) scale(${size / PATH_SIZE}) translate(${-center}, ${-center})`}
+        />
+      </G>
+    </Wrapper>
+  )
+}

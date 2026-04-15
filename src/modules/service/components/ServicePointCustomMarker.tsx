@@ -2,7 +2,7 @@ import type {ServiceMapResponseIcon} from '@/modules/service/types'
 import {MapMarkerBase} from '@/components/features/map/marker/MarkerBase'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
 
-const ICON_SIZE = 22
+const ICON_SIZE = 24
 
 /**
  * The MapMarkerBase wrapper has a viewbox of 0 0 40 40, so we need to offset the difference and center the icon inside the base.
@@ -27,7 +27,6 @@ export const ServicePointCustomMarker = ({
   <ServicePointCustomIcon
     icon={icon}
     offset={OFFSET}
-    size={ICON_SIZE}
     testID="ServicePointCustomMarker"
     Wrapper={MapMarkerBase}
   />
