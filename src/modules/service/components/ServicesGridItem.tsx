@@ -11,6 +11,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = Service & {
+  background?: keyof Theme['color']['backgroundArea']
   detailsRouteName: RoutesAcceptingParams<Pick<Service, 'id' | 'title'>>
 }
 
@@ -19,9 +20,11 @@ export const ServicesGridItem = ({
   title,
   id,
   detailsRouteName,
+  background = 'primary',
 }: Props) => {
-  const styles = useThemable(createStyles)
+  const styles = useThemable(createStyles(background))
   const {navigate} = useNavigation()
+  const labelColor = background === 'primary' ? 'inverse' : 'default'
 
   return (
     <Pressable
@@ -32,12 +35,12 @@ export const ServicesGridItem = ({
           gutter="sm"
           halign="center">
           <Icon
-            color="inverse"
+            color={labelColor}
             path={icon}
             size="xll"
           />
           <Phrase
-            color="inverse"
+            color={labelColor}
             textAlign="center"
             variant="body">
             {title}
@@ -48,14 +51,15 @@ export const ServicesGridItem = ({
   )
 }
 
-const createStyles = (theme: Theme) =>
-  StyleSheet.create({
-    item: {
-      aspectRatio: 1,
-      flex: 1,
-      padding: theme.size.spacing.sm,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: theme.color.backgroundArea.primary,
-    },
-  })
+const createStyles =
+  (background: keyof Theme['color']['backgroundArea']) => (theme: Theme) =>
+    StyleSheet.create({
+      item: {
+        aspectRatio: 1,
+        flex: 1,
+        padding: theme.size.spacing.sm,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: theme.color.backgroundArea[background],
+      },
+    })

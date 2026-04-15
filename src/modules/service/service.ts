@@ -2,6 +2,7 @@ import {
   ServiceEndpointName,
   type Service,
   type ServiceMapResponse,
+  type ServiceModuleSource,
   type ServiceOverviewResponse,
 } from '@/modules/service/types'
 import {ModuleSlug} from '@/modules/slugs'
@@ -11,12 +12,13 @@ export const serviceApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ServiceEndpointName.serviceOverview]: builder.query<
       ServiceOverviewResponse,
-      void
+      ServiceModuleSource
     >({
-      query: () => ({
+      query: module_source => ({
         method: 'GET',
         slug: ModuleSlug.service,
         url: '/maps',
+        params: {module_source},
       }),
     }),
     [ServiceEndpointName.service]: builder.query<

@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
 import {ServiceRouteName} from '@/modules/service/routes'
+import {ServiceModuleSource} from '@/modules/service/types'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const ServiceHomeScreen = () => (
@@ -19,7 +20,10 @@ export const ServiceHomeScreen = () => (
             Kies een onderwerp en u vindt alle plekken op de kaart.
           </Paragraph>
         </Box>
-        <ServicesGrid detailsRouteName={ServiceRouteName.map} />
+        <ServicesGrid
+          detailsRouteName={ServiceRouteName.map}
+          source={ServiceModuleSource.service}
+        />
       </Column>
     </Box>
     <Survey entryPoint="service-overview-info" />

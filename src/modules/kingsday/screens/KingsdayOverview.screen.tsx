@@ -6,6 +6,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {KingsdayRouteName} from '@/modules/kingsday/routes'
 import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
+import {ServiceModuleSource} from '@/modules/service/types'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const KingsdayOverviewScreen = () => (
@@ -15,27 +16,34 @@ export const KingsdayOverviewScreen = () => (
     <Box
       insetHorizontal="sm"
       insetVertical="md">
-      <Column gutter="sm">
+      <Column gutter="lg">
         <Box insetHorizontal="sm">
           <Column gutter="xl">
             <Paragraph variant="intro">
-              27 april viert Amsterdam Koningsdag met festiviteiten in en rond
-              de stad.
+              Bekijk praktische informatie voor Koningsdag op de kaart.
             </Paragraph>
-
-            <Title
-              level="h3"
-              text="Koningsdag op de kaart"
-            />
           </Column>
         </Box>
-        <ServicesGrid detailsRouteName={KingsdayRouteName.details} />
+        <ServicesGrid
+          background="kingsday"
+          detailsRouteName={KingsdayRouteName.details}
+          source={ServiceModuleSource.kingsday}
+        />
         <Box
           insetHorizontal="sm"
           insetVertical="no">
           <Column
             gutter="md"
             halign="start">
+            <Title
+              level="h3"
+              text="Meer over Koningsdag in Amsterdam"
+            />
+            <Paragraph>
+              Lees meer over veiligheid, verkeer, openbaar vervoer, varen, afval
+              en evenementen tijdens Koningsdag. Bekijk alle informatie over
+              Koningsdag
+            </Paragraph>
             <ExternalLinkButton
               label="Meer informatie over koningsdag"
               noPadding

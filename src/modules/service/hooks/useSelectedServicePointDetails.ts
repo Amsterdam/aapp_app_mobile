@@ -50,9 +50,7 @@ export const useSelectedServicePointDetails = (serviceId: Service['id']) => {
             servicePoint.properties[property_key],
           ),
         }))
-        .filter(
-          (property): property is ServiceFeatureProperty => !!property.value,
-        ),
+        .filter((property: ServiceFeatureProperty) => !!property.value),
     } satisfies SelectedServicePointDetails
   }, [data, selectedServicePointId])
 }
