@@ -74,17 +74,19 @@ export const ServicePointDetailsProperties = ({
                   })
                 ) {
                   return (
-                    <Row
-                      flex={1}
-                      gutter="sm"
+                    <SingleSelectable
                       key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}>
-                      <Row flex={1}>
-                        <Phrase>{row.key}</Phrase>
+                      <Row
+                        flex={1}
+                        gutter="sm">
+                        <Row flex={1}>
+                          <Phrase>{row.key}</Phrase>
+                        </Row>
+                        <Row flex={1}>
+                          <Phrase emphasis="strong">{row.value}</Phrase>
+                        </Row>
                       </Row>
-                      <Row flex={1}>
-                        <Phrase emphasis="strong">{row.value}</Phrase>
-                      </Row>
-                    </Row>
+                    </SingleSelectable>
                   )
                 }
 
