@@ -3,6 +3,7 @@ import {View, StyleSheet} from 'react-native'
 import Svg, {Circle, G} from 'react-native-svg'
 
 const RADIUS = 50
+const STROKE_WIDTH = RADIUS / 5
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 
 type PieSlice = {
@@ -40,7 +41,7 @@ export const Pie = ({children, size, data = []}: PieProps) => {
             {...slice}
             key={slice.color}
             radius={RADIUS}
-            strokeWidth={RADIUS / 5}
+            strokeWidth={STROKE_WIDTH}
           />
         ))}
       </G>
