@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {ServicePointDetailsImage} from '@/modules/service/components/ServicePointDetailsImage'
@@ -11,6 +12,7 @@ import {
   ServiceDetailPropertyType,
   type ServiceFeatureProperty,
 } from '@/modules/service/types'
+import {isObjectWithKeys} from '@/utils/isObjectWithKeys'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'
 
 export const ServicePointDetailsProperties = ({
@@ -48,6 +50,36 @@ export const ServicePointDetailsProperties = ({
               uri={value}
             />
           )
+        }
+
+        if (
+          type === ServiceDetailPropertyType.keyValueTable &&
+          Array.isArray(value)
+        ) {
+          return value.map((row, rowIndex) => {
+            if (
+              isObjectWithKeys<{key: string; value: string}>(row, [
+                'key',
+                'value',
+              ])
+            ) {
+              return (
+                <Row
+                  flex={1}
+                  gutter="sm"
+                  key={`${ServiceDetailPropertyType.keyValueTable}-${rowIndex}`}>
+                  <Row flex={1}>
+                    <Phrase>{row.key}</Phrase>
+                  </Row>
+                  <Row flex={1}>
+                    <Phrase emphasis="strong">{row.value}</Phrase>
+                  </Row>
+                </Row>
+              )
+            }
+
+            return null
+          })
         }
 
         return (

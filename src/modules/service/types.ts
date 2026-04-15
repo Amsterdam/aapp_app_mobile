@@ -86,6 +86,7 @@ export type ServiceMapResponse = {
 export enum ServiceDetailPropertyType {
   address = 'address',
   image = 'image',
+  keyValueTable = 'key_value_table',
   malfunction = 'malfunction',
   price = 'price',
   string = 'string',
