@@ -36,5 +36,5 @@ export type ClusterItem = {
   geometry: {
     coordinates: number[]
   }
-  properties: MarkerProperties | ClusterProperties
+  properties: ClusterProperties | MarkerProperties
 }

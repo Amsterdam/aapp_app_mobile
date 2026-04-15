@@ -1,11 +1,6 @@
 import {useCallback} from 'react'
 import {useWindowDimensions} from 'react-native'
-import {
-  // eslint-disable-next-line no-restricted-imports
-  Clusterer as RNClusterer,
-  type Supercluster,
-} from 'react-native-clusterer'
-
+import {useClusterer, type Supercluster} from 'react-native-clusterer'
 import type {
   ClusterItem,
   ClusterProperties,
@@ -23,6 +18,7 @@ export type ClustererProps = {
   data: Supercluster.PointFeature<MarkerProperties>[]
   mapDimensions?: {height: number; width: number}
   region?: Region
+  shouldGroup?: boolean
 } & Omit<MapMarkerProps, 'coordinate'>
 
 const defaultClusterOptions: Supercluster.Options<
@@ -45,27 +41,35 @@ export const Clusterer = ({
   data,
   region = AMSTERDAM_REGION,
   mapDimensions,
+  shouldGroup = false,
   clusterOptions = defaultClusterOptions,
 }: ClustererProps) => {
   const dimensions = useWindowDimensions()
 
+  const [points, supercluster] = useClusterer(
+    data,
+    mapDimensions || dimensions,
+    region,
+    clusterOptions,
+  )
+
   const renderItem = useCallback(
     (item: ClusterItem) => (
       <ClusterSwitch
+        getChildren={(id: number) => {
+          try {
+            return supercluster.getChildren(id)
+          } catch {
+            return []
+          }
+        }}
         item={item}
         key={getItemKey(item)}
+        shouldGroup={shouldGroup}
       />
     ),
-    [],
+    [supercluster, shouldGroup],
   )
 
-  return (
-    <RNClusterer
-      data={data}
-      mapDimensions={mapDimensions || dimensions}
-      options={clusterOptions}
-      region={region}
-      renderItem={renderItem}
-    />
-  )
+  return points.map(renderItem)
 }

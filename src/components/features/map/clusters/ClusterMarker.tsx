@@ -1,28 +1,48 @@
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, type ViewProps} from 'react-native'
 import type {Theme} from '@/themes/themes'
+import {Pie} from '@/components/features/map/clusters/Pie'
 import {calculateClusterDimensions} from '@/components/features/map/utils/calculateClusterDimensions'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useThemable} from '@/themes/useThemable'
 
 const DEFAULT_OUTER_PADDING = 12
 
-export const ClusterMarker = ({count}: {count: number}) => {
-  const styles = useThemable(theme => createStyles(theme, count))
+type Props = {
+  count: number
+  pie?: {
+    color: string
+    percentage: number
+  }[]
+}
+
+export const ClusterMarker = ({count, pie}: Props) => {
+  const styles = useThemable(theme => createStyles(theme, count, !!pie))
+  const size = calculateClusterDimensions(count, DEFAULT_OUTER_PADDING)
+
+  const Wrapper = pie
+    ? (props: ViewProps) => (
+        <Pie
+          data={pie}
+          size={size}
+          {...props}
+        />
+      )
+    : View
 
   return (
-    <View style={[styles.clusterBase, styles.clusterOuter]}>
+    <Wrapper style={[styles.clusterBase, styles.clusterOuter]}>
       <View style={[styles.clusterBase, styles.clusterInner]}>
         <Phrase
-          color="inverse"
+          color={pie ? 'default' : 'inverse'}
           emphasis="strong">
           {count}
         </Phrase>
       </View>
-    </View>
+    </Wrapper>
   )
 }
 
-const createStyles = (theme: Theme, count: number) => {
+const createStyles = (theme: Theme, count: number, isPie: boolean) => {
   const innerClusterSize = calculateClusterDimensions(count)
   const outerClusterSize = calculateClusterDimensions(
     count,
@@ -41,7 +61,9 @@ const createStyles = (theme: Theme, count: number) => {
       height: outerClusterSize,
     },
     clusterInner: {
-      backgroundColor: theme.color.backgroundArea.primary,
+      backgroundColor: isPie
+        ? theme.color.box.background.distinct
+        : theme.color.backgroundArea.primary,
       width: innerClusterSize,
       height: innerClusterSize,
     },
