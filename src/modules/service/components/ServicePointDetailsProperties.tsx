@@ -67,7 +67,7 @@ export const ServicePointDetailsProperties = ({
                 <Row
                   flex={1}
                   gutter="sm"
-                  key={`${ServiceDetailPropertyType.keyValueTable}-${rowIndex}`}>
+                  key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}>
                   <Row flex={1}>
                     <Phrase>{row.key}</Phrase>
                   </Row>
