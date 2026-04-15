@@ -9,15 +9,13 @@ export const MapFiltersProvider = ({
   children,
   serviceId,
 }: PropsWithChildren<{serviceId: Service['id']}>) => {
+  const {data: service} = useServiceQuery(serviceId || skipToken)
+  const filters = service?.filters
+  const layers = useMapLayersWithColor(service)
+
   const [activeFilters, setActiveFilters] = useState<
     ServiceMapResponseFilter[]
-  >([])
-
-  const {data: service} = useServiceQuery(serviceId || skipToken)
-
-  const filters = service?.filters
-
-  const layers = useMapLayersWithColor(service)
+  >(layers || [])
 
   const onPressFilter = useCallback((filter: ServiceMapResponseFilter) => {
     setActiveFilters(currentFilters =>

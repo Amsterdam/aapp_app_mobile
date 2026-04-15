@@ -16,7 +16,7 @@ export type MapControlOption = {
   onPress: () => void
 } & TestProps
 
-export type MarkerProperties<T = unknown> = {
+export type MarkerProperties = {
   /**
    * A custom Icon, which will render as a Marker on the Map
    */
@@ -27,17 +27,14 @@ export type MarkerProperties<T = unknown> = {
    * One of the Marker variants within the predefined set @see MapMarkerVariants
    */
   variant?: MapMarkerVariant
-} & T
+}
 
-export type ClusterProperties<T = unknown> = Supercluster.ClusterProperties &
-  Supercluster.ClustererClusterProperties &
-  T
+export type ClusterProperties = Supercluster.ClusterProperties &
+  Supercluster.ClustererClusterProperties
 
-export type ClusterItem<ExtraProperties = unknown> = {
+export type ClusterItem = {
   geometry: {
     coordinates: number[]
   }
-  properties:
-    | ClusterProperties<ExtraProperties>
-    | MarkerProperties<ExtraProperties>
+  properties: ClusterProperties | MarkerProperties
 }
