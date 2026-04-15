@@ -21,6 +21,13 @@ export const formatPropertyValue = (
   }
 
   if (
+    !Object.values(ServiceDetailPropertyType).includes(type) &&
+    typeof content !== 'string'
+  ) {
+    return ''
+  }
+
+  if (
     type === ServiceDetailPropertyType.address &&
     content !== null &&
     typeof content === 'object'
