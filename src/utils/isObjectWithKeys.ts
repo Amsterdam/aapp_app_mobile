@@ -4,4 +4,4 @@ export const isObjectWithKeys = <T extends Record<string, unknown>>(
 ): value is T =>
   typeof value === 'object' &&
   value !== null &&
-  keys.every(key => Object.keys(value).includes(key as string))
+  keys.every(key => Object.hasOwn(value, key))
