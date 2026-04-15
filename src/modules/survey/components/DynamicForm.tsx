@@ -15,9 +15,10 @@ import {UserRouteName} from '@/modules/user/routes'
 
 type Props = {
   entryPoint: string
+  showError?: boolean
 }
 
-export const DynamicForm = ({entryPoint}: Props) => {
+export const DynamicForm = ({entryPoint, showError = false}: Props) => {
   const route = useRoute<UserRouteName>()
   const form = useForm()
   const {
@@ -46,7 +47,7 @@ export const DynamicForm = ({entryPoint}: Props) => {
     return <PleaseWait testID="DynamicFormPleaseWait" />
   }
 
-  if (isError) {
+  if (isError && (showError || isInBottomSheet)) {
     return <SomethingWentWrong testID="DynamicFormSomethingWentWrong" />
   }
 
