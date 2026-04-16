@@ -1,5 +1,7 @@
-import type {ServiceMapResponse} from '@/modules/service/types'
-import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
+import type {
+  ServiceMapResponse,
+  ServiceMapResponseFilter,
+} from '@/modules/service/types'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -7,21 +9,18 @@ import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointC
 
 type Props = {
   icons: ServiceMapResponse['icons_to_include']
+  isActive: boolean
   layer: ServiceMapResponse['layers'][number]
+  onPress: (filter: ServiceMapResponseFilter) => void
 }
 
 export const ServiceMapLayerSwitch = ({
   icons,
-  layer: {icon_label, label, filter_key, filter_value},
+  layer,
+  onPress,
+  isActive,
 }: Props) => {
-  const {activeFilters, onPressFilter} = useMapFilters()
-
-  const isActive = activeFilters?.some(
-    activeFilter =>
-      activeFilter.filter_key === filter_key &&
-      activeFilter.filter_value === filter_value,
-  )
-
+  const {icon_label, label} = layer
   const icon = icon_label ? icons?.[icon_label] : undefined
 
   return (
@@ -38,7 +37,7 @@ export const ServiceMapLayerSwitch = ({
           <Phrase>{label}</Phrase>
         </Row>
       }
-      onChange={() => onPressFilter({label, filter_key, filter_value})}
+      onChange={() => onPress(layer)}
       testID={`ServiceMapLayers${label}ServicePointSwitch`}
       value={isActive}
     />

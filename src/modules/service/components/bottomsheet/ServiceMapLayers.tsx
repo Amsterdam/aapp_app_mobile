@@ -16,7 +16,7 @@ export const ServiceMapLayers = ({id: serviceId}: {id: Service['id']}) => {
   const {close: closeBottomSheet} = useBottomSheet()
 
   const {data: service} = useServiceQuery(serviceId || skipToken)
-  const {layers} = useMapFilters()
+  const {layers, activeFilters, onPressFilter} = useMapFilters()
 
   const icons = service?.icons_to_include
 
@@ -44,13 +44,23 @@ export const ServiceMapLayers = ({id: serviceId}: {id: Service['id']}) => {
           />
         </Row>
         <Column gutter="lg">
-          {layers?.map(layer => (
-            <ServiceMapLayerSwitch
-              icons={icons}
-              key={layer.label}
-              layer={layer}
-            />
-          ))}
+          {layers?.map(layer => {
+            const isActive = activeFilters?.some(
+              activeFilter =>
+                activeFilter.filter_key === layer.filter_key &&
+                activeFilter.filter_value === layer.filter_value,
+            )
+
+            return (
+              <ServiceMapLayerSwitch
+                icons={icons}
+                isActive={isActive}
+                key={layer.label}
+                layer={layer}
+                onPress={onPressFilter}
+              />
+            )
+          })}
         </Column>
       </Column>
     </Box>
