@@ -12,6 +12,7 @@ import {ConditionType} from '@/modules/service/hooks/useGetFilteredFeatures'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
+import {devLog} from '@/processes/development'
 
 export const ServicePointMap = ({
   id: serviceId,
@@ -74,8 +75,12 @@ export const ServicePointMap = ({
       isError={isError}
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
-      {!!polygonGeoJson?.features.length && (
-        <Geojson geojson={polygonGeoJson} />
+      {polygonGeoJson?.features.length && (
+        <Geojson
+          geojson={polygonGeoJson}
+          onPress={() => devLog('Open')}
+          tappable
+        />
       )}
       <Clusterer
         data={data}
