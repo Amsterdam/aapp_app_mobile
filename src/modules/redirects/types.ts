@@ -19,6 +19,7 @@ export enum RedirectKey {
   immigration = 'immigration',
   income_help = 'income_help',
   kingsday = 'kingsday',
+  kingsdayEvents = 'kingsdayEvents',
   lifelessBirth = 'lifelessBirth',
   makeAppointMentWeesp = 'makeAppointMentWeesp',
   marriage = 'marriage',

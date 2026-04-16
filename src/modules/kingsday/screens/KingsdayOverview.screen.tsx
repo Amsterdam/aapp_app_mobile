@@ -33,25 +33,46 @@ export const KingsdayOverviewScreen = () => (
         <Box
           insetHorizontal="sm"
           insetVertical="no">
-          <Column
-            gutter="md"
-            halign="start">
-            <Title
-              level="h3"
-              text="Meer over Koningsdag in Amsterdam"
-            />
-            <Paragraph>
-              Lees meer over veiligheid, verkeer, openbaar vervoer, varen, afval
-              en evenementen tijdens Koningsdag. Bekijk alle informatie over
-              Koningsdag
-            </Paragraph>
-            <ExternalLinkButton
-              label="Meer informatie over koningsdag"
-              noPadding
-              redirectKey={RedirectKey.kingsday}
-              testID="KingsdayMoreInfoButton"
-              variant="tertiary"
-            />
+          <Column gutter="xl">
+            <Column
+              gutter="md"
+              halign="start">
+              <Title
+                level="h3"
+                text="Koningsdag in uw buurt"
+              />
+              <Paragraph>
+                Bekijk op de website welke activiteiten er bij u in de buurt
+                zijn.
+              </Paragraph>
+              <ExternalLinkButton
+                label="Bekijk activiteiten in uw buurt"
+                noPadding
+                redirectKey={RedirectKey.kingsdayEvents}
+                testID="KingsdayEventsButton"
+                variant="tertiary"
+              />
+            </Column>
+            <Column
+              gutter="md"
+              halign="start">
+              <Title
+                level="h3"
+                text="Meer over Koningsdag in Amsterdam"
+              />
+              <Paragraph>
+                Lees meer over veiligheid, verkeer, openbaar vervoer, varen,
+                afval en evenementen tijdens Koningsdag. Bekijk alle informatie
+                over Koningsdag
+              </Paragraph>
+              <ExternalLinkButton
+                label="Meer informatie over koningsdag"
+                noPadding
+                redirectKey={RedirectKey.kingsday}
+                testID="KingsdayMoreInfoButton"
+                variant="tertiary"
+              />
+            </Column>
           </Column>
         </Box>
       </Column>
