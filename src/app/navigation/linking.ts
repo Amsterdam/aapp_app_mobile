@@ -53,6 +53,25 @@ export const createLinking = (
         return url
       }
 
+      // Notifee handles push notifications sent from within the app. Like in the chat module.
+      const initialNotifeeNotification = await notifee.getInitialNotification()
+
+      markNotificationAsRead(
+        initialNotifeeNotification?.notification.data?.notificationId,
+        dispatch,
+      )
+
+      if (initialNotifeeNotification) {
+        resolveModuleOnNotificationEvent(
+          initialNotifeeNotification.notification,
+          dispatch,
+        )
+
+        return resolvePathFromPushNotification(
+          initialNotifeeNotification.notification,
+        )
+      }
+
       const initialFirebaseNotification =
         await getInitialNotification(messaging)
 
