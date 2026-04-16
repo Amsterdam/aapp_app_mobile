@@ -1,14 +1,16 @@
-import type {Address} from '@/modules/address/types'
 import {
   getAddressLine1,
   getAddressLine2,
 } from '@/modules/address/utils/addDerivedAddressFields'
-import {ServiceDetailPropertyType} from '@/modules/service/types'
+import {
+  ServiceDetailPropertyType,
+  type PropertiesPropertyValue,
+} from '@/modules/service/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const formatPropertyValue = (
   type: ServiceDetailPropertyType,
-  content: string | number | Address | null | undefined | boolean,
+  content: PropertiesPropertyValue,
 ) => {
   if (
     type === ServiceDetailPropertyType.price &&
@@ -30,7 +32,8 @@ export const formatPropertyValue = (
   if (
     type === ServiceDetailPropertyType.address &&
     content !== null &&
-    typeof content === 'object'
+    typeof content === 'object' &&
+    !Array.isArray(content)
   ) {
     return `${getAddressLine1(content)}\n${getAddressLine2(content)}`
   }

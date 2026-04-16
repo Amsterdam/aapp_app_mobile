@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {ServicePointDetailsImage} from '@/modules/service/components/ServicePointDetailsImage'
@@ -11,6 +12,7 @@ import {
   ServiceDetailPropertyType,
   type ServiceFeatureProperty,
 } from '@/modules/service/types'
+import {isObjectWithKeys} from '@/utils/isObjectWithKeys'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'
 
 export const ServicePointDetailsProperties = ({
@@ -47,6 +49,50 @@ export const ServicePointDetailsProperties = ({
               key={`${ServiceDetailPropertyType.image}-${index}`}
               uri={value}
             />
+          )
+        }
+
+        if (
+          type === ServiceDetailPropertyType.keyValueTable &&
+          Array.isArray(value)
+        ) {
+          return (
+            <Column
+              gutter="sm"
+              key={`${ServiceDetailPropertyType.keyValueTable}-${index}`}>
+              {!!label && (
+                <Title
+                  level="h5"
+                  text={label}
+                />
+              )}
+              {value.map((row, rowIndex) => {
+                if (
+                  isObjectWithKeys(row, {
+                    key: ['string', 'number'],
+                    value: ['string', 'number'],
+                  })
+                ) {
+                  return (
+                    <SingleSelectable
+                      key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}>
+                      <Row
+                        flex={1}
+                        gutter="sm">
+                        <Row flex={1}>
+                          <Phrase>{row.key}</Phrase>
+                        </Row>
+                        <Row flex={1}>
+                          <Phrase emphasis="strong">{row.value}</Phrase>
+                        </Row>
+                      </Row>
+                    </SingleSelectable>
+                  )
+                }
+
+                return null
+              })}
+            </Column>
           )
         }
 

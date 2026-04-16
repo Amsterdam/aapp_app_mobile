@@ -1,3 +1,4 @@
+import type {Address} from '@/modules/address/types'
 import type {EmptyObject} from '@/types/utils'
 import type {Feature} from 'geojson'
 
@@ -22,6 +23,15 @@ export type Service = {
 
 export type ServiceOverviewResponse = Service[]
 
+export type PropertiesPropertyValue =
+  | string
+  | number
+  | boolean
+  | null
+  | Address
+  | Array<{key: string; value: string}>
+  | undefined
+
 type FeatureGeometry = {coordinates: [number, number]; type: 'Point'}
 type FeatureProperties = {
   /**
@@ -32,7 +42,7 @@ type FeatureProperties = {
    * Title of service point
    */
   aapp_title: string
-} & Record<string, string | number | boolean | null>
+} & Record<string, PropertiesPropertyValue>
 
 export type ServiceFeature = Omit<
   Feature<FeatureGeometry, FeatureProperties>,
@@ -86,6 +96,7 @@ export type ServiceMapResponse = {
 export enum ServiceDetailPropertyType {
   address = 'address',
   image = 'image',
+  keyValueTable = 'key_value_table',
   malfunction = 'malfunction',
   price = 'price',
   string = 'string',
