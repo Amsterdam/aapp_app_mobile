@@ -1,4 +1,4 @@
-import {onNotificationEvent} from '@/modules/parking/onNotificationEvent'
+import {onNotificationEvent} from '@/modules/parking/notifications/onNotificationEvent'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingSlice, ParkingState} from '@/modules/parking/slice'
 import {logout} from '@/modules/parking/utils/logout'
@@ -19,7 +19,10 @@ export const parkingModule = createClientModule({
   logout: (dispatch, state) => logout(dispatch, state),
   name: 'ParkingModule',
   linking: {
-    [ParkingRouteName.dashboard]: 'parking/:action/return',
+    [ParkingRouteName.dashboard]: {
+      path: 'parking',
+      alias: ['parking/:action/return'],
+    },
     [ParkingRouteName.login]: 'parking/visitor/:reportCode/:pin',
   },
   onNotificationEvent,

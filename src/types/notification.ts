@@ -18,4 +18,4 @@ export type PushNotificationDataDefault = {
 
 export type PushNotification<
   T extends Record<string, unknown> = Record<string, unknown>,
-> = Notification & {data?: PushNotificationDataDefault & T}
+> = Omit<Notification, 'data'> & {data?: PushNotificationDataDefault & T}

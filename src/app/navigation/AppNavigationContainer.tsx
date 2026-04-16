@@ -6,6 +6,8 @@ import {type RootStackParams} from '@/app/navigation/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useStore} from '@/hooks/redux/useStore'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
+import {ModuleSlug} from '@/modules/slugs'
+import {devError} from '@/processes/development'
 import {useLogStartup} from '@/processes/logging/hooks/useLogStartup'
 import {useRegisterNavigationContainerForLogging} from '@/processes/logging/hooks/useRegisterNavigationContainerForLogging'
 
@@ -29,6 +31,10 @@ export const AppNavigationContainer = ({children}: Props) => {
         registerNavigationContainerForLogging(navigationRef)
         hideSplashScreen()
         logStartup()
+      }}
+      onUnhandledAction={action => {
+        devError('Unhandled action', action)
+        navigationRef.current?.navigate(ModuleSlug.home)
       }}
       ref={navigationRef}>
       {children}

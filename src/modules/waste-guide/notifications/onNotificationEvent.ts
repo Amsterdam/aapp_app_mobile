@@ -3,9 +3,7 @@ import {setLocationType} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const onNotificationEvent: ModuleClientConfig['onNotificationEvent'] = (
-  _type,
-  _detail,
-  _isPushNotificationDeeplink,
+  _notification,
   dispatch,
 ) => {
   dispatch(
@@ -14,6 +12,4 @@ export const onNotificationEvent: ModuleClientConfig['onNotificationEvent'] = (
       moduleSlug: ModuleSlug['waste-guide'],
     }),
   )
-
-  return '/afval/afvalinformatie/'
 }

@@ -4,7 +4,6 @@ import {CheckPermissions} from '@/app/init/CheckPermissions'
 import {DeviceRegistration} from '@/app/init/DeviceRegistration'
 import {DisplayNotificationOnForeground} from '@/app/init/DisplayNotificationOnForeground'
 import {GetLocation} from '@/app/init/GetLocation'
-import {HandleNotificationEvent} from '@/app/init/HandleNotificationEvent'
 import {LogGeneralAnalytics} from '@/app/init/LogGeneralAnalytics'
 import {PostRenderComponents} from '@/app/init/PostRenderComponents'
 import {PreRenderComponents} from '@/app/init/PreRenderComponents'
@@ -20,7 +19,6 @@ export const Init = ({children}: Props) => {
       <AppInsights />
       <CheckPermissions />
       <DisplayNotificationOnForeground />
-      <HandleNotificationEvent />
       <LogGeneralAnalytics />
       <DeviceRegistration enabledModules={enabledModules} />
       <GetLocation />

@@ -23,15 +23,11 @@ export const pushNotificationTypes: Record<
   },
 }
 
-export const onNotificationEvent: Required<
-  ModuleClientConfig<{
-    type: PushNotificationType
-  }>
->['onNotificationEvent'] = (
-  _type,
-  {notification},
+export const resolvePathFromNotification: ModuleClientConfig<{
+  type?: PushNotificationType
+}>['resolvePathFromNotification'] = (
+  notification,
   isPushNotificationDeeplink,
-  _dispatch,
 ) => {
   const notificationType =
     notification?.data?.type && pushNotificationTypes[notification.data.type]

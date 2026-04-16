@@ -1,10 +1,15 @@
 import {PartialState, NavigationState} from '@react-navigation/native'
 import {type ReduxDispatch} from '@/hooks/redux/types'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi} from '@/modules/parking/service'
 import {parkingSlice, selectParkingAccounts} from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 import {type RootState} from '@/store/types/rootState'
 
+/**
+ * Whenever the user enters the app with a deeplink to the parking login screen, we want to automatically enter their login details.
+ * If they are already logged in, we want to automatically log them in and redirect them to the dashboard.
+ */
 export const postProcessLinking = (
   state: PartialState<NavigationState>,
   dispatch?: ReduxDispatch,
@@ -22,12 +27,14 @@ export const postProcessLinking = (
         state?: {routes: Array<{name: string; params?: unknown}>}
       }) =>
         route.name === 'parking' &&
-        route.state?.routes?.some(r => r.name === 'ParkingLogin'),
+        route.state?.routes?.some(
+          r => r.name === (ParkingRouteName.login as string),
+        ),
     )
   ) {
     const parkingRoute = state.routes.find(route => route.name === 'parking')
     const parkingLoginRoute = parkingRoute?.state?.routes.find(
-      route => route.name === 'ParkingLogin',
+      route => route.name === (ParkingRouteName.login as string),
     )
 
     dispatch(parkingSlice.actions.setIsLoggingIn(true))

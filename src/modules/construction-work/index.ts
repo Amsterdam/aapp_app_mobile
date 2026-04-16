@@ -1,4 +1,4 @@
-import {onNotificationEvent} from '@/modules/construction-work/onNotificationEvent'
+import {resolvePathFromNotification} from '@/modules/construction-work/notifications/resolvePathFromNotification'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   type ConstructionWorkState,
@@ -13,6 +13,7 @@ const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 
 export const constructionWorkModule = createClientModule({
   linking: {
+    [ModuleSlug['construction-work']]: ModuleSlug['construction-work'],
     [ConstructionWorkRouteName.projectNews]:
       'news/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
     [ConstructionWorkRouteName.projectWarning]:
@@ -31,5 +32,5 @@ export const constructionWorkModule = createClientModule({
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['construction-work'],
-  onNotificationEvent,
+  resolvePathFromNotification,
 })
