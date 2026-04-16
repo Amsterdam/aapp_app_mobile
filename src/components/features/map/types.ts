@@ -21,7 +21,7 @@ export type MarkerProperties = {
    * A custom Icon, which will render as a Marker on the Map
    */
   Icon?: ReactElement
-  id: string
+  id: string | number
   onMarkerPress?: () => void
   /**
    * One of the Marker variants within the predefined set @see MapMarkerVariants

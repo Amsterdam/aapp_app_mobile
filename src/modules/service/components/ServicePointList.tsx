@@ -70,7 +70,7 @@ export const ServicePointList = ({
     <Box insetBottom="md">
       <FlatList
         data={servicePointsByDistance}
-        keyExtractor={point => point.id}
+        keyExtractor={point => String(point.id)}
         ListHeaderComponent={
           <>
             {(!!filters?.length || !!layers?.length) && (

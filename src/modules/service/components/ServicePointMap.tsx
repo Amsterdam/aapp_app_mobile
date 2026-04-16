@@ -12,7 +12,6 @@ import {ConditionType} from '@/modules/service/hooks/useGetFilteredFeatures'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
-import {devLog} from '@/processes/development'
 
 export const ServicePointMap = ({
   id: serviceId,
@@ -78,7 +77,11 @@ export const ServicePointMap = ({
       {polygonGeoJson?.features.length && (
         <Geojson
           geojson={polygonGeoJson}
-          onPress={() => devLog('Open')}
+          onPress={e => {
+            if (e.feature.id) {
+              onServicePointPress(e.feature.id)
+            }
+          }}
           tappable
         />
       )}

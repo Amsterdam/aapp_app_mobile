@@ -35,6 +35,10 @@ export const formatPropertyValue = (
     typeof content === 'object' &&
     !Array.isArray(content)
   ) {
+    if (!getAddressLine1(content)) {
+      return ''
+    }
+
     return `${getAddressLine1(content)}\n${getAddressLine2(content)}`
   }
 
