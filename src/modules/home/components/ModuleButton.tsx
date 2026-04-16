@@ -1,5 +1,4 @@
 import {useMemo} from 'react'
-import {StyleSheet} from 'react-native'
 import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Badge} from '@/components/ui/feedback/Badge'
@@ -11,7 +10,7 @@ import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {useThemable} from '@/themes/useThemable'
+import {useTheme} from '@/themes/useTheme'
 
 type ModuleButtonContentProps = {
   disabled: boolean | undefined
@@ -91,15 +90,17 @@ export const ModuleButton = ({
 }: ModuleButtonProps) => {
   const navigation = useNavigation<HomeRouteName>()
 
-  const styles = useThemable(createStyles(background))
+  const {color} = useTheme()
 
   return (
     <Pressable
+      backgroundColor={
+        background ? color.module.highlight[background] : undefined
+      }
       inset="md"
       onPress={() => {
         navigation.navigate(slug)
       }}
-      style={styles.background}
       testID={`${testID}Button`}
       variant={variant}>
       <ModuleButtonContent
@@ -112,14 +113,3 @@ export const ModuleButton = ({
     </Pressable>
   )
 }
-
-const createStyles =
-  (highlightColor: keyof Theme['color']['module']['highlight'] | undefined) =>
-  ({color}: Theme) =>
-    StyleSheet.create({
-      background: {
-        backgroundColor: highlightColor
-          ? color.module.highlight[highlightColor]
-          : undefined,
-      },
-    })

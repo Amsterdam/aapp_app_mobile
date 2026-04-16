@@ -17,6 +17,10 @@ type PressableVariant =
   | 'transparentInverse'
 
 export type PressableProps = {
+  /**
+   * Overrides the default background color for the different variants. Only used if variant is not 'transparent'.
+   */
+  backgroundColor?: string
   border?: boolean
   children: ReactNode
   flex?: number
@@ -33,6 +37,7 @@ export type PressableProps = {
  * This is a replacement for the React Native Pressable component, with added Box properties.
  */
 export const Pressable = ({
+  backgroundColor,
   ref,
   children,
   inset = 'no',
@@ -41,10 +46,9 @@ export const Pressable = ({
   variant = 'tertiary',
   flex,
   border = false,
-  style,
   ...pressableProps
 }: PressableProps) => {
-  const styles = useThemable(createStyles(variant, flex))
+  const styles = useThemable(createStyles(backgroundColor, variant, flex))
 
   return (
     <PressableBase
@@ -57,11 +61,6 @@ export const Pressable = ({
           pressableProps.accessibilityRole !== 'checkbox' &&
           styles.pressed,
         !!border && styles.border,
-        style
-          ? typeof style === 'function'
-            ? style({pressed})
-            : style
-          : undefined,
       ]}
       {...pressableProps}>
       <Box
@@ -75,21 +74,27 @@ export const Pressable = ({
 }
 
 const createStyles =
-  (variant: PressableVariant, flex?: number) =>
+  (
+    backgroundColor: string | undefined,
+    variant: PressableVariant,
+    flex?: number,
+  ) =>
   ({color, border}: Theme) =>
     StyleSheet.create({
       button: {
         flex,
         backgroundColor:
-          variant !== 'transparent'
+          backgroundColor ??
+          (variant !== 'transparent'
             ? color.pressable[variant].default.background
-            : undefined,
+            : undefined),
       },
       pressed: {
         backgroundColor:
-          variant !== 'transparent'
+          backgroundColor ??
+          (variant !== 'transparent'
             ? color.pressable[variant].pressed.background
-            : undefined,
+            : undefined),
       },
       border: {
         borderWidth: border.width.md,
