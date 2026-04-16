@@ -40,3 +40,8 @@ export type ClusterItem = {
   }
   properties: ClusterProperties | MarkerProperties
 }
+
+export type ClusterOptions = Supercluster.Options<
+  MarkerProperties | ClusterProperties,
+  MarkerProperties | ClusterProperties
+>
