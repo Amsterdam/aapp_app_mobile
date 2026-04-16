@@ -4,6 +4,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {
+  getAddressLine1,
+  getAddressLine2,
+} from '@/modules/address/utils/addDerivedAddressFields'
 import {CityOffice} from '@/modules/contact/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -18,9 +22,8 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
         accessibilityHint="Tik om een ander stadsloket te selecteren."
         accessibilityLabel={accessibleText(
           title,
-          `${address.streetName} ${address.streetNumber}`,
-          address.postalCode,
-          address.city,
+          getAddressLine1(address),
+          getAddressLine2(address),
         )}
         icon={{name: 'person-at-desk'}}
         onPress={() => openBottomSheet()}
@@ -30,12 +33,12 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
             <Phrase
               testID="ContactCityOfficeStreetPhrase"
               variant="small">
-              {address.streetName} {address.streetNumber}
+              {getAddressLine1(address)}
             </Phrase>
             <Phrase
               testID="ContactCityOfficeCityPhrase"
               variant="small">
-              {address.postalCode} {address.city}
+              {getAddressLine2(address)}
             </Phrase>
           </>
         }
