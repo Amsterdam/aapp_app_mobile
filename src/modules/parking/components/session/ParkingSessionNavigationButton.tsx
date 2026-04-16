@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -26,20 +27,39 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
     parkingSession.vehicle_id,
     parkingSession.visitor_name,
   )
-
-  return (
-    <NavigationButton
-      accessibilityLabel={getAccessibilityLabel(
+  const accessibilityLabel = useMemo(
+    () =>
+      getAccessibilityLabel(
         parkingSession,
         licensePlateString,
         currentPermit.max_session_length_in_days,
         currentPermit.no_endtime,
-      )}
-      description={getDescription(
+      ),
+    [
+      parkingSession,
+      licensePlateString,
+      currentPermit.max_session_length_in_days,
+      currentPermit.no_endtime,
+    ],
+  )
+  const description = useMemo(
+    () =>
+      getDescription(
         parkingSession,
         currentPermit.max_session_length_in_days,
         currentPermit.no_endtime,
-      )}
+      ),
+    [
+      parkingSession,
+      currentPermit.max_session_length_in_days,
+      currentPermit.no_endtime,
+    ],
+  )
+
+  return (
+    <NavigationButton
+      accessibilityLabel={accessibilityLabel}
+      description={description}
       icon={{name: 'car'}}
       insetHorizontal="no"
       insetVertical="no"

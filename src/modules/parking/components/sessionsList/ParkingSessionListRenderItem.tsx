@@ -1,14 +1,15 @@
+import {memo} from 'react'
 import type {ParkingSessionOrDummy} from '@/modules/parking/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
 
-export const ParkingSessionListRenderItem = ({
-  item,
-}: {
+type Props = {
   item: ParkingSessionOrDummy
-}) => (
+}
+
+export const ParkingSessionListRenderItem = memo(({item}: Props) => (
   <Box
     insetHorizontal="md"
     insetTop="md">
@@ -24,4 +25,4 @@ export const ParkingSessionListRenderItem = ({
       <ParkingSessionNavigationButton parkingSession={item} />
     )}
   </Box>
-)
+))
