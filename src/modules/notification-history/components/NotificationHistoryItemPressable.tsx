@@ -52,7 +52,7 @@ export const NotificationHistoryItemPressable = ({
     const deeplinkUrl = stripAppPrefixFromRoute(context.deeplink)
 
     if (deeplinkUrl) {
-      navigate(deeplinkUrl.split('/').pop() as ModuleSlug) // When navigation fails because of an unknown route, user navigates to home. Handled in AppNavigationContainer.tsx
+      linkTo(deeplinkUrl)
 
       return
     }
