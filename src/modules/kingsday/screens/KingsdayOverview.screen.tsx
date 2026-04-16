@@ -42,7 +42,7 @@ export const KingsdayOverviewScreen = () => (
                 text="Koningsdag in uw buurt"
               />
               <Paragraph>
-                Bekijk op de website welke activiteiten er in u in de buurt
+                Bekijk op de website welke activiteiten er bij u in de buurt
                 zijn.
               </Paragraph>
               <ExternalLinkButton
