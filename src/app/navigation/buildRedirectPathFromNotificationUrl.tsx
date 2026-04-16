@@ -1,6 +1,6 @@
 import {appPrefix} from '@/app/navigation/constants'
 
-export const buildNotificationExternalLink = (
+export const buildRedirectPathFromNotificationUrl = (
   externalRoute: string,
   title?: string,
   body?: string,
@@ -9,14 +9,14 @@ export const buildNotificationExternalLink = (
     const splitRoute = externalRoute.split(':')
 
     if (splitRoute.length < 2) {
-      return null
+      return
     }
 
     const protocol = `${splitRoute[0]}:`
     const isValid = protocol === 'https:' || protocol === 'http:'
 
     if (!isValid || splitRoute[1]?.length < 3) {
-      return null
+      return
     }
 
     const params = new URLSearchParams({url: externalRoute})
@@ -31,6 +31,6 @@ export const buildNotificationExternalLink = (
 
     return `${appPrefix}notification-redirect?${params.toString()}`
   } catch {
-    return null
+    return
   }
 }
