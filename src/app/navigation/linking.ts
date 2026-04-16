@@ -62,12 +62,13 @@ export const createLinking = (
       )
 
       if (initialFirebaseNotification) {
-        resolveModuleOnNotificationEvent(initialFirebaseNotification, dispatch)
         const pushNotification = {
           data: initialFirebaseNotification.data,
           title: initialFirebaseNotification.notification?.title,
           body: initialFirebaseNotification.notification?.body,
         }
+
+        resolveModuleOnNotificationEvent(pushNotification, dispatch)
 
         return resolvePathFromPushNotification(pushNotification)
       }
