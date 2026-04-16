@@ -38,7 +38,7 @@ export const ServicePointList = ({
   const filteredFeatures = useGetFilteredFeatures({
     activeFilters,
     features: geojson && 'features' in geojson ? geojson?.features : [],
-    ...(layers?.length ? {conditionType: ConditionType.or} : {}),
+    conditionType: layers?.length ? ConditionType.or : ConditionType.and,
   })
 
   const {address} = useSelectedAddress(ModuleSlug.service)
