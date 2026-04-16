@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import type {Service} from '@/modules/service/types'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
-import {useMapLayersWithColor} from '@/components/features/map/hooks/useMapLayersWithColor'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -16,7 +16,7 @@ export const ServiceMapLayers = ({id: serviceId}: {id: Service['id']}) => {
   const {close: closeBottomSheet} = useBottomSheet()
 
   const {data: service} = useServiceQuery(serviceId || skipToken)
-  const layers = useMapLayersWithColor(service) // TODO: use data from layers inside useMapfilters when icon data is added
+  const {layers} = useMapFilters()
 
   const icons = service?.icons_to_include
 

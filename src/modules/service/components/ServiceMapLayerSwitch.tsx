@@ -1,7 +1,4 @@
-import type {
-  ServiceMapResponse,
-  ServiceMapResponseFilter,
-} from '@/modules/service/types'
+import type {ServiceMapResponse} from '@/modules/service/types'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Row} from '@/components/ui/layout/Row'
@@ -10,12 +7,12 @@ import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointC
 
 type Props = {
   icons: ServiceMapResponse['icons_to_include']
-  layer: ServiceMapResponseFilter & {aapp_icon_type?: string} // TODO: change typing when icons data is added to layers
+  layer: ServiceMapResponse['layers'][number]
 }
 
 export const ServiceMapLayerSwitch = ({
   icons,
-  layer: {aapp_icon_type, label, filter_key, filter_value},
+  layer: {icon_label, label, filter_key, filter_value},
 }: Props) => {
   const {activeFilters, onPressFilter} = useMapFilters()
 
@@ -25,7 +22,7 @@ export const ServiceMapLayerSwitch = ({
       activeFilter.filter_value === filter_value,
   )
 
-  const icon = aapp_icon_type ? icons?.[aapp_icon_type] : undefined
+  const icon = icon_label ? icons?.[icon_label] : undefined
 
   return (
     <Switch
