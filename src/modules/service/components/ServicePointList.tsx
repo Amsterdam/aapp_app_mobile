@@ -12,7 +12,10 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
-import {useGetFilteredFeatures} from '@/modules/service/hooks/useGetFilteredFeatures'
+import {
+  ConditionType,
+  useGetFilteredFeatures,
+} from '@/modules/service/hooks/useGetFilteredFeatures'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
@@ -31,10 +34,11 @@ export const ServicePointList = ({
   } = useServiceQuery(serviceId || skipToken)
   const {data: geojson, icons_to_include: icons} = service || {}
 
-  const {activeFilters, filters, onPressFilter} = useMapFilters()
+  const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
   const filteredFeatures = useGetFilteredFeatures({
     activeFilters,
     features: geojson && 'features' in geojson ? geojson?.features : [],
+    ...(layers?.length ? {conditionType: ConditionType.or} : {}),
   })
 
   const {address} = useSelectedAddress(ModuleSlug.service)
