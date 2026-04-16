@@ -35,7 +35,7 @@ export const MapControlsButton = ({
             {...icon}
             size="lg"
           />
-          {!!text && <Phrase color="link">Kaartlagen</Phrase>}
+          {!!text && <Phrase color="link">{text}</Phrase>}
         </Row>
       </Box>
     </Pressable>
