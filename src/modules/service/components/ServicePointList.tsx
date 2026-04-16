@@ -73,11 +73,11 @@ export const ServicePointList = ({
         keyExtractor={point => point.id}
         ListHeaderComponent={
           <>
-            {!!filters?.length && (
+            {(!!filters?.length || !!layers?.length) && (
               <Box insetVertical="smd">
                 <MapFilters
                   activeFilters={activeFilters}
-                  filters={filters}
+                  filters={filters?.length ? filters : layers}
                   onPressFilter={onPressFilter}
                   testID="ServiceListFilters"
                 />
