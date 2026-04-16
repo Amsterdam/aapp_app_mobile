@@ -19,6 +19,10 @@ export const useMapLayersWithColor = (service?: ServiceMapResponse) =>
               ?.circle_color
           : ''
 
-      return {...layer, color}
+      return {
+        ...layer,
+        color,
+        aapp_icon_type: itemInLayer?.properties.aapp_icon_type,
+      }
     })
   }, [service])

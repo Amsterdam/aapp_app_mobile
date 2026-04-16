@@ -62,11 +62,14 @@ export const ServicePointMap = ({
 
   return (
     <MapBase
-      controls={[ControlVariant.location]}
+      controls={[
+        ...(layers?.length ? [ControlVariant.layers] : []),
+        ControlVariant.location,
+      ]}
       FilterComponent={
         <MapFilters
           activeFilters={activeFilters}
-          filters={layers?.length ? layers : filters}
+          filters={filters}
           onPressFilter={onPressFilter}
           testID="ServiceMapFilters"
         />

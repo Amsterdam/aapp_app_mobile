@@ -1,8 +1,11 @@
 import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import type {ModuleSlug} from '@/modules/slugs'
-import {useMapControlsLegendButton} from '@/components/features/map/hooks/useMapControlsLegendButton'
 import {useMapControlsLocationButton} from '@/components/features/map/hooks/useMapControlsLocationButton'
+import {
+  MapControlBottomSheetKey,
+  useMapControlsToggleBottomSheetButton,
+} from '@/components/features/map/hooks/useMapControlsToggleBottomSheetButton'
 import {ControlVariant, MapControlOption} from '@/components/features/map/types'
 import {Permissions} from '@/types/permissions'
 
@@ -12,7 +15,10 @@ export const useMapControlsOptions = (
 ) => {
   const {onPressLocationButton, icon: locationIcon} =
     useMapControlsLocationButton(moduleSlug)
-  const {onPressLegendButton} = useMapControlsLegendButton()
+  const {onPressControlButton: onPressLegendButton} =
+    useMapControlsToggleBottomSheetButton(MapControlBottomSheetKey.legend)
+  const {onPressControlButton: onPressLayersButton} =
+    useMapControlsToggleBottomSheetButton(MapControlBottomSheetKey.layers)
 
   const controlOptions: Record<
     ControlVariant,
@@ -33,8 +39,21 @@ export const useMapControlsOptions = (
         onPress: onPressLegendButton,
         testID: 'MapControlsLegendButton',
       },
+      [ControlVariant.layers]: {
+        accessibilityLabel: 'Kaartlagen weergeven',
+        icon: {name: 'layers'},
+        text: 'Kaartlagen',
+        key: ControlVariant.layers,
+        onPress: onPressLayersButton,
+        testID: 'MapControlsLayersButton',
+      },
     }),
-    [locationIcon, onPressLocationButton, onPressLegendButton],
+    [
+      locationIcon,
+      onPressLocationButton,
+      onPressLegendButton,
+      onPressLayersButton,
+    ],
   )
 
   return useMemo(
