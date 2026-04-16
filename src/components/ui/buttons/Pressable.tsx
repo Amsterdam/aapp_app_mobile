@@ -55,14 +55,14 @@ export const Pressable = ({
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       ref={ref}
+      {...pressableProps}
       style={({pressed}) => [
         styles.button,
         pressed &&
           pressableProps.accessibilityRole !== 'checkbox' &&
           styles.pressed,
         !!border && styles.border,
-      ]}
-      {...pressableProps}>
+      ]}>
       <Box
         inset={inset}
         insetHorizontal={insetHorizontal}
