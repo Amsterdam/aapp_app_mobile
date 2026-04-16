@@ -7,7 +7,6 @@ import {
   useEffect,
 } from 'react'
 import type {Service, ServiceMapResponseFilter} from '@/modules/service/types'
-import {useMapLayersWithColor} from '@/components/features/map/hooks/useMapLayersWithColor'
 import {MapFiltersContext} from '@/components/features/map/providers/MapFiltersContext'
 import {useServiceQuery} from '@/modules/service/service'
 
@@ -21,7 +20,15 @@ export const MapFiltersProvider = ({
 
   const {data: service} = useServiceQuery(serviceId || skipToken)
   const filters = service?.filters
-  const layers = useMapLayersWithColor(service)
+
+  const layers = useMemo(
+    () =>
+      service?.layers?.map(layer => ({
+        ...layer,
+        icon: service?.icons_to_include?.[layer.icon_label],
+      })),
+    [service],
+  )
 
   useEffect(() => {
     if (layers?.length) {

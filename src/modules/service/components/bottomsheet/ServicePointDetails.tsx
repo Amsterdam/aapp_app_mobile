@@ -15,16 +15,17 @@ import {resetSelectedServicePointId} from '@/modules/service/slice'
 import {type Service} from '@/modules/service/types'
 
 export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
-  const {close: closeBottomSheet, isOpen} = useBottomSheet()
+  const {close: closeBottomSheet} = useBottomSheet()
   const dispatch = useDispatch()
   const servicePointDetails = useSelectedServicePointDetails(serviceId)
   const autoFocus = useAccessibilityFocus()
 
-  useEffect(() => {
-    if (!isOpen) {
+  useEffect(
+    () => () => {
       dispatch(resetSelectedServicePointId())
-    }
-  }, [dispatch, isOpen])
+    },
+    [dispatch],
+  )
 
   if (!servicePointDetails) {
     return null

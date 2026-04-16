@@ -4,6 +4,10 @@ import {Geojson, type Region} from 'react-native-maps'
 import type {Service, ServiceFeature} from '@/modules/service/types'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
+import {
+  DEFAULT_CLUSTER_OPTIONS,
+  HIGH_DATA_COUNT_CLUSTER_OPTIONS,
+} from '@/components/features/map/constants'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {ControlVariant} from '@/components/features/map/types'
@@ -13,13 +17,15 @@ import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 
+type Props = {
+  id: Service['id']
+  onServicePointPress: (id: ServiceFeature['id']) => void
+}
+
 export const ServicePointMap = ({
   id: serviceId,
   onServicePointPress,
-}: {
-  id: Service['id']
-  onServicePointPress: (id: ServiceFeature['id']) => void
-}) => {
+}: Props) => {
   const [region, setRegion] = useState<Region | undefined>()
 
   const {
@@ -62,11 +68,14 @@ export const ServicePointMap = ({
 
   return (
     <MapBase
-      controls={[ControlVariant.location]}
+      controls={[
+        ...(layers?.length ? [ControlVariant.layers] : []),
+        ControlVariant.location,
+      ]}
       FilterComponent={
         <MapFilters
           activeFilters={activeFilters}
-          filters={layers?.length ? layers : filters}
+          filters={filters}
           onPressFilter={onPressFilter}
           testID="ServiceMapFilters"
         />
@@ -78,6 +87,11 @@ export const ServicePointMap = ({
         <Geojson geojson={polygonGeoJson} />
       )}
       <Clusterer
+        clusterOptions={
+          data.length < 400
+            ? DEFAULT_CLUSTER_OPTIONS
+            : HIGH_DATA_COUNT_CLUSTER_OPTIONS
+        }
         data={data}
         region={region}
         shouldGroup

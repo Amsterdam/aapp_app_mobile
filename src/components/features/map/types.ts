@@ -5,6 +5,7 @@ import type {Supercluster} from 'react-native-clusterer'
 import {TestProps} from '@/components/ui/types'
 
 export enum ControlVariant {
+  layers = 'layers',
   legend = 'legend',
   location = 'location',
 }
@@ -14,6 +15,7 @@ export type MapControlOption = {
   icon: IconProps
   key: ControlVariant
   onPress: () => void
+  text?: string
 } & TestProps
 
 export type MarkerProperties = {
@@ -38,3 +40,8 @@ export type ClusterItem = {
   }
   properties: ClusterProperties | MarkerProperties
 }
+
+export type ClusterOptions = Supercluster.Options<
+  MarkerProperties | ClusterProperties,
+  MarkerProperties | ClusterProperties
+>

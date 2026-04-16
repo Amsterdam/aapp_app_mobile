@@ -8,7 +8,10 @@ import type {
 } from '@/components/features/map/types'
 import type {MapMarkerProps, Region} from 'react-native-maps'
 import {ClusterSwitch} from '@/components/features/map/clusters/ClusterSwitch'
-import {AMSTERDAM_REGION} from '@/components/features/map/constants'
+import {
+  AMSTERDAM_REGION,
+  DEFAULT_CLUSTER_OPTIONS,
+} from '@/components/features/map/constants'
 
 export type ClustererProps = {
   clusterOptions?: Supercluster.Options<
@@ -21,17 +24,6 @@ export type ClustererProps = {
   shouldGroup?: boolean
 } & Omit<MapMarkerProps, 'coordinate'>
 
-const defaultClusterOptions: Supercluster.Options<
-  MarkerProperties | ClusterProperties,
-  MarkerProperties | ClusterProperties
-> = {
-  minZoom: 0,
-  maxZoom: 16,
-  minPoints: 2,
-  radius: 30,
-  extent: 512,
-}
-
 const getItemKey = (item: ClusterItem) =>
   'cluster_id' in item.properties
     ? `cluster-${item.properties?.cluster_id}-${item.properties.point_count}`
@@ -42,7 +34,7 @@ export const Clusterer = ({
   region = AMSTERDAM_REGION,
   mapDimensions,
   shouldGroup = false,
-  clusterOptions = defaultClusterOptions,
+  clusterOptions = DEFAULT_CLUSTER_OPTIONS,
 }: ClustererProps) => {
   const dimensions = useWindowDimensions()
 
