@@ -15,9 +15,10 @@ import {UserRouteName} from '@/modules/user/routes'
 
 type Props = {
   entryPoint: string
+  showError?: boolean
 }
 
-export const DynamicForm = ({entryPoint}: Props) => {
+export const DynamicForm = ({entryPoint, showError = false}: Props) => {
   const route = useRoute<UserRouteName>()
   const form = useForm()
   const {
@@ -47,7 +48,15 @@ export const DynamicForm = ({entryPoint}: Props) => {
   }
 
   if (isError) {
-    return <SomethingWentWrong testID="DynamicFormSomethingWentWrong" />
+    if (showError || isInBottomSheet) {
+      return (
+        <Box testID="SurveyMainContainer">
+          <SomethingWentWrong testID="DynamicFormSomethingWentWrong" />
+        </Box>
+      )
+    }
+
+    return null
   }
 
   if (createSurveyIsError && !isInBottomSheet && !isFeedbackScreen) {
