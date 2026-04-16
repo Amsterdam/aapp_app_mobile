@@ -25,6 +25,7 @@ export const wasteGuideModule = createClientModule({
     [WasteGuideRouteName.wasteGuide]: {
       path: '/afval/afvalinformatie/',
       parse: {adres: (address: string) => decodeURIComponent(address)},
+      alias: [ModuleSlug['waste-guide']],
     },
   },
   icons: fractionIconConfig,

@@ -13,6 +13,7 @@ const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 
 export const constructionWorkModule = createClientModule({
   linking: {
+    [ModuleSlug['construction-work']]: ModuleSlug['construction-work'],
     [ConstructionWorkRouteName.projectNews]:
       'news/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
     [ConstructionWorkRouteName.projectWarning]:

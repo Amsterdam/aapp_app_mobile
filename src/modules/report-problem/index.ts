@@ -8,6 +8,9 @@ export const reportProblemModule = createClientModule({
   logDimension: PiwikSessionDimension.reportProblemModule,
   name: 'ReportProblemModule',
   slug: ModuleSlug['report-problem'],
+  linking: {
+    [ModuleSlug['report-problem']]: ModuleSlug['report-problem'],
+  },
   screenOptions: ({route}) => {
     const routeName = getFocusedRouteNameFromRoute(route)
 

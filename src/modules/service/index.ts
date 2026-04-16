@@ -6,6 +6,9 @@ import {ReduxKey} from '@/store/types/reduxKey'
 export const serviceModule = createClientModule({
   name: 'ServiceModule',
   slug: ModuleSlug.service,
+  linking: {
+    [ModuleSlug.service]: ModuleSlug.service,
+  },
   reduxConfigs: [
     {
       key: ReduxKey.service,

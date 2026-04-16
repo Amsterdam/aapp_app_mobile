@@ -15,6 +15,7 @@ const persistWhitelist: (keyof CityPassState)[] = [
 
 export const cityPassModule = createClientModule({
   linking: {
+    [ModuleSlug['city-pass']]: ModuleSlug['city-pass'],
     [CityPassRouteName.loginSteps]:
       'stadspas/:loginResult/:accessToken?/:refreshToken?/:errorMessage?/:errorCode?',
   },
