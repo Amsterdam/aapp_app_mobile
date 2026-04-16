@@ -4,7 +4,7 @@ import {PushNotification} from '@/types/notification'
 import {addAppPrefixToRoute} from '@/utils/addAppPrefixToRoute'
 
 /**
- * Resolves a linking URL from a push pushNotification, if possible.
+ * Resolves a linking URL from a push notification, if possible.
  * @return 'amsterdam://...' URL or undefined if no valid URL could be derived
  */
 export const resolvePathFromPushNotification = (
