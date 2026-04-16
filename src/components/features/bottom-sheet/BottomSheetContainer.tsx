@@ -84,7 +84,7 @@ export const BottomSheetContainer = ({
         }
 
         const apply = () => {
-          setSheetHeight(prev => Math.max(prev, height))
+          setSheetHeight(height)
         }
 
         if (!hasCommittedLayoutRef.current) {
