@@ -1,4 +1,3 @@
-import {type EventDetail, type EventType} from '@notifee/react-native'
 import {
   type NavigationState,
   type PartialState,
@@ -99,22 +98,17 @@ export type ModuleClientConfig<
     dispatch: ReduxDispatch,
   ) => Promise<unknown>
   /**
-   * Module specific logic for handling notification events
-   * @param type Interaction type with the notification, for example Press or Delivered
-   * @param detail details of the event
+   * Function to call when user pressed on a push-notification
+   * @param notification Push notification
    * @param dispatch Redux dispatch function
    */
   onNotificationEvent?: (
-    type: EventType,
-    detail: Omit<EventDetail, 'notification'> & {
-      notification?: PushNotification<PushNotificationData>
-    },
-    isPushNotificationDeeplink: boolean,
+    notification: PushNotification<PushNotificationData>,
     dispatch: ReduxDispatch,
-  ) => string | undefined | void
+  ) => void
   /**
-   * Function to post-process the linking state after it has been created.
-   * This can be used to run side-effects and modify the state before it is used by the navigation container.
+   * Before a user deeplinks into the app, this function can be used to run side-effects before navigation.
+   * When finished, it returns the (optionally modified) navigation state to navigate to.
    * @param state The current navigation state
    * @param dispatch The Redux dispatch function
    * @param storeState A function to get the current Redux store state
@@ -133,6 +127,13 @@ export type ModuleClientConfig<
    * Determines whether the module requires a Firebase token.
    */
   requiresFirebaseToken?: boolean
+  /**
+   * Derives a path into the modules handled by linking from notification context.
+   **/
+  resolvePathFromNotification?: (
+    notification: PushNotification<PushNotificationData>,
+    isPushNotificationDeeplink: boolean,
+  ) => string | undefined
 }
 
 /**

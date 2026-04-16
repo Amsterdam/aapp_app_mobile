@@ -1,4 +1,4 @@
-import {onNotificationEvent} from '@/modules/construction-work/onNotificationEvent'
+import {resolvePathFromNotification} from '@/modules/construction-work/notifications/resolvePathFromNotification'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   type ConstructionWorkState,
@@ -31,5 +31,5 @@ export const constructionWorkModule = createClientModule({
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['construction-work'],
-  onNotificationEvent,
+  resolvePathFromNotification,
 })

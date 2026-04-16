@@ -8,8 +8,9 @@ import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import type {RootStackParams} from '@/app/navigation/types'
 import {appPrefix} from '@/app/navigation/constants'
-import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotification'
 import {navigationRef} from '@/app/navigation/navigationRef'
+import {resolvePathFromPushNotification} from '@/app/navigation/resolvePathFromPushNotification'
+import {resolveModuleOnNotificationEvent} from '@/app/navigation/utils/resolveModuleOnNotificationEvent'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {clientModules} from '@/modules/modules'
 import {notificationHistoryApi} from '@/modules/notification-history/service'
@@ -43,27 +44,13 @@ export const createLinking = (
   config: {
     screens: moduleLinkings,
   },
+  // Handles URL's that opened the app from quit state
   getInitialURL: async () => {
     try {
       const url = await Linking.getInitialURL()
 
       if (url) {
         return url
-      }
-
-      const initialNotifeeNotification = await notifee.getInitialNotification()
-
-      markNotificationAsRead(
-        initialNotifeeNotification?.notification.data?.notificationId,
-        dispatch,
-      )
-
-      const notifeeUrl = getRouteFromNotification(
-        initialNotifeeNotification?.notification,
-      )
-
-      if (notifeeUrl) {
-        return notifeeUrl
       }
 
       const initialFirebaseNotification =
@@ -74,28 +61,25 @@ export const createLinking = (
         dispatch,
       )
 
-      return getRouteFromNotification({
-        data: initialFirebaseNotification?.data,
-        title: initialFirebaseNotification?.notification?.title,
-        body: initialFirebaseNotification?.notification?.body,
-      })
+      if (initialFirebaseNotification) {
+        resolveModuleOnNotificationEvent(initialFirebaseNotification, dispatch)
+        const pushNotification = {
+          data: initialFirebaseNotification.data,
+          title: initialFirebaseNotification.notification?.title,
+          body: initialFirebaseNotification.notification?.body,
+        }
+
+        return resolvePathFromPushNotification(pushNotification)
+      }
     } catch (error) {
       devLog(error)
 
-      return null
+      return
     }
   },
+  // Use to customize parsing the URL to a navigation state
   getStateFromPath: (path, config) => {
-    let state: ReturnType<typeof getStateFromPath>
-    const match = /module\/(.*)/.exec(path)
-
-    if (match?.[1]) {
-      const moduleName = match[1] as ModuleSlug
-
-      state = {routes: [{name: moduleName, params: undefined}]}
-    } else {
-      state = getStateFromPath(path, config)
-    }
+    let state = getStateFromPath(path, config)
 
     if (state && !navigationRef.isReady()) {
       const {routes} = state
@@ -105,26 +89,37 @@ export const createLinking = (
         routes?.length === 1 &&
         (routes[0].name as ModuleSlug) !== homeRouteName
       ) {
-        state.routes.unshift({name: homeRouteName, params: undefined})
+        state = {
+          ...state,
+          routes: [{name: homeRouteName, params: undefined}, ...state.routes],
+        }
       }
     }
 
     if (state) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      clientModules.forEach((module: ModuleClientConfig<any, any>) => {
-        if (typeof module.postProcessLinking === 'function') {
-          const result = module.postProcessLinking(state, dispatch, getState)
-
-          if (result) {
-            Object.assign(state, result)
+      state = clientModules.reduce(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (currentState, module: ModuleClientConfig<any, any>) => {
+          if (typeof module.postProcessLinking !== 'function') {
+            return currentState
           }
-        }
-      })
+
+          const result = module.postProcessLinking(
+            currentState,
+            dispatch,
+            getState,
+          )
+
+          return result ? {...currentState, ...result} : currentState
+        },
+        state,
+      )
     }
 
     return state
   },
 
+  // Use to handle deep-links and push notifications when the app is active (foreground or background)
   subscribe: (listener: (deeplink: string) => void) => {
     // Listen to incoming links from deep linking
     const subscription = Linking.addEventListener('url', ({url}) =>
@@ -136,8 +131,9 @@ export const createLinking = (
       messaging,
       message => {
         markNotificationAsRead(message.data?.notificationId, dispatch)
+        resolveModuleOnNotificationEvent(message, dispatch)
 
-        const url = getRouteFromNotification({
+        const url = resolvePathFromPushNotification({
           data: message.data,
           title: message.notification?.title,
           body: message.notification?.body,
@@ -157,7 +153,7 @@ export const createLinking = (
           dispatch,
         )
 
-        const url = getRouteFromNotification(detail.notification)
+        const url = resolvePathFromPushNotification(detail.notification)
 
         if (url) {
           listener(url)

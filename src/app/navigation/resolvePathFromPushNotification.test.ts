@@ -1,20 +1,11 @@
-import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotification'
+import {resolvePathFromPushNotification} from '@/app/navigation/resolvePathFromPushNotification'
 import {ModuleSlug} from '@/modules/slugs'
 
-describe('getRouteFromNotification', () => {
+describe('resolvePathFromPushNotification', () => {
   it('should return an in-app module based route when no external url is provided', () => {
     const mockNotificationBG = {
       data: {
         module_slug: ModuleSlug['burning-guide'],
-        linkSourceid: '1234',
-      },
-      body: 'testBody',
-      title: 'testTitle',
-    }
-
-    const mockNotificationWG = {
-      data: {
-        module_slug: ModuleSlug['waste-guide'],
         linkSourceid: '1234',
       },
       body: 'testBody',
@@ -30,13 +21,12 @@ describe('getRouteFromNotification', () => {
       title: 'testTitle',
     }
 
-    expect(getRouteFromNotification(mockNotificationBG)).toBe(
+    expect(resolvePathFromPushNotification(mockNotificationBG)).toBe(
       'amsterdam://burning-guide',
     )
-    expect(getRouteFromNotification(mockNotificationWG)).toBe(
-      'amsterdam://afval/afvalinformatie/',
+    expect(resolvePathFromPushNotification(mockNotificationMyAms)).toBe(
+      'amsterdam://mijn-amsterdam',
     )
-    expect(getRouteFromNotification(mockNotificationMyAms)).toBeNull()
   })
 
   it('should return an in-app deeplink with external url as param when an external url is provided', () => {
@@ -50,7 +40,7 @@ describe('getRouteFromNotification', () => {
       title: 'testTitle',
     }
 
-    expect(getRouteFromNotification(mockNotification)).toBe(
+    expect(resolvePathFromPushNotification(mockNotification)).toBe(
       'amsterdam://notification-redirect?url=https%3A%2F%2Famsterdam.nl&title=testTitle&body=testBody',
     )
   })

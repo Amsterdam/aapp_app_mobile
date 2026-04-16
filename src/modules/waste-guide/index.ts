@@ -1,8 +1,9 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {fractionIconConfig} from '@/modules/waste-guide/constants'
+import {onNotificationEvent} from '@/modules/waste-guide/notifications/onNotificationEvent'
+import {resolvePathFromNotification} from '@/modules/waste-guide/notifications/resolvePathFromNotification'
 import {onMyAddressChanged} from '@/modules/waste-guide/onMyAddressChanged'
-import {onNotificationEvent} from '@/modules/waste-guide/onNotificationEvent'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {wasteGuideSlice} from '@/modules/waste-guide/slice'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
@@ -29,4 +30,5 @@ export const wasteGuideModule = createClientModule({
   icons: fractionIconConfig,
   onMyAddressChanged,
   onNotificationEvent,
+  resolvePathFromNotification,
 })
