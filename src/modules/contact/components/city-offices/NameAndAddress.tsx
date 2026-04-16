@@ -18,8 +18,8 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
         accessibilityHint="Tik om een ander stadsloket te selecteren."
         accessibilityLabel={accessibleText(
           title,
-          `${address.streetName} ${address.streetNumber}`,
-          address.postalCode,
+          `${address.street} ${address.number}`,
+          address.postcode,
           address.city,
         )}
         icon={{name: 'person-at-desk'}}
@@ -30,12 +30,12 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
             <Phrase
               testID="ContactCityOfficeStreetPhrase"
               variant="small">
-              {address.streetName} {address.streetNumber}
+              {address.street} {address.number}
             </Phrase>
             <Phrase
               testID="ContactCityOfficeCityPhrase"
               variant="small">
-              {address.postalCode} {address.city}
+              {address.postcode} {address.city}
             </Phrase>
           </>
         }

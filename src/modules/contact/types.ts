@@ -1,3 +1,4 @@
+import type {Address} from '@/modules/address/types'
 import type {Coordinates} from '@/types/location'
 
 export type ImageSource = {
@@ -46,13 +47,6 @@ export type CityOffice = {
     regular: VisitingHour[]
   }
   visitingHoursContent?: string
-}
-
-type Address = {
-  city: string
-  postalCode: string
-  streetName: string
-  streetNumber: string
 }
 
 export type VisitingHour = {
