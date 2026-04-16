@@ -38,7 +38,10 @@ export const NotificationHistoryItemPressable = ({
 
     resolveModuleOnNotificationEvent(transformedNotification, dispatch)
 
-    const linkPath = resolveModulePathFromNotification(transformedNotification)
+    const linkPath = resolveModulePathFromNotification(
+      transformedNotification,
+      false,
+    )
 
     if (linkPath) {
       linkTo(linkPath)

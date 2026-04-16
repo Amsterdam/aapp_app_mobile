@@ -26,7 +26,9 @@ export const resolvePathFromPushNotification = (
   }
 
   const route =
-    addAppPrefixToRoute(resolveModulePathFromNotification(pushNotification)) ??
+    addAppPrefixToRoute(
+      resolveModulePathFromNotification(pushNotification, true),
+    ) ??
     pushNotification.data.deeplink ?? // The deeplink already comes in with the app prefix
     addAppPrefixToRoute(pushNotification.data.module_slug)
 
