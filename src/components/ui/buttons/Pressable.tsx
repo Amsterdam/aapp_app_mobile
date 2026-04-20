@@ -46,6 +46,7 @@ export const Pressable = ({
   variant = 'tertiary',
   flex,
   border = false,
+  style,
   ...pressableProps
 }: PressableProps) => {
   const styles = useThemable(createStyles(backgroundColor, variant, flex))
@@ -55,14 +56,19 @@ export const Pressable = ({
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       ref={ref}
-      {...pressableProps}
       style={({pressed}) => [
         styles.button,
         pressed &&
           pressableProps.accessibilityRole !== 'checkbox' &&
           styles.pressed,
         !!border && styles.border,
-      ]}>
+        style
+          ? typeof style === 'function'
+            ? style({pressed})
+            : style
+          : undefined,
+      ]}
+      {...pressableProps}>
       <Box
         inset={inset}
         insetHorizontal={insetHorizontal}
