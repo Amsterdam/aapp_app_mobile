@@ -1,7 +1,7 @@
 import {Box} from '@/components/ui/containers/Box'
 import {Title} from '@/components/ui/text/Title'
 
-export const ServicePointListEmpty = () => (
+export const ServicePointEmptyList = () => (
   <Box insetVertical="xxl">
     <Title
       level="h5"

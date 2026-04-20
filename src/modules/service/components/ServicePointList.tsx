@@ -16,7 +16,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
-import {ServicePointListEmpty} from '@/modules/service/components/ServicePointListEmpty'
+import {ServicePointEmptyList} from '@/modules/service/components/ServicePointEmptyList'
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
 import {
   ConditionType,
@@ -80,7 +80,7 @@ export const ServicePointList = ({
       <FlatList
         data={servicePointsByDistance}
         keyExtractor={point => String(point.id)}
-        ListEmptyComponent={ServicePointListEmpty}
+        ListEmptyComponent={ServicePointEmptyList}
         ListHeaderComponent={
           <>
             {!!filters?.length && (
