@@ -1,9 +1,7 @@
-import {skipToken} from '@reduxjs/toolkit/query'
-import {useMemo, useState} from 'react'
-import {Geojson, type Region} from 'react-native-maps'
+import {useState} from 'react'
 import type {Service, ServiceFeature} from '@/modules/service/types'
+import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
-import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {
   DEFAULT_CLUSTER_OPTIONS,
@@ -11,12 +9,10 @@ import {
 } from '@/components/features/map/constants'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
+import {Polygon} from '@/components/features/map/polygon/Polygon'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
-import {useServiceQuery} from '@/modules/service/service'
-import {selectSelectedServicePointId} from '@/modules/service/slice'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
@@ -31,37 +27,12 @@ export const ServicePointMap = ({
   const [region, setRegion] = useState<Region | undefined>()
 
   const {
-    data: service,
     isLoading,
     isError,
-  } = useServiceQuery(serviceId || skipToken)
-  const {data: geojson, icons_to_include: icons} = service || {}
-
-  const [polygonGeoJson, pointsGeoJson] = useMemo(() => {
-    if (typeof geojson !== 'object' || !('type' in geojson)) {
-      return [undefined, undefined]
-    }
-
-    return [
-      {
-        ...geojson,
-        features: geojson.features.filter(f => f.geometry.type !== 'Point'),
-      },
-      {
-        ...geojson,
-        features: geojson.features.filter(f => f.geometry.type === 'Point'),
-      },
-    ]
-  }, [geojson])
+    data: {polygons, points},
+  } = useGetMapData(serviceId, onServicePointPress)
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
-
-  const pointsData = useGetMapData(pointsGeoJson, icons, onServicePointPress)
-  const polygonData = useGetMapData(polygonGeoJson, icons, onServicePointPress)
-
-  const selectedServicePointId = useSelector(selectSelectedServicePointId)
-
-  useSetMapSelection(selectedServicePointId)
 
   if (isLoading) {
     return <PleaseWait testID="ServiceMapPleaseWait" />
@@ -84,24 +55,19 @@ export const ServicePointMap = ({
       isError={isError}
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
-      {!!polygonData?.length && (
-        <Geojson
-          geojson={{type: 'FeatureCollection', features: polygonData}}
-          onPress={e => {
-            if (e.feature.id !== undefined) {
-              onServicePointPress(e.feature.id)
-            }
-          }}
-          tappable
+      {!!polygons?.length && (
+        <Polygon
+          data={polygons}
+          onPress={id => onServicePointPress(id)}
         />
       )}
       <Clusterer
         clusterOptions={
-          pointsData.length < 400
+          points.length < 400
             ? DEFAULT_CLUSTER_OPTIONS
             : HIGH_DATA_COUNT_CLUSTER_OPTIONS
         }
-        data={pointsData}
+        data={points}
         region={region}
         shouldGroup
       />

@@ -5,7 +5,6 @@ import type {
   ServiceGeoJSON,
   ServiceMapResponse,
 } from '@/modules/service/types'
-import type {EmptyObject} from '@/types/utils'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import {ServicePointCustomMarker} from '@/modules/service/components/ServicePointCustomMarker'
@@ -14,15 +13,14 @@ import {
   useGetFilteredFeatures,
 } from '@/modules/service/hooks/useGetFilteredFeatures'
 
-export const useGetMapData = (
-  geojson: ServiceGeoJSON | EmptyObject | undefined,
+export const useGetMapMarkerData = (
+  geojson: ServiceGeoJSON | undefined,
   icons: ServiceMapResponse['icons_to_include'],
   onServicePointPress: (id: ServiceFeature['id']) => void,
 ) => {
-  const {activeFilters, layers} = useMapFilters()
+  const {layers} = useMapFilters()
 
   const filteredFeatures = useGetFilteredFeatures({
-    activeFilters,
     features: geojson && 'features' in geojson ? geojson?.features : [],
     conditionType: layers?.length ? ConditionType.or : ConditionType.and,
   })

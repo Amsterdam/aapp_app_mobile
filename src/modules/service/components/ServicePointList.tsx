@@ -45,7 +45,6 @@ export const ServicePointList = ({
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
   const filteredFeatures = useGetFilteredFeatures({
-    activeFilters,
     features: geojson && 'features' in geojson ? geojson?.features : [],
     conditionType: layers?.length ? ConditionType.or : ConditionType.and,
   })

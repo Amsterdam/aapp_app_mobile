@@ -1,23 +1,22 @@
 import {useMemo} from 'react'
-import type {
-  ServiceMapResponseFilter,
-  ServiceFeature,
-} from '@/modules/service/types'
+import type {ServiceFeature} from '@/modules/service/types'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 
 export enum ConditionType {
   and = 'every',
   or = 'some',
 }
+
 export const useGetFilteredFeatures = ({
   features,
-  activeFilters,
   conditionType = ConditionType.and,
 }: {
-  activeFilters: ServiceMapResponseFilter[]
   conditionType?: ConditionType
   features: ServiceFeature[]
-}) =>
-  useMemo(
+}) => {
+  const {activeFilters} = useMapFilters()
+
+  return useMemo(
     () =>
       features.filter(feature =>
         activeFilters[conditionType](filter => {
@@ -28,3 +27,4 @@ export const useGetFilteredFeatures = ({
       ),
     [features, activeFilters, conditionType],
   )
+}
