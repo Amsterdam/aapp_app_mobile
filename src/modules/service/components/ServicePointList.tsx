@@ -2,7 +2,12 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import {FlatList} from 'react-native'
 import type {ServiceFeature, Service} from '@/modules/service/types'
+import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
+import {
+  MapControlBottomSheetKey,
+  useMapControlsToggleBottomSheetButton,
+} from '@/components/features/map/hooks/useMapControlsToggleBottomSheetButton'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -11,6 +16,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {ServicePointEmptyList} from '@/modules/service/components/ServicePointEmptyList'
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
 import {
   ConditionType,
@@ -33,6 +39,9 @@ export const ServicePointList = ({
     isError,
   } = useServiceQuery(serviceId || skipToken)
   const {data: geojson, icons_to_include: icons} = service || {}
+
+  const {onPressControlButton: onPressLayersButton} =
+    useMapControlsToggleBottomSheetButton(MapControlBottomSheetKey.layers)
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
   const filteredFeatures = useGetFilteredFeatures({
@@ -62,7 +71,7 @@ export const ServicePointList = ({
     return <PleaseWait testID="ServicePointListPleaseWait" />
   }
 
-  if (!service || !servicePointsByDistance?.length || isError) {
+  if (!service || isError) {
     return <SomethingWentWrong testID="ServicePointListSomethingWentWrong" />
   }
 
@@ -71,15 +80,29 @@ export const ServicePointList = ({
       <FlatList
         data={servicePointsByDistance}
         keyExtractor={point => String(point.id)}
+        ListEmptyComponent={ServicePointEmptyList}
         ListHeaderComponent={
           <>
-            {(!!filters?.length || !!layers?.length) && (
+            {!!filters?.length && (
               <Box insetVertical="smd">
                 <MapFilters
                   activeFilters={activeFilters}
-                  filters={filters?.length ? filters : layers}
+                  filters={filters}
                   onPressFilter={onPressFilter}
                   testID="ServiceListFilters"
+                />
+              </Box>
+            )}
+            {!!layers?.length && (
+              <Box
+                insetRight="md"
+                insetVertical="smd">
+                <MapControlsButton
+                  accessibilityLabel="Kaartlagen weergeven"
+                  icon={{name: 'layers'}}
+                  onPress={onPressLayersButton}
+                  testID="ServicePointListLayersButton"
+                  text="Kaartlagen"
                 />
               </Box>
             )}
