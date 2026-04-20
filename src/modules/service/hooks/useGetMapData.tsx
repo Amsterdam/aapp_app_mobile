@@ -6,16 +6,13 @@ import type {
   ServiceMapResponse,
 } from '@/modules/service/types'
 import type {EmptyObject} from '@/types/utils'
-import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ServicePointCustomMarker} from '@/modules/service/components/ServicePointCustomMarker'
 import {
   ConditionType,
   useGetFilteredFeatures,
 } from '@/modules/service/hooks/useGetFilteredFeatures'
-import {selectSelectedServicePointId} from '@/modules/service/slice'
 
 export const useGetMapData = (
   geojson: ServiceGeoJSON | EmptyObject | undefined,
@@ -29,10 +26,6 @@ export const useGetMapData = (
     features: geojson && 'features' in geojson ? geojson?.features : [],
     conditionType: layers?.length ? ConditionType.or : ConditionType.and,
   })
-
-  const selectedServicePointId = useSelector(selectSelectedServicePointId)
-
-  useSetMapSelection(selectedServicePointId)
 
   return useMemo(
     () =>

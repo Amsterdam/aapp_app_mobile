@@ -3,6 +3,7 @@ import {useMemo, useState} from 'react'
 import {Geojson, type Region} from 'react-native-maps'
 import type {Service, ServiceFeature} from '@/modules/service/types'
 import {MapBase} from '@/components/features/map/MapBase'
+import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {
   DEFAULT_CLUSTER_OPTIONS,
@@ -12,8 +13,10 @@ import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
+import {selectSelectedServicePointId} from '@/modules/service/slice'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
@@ -55,6 +58,10 @@ export const ServicePointMap = ({
 
   const pointsData = useGetMapData(pointsGeoJson, icons, onServicePointPress)
   const polygonData = useGetMapData(polygonGeoJson, icons, onServicePointPress)
+
+  const selectedServicePointId = useSelector(selectSelectedServicePointId)
+
+  useSetMapSelection(selectedServicePointId)
 
   if (isLoading) {
     return <PleaseWait testID="ServiceMapPleaseWait" />
