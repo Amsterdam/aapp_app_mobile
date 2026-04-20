@@ -56,17 +56,13 @@ export const Pressable = ({
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       ref={ref}
-      style={({pressed}) => [
+      style={state => [
         styles.button,
-        pressed &&
+        state.pressed &&
           pressableProps.accessibilityRole !== 'checkbox' &&
           styles.pressed,
         !!border && styles.border,
-        style
-          ? typeof style === 'function'
-            ? style({pressed})
-            : style
-          : undefined,
+        typeof style === 'function' ? style(state) : style,
       ]}
       {...pressableProps}>
       <Box
