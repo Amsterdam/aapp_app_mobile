@@ -1,5 +1,5 @@
 import type {ParkingMachine} from '@/modules/parking/types'
-import type {ServiceFeature} from '@/modules/service/types'
+import type {ServicePointFeature} from '@/modules/service/types'
 import type {Coordinates} from '@/types/location'
 import {type Address, AddressCity} from '@/modules/address/types'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
@@ -55,7 +55,7 @@ describe('sortByDistanceToAddress', () => {
     ...point,
     lat: point.geometry.coordinates[1],
     lon: point.geometry.coordinates[0],
-  })) as (ServiceFeature & Coordinates)[]
+  })) as (ServicePointFeature & Coordinates)[]
 
   const address: Address = {
     bagId: '',

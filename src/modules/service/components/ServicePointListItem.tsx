@@ -1,7 +1,7 @@
 import type {
-  ServiceFeature,
   ServiceMapResponse,
   ServiceMapResponseIcon,
+  ServicePointFeature,
 } from '@/modules/service/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -20,8 +20,8 @@ export const ServicePointListItem = ({
 }: {
   icon?: ServiceMapResponseIcon
   listProperty: ServiceMapResponse['list_property']
-  onPress: (servicePointId: ServiceFeature['id']) => void
-  servicePoint: ServiceFeature
+  onPress: (servicePointId: ServicePointFeature['id']) => void
+  servicePoint: ServicePointFeature
 }) => {
   const {accessibilityLabel, listPropertyValue, distanceToPoint} =
     useServicePointListItemData(servicePoint, listProperty)

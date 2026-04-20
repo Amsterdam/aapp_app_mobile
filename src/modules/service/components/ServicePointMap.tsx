@@ -1,5 +1,6 @@
 import {useState} from 'react'
-import type {Service, ServiceFeature} from '@/modules/service/types'
+import type {Service} from '@/modules/service/types'
+import type {Feature} from 'geojson'
 import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
@@ -9,7 +10,7 @@ import {
 } from '@/components/features/map/constants'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
-import {Polygon} from '@/components/features/map/polygon/Polygon'
+import {Polygons} from '@/components/features/map/polygon/Polygons'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
@@ -17,20 +18,17 @@ import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
   id: Service['id']
-  onServicePointPress: (id: ServiceFeature['id']) => void
+  onMapElementPress: (id: Feature['id']) => void
 }
 
-export const ServicePointMap = ({
-  id: serviceId,
-  onServicePointPress,
-}: Props) => {
+export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
   const [region, setRegion] = useState<Region | undefined>()
 
   const {
     isLoading,
     isError,
     data: {polygons, points},
-  } = useGetMapData(serviceId, onServicePointPress)
+  } = useGetMapData(serviceId, onMapElementPress)
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
 
@@ -56,9 +54,9 @@ export const ServicePointMap = ({
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
       {!!polygons?.length && (
-        <Polygon
+        <Polygons
           data={polygons}
-          onPress={id => onServicePointPress(id)}
+          onPress={onMapElementPress}
         />
       )}
       <Clusterer

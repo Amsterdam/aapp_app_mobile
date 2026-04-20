@@ -1,12 +1,12 @@
 import {Geojson} from 'react-native-maps'
-import type {ServiceFeature} from '@/modules/service/types'
+import type {ServicePolygonFeature} from '@/modules/service/types'
 
-export const Polygon = ({
+export const Polygons = ({
   data,
   onPress,
 }: {
-  data: ServiceFeature[]
-  onPress: (id: ServiceFeature['id']) => void
+  data: ServicePolygonFeature[]
+  onPress: (id: ServicePolygonFeature['id']) => void
 }) => (
   <Geojson
     geojson={{type: 'FeatureCollection', features: data}}

@@ -62,8 +62,8 @@ export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
 
           <RouteButton
             coordinates={{
-              lat: servicePointDetails.coordinates.lat,
-              lon: servicePointDetails.coordinates.lon,
+              lat: servicePointDetails.coordinates?.lat,
+              lon: servicePointDetails.coordinates?.lon,
             }}
             testID="ServicePointDetailsRouteButton"
           />

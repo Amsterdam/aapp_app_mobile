@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import type {ServiceFeature} from '@/modules/service/types'
+import type {ServiceGeoJSON} from '@/modules/service/types'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 
 export enum ConditionType {
@@ -7,13 +7,15 @@ export enum ConditionType {
   or = 'some',
 }
 
-export const useGetFilteredFeatures = ({
+export const useGetFilteredFeatures = <
+  Feature extends ServiceGeoJSON['features'][number],
+>({
   features,
   conditionType = ConditionType.and,
 }: {
   conditionType?: ConditionType
-  features: ServiceFeature[]
-}) => {
+  features: Feature[]
+}): Feature[] => {
   const {activeFilters} = useMapFilters()
 
   return useMemo(

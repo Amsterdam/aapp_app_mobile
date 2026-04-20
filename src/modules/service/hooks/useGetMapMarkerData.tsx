@@ -1,8 +1,7 @@
 import {useMemo} from 'react'
 import type {MarkerProperties} from '@/components/features/map/types'
 import type {
-  ServiceFeature,
-  ServiceGeoJSON,
+  ServicePointFeature,
   ServiceMapResponse,
 } from '@/modules/service/types'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
@@ -14,20 +13,20 @@ import {
 } from '@/modules/service/hooks/useGetFilteredFeatures'
 
 export const useGetMapMarkerData = (
-  geojson: ServiceGeoJSON | undefined,
+  features: ServicePointFeature[],
   icons: ServiceMapResponse['icons_to_include'],
-  onServicePointPress: (id: ServiceFeature['id']) => void,
+  onMarkerPress: (id: ServicePointFeature['id']) => void,
 ) => {
   const {layers} = useMapFilters()
 
   const filteredFeatures = useGetFilteredFeatures({
-    features: geojson && 'features' in geojson ? geojson?.features : [],
+    features,
     conditionType: layers?.length ? ConditionType.or : ConditionType.and,
   })
 
   return useMemo(
     () =>
-      filteredFeatures?.map(({id, properties, ...feature}) => {
+      filteredFeatures?.map(({id, properties, ...feature}, index) => {
         const {aapp_icon_type, ...restProperties} = properties
         const iconProps =
           aapp_icon_type && icons
@@ -37,13 +36,13 @@ export const useGetMapMarkerData = (
         return {
           ...feature,
           properties: {
-            id,
+            id: id || `${restProperties.aapp_title}-${index}`,
             ...restProperties,
             ...iconProps,
-            onMarkerPress: () => onServicePointPress(id),
+            onMarkerPress: () => onMarkerPress(id),
           } satisfies MarkerProperties,
         }
       }),
-    [filteredFeatures, onServicePointPress, icons],
+    [filteredFeatures, onMarkerPress, icons],
   )
 }

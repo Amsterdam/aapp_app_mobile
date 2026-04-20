@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
-import type {ServiceFeature, Service} from '@/modules/service/types'
+import type {Service} from '@/modules/service/types'
+import type {Feature} from 'geojson'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
 import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
@@ -15,8 +16,12 @@ export const ServicePointView = (props: {id: Service['id']}) => {
   const dispatch = useDispatch()
   const {open} = useBottomSheet()
 
-  const onServicePointPress = useCallback(
-    (id: ServiceFeature['id']) => {
+  const onMapElementPress = useCallback(
+    (id: Feature['id']) => {
+      if (!id) {
+        return
+      }
+
       dispatch(setSelectedServicePointId(id))
       open(ServiceMapBottomSheetVariant.servicePointDetails)
     },
@@ -29,7 +34,7 @@ export const ServicePointView = (props: {id: Service['id']}) => {
   return (
     <ServiceViewComponent
       {...props}
-      onServicePointPress={onServicePointPress}
+      onMapElementPress={onMapElementPress}
     />
   )
 }

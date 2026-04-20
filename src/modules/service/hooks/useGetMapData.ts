@@ -1,6 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import type {Service, ServiceFeature} from '@/modules/service/types'
+import type {
+  Service,
+  ServicePointFeature,
+  ServicePolygonFeature,
+} from '@/modules/service/types'
+import type {Feature} from 'geojson'
 import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetMapMarkerData} from '@/modules/service/hooks/useGetMapMarkerData'
@@ -10,7 +15,7 @@ import {selectSelectedServicePointId} from '@/modules/service/slice'
 
 export const useGetMapData = (
   id: Service['id'],
-  onServicePointPress: (id: ServiceFeature['id']) => void,
+  onMapElementPress: (id: Feature['id']) => void,
 ) => {
   const {data: service, ...query} = useServiceQuery(id || skipToken)
   const {data: geojson, icons_to_include: icons} = service || {}
@@ -19,30 +24,27 @@ export const useGetMapData = (
 
   useSetMapSelection(selectedServicePointId)
 
-  const [polygonGeoJson, pointsGeoJson] = useMemo(() => {
+  const [polygonFeatures = [], pointFeatures = []] = useMemo(() => {
     if (typeof geojson !== 'object' || !('type' in geojson)) {
       return [undefined, undefined]
     }
 
     return [
-      {
-        ...geojson,
-        features: geojson.features.filter(f =>
-          f.geometry.type.includes('Polygon'),
-        ),
-      },
-      {
-        ...geojson,
-        features: geojson.features.filter(f => f.geometry.type === 'Point'),
-      },
+      geojson.features.filter(
+        (f): f is ServicePolygonFeature =>
+          f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon',
+      ),
+      geojson.features.filter(
+        (f): f is ServicePointFeature => f.geometry.type === 'Point',
+      ),
     ]
   }, [geojson])
 
-  const polygonData = useGetMapPolygonData(polygonGeoJson)
+  const polygonData = useGetMapPolygonData(polygonFeatures)
   const pointsData = useGetMapMarkerData(
-    pointsGeoJson,
+    pointFeatures,
     icons,
-    onServicePointPress,
+    onMapElementPress,
   )
 
   return {...query, data: {points: pointsData, polygons: polygonData}}
