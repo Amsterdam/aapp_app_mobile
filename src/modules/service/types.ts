@@ -47,7 +47,7 @@ type FeatureProperties = {
 export type ServiceFeature = Omit<
   Feature<FeatureGeometry, FeatureProperties>,
   'id'
-> & {id: string}
+> & {id: string | number}
 
 export type ServiceGeoJSON = {
   features: Array<ServiceFeature>

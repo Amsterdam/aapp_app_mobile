@@ -1,5 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
+import type {MarkerProperties} from '@/components/features/map/types'
 import type {Coordinates} from '@/types/location'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useServiceQuery} from '@/modules/service/service'
@@ -9,7 +10,7 @@ import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 
 type SelectedServicePointDetails = {
   coordinates: Coordinates
-  id: string
+  id: MarkerProperties['id']
   properties: Array<ServiceFeatureProperty>
   title: string
 }
@@ -22,7 +23,12 @@ export const useSelectedServicePointDetails = (serviceId: Service['id']) => {
   return useMemo(() => {
     const {properties_to_include = [], data: geojson} = data || {}
 
-    if (!selectedServicePointId || !geojson || !('features' in geojson)) {
+    if (
+      (typeof selectedServicePointId !== 'number' &&
+        typeof selectedServicePointId !== 'string') ||
+      !geojson ||
+      !('features' in geojson)
+    ) {
       return
     }
 

@@ -84,7 +84,15 @@ export const ServicePointMap = ({
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
       {!!polygonGeoJson?.features.length && (
-        <Geojson geojson={polygonGeoJson} />
+        <Geojson
+          geojson={polygonGeoJson}
+          onPress={e => {
+            if (e.feature.id !== undefined) {
+              onServicePointPress(e.feature.id)
+            }
+          }}
+          tappable
+        />
       )}
       <Clusterer
         clusterOptions={
