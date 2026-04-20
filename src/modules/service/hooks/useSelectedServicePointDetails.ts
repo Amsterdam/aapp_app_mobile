@@ -11,6 +11,7 @@ type SelectedServicePointDetails = {
   coordinates: Coordinates
   id: string
   properties: Array<ServiceFeatureProperty>
+  subtitle?: string
   title: string
 }
 
@@ -37,6 +38,7 @@ export const useSelectedServicePointDetails = (serviceId: Service['id']) => {
     return {
       id: selectedServicePointId,
       title: servicePoint.properties.aapp_title,
+      subtitle: servicePoint.properties.aapp_subtitle,
       coordinates: {
         lat: servicePoint.geometry.coordinates[1],
         lon: servicePoint.geometry.coordinates[0],

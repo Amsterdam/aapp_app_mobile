@@ -39,6 +39,10 @@ type FeatureProperties = {
    */
   aapp_icon_type?: string
   /**
+   * Subtitle of service point
+   */
+  aapp_subtitle?: string
+  /**
    * Title of service point
    */
   aapp_title: string

@@ -6,6 +6,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -31,18 +32,23 @@ export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
     return null
   }
 
-  const {title, properties} = servicePointDetails
+  const {title, properties, subtitle} = servicePointDetails
 
   return (
     <Box>
       <Column gutter="lg">
         <Column gutter="xs">
-          <Row align={title ? 'between' : 'end'}>
-            <Title
-              level="h3"
-              ref={autoFocus}
-              text={title}
-            />
+          <Row
+            align={title ? 'between' : 'end'}
+            valign="start">
+            <Column>
+              <Title
+                level="h3"
+                ref={autoFocus}
+                text={title}
+              />
+              {!!subtitle && <Phrase>{subtitle}</Phrase>}
+            </Column>
             <IconButton
               accessibilityLabel={`Sluit ${title} details venster`}
               icon={
