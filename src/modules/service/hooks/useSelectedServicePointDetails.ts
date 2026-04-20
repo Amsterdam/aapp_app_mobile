@@ -24,7 +24,8 @@ export const useSelectedServicePointDetails = (serviceId: Service['id']) => {
     const {properties_to_include = [], data: geojson} = data || {}
 
     if (
-      selectedServicePointId === undefined ||
+      (typeof selectedServicePointId !== 'number' &&
+        typeof selectedServicePointId !== 'string') ||
       !geojson ||
       !('features' in geojson)
     ) {
