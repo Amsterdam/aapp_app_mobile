@@ -41,14 +41,11 @@ export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
           <Row
             align={title ? 'between' : 'end'}
             valign="start">
-            <Column>
-              <Title
-                level="h3"
-                ref={autoFocus}
-                text={title}
-              />
-              {!!subtitle && <Phrase>{subtitle}</Phrase>}
-            </Column>
+            <Title
+              level="h3"
+              ref={autoFocus}
+              text={title}
+            />
             <IconButton
               accessibilityLabel={`Sluit ${title} details venster`}
               icon={
@@ -61,6 +58,7 @@ export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
               testID="ServiceDetailsCloseButton"
             />
           </Row>
+          {!!subtitle && <Phrase>{subtitle}</Phrase>}
 
           <RouteButton
             coordinates={{
