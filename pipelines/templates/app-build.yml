@@ -61,7 +61,7 @@ steps:
 
   - task: Cache@2
     inputs:
-      key: 'pods | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json | **/Podfile.lock'
+      key: 'pods | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json | **/Podfile'
       path: $(HOME)/Library/Caches/CocoaPods
       cacheHitVar: PODS_CACHE_RESTORED
       restoreKeys: |
