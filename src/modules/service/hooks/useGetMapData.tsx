@@ -4,10 +4,10 @@ import type {
   ServiceFeature,
   ServiceGeoJSON,
   ServiceMapResponse,
-  ServiceMapResponseFilter,
 } from '@/modules/service/types'
 import type {EmptyObject} from '@/types/utils'
 import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ServicePointCustomMarker} from '@/modules/service/components/ServicePointCustomMarker'
@@ -18,16 +18,16 @@ import {
 import {selectSelectedServicePointId} from '@/modules/service/slice'
 
 export const useGetMapData = (
-  activeFilters: ServiceMapResponseFilter[],
   geojson: ServiceGeoJSON | EmptyObject | undefined,
   icons: ServiceMapResponse['icons_to_include'],
   onServicePointPress: (id: ServiceFeature['id']) => void,
-  selectorConditionType: ConditionType = ConditionType.and,
 ) => {
+  const {activeFilters, layers} = useMapFilters()
+
   const filteredFeatures = useGetFilteredFeatures({
     activeFilters,
     features: geojson && 'features' in geojson ? geojson?.features : [],
-    conditionType: selectorConditionType,
+    conditionType: layers?.length ? ConditionType.or : ConditionType.and,
   })
 
   const selectedServicePointId = useSelector(selectSelectedServicePointId)

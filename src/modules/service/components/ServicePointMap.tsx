@@ -12,7 +12,6 @@ import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {ConditionType} from '@/modules/service/hooks/useGetFilteredFeatures'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
@@ -54,13 +53,8 @@ export const ServicePointMap = ({
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
 
-  const data = useGetMapData(
-    activeFilters,
-    pointsGeoJson,
-    icons,
-    onServicePointPress,
-    layers?.length ? ConditionType.or : ConditionType.and,
-  )
+  const pointsData = useGetMapData(pointsGeoJson, icons, onServicePointPress)
+  const polygonData = useGetMapData(polygonGeoJson, icons, onServicePointPress)
 
   if (isLoading) {
     return <PleaseWait testID="ServiceMapPleaseWait" />
@@ -83,9 +77,9 @@ export const ServicePointMap = ({
       isError={isError}
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
-      {!!polygonGeoJson?.features.length && (
+      {!!polygonData?.length && (
         <Geojson
-          geojson={polygonGeoJson}
+          geojson={{type: 'FeatureCollection', features: polygonData}}
           onPress={e => {
             if (e.feature.id !== undefined) {
               onServicePointPress(e.feature.id)
@@ -96,11 +90,11 @@ export const ServicePointMap = ({
       )}
       <Clusterer
         clusterOptions={
-          data.length < 400
+          pointsData.length < 400
             ? DEFAULT_CLUSTER_OPTIONS
             : HIGH_DATA_COUNT_CLUSTER_OPTIONS
         }
-        data={data}
+        data={pointsData}
         region={region}
         shouldGroup
       />
