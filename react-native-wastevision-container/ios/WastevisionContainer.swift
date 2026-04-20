@@ -1,4 +1,4 @@
-import WasteVisionSDK
+import MobileContainerSDK
 
 @objc public class BluetoothContainerDevice: NSObject {
     @objc public let address: String
@@ -28,7 +28,7 @@ import WasteVisionSDK
 public class WasteVisionContainer: NSObject, BluetoothConnectionDelegate {
     
     public weak var delegate: WasteVisionContainerDelegate?
-    var discoveredDevices: [WasteVisionSDK.BluetoothContainerDevice] = []
+    var discoveredDevices: [MobileContainerSDK.BluetoothContainerDevice] = []
     
     private var bluetoothConnectionManager: BluetoothConnectionManager
     @objc
@@ -79,7 +79,7 @@ public class WasteVisionContainer: NSObject, BluetoothConnectionDelegate {
         }
     }
     
-    public func onBluetoothStateChanged(bluetoothState: WasteVisionSDK.BluetoothState) {
+    public func onBluetoothStateChanged(bluetoothState: MobileContainerSDK.BluetoothState) {
         self.delegate?.onBluetoothStateChanged(bluetoothState: bluetoothState.rawValue)
     }
     
@@ -94,11 +94,11 @@ public class WasteVisionContainer: NSObject, BluetoothConnectionDelegate {
         self.delegate?.onScanStopped()
     }
     
-    func findBluetoothContainerDeviceDevice(bluetoothContainerDevice: BluetoothContainerDevice) -> WasteVisionSDK.BluetoothContainerDevice? {
+    func findBluetoothContainerDeviceDevice(bluetoothContainerDevice: BluetoothContainerDevice) -> MobileContainerSDK.BluetoothContainerDevice? {
         return discoveredDevices.first { $0.uuid.uuidString == bluetoothContainerDevice.address }
     }
     
-    public func onBluetoothContainerDeviceDiscovered(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice) {
+    public func onBluetoothContainerDeviceDiscovered(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice) {
         if !discoveredDevices.contains(where: { $0.uuid == bluetoothContainerDevice.uuid }) {
             discoveredDevices.append(bluetoothContainerDevice)
         }
@@ -106,27 +106,27 @@ public class WasteVisionContainer: NSObject, BluetoothConnectionDelegate {
         
     }
     
-    public func onBluetoothContainerDeviceConnected(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice) {
+    public func onBluetoothContainerDeviceConnected(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice) {
         self.delegate?.onBluetoothContainerDeviceConnected(bluetoothContainerDevice: BluetoothContainerDevice(address: bluetoothContainerDevice.uuid.uuidString, name: bluetoothContainerDevice.name, rssi: bluetoothContainerDevice.RSSI))
         
     }
     
-    public func onBluetoothContainerDeviceConnectionFailed(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice) {
+    public func onBluetoothContainerDeviceConnectionFailed(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice) {
         self.delegate?.onBluetoothContainerDeviceConnectionFailed(bluetoothContainerDevice: BluetoothContainerDevice(address: bluetoothContainerDevice.uuid.uuidString, name: bluetoothContainerDevice.name, rssi: bluetoothContainerDevice.RSSI))
         
     }
     
-    public func onBluetoothContainerDeviceDisconnected(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice) {
+    public func onBluetoothContainerDeviceDisconnected(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice) {
         self.delegate?.onBluetoothContainerDeviceDisconnected(bluetoothContainerDevice: BluetoothContainerDevice(address: bluetoothContainerDevice.uuid.uuidString, name: bluetoothContainerDevice.name, rssi: bluetoothContainerDevice.RSSI))
         
     }
     
-    public func onUnlockFinished(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice) {
+    public func onUnlockFinished(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice) {
         self.delegate?.onUnlockFinished(bluetoothContainerDevice: BluetoothContainerDevice(address: bluetoothContainerDevice.uuid.uuidString, name: bluetoothContainerDevice.name, rssi: bluetoothContainerDevice.RSSI))
         
     }
     
-    public func onUnlockError(bluetoothContainerDevice: WasteVisionSDK.BluetoothContainerDevice, error: String?) {
+    public func onUnlockError(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, error: String?) {
         self.delegate?.onUnlockError(bluetoothContainerDevice: BluetoothContainerDevice(address: bluetoothContainerDevice.uuid.uuidString, name: bluetoothContainerDevice.name, rssi: bluetoothContainerDevice.RSSI), error: error)
         
     }

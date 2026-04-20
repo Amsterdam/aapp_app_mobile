@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => ".git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,cpp,swift}"
-  s.vendored_frameworks = "ios/WasteVisionSDK.framework"
+  s.vendored_frameworks = "ios/MobileContainerSDK.xcframework"
 
   # Framework Dependencies
   s.dependency 'Alamofire', '~> 5.7'
