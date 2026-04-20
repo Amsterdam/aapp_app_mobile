@@ -35,11 +35,13 @@ export const formatPropertyValue = (
     typeof content === 'object' &&
     !Array.isArray(content)
   ) {
-    if (!getAddressLine1(content)) {
+    const addressLine1 = getAddressLine1(content)
+
+    if (!addressLine1) {
       return ''
     }
 
-    return `${getAddressLine1(content)}\n${getAddressLine2(content)}`
+    return `${addressLine1}\n${getAddressLine2(content)}`
   }
 
   return content as string | number

@@ -74,11 +74,11 @@ export const ServicePointMap = ({
       isError={isError}
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
-      {polygonGeoJson?.features.length && (
+      {!!polygonGeoJson?.features.length && (
         <Geojson
           geojson={polygonGeoJson}
           onPress={e => {
-            if (e.feature.id) {
+            if (e.feature.id !== undefined) {
               onServicePointPress(e.feature.id)
             }
           }}

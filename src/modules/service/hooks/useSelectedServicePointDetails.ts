@@ -23,7 +23,11 @@ export const useSelectedServicePointDetails = (serviceId: Service['id']) => {
   return useMemo(() => {
     const {properties_to_include = [], data: geojson} = data || {}
 
-    if (!selectedServicePointId || !geojson || !('features' in geojson)) {
+    if (
+      selectedServicePointId === undefined ||
+      !geojson ||
+      !('features' in geojson)
+    ) {
       return
     }
 
