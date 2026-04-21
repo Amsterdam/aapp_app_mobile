@@ -1,42 +1,32 @@
 import {useMemo} from 'react'
 import type {MarkerProperties} from '@/components/features/map/types'
 import type {
-  ServiceFeature,
-  ServiceGeoJSON,
+  ServicePointFeature,
   ServiceMapResponse,
-  ServiceMapResponseFilter,
 } from '@/modules/service/types'
-import type {EmptyObject} from '@/types/utils'
-import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ServicePointCustomMarker} from '@/modules/service/components/ServicePointCustomMarker'
 import {
   ConditionType,
   useGetFilteredFeatures,
 } from '@/modules/service/hooks/useGetFilteredFeatures'
-import {selectSelectedServicePointId} from '@/modules/service/slice'
 
-export const useGetMapData = (
-  activeFilters: ServiceMapResponseFilter[],
-  geojson: ServiceGeoJSON | EmptyObject | undefined,
+export const useGetMapMarkerData = (
+  features: ServicePointFeature[],
   icons: ServiceMapResponse['icons_to_include'],
-  onServicePointPress: (id: ServiceFeature['id']) => void,
-  selectorConditionType: ConditionType = ConditionType.and,
+  onMarkerPress: (id: ServicePointFeature['id']) => void,
 ) => {
+  const {layers} = useMapFilters()
+
   const filteredFeatures = useGetFilteredFeatures({
-    activeFilters,
-    features: geojson && 'features' in geojson ? geojson?.features : [],
-    conditionType: selectorConditionType,
+    features,
+    conditionType: layers?.length ? ConditionType.or : ConditionType.and,
   })
-
-  const selectedServicePointId = useSelector(selectSelectedServicePointId)
-
-  useSetMapSelection(selectedServicePointId)
 
   return useMemo(
     () =>
-      filteredFeatures?.map(({id, properties, ...feature}) => {
+      filteredFeatures?.map(({id, properties, ...feature}, index) => {
         const {aapp_icon_type, ...restProperties} = properties
         const iconProps =
           aapp_icon_type && icons
@@ -46,13 +36,13 @@ export const useGetMapData = (
         return {
           ...feature,
           properties: {
-            id,
+            id: id || `${restProperties.aapp_title}-${index}`,
             ...restProperties,
             ...iconProps,
-            onMarkerPress: () => onServicePointPress(id),
+            onMarkerPress: () => onMarkerPress(id),
           } satisfies MarkerProperties,
         }
       }),
-    [filteredFeatures, onServicePointPress, icons],
+    [filteredFeatures, onMarkerPress, icons],
   )
 }

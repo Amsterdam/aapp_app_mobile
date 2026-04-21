@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import {FlatList} from 'react-native'
-import type {ServiceFeature, Service} from '@/modules/service/types'
+import type {Service, ServicePointFeature} from '@/modules/service/types'
 import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
@@ -28,10 +28,10 @@ import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 export const ServicePointList = ({
   id: serviceId,
-  onServicePointPress,
+  onMapElementPress,
 }: {
   id: Service['id']
-  onServicePointPress: (id: ServiceFeature['id']) => void
+  onMapElementPress: (id: ServicePointFeature['id']) => void
 }) => {
   const {
     data: service,
@@ -44,9 +44,19 @@ export const ServicePointList = ({
     useMapControlsToggleBottomSheetButton(MapControlBottomSheetKey.layers)
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
+
+  const pointFeatures = useMemo(
+    () =>
+      geojson && 'features' in geojson
+        ? geojson?.features.filter(
+            (f): f is ServicePointFeature => f.geometry.type === 'Point',
+          )
+        : [],
+    [geojson],
+  )
+
   const filteredFeatures = useGetFilteredFeatures({
-    activeFilters,
-    features: geojson && 'features' in geojson ? geojson?.features : [],
+    features: pointFeatures,
     conditionType: layers?.length ? ConditionType.or : ConditionType.and,
   })
 
@@ -131,7 +141,7 @@ export const ServicePointList = ({
                 : undefined
             }
             listProperty={service.list_property}
-            onPress={onServicePointPress}
+            onPress={onMapElementPress}
             servicePoint={servicePoint}
           />
         )}

@@ -60,13 +60,15 @@ export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
           </Row>
           {!!subtitle && <Phrase>{subtitle}</Phrase>}
 
-          <RouteButton
-            coordinates={{
-              lat: servicePointDetails.coordinates.lat,
-              lon: servicePointDetails.coordinates.lon,
-            }}
-            testID="ServicePointDetailsRouteButton"
-          />
+          {!!servicePointDetails.coordinates && (
+            <RouteButton
+              coordinates={{
+                lat: servicePointDetails.coordinates.lat,
+                lon: servicePointDetails.coordinates.lon,
+              }}
+              testID="ServicePointDetailsRouteButton"
+            />
+          )}
         </Column>
 
         <ServicePointDetailsProperties properties={properties} />

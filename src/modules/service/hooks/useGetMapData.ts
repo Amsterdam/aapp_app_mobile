@@ -1,0 +1,51 @@
+import {skipToken} from '@reduxjs/toolkit/query'
+import {useMemo} from 'react'
+import type {
+  Service,
+  ServicePointFeature,
+  ServicePolygonFeature,
+} from '@/modules/service/types'
+import type {Feature} from 'geojson'
+import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {useGetMapMarkerData} from '@/modules/service/hooks/useGetMapMarkerData'
+import {useGetMapPolygonData} from '@/modules/service/hooks/useGetMapPolygonData'
+import {useServiceQuery} from '@/modules/service/service'
+import {selectSelectedServicePointId} from '@/modules/service/slice'
+
+export const useGetMapData = (
+  id: Service['id'],
+  onMapElementPress: (id: Feature['id']) => void,
+) => {
+  const {data: service, ...query} = useServiceQuery(id || skipToken)
+  const {data: geojson, icons_to_include: icons} = service || {}
+
+  const selectedServicePointId = useSelector(selectSelectedServicePointId)
+
+  useSetMapSelection(selectedServicePointId)
+
+  const [polygonFeatures = [], pointFeatures = []] = useMemo(() => {
+    if (typeof geojson !== 'object' || !('type' in geojson)) {
+      return [undefined, undefined]
+    }
+
+    return [
+      geojson.features.filter(
+        (f): f is ServicePolygonFeature =>
+          f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon',
+      ),
+      geojson.features.filter(
+        (f): f is ServicePointFeature => f.geometry.type === 'Point',
+      ),
+    ]
+  }, [geojson])
+
+  const polygonData = useGetMapPolygonData(polygonFeatures)
+  const pointsData = useGetMapMarkerData(
+    pointFeatures,
+    icons,
+    onMapElementPress,
+  )
+
+  return {...query, data: {points: pointsData, polygons: polygonData}}
+}

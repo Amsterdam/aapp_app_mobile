@@ -2,15 +2,15 @@ import {useMemo} from 'react'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {
   ServiceDetailPropertyType,
-  type ServiceFeature,
   type ServiceMapResponse,
+  type ServicePointFeature,
 } from '@/modules/service/types'
 import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 import {getFormattedDistanceToPoint} from '@/modules/service/utils/getFormattedDistanceToPoint'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const useServicePointListItemData = (
-  servicePoint: ServiceFeature,
+  servicePoint: ServicePointFeature,
   listProperty: ServiceMapResponse['list_property'],
 ) => {
   const {address} = useSelectedAddress(ModuleSlug.service)

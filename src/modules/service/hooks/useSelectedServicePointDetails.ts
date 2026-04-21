@@ -9,7 +9,7 @@ import {ServiceFeatureProperty, type Service} from '@/modules/service/types'
 import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 
 type SelectedServicePointDetails = {
-  coordinates: Coordinates
+  coordinates?: Coordinates
   id: MarkerProperties['id']
   properties: Array<ServiceFeatureProperty>
   subtitle?: string
@@ -45,10 +45,13 @@ export const useSelectedServicePointDetails = (serviceId: Service['id']) => {
       id: selectedServicePointId,
       title: servicePoint.properties.aapp_title,
       subtitle: servicePoint.properties.aapp_subtitle,
-      coordinates: {
-        lat: servicePoint.geometry.coordinates[1],
-        lon: servicePoint.geometry.coordinates[0],
-      },
+      coordinates:
+        servicePoint.geometry.type === 'Point'
+          ? {
+              lat: servicePoint.geometry.coordinates[1],
+              lon: servicePoint.geometry.coordinates[0],
+            }
+          : undefined,
       properties: properties_to_include
         .map(({property_key, property_type: type, ...rest}) => ({
           ...rest,

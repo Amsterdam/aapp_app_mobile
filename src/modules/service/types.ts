@@ -1,6 +1,6 @@
 import type {Address} from '@/modules/address/types'
 import type {EmptyObject} from '@/types/utils'
-import type {Feature} from 'geojson'
+import type {Feature, Geometry, MultiPolygon, Point, Polygon} from 'geojson'
 
 export enum ServiceEndpointName {
   service = 'service',
@@ -32,7 +32,6 @@ export type PropertiesPropertyValue =
   | Array<{key: string; value: string}>
   | undefined
 
-type FeatureGeometry = {coordinates: [number, number]; type: 'Point'}
 type FeatureProperties = {
   /**
    * Optional custom icon reference, used in conjunction with icons_to_include
@@ -48,13 +47,14 @@ type FeatureProperties = {
   aapp_title: string
 } & Record<string, PropertiesPropertyValue>
 
-export type ServiceFeature = Omit<
-  Feature<FeatureGeometry, FeatureProperties>,
-  'id'
-> & {id: string | number}
+export type ServicePointFeature = Feature<Point, FeatureProperties>
+export type ServicePolygonFeature = Feature<
+  Polygon | MultiPolygon,
+  FeatureProperties
+>
 
 export type ServiceGeoJSON = {
-  features: Array<ServiceFeature>
+  features: Array<Feature<Geometry, FeatureProperties>>
   type: 'FeatureCollection'
 }
 

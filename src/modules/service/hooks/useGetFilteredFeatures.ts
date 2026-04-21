@@ -1,23 +1,24 @@
 import {useMemo} from 'react'
-import type {
-  ServiceMapResponseFilter,
-  ServiceFeature,
-} from '@/modules/service/types'
+import type {ServiceGeoJSON} from '@/modules/service/types'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 
 export enum ConditionType {
   and = 'every',
   or = 'some',
 }
-export const useGetFilteredFeatures = ({
+
+export const useGetFilteredFeatures = <
+  Feature extends ServiceGeoJSON['features'][number],
+>({
   features,
-  activeFilters,
   conditionType = ConditionType.and,
 }: {
-  activeFilters: ServiceMapResponseFilter[]
   conditionType?: ConditionType
-  features: ServiceFeature[]
-}) =>
-  useMemo(
+  features: Feature[]
+}): Feature[] => {
+  const {activeFilters} = useMapFilters()
+
+  return useMemo(
     () =>
       features.filter(feature =>
         activeFilters[conditionType](filter => {
@@ -28,3 +29,4 @@ export const useGetFilteredFeatures = ({
       ),
     [features, activeFilters, conditionType],
   )
+}
