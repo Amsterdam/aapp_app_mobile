@@ -13,4 +13,3 @@ export const getFirstPosition = (
 
   return (positions as Position).slice(0, 2)
 }
-
