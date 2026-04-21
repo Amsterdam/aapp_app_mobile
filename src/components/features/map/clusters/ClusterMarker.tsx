@@ -35,7 +35,7 @@ export const ClusterMarker = ({count, pie}: Props) => {
   )
 }
 
-const createStyles = (theme: Theme, count: number, isPie: boolean) => {
+const createStyles = ({color}: Theme, count: number, isPie: boolean) => {
   const innerClusterSize = calculateClusterDimensions(count)
   const outerClusterSize = calculateClusterDimensions(
     count,
@@ -47,17 +47,17 @@ const createStyles = (theme: Theme, count: number, isPie: boolean) => {
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: '100%',
-      zIndex: 1,
+      zIndex: 2,
     },
     clusterOuter: {
-      backgroundColor: `${theme.color.backgroundArea.primary}30`,
+      backgroundColor: `${color.backgroundArea.primary}30`,
       width: outerClusterSize,
       height: outerClusterSize,
     },
     clusterInner: {
       backgroundColor: isPie
-        ? theme.color.box.background.distinct
-        : theme.color.backgroundArea.primary,
+        ? color.box.background.distinct
+        : color.backgroundArea.primary,
       width: innerClusterSize,
       height: innerClusterSize,
     },

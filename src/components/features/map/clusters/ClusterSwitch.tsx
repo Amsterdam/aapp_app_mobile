@@ -26,7 +26,8 @@ export const ClusterSwitch = ({item, shouldGroup, getChildren}: Props) => {
       }}
       id={id}
       onPress={handlePress}
-      onSelect={handlePress}>
+      onSelect={handlePress}
+      zIndex={2}>
       {markerChildren}
     </Marker>
   )
