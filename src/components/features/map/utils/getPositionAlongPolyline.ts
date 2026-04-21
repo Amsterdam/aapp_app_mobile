@@ -19,6 +19,20 @@ export const getPositionAlongPolyline = (
   t: number,
 ): {coordinate: LatLng; rotation: number} => {
   'worklet'
+
+  if (coords.length === 0) {
+    return {
+      coordinate: {latitude: 0, longitude: 0},
+      rotation: 0,
+    }
+  }
+
+  if (coords.length === 1) {
+    return {
+      coordinate: coords[0],
+      rotation: 0,
+    }
+  }
   const totalLength = coords.reduce((sum, _, i) => {
     if (i === 0) return 0
 
