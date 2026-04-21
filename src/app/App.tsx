@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import {StatusBar, StyleSheet} from 'react-native'
 import {SystemBars} from 'react-native-edge-to-edge'
 import {GestureHandlerRootView} from 'react-native-gesture-handler'
 import {
@@ -19,6 +19,7 @@ import '@/processes/logging'
 
 export const App = () => (
   <AppInsightsProvider>
+    <StatusBar barStyle="dark-content" />
     <SafeAreaProvider
       initialMetrics={initialWindowMetrics}
       style={styles.appContainer}>
