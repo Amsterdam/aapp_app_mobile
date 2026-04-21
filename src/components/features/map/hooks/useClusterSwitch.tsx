@@ -20,15 +20,15 @@ export const useClusterSwitch = (
   shouldGroup?: boolean,
 ) => {
   const {map, getCurrentRegion} = useMap()
-  const isCluster = 'cluster_id' in item.properties
 
-  const [clusterProps, markerProps] = useMemo(
-    () => [
+  const [clusterProps, markerProps] = useMemo(() => {
+    const isCluster = 'cluster_id' in item.properties
+
+    return [
       isCluster ? (item.properties as ClusterProperties) : undefined,
       isCluster ? undefined : (item.properties as MarkerProperties),
-    ],
-    [isCluster, item],
-  )
+    ]
+  }, [item])
 
   const isSelected = useIsMarkerSelected(markerProps?.id)
 
@@ -63,7 +63,7 @@ export const useClusterSwitch = (
     }
 
     item.properties.onMarkerPress?.()
-  }, [item.properties, map, getCurrentRegion])
+  }, [item, map, getCurrentRegion])
 
   const MarkerContent = useCallback(() => {
     if (clusterProps) {
@@ -90,9 +90,10 @@ export const useClusterSwitch = (
     return null
   }, [variant, markerProps, clusterProps, shouldGroup, getChildren])
 
-  const id = isCluster
-    ? `cluster-${clusterProps?.cluster_id}-${clusterProps?.point_count}`
-    : `point-${markerProps?.id}-${variant}`
+  const id =
+    'cluster_id' in item
+      ? `cluster-${clusterProps?.cluster_id}-${clusterProps?.point_count}`
+      : `point-${markerProps?.id}-${variant}`
 
   return {handlePress, MarkerContent, id}
 }

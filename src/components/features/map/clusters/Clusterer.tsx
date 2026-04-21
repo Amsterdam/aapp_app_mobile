@@ -45,22 +45,27 @@ export const Clusterer = ({
     clusterOptions,
   )
 
+  const getChildren = useCallback(
+    (id: number) => {
+      try {
+        return supercluster.getChildren(id)
+      } catch {
+        return []
+      }
+    },
+    [supercluster],
+  )
+
   const renderItem = useCallback(
     (item: ClusterItem) => (
       <ClusterSwitch
-        getChildren={(id: number) => {
-          try {
-            return supercluster.getChildren(id)
-          } catch {
-            return []
-          }
-        }}
+        getChildren={getChildren}
         item={item}
         key={getItemKey(item)}
         shouldGroup={shouldGroup}
       />
     ),
-    [supercluster, shouldGroup],
+    [getChildren, shouldGroup],
   )
 
   return points.map(renderItem)
