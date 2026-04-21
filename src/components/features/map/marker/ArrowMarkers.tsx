@@ -10,15 +10,16 @@ type Props = {
 const ARROW_SPACING_METERS = 1000 // distance between arrows
 const METERS_PER_SECOND = 300 // travel speed
 
-const getTotalLength = (coords: LatLng[]): number => {
-  let total = 0
+const getTotalLength = (coords: LatLng[]): number =>
+  coords.reduce((total, coord, index) => {
+    const next = coords[index + 1]
 
-  for (let i = 0; i < coords.length - 1; i++) {
-    total += distanceBetween(coords[i], coords[i + 1])
-  }
+    if (!next) {
+      return total
+    }
 
-  return total
-}
+    return total + distanceBetween(coord, next)
+  }, 0)
 
 export const ArrowMarkers = ({coordinates}: Props) => {
   const totalLength = useMemo(() => getTotalLength(coordinates), [coordinates])
