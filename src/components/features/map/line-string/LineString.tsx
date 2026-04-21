@@ -8,11 +8,19 @@ import {
 
 type Props = {
   coordinates: Position | Position[] | Position[][] | Position[][][]
+  id: string | number
+  onPress: (id: string | number) => void
   strokeColor?: number | string | null
   strokeWidth?: number | null
 }
 
-export const LineString = ({coordinates, strokeColor, strokeWidth}: Props) => {
+export const LineString = ({
+  coordinates,
+  id,
+  onPress,
+  strokeColor,
+  strokeWidth,
+}: Props) => {
   const latLngCoordinates = useMemo(
     () => coordinatesToLatLng(coordinates),
     [coordinates],
@@ -31,8 +39,10 @@ export const LineString = ({coordinates, strokeColor, strokeWidth}: Props) => {
     <>
       <Polyline
         coordinates={latLngCoordinates}
+        onPress={() => onPress(id)}
         strokeColor={strokeColor?.toString()}
         strokeWidth={strokeWidth}
+        tappable
       />
       <ArrowMarkers coordinates={latLngCoordinates} />
     </>

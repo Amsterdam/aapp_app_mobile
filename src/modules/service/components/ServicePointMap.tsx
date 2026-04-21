@@ -29,12 +29,14 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
   const [region, setRegion] = useState<Region | undefined>()
 
   const {
+    data: service,
     isLoading,
     isError,
-    data: {polygons, points},
-  } = useGetMapData(serviceId, onMapElementPress)
-  const {data: service} = useServiceQuery(serviceId || skipToken)
+  } = useServiceQuery(serviceId || skipToken)
   const {data: geojson} = service || {}
+  const {
+    data: {polygons, points},
+  } = useGetMapData(service, onMapElementPress)
 
   const {geoJsonLineString} = useGetGeoJsonByGeometryType(geojson)
 
@@ -75,7 +77,9 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
                   ? feature.geometry.coordinates
                   : []
               }
+              id={feature.id}
               key={feature.id}
+              onPress={onMapElementPress}
               strokeColor={feature.properties.stroke as string | null}
               strokeWidth={
                 feature.properties['stroke-width']

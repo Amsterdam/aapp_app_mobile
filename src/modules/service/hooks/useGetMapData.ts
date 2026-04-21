@@ -1,7 +1,6 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import type {
-  Service,
+  ServiceMapResponse,
   ServicePointFeature,
   ServicePolygonFeature,
 } from '@/modules/service/types'
@@ -10,14 +9,12 @@ import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetMapMarkerData} from '@/modules/service/hooks/useGetMapMarkerData'
 import {useGetMapPolygonData} from '@/modules/service/hooks/useGetMapPolygonData'
-import {useServiceQuery} from '@/modules/service/service'
 import {selectSelectedServicePointId} from '@/modules/service/slice'
 
 export const useGetMapData = (
-  id: Service['id'],
+  service: ServiceMapResponse | undefined,
   onMapElementPress: (id: Feature['id']) => void,
 ) => {
-  const {data: service, ...query} = useServiceQuery(id || skipToken)
   const {data: geojson, icons_to_include: icons} = service || {}
 
   const selectedServicePointId = useSelector(selectSelectedServicePointId)
@@ -47,5 +44,5 @@ export const useGetMapData = (
     onMapElementPress,
   )
 
-  return {...query, data: {points: pointsData, polygons: polygonData}}
+  return {data: {points: pointsData, polygons: polygonData}}
 }

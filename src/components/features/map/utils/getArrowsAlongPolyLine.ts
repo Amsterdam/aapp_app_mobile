@@ -30,43 +30,4 @@ export const bearingBetween = (a: LatLng, b: LatLng): number => {
   return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360
 }
 
-const interpolate = (a: LatLng, b: LatLng, fraction: number): LatLng => {
-  'worklet'
-
-  return {
-    latitude: a.latitude + (b.latitude - a.latitude) * fraction,
-    longitude: a.longitude + (b.longitude - a.longitude) * fraction,
-  }
-}
-
 export type Arrow = {coordinate: LatLng; rotation: number}
-
-export const getArrowsAlongPolyline = (
-  coords: LatLng[],
-  spacing = 80,
-): Arrow[] => {
-  if (coords.length < 2) return []
-
-  const arrows: Arrow[] = []
-  let accumulated = 0
-  let nextArrowAt = spacing / 2
-
-  for (let i = 0; i < coords.length - 1; i++) {
-    const segLen = distanceBetween(coords[i], coords[i + 1])
-    const bearing = bearingBetween(coords[i], coords[i + 1])
-
-    while (accumulated + segLen >= nextArrowAt) {
-      const fraction = (nextArrowAt - accumulated) / segLen
-
-      arrows.push({
-        coordinate: interpolate(coords[i], coords[i + 1], fraction),
-        rotation: bearing,
-      })
-      nextArrowAt += spacing
-    }
-
-    accumulated += segLen
-  }
-
-  return arrows
-}
