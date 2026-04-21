@@ -5,7 +5,7 @@ import {getFirstPosition} from '@/modules/service/utils/getFirstPosition'
 export const convertGeometryToPoint = (features: Feature[]) =>
   features
     .map(f => {
-      if ('coordinates' in f.geometry) {
+      if (f.geometry && 'coordinates' in f.geometry) {
         return {
           ...f,
           geometry: {
