@@ -1,5 +1,5 @@
 import {useMemo, type PropsWithChildren} from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, type ViewProps} from 'react-native'
 import Svg, {Circle, G} from 'react-native-svg'
 
 const RADIUS = 50
@@ -15,9 +15,10 @@ type PieSlice = {
 type PieProps = PropsWithChildren<{
   data: Omit<PieSlice, 'offset'>[]
   size: number
+  style?: ViewProps['style']
 }>
 
-export const Pie = ({children, size, data = []}: PieProps) => {
+export const Pie = ({children, size, data = [], style}: PieProps) => {
   const slices: PieSlice[] = useMemo(() => {
     let offset = 0
 
@@ -31,7 +32,7 @@ export const Pie = ({children, size, data = []}: PieProps) => {
   }, [data])
 
   return (
-    <View style={styles.container}>
+    <View style={[style, styles.container]}>
       <Svg
         height={size}
         viewBox="0 0 120 120"

@@ -1,5 +1,4 @@
 import {memo} from 'react'
-import {Platform} from 'react-native'
 import {
   // eslint-disable-next-line no-restricted-imports
   Marker as MarkerRN,
@@ -21,7 +20,7 @@ export const Marker = memo(
     <MarkerRN
       anchor={MARKER_ANCHOR}
       hitSlop={hitSlop}
-      tracksViewChanges={Platform.OS === 'android'}
+      tracksViewChanges={false}
       {...markerProps}
     />
   ),
