@@ -12,7 +12,7 @@ type PieSlice = {
   percentage: number
 }
 
-type PieProps = PropsWithChildren<{
+export type PieProps = PropsWithChildren<{
   data: Omit<PieSlice, 'offset'>[]
   size: number
   style?: ViewProps['style']

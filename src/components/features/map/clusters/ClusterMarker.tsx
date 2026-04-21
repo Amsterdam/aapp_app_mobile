@@ -1,6 +1,6 @@
-import {View, StyleSheet, type ViewProps} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import type {Theme} from '@/themes/themes'
-import {Pie} from '@/components/features/map/clusters/Pie'
+import {ClusterMarkerWrapper} from '@/components/features/map/clusters/ClusterMarkerWrapper'
 import {calculateClusterDimensions} from '@/components/features/map/utils/calculateClusterDimensions'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useThemable} from '@/themes/useThemable'
@@ -15,30 +15,12 @@ type Props = {
   }[]
 }
 
-const Wrapper = ({
-  pie,
-  size,
-  ...props
-}: {
-  pie: Props['pie']
-  size: number
-} & ViewProps) =>
-  pie ? (
-    <Pie
-      data={pie}
-      size={size}
-      {...props}
-    />
-  ) : (
-    <View {...props} />
-  )
-
 export const ClusterMarker = ({count, pie}: Props) => {
   const styles = useThemable(theme => createStyles(theme, count, !!pie))
   const size = calculateClusterDimensions(count, DEFAULT_OUTER_PADDING)
 
   return (
-    <Wrapper
+    <ClusterMarkerWrapper
       pie={pie}
       size={size}
       style={[styles.clusterBase, styles.clusterOuter]}>
@@ -49,7 +31,7 @@ export const ClusterMarker = ({count, pie}: Props) => {
           {count}
         </Phrase>
       </View>
-    </Wrapper>
+    </ClusterMarkerWrapper>
   )
 }
 

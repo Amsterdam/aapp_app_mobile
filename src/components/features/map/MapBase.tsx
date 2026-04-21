@@ -31,6 +31,7 @@ export const MapBase = ({
   isError,
   moduleSlug,
   focusOnUser = true,
+  onRegionChangeComplete,
   ...mapViewProps
 }: Props) => {
   const mapRef = useRef<MapView>(null)
@@ -96,7 +97,7 @@ export const MapBase = ({
           moveOnMarkerPress={false}
           onRegionChangeComplete={(regionData, details) => {
             regionRef.current = regionData
-            mapViewProps.onRegionChangeComplete?.(regionData, details)
+            onRegionChangeComplete?.(regionData, details)
           }}
           provider="google"
           ref={mapRef}

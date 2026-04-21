@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import type {ClusterItem} from '@/components/features/map/types'
 import {useClusterSwitch} from '@/components/features/map/hooks/useClusterSwitch'
 import {Marker} from '@/components/features/map/marker/Marker'
@@ -15,6 +16,8 @@ export const ClusterSwitch = ({item, shouldGroup, getChildren}: Props) => {
     shouldGroup,
   )
 
+  const markerChildren = useMemo(() => <MarkerContent />, [MarkerContent])
+
   return (
     <Marker
       coordinate={{
@@ -24,7 +27,7 @@ export const ClusterSwitch = ({item, shouldGroup, getChildren}: Props) => {
       id={id}
       onPress={handlePress}
       onSelect={handlePress}>
-      <MarkerContent />
+      {markerChildren}
     </Marker>
   )
 }
