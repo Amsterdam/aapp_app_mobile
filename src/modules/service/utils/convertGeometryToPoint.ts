@@ -1,9 +1,8 @@
-import type {ServicePointFeature} from '@/modules/service/types'
-import type {Feature, Geometry} from 'geojson'
+import type {ServiceGeoJSON, ServicePointFeature} from '@/modules/service/types'
 import {getFirstPosition} from '@/modules/service/utils/getFirstPosition'
 
 export const convertGeometryToPoint = (
-  features: Array<Feature<Geometry, ServicePointFeature['properties']>>,
+  features: ServiceGeoJSON['features'],
 ): ServicePointFeature[] =>
   features
     .map(f => {

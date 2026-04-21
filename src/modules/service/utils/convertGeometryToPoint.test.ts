@@ -1,7 +1,7 @@
-import type {Feature} from 'geojson'
+import type {ServiceGeoJSON} from '@/modules/service/types'
 import {convertGeometryToPoint} from '@/modules/service/utils/convertGeometryToPoint'
 
-const features: Record<string, Feature> = {
+const features: Record<string, ServiceGeoJSON['features'][number]> = {
   point: {
     type: 'Feature',
     id: 'point',
@@ -9,7 +9,7 @@ const features: Record<string, Feature> = {
       type: 'Point',
       coordinates: [4.88471, 52.370307, 999],
     },
-    properties: {},
+    properties: {aapp_title: ''},
   },
   lineString: {
     type: 'Feature',
@@ -21,7 +21,7 @@ const features: Record<string, Feature> = {
         [4.2, 52.2],
       ],
     },
-    properties: {},
+    properties: {aapp_title: ''},
   },
   polygon: {
     type: 'Feature',
@@ -35,7 +35,7 @@ const features: Record<string, Feature> = {
         ],
       ],
     },
-    properties: {},
+    properties: {aapp_title: ''},
   },
   multiPolygon: {
     type: 'Feature',
@@ -51,7 +51,7 @@ const features: Record<string, Feature> = {
         ],
       ],
     },
-    properties: {},
+    properties: {aapp_title: ''},
   },
   empty: {
     type: 'Feature',
@@ -60,7 +60,7 @@ const features: Record<string, Feature> = {
       type: 'GeometryCollection',
       geometries: [],
     },
-    properties: {},
+    properties: {aapp_title: ''},
   },
 }
 
