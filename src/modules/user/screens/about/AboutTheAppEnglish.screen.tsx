@@ -63,6 +63,7 @@ export const AboutTheAppEnglishScreen = () => {
                 </Paragraph>
               </Column>
               <Button
+                accessibilityLanguage="en-US"
                 label="Your opinion"
                 onPress={() => navigation.navigate(UserRouteName.feedback)}
                 testID="AboutAboutTheAppEnglishFeedbackButton"
