@@ -1,5 +1,6 @@
 import {useMemo} from 'react'
 import type {
+  ServiceLineStringFeature,
   ServiceMapResponse,
   ServicePointFeature,
   ServicePolygonFeature,
@@ -21,28 +22,40 @@ export const useGetMapData = (
 
   useSetMapSelection(selectedServicePointId)
 
-  const [polygonFeatures = [], pointFeatures = []] = useMemo(() => {
-    if (typeof geojson !== 'object' || !('type' in geojson)) {
-      return [undefined, undefined]
-    }
+  const [polygonFeatures = [], pointFeatures = [], lineStringFeatures = []] =
+    useMemo(() => {
+      if (typeof geojson !== 'object' || !('type' in geojson)) {
+        return [undefined, undefined, undefined]
+      }
 
-    return [
-      geojson.features.filter(
-        (f): f is ServicePolygonFeature =>
-          f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon',
-      ),
-      geojson.features.filter(
-        (f): f is ServicePointFeature => f.geometry.type === 'Point',
-      ),
-    ]
-  }, [geojson])
+      return [
+        geojson.features.filter(
+          (f): f is ServicePolygonFeature =>
+            f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon',
+        ),
+        geojson.features.filter(
+          (f): f is ServicePointFeature => f.geometry.type === 'Point',
+        ),
+        geojson.features.filter(
+          (f): f is ServiceLineStringFeature =>
+            f.geometry.type === 'LineString',
+        ),
+      ]
+    }, [geojson])
 
   const polygonData = useGetMapPolygonData(polygonFeatures)
+  const lineStringData = useGetMapPolygonData(lineStringFeatures)
   const pointsData = useGetMapMarkerData(
     pointFeatures,
     icons,
     onMapElementPress,
   )
 
-  return {data: {points: pointsData, polygons: polygonData}}
+  return {
+    data: {
+      lineStrings: lineStringData,
+      points: pointsData,
+      polygons: polygonData,
+    },
+  }
 }

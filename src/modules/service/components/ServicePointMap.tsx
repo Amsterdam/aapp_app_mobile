@@ -15,7 +15,6 @@ import {LineString} from '@/components/features/map/line-string/LineString'
 import {Polygons} from '@/components/features/map/polygon/Polygons'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {useGetGeoJsonByGeometryType} from '@/modules/service/hooks/useGetGeoJsonByGeometryType'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
@@ -33,12 +32,9 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
     isLoading,
     isError,
   } = useServiceQuery(serviceId || skipToken)
-  const {data: geojson} = service || {}
   const {
-    data: {polygons, points},
+    data: {lineStrings, polygons, points},
   } = useGetMapData(service, onMapElementPress)
-
-  const {geoJsonLineString} = useGetGeoJsonByGeometryType(geojson)
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
 
@@ -69,8 +65,8 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
           onPress={onMapElementPress}
         />
       )}
-      {geoJsonLineString?.features.length
-        ? geoJsonLineString.features.map(feature => (
+      {lineStrings?.length
+        ? lineStrings.map(feature => (
             <LineString
               coordinates={
                 'coordinates' in feature.geometry
