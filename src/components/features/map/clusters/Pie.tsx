@@ -32,7 +32,7 @@ export const Pie = ({children, size, data = [], style}: PieProps) => {
   }, [data])
 
   return (
-    <View style={[style, styles.container]}>
+    <View style={style}>
       <Svg
         height={size}
         viewBox="0 0 120 120"
@@ -78,9 +78,6 @@ const PieSlice = ({
 )
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-  },
   center: {
     position: 'absolute',
     alignSelf: 'center',
