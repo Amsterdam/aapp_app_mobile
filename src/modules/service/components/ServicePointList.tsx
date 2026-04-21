@@ -23,6 +23,7 @@ import {
   useGetFilteredFeatures,
 } from '@/modules/service/hooks/useGetFilteredFeatures'
 import {useServiceQuery} from '@/modules/service/service'
+import {convertGeometryToPoint} from '@/modules/service/utils/convertGeometryToPoint'
 import {ModuleSlug} from '@/modules/slugs'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
@@ -48,9 +49,7 @@ export const ServicePointList = ({
   const pointFeatures = useMemo(
     () =>
       geojson && 'features' in geojson
-        ? geojson?.features.filter(
-            (f): f is ServicePointFeature => f.geometry.type === 'Point',
-          )
+        ? convertGeometryToPoint(geojson.features)
         : [],
     [geojson],
   )
