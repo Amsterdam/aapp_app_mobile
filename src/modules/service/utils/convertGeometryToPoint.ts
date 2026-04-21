@@ -5,23 +5,23 @@ export const convertGeometryToPoint = (
   features: ServiceGeoJSON['features'],
 ): ServicePointFeature[] =>
   features
-    .map(f => {
-      if (f.geometry && 'coordinates' in f.geometry) {
+    .map(feature => {
+      if (feature.geometry && 'coordinates' in feature.geometry) {
         return {
-          ...f,
+          ...feature,
           geometry: {
             type: 'Point',
-            coordinates: getFirstPosition(f.geometry.coordinates),
+            coordinates: getFirstPosition(feature.geometry.coordinates),
           },
         }
       }
     })
-    .filter((f): f is ServicePointFeature => {
-      if (!f) {
+    .filter((feature): feature is ServicePointFeature => {
+      if (!feature) {
         return false
       }
 
-      const {coordinates} = f.geometry
+      const {coordinates} = feature.geometry
 
       return (
         coordinates.length >= 2 &&
