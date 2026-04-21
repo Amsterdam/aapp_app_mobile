@@ -1,7 +1,8 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useState} from 'react'
+import {type Region} from 'react-native-maps'
 import type {Service} from '@/modules/service/types'
 import type {Feature} from 'geojson'
-import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {
@@ -10,10 +11,13 @@ import {
 } from '@/components/features/map/constants'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
+import {LineString} from '@/components/features/map/line-string/LineString'
 import {Polygons} from '@/components/features/map/polygon/Polygons'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {useGetGeoJsonByGeometryType} from '@/modules/service/hooks/useGetGeoJsonByGeometryType'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
+import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
@@ -29,6 +33,10 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
     isError,
     data: {polygons, points},
   } = useGetMapData(serviceId, onMapElementPress)
+  const {data: service} = useServiceQuery(serviceId || skipToken)
+  const {data: geojson} = service || {}
+
+  const {geoJsonLineString} = useGetGeoJsonByGeometryType(geojson)
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
 
@@ -59,6 +67,24 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
           onPress={onMapElementPress}
         />
       )}
+      {geoJsonLineString?.features.length
+        ? geoJsonLineString.features.map(feature => (
+            <LineString
+              coordinates={
+                'coordinates' in feature.geometry
+                  ? feature.geometry.coordinates
+                  : []
+              }
+              key={feature.id}
+              strokeColor={feature.properties.stroke as string | null}
+              strokeWidth={
+                feature.properties['stroke-width']
+                  ? Number(feature.properties['stroke-width'])
+                  : null
+              }
+            />
+          ))
+        : null}
       <Clusterer
         clusterOptions={
           points.length < 400
