@@ -15,7 +15,16 @@ export const convertGeometryToPoint = (features: Feature[]) =>
         }
       }
     })
-    .filter(
-      (f): f is ServicePointFeature =>
-        Boolean(f) && typeof f?.geometry.coordinates[0] === 'number',
-    )
+    .filter((f): f is ServicePointFeature => {
+      if (!f) {
+        return false
+      }
+
+      const {coordinates} = f.geometry
+
+      return (
+        coordinates.length >= 2 &&
+        Number.isFinite(coordinates[0]) &&
+        Number.isFinite(coordinates[1])
+      )
+    })
