@@ -19,7 +19,7 @@ import '@/processes/logging'
 
 export const App = () => (
   <AppInsightsProvider>
-    <StatusBar barStyle={'dark-content'} />
+    <StatusBar barStyle="dark-content" />
     <SafeAreaProvider
       initialMetrics={initialWindowMetrics}
       style={styles.appContainer}>
