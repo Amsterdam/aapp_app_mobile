@@ -13,13 +13,6 @@ type RedirectResponse = {
 
 export const redirects: RedirectResponse[] = [
   {
-    iconName: 'vote',
-    testID: 'RedirectsElectionsButton',
-    text: 'Blijf op de hoogte van de verkiezingsuitslagen.',
-    title: 'Verkiezingen',
-    urlKey: RedirectKey.elections,
-  },
-  {
     iconName: 'car',
     testID: 'RedirectsParkingButton',
     text: 'Alles over parkeren en verkeer in de stad.',
