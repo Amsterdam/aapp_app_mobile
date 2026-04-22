@@ -39,6 +39,17 @@ steps:
     parameters:
       condition: eq('${{ parameters.platform }}', 'ios')
 
+  - script: |
+      set -euo pipefail
+      if [ -f ios/Podfile.lock ]; then
+        cp ios/Podfile.lock "$(Agent.TempDirectory)/Podfile.lock.before"
+        echo "Saved baseline: $(Agent.TempDirectory)/Podfile.lock.before"
+      else
+        echo "ios/Podfile.lock not found; skipping baseline snapshot"
+      fi
+    displayName: 'Snapshot ios/Podfile.lock (before)'
+    condition: eq('${{ parameters.platform }}', 'ios')
+
   # Install Ccache
   - script: |
       brew install ccache
@@ -143,6 +154,30 @@ steps:
   - script: |
       ccache -s # Show ccache stats
     displayName: 'Show ccache stats'
+
+  - script: |
+      echo "=== ios/Podfile.lock ==="
+      cat ios/Podfile.lock
+    displayName: 'Show ios/Podfile.lock'
+    condition: eq('${{ parameters.platform }}', 'ios')
+
+  - script: |
+      set -euo pipefail
+      BEFORE="$(Agent.TempDirectory)/Podfile.lock.before"
+      AFTER="ios/Podfile.lock"
+      if [ ! -f "$BEFORE" ]; then
+        echo "Baseline not found at $BEFORE; skipping diff"
+        exit 0
+      fi
+      if [ ! -f "$AFTER" ]; then
+        echo "Current lockfile not found at $AFTER; skipping diff"
+        exit 0
+      fi
+      echo "=== diff ios/Podfile.lock (before -> after) ==="
+      diff -u "$BEFORE" "$AFTER" || true
+      echo "=== end diff ==="
+    displayName: 'Diff ios/Podfile.lock (before vs after)'
+    condition: eq('${{ parameters.platform }}', 'ios')
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml
