@@ -7,8 +7,8 @@ type Props = {
   coordinates: LatLng[]
 }
 
-const ARROW_SPACING_METERS = 1000 // distance between arrows
-const METERS_PER_SECOND = 300 // travel speed
+const ARROW_SPACING_METERS = 300 // distance between arrows
+const METERS_PER_SECOND = 30 // travel speed
 
 const getTotalLength = (coords: LatLng[]): number =>
   coords.reduce((total, coord, index) => {
