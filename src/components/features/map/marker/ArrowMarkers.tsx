@@ -8,7 +8,7 @@ type Props = {
 }
 
 const ARROW_SPACING_METERS = 400 // distance between arrows
-const METERS_PER_SECOND = 30 // travel speed
+const METERS_PER_SECOND = 50 // travel speed
 const FADE_DURATION = 200
 
 const getTotalLength = (coords: LatLng[]): number =>
@@ -36,7 +36,7 @@ export const ArrowMarkers = ({coordinates}: Props) => {
       coords={coordinates}
       fadeDuration={FADE_DURATION}
       key={i}
-      phase={(0.5 * i) / arrowCount + (0.5 * (i + 1)) / arrowCount}
+      phase={(i + 0.5) / arrowCount}
       totalLength={totalLength}
       travelDuration={duration}
     />

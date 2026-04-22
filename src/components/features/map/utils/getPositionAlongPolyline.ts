@@ -28,7 +28,7 @@ export const getPositionAlongPolyline = (
     }
   }
 
-  if (coords.length === 1) {
+  if (coords.length === 1 || totalLength === 0) {
     return {
       coordinate: coords[0],
       rotation: 0,

@@ -1,5 +1,4 @@
 import {useState, useRef, useEffect} from 'react'
-import {View} from 'react-native'
 // eslint-disable-next-line no-restricted-imports
 import {Marker, type LatLng} from 'react-native-maps'
 import Animated, {
@@ -84,6 +83,7 @@ export const TravelingArrowMarker = ({
         runOnJS(setPosition)(getPositionAlongPolyline(coords, totalLength, t))
       }
     },
+    [coords, totalLength],
   )
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -97,15 +97,11 @@ export const TravelingArrowMarker = ({
       anchor={{x: 0.5, y: 0.5}}
       coordinate={position.coordinate}
       flat
+      rotation={position.rotation - 90}
       tracksViewChanges
       zIndex={0}>
       <Animated.View style={animatedStyle}>
-        <View
-          style={{
-            transform: [{rotate: `${position.rotation - 90}deg`}],
-          }}>
-          <Icon name="play" />
-        </View>
+        <Icon name="play" />
       </Animated.View>
     </Marker>
   )
