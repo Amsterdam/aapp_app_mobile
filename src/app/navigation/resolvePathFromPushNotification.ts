@@ -1,4 +1,5 @@
 import {buildRedirectPathFromNotificationUrl} from '@/app/navigation/buildRedirectPathFromNotificationUrl'
+import {appPrefix} from '@/app/navigation/constants'
 import {resolveModulePathFromNotification} from '@/app/navigation/utils/resolveModulePathFromNotification'
 import {PushNotification} from '@/types/notification'
 import {addAppPrefixToRoute} from '@/utils/addAppPrefixToRoute'
@@ -23,6 +24,14 @@ export const resolvePathFromPushNotification = (
       pushNotification?.title,
       pushNotification?.body,
     )
+  }
+
+  // TODO: should be removed after release 1.26.0, temporary workaround for Koningsdag notifications
+  if (
+    pushNotification?.title?.toLowerCase().includes('koningsdag') &&
+    !pushNotification?.data.deeplink
+  ) {
+    return `${appPrefix}/kingsday`
   }
 
   const route =
