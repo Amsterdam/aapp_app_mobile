@@ -1,5 +1,4 @@
 import {buildRedirectPathFromNotificationUrl} from '@/app/navigation/buildRedirectPathFromNotificationUrl'
-import {appPrefix} from '@/app/navigation/constants'
 import {resolveModulePathFromNotification} from '@/app/navigation/utils/resolveModulePathFromNotification'
 import {PushNotification} from '@/types/notification'
 import {addAppPrefixToRoute} from '@/utils/addAppPrefixToRoute'
@@ -31,7 +30,7 @@ export const resolvePathFromPushNotification = (
     pushNotification?.title?.toLowerCase().includes('koningsdag') &&
     !pushNotification?.data.deeplink
   ) {
-    return `${appPrefix}/kingsday`
+    return addAppPrefixToRoute('kingsday')
   }
 
   const route =
