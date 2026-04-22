@@ -13,6 +13,8 @@ import {runOnJS} from 'react-native-worklets'
 import {getPositionAlongPolyline} from '@/components/features/map/utils/getPositionAlongPolyline'
 import {Icon} from '@/components/ui/media/Icon'
 
+const FADE_DURATION = 200
+
 export const TravelingArrowMarker = ({
   coords,
   duration,
@@ -22,7 +24,7 @@ export const TravelingArrowMarker = ({
   duration: number
   phase: number
 }) => {
-  const progress = useSharedValue(0)
+  const progress = useSharedValue(phase)
   const opacity = useSharedValue(0)
   const [position, setPosition] = useState<{
     coordinate: LatLng
@@ -33,12 +35,6 @@ export const TravelingArrowMarker = ({
   const isFirstCycleRef = useRef(true)
 
   useEffect(() => {
-    const travelDuration = duration
-    const fadeDuration = 200
-
-    // Start immediately at the phase position, no setTimeout
-    progress.value = phase // <-- start evenly spread
-
     const repeat = () => cycleRef.current()
 
     const onFadeOutComplete = () => {
@@ -49,7 +45,11 @@ export const TravelingArrowMarker = ({
 
     const fadeOut = () => {
       'worklet'
-      opacity.value = withTiming(0, {duration: fadeDuration}, onFadeOutComplete)
+      opacity.value = withTiming(
+        0,
+        {duration: FADE_DURATION},
+        onFadeOutComplete,
+      )
     }
 
     const onTravelComplete = () => {
@@ -58,11 +58,11 @@ export const TravelingArrowMarker = ({
     }
 
     cycleRef.current = () => {
-      opacity.value = withTiming(1, {duration: fadeDuration})
+      opacity.value = withTiming(1, {duration: FADE_DURATION})
 
       const cycleDuration = isFirstCycleRef.current
-        ? travelDuration * (1 - phase)
-        : travelDuration
+        ? duration * (1 - phase)
+        : duration
 
       isFirstCycleRef.current = false
 

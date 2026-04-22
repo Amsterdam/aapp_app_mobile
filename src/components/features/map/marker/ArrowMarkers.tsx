@@ -35,7 +35,7 @@ export const ArrowMarkers = ({coordinates}: Props) => {
       coords={coordinates}
       duration={duration}
       key={i}
-      phase={i / arrowCount}
+      phase={(0.5 * i) / arrowCount + (0.5 * (i + 1)) / arrowCount}
     />
   ))
 }
