@@ -35,7 +35,7 @@ export const TravelingArrowMarker = ({
     coordinate: LatLng
     rotation: number
   } | null>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const cycleRef = useRef<() => void>(() => undefined)
   const isFirstCycleRef = useRef(true)
 
