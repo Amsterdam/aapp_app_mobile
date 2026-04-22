@@ -12,66 +12,76 @@ import {runOnJS} from 'react-native-worklets'
 import {getPositionAlongPolyline} from '@/components/features/map/utils/getPositionAlongPolyline'
 import {Icon} from '@/components/ui/media/Icon'
 
+type Props = {
+  coords: LatLng[]
+  enableAnimation?: boolean
+  fadeDuration: number
+  phase: number
+  totalLength: number
+  travelDuration: number
+}
+
 export const TravelingArrowMarker = ({
   coords,
   travelDuration,
   fadeDuration,
   phase,
   totalLength,
-}: {
-  coords: LatLng[]
-  fadeDuration: number
-  phase: number
-  totalLength: number
-  travelDuration: number
-}) => {
+  enableAnimation = true,
+}: Props) => {
   const progress = useSharedValue(phase)
-  const opacity = useSharedValue(0)
+  const opacity = useSharedValue(1)
   const [position, setPosition] = useState<{
     coordinate: LatLng
     rotation: number
   } | null>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const cycleRef = useRef<() => void>(() => undefined)
   const isFirstCycleRef = useRef(true)
 
   useEffect(() => {
-    const repeat = () => cycleRef.current()
+    if (enableAnimation) {
+      const repeat = () => cycleRef.current()
 
-    const onFadeOutComplete = () => {
-      'worklet'
-      progress.value = 0
-      runOnJS(repeat)()
+      const onFadeOutComplete = () => {
+        'worklet'
+        progress.value = 0
+        runOnJS(repeat)()
+      }
+
+      const fadeOut = () => {
+        'worklet'
+        opacity.value = withTiming(
+          0,
+          {duration: fadeDuration},
+          onFadeOutComplete,
+        )
+      }
+
+      const onTravelComplete = () => {
+        'worklet'
+        fadeOut()
+      }
+
+      cycleRef.current = () => {
+        opacity.value = withTiming(1, {duration: fadeDuration})
+
+        const cycleDuration = isFirstCycleRef.current
+          ? travelDuration * (1 - phase)
+          : travelDuration
+
+        isFirstCycleRef.current = false
+
+        progress.value = withTiming(
+          1,
+          {duration: cycleDuration, easing: Easing.linear},
+          onTravelComplete,
+        )
+      }
+
+      cycleRef.current()
     }
-
-    const fadeOut = () => {
-      'worklet'
-      opacity.value = withTiming(0, {duration: fadeDuration}, onFadeOutComplete)
-    }
-
-    const onTravelComplete = () => {
-      'worklet'
-      fadeOut()
-    }
-
-    cycleRef.current = () => {
-      opacity.value = withTiming(1, {duration: fadeDuration})
-
-      const cycleDuration = isFirstCycleRef.current
-        ? travelDuration * (1 - phase)
-        : travelDuration
-
-      isFirstCycleRef.current = false
-
-      progress.value = withTiming(
-        1,
-        {duration: cycleDuration, easing: Easing.linear},
-        onTravelComplete,
-      )
-    }
-
-    cycleRef.current()
-  }, [travelDuration, opacity, phase, progress, fadeDuration])
+  }, [travelDuration, opacity, phase, progress, fadeDuration, enableAnimation])
 
   useAnimatedReaction(
     () => progress.value,
