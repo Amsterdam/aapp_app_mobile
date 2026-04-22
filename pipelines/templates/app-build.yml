@@ -139,6 +139,7 @@ steps:
       CHAT_URL_PROD: $(CHAT_URL_PROD)
       GOOGLE_MAPS_API_KEY_ANDROID: $(GOOGLE_MAPS_API_KEY_ANDROID)
       GOOGLE_MAPS_API_KEY_IOS: $(GOOGLE_MAPS_API_KEY_IOS)
+      RCT_REMOVE_LEGACY_ARCH: 1
 
   - script: |
       ccache -s # Show ccache stats
