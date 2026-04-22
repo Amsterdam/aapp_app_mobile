@@ -1,5 +1,4 @@
 import {useState, useRef, useEffect} from 'react'
-import {View} from 'react-native'
 // eslint-disable-next-line no-restricted-imports
 import {Marker, type LatLng} from 'react-native-maps'
 import Animated, {
@@ -15,14 +14,18 @@ import {Icon} from '@/components/ui/media/Icon'
 
 export const TravelingArrowMarker = ({
   coords,
-  duration,
+  travelDuration,
+  fadeDuration,
   phase,
+  totalLength,
 }: {
   coords: LatLng[]
-  duration: number
+  fadeDuration: number
   phase: number
+  totalLength: number
+  travelDuration: number
 }) => {
-  const progress = useSharedValue(0)
+  const progress = useSharedValue(phase)
   const opacity = useSharedValue(0)
   const [position, setPosition] = useState<{
     coordinate: LatLng
@@ -33,12 +36,6 @@ export const TravelingArrowMarker = ({
   const isFirstCycleRef = useRef(true)
 
   useEffect(() => {
-    const travelDuration = duration
-    const fadeDuration = 200
-
-    // Start immediately at the phase position, no setTimeout
-    progress.value = phase // <-- start evenly spread
-
     const repeat = () => cycleRef.current()
 
     const onFadeOutComplete = () => {
@@ -74,7 +71,7 @@ export const TravelingArrowMarker = ({
     }
 
     cycleRef.current()
-  }, [duration, opacity, phase, progress])
+  }, [travelDuration, opacity, phase, progress, fadeDuration])
 
   useAnimatedReaction(
     () => progress.value,
@@ -83,9 +80,10 @@ export const TravelingArrowMarker = ({
         runOnJS(setIsVisible)(false)
       } else {
         runOnJS(setIsVisible)(true)
-        runOnJS(setPosition)(getPositionAlongPolyline(coords, t))
+        runOnJS(setPosition)(getPositionAlongPolyline(coords, totalLength, t))
       }
     },
+    [coords, totalLength],
   )
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -99,15 +97,11 @@ export const TravelingArrowMarker = ({
       anchor={{x: 0.5, y: 0.5}}
       coordinate={position.coordinate}
       flat
+      rotation={position.rotation - 90}
       tracksViewChanges
       zIndex={0}>
       <Animated.View style={animatedStyle}>
-        <View
-          style={{
-            transform: [{rotate: `${position.rotation - 90}deg`}],
-          }}>
-          <Icon name="play" />
-        </View>
+        <Icon name="play" />
       </Animated.View>
     </Marker>
   )
