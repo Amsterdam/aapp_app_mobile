@@ -34,6 +34,7 @@ export const ArrowMarkers = ({coordinates}: Props) => {
   return Array.from({length: arrowCount}).map((_, i) => (
     <TravelingArrowMarker
       coords={coordinates}
+      enableAnimation
       fadeDuration={FADE_DURATION}
       key={i}
       phase={(i + 0.5) / arrowCount}
