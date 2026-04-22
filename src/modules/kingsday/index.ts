@@ -4,6 +4,9 @@ import {createClientModule} from '@/modules/utils/createModule'
 
 export const kingsdayModule = createClientModule({
   name: 'KingsdayModule',
+  linking: {
+    [ModuleSlug.kingsday]: ModuleSlug.kingsday,
+  },
   slug: ModuleSlug.kingsday,
   icons: kingsdaySvgIcons,
   moduleHighlightColor: 'kingsday',

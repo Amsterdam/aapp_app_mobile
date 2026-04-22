@@ -25,6 +25,14 @@ export const resolvePathFromPushNotification = (
     )
   }
 
+  // TODO: should be removed after release 1.26.0, temporary workaround for Koningsdag notifications
+  if (
+    pushNotification?.title?.toLowerCase().includes('koningsdag') &&
+    !pushNotification?.data.deeplink
+  ) {
+    return addAppPrefixToRoute('kingsday')
+  }
+
   const route =
     addAppPrefixToRoute(
       resolveModulePathFromNotification(pushNotification, true),
