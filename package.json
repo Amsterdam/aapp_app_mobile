@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "android:connect:device": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8000 tcp:8000",
-    "android:phone:dev": "react-native run-android --mode=devDebug --appIdSuffix=dev",
-    "android:phone:prod": "react-native run-android --mode=prodDebug",
-    "android:tablet": "emulator @Pixel_C_API_30 & react-native run-android --deviceId='Pixel_C_API_30' --mode=devDebug --appIdSuffix=dev",
+    "android:phone:dev": "react-native run-android --mode=devDebug --appIdSuffix=dev --active-arch-only",
+    "android:phone:prod": "react-native run-android --mode=prodDebug --active-arch-only",
+    "android:tablet": "emulator @Pixel_C_API_30 & react-native run-android --deviceId='Pixel_C_API_30' --mode=devDebug --appIdSuffix=dev --active-arch-only",
     "android:deeplink:construction-work-editor": "adb shell am start -a android.intent.action.VIEW -d \"amsterdam://construction-work-editor\"",
     "clean": "react-native-clean-project",
     "format": "oxfmt --check",
