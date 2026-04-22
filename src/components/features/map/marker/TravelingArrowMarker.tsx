@@ -13,16 +13,18 @@ import {runOnJS} from 'react-native-worklets'
 import {getPositionAlongPolyline} from '@/components/features/map/utils/getPositionAlongPolyline'
 import {Icon} from '@/components/ui/media/Icon'
 
-const FADE_DURATION = 200
-
 export const TravelingArrowMarker = ({
   coords,
-  duration,
+  travelDuration,
+  fadeDuration,
   phase,
+  totalLength,
 }: {
   coords: LatLng[]
-  duration: number
+  fadeDuration: number
   phase: number
+  totalLength: number
+  travelDuration: number
 }) => {
   const progress = useSharedValue(phase)
   const opacity = useSharedValue(0)
@@ -45,11 +47,7 @@ export const TravelingArrowMarker = ({
 
     const fadeOut = () => {
       'worklet'
-      opacity.value = withTiming(
-        0,
-        {duration: FADE_DURATION},
-        onFadeOutComplete,
-      )
+      opacity.value = withTiming(0, {duration: fadeDuration}, onFadeOutComplete)
     }
 
     const onTravelComplete = () => {
@@ -58,11 +56,11 @@ export const TravelingArrowMarker = ({
     }
 
     cycleRef.current = () => {
-      opacity.value = withTiming(1, {duration: FADE_DURATION})
+      opacity.value = withTiming(1, {duration: fadeDuration})
 
       const cycleDuration = isFirstCycleRef.current
-        ? duration * (1 - phase)
-        : duration
+        ? travelDuration * (1 - phase)
+        : travelDuration
 
       isFirstCycleRef.current = false
 
@@ -74,7 +72,7 @@ export const TravelingArrowMarker = ({
     }
 
     cycleRef.current()
-  }, [duration, opacity, phase, progress])
+  }, [travelDuration, opacity, phase, progress, fadeDuration])
 
   useAnimatedReaction(
     () => progress.value,
@@ -83,7 +81,7 @@ export const TravelingArrowMarker = ({
         runOnJS(setIsVisible)(false)
       } else {
         runOnJS(setIsVisible)(true)
-        runOnJS(setPosition)(getPositionAlongPolyline(coords, t))
+        runOnJS(setPosition)(getPositionAlongPolyline(coords, totalLength, t))
       }
     },
   )

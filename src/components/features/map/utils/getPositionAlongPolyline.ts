@@ -16,6 +16,7 @@ const interpolate = (a: LatLng, b: LatLng, fraction: number) => {
 
 export const getPositionAlongPolyline = (
   coords: LatLng[],
+  totalLength: number,
   t: number,
 ): {coordinate: LatLng; rotation: number} => {
   'worklet'
@@ -33,11 +34,6 @@ export const getPositionAlongPolyline = (
       rotation: 0,
     }
   }
-  const totalLength = coords.reduce((sum, _, i) => {
-    if (i === 0) return 0
-
-    return sum + distanceBetween(coords[i - 1], coords[i])
-  }, 0)
 
   const target = t * totalLength
   let accumulated = 0
