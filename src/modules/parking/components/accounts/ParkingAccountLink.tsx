@@ -27,6 +27,12 @@ export const ParkingAccountLink = ({account}: Props) => {
 
   return (
     <NavigationButton
+      accessibilityLabel={[
+        secureAccount?.name,
+        `meldcode ${account.reportCode}`,
+      ]
+        .filter(Boolean)
+        .join(', ')}
       chevronSize="ml"
       description={secureAccount?.name ? account.reportCode : 'Naam toevoegen'}
       emphasis="default"
