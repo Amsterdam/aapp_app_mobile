@@ -1,7 +1,13 @@
 import type {Coordinates} from '@/types/location'
-import {AddressList, type PostalArea} from '@/modules/address/types'
+import {GlobalApiSlug} from '@/environment'
+import {
+  AddressList,
+  type Address,
+  type PostalArea,
+} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
+import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
@@ -53,6 +59,24 @@ export const addressApi = baseApi.injectEndpoints({
         keepUnusedDataFor,
       }),
     }),
+    //notifications:
+    postNotificationAddress: builder.mutation<void, Address>({
+      query: address => ({
+        body: address,
+        slug: GlobalApiSlug.notification,
+        url: '/address',
+        headers: deviceIdHeader,
+        method: 'POST',
+      }),
+    }),
+    deleteNotificationAddress: builder.mutation<void, void>({
+      query: () => ({
+        slug: GlobalApiSlug.notification,
+        url: '/address',
+        headers: deviceIdHeader,
+        method: 'DELETE',
+      }),
+    }),
   }),
 
   overrideExisting: true,
@@ -62,4 +86,6 @@ export const {
   useGetLocationQuery,
   useGetAddressSuggestionsQuery,
   useGetPostalAreaQuery,
+  usePostNotificationAddressMutation,
+  useDeleteNotificationAddressMutation,
 } = addressApi

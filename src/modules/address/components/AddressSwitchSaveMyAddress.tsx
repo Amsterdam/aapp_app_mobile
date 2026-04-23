@@ -8,10 +8,10 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useModules} from '@/hooks/useModules'
 import {alerts} from '@/modules/address/alerts'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
+import {usePostNotificationAddressMutation} from '@/modules/address/service'
 import {addAddress, setShowSaveAsMyAddress} from '@/modules/address/slice'
 
 type Props = {
@@ -27,7 +27,7 @@ export const AddressSwitchSaveMyAddress = ({
   const dispatch = useDispatch()
   const {address: moduleAddress} = useSelectedAddress(moduleSlug)
   const setLocationType = useSetLocationType(moduleSlug)
-  const {enabledModules} = useModules()
+  const [postNotificationAddress] = usePostNotificationAddressMutation()
 
   const onSaveMyAddress = useCallback(() => {
     if (!moduleAddress) {
@@ -37,19 +37,11 @@ export const AddressSwitchSaveMyAddress = ({
     setIsSuccessAlertVisible(false)
     dispatch(addAddress(moduleAddress))
 
-    enabledModules?.forEach(({onMyAddressChanged}) => {
-      void onMyAddressChanged?.(moduleAddress, dispatch)
-    })
+    void postNotificationAddress(moduleAddress)
 
     setLocationType('address')
     setIsSuccessAlertVisible(true)
-  }, [
-    moduleAddress,
-    dispatch,
-    enabledModules,
-    setIsSuccessAlertVisible,
-    setLocationType,
-  ])
+  }, [moduleAddress, dispatch, postNotificationAddress, setLocationType])
 
   return (
     <>
