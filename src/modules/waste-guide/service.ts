@@ -1,4 +1,4 @@
-import {DeviatingApiSlug} from '@/environment'
+import {DeviatingApiSlug, GlobalApiSlug} from '@/environment'
 import {
   WasteGuideEndpointName,
   type WasteGuideResponse,
@@ -22,18 +22,6 @@ export const wasteGuideApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.day,
     }),
-    [WasteGuideEndpointName.getWasteGuideNotification]: builder.query<
-      WasteGuideNotificationSettings,
-      void
-    >({
-      query: () => ({
-        slug: DeviatingApiSlug.waste,
-        url: '/guide/notification',
-        headers: deviceIdHeader,
-      }),
-      providesTags: ['WasteGuideNotifications'],
-      keepUnusedDataFor: CacheLifetime.day,
-    }),
     [WasteGuideEndpointName.getWasteGuideRecyclePoints]: builder.query<
       WasteGuideRecyclePointsResponse,
       void
@@ -44,29 +32,29 @@ export const wasteGuideApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.day,
     }),
+    // notifications:
+    [WasteGuideEndpointName.getWasteGuideNotification]: builder.query<
+      WasteGuideNotificationSettings,
+      void
+    >({
+      query: () => ({
+        slug: GlobalApiSlug.notification,
+        url: '/device/waste',
+        headers: deviceIdHeader,
+      }),
+      providesTags: ['WasteGuideNotifications'],
+      keepUnusedDataFor: CacheLifetime.day,
+    }),
     [WasteGuideEndpointName.postWasteGuideNotification]: builder.mutation<
       WasteGuideNotificationSettings,
       string
     >({
       query: bag_nummeraanduiding_id => ({
         body: {bag_nummeraanduiding_id},
-        slug: DeviatingApiSlug.waste,
-        url: '/guide/notifications',
+        slug: GlobalApiSlug.notification,
+        url: '/device/waste',
         headers: deviceIdHeader,
         method: 'POST',
-      }),
-      invalidatesTags: ['WasteGuideNotifications'],
-    }),
-    [WasteGuideEndpointName.patchWasteGuideNotification]: builder.mutation<
-      WasteGuideNotificationSettings,
-      string
-    >({
-      query: bag_nummeraanduiding_id => ({
-        body: {bag_nummeraanduiding_id},
-        slug: DeviatingApiSlug.waste,
-        url: '/guide/notification',
-        headers: deviceIdHeader,
-        method: 'PATCH',
       }),
       invalidatesTags: ['WasteGuideNotifications'],
     }),
@@ -75,8 +63,8 @@ export const wasteGuideApi = baseApi.injectEndpoints({
       void
     >({
       query: () => ({
-        slug: DeviatingApiSlug.waste,
-        url: '/guide/notification',
+        slug: GlobalApiSlug.notification,
+        url: '/device/waste',
         headers: deviceIdHeader,
         method: 'DELETE',
       }),
@@ -91,6 +79,5 @@ export const {
   useGetWasteGuideNotificationQuery,
   useGetWasteGuideRecyclePointsQuery,
   usePostWasteGuideNotificationMutation,
-  usePatchWasteGuideNotificationMutation,
   useDeleteWasteGuideNotificationMutation,
 } = wasteGuideApi
