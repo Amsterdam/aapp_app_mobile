@@ -12,7 +12,7 @@ export const onMyAddressChanged = (
     ).then(response => {
       if ('data' in response && response.data?.status !== 'error') {
         void dispatch(
-          wasteGuideApi.endpoints.patchWasteGuideNotification.initiate(
+          wasteGuideApi.endpoints.postWasteGuideNotification.initiate(
             newAddress?.bagId,
           ),
         )

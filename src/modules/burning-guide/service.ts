@@ -1,3 +1,4 @@
+import {GlobalApiSlug} from '@/environment'
 import {
   BurningGuideEndpointName,
   type BurningGuideApiResponse,
@@ -21,14 +22,14 @@ export const burningGuideApi = baseApi.injectEndpoints({
         url: '/advice',
       }),
     }),
-
+    // notifications:
     [BurningGuideEndpointName.getBurningGuideNotification]: builder.query<
       BurningGuideNotificationSettings,
       void
     >({
       query: () => ({
-        slug: ModuleSlug['burning-guide'],
-        url: '/notification',
+        slug: GlobalApiSlug.notification,
+        url: '/device/burning-guide',
         headers: deviceIdHeader,
       }),
       providesTags: ['BurningGuideNotifications'],
@@ -40,23 +41,10 @@ export const burningGuideApi = baseApi.injectEndpoints({
     >({
       query: postal_code => ({
         body: {postal_code},
-        slug: ModuleSlug['burning-guide'],
-        url: '/notifications',
+        slug: GlobalApiSlug.notification,
+        url: '/device/burning-guide',
         headers: deviceIdHeader,
         method: 'POST',
-      }),
-      invalidatesTags: ['BurningGuideNotifications'],
-    }),
-    [BurningGuideEndpointName.patchBurningGuideNotification]: builder.mutation<
-      BurningGuideNotificationSettings,
-      string
-    >({
-      query: postal_code => ({
-        body: {postal_code},
-        slug: ModuleSlug['burning-guide'],
-        url: '/notification',
-        headers: deviceIdHeader,
-        method: 'PATCH',
       }),
       invalidatesTags: ['BurningGuideNotifications'],
     }),
@@ -65,8 +53,8 @@ export const burningGuideApi = baseApi.injectEndpoints({
       void
     >({
       query: () => ({
-        slug: ModuleSlug['burning-guide'],
-        url: '/notification',
+        slug: GlobalApiSlug.notification,
+        url: '/device/burning-guide',
         headers: deviceIdHeader,
         method: 'DELETE',
       }),
@@ -80,6 +68,5 @@ export const {
   useBurningGuideQuery,
   useGetBurningGuideNotificationQuery,
   usePostBurningGuideNotificationMutation,
-  usePatchBurningGuideNotificationMutation,
   useDeleteBurningGuideNotificationMutation,
 } = burningGuideApi

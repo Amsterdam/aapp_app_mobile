@@ -27,7 +27,7 @@ export const onMyAddressChanged = async (
     ).then(response => {
       if ('data' in response && response.data?.status !== 'error') {
         return dispatch(
-          burningGuideApi.endpoints.patchBurningGuideNotification.initiate(
+          burningGuideApi.endpoints.postBurningGuideNotification.initiate(
             postalArea,
           ),
         )
