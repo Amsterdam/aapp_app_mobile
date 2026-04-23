@@ -122,7 +122,11 @@ export const AlertBase = ({
           )}
         </View>
         {!!hasCloseIcon && (
-          <View style={styles.iconWrapper}>
+          <View
+            accessibilityLabel="Sluit melding"
+            accessibilityLanguage="nl-NL"
+            accessible
+            style={styles.iconWrapper}>
             <Icon
               name="close"
               size="ml"

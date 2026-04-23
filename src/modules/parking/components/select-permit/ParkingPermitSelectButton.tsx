@@ -50,8 +50,22 @@ export const ParkingPermitSelectButton = ({
     currentPermitReportCode === permitReportCode &&
     currentAccountScope === permitScope
 
+  const getAccessibilityLabel = useMemo(
+    () =>
+      [
+        permitScope === ParkingPermitScope.visitor ? false : permitName,
+        name ? `van ${name}` : false,
+        `meldcode ${accountReportCode}`,
+        isCurrent ? 'geselecteerd' : false,
+      ]
+        .filter(Boolean)
+        .join(', '),
+    [name, accountReportCode, permitName, permitScope, isCurrent],
+  )
+
   return (
     <TopTaskButton
+      accessibilityLabel={getAccessibilityLabel}
       gutter="sm"
       icon={{
         size: 'ml',

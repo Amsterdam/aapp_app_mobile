@@ -42,14 +42,14 @@ export const ParkingPermitSwitcher = () => {
             testID="ParkingPermitSwitcherTitle"
             text={title}
           />
-          <Phrase>
+          <Phrase accessibilityLabel={`Meldcode ${parkingAccount?.reportCode}`}>
             {secureAccount?.name && `${secureAccount?.name} - `}
             {parkingAccount?.reportCode}
           </Phrase>
         </Column>
         <ContextSwitchButton
           accessibilityHint="Tik om een andere vergunning te selecteren."
-          accessibilityLabel={`De huidige vergunning is ${title}.`}
+          accessibilityLabel={`Tik om een andere vergunning te selecteren. De huidige vergunning is ${title}.`}
           label="Kies een andere vergunning"
           noPadding
           onPress={() =>
