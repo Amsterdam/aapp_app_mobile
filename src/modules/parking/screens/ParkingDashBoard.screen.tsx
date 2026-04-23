@@ -9,8 +9,6 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Placement} from '@/components/ui/types'
-import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
 import {ParkingPermitSwitcher} from '@/modules/parking/components/ParkingPermitSwitcher'
 import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
@@ -24,16 +22,11 @@ import {useHandleDeeplink} from '@/modules/parking/hooks/useHandleDeeplink'
 import {useTransferReduxAccountNameToSecureStorage} from '@/modules/parking/hooks/useTransferReduxAccountNameToSecureStorage'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {
-  setIsLoggingIn,
-  useParkingAccountIsLoggingOut,
-} from '@/modules/parking/slice'
+import {useParkingAccountIsLoggingOut} from '@/modules/parking/slice'
 
 type Props = NavigationProps<ParkingRouteName.dashboard>
 
 export const ParkingDashboardScreen = ({route}: Props) => {
-  const dispatch = useDispatch()
-
   useTransferReduxAccountNameToSecureStorage()
 
   useHandleDeeplink(route)
@@ -41,10 +34,6 @@ export const ParkingDashboardScreen = ({route}: Props) => {
   const {headerShown = true} = (navigationRef.current?.getCurrentOptions() ??
     {}) as {headerShown?: boolean}
   const isLoggingOut = useParkingAccountIsLoggingOut()
-
-  useFocusAndForegroundEffect(() => {
-    dispatch(setIsLoggingIn(false))
-  }, [])
 
   if (isLoading || isLoggingOut) {
     return (
