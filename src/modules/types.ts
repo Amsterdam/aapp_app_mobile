@@ -4,7 +4,6 @@ import {
   type PathConfigMap,
 } from '@react-navigation/native'
 import {type StackNavigationOptions} from '@react-navigation/stack'
-import type {Address} from '@/modules/address/types'
 import type {Theme} from '@/themes/themes'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {
@@ -95,13 +94,6 @@ export type ModuleClientConfig<
    * Function to call the logout logic of the module.
    */
   logout?: (dispatch: ReduxDispatch, state: RootState) => Promise<void>
-  /**
-   * Function to call when My address changes.
-   */
-  onMyAddressChanged?: (
-    newAddress: Address | null,
-    dispatch: ReduxDispatch,
-  ) => Promise<unknown>
   /**
    * Function to call when user pressed on a push-notification
    * @param notification Push notification
