@@ -10,6 +10,7 @@ import {
 } from '@/components/features/map/hooks/useMapControlsToggleBottomSheetButton'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {Box} from '@/components/ui/containers/Box'
+import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -85,66 +86,68 @@ export const ServicePointList = ({
   }
 
   return (
-    <Box insetBottom="md">
-      <FlatList
-        data={servicePointsByDistance}
-        keyExtractor={point => String(point.id)}
-        ListEmptyComponent={ServicePointEmptyList}
-        ListHeaderComponent={
-          <>
-            {!!filters?.length && (
-              <Box insetVertical="smd">
-                <MapFilters
-                  activeFilters={activeFilters}
-                  filters={filters}
-                  onPressFilter={onPressFilter}
-                  testID="ServiceListFilters"
-                />
-              </Box>
-            )}
-            {!!layers?.length && (
-              <Box
-                insetRight="md"
-                insetVertical="smd">
-                <MapControlsButton
-                  accessibilityLabel="Kaartlagen weergeven"
-                  icon={{name: 'layers'}}
-                  onPress={onPressLayersButton}
-                  testID="ServicePointListLayersButton"
-                  text="Kaartlagen"
-                />
-              </Box>
-            )}
+    <SafeArea bottom>
+      <Box insetBottom="md">
+        <FlatList
+          data={servicePointsByDistance}
+          keyExtractor={point => String(point.id)}
+          ListEmptyComponent={ServicePointEmptyList}
+          ListHeaderComponent={
+            <>
+              {!!filters?.length && (
+                <Box insetVertical="smd">
+                  <MapFilters
+                    activeFilters={activeFilters}
+                    filters={filters}
+                    onPressFilter={onPressFilter}
+                    testID="ServiceListFilters"
+                  />
+                </Box>
+              )}
+              {!!layers?.length && (
+                <Box
+                  insetRight="md"
+                  insetVertical="smd">
+                  <MapControlsButton
+                    accessibilityLabel="Kaartlagen weergeven"
+                    icon={{name: 'layers'}}
+                    onPress={onPressLayersButton}
+                    testID="ServicePointListLayersButton"
+                    text="Kaartlagen"
+                  />
+                </Box>
+              )}
 
-            <Box insetHorizontal="md">
-              <Column gutter="lg">
-                <AddressSwitch
-                  moduleSlug={ModuleSlug.service}
-                  testID="ServicePointListAddressSwitch"
-                />
+              <Box insetHorizontal="md">
+                <Column gutter="lg">
+                  <AddressSwitch
+                    moduleSlug={ModuleSlug.service}
+                    testID="ServicePointListAddressSwitch"
+                  />
 
-                {!!address && (
-                  <Phrase color="secondary">
-                    Resultaten gesorteerd op afstand:
-                  </Phrase>
-                )}
-              </Column>
-            </Box>
-          </>
-        }
-        renderItem={({item: servicePoint}) => (
-          <ServicePointListItem
-            icon={
-              servicePoint.properties.aapp_icon_type
-                ? icons?.[servicePoint.properties.aapp_icon_type]
-                : undefined
-            }
-            listProperty={service.list_property}
-            onPress={onMapElementPress}
-            servicePoint={servicePoint}
-          />
-        )}
-      />
-    </Box>
+                  {!!address && (
+                    <Phrase color="secondary">
+                      Resultaten gesorteerd op afstand:
+                    </Phrase>
+                  )}
+                </Column>
+              </Box>
+            </>
+          }
+          renderItem={({item: servicePoint}) => (
+            <ServicePointListItem
+              icon={
+                servicePoint.properties.aapp_icon_type
+                  ? icons?.[servicePoint.properties.aapp_icon_type]
+                  : undefined
+              }
+              listProperty={service.list_property}
+              onPress={onMapElementPress}
+              servicePoint={servicePoint}
+            />
+          )}
+        />
+      </Box>
+    </SafeArea>
   )
 }
