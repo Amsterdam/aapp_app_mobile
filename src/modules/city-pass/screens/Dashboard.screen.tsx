@@ -28,6 +28,7 @@ export const DashboardScreen = ({navigation}: Props) => {
     <Screen
       bottomSheet={<BottomSheetSurvey testID="CityPassSurveyBottomSheet" />}
       hasStickyAlert
+      keyboardAware
       testID="CityPassDashboardScreen">
       <AutomaticLogoutAlert />
       <PassOwners logout={logout} />

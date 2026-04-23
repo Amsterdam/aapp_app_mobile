@@ -22,7 +22,9 @@ export const ProjectSegmentScreen = ({route}: Props) => {
   useSetScreenTitle()
 
   return (
-    <Screen testID="ConstructionWorkProjectSegmentScreen">
+    <Screen
+      keyboardAware
+      testID="ConstructionWorkProjectSegmentScreen">
       <Column gutter="md">
         <Box>
           <Column gutter="md">
