@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 import {Polyline} from 'react-native-maps'
-import {ArrowMarkers} from '@/components/features/map/marker/ArrowMarkers'
+import {MovingLineString} from '@/components/features/map/line-string/MovingLineString'
 import {
   coordinatesToLatLng,
   type Position,
@@ -44,7 +44,13 @@ export const LineString = ({
         strokeWidth={strokeWidth}
         tappable
       />
-      <ArrowMarkers coordinates={latLngCoordinates} />
+      <MovingLineString
+        coordinates={latLngCoordinates}
+        lineLength={100}
+        strokeColor={'#000'}
+        strokeWidth={strokeWidth}
+        tappable={false}
+      />
     </>
   )
 }
