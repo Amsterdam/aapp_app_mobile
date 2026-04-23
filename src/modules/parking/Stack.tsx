@@ -1,7 +1,9 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
+import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {usePendingScreen} from '@/hooks/navigation/usePendingScreen'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAccessCodeGate} from '@/modules/access-code/hooks/useAccessCodeGate'
 import {useIsRecentlyLoggedOut} from '@/modules/parking/hooks/useIsRecentlyLoggedOut'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
@@ -15,6 +17,7 @@ import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingFo
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
 import {
+  setIsLoggingIn,
   useParkingAccountIsLoggingIn,
   useParkingAccountIsLoggingOut,
 } from '@/modules/parking/slice'
@@ -24,6 +27,7 @@ import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 const Stack = createStackNavigator<RootStackParams>()
 
 export const ParkingStack = () => {
+  const dispatch = useDispatch()
   const screenOptions = useScreenOptions()
   const screenOptionsSettings = useScreenOptions({
     screenType: 'settings',
@@ -56,6 +60,10 @@ export const ParkingStack = () => {
       name: ParkingRouteName.forgotAccessCode,
       options: {headerTitle: 'Toegangscode vergeten'},
     },
+  })
+
+  useBlurEffect(() => {
+    dispatch(setIsLoggingIn(false))
   })
 
   return (
