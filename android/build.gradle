@@ -21,6 +21,13 @@ buildscript {
         // Firebase
         classpath 'com.google.gms:google-services:4.4.2'
         // NOTE: Do not place your application dependencies here; they belong in the individual module build.gradle files
+        def rnrepoDir = new File(
+            providers.exec {
+                workingDir(rootDir)
+                commandLine("node", "--print", "require.resolve('@rnrepo/build-tools/package.json')")
+            }.standardOutput.asText.get().trim()
+        ).getParentFile().absolutePath
+        classpath fileTree(dir: "${rnrepoDir}/gradle-plugin/build/libs", include: ["prebuilds-plugin.jar"])
     }
 }
 
@@ -37,6 +44,7 @@ allprojects {
                 includeGroupByRegex "com\\.salesforce.*"
             }
         }
+        maven { url "https://packages.rnrepo.org/releases" }
     }
     afterEvaluate {
         if (it.hasProperty('android')) {
