@@ -9,7 +9,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useModules} from '@/hooks/useModules'
 import {alerts} from '@/modules/address/alerts'
 import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {AddressSearchResults} from '@/modules/address/components/form/AddressSearchResults'
@@ -18,6 +17,7 @@ import {MyAddressButton} from '@/modules/address/components/form/MyAddressButton
 import {useGetAddressFormList} from '@/modules/address/hooks/useGetAddressFormList'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
+import {usePostNotificationAddressMutation} from '@/modules/address/service'
 import {
   addAddress,
   addRecentAddress,
@@ -56,8 +56,8 @@ export const AddressForm = ({
   const setLocationType = useSetLocationType(moduleSlug || ModuleSlug.address)
   const route = useRoute<AddressModalName.myAddressForm>()
   const myAddress = useMyAddress()
-  const {enabledModules} = useModules()
   const {shouldShowList} = useGetAddressFormList()
+  const [postNotificationAddress] = usePostNotificationAddressMutation()
 
   const {setAlert} = useAlert()
 
@@ -70,9 +70,7 @@ export const AddressForm = ({
       } else if (saveAsMyAddress) {
         dispatch(addAddress(address))
         setLocationType('address')
-        enabledModules?.forEach(({onMyAddressChanged}) => {
-          void onMyAddressChanged?.(address, dispatch)
-        })
+        void postNotificationAddress(address)
       } else {
         dispatch(
           setModuleCustomAddress({
@@ -96,7 +94,7 @@ export const AddressForm = ({
       route?.params.showAlertAfterSuccess,
       goBack,
       setLocationType,
-      enabledModules,
+      postNotificationAddress,
       moduleSlug,
       setAlert,
     ],
