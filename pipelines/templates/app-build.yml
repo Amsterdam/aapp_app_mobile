@@ -48,6 +48,7 @@ steps:
   # Set ccache compiler_check to content
   - script: |
       ccache --set-config=compiler_check=content
+      ccache --set-config=max_size=20G
     displayName: 'Set ccache compiler_check to content'
 
   - task: Cache@2
