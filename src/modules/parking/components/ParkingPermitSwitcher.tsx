@@ -42,7 +42,9 @@ export const ParkingPermitSwitcher = () => {
           accessibilityLabel={accessibleText(
             title,
             secureAccount?.name,
-            `Meldcode ${parkingAccount?.reportCode}`,
+            parkingAccount
+              ? `Meldcode ${parkingAccount.reportCode}`
+              : undefined,
           )}>
           <Column gutter="xs">
             <Title
