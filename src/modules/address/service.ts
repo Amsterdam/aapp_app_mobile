@@ -59,7 +59,7 @@ export const addressApi = baseApi.injectEndpoints({
         keepUnusedDataFor,
       }),
     }),
-    //notifications:
+    // notifications:
     postNotificationAddress: builder.mutation<void, Address>({
       query: address => ({
         body: address,
