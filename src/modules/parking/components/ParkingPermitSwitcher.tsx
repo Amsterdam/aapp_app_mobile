@@ -1,3 +1,4 @@
+import {AccessibilityGroup} from '@/components/features/accessibility/AccessibilityGroup'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ContextSwitchButton} from '@/components/ui/buttons/ContextSwitchButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -10,6 +11,7 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const ParkingPermitSwitcher = () => {
   const {toggle} = useBottomSheet()
@@ -36,17 +38,26 @@ export const ParkingPermitSwitcher = () => {
       <Column
         gutter="md"
         halign="start">
-        <Column gutter="xs">
-          <Title
-            level="h4"
-            testID="ParkingPermitSwitcherTitle"
-            text={title}
-          />
-          <Phrase accessibilityLabel={`Meldcode ${parkingAccount?.reportCode}`}>
-            {secureAccount?.name && `${secureAccount?.name} - `}
-            {parkingAccount?.reportCode}
-          </Phrase>
-        </Column>
+        <AccessibilityGroup
+          accessibilityLabel={accessibleText(
+            title,
+            secureAccount?.name,
+            parkingAccount
+              ? `Meldcode ${parkingAccount.reportCode}`
+              : undefined,
+          )}>
+          <Column gutter="xs">
+            <Title
+              level="h4"
+              testID="ParkingPermitSwitcherTitle"
+              text={title}
+            />
+            <Phrase>
+              {secureAccount?.name && `${secureAccount?.name} - `}
+              {parkingAccount?.reportCode}
+            </Phrase>
+          </Column>
+        </AccessibilityGroup>
         <ContextSwitchButton
           accessibilityHint="Tik om een andere vergunning te selecteren."
           accessibilityLabel={`Tik om een andere vergunning te selecteren. De huidige vergunning is ${title}.`}
