@@ -168,6 +168,15 @@ platform :ios do
     end
   end
 
+  desc "Install pods"
+  lane :installPods do
+    cocoapods(
+      clean_install: true,
+      podfile: "./Podfile",
+      deployment: true,
+     )
+  end
+
   desc "Build prod and dev version of the app"
   lane :buildApps do
 

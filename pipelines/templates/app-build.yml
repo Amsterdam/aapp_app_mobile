@@ -114,7 +114,7 @@ steps:
       bundle install
     displayName: 'Bundle install Ruby gems'
   - script: |
-      bundle exec fastlane buildApps
+      bundle exec fastlane installPods
     displayName: 'Build ${{ parameters.platform }}'
     workingDirectory: ${{ parameters.platform }}
     env:
