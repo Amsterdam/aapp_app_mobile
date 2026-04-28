@@ -1,4 +1,4 @@
-import {AccessibilityGroup} from '@/components/features/accessibility/AccesibilityGroup'
+import {AccessibilityGroup} from '@/components/features/accessibility/AccessibilityGroup'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ContextSwitchButton} from '@/components/ui/buttons/ContextSwitchButton'
 import {Box} from '@/components/ui/containers/Box'

@@ -1,4 +1,4 @@
-import {AccessibilityGroup} from '@/components/features/accessibility/AccesibilityGroup'
+import {AccessibilityGroup} from '@/components/features/accessibility/AccessibilityGroup'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
