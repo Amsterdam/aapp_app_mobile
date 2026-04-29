@@ -43,7 +43,6 @@
     "@react-native-firebase/app": "^23.8.6",
     "@react-native-firebase/messaging": "^23.8.6",
     "@react-native-masked-view/masked-view": "^0.2.9",
-    "@react-navigation/devtools": "^7.0.52",
     "@react-navigation/elements": "^2.9.10",
     "@react-navigation/native": "^7.1.33",
     "@react-navigation/stack": "^7.8.5",
@@ -176,10 +175,10 @@
     "vite-plugin-svgr": "^4.3.0"
   },
   "optionalDependencies": {
-    "@esbuild/darwin-arm64": "0.25.6",
-    "@esbuild/darwin-x64": "0.25.6",
-    "@rollup/rollup-darwin-arm64": "4.44.2",
-    "@rollup/rollup-darwin-x64": "4.44.2"
+    "@esbuild/darwin-arm64": "0.27.3",
+    "@esbuild/darwin-x64": "0.27.3",
+    "@rollup/rollup-darwin-arm64": "4.59.0",
+    "@rollup/rollup-darwin-x64": "4.59.0"
   },
   "expo": {
     "autolinking": {
@@ -208,6 +207,6 @@
     }
   },
   "volta": {
-    "node": "24.14.0"
+    "node": "24.15.0"
   }
 }
