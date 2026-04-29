@@ -69,7 +69,7 @@
     "react-hook-form": "^7.60.0",
     "react-native": "0.83.4",
     "react-native-applifecycle": "^1.0.0",
-    "react-native-barcode-creator": "^0.1.7",
+    "react-native-barcode-creator": "^0.2.0",
     "react-native-block-screenshot": "file:./react-native-block-screenshot",
     "react-native-bootsplash": "^7.2.0",
     "react-native-build-config": "^0.3.2",
