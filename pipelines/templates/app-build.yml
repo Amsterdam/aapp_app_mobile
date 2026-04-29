@@ -8,6 +8,8 @@ steps:
     path: './s/'
     fetchDepth: 1
     fetchTags: false
+  - pwsh: New-Item -Path "$(Pipeline.Workspace)/s/aapp_app_ios-certificates" -ItemType "directory" -Force
+    displayName: 'prepare checkout aapp_app_ios-certificates'
   - checkout: aapp_app_ios-certificates
     path: './t/'
     fetchDepth: 1
