@@ -12,11 +12,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
 import {useServiceQuery} from '@/modules/service/service'
-
-/**
- * This set contains various keys that identify service states that take precedence in the legend entry naming over aapp_title and aapp_subtitle
- */
-const SERVICE_STATE_KEYS = new Set(['aapp_malfunction'])
+import {getLegendEntryTitle} from '@/modules/service/utils/getLegendEntryTitle'
 
 export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -33,20 +29,9 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
         feature => feature.properties.aapp_icon_type === key,
       )
 
-      const [, serviceStateValue] =
-        (Object.entries(entry?.properties || {}).find(
-          ([propKey, propValue]) =>
-            SERVICE_STATE_KEYS.has(propKey) &&
-            Boolean(propValue) &&
-            typeof propValue === 'string',
-        ) as [never, string | undefined]) || []
-
       return {
         ...icon,
-        title:
-          serviceStateValue || // e.g. "Tijdelijk buiten gebruik"
-          entry?.properties.aapp_subtitle || // Category name
-          entry?.properties.aapp_title, // Specific service point name
+        title: getLegendEntryTitle(entry?.properties),
       }
     })
   }, [data, icons_to_include])
