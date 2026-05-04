@@ -30,7 +30,7 @@ export const Home = () => {
   }
 
   return (
-    <Box grow>
+    <Box>
       <ActionButtons />
       <Modules modules={enabledModules} />
     </Box>

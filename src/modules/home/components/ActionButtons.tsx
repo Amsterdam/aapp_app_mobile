@@ -44,6 +44,6 @@ const createStyles = ({size}: Theme) =>
     },
     content: {
       paddingTop: size.spacing.sm,
-      minWidth: '100%',
+      flexGrow: 1,
     },
   })
