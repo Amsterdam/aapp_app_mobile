@@ -1,4 +1,5 @@
 import {ComponentType} from 'react'
+import type {BoatChargingStackParams} from '@/modules/boat-charging/routes'
 import type {BurningGuideStackParams} from '@/modules/burning-guide/routes'
 import type {
   KingsdayModalParams,
@@ -15,6 +16,7 @@ import {AccessCodeStack} from '@/modules/access-code/Stack'
 import {AccessCodeStackParams} from '@/modules/access-code/routes'
 import {AddressStack} from '@/modules/address/Stack'
 import {AddressModalParams, AddressStackParams} from '@/modules/address/routes'
+import {BoatChargingStack} from '@/modules/boat-charging/Stack'
 import {BurningGuideStack} from '@/modules/burning-guide/Stack'
 import {ChatStack} from '@/modules/chat/Stack'
 import {CityPassStack} from '@/modules/city-pass/Stack'
@@ -69,6 +71,7 @@ import {devError} from '@/processes/development'
 
 export type ModuleStackParams = AccessCodeStackParams &
   AddressStackParams &
+  BoatChargingStackParams &
   BurningGuideStackParams &
   CityPassStackParams &
   ConstructionWorkStackParams &
@@ -91,6 +94,7 @@ export type ModuleStackParams = AccessCodeStackParams &
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['access-code']]: AccessCodeStack,
   [ModuleSlug.address]: AddressStack,
+  [ModuleSlug['boat-charging']]: BoatChargingStack,
   [ModuleSlug['burning-guide']]: BurningGuideStack,
   [ModuleSlug.chat]: ChatStack,
   [ModuleSlug['city-pass']]: CityPassStack,
