@@ -1,5 +1,5 @@
-import {type FC} from 'react'
 import type {Service} from '@/modules/service/types'
+import type {FC} from 'react'
 import {ServiceMapLayers} from '@/modules/service/components/bottomsheet/ServiceMapLayers'
 import {ServiceMapLegend} from '@/modules/service/components/bottomsheet/ServiceMapLegend'
 import {ServicePointDetails} from '@/modules/service/components/bottomsheet/ServicePointDetails'

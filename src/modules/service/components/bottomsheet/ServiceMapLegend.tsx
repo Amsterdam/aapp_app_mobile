@@ -1,6 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import type {Service} from '@/modules/service/types'
+import type {Service, ServiceFeature} from '@/modules/service/types'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -19,22 +19,34 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
   const autoFocus = useAccessibilityFocus()
 
   const {data: service} = useServiceQuery(serviceId || skipToken)
-  const {icons_to_include, data} = service || {}
 
   const entries = useMemo(() => {
+    const {icons_to_include, data} = service || {}
+
     if (!data || !('type' in data) || !icons_to_include) return []
 
+    const featuresByIconType = data.features.reduce<
+      Record<string, ServiceFeature>
+    >((acc, feature) => {
+      const iconType = feature.properties.aapp_icon_type
+
+      if (iconType && !acc[iconType]) {
+        acc[iconType] = feature
+      }
+
+      return acc
+    }, {})
+
     return Object.entries(icons_to_include).map(([key, icon]) => {
-      const entry = data.features.find(
-        feature => feature.properties.aapp_icon_type === key,
-      )
+      const entry = featuresByIconType[key]
 
       return {
-        ...icon,
         title: getLegendEntryTitle(entry?.properties),
+        key,
+        icon,
       }
     })
-  }, [data, icons_to_include])
+  }, [service])
 
   return (
     <Box>
@@ -58,10 +70,10 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
           />
         </Row>
         <Column gutter="sm">
-          {entries.map(({title, ...icon}) => (
+          {entries.map(({title, key, icon}) => (
             <Row
               gutter="smd"
-              key={title}>
+              key={key}>
               <ServicePointCustomIcon
                 icon={icon}
                 testID="ServiceMapLegendServicePointCustomIcon"

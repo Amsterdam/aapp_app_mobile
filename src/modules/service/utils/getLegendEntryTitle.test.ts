@@ -10,7 +10,7 @@ describe('getLegendEntryTitle', () => {
   }
 
   it('should return undefined if properties are undefined', () => {
-    expect(getLegendEntryTitle(undefined)).toBeUndefined()
+    expect(getLegendEntryTitle()).toBeUndefined()
   })
 
   it('should return aapp_subtitle or aapp_title if state keys are not present or have no associated value', () => {
