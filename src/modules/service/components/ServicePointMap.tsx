@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useState} from 'react'
+import {useMemo, useState} from 'react'
 import {type Region} from 'react-native-maps'
 import type {Service} from '@/modules/service/types'
 import type {Feature} from 'geojson'
@@ -36,7 +36,19 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
     data: {lineStrings, polygons, points},
   } = useGetMapData(service, onMapElementPress)
 
+  const {icons_to_include} = service || {}
+
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
+
+  const controls: ControlVariant[] = useMemo(
+    () =>
+      [
+        !!layers?.length && ControlVariant.layers,
+        !!icons_to_include && !layers?.length && ControlVariant.legend,
+        ControlVariant.location,
+      ].filter((variant): variant is ControlVariant => Boolean(variant)),
+    [layers, icons_to_include],
+  )
 
   if (isLoading) {
     return <PleaseWait testID="ServiceMapPleaseWait" />
@@ -44,10 +56,7 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
 
   return (
     <MapBase
-      controls={[
-        ...(layers?.length ? [ControlVariant.layers] : []),
-        ControlVariant.location,
-      ]}
+      controls={controls}
       FilterComponent={
         <MapFilters
           activeFilters={activeFilters}
