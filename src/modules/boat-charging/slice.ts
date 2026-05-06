@@ -39,7 +39,7 @@ export const boatChargingSlice = createSlice({
       state.accessToken = {
         accessToken: payload.accessToken,
         accessTokenExpiration: dayjs()
-          .add(payload.accessTokenExpiration, 'millisecond')
+          .add(payload.accessTokenExpiration, 'second')
           .toISOString(),
       }
     },

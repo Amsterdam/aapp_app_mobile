@@ -13,13 +13,19 @@ export const prepareHeaders: PrepareHeaders = async (
 ) => {
   const state = getState() as RootState
 
-  const accessTokenExpiration = selectBoatChargingAccessTokenExpiration(state)
-
   let accessToken = selectBoatChargingAccessToken(state)
+
+  const accessTokenExpiration = selectBoatChargingAccessTokenExpiration(state)
+  const expiration = accessTokenExpiration ? dayjs(accessTokenExpiration) : null
 
   const nowPlusMinute = dayjs().add(1, 'minute')
 
-  if (dayjs(accessTokenExpiration).isBefore(nowPlusMinute)) {
+  const shouldRefresh =
+    Boolean(accessToken) &&
+    Boolean(expiration?.isValid?.() ? expiration.isValid() : expiration) &&
+    Boolean(expiration?.isBefore(nowPlusMinute))
+
+  if (shouldRefresh) {
     const newAccessToken = await refreshAccessToken(dispatch, state, () => null)
 
     accessToken = newAccessToken

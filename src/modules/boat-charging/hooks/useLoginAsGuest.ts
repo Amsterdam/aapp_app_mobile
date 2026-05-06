@@ -1,9 +1,14 @@
 import {useCallback, useEffect, useState} from 'react'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useGuestLoginMutation} from '@/modules/boat-charging/service'
-import {useSetBoatChargingAccessToken} from '@/modules/boat-charging/slice'
+import {
+  selectBoatChargingAccessToken,
+  useSetBoatChargingAccessToken,
+} from '@/modules/boat-charging/slice'
 
 export const useLoginAsGuest = () => {
   const setBoatChargingAccessToken = useSetBoatChargingAccessToken()
+  const accessToken = useSelector(selectBoatChargingAccessToken)
   const [guestLogin, {error, isError, isLoading}] = useGuestLoginMutation()
   const [localError, setLocalError] = useState<unknown>()
 
@@ -18,8 +23,10 @@ export const useLoginAsGuest = () => {
   }, [setBoatChargingAccessToken, guestLogin])
 
   useEffect(() => {
-    void loginAsGuestUser()
-  }, [loginAsGuestUser])
+    if (!accessToken) {
+      void loginAsGuestUser()
+    }
+  }, [loginAsGuestUser, accessToken])
 
   return {loginAsGuestUser, isError, isLoading, error: error || localError}
 }
