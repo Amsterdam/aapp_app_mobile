@@ -13,7 +13,7 @@ export const screenConfig: StackNavigationRoutes<
     component: BoatChargingScreen,
     name: BoatChargingRouteName.boatCharging,
     options: {
-      headerTitle: 'Stookwijzer',
+      headerTitle: 'Boot laden',
     },
   },
 }
