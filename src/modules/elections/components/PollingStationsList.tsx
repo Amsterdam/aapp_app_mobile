@@ -7,7 +7,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
-import {HighAccuracyPurposeKey, type Address} from '@/modules/address/types'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
 import {PollingStation} from '@/modules/elections/types'
 import {ModuleSlug} from '@/modules/slugs'
@@ -15,7 +16,6 @@ import {getDistance} from '@/utils/getDistance'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 type Props = {
-  address?: Address
   isError: boolean
   isLoading: boolean
   onPress: (id: PollingStation['id']) => void
@@ -23,12 +23,13 @@ type Props = {
 }
 
 export const PollingStationsList = ({
-  address,
   isLoading,
   isError,
   onPress,
   pollingStations,
 }: Props) => {
+  const {address} = useSelectedAddress(ModuleSlug.elections)
+
   const pollingStationsByDistance = useMemo(() => {
     if (!pollingStations?.length) {
       return []
