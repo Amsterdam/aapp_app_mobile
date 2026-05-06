@@ -1,5 +1,3 @@
-import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
-import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -11,31 +9,19 @@ import {crowdStateMap} from '@/modules/elections/constants/crowdDetails'
 import {ElectionsState} from '@/modules/elections/types'
 
 export const PollingStationsMapLegend = () => {
-  const {close: closeBottomSheet} = useBottomSheet()
-
   const autoFocus = useAccessibilityFocus()
 
   return (
-    <Box>
+    <Box
+      insetBottom="md"
+      insetHorizontal="md">
       <Column gutter="lg">
-        <Row align="between">
-          <Title
-            level="h3"
-            ref={autoFocus}
-            text="Kaartlagen"
-          />
-          <IconButton
-            accessibilityLabel="Sluit legenda venster"
-            icon={
-              <Icon
-                name="close"
-                size="ml"
-              />
-            }
-            onPress={closeBottomSheet}
-            testID="PollingStationsMapLegendCloseButton"
-          />
-        </Row>
+        <Title
+          level="h3"
+          ref={autoFocus}
+          text="Kaartlagen"
+        />
+
         <Column gutter="sm">
           <Title
             level="h5"

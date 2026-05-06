@@ -12,13 +12,16 @@ import {BottomSheetScrollWrapper} from '@/components/features/bottom-sheet/Botto
 import {useBottomSheetHandler} from '@/components/features/bottom-sheet/hooks/useBottomSheetHandler'
 import {useToggleBottomSheet} from '@/components/features/bottom-sheet/hooks/useToggleBottomSheet'
 import {BottomSheetPresenceContext} from '@/components/features/bottom-sheet/providers/bottomSheetPresence.context'
+import {IconButton} from '@/components/ui/buttons/IconButton'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
+import {Icon} from '@/components/ui/media/Icon'
 import {type TestProps} from '@/components/ui/types'
 import {useThemable} from '@/themes/useThemable'
 
 export type BottomSheetProps = {
   scroll?: boolean
   topInset?: number
+  withCloseButton?: boolean
 } & TestProps &
   (
     | {children: ReactNode; variants?: never}
@@ -37,6 +40,7 @@ export type BottomSheetProps = {
 export const BottomSheet = ({
   children,
   scroll = true,
+  withCloseButton = false,
   testID,
   topInset,
   variants,
@@ -114,7 +118,23 @@ export const BottomSheet = ({
               onClose={onClose}
               sheetHeight={sheetHeight}
               translateY={translateY}
+              withCloseButton={withCloseButton}
             />
+            {!!withCloseButton && (
+              <View style={styles.closeButton}>
+                <IconButton
+                  accessibilityLabel="Sluit venster"
+                  icon={
+                    <Icon
+                      name="close"
+                      size="ml"
+                    />
+                  }
+                  onPress={onClose}
+                  testID={`${testID}BottomSheetCloseButton`}
+                />
+              </View>
+            )}
             {scroll ? (
               <BottomSheetScrollWrapper
                 topOffset={topOffset}
@@ -143,7 +163,7 @@ export const BottomSheet = ({
   )
 }
 
-const createStyles = ({z}: Theme) =>
+const createStyles = ({z, size}: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -152,5 +172,9 @@ const createStyles = ({z}: Theme) =>
     },
     wrapper: {
       zIndex: z.bottomSheet,
+    },
+    closeButton: {
+      marginLeft: 'auto',
+      marginRight: size.spacing.md,
     },
   })

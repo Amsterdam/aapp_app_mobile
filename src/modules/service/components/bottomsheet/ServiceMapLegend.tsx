@@ -1,24 +1,26 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import type {Service, ServiceFeature} from '@/modules/service/types'
-import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
-import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
 import {useServiceQuery} from '@/modules/service/service'
-import {getLegendEntryTitle} from '@/modules/service/utils/getLegendEntryTitle'
+import {getLegendEntryLabel} from '@/modules/service/utils/getLegendEntryLabel'
 
 export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
-  const {close: closeBottomSheet} = useBottomSheet()
   const autoFocus = useAccessibilityFocus()
 
-  const {data: service} = useServiceQuery(serviceId || skipToken)
+  const {
+    data: service,
+    isLoading,
+    isError,
+  } = useServiceQuery(serviceId || skipToken)
 
   const entries = useMemo(() => {
     const {icons_to_include, data} = service || {}
@@ -41,36 +43,38 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
       const entry = featuresByIconType[key]
 
       return {
-        title: getLegendEntryTitle(entry?.properties),
+        label: getLegendEntryLabel(entry?.properties),
         key,
         icon,
       }
     })
   }, [service])
 
+  if (isError) {
+    return (
+      <Box>
+        <SomethingWentWrong testID="ServiceMapLegendSomethingWentWrong" />
+      </Box>
+    )
+  }
+
+  if (isLoading) {
+    return <PleaseWait testID="ServiceMapLegendPleaseWait" />
+  }
+
   return (
-    <Box>
+    <Box
+      insetBottom="md"
+      insetHorizontal="md">
       <Column gutter="lg">
-        <Row align="between">
-          <Title
-            level="h3"
-            ref={autoFocus}
-            text="Legenda"
-          />
-          <IconButton
-            accessibilityLabel="Sluit legenda venster"
-            icon={
-              <Icon
-                name="close"
-                size="ml"
-              />
-            }
-            onPress={closeBottomSheet}
-            testID="ServiceMapLegendCloseButton"
-          />
-        </Row>
+        <Title
+          level="h3"
+          ref={autoFocus}
+          text="Legenda"
+        />
+
         <Column gutter="sm">
-          {entries.map(({title, key, icon}) => (
+          {entries.map(({label, key, icon}) => (
             <Row
               gutter="smd"
               key={key}>
@@ -78,7 +82,7 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
                 icon={icon}
                 testID="ServiceMapLegendServicePointCustomIcon"
               />
-              <Phrase>{title}</Phrase>
+              <Phrase>{label}</Phrase>
             </Row>
           ))}
         </Column>

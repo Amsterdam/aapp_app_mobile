@@ -12,11 +12,11 @@ const propIsString = (value: PropertiesPropertyValue): value is string =>
   typeof value === 'string'
 
 /**
- * Returns the title for the legend entry, prioritizing entry state (malfunction, etc.) over category or title
+ * Returns the label for the legend entry, prioritizing entry state (malfunction, etc.) over category or title
  * @param properties FeatureProperties
  * @returns
  */
-export const getLegendEntryTitle = (properties?: FeatureProperties) => {
+export const getLegendEntryLabel = (properties?: FeatureProperties) => {
   if (!properties) return
 
   const [, serviceStateValue] =

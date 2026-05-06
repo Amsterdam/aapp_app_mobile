@@ -27,7 +27,8 @@ const ParkingPermitZonesScreenInner = () => {
           bottomSheet={
             <BottomSheet
               scroll
-              testID="ParkingPermitZonesBottomSheet">
+              testID="ParkingPermitZonesBottomSheet"
+              withCloseButton>
               <ParkingMachineBottomSheetContent />
             </BottomSheet>
           }

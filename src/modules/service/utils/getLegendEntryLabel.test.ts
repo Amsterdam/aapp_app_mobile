@@ -1,8 +1,8 @@
 import type {Address} from '@/modules/address/types'
 import type {FeatureProperties} from '@/modules/service/types'
-import {getLegendEntryTitle} from '@/modules/service/utils/getLegendEntryTitle'
+import {getLegendEntryLabel} from '@/modules/service/utils/getLegendEntryLabel'
 
-describe('getLegendEntryTitle', () => {
+describe('getLegendEntryLabel', () => {
   const baseProps: FeatureProperties = {
     aapp_title: 'Test Title',
     aapp_subtitle: 'Test Subtitle',
@@ -10,7 +10,7 @@ describe('getLegendEntryTitle', () => {
   }
 
   it('should return undefined if properties are undefined', () => {
-    expect(getLegendEntryTitle()).toBeUndefined()
+    expect(getLegendEntryLabel()).toBeUndefined()
   })
 
   it('should return aapp_subtitle or aapp_title if state keys are not present or have no associated value', () => {
@@ -21,8 +21,8 @@ describe('getLegendEntryTitle', () => {
       aapp_malfunction: null,
     }
 
-    expect(getLegendEntryTitle(propertiesWithSubtitle)).toBe('Test Subtitle')
-    expect(getLegendEntryTitle(propertiesWithOnlyTitle)).toBe('Test Title')
+    expect(getLegendEntryLabel(propertiesWithSubtitle)).toBe('Test Subtitle')
+    expect(getLegendEntryLabel(propertiesWithOnlyTitle)).toBe('Test Title')
   })
 
   it('should return a string value if an appropriate state key has a value', () => {
@@ -36,8 +36,8 @@ describe('getLegendEntryTitle', () => {
       aapp_malfunction: 'Onbekende storing',
     }
 
-    expect(getLegendEntryTitle(properties1)).toBe('Tijdelijk buiten gebruik')
-    expect(getLegendEntryTitle(properties2)).toBe('Onbekende storing')
+    expect(getLegendEntryLabel(properties1)).toBe('Tijdelijk buiten gebruik')
+    expect(getLegendEntryLabel(properties2)).toBe('Onbekende storing')
   })
 
   it('should not return a state value if an appropriate state key has a value but this value is not a string', () => {
@@ -46,6 +46,6 @@ describe('getLegendEntryTitle', () => {
       aapp_malfunction: {} as Address,
     }
 
-    expect(getLegendEntryTitle(properties)).toBe('Test Subtitle')
+    expect(getLegendEntryLabel(properties)).toBe('Test Subtitle')
   })
 })

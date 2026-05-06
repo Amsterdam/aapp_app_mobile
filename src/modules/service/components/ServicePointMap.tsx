@@ -40,15 +40,17 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
 
   const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
 
-  const controls: ControlVariant[] = useMemo(
-    () =>
-      [
-        !!layers?.length && ControlVariant.layers,
-        !!icons_to_include && !layers?.length && ControlVariant.legend,
-        ControlVariant.location,
-      ].filter((variant): variant is ControlVariant => Boolean(variant)),
-    [layers, icons_to_include],
-  )
+  const controls: ControlVariant[] = useMemo(() => {
+    const result: ControlVariant[] = [ControlVariant.location]
+
+    if (layers?.length) {
+      result.unshift(ControlVariant.layers)
+    } else if (icons_to_include) {
+      result.unshift(ControlVariant.legend)
+    }
+
+    return result
+  }, [layers, icons_to_include])
 
   if (isLoading) {
     return <PleaseWait testID="ServiceMapPleaseWait" />

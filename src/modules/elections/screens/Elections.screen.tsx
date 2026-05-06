@@ -13,6 +13,7 @@ export const ElectionsScreen = () => (
           scroll
           testID="PollingStationBottomSheet"
           variants={bottomsheetVariants}
+          withCloseButton
         />
       }
       headerOptions={{
