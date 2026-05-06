@@ -1,6 +1,7 @@
 export enum ModuleSlug {
   'access-code' = 'access-code',
   address = 'address',
+  'boat-charging' = 'boat-charging',
   'burning-guide' = 'burning-guide',
   chat = 'chat',
   'city-pass' = 'city-pass',
