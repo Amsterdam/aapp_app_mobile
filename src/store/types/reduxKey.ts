@@ -2,6 +2,7 @@ export enum ReduxKey {
   accessCode = 'accessCode',
   address = 'address',
   alert = 'alert',
+  boatCharging = 'boatCharging',
   bottomSheet = 'bottomSheet',
   chat = 'chat',
   cityPass = 'cityPass',
