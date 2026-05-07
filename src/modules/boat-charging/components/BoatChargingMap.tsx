@@ -39,7 +39,7 @@ export const BoatChargingMap = ({
       geojson?.features.map(({properties, ...rest}) => ({
         properties: {
           ...properties,
-          Icon: <BoatChargingMarker chargingPointId={properties.id} />,
+          Icon: <BoatChargingMarker status={properties.status} />,
           onMarkerPress: () => onChargingPointPress(properties.id),
         },
         ...rest,

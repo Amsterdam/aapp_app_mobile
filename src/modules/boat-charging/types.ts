@@ -42,6 +42,7 @@ export type BoatChargingLocation = {
     regular_hours: unknown[] //TODO: add typing
     twentyfourseven: boolean
   }
+  status: ChargingPointStatus
   total_sockets: number
 }
 

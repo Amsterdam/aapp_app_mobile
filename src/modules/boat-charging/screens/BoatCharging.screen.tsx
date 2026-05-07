@@ -13,6 +13,7 @@ export const BoatChargingScreen = () => (
           scroll
           testID="BoatChargingPointBottomSheet"
           variants={bottomsheetVariants}
+          withCloseButton
         />
       }
       headerOptions={{
