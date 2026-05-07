@@ -1,15 +1,13 @@
 import {createContext} from 'react'
-import type {
-  ServiceMapResponse,
-  ServiceMapResponseFilter,
-  ServiceMapResponseIcon,
-} from '@/modules/service/types'
+import type {Filter} from '@/components/features/map/providers/MapFiltersProvider'
+import type {ServiceMapResponseIcon} from '@/modules/service/types'
 
 export const MapFiltersContext = createContext<{
-  activeFilters: ServiceMapResponseFilter[]
-  filters: ServiceMapResponse['filters'] | undefined
-  layers:
-    | (ServiceMapResponse['layers'][number] & {icon?: ServiceMapResponseIcon})[]
-    | undefined
-  onPressFilter: (filter: ServiceMapResponseFilter) => void
+  activeFilters: Filter[]
+  filters?: Filter[]
+  layers?: (Filter & {
+    icon: ServiceMapResponseIcon | undefined
+    icon_label: string
+  })[]
+  onPressFilter: (filter: Filter) => void
 } | null>(null)

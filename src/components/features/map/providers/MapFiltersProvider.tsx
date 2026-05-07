@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {
   type PropsWithChildren,
   useState,
@@ -6,37 +5,38 @@ import {
   useMemo,
   useEffect,
 } from 'react'
-import type {Service, ServiceMapResponseFilter} from '@/modules/service/types'
+import type {ServiceMapResponseIcon} from '@/modules/service/types'
 import {MapFiltersContext} from '@/components/features/map/providers/MapFiltersContext'
-import {useServiceQuery} from '@/modules/service/service'
+
+export type Filter = {
+  filter_key: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  filter_value: any
+  label: string
+}
+
+type Props = {
+  filters?: Filter[]
+  layers?: (Filter & {
+    icon: ServiceMapResponseIcon | undefined
+    icon_label: string
+  })[]
+}
 
 export const MapFiltersProvider = ({
   children,
-  serviceId,
-}: PropsWithChildren<{serviceId: Service['id']}>) => {
-  const [activeFilters, setActiveFilters] = useState<
-    ServiceMapResponseFilter[]
-  >([])
-
-  const {data: service} = useServiceQuery(serviceId || skipToken)
-  const filters = service?.filters
-
-  const layers = useMemo(
-    () =>
-      service?.layers?.map(layer => ({
-        ...layer,
-        icon: service?.icons_to_include?.[layer.icon_label],
-      })),
-    [service],
-  )
+  filters,
+  layers,
+}: PropsWithChildren<Props>) => {
+  const [activeFilters, setActiveFilters] = useState<Filter[]>([])
 
   useEffect(() => {
-    if (layers?.length) {
+    if (layers) {
       setActiveFilters(layers)
     }
   }, [layers])
 
-  const onPressFilter = useCallback((filter: ServiceMapResponseFilter) => {
+  const onPressFilter = useCallback((filter: Filter) => {
     setActiveFilters(currentFilters =>
       currentFilters.some(f => getFilterIsEqual(f, filter))
         ? currentFilters.filter(f => !getFilterIsEqual(f, filter))
@@ -56,9 +56,6 @@ export const MapFiltersProvider = ({
   )
 }
 
-const getFilterIsEqual = (
-  filterA: ServiceMapResponseFilter,
-  filterB: ServiceMapResponseFilter,
-) =>
+const getFilterIsEqual = (filterA: Filter, filterB: Filter) =>
   filterA.filter_key === filterB.filter_key &&
   filterA.filter_value === filterB.filter_value

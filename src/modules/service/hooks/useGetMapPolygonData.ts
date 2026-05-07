@@ -2,11 +2,11 @@ import type {
   ServiceLineStringFeature,
   ServicePolygonFeature,
 } from '@/modules/service/types'
-import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {
   ConditionType,
   useGetFilteredFeatures,
-} from '@/modules/service/hooks/useGetFilteredFeatures'
+} from '@/components/features/map/hooks/useGetFilteredFeatures'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 
 export const useGetMapPolygonData = <
   Feature extends ServicePolygonFeature | ServiceLineStringFeature,

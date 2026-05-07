@@ -4,6 +4,11 @@ import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
 import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
+import {MapFilters} from '@/components/features/map/filters/MapFilters'
+import {
+  ConditionType,
+  useGetFilteredFeatures,
+} from '@/components/features/map/hooks/useGetFilteredFeatures'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -43,6 +48,11 @@ export const BoatChargingMap = ({
     [geojson, onChargingPointPress],
   )
 
+  const filteredFeatures = useGetFilteredFeatures({
+    features: chargingPointFeatures,
+    conditionType: ConditionType.and,
+  })
+
   if (isLoading) {
     return <PleaseWait testID="BoatChargingMapPleaseWait" />
   }
@@ -54,10 +64,11 @@ export const BoatChargingMap = ({
   return (
     <MapBase
       controls={[ControlVariant.location, ControlVariant.legend]}
+      FilterComponent={<MapFilters testID="BoatChargingMapFilters" />}
       moduleSlug={ModuleSlug['boat-charging']}
       onRegionChangeComplete={setRegion}>
       <Clusterer
-        data={chargingPointFeatures}
+        data={filteredFeatures}
         region={region}
       />
     </MapBase>
