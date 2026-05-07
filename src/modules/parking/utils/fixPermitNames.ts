@@ -1,7 +1,7 @@
 import {ParkingPermit} from '@/modules/parking/types'
 
-/*
- * This function checks whether there are 2 permits with the same type and if so it appends the report code of the permit to the name.
+/**
+ * Prevents permits with the same type from having identical names by appending the permit's report code.
  */
 export const fixPermitNames = (permits: ParkingPermit[]) => {
   const permitNameCounts = permits.reduce(

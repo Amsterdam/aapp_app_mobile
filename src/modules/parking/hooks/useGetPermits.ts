@@ -3,6 +3,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {usePermitsQuery} from '@/modules/parking/service'
 import {
   parkingSlice,
+  useCurrentParkingAccount,
   useCurrentParkingPermitReportCode,
 } from '@/modules/parking/slice'
 import {filterPermits} from '@/modules/parking/utils/filterPermits'
@@ -11,6 +12,7 @@ import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 export const useGetPermits = (skip = false) => {
   const dispatch = useDispatch()
   const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'}, {skip})
+  const currentParkingAccount = useCurrentParkingAccount()
 
   const currentPermitReportCode = useCurrentParkingPermitReportCode()
   const {setCurrentPermitReportCode, setParkingAccountPermits} =
@@ -23,6 +25,10 @@ export const useGetPermits = (skip = false) => {
 
     return filterPermits(fixPermitNames(data))
   }, [data])
+
+  useEffect(() => {
+    void refetch()
+  }, [currentParkingAccount, refetch])
 
   useEffect(() => {
     if (permits?.length && !currentPermitReportCode) {
