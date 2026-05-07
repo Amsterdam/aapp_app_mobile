@@ -49,7 +49,7 @@ export const BoatChargingListItem = ({
       <Pressable
         accessibilityLabel={`Boot oplaadpunt ${chargingPointAddress}, status ${state.label}`}
         onPress={() => onPress(item.properties.id)}
-        testID="ServicePointListItemButton">
+        testID="BoatChargingListItemButton">
         <Box insetVertical="sm">
           <Column gutter="xxs">
             <Title
