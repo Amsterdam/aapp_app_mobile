@@ -57,12 +57,10 @@ export type ServiceLineStringFeature = ServiceFeature<LineString>
 export type ServicePolygonFeature = ServiceFeature<Polygon | MultiPolygon>
 export type ServicePointFeature = ServiceFeature<Point>
 
-export type ServiceFeature<G extends Geometry = Geometry> = Omit<
-  Feature<G, FeatureProperties>,
-  'id'
-> & {
-  id: string | number
-}
+export type ServiceFeature<G extends Geometry = Geometry> = Feature<
+  G,
+  FeatureProperties
+>
 
 export type ServiceGeoJSON<G extends Geometry = Geometry> = {
   features: Array<ServiceFeature<G>>
