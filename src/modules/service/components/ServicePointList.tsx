@@ -13,6 +13,7 @@ import {
   useMapControlsToggleBottomSheetButton,
 } from '@/components/features/map/hooks/useMapControlsToggleBottomSheetButton'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
+import {convertGeometryToPoint} from '@/components/features/map/utils/convertGeometryToPoint'
 import {Box} from '@/components/ui/containers/Box'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -24,7 +25,6 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ServicePointEmptyList} from '@/modules/service/components/ServicePointEmptyList'
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
 import {useServiceQuery} from '@/modules/service/service'
-import {convertGeometryToPoint} from '@/modules/service/utils/convertGeometryToPoint'
 import {ModuleSlug} from '@/modules/slugs'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 

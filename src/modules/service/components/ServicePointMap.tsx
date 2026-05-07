@@ -70,14 +70,14 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
         />
       )}
       {lineStrings?.length
-        ? lineStrings.map(feature => (
+        ? lineStrings.map((feature, index) => (
             <LineString
               coordinates={
                 'coordinates' in feature.geometry
                   ? feature.geometry.coordinates
                   : []
               }
-              id={feature.id}
+              id={feature.id || `feature-${index}`}
               key={feature.id}
               onPress={onMapElementPress}
               strokeColor={feature.properties.stroke as string | null}
