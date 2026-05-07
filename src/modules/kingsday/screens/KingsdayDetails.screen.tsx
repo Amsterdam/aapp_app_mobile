@@ -19,6 +19,7 @@ export const KingsdayDetailsScreen = ({route}: Props) => (
             scroll
             testID="KingsdayScreenBottomSheet"
             variants={createBottomsheetVariants(route.params.id)}
+            withCloseButton
           />
         }
         headerOptions={{

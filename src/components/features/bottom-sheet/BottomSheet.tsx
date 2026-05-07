@@ -6,6 +6,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import type {Theme} from '@/themes/themes'
 import {BackgroundComponent} from '@/components/features/bottom-sheet/BackgroundComponent'
 import {BottomSheetBackdrop} from '@/components/features/bottom-sheet/BottomSheetBackdrop'
+import {BottomSheetCloseButton} from '@/components/features/bottom-sheet/BottomSheetCloseButton'
 import {BottomSheetContainer} from '@/components/features/bottom-sheet/BottomSheetContainer'
 import {BottomSheetHandle} from '@/components/features/bottom-sheet/BottomSheetHandle'
 import {BottomSheetScrollWrapper} from '@/components/features/bottom-sheet/BottomSheetScrollWrapper'
@@ -19,6 +20,7 @@ import {useThemable} from '@/themes/useThemable'
 export type BottomSheetProps = {
   scroll?: boolean
   topInset?: number
+  withCloseButton?: boolean
 } & TestProps &
   (
     | {children: ReactNode; variants?: never}
@@ -37,6 +39,7 @@ export type BottomSheetProps = {
 export const BottomSheet = ({
   children,
   scroll = true,
+  withCloseButton = false,
   testID,
   topInset,
   variants,
@@ -114,7 +117,10 @@ export const BottomSheet = ({
               onClose={onClose}
               sheetHeight={sheetHeight}
               translateY={translateY}
+              withCloseButton={withCloseButton}
             />
+            {!!withCloseButton && <BottomSheetCloseButton testID={testID} />}
+
             {scroll ? (
               <BottomSheetScrollWrapper
                 topOffset={topOffset}

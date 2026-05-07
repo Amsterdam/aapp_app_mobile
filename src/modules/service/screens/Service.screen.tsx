@@ -19,6 +19,7 @@ export const ServiceScreen = ({route}: Props) => (
             scroll
             testID="ServiceScreenBottomSheet"
             variants={createBottomsheetVariants(route.params.id)}
+            withCloseButton
           />
         }
         headerOptions={{

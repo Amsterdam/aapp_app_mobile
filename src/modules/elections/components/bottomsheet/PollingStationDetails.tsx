@@ -1,7 +1,5 @@
 import {useEffect} from 'react'
-import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
-import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -21,7 +19,6 @@ import {RedirectKey} from '@/modules/redirects/types'
 export const PollingStationDetails = () => {
   const dispatch = useDispatch()
   const pollingStation = useSelectedPollingStation()
-  const {close: closeBottomSheet} = useBottomSheet()
   const {lat, lng} = pollingStation?.position || {}
   const directionsUrl = useGetGoogleMapsDirectionsUrl({lat, lon: lng})
 
@@ -39,26 +36,16 @@ export const PollingStationDetails = () => {
   }
 
   return (
-    <Box>
+    <Box
+      insetBottom="md"
+      insetHorizontal="md">
       <Column gutter="lg">
-        <Row align="between">
-          <Title
-            level="h3"
-            ref={autoFocus}
-            text={pollingStation?.name}
-          />
-          <IconButton
-            accessibilityLabel="Sluit stembureau details venster"
-            icon={
-              <Icon
-                name="close"
-                size="ml"
-              />
-            }
-            onPress={closeBottomSheet}
-            testID="PollingStationDetailsCloseButton"
-          />
-        </Row>
+        <Title
+          level="h3"
+          ref={autoFocus}
+          text={pollingStation?.name}
+        />
+
         <Row
           gutter="md"
           valign="start">

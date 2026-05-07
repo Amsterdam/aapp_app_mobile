@@ -2,7 +2,6 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
-import {IconButton} from '@/components/ui/buttons/IconButton'
 import {RouteButton} from '@/components/ui/buttons/RouteButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -86,27 +85,16 @@ export const ParkingMachineBottomSheetContent = () => {
         .join(', ')}.`
 
   return (
-    <Box>
+    <Box
+      insetBottom="md"
+      insetHorizontal="md">
       <Column gutter="lg">
         <Column gutter="xs">
-          <Row align="between">
-            <Title
-              level="h3"
-              ref={autoFocus}
-              text={`Parkeerautomaat ${selectedParkingMachineId}`}
-            />
-            <IconButton
-              accessibilityLabel="Sluit parkeerautomaat details venster"
-              icon={
-                <Icon
-                  name="close"
-                  size="ml"
-                />
-              }
-              onPress={closeBottomSheet}
-              testID="ParkingMachineDetailsCloseButton"
-            />
-          </Row>
+          <Title
+            level="h3"
+            ref={autoFocus}
+            text={`Parkeerautomaat ${selectedParkingMachineId}`}
+          />
 
           {currentPermit?.parking_machine_favorite === parkingMachine.id && (
             <Phrase color="secondary">Ingesteld als favoriet</Phrase>

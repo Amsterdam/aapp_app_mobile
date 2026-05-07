@@ -21,6 +21,7 @@ type Props = {
   onClose: () => void
   sheetHeight: number
   translateY: SharedValue<number>
+  withCloseButton: boolean
 }
 
 export const BottomSheetHandle = ({
@@ -30,8 +31,9 @@ export const BottomSheetHandle = ({
   onClose,
   sheetHeight,
   translateY,
+  withCloseButton,
 }: Props) => {
-  const styles = useThemable(createStyles)
+  const styles = useThemable(createStyles(withCloseButton))
   const gestureStartY = useSharedValue(0)
 
   const panGesture = Gesture.Pan()
@@ -75,16 +77,19 @@ export const BottomSheetHandle = ({
   )
 }
 
-const createStyles = ({border, color, size}: Theme) =>
-  StyleSheet.create({
-    handleContainer: {
-      alignItems: 'center',
-      paddingVertical: size.spacing.smd,
-    },
-    handleIndicator: {
-      backgroundColor: color.bottomSheet.handleIndicator,
-      borderRadius: border.radius.sm,
-      height: HANDLE_INDICATOR.HEIGHT,
-      width: HANDLE_INDICATOR.WIDTH,
-    },
-  })
+const createStyles =
+  (withCloseButton: boolean) =>
+  ({border, color, size}: Theme) =>
+    StyleSheet.create({
+      handleContainer: {
+        alignItems: 'center',
+        paddingTop: size.spacing.smd,
+        paddingBottom: withCloseButton ? size.spacing.sm : size.spacing.smd,
+      },
+      handleIndicator: {
+        backgroundColor: color.bottomSheet.handleIndicator,
+        borderRadius: border.radius.sm,
+        height: HANDLE_INDICATOR.HEIGHT,
+        width: HANDLE_INDICATOR.WIDTH,
+      },
+    })
