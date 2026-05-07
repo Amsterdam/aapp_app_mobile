@@ -6,15 +6,14 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import type {Theme} from '@/themes/themes'
 import {BackgroundComponent} from '@/components/features/bottom-sheet/BackgroundComponent'
 import {BottomSheetBackdrop} from '@/components/features/bottom-sheet/BottomSheetBackdrop'
+import {BottomSheetCloseButton} from '@/components/features/bottom-sheet/BottomSheetCloseButton'
 import {BottomSheetContainer} from '@/components/features/bottom-sheet/BottomSheetContainer'
 import {BottomSheetHandle} from '@/components/features/bottom-sheet/BottomSheetHandle'
 import {BottomSheetScrollWrapper} from '@/components/features/bottom-sheet/BottomSheetScrollWrapper'
 import {useBottomSheetHandler} from '@/components/features/bottom-sheet/hooks/useBottomSheetHandler'
 import {useToggleBottomSheet} from '@/components/features/bottom-sheet/hooks/useToggleBottomSheet'
 import {BottomSheetPresenceContext} from '@/components/features/bottom-sheet/providers/bottomSheetPresence.context'
-import {IconButton} from '@/components/ui/buttons/IconButton'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
-import {Icon} from '@/components/ui/media/Icon'
 import {type TestProps} from '@/components/ui/types'
 import {useThemable} from '@/themes/useThemable'
 
@@ -120,21 +119,8 @@ export const BottomSheet = ({
               translateY={translateY}
               withCloseButton={withCloseButton}
             />
-            {!!withCloseButton && (
-              <View style={styles.closeButton}>
-                <IconButton
-                  accessibilityLabel="Sluit venster"
-                  icon={
-                    <Icon
-                      name="close"
-                      size="ml"
-                    />
-                  }
-                  onPress={onClose}
-                  testID={`${testID}BottomSheetCloseButton`}
-                />
-              </View>
-            )}
+            {!!withCloseButton && <BottomSheetCloseButton testID={testID} />}
+
             {scroll ? (
               <BottomSheetScrollWrapper
                 topOffset={topOffset}
@@ -163,7 +149,7 @@ export const BottomSheet = ({
   )
 }
 
-const createStyles = ({z, size}: Theme) =>
+const createStyles = ({z}: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -172,9 +158,5 @@ const createStyles = ({z, size}: Theme) =>
     },
     wrapper: {
       zIndex: z.bottomSheet,
-    },
-    closeButton: {
-      marginLeft: 'auto',
-      marginRight: size.spacing.md,
     },
   })
