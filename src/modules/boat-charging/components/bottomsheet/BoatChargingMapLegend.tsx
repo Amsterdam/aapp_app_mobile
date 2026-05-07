@@ -1,4 +1,6 @@
+import {pascalCase} from 'pascal-case'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
+import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -49,10 +51,9 @@ export const BoatChargingMapLegend = () => {
             <Row
               gutter="sm"
               key={boatChargingPointStateMap[state].label}>
-              <Icon
-                color={boatChargingPointStateMap[state].color}
-                name={boatChargingPointStateMap[state].icon}
-                size="lg"
+              <CustomMarkerIcon
+                icon={boatChargingPointStateMap[state].icon}
+                testID={`BoatChargingMapLegend${pascalCase(state)}MarkerIcon`}
               />
               <Phrase>{boatChargingPointStateMap[state].label}</Phrase>
             </Row>

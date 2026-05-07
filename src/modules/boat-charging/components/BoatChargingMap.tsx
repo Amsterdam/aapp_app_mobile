@@ -1,5 +1,5 @@
 import {useMemo, useState} from 'react'
-import type {BoatChargingLocation} from '@/modules/boat-charging/types'
+import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 import type {Region} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
 import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
@@ -7,11 +7,12 @@ import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {BoatChargingMarker} from '@/modules/boat-charging/components/BoatChargingMarker'
 import {useSelectedBoatChargingPointId} from '@/modules/boat-charging/slice'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
-  chargingPoints?: BoatChargingLocation[]
+  geojson?: BoatChargingGeoJSON
   isError: boolean
   isLoading: boolean
   onChargingPointPress: (id: string) => void
@@ -20,7 +21,7 @@ type Props = {
 export const BoatChargingMap = ({
   isError,
   isLoading,
-  chargingPoints = [],
+  geojson,
   onChargingPointPress,
 }: Props) => {
   const selectedBoatChargingPointId = useSelectedBoatChargingPointId()
@@ -28,24 +29,18 @@ export const BoatChargingMap = ({
 
   useSetMapSelection(selectedBoatChargingPointId)
 
-  const filteredChargingPoints = useMemo(
+  const chargingPointFeatures = useMemo(
     () =>
-      chargingPoints.map(({address: {coordinates}, id, ...props}) => ({
-        type: 'Feature' as const,
+      geojson?.features.map(({properties, ...rest}) => ({
         properties: {
-          ...props,
-          id: String(id),
-          // variant:
-          onMarkerPress: () => onChargingPointPress(id),
+          ...properties,
+          Icon: <BoatChargingMarker chargingPointId={properties.id} />,
+          onMarkerPress: () => onChargingPointPress(properties.id),
         },
+        ...rest,
+      })) || [],
 
-        geometry: {
-          type: 'Point' as const,
-          coordinates: [coordinates.lon, coordinates.lat],
-        },
-      })),
-
-    [chargingPoints, onChargingPointPress],
+    [geojson, onChargingPointPress],
   )
 
   if (isLoading) {
@@ -62,7 +57,7 @@ export const BoatChargingMap = ({
       moduleSlug={ModuleSlug['boat-charging']}
       onRegionChangeComplete={setRegion}>
       <Clusterer
-        data={filteredChargingPoints}
+        data={chargingPointFeatures}
         region={region}
       />
     </MapBase>

@@ -1,35 +1,67 @@
 import type {Address} from '@/modules/address/types'
-import type {RequirePick} from '@/types/utils'
+import type {Feature, Point} from 'geojson'
 
 export enum BoatChargingEndpointName {
+  boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
   guestLogin = 'guestLogin',
-}
-
-export type BoatChargingLocation = {
-  address: RequirePick<Address, 'coordinates'>
-  id: string
-  name: string
-  opening_times: {
-    exceptional_closings: number[]
-    exceptional_openings: number[]
-    regular_hours: number[]
-    twentyfourseven: boolean
-  }
-  total_sockets: number
-}
-
-export type BoatChargingLocationsResponse = BoatChargingLocation[]
-
-export enum BoatChargingPointState {
-  //TODO: check with states from BE
-  free = 'free',
-  malfunction = 'malfunction',
-  occupied = 'occupied',
 }
 
 export type BoatChargingGuestLoginEndpointResponse = {
   access_token: string
   expires_in: number
   token_type: string
+}
+
+export type BoatChargingPointFeature = Feature<Point, BoatChargingLocation>
+
+export type BoatChargingGeoJSON = {
+  features: Array<BoatChargingPointFeature>
+  type: 'FeatureCollection'
+}
+
+export type BoatChargingLocationDetailsResponse = BoatChargingLocation & {
+  charging_stations: ChargingStation[]
+  tariff: {
+    charging_time_price_per_hour: number
+    energy_price_per_kwh: number
+    flat_fee_price: number
+    id: string
+    parking_time_price_per_hour: number
+  }
+  total_sockets: number
+}
+
+export type BoatChargingLocation = {
+  address: Address
+  id: string
+  name: string
+  opening_times: {
+    exceptional_closings: []
+    exceptional_openings: []
+    regular_hours: []
+    twentyfourseven: boolean
+  }
+  total_sockets: number
+}
+
+type ChargingStation = {
+  evses: []
+  id: string
+  location_id: string
+  status: ChargingPointStatus
+}
+
+export enum ChargingPointStatus {
+  INOPERATIVE = 'INOPERATIVE',
+  OCCUPIED = 'OCCUPIED',
+  OFFLINE = 'OFFLINE',
+  OPERATIVE = 'OPERATIVE',
+  UNKNOWN = 'UNKNOWN',
+}
+
+export enum BoatChargingPointState {
+  free = 'free',
+  malfunction = 'malfunction',
+  occupied = 'occupied',
 }

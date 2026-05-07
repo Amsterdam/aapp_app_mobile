@@ -34,19 +34,19 @@ export const BoatChargingView = () => {
   const {
     data,
     isLoading: isLoadingLocations,
-    // isError: isErrorLocations,
+    isError: isErrorLocations,
   } = useBoatChargingLocationsQuery(undefined, {
     skip: !boatChargingAccessToken,
   })
 
   return (
     <MapViewSwitchView<ComponentProps<typeof BoatChargingMap>>
-      chargingPoints={data}
       componentMap={{
         map: BoatChargingMap,
         list: BoatChargingList,
       }}
-      isError={isErrorGuestLogin}
+      geojson={data}
+      isError={isErrorLocations || isErrorGuestLogin}
       isLoading={isLoadingLocations || isLoadingGuestLogin}
       onChargingPointPress={onSelectBoatChargingPoint}
     />

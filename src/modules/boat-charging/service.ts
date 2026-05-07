@@ -1,17 +1,19 @@
 import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {
   BoatChargingEndpointName,
+  type BoatChargingGeoJSON,
   type BoatChargingGuestLoginEndpointResponse,
-  type BoatChargingLocationsResponse,
+  type BoatChargingLocationDetailsResponse,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
+import {CacheLifetime} from '@/types/api'
 
 export const boatChargingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [BoatChargingEndpointName.boatChargingLocations]: builder.query<
-      BoatChargingLocationsResponse,
+      BoatChargingGeoJSON,
       void
     >({
       query: () => ({
@@ -20,6 +22,19 @@ export const boatChargingApi = baseApi.injectEndpoints({
         slug: ModuleSlug['boat-charging'],
         url: '/locations',
       }),
+    }),
+    [BoatChargingEndpointName.boatChargingLocationDetails]: builder.query<
+      BoatChargingLocationDetailsResponse,
+      string
+    >({
+      query: chargingPointId => ({
+        prepareHeaders,
+        method: 'GET',
+        slug: ModuleSlug['boat-charging'],
+        url: `/locations/${chargingPointId}`,
+      }),
+      providesTags: ['BoatChargingLocationDetails'],
+      keepUnusedDataFor: CacheLifetime.minute,
     }),
     [BoatChargingEndpointName.guestLogin]: builder.mutation<
       BoatChargingGuestLoginEndpointResponse,
@@ -45,5 +60,8 @@ export const boatChargingApi = baseApi.injectEndpoints({
   overrideExisting: false,
 })
 
-export const {useBoatChargingLocationsQuery, useGuestLoginMutation} =
-  boatChargingApi
+export const {
+  useBoatChargingLocationsQuery,
+  useBoatChargingLocationDetailsQuery,
+  useGuestLoginMutation,
+} = boatChargingApi
