@@ -6,7 +6,6 @@ import {
   ConditionType,
   useGetFilteredFeatures,
 } from '@/components/features/map/hooks/useGetFilteredFeatures'
-import {convertGeometryToPoint} from '@/components/features/map/utils/convertGeometryToPoint'
 import {Box} from '@/components/ui/containers/Box'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -33,13 +32,8 @@ export const BoatChargingList = ({
   geojson,
   onChargingPointPress,
 }: Props) => {
-  const chargingPointFeatures = useMemo(
-    () => (geojson ? convertGeometryToPoint(geojson.features) : []),
-    [geojson],
-  )
-
   const filteredFeatures = useGetFilteredFeatures({
-    features: chargingPointFeatures,
+    features: geojson?.features || [],
     conditionType: ConditionType.and,
   })
 
