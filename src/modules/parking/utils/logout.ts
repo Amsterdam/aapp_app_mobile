@@ -1,4 +1,5 @@
 import {type ReduxDispatch} from '@/hooks/redux/types'
+import {parkingApi} from '@/modules/parking/service'
 import {
   parkingSlice,
   selectParkingAccount,
@@ -38,6 +39,15 @@ export const logout = async (
   dispatch(setIsRecentlyLoggedOutAction(true))
 
   setTimeout(() => {
+    dispatch(
+      parkingApi.util.invalidateTags([
+        'ParkingLicensePlates',
+        'ParkingSessions',
+        'ParkingTransactions',
+        'ParkingAccount',
+        'ParkingPermits',
+      ]),
+    )
     dispatch(parkingSlice.actions.setIsLoggingOut(false))
   }, 1000)
 }
