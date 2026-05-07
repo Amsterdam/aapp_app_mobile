@@ -27,8 +27,12 @@ export const useGetPermits = (skip = false) => {
   }, [data])
 
   useEffect(() => {
+    if (skip) {
+      return
+    }
+
     void refetch()
-  }, [currentParkingAccount, refetch])
+  }, [currentParkingAccount, refetch, skip])
 
   useEffect(() => {
     if (permits?.length && !currentPermitReportCode) {
