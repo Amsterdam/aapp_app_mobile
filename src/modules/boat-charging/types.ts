@@ -37,9 +37,9 @@ export type BoatChargingLocation = {
   id: string
   name: string
   opening_times: {
-    exceptional_closings: []
-    exceptional_openings: []
-    regular_hours: []
+    exceptional_closings: unknown[] //TODO: add typing
+    exceptional_openings: unknown[] //TODO: add typing
+    regular_hours: unknown[] //TODO: add typing
     twentyfourseven: boolean
   }
   total_sockets: number

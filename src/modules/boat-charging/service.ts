@@ -44,7 +44,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         body,
         method: 'POST',
         slug: ModuleSlug['boat-charging'],
-        url: 'login/guest',
+        url: '/login/guest',
         afterError: (result, _api, failRetry) => {
           if (
             (

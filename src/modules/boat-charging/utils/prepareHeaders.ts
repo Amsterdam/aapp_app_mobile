@@ -22,7 +22,7 @@ export const prepareHeaders: PrepareHeaders = async (
 
   const shouldRefresh =
     Boolean(accessToken) &&
-    Boolean(expiration?.isValid?.() ? expiration.isValid() : expiration) &&
+    Boolean(expiration?.isValid()) &&
     Boolean(expiration?.isBefore(nowPlusMinute))
 
   if (shouldRefresh) {

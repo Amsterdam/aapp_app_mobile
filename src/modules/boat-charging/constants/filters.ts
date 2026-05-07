@@ -1,9 +1,9 @@
-import {BoatChargingPointState} from '@/modules/boat-charging/types'
+import {ChargingPointStatus} from '@/modules/boat-charging/types'
 
 export const mapFilters = [
   {
-    filter_key: 'state',
-    filter_value: BoatChargingPointState.free,
+    filter_key: 'status',
+    filter_value: ChargingPointStatus.OPERATIVE,
     label: 'Nu Vrij',
   },
 ]
