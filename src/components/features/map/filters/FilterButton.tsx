@@ -1,10 +1,10 @@
-import type {ServiceMapResponseFilter} from '@/modules/service/types'
+import type {Filter} from '@/components/features/map/providers/MapFiltersProvider'
 import {Button} from '@/components/ui/buttons/Button'
 
 type Props = {
-  filter: ServiceMapResponseFilter
+  filter: Filter
   isActive?: boolean
-  onPressFilter?: (filter: ServiceMapResponseFilter) => void
+  onPressFilter?: (filter: Filter) => void
   testID?: string
 }
 

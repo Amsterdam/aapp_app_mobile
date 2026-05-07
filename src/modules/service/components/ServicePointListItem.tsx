@@ -37,7 +37,7 @@ export const ServicePointListItem = ({
             {!!icon && (
               <ServicePointCustomIcon
                 icon={icon}
-                testID="ServicePointCustomIcon"
+                testID="ServicePointListItemServicePointCustomIcon"
               />
             )}
             <Column>

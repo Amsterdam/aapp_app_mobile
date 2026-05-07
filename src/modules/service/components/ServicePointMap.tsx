@@ -38,7 +38,7 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
 
   const {icons_to_include} = service || {}
 
-  const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
+  const {layers} = useMapFilters()
 
   const controls: ControlVariant[] = useMemo(() => {
     const result: ControlVariant[] = [ControlVariant.location]
@@ -59,14 +59,7 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
   return (
     <MapBase
       controls={controls}
-      FilterComponent={
-        <MapFilters
-          activeFilters={activeFilters}
-          filters={filters}
-          onPressFilter={onPressFilter}
-          testID="ServiceMapFilters"
-        />
-      }
+      FilterComponent={<MapFilters testID="ServiceMapFilters" />}
       isError={isError}
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>

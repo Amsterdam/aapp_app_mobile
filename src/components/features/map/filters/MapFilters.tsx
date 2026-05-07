@@ -1,26 +1,16 @@
 import {StyleSheet} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
-import type {
-  ServiceMapResponse,
-  ServiceMapResponseFilter,
-} from '@/modules/service/types'
 import {FilterButton} from '@/components/features/map/filters/FilterButton'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 
-type Props = {
-  activeFilters?: ServiceMapResponseFilter[]
-  filters?: ServiceMapResponse['filters']
-  onPressFilter?: (filter: ServiceMapResponseFilter) => void
-} & TestProps
+type Props = TestProps
 
-export const MapFilters = ({
-  filters,
-  activeFilters,
-  onPressFilter,
-  testID,
-}: Props) => {
+export const MapFilters = ({testID}: Props) => {
+  const {filters, activeFilters, onPressFilter} = useMapFilters()
+
   if (!filters?.length) {
     return null
   }

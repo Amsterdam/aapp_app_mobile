@@ -4,13 +4,13 @@ import type {
   ServicePointFeature,
   ServiceMapResponse,
 } from '@/modules/service/types'
-import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
-import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
-import {ServicePointCustomMarker} from '@/modules/service/components/ServicePointCustomMarker'
 import {
   ConditionType,
   useGetFilteredFeatures,
-} from '@/modules/service/hooks/useGetFilteredFeatures'
+} from '@/components/features/map/hooks/useGetFilteredFeatures'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
+import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
+import {ServicePointCustomMarker} from '@/modules/service/components/ServicePointCustomMarker'
 
 export const useGetMapMarkerData = (
   features: ServicePointFeature[],

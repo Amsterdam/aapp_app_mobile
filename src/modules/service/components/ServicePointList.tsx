@@ -5,6 +5,10 @@ import type {Service, ServicePointFeature} from '@/modules/service/types'
 import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
+  ConditionType,
+  useGetFilteredFeatures,
+} from '@/components/features/map/hooks/useGetFilteredFeatures'
+import {
   MapControlBottomSheetKey,
   useMapControlsToggleBottomSheetButton,
 } from '@/components/features/map/hooks/useMapControlsToggleBottomSheetButton'
@@ -19,10 +23,6 @@ import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ServicePointEmptyList} from '@/modules/service/components/ServicePointEmptyList'
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
-import {
-  ConditionType,
-  useGetFilteredFeatures,
-} from '@/modules/service/hooks/useGetFilteredFeatures'
 import {useServiceQuery} from '@/modules/service/service'
 import {convertGeometryToPoint} from '@/modules/service/utils/convertGeometryToPoint'
 import {ModuleSlug} from '@/modules/slugs'
@@ -45,7 +45,7 @@ export const ServicePointList = ({
   const {onPressControlButton: onPressLayersButton} =
     useMapControlsToggleBottomSheetButton(MapControlBottomSheetKey.layers)
 
-  const {activeFilters, filters, onPressFilter, layers} = useMapFilters()
+  const {filters, layers} = useMapFilters()
 
   const pointFeatures = useMemo(
     () =>
@@ -96,12 +96,7 @@ export const ServicePointList = ({
             <>
               {!!filters?.length && (
                 <Box insetVertical="smd">
-                  <MapFilters
-                    activeFilters={activeFilters}
-                    filters={filters}
-                    onPressFilter={onPressFilter}
-                    testID="ServiceListFilters"
-                  />
+                  <MapFilters testID="ServiceListFilters" />
                 </Box>
               )}
               {!!layers?.length && (
