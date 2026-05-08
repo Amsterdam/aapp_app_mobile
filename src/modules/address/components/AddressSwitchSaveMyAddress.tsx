@@ -56,9 +56,7 @@ export const AddressSwitchSaveMyAddress = ({
             adres hoort. U kunt ook meldingen uit deze buurt krijgen. Dit stelt
             u in bij Mijn profiel.
           </Paragraph>
-          <Box
-            insetBottom="xl"
-            insetTop="smd">
+          <Box insetTop="smd">
             <Row gutter="smd">
               <Button
                 flex={1}
