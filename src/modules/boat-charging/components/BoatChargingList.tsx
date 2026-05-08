@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {FlatList} from 'react-native'
+import {FlatList, StyleSheet} from 'react-native'
 import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
@@ -36,10 +36,10 @@ export const BoatChargingList = ({
     features: geojson?.features || [],
     conditionType: ConditionType.and,
   })
-
+  const styles = createStyles()
   const {address} = useSelectedAddress(ModuleSlug['boat-charging'])
 
-  const chargingPointsByDistance = useMemo(() => {
+  const chargingPoints = useMemo(() => {
     if (!filteredFeatures?.length) {
       return []
     }
@@ -63,14 +63,19 @@ export const BoatChargingList = ({
   }
 
   return (
-    <SafeArea bottom>
-      <Box insetBottom="md">
+    <SafeArea
+      bottom
+      flex={1}>
+      <Box
+        grow
+        insetBottom="md">
         <FlatList
-          data={chargingPointsByDistance}
+          contentContainerStyle={styles.contentContainer}
+          data={chargingPoints}
           keyExtractor={point => String(point.properties.id)}
           ListEmptyComponent={BoatChargingEmptyList}
           ListHeaderComponent={
-            <>
+            <Box insetBottom="md">
               <Box insetVertical="smd">
                 <MapFilters testID="BoatChargingListFilters" />
               </Box>
@@ -81,24 +86,32 @@ export const BoatChargingList = ({
                     moduleSlug={ModuleSlug['boat-charging']}
                     testID="BoatChargingListAddressSwitch"
                   />
-
-                  {!!address && (
+                  {!!address && !!chargingPoints?.length && (
                     <Phrase color="secondary">
                       Resultaten gesorteerd op afstand:
                     </Phrase>
                   )}
                 </Column>
               </Box>
-            </>
+            </Box>
           }
           renderItem={({item}) => (
-            <BoatChargingListItem
-              item={item}
-              onPress={onChargingPointPress}
-            />
+            <Box insetHorizontal="md">
+              <BoatChargingListItem
+                item={item}
+                onPress={onChargingPointPress}
+              />
+            </Box>
           )}
         />
       </Box>
     </SafeArea>
   )
 }
+
+const createStyles = () =>
+  StyleSheet.create({
+    contentContainer: {
+      flex: 1,
+    },
+  })

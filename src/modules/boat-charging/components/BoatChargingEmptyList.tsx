@@ -1,13 +1,14 @@
-import {Box} from '@/components/ui/containers/Box'
+import {Center} from '@/components/ui/layout/Center'
 import {Title} from '@/components/ui/text/Title'
 
 export const BoatChargingEmptyList = () => (
-  <Box insetVertical="xxl">
+  <Center grow>
     <Title
       level="h5"
+      shrink={0}
       testID="BoatChargingEmptyList"
       text="Geen laadpunten"
       textAlign="center"
     />
-  </Box>
+  </Center>
 )
