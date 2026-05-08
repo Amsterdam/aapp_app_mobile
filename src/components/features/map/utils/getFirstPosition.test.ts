@@ -1,4 +1,4 @@
-import {getFirstPosition} from '@/modules/service/utils/getFirstPosition'
+import {getFirstPosition} from '@/components/features/map/utils/getFirstPosition'
 
 describe('getFirstPosition', () => {
   it('should return a Position regardless of how deeply nested the input is.', () => {

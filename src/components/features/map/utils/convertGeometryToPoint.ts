@@ -1,9 +1,10 @@
-import type {ServiceGeoJSON, ServicePointFeature} from '@/modules/service/types'
-import {getFirstPosition} from '@/modules/service/utils/getFirstPosition'
+import {Feature, type Geometry, Point} from 'geojson'
+import type {EmptyObject} from '@/types/utils'
+import {getFirstPosition} from '@/components/features/map/utils/getFirstPosition'
 
-export const convertGeometryToPoint = (
-  features: ServiceGeoJSON['features'],
-): ServicePointFeature[] =>
+export const convertGeometryToPoint = <Properties extends object = EmptyObject>(
+  features: Feature<Geometry, Properties>[],
+): Feature<Point, Properties>[] =>
   features
     .map(feature => {
       if (feature.geometry && 'coordinates' in feature.geometry) {
@@ -16,7 +17,7 @@ export const convertGeometryToPoint = (
         }
       }
     })
-    .filter((feature): feature is ServicePointFeature => {
+    .filter((feature): feature is Feature<Point, Properties> => {
       if (!feature) {
         return false
       }

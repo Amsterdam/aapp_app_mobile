@@ -28,7 +28,7 @@ const DEFAULT_WRAPPER = ({children, testID, size}: WrapperProps) => (
   <Svg
     height={size}
     testID={testID}
-    viewBox={`0 0 ${size} ${size}`}
+    viewBox="0 0 24 24"
     width={size}>
     {children}
   </Svg>
@@ -45,7 +45,7 @@ export const CustomMarkerIcon = ({
   size = DEFAULT_SIZE,
   offset = DEFAULT_OFFSET,
 }: Props) => {
-  const center = size / 2
+  const center = size / ((size / PATH_SIZE) * 2)
 
   return (
     <Wrapper
@@ -61,7 +61,6 @@ export const CustomMarkerIcon = ({
         <Path
           d={path}
           fill={pathColor}
-          transform={`translate(${center}, ${center}) scale(${size / PATH_SIZE}) translate(${-center}, ${-center})`}
         />
       </G>
     </Wrapper>
