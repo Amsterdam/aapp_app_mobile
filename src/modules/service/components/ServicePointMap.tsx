@@ -77,8 +77,8 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
                   ? feature.geometry.coordinates
                   : []
               }
-              id={feature.id || `feature-${index}`}
-              key={feature.id}
+              id={feature.id ?? `feature-${index}`}
+              key={feature.id ?? `feature-${index}`}
               onPress={onMapElementPress}
               strokeColor={feature.properties.stroke as string | null}
               strokeWidth={
