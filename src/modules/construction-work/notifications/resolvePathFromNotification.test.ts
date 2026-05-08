@@ -15,6 +15,16 @@ describe('createRoute', () => {
     title: 'Title',
     body: 'Body',
   } as const
+  const mockNotificationWarningNew = {
+    data: {
+      type: 'construction-work:article-message',
+      subtype: 'warning',
+      linkSourceid: '123',
+      module_slug: ModuleSlug['construction-work'],
+    },
+    title: 'Title',
+    body: 'Body',
+  } as const
 
   it('should return undefined if data or notification is not provided', () => {
     expect(resolvePathFromNotification?.({}, false)).toBeUndefined()
@@ -104,5 +114,18 @@ describe('createRoute', () => {
         true,
       ),
     ).toBe('/news/123/Test%20title/Test%20title%20-%20Test%2Fbody/true')
+  })
+
+  it('should return warning route with url encode title and body', () => {
+    expect(
+      resolvePathFromNotification?.(
+        {
+          data: mockNotificationWarningNew.data,
+          title: 'Test title',
+          body: 'Test/body',
+        },
+        true,
+      ),
+    ).toBe('/warning/123/Test%20title/Test%20title%20-%20Test%2Fbody/true')
   })
 })
