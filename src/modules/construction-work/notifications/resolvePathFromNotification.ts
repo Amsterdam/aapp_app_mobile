@@ -11,8 +11,14 @@ export type PushNotificationType =
   | 'ProjectWarningCreatedByProjectManager'
   | typeof ARTICLE_MESSAGE_TYPE
 
-export const pushNotificationTypes: Partial<
-  Record<PushNotificationType, PushNotificationRouteConfig>
+type LegacyPushNotificationType = Exclude<
+  PushNotificationType,
+  typeof ARTICLE_MESSAGE_TYPE
+>
+
+export const pushNotificationTypes: Record<
+  LegacyPushNotificationType,
+  PushNotificationRouteConfig
 > = {
   NewsUpdatedByProjectManager: {
     route: '/news',
@@ -42,7 +48,8 @@ export const resolvePathFromNotification: ModuleClientConfig<{
   }
 
   // TODO: Remove this when the app version has exceeded 1.30.0. Check with backend first to be certain.
-  const legacyRoute = pushNotificationTypes[type]?.route
+  const legacyRoute =
+    pushNotificationTypes[type as LegacyPushNotificationType]?.route
 
   if (legacyRoute) {
     route = legacyRoute
