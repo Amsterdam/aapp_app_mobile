@@ -45,8 +45,6 @@ export const LocationTopTaskButton = ({
   const {isGettingLocation, getLocationIsError, location} = useLocation()
   const {goBack} = useNavigation()
   const setLocationType = useSetLocationType(moduleSlug)
-
-  const {requestPermission} = usePermission(Permissions.location)
   const {startLocationFetch} = useRequestLocationFetch(
     moduleSlug,
     highAccuracyPurposeKey,
@@ -56,12 +54,10 @@ export const LocationTopTaskButton = ({
     Permissions.location,
   )
 
-  const onPressLocationButton = useCallback(async () => {
-    const permission = await requestPermission()
-
+  const onPressLocationButton = useCallback(() => {
     startLocationFetch()
 
-    if (!permission) {
+    if (!hasPermission) {
       navigateToInstructionsScreen()
 
       return
@@ -74,7 +70,7 @@ export const LocationTopTaskButton = ({
     goBack,
     startLocationFetch,
     navigateToInstructionsScreen,
-    requestPermission,
+    hasPermission,
     setLocationType,
   ])
 
