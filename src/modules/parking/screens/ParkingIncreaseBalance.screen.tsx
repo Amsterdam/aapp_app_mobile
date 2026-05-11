@@ -16,7 +16,7 @@ export const ParkingIncreaseBalanceScreen = () => (
       <Screen
         bottomSheet={<ParkingSessionBottomSheet />}
         headerOptions={{disableHorizontalInsets: true}}
-        testID="ParkingStartSessionScreen">
+        testID="ParkingIncreaseBalanceScreen">
         <Box>
           <Column gutter="md">
             <ParkingChooseAmountButton />
