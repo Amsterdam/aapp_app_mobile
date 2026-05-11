@@ -58,7 +58,6 @@ export const BarCode = ({value, format, width}: Props) => {
       <BarcodeCreatorView
         background={theme.color.barcode.background}
         foregroundColor={theme.color.barcode.foreground}
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         format={format === 'QR' ? BarcodeFormat.QR : BarcodeFormat.CODE128}
         style={styles.barcode}
         value={value}
