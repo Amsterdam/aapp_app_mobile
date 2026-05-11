@@ -38,12 +38,14 @@ export const resolvePathFromNotification: ModuleClientConfig<{
   let route: string | undefined
 
   if (type === ARTICLE_MESSAGE_TYPE) {
-    route = `/${subtype}`
+    route = `/${subtype === 'article' ? 'news' : subtype}`
   }
 
   // TODO: Remove this when the app version has exceeded 1.30.0. Check with backend first to be certain.
-  if (Object.keys(pushNotificationTypes).includes(type)) {
-    route = pushNotificationTypes[type]?.route
+  const legacyRoute = pushNotificationTypes[type]?.route
+
+  if (legacyRoute) {
+    route = legacyRoute
   }
 
   if (!route || !notification?.data?.linkSourceid) {
