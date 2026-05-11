@@ -25,7 +25,7 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
           bottomSheet={<ParkingSessionBottomSheet />}
           hasStickyAlert
           headerOptions={{disableHorizontalInsets: true}}
-          testID="ParkingStartSessionScreen">
+          testID="ParkingEditSessionScreen">
           <Box>
             <Column gutter="lg">
               {/* {dayjs(parkingSession.start_date_time).isAfter(dayjs()) ? (
