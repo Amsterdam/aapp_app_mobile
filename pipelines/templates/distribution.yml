@@ -10,7 +10,7 @@ jobs:
   - deployment: ${{ parameters.environment }}
     timeoutInMinutes: 90
     pool:
-      vmImage: macOS-15
+      vmImage: macOS-26
     environment: 'aapp_app_mobile ${{ parameters.platform }} ${{ parameters.environment }}'
     variables:
       platform: ${{ parameters.platform }}

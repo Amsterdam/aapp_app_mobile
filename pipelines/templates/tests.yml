@@ -2,7 +2,7 @@ jobs:
   - job: 'Tests'
     timeoutInMinutes: 30
     pool:
-      vmImage: macOS-15
+      vmImage: macOS-26
     steps:
       - checkout: self
         path: './s/'

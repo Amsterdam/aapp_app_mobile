@@ -9,6 +9,6 @@ jobs:
   - job: 'Build_Storybook'
     timeoutInMinutes: 30
     pool:
-      vmImage: macOS-15
+      vmImage: macOS-26
     steps:
       - template: ./templates/storybook-build.yml
