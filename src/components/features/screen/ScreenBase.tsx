@@ -67,7 +67,9 @@ export const ScreenBase = ({
   const CustomHeader = isHomeScreen ? (
     <HeaderForHome options={headerOptions} />
   ) : (
-    <ScreenHeader options={headerOptions} />
+    <ScreenHeader
+      options={{...headerOptions, disableHorizontalInsets: withLeftInset}}
+    />
   )
 
   const customScreenHeader = !isOutsideNavigation && !!bottomSheet
