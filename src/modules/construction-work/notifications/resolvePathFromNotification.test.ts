@@ -15,6 +15,16 @@ describe('createRoute', () => {
     title: 'Title',
     body: 'Body',
   } as const
+  const mockNotificationArticleNew = {
+    data: {
+      type: 'construction-work:article-message',
+      subtype: 'article',
+      linkSourceid: '123',
+      module_slug: ModuleSlug['construction-work'],
+    },
+    title: 'Title',
+    body: 'Body',
+  } as const
   const mockNotificationWarningNew = {
     data: {
       type: 'construction-work:article-message',
@@ -127,5 +137,17 @@ describe('createRoute', () => {
         true,
       ),
     ).toBe('/warning/123/Test%20title/Test%20title%20-%20Test%2Fbody/true')
+  })
+  it('should return news route with url encode title and body', () => {
+    expect(
+      resolvePathFromNotification?.(
+        {
+          data: mockNotificationArticleNew.data,
+          title: 'Test title',
+          body: 'Test/body',
+        },
+        true,
+      ),
+    ).toBe('/news/123/Test%20title/Test%20title%20-%20Test%2Fbody/true')
   })
 })
