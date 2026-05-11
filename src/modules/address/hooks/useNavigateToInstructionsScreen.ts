@@ -42,10 +42,10 @@ export const useNavigateToInstructionsScreen = (permission: Permissions) => {
   const {navigate} = useNavigation<HomeModalName>()
 
   return useCallback(
-    (requestPermissionOnMount?: boolean) =>
+    (requestPermissionOnFocusOrForeground?: boolean) =>
       navigate(HomeModalName.permissionInstructions, {
         ...navigationParams[permission],
-        requestPermissionOnMount,
+        requestPermissionOnFocusOrForeground,
       }),
     [navigate, permission],
   )

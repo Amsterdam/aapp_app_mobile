@@ -24,7 +24,7 @@ export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
       permission,
       screenTitle,
       title,
-      requestPermissionOnMount = true,
+      requestPermissionOnFocusOrForeground = true,
     },
   } = route
   const {hasPermission, requestPermission} = usePermission(permission)
@@ -38,10 +38,10 @@ export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
   }, [hasPermission, navigation])
 
   useFocusAndForegroundEffect(() => {
-    if (requestPermissionOnMount) {
+    if (requestPermissionOnFocusOrForeground) {
       void requestPermission()
     }
-  }, [requestPermission, requestPermissionOnMount])
+  }, [requestPermission, requestPermissionOnFocusOrForeground])
 
   return (
     <Screen
