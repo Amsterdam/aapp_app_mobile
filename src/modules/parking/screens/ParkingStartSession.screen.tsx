@@ -30,6 +30,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
       <ParkingSessionFormProvider defaultStartTime={params?.defaultStartTime}>
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
+          headerOptions={{disableHorizontalInsets: true}}
           keyboardAware
           testID="ParkingStartSessionScreen">
           <Box

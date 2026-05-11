@@ -18,6 +18,7 @@ export const BoatChargingScreen = () => (
       }
       headerOptions={{
         SideComponent: BoatChargingHeaderButton,
+        disableHorizontalInsets: true,
       }}
       scroll={false}
       testID="BoatChargingScreen"

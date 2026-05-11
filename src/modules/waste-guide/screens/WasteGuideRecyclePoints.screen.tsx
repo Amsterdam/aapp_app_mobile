@@ -15,6 +15,7 @@ export const WasteGuideRecyclePointsScreen = () => (
         <WasteGuideSelectRecyclePoint />
       </BottomSheet>
     }
+    headerOptions={{disableHorizontalInsets: true}}
     testID="WasteGuideRecyclePointsScreen">
     <Box>
       <Column gutter="lg">

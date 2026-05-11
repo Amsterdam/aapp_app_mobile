@@ -105,6 +105,9 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
         </BottomSheet>
       }
       hasStickyAlert
+      headerOptions={{
+        disableHorizontalInsets: true,
+      }}
       scroll={false}
       testID="ReportProblemWebViewScreen">
       <WebView

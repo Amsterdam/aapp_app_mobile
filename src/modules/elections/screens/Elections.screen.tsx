@@ -18,6 +18,7 @@ export const ElectionsScreen = () => (
       }
       headerOptions={{
         SideComponent: PollingStationsHeaderButton,
+        disableHorizontalInsets: true,
       }}
       scroll={false}
       testID="ElectionsScreen"

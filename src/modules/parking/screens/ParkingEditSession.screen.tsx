@@ -24,6 +24,7 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
           hasStickyAlert
+          headerOptions={{disableHorizontalInsets: true}}
           testID="ParkingStartSessionScreen">
           <Box>
             <Column gutter="lg">

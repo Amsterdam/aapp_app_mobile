@@ -33,6 +33,7 @@ const ParkingPermitZonesScreenInner = () => {
             </BottomSheet>
           }
           headerOptions={{
+            disableHorizontalInsets: true,
             headerTitle:
               previousRouteName === ParkingRouteName.startSession
                 ? 'Kies parkeerautomaat'

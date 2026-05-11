@@ -16,6 +16,9 @@ export const ReportProblemScreen = () => (
         <ReportProblemTypesBottomSheetContent />
       </BottomSheet>
     }
+    headerOptions={{
+      disableHorizontalInsets: true,
+    }}
     testID="ReportProblemScreen">
     <Box>
       <Column gutter="xl">
