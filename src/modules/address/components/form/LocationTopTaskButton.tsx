@@ -41,12 +41,10 @@ export const LocationTopTaskButton = ({
   testID,
   ...props
 }: Props) => {
-  const {hasPermission} = usePermission(Permissions.location)
+  const {hasPermission, requestPermission} = usePermission(Permissions.location)
   const {isGettingLocation, getLocationIsError, location} = useLocation()
   const {goBack} = useNavigation()
   const setLocationType = useSetLocationType(moduleSlug)
-
-  const {requestPermission} = usePermission(Permissions.location)
   const {startLocationFetch} = useRequestLocationFetch(
     moduleSlug,
     highAccuracyPurposeKey,
