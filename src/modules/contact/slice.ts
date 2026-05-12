@@ -8,6 +8,7 @@ export type ContactState = {
 
 export const contactSlice = createSlice({
   name: ReduxKey.contact,
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   initialState: {} as ContactState,
   reducers: {
     setSelectedCityOffice: (state, {payload}: PayloadAction<string>) => {

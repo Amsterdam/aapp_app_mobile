@@ -18,8 +18,11 @@ export const useMarkArticleAsRead = () => {
 
   const deleteOldArticles = useCallback(() => {
     readArticles.forEach(readArticle => {
-      getDateDiffInDays(readArticle.publicationDate) > recentArticleMaxAge &&
+      if (
+        getDateDiffInDays(readArticle.publicationDate) > recentArticleMaxAge
+      ) {
         dispatch(deleteReadArticle(readArticle.id))
+      }
     })
   }, [dispatch, readArticles])
 

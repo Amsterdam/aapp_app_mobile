@@ -117,7 +117,7 @@ export const getTrackEvents = (
       {name},
       {
         ...customDimensionsAppInsights,
-        title: getTitleFromParams(params as Record<string, unknown>),
+        title: getTitleFromParams(params),
       },
     )
   },

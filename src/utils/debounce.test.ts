@@ -28,7 +28,7 @@ describe('debounce', () => {
     const mockFn = jest.fn()
     const debouncedFn = debounce(mockFn, 500)
 
-    debouncedFn(null as unknown as string, undefined as unknown as number)
+    debouncedFn(null, undefined)
     jest.advanceTimersByTime(500)
     expect(mockFn).toHaveBeenCalledWith(null, undefined)
   })

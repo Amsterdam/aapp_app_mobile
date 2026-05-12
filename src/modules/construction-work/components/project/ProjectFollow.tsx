@@ -59,7 +59,9 @@ export const ProjectFollow = ({
         .unwrap()
         .then(() => {
           void registerDeviceIfPermitted(true).then(hasPermission => {
-            !hasPermission && navigateToInstructionsScreen()
+            if (!hasPermission) {
+              navigateToInstructionsScreen()
+            }
           })
         })
     },

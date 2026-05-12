@@ -42,6 +42,7 @@ export const removeSecureParkingAccount = async (
         )
       }
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     currentArr = []
   }

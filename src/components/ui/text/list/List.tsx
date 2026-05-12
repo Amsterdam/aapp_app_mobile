@@ -20,6 +20,7 @@ export const List = ({
   <Column gutter={gutter}>
     {items.map((text, index) => (
       <ListItem
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         key={String(text) + index}
         marker={marker}
         testID={`${testID}${index}Item`}

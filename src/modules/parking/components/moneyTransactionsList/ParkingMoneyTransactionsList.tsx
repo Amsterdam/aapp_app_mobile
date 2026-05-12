@@ -103,7 +103,9 @@ export const ParkingMoneyTransactionsList = () => {
           }
         }
 
-        newPage && setPage(newPage)
+        if (newPage) {
+          setPage(newPage)
+        }
       }
     },
     [result.data],

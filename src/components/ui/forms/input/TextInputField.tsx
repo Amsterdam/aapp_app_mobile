@@ -64,7 +64,9 @@ export const TextInputField = ({
       defaultValue={defaultValue as string}
       name={name}
       render={({field: {onChange, value}, fieldState: {error}}) => {
-        error?.message && accessibilityAnnounce(error.message)
+        if (error?.message) {
+          accessibilityAnnounce(error.message)
+        }
 
         return (
           <Column gutter="sm">

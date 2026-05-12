@@ -84,22 +84,22 @@ export type StackNavigationRoutes<R, Route extends string = string> = Record<
   StackNavigationRouteConfig<R>
 >
 
-type RouteName = keyof ModuleStackParams
-type ParamsOf<Route extends RouteName> = ModuleStackParams[Route]
+type RouteNames = keyof ModuleStackParams
+type ParamsOf<Route extends RouteNames> = ModuleStackParams[Route]
 
 // Navigate in-Stack: navigate(Route, params?)
 export type InStackTo = {
-  [Route in RouteName]: ParamsOf<Route> extends undefined
+  [Route in RouteNames]: ParamsOf<Route> extends undefined
     ? [Route] | [Route, undefined]
     : [Route, ParamsOf<Route>]
-}[RouteName]
+}[RouteNames]
 
 // Navigate to specific screen cross-Stack: navigate(ModuleSlug, { screen, params? })
 export type CrossStackTo = {
-  [Route in RouteName]: ParamsOf<Route> extends undefined
+  [Route in RouteNames]: ParamsOf<Route> extends undefined
     ? [ModuleSlug, {screen: Route}]
     : [ModuleSlug, {params: ParamsOf<Route>; screen: Route}]
-}[RouteName]
+}[RouteNames]
 
 /**
  * NavigateTo can be used to type the parameters for filling the useNavigation().navigate function

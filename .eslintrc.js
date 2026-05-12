@@ -229,6 +229,8 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/restrict-template-expressions': 'error',
+        '@typescript-eslint/prefer-promise-reject-errors': 'off',
+        '@typescript-eslint/only-throw-error': 'off',
       },
       parserOptions: {
         project: ['./tsconfig.json'],

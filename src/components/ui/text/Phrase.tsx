@@ -1,9 +1,9 @@
 import {ReactNode, useMemo} from 'react'
 import {StyleSheet, TextProps, TextStyle} from 'react-native'
+import type {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
-import {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
 
 export type PhraseProps = {
@@ -15,7 +15,7 @@ export type PhraseProps = {
   /**
    * Allows the phrase to convey more emphasis.
    */
-  emphasis?: keyof typeof Emphasis
+  emphasis?: Emphasis
   /**
    * Defines how to shrink the phrase in case the parent container is smaller than the phrase.
    */
@@ -111,8 +111,7 @@ const createStyles =
       text: {
         flexShrink,
         color: color.text[textColor],
-        fontFamily:
-          text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],
+        fontFamily: text.fontFamily[emphasis === 'strong' ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant],
         opacity,

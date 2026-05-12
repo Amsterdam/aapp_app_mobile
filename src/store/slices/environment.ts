@@ -11,6 +11,7 @@ export type EnvironmentState = {
 
 export const environmentSlice = createSlice({
   name: ReduxKey.environment,
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   initialState: {
     custom: customDefaultUrls,
     environment: isDevApp ? Environment.acceptance : Environment.production,
