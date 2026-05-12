@@ -333,12 +333,12 @@ const main = async () => {
 
   if (!alreadyOnPr.has(COPILOT_READY_LABEL)) {
     core.info(`Adding labels to PR: ${COPILOT_READY_LABEL}`)
-    await octokit.rest.issues.addLabels({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: pullNumber,
-      labels: [COPILOT_READY_LABEL],
-    })
+    await addLabels(
+      pullNumber,
+      [COPILOT_READY_LABEL],
+      GENERAL_LABEL_COLOR,
+      'Copilot review completed with no open comments.',
+    )
   }
 }
 
