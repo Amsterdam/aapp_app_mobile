@@ -1,2 +1,2 @@
-npx jest
 npx lint-staged --no-stash
+npx jest
