@@ -302,7 +302,7 @@ const main = async () => {
 
   if (generalNames.length === 0) {
     core.info(
-      'No changes detected under src/general/*; skipping general labels.',
+      'No changes detected in pipelines/, .github/*, android/, ios/, or dependency lockfiles; skipping general labels.',
     )
   } else {
     const labelsToAdd = generalNames.filter(l => !alreadyOnPr.has(l))
