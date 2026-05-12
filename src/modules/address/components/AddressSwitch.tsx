@@ -1,4 +1,4 @@
-import {useMemo} from 'react'
+import {useEffect, useMemo} from 'react'
 import type {TestProps} from '@/components/ui/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
@@ -6,10 +6,12 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressSwitchSaveMyAddress} from '@/modules/address/components/AddressSwitchSaveMyAddress'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressRouteName} from '@/modules/address/routes'
+import {setAlwaysShowAddress} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {
   getAddressSwitchAccessibilityLabel,
@@ -32,9 +34,17 @@ export const AddressSwitch = ({
   moduleSlug,
   highAccuracyPurposeKey = HighAccuracyPurposeKey.PreciseLocationAddressLookup,
 }: AddressSwitcherProps) => {
-  const {navigate} = useNavigation()
+  const dispatch = useDispatch()
+  const navigation = useNavigation()
 
   useRequestLocationFetch(moduleSlug, highAccuracyPurposeKey)
+
+  useEffect(
+    () => () => {
+      dispatch(setAlwaysShowAddress(false))
+    },
+    [dispatch],
+  )
 
   const {address, shouldShowSaveAsMyAddress, locationType, isFetching} =
     useSelectedAddress(moduleSlug)
@@ -55,7 +65,7 @@ export const AddressSwitch = ({
   )
 
   const onNavigateToAddressForm = () =>
-    navigate(ModuleSlug.address, {
+    navigation.navigate(ModuleSlug.address, {
       screen: AddressRouteName.chooseAddress,
       params: {highAccuracyPurposeKey, moduleSlug},
     })

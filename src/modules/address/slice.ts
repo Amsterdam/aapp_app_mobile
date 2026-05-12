@@ -15,6 +15,7 @@ import {Permissions} from '@/types/permissions'
 
 const initialState: AddressState = {
   address: undefined,
+  alwaysShowAddress: false,
   location: undefined,
   highAccuracyPurposeKey: HighAccuracyPurposeKey.PreciseLocationAddressLookup,
   locationType: undefined,
@@ -59,6 +60,12 @@ export const addressSlice = createSlice({
       locationFetchRequested: true,
       getLocationIsError: false,
     }),
+    setAlwaysShowAddress: (
+      state,
+      {payload: alwaysShowAddress}: PayloadAction<boolean>,
+    ) => {
+      state.alwaysShowAddress = alwaysShowAddress
+    },
     setGetLocationIsError: (
       state,
       {payload: getLocationIsError}: PayloadAction<boolean>,
@@ -128,12 +135,16 @@ export const {
   addLocation,
   removeAddress,
   requestLocationFetch,
+  setAlwaysShowAddress,
   setGetLocationIsError,
   setIsGettingLocation,
   setLocationType,
   setModuleCustomAddress,
   setShowSaveAsMyAddress,
 } = addressSlice.actions
+
+export const selectAlwaysShowAddress = (state: RootState) =>
+  state[ReduxKey.address].alwaysShowAddress
 
 export const selectMyAddress = (state: RootState) =>
   state[ReduxKey.address].address
@@ -177,6 +188,7 @@ export const selectLocationType =
       state[ReduxKey.address].moduleLocationType?.[moduleSlug] ??
       state[ReduxKey.address].locationType
     const address = selectMyAddress(state)
+    const alwaysShowAddress = selectAlwaysShowAddress(state)
     const customAddress = selectCustomAddress(moduleSlug)(state)
     const hasLocationPermission = selectIsPermissionGranted(
       Permissions.location,
@@ -198,7 +210,7 @@ export const selectLocationType =
     }
 
     // If address is set, return address
-    if (address) {
+    if (address || alwaysShowAddress) {
       return 'address'
     }
 

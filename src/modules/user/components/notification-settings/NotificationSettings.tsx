@@ -8,7 +8,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useModules} from '@/hooks/useModules'
-import {setLocationType} from '@/modules/address/slice'
+import {setAlwaysShowAddress, setLocationType} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {Module} from '@/modules/types'
 import {NotificationSetting} from '@/modules/user/components/notification-settings/NotificationSetting'
@@ -95,6 +95,7 @@ export const NotificationSettings = () => {
                   emphasis="default"
                   key={slug}
                   onPress={() => {
+                    dispatch(setAlwaysShowAddress(true)) // Enforces the user in the path where they can enter My address to see be able to turn on push notifications.
                     dispatch(
                       setLocationType({
                         locationType: 'address',
