@@ -1,4 +1,5 @@
 import {type ReduxDispatch} from '@/hooks/redux/types'
+import {tagTypes} from '@/modules/parking/constants'
 import {parkingApi} from '@/modules/parking/service'
 import {
   parkingSlice,
@@ -38,16 +39,9 @@ export const logout = async (
   dispatch(parkingSlice.actions.removeParkingAccount(reportCode))
   dispatch(setIsRecentlyLoggedOutAction(true))
 
+  // invalidate the parking data cache after logout with a delay to make sure all queries are unmounted, otherwise they will try to refetch and that will result in useless 401 errors
   setTimeout(() => {
-    dispatch(
-      parkingApi.util.invalidateTags([
-        'ParkingLicensePlates',
-        'ParkingSessions',
-        'ParkingTransactions',
-        'ParkingAccount',
-        'ParkingPermits',
-      ]),
-    )
+    dispatch(parkingApi.util.invalidateTags([...tagTypes]))
     dispatch(parkingSlice.actions.setIsLoggingOut(false))
   }, 1000)
 }

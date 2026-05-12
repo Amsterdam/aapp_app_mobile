@@ -7,6 +7,7 @@ import {
   retry,
 } from '@reduxjs/toolkit/query/react'
 import {apiKeyForEnvironment, ApiSlug} from '@/environment'
+import {tagTypes as parkingTagTypes} from '@/modules/parking/constants'
 import {devError, devInfo} from '@/processes/development'
 import {
   PrepareHeaders,
@@ -120,17 +121,13 @@ export const baseApi = createApi({
   endpoints: () => ({}),
   reducerPath: 'api',
   tagTypes: [
+    ...parkingTagTypes,
     'Articles',
     'CityPass',
     'FollowedProjects',
     'Form',
     'Modules',
     'Notifications',
-    'ParkingLicensePlates',
-    'ParkingSessions',
-    'ParkingTransactions',
-    'ParkingAccount',
-    'ParkingPermits',
     'Projects',
     'WasteGuideNotifications',
     'BurningGuideNotifications',

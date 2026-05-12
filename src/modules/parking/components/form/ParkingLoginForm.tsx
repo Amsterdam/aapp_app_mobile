@@ -11,6 +11,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
+import {tagTypes} from '@/modules/parking/constants'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
@@ -59,15 +60,7 @@ export const ParkingLoginForm = () => {
       dispatch(parkingSlice.actions.setCurrentAccount(reportCode))
       dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))
       dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
-      dispatch(
-        parkingApi.util.invalidateTags([
-          'ParkingLicensePlates',
-          'ParkingSessions',
-          'ParkingTransactions',
-          'ParkingAccount',
-          'ParkingPermits',
-        ]),
-      )
+      dispatch(parkingApi.util.invalidateTags([...tagTypes]))
       dispatch(setIsLoggingIn(false))
 
       if (Object.keys(accounts).length) {
