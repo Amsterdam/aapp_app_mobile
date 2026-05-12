@@ -11,23 +11,15 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {HomeModalName} from '@/modules/home/routes'
 
 type Props = NavigationProps<HomeModalName.permissionInstructions>
 
 export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
   const {
-    params: {
-      iconName,
-      paragraph,
-      permission,
-      screenTitle,
-      title,
-      requestPermissionOnFocusOrForeground = true,
-    },
+    params: {iconName, paragraph, permission, screenTitle, title},
   } = route
-  const {hasPermission, requestPermission} = usePermission(permission)
+  const {hasPermission} = usePermission(permission)
 
   useEffect(() => {
     if (!hasPermission) {
@@ -36,12 +28,6 @@ export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
 
     navigation.pop()
   }, [hasPermission, navigation])
-
-  useFocusAndForegroundEffect(() => {
-    if (requestPermissionOnFocusOrForeground) {
-      void requestPermission()
-    }
-  }, [requestPermission, requestPermissionOnFocusOrForeground])
 
   return (
     <Screen

@@ -60,7 +60,7 @@ export const LocationTopTaskButton = ({
     startLocationFetch()
 
     if (!permission) {
-      navigateToInstructionsScreen(false)
+      navigateToInstructionsScreen()
 
       return
     }

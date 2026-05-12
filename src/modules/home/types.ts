@@ -5,7 +5,6 @@ export type PermissionInstructionScreenParams = {
   iconName: SvgIconName
   paragraph: string
   permission: Permissions
-  requestPermissionOnFocusOrForeground?: boolean
   screenTitle: string
   title: string
 }
