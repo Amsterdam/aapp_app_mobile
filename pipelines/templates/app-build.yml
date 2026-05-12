@@ -60,11 +60,11 @@ steps:
 
   - task: Cache@2
     inputs:
-      key: 'ccache | "$(Agent.OS)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)" | **/package-lock.json'
+      key: 'ccache | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)" | **/package-lock.json'
       path: $(CCACHE_DIR)
       cacheHitVar: CCACHE_CACHE_RESTORED
       restoreKeys: |
-        ccache | "$(Agent.OS)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)"
+        ccache | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)"
     displayName: 'Cache ccache directory'
 
   - task: Cache@2
