@@ -6,6 +6,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  issues: write
   checks: write
 
 jobs:
@@ -56,6 +57,11 @@ jobs:
 
       - name: Annotate PR with uncovered lines
         run: node nodescripts/coverage-pr-annotations.mts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Annotate PR with labels
+        run: node nodescripts/pr-label.mts
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
