@@ -60,11 +60,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Annotate PR with labels
-        run: node nodescripts/pr-label.mts
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   typing-and-linting:
     runs-on: macos-latest
     steps:
