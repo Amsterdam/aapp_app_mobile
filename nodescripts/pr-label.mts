@@ -148,7 +148,7 @@ const addLabels = async (
   description: string,
 ) => {
   if (labelNames.length === 0) {
-    core.info('All module labels already present.')
+    core.info('No new labels to add.')
   } else {
     core.info(`Ensuring labels exist: ${labelNames.join(', ')}`)
 
