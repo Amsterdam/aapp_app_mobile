@@ -37,7 +37,7 @@ export const useAddSecureParkingAccount = () => {
             )
           }
         }
-      } catch (e) {
+      } catch {
         currentArr = []
       }
 

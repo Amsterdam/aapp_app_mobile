@@ -1,9 +1,9 @@
 import {View} from 'react-native'
+import type {Emphasis} from '@/themes/tokens/text'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {Emphasis} from '@/themes/tokens/text'
 
 type Props = {
-  emphasis?: keyof typeof Emphasis
+  emphasis?: Emphasis
   isAccessible?: boolean
   required?: boolean
   shouldShowSuffix?: boolean

@@ -7,7 +7,7 @@ import {getClusterChildren} from '@/components/features/map/utils/getClusterChil
 
 const createMarkerItem = (id: string): ClusterItem => ({
   geometry: {coordinates: [0, 0]},
-  properties: {id} as MarkerProperties,
+  properties: {id},
 })
 
 const createClusterItem = (cluster_id: number): ClusterItem => ({

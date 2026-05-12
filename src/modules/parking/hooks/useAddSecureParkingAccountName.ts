@@ -42,7 +42,7 @@ export const useAddSecureParkingAccountName = () => {
             )
           }
         }
-      } catch (e) {
+      } catch {
         accounts = []
       }
 

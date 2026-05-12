@@ -40,16 +40,16 @@ describe('getAddressLine2', () => {
       getAddressLine2({
         postcode: '1234AB',
         city: AddressCity.Amsterdam,
-      } as Address),
+      }),
     ).toBe('1234 AB Amsterdam')
-    expect(
-      getAddressLine2({postcode: '5678CD', city: AddressCity.Weesp} as Address),
-    ).toBe('5678 CD Weesp')
+    expect(getAddressLine2({postcode: '5678CD', city: AddressCity.Weesp})).toBe(
+      '5678 CD Weesp',
+    )
     expect(
       getAddressLine2({
         postcode: '5678 CD',
         city: AddressCity.Weesp,
-      } as Address),
+      }),
     ).toBe('5678 CD Weesp')
   })
   it('should return only city if postcode is missing', () => {

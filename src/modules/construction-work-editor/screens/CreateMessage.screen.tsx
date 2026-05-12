@@ -97,14 +97,16 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
             label="Volgende"
             onPress={() =>
               formRef.current?.handleSubmit(() => {
-                mainImage
-                  ? navigation.navigate(
-                      ConstructionWorkEditorRouteName.addMainImageToMessage,
-                    )
-                  : navigation.navigate(
-                      ConstructionWorkEditorRouteName.confirmMessage,
-                      {screenHeaderTitle: projectTitle},
-                    )
+                if (mainImage) {
+                  navigation.navigate(
+                    ConstructionWorkEditorRouteName.addMainImageToMessage,
+                  )
+                } else {
+                  navigation.navigate(
+                    ConstructionWorkEditorRouteName.confirmMessage,
+                    {screenHeaderTitle: projectTitle},
+                  )
+                }
               })
             }
             testID="ConstructionWorkEditorCreateMessageNextButton"

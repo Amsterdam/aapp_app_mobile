@@ -17,7 +17,9 @@ export const productTourSlice = createSlice({
     addSeenTip: (state, {payload}: PayloadAction<Tip>) => {
       const {seenTips} = state
 
-      !seenTips.includes(payload) && seenTips.push(payload)
+      if (!seenTips.includes(payload)) {
+        seenTips.push(payload)
+      }
     },
   },
 })

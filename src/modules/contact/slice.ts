@@ -6,9 +6,11 @@ export type ContactState = {
   selectedCityOfficeId?: string
 }
 
+const initialState: ContactState = {}
+
 export const contactSlice = createSlice({
   name: ReduxKey.contact,
-  initialState: {} as ContactState,
+  initialState,
   reducers: {
     setSelectedCityOffice: (state, {payload}: PayloadAction<string>) => {
       state.selectedCityOfficeId = payload

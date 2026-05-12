@@ -23,6 +23,6 @@ export type StringToPrimitive<T extends Primitives> = T extends 'string'
             : T extends 'object'
               ? object
               : T extends 'function'
-                ? // eslint-disable-next-line @typescript-eslint/ban-types
+                ? // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
                   Function
                 : never

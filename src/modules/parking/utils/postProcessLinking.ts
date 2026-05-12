@@ -15,7 +15,6 @@ export const postProcessLinking = (
   state: PartialState<NavigationState>,
   dispatch?: ReduxDispatch,
   getState?: () => RootState,
-  // eslint-disable-next-line sonarjs/no-invariant-returns
 ) => {
   if (!state || !dispatch || !getState) {
     return state

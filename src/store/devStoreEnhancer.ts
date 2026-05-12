@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import {Platform} from 'react-native'
 import {getDeviceNameSync} from 'react-native-device-info'
 import type {ConfigureStoreOptions, StoreEnhancer} from '@reduxjs/toolkit'

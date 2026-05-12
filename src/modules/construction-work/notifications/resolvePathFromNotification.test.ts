@@ -1,9 +1,5 @@
-import {
-  resolvePathFromNotification,
-  type PushNotificationType,
-} from '@/modules/construction-work/notifications/resolvePathFromNotification'
+import {resolvePathFromNotification} from '@/modules/construction-work/notifications/resolvePathFromNotification'
 import {ModuleSlug} from '@/modules/slugs'
-import {PushNotification} from '@/types/notification'
 
 describe('createRoute', () => {
   const mockNotification = {
@@ -44,9 +40,7 @@ describe('createRoute', () => {
     expect(
       resolvePathFromNotification?.(
         {
-          data: {} as PushNotification<{
-            type: PushNotificationType
-          }>['data'],
+          data: {},
           title: mockNotification.title,
           body: mockNotification.body,
         },

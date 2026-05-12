@@ -39,12 +39,16 @@ export const useRegisterDevice = () => {
       new Promise<boolean>((resolve, _reject) => {
         if (requestNotificationPermission) {
           void requestPermission().then(granted => {
-            granted && registerDevice()
+            if (granted) {
+              registerDevice()
+            }
 
             resolve(granted)
           })
         } else {
-          hasPermission && registerDevice()
+          if (hasPermission) {
+            registerDevice()
+          }
 
           resolve(hasPermission)
         }

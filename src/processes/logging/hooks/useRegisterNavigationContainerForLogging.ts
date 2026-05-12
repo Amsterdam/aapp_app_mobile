@@ -85,16 +85,12 @@ export const useRegisterNavigationContainerForLogging = () => {
           const {
             appInsights: customDimensionsAppInsights,
             piwik: customDimensionsPiwik,
-          } = createCustomDimensionsFromRouteParams(
-            route.params as Record<string, unknown>,
-          )
+          } = createCustomDimensionsFromRouteParams(route.params)
 
           if (piwikInstance) {
             piwikInstance
               .trackScreen(route.name, {
-                title: getTitleFromParams(
-                  route.params as Record<string, unknown>,
-                ),
+                title: getTitleFromParams(route.params),
                 customDimensions: customDimensionsPiwik as {
                   [index: number]: string
                 },
@@ -112,9 +108,7 @@ export const useRegisterNavigationContainerForLogging = () => {
             uri: route.path,
             refUri: previousRoute?.name,
             properties: {
-              title: getTitleFromParams(
-                route.params as Record<string, unknown>,
-              ),
+              title: getTitleFromParams(route.params),
               routeHasBeenSeen,
               ...customDimensionsAppInsights,
               ...(navigationStartTime.current

@@ -78,13 +78,16 @@ export const MessageForm = ({ref, onMainImageSelected}: Props) => {
           }
 
           dispatch(setMainImage({projectId: currentProjectId, mainImage}))
-          !mainImageDescription &&
+
+          if (!mainImageDescription) {
             dispatch(
               setMainImageDescription({
                 projectId: currentProjectId,
                 mainImageDescription: undefined,
               }),
             )
+          }
+
           onMainImageSelected()
         })
 
@@ -103,13 +106,15 @@ export const MessageForm = ({ref, onMainImageSelected}: Props) => {
   const onSubmitForm: SubmitHandler<FormData> = useCallback(
     data => {
       saveMessage(data)
-      !mainImageDescription &&
+
+      if (!mainImageDescription) {
         dispatch(
           setMainImageDescription({
             projectId: currentProjectId,
             mainImageDescription: undefined,
           }),
         )
+      }
     },
     [dispatch, mainImageDescription, currentProjectId, saveMessage],
   )

@@ -17,9 +17,13 @@ export const useRestartLogin = () => {
     try {
       setIsError(false)
       await Promise.all(
-        clientModules.map(module =>
-          module.logout?.(store.dispatch, store.getState()),
-        ),
+        clientModules.map(module => {
+          if (module.logout) {
+            return module.logout(store.dispatch, store.getState())
+          } else {
+            return Promise.resolve()
+          }
+        }),
       )
       await resetAccessCode()
     } catch (e) {

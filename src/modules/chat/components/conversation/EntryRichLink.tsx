@@ -19,7 +19,9 @@ export const EntryRichLink = ({message}: Props) => {
   const domain = getDomainName(url)
 
   const onPress = useCallback(() => {
-    url && openUrl(url, false)
+    if (url) {
+      openUrl(url, false)
+    }
   }, [openUrl, url])
 
   return (

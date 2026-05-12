@@ -100,7 +100,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       navigation.popTo(ConstructionWorkEditorRouteName.authorizedProjects, {
         showSuccessfullySentMessageAlert: true,
       })
-    } catch (error: unknown) {
+    } catch {
       setAlert(alerts.saveMessageFailed)
     }
   }

@@ -22,7 +22,7 @@ export const useRequestBluetoothPermission = () => {
         await requestBluetoothConnectPermission()
 
       return bluetoothScanPermission && bluetoothConnectPermission
-    } catch (error) {
+    } catch {
       return false
     }
   }, [requestBluetoothConnectPermission, requestBluetoothPermission])

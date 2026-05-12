@@ -42,7 +42,7 @@ export const removeSecureParkingAccount = async (
         )
       }
     }
-  } catch (e) {
+  } catch {
     currentArr = []
   }
 

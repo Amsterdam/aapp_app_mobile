@@ -21,6 +21,7 @@ export const useBlockScreenshots = ({
       enableBlockScreenshot({
         backgroundColor: color.appSwitcher.background,
         scale: 0.33,
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         source: require('@/assets/images/logoWhite.png') as ImageSourcePropType,
       })
     }

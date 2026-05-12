@@ -40,7 +40,9 @@ export const SwitchField = <FormFields extends FieldValues>({
   })
 
   useEffect(() => {
-    error?.message && accessibilityAnnounce(error.message)
+    if (error?.message) {
+      accessibilityAnnounce(error.message)
+    }
   }, [error, accessibilityAnnounce])
 
   return (

@@ -34,7 +34,7 @@ export const useTrackEvents = () => {
         appInsights,
         piwikInstance,
         route?.name,
-        (route?.params ?? {}) as Params,
+        route?.params ?? {},
       ),
     [
       piwikInstance,

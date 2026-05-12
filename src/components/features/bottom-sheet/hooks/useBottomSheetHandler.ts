@@ -22,7 +22,11 @@ export const useBottomSheetHandler = () => {
       const newIsOpen = snapPointIndex !== -1
 
       if (newIsOpen !== isOpen) {
-        newIsOpen ? open(variantRef.current) : close()
+        if (newIsOpen) {
+          open(variantRef.current)
+        } else {
+          close()
+        }
       }
     },
     [close, isOpen, open],

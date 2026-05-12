@@ -31,7 +31,7 @@ export const useServicePointListItemData = (
     if (servicePoint?.properties && listProperty) {
       return formatPropertyValue(
         listProperty.type as ServiceDetailPropertyType,
-        servicePoint.properties[listProperty.key] as number | string | null,
+        servicePoint.properties[listProperty.key],
       )
     }
   }, [servicePoint, listProperty])

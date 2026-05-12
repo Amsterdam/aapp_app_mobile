@@ -21,7 +21,7 @@ export const isTokenValid = (token: string | undefined) => {
 
       return false
     }
-  } catch (e) {
+  } catch {
     appInsights.trackException({
       exception: new Error(ExceptionLogKey.tokenInvalid),
       severityLevel: SeverityLevel.Warning,
