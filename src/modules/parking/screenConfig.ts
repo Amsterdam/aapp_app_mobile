@@ -14,7 +14,7 @@ import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPla
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
 import {ParkingSessionHistoryScreen} from '@/modules/parking/screens/ParkingSessionHistory.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
-import {ParkingVisitorEditSessionScreen} from '@/modules/parking/screens/ParkingVisitorEditSession.screen'
+import {ParkingVisitorExtendSessionScreen} from '@/modules/parking/screens/ParkingVisitorExtendSession.screen'
 import {ParkingAccountScreen} from '@/modules/parking/screens/accounts/ParkingAccount.screen'
 import {ParkingAccountsScreen} from '@/modules/parking/screens/accounts/ParkingAccounts.screen'
 import {ParkingLogoutScreen} from '@/modules/parking/screens/logout/ParkingLogout.screen'
@@ -57,12 +57,12 @@ export const parkingScreenConfig: StackNavigationRoutes<
       headerTitle: 'Parkeersessie aanpassen',
     },
   },
-  [ParkingRouteName.visitorEditSession]: {
-    component: ParkingVisitorEditSessionScreen,
-    name: ParkingRouteName.visitorEditSession,
+  [ParkingRouteName.visitorExtendSession]: {
+    component: ParkingVisitorExtendSessionScreen,
+    name: ParkingRouteName.visitorExtendSession,
     options: {
       headerShown: false,
-      headerTitle: 'Parkeersessie aanpassen',
+      headerTitle: 'Nieuwe parkeersessie',
     },
   },
   [ParkingRouteName.myLicensePlates]: {

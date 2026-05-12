@@ -26,7 +26,7 @@ export enum ParkingRouteName {
   parkingSession = 'ParkingSession',
   parkingSessionTransactions = 'ParkingSessionTransactions',
   startSession = 'ParkingStartSession',
-  visitorEditSession = 'ParkingVisitorEditSession',
+  visitorExtendSession = 'ParkingVisitorExtendSession',
 }
 
 export type ParkingStackParams = {
@@ -63,7 +63,7 @@ export type ParkingStackParams = {
   [ParkingRouteName.parkingSessionTransactions]: undefined
   [ParkingRouteName.parkingMoneyTransactions]: undefined
   [ParkingRouteName.editSession]: {parkingSession: ParkingSession}
-  [ParkingRouteName.visitorEditSession]: {parkingSession: ParkingSession}
+  [ParkingRouteName.visitorExtendSession]: {parkingSession: ParkingSession}
   [ParkingRouteName.forgotAccessCode]: undefined
   [ParkingRouteName.startSession]:
     | {defaultStartTime?: string; parkingMachineId?: string}

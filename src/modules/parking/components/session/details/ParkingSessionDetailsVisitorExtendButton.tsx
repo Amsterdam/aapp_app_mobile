@@ -14,7 +14,7 @@ export const ParkingSessionDetailsVisitorExtendButton = ({
   const {navigate} = useNavigation()
 
   const onPress = useCallback(() => {
-    navigate(ParkingRouteName.visitorEditSession, {
+    navigate(ParkingRouteName.visitorExtendSession, {
       parkingSession,
     })
   }, [navigate, parkingSession])

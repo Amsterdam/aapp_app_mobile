@@ -8,7 +8,7 @@ import {
   ParkingSessionFormProvider,
   type ParkingSessionFormValues,
 } from '@/modules/parking/components/form/ParkingSessionFormProvider'
-import {ParkingVisitorEditSessionButtons} from '@/modules/parking/components/form/ParkingVisitorEditSessionButtons'
+import {ParkingVisitorExtendSessionButton} from '@/modules/parking/components/form/ParkingVisitorExtendSessionButton'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingFixedFormField} from '@/modules/parking/components/session/ParkingFixedFormField'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
@@ -17,7 +17,7 @@ import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 type Props = NavigationProps<ParkingRouteName.editSession>
 
-export const ParkingVisitorEditSessionScreen = ({route}: Props) => {
+export const ParkingVisitorExtendSessionScreen = ({route}: Props) => {
   const {parkingSession} = route.params ?? {}
 
   return (
@@ -28,7 +28,7 @@ export const ParkingVisitorEditSessionScreen = ({route}: Props) => {
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
           hasStickyAlert
-          testID="ParkingStartSessionScreen">
+          testID="ParkingVisitorExtendSessionScreen">
           <Box>
             <Column gutter="lg">
               <ParkingFixedFormField<ParkingSessionFormValues>
@@ -51,7 +51,8 @@ export const ParkingVisitorEditSessionScreen = ({route}: Props) => {
                 <ParkingChooseEndTimeButton />
                 <ParkingReceipt />
               </Column>
-              <ParkingVisitorEditSessionButtons />
+
+              <ParkingVisitorExtendSessionButton />
             </Column>
           </Box>
         </Screen>

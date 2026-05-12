@@ -1,7 +1,6 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
-import {Column} from '@/components/ui/layout/Column'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/parking/alerts'
@@ -23,7 +22,7 @@ type FieldValues = {
   startTime: Dayjs
 }
 
-export const ParkingVisitorEditSessionButtons = () => {
+export const ParkingVisitorExtendSessionButton = () => {
   const {handleSubmit, formState} = useFormContext<FieldValues>()
   const [startSession, {isLoading}] = useStartSessionMutation()
 
@@ -93,21 +92,14 @@ export const ParkingVisitorEditSessionButtons = () => {
   )
 
   return (
-    <Column gutter="md">
-      <Button
-        disabled={formState.isSubmitting || isLoading}
-        isLoading={isLoading}
-        label="Bevestig nieuwe eindtijd"
-        onPress={handleSubmit(onSubmit)}
-        testID="ParkingEditSessionButton"
-        variant="primary"
-      />
-      <Button
-        label="Annuleren"
-        onPress={navigation.goBack}
-        testID="ParkingEditSessionButton"
-        variant="secondary"
-      />
-    </Column>
+    <Button
+      disabled={formState.isSubmitting || isLoading}
+      icon={{name: 'parking-start'}}
+      isLoading={isLoading}
+      label="Start parkeersessie"
+      onPress={handleSubmit(onSubmit)}
+      testID="ParkingVisitorExtendSessionButton"
+      variant="primary"
+    />
   )
 }
