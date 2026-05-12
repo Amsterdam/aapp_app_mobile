@@ -1,5 +1,6 @@
 import {PartialState, NavigationState} from '@react-navigation/native'
 import {type ReduxDispatch} from '@/hooks/redux/types'
+import {tagTypes} from '@/modules/parking/constants'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi} from '@/modules/parking/service'
 import {parkingSlice, selectParkingAccounts} from '@/modules/parking/slice'
@@ -61,8 +62,7 @@ export const postProcessLinking = (
           )
         }
 
-        dispatch(parkingApi.util.resetApiState())
-
+        dispatch(parkingApi.util.invalidateTags([...tagTypes]))
         dispatch(parkingSlice.actions.setIsLoggingIn(false))
         dispatch(parkingSlice.actions.setDeeplinkAccount(undefined))
       }

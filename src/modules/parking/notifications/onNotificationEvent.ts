@@ -1,4 +1,5 @@
 import type {ModuleClientConfig} from '@/modules/types'
+import {tagTypes} from '@/modules/parking/constants'
 import {parkingApi} from '@/modules/parking/service'
 import {
   setCurrentAccountByPermitReportCode,
@@ -12,5 +13,5 @@ export const onNotificationEvent: ModuleClientConfig<{
 
   dispatch(setCurrentPermitReportCode(reportCode))
   dispatch(setCurrentAccountByPermitReportCode(reportCode))
-  dispatch(parkingApi.util.resetApiState())
+  dispatch(parkingApi.util.invalidateTags([...tagTypes]))
 }
