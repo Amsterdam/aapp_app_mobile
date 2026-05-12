@@ -319,26 +319,24 @@ const main = async () => {
     await getOpenCopilotReviewComments(pullNumber)
   const isReviewedByCopilot = await getIsReviewedByCopilot(pullNumber)
 
-  if (!isReviewedByCopilot) {
-    core.info('No Copilot review detected; skipping Copilot ready label.')
-
-    return
-  }
-
-  if (openCopilotReviewComments > 0) {
-    core.info('Open copilot review comments detected.')
-
-    return
-  }
-
-  if (!alreadyOnPr.has(COPILOT_READY_LABEL)) {
-    core.info(`Adding labels to PR: ${COPILOT_READY_LABEL}`)
-    await addLabels(
-      pullNumber,
-      [COPILOT_READY_LABEL],
-      GENERAL_LABEL_COLOR,
-      'Copilot review completed with no open comments.',
-    )
+  if (isReviewedByCopilot && openCopilotReviewComments === 0) {
+    if (!alreadyOnPr.has(COPILOT_READY_LABEL)) {
+      core.info(`Adding labels to PR: ${COPILOT_READY_LABEL}`)
+      await addLabels(
+        pullNumber,
+        [COPILOT_READY_LABEL],
+        GENERAL_LABEL_COLOR,
+        'Copilot review completed with no open comments.',
+      )
+    }
+  } else if (alreadyOnPr.has(COPILOT_READY_LABEL)) {
+    core.info(`Removing label from PR: ${COPILOT_READY_LABEL}`)
+    await octokit.rest.issues.removeLabel({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: pullNumber,
+      name: COPILOT_READY_LABEL,
+    })
   }
 }
 
