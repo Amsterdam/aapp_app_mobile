@@ -22,8 +22,7 @@ export const useRequestBluetoothPermission = () => {
         await requestBluetoothConnectPermission()
 
       return bluetoothScanPermission && bluetoothConnectPermission
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    } catch {
       return false
     }
   }, [requestBluetoothConnectPermission, requestBluetoothPermission])

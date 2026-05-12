@@ -9,13 +9,14 @@ export type EnvironmentState = {
   environment: Environment
 }
 
+const initialState: EnvironmentState = {
+  custom: customDefaultUrls,
+  environment: isDevApp ? Environment.acceptance : Environment.production,
+}
+
 export const environmentSlice = createSlice({
   name: ReduxKey.environment,
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  initialState: {
-    custom: customDefaultUrls,
-    environment: isDevApp ? Environment.acceptance : Environment.production,
-  } as EnvironmentState,
+  initialState,
   reducers: {
     setEnvironment: (state, {payload}: PayloadAction<Environment>) => {
       state.environment = payload

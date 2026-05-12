@@ -100,8 +100,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       navigation.popTo(ConstructionWorkEditorRouteName.authorizedProjects, {
         showSuccessfullySentMessageAlert: true,
       })
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error: unknown) {
+    } catch {
       setAlert(alerts.saveMessageFailed)
     }
   }

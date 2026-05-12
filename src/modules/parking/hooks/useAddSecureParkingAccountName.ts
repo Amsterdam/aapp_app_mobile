@@ -42,8 +42,7 @@ export const useAddSecureParkingAccountName = () => {
             )
           }
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (e) {
+      } catch {
         accounts = []
       }
 

@@ -37,8 +37,7 @@ export const useAddSecureParkingAccount = () => {
             )
           }
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (e) {
+      } catch {
         currentArr = []
       }
 
