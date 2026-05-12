@@ -6,11 +6,15 @@ import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/Park
 // import {ParkingChooseStartTimeButton} from '@/modules/parking/components/form/ParkingChooseStartTimeButton'
 import {ParkingEditSessionButtons} from '@/modules/parking/components/form/ParkingEditSessionButtons'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
-import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
+import {
+  ParkingSessionFormProvider,
+  type ParkingSessionFormValues,
+} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
-import {ParkingShowStartTime} from '@/modules/parking/components/session/ParkingShowStartTime'
+import {ParkingFixedFormField} from '@/modules/parking/components/session/ParkingFixedFormField'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 // import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = NavigationProps<ParkingRouteName.editSession>
@@ -30,7 +34,11 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
               {/* {dayjs(parkingSession.start_date_time).isAfter(dayjs()) ? (
                 <ParkingChooseStartTimeButton />
               ) : ( */}
-              <ParkingShowStartTime />
+              <ParkingFixedFormField<ParkingSessionFormValues, 'startTime'>
+                fieldName="startTime"
+                label="Starttijd"
+                transformValue={time => formatDateTimeToDisplay(time, false)}
+              />
               {/* )} */}
 
               <Column gutter="xl">

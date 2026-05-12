@@ -21,7 +21,7 @@ export const ParkingSessionDetailsVisitorExtendButton = ({
 
   return (
     <Button
-      label="Verleng parkeersessie"
+      label="Langer parkeren"
       onPress={onPress}
       testID="ParkingSessionDetailsVisitorExtendButton"
       variant="secondary"
