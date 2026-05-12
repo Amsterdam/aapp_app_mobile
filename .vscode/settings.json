@@ -50,6 +50,13 @@
   "react-ai-helper.aiBaseURL": "http://localhost:1337/v1",
   "react-ai-helper.aiModel": "codestral-22b",
   "react-ai-helper.testIDPrefixFileNameRegex": "src/modules/([^/]+)/",
-  "cSpell.words": ["bottomsheet", "Linkings", "recyclepunten", "Sourceid"],
+  "cSpell.words": [
+    "bottomsheet",
+    "EVSE",
+    "evses",
+    "Linkings",
+    "recyclepunten",
+    "Sourceid"
+  ],
   "js/ts.preferences.preferTypeOnlyAutoImports": true
 }

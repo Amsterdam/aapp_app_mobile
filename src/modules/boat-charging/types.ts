@@ -46,8 +46,16 @@ export type BoatChargingLocation = {
   total_sockets: number
 }
 
+export type EVSE = {
+  display_name: string
+  evse_id: string
+  id: string
+  ocpp_evse_id: number
+  status: ChargingPointStatus
+}
+
 type ChargingStation = {
-  evses: []
+  evses: EVSE[]
   id: string
   location_id: string
   status: ChargingPointStatus

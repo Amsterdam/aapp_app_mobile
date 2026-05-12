@@ -1,6 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect} from 'react'
+import {useEffect, useMemo} from 'react'
 import {Platform} from 'react-native'
+import simplur from 'simplur'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -14,20 +15,24 @@ import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components/bottomsheet/BoatChargingPointDetailsButton'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
+import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {
   resetSelectedBoatChargingPointId,
   useSelectedBoatChargingPointId,
 } from '@/modules/boat-charging/slice'
+import {ChargingPointStatus, type EVSE} from '@/modules/boat-charging/types'
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingPointDetails = () => {
   const dispatch = useDispatch()
   const id = useSelectedBoatChargingPointId()
-  const {data, isLoading, isError} = useBoatChargingLocationDetailsQuery(
-    id ?? skipToken,
-  )
+  const {
+    data: location,
+    isLoading,
+    isError,
+  } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
   const autoFocus = useAccessibilityFocus()
   const {size} = useTheme()
 
@@ -38,17 +43,34 @@ export const BoatChargingPointDetails = () => {
     [dispatch],
   )
 
+  const sockets = useMemo(() => {
+    const evses: EVSE[] = []
+
+    location?.charging_stations.forEach(station =>
+      station.evses.forEach(e => evses.push(e)),
+    )
+
+    return evses
+  }, [location?.charging_stations])
+  const freeSockets = sockets.filter(
+    s => s.status === ChargingPointStatus.OPERATIVE,
+  )
+
   if (isLoading) {
     return <PleaseWait testID="BoatChargingPointDetailsPleaseWait" />
   }
 
-  if (isError || !data) {
+  if (isError || !location) {
     return (
       <SomethingWentWrong testID="BoatChargingPointDetailsSomethingWentWrong" />
     )
   }
 
-  const {name, tariff} = data
+  const {name, status, tariff} = location
+
+  const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[sockets.length]}`
+  const availableSocketsSentence = `${freeSockets.length} van ${sockets.length} ${pluralizedSockets} vrij`
+  const locationIcon = boatChargingPointStateMap[mapStatusToState[status]]?.icon
 
   return (
     <Box
@@ -76,11 +98,11 @@ export const BoatChargingPointDetails = () => {
         <Column gutter="xs">
           <Row gutter="sm">
             <CustomMarkerIcon
-              icon={boatChargingPointStateMap.free.icon}
+              icon={locationIcon}
               size={size.spacing.md}
               testID="BoatChargingListItemCustomIcon"
             />
-            <Phrase>2 van 4 stopcontacten vrij</Phrase>
+            <Phrase>{availableSocketsSentence}</Phrase>
           </Row>
           <Phrase color="secondary">
             3.7 kW – {formatNumber(tariff.energy_price_per_kwh, 'EUR')} per kWh
