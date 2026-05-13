@@ -7,6 +7,7 @@ import {
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {devError} from '@/processes/development'
 
 type Props<T extends FieldValues, P extends FieldPath<T>> = {
   fieldName: P
@@ -26,12 +27,16 @@ export const ParkingFixedFormField = <
   const value = watch(fieldName)
 
   const transformedValue =
-    transformValue && value ? transformValue(value) : value
+    transformValue && value !== undefined && value !== null
+      ? transformValue(value)
+      : value
 
   if (typeof transformedValue !== 'string') {
-    throw new TypeError(
-      `Field value is of invalid type '${typeof transformedValue}'.`,
+    devError(
+      `ParkingFixedFormField received an invalid value '${typeof transformedValue}' for field '${String(fieldName)}' without a valid transform.`,
     )
+
+    return null
   }
 
   return (
