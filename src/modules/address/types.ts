@@ -27,7 +27,7 @@ export type AddressState = {
    */
   address?: Address
   /**
-   * Use to override the default behavior of showing location when no address is available
+   * Used to override the default behavior of showing location when no address is available
    */
   alwaysShowAddress: boolean
   /**
