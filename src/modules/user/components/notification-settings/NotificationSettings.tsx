@@ -95,7 +95,7 @@ export const NotificationSettings = () => {
                   emphasis="default"
                   key={slug}
                   onPress={() => {
-                    dispatch(setAlwaysShowAddress(true)) // Enforces the user in the path where they can enter My address to see be able to turn on push notifications.
+                    dispatch(setAlwaysShowAddress(true)) // Show address-based settings so the user can enable push notifications.
                     dispatch(
                       setLocationType({
                         locationType: 'address',
