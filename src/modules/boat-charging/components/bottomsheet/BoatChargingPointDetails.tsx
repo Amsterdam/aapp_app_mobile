@@ -103,7 +103,7 @@ export const BoatChargingPointDetails = () => {
             <CustomMarkerIcon
               icon={statusIcon}
               size={size.spacing.md}
-              testID="BoatChargingListItemCustomIcon"
+              testID="BoatChargingPointDetailsCustomIcon"
             />
             <Phrase>{availableSocketsSentence}</Phrase>
           </Row>
