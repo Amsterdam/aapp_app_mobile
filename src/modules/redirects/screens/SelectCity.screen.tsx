@@ -6,10 +6,8 @@ import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import PeopleAtCityOffice from '@/modules/redirects/assets/images/people-at-city-office.svg'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 
@@ -52,11 +50,6 @@ export const SelectCityScreen = ({navigation}: Props) => {
             </Column>
           </Box>
         </HorizontalSafeArea>
-        <FigureWithFacadesBackground
-          testID="RedirectsSelectCityBackground"
-          withWeesp>
-          <PeopleAtCityOffice />
-        </FigureWithFacadesBackground>
       </Column>
     </Screen>
   )
