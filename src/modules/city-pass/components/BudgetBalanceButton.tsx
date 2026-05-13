@@ -7,7 +7,6 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import BalanceSvg from '@/modules/city-pass/assets/balance.svg'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
 
@@ -33,7 +32,12 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
         <Column>
           <Box variant="cityPass">
             <Row gutter="md">
-              <BalanceSvg />
+              <Icon
+                color="inverse"
+                isFilled
+                name="euro-coins"
+                size="xxl"
+              />
               <Column shrink={1}>
                 <Phrase
                   color="inverse"

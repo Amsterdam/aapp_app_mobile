@@ -3,12 +3,11 @@ import {Screen} from '@/components/features/screen/Screen'
 import {DigiDButton} from '@/components/ui/buttons/DigiDButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useRemoveSecureItems} from '@/hooks/secureStorage/useRemoveSecureItems'
-import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
+import {CityPassImage} from '@/modules/city-pass/components/CityPassImage'
 import {RequestCityPass} from '@/modules/city-pass/components/RequestCityPass'
 import {useLogin} from '@/modules/city-pass/hooks/useLogin'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
@@ -34,9 +33,7 @@ export const CityPassIntroScreen = () => {
     <Screen
       hasStickyAlert
       testID="CityPassDashboardScreen">
-      <FigureWithFacadesBackground testID="CityPassStartImage">
-        <CityPassImage />
-      </FigureWithFacadesBackground>
+      <CityPassImage />
       <Box>
         <Title text="Zet uw Stadspas in de app" />
         <Gutter height="sm" />
