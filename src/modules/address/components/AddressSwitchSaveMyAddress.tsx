@@ -41,19 +41,11 @@ export const AddressSwitchSaveMyAddress = ({
     setIsSuccessAlertVisible(false)
     dispatch(addAddress(moduleAddress))
 
-    if (moduleHasPushNotificationService) {
-      void postNotificationAddress(moduleAddress)
-    }
+    void postNotificationAddress(moduleAddress)
 
     setLocationType('address')
     setIsSuccessAlertVisible(true)
-  }, [
-    moduleAddress,
-    dispatch,
-    moduleHasPushNotificationService,
-    setLocationType,
-    postNotificationAddress,
-  ])
+  }, [moduleAddress, dispatch, setLocationType, postNotificationAddress])
 
   return (
     <>
