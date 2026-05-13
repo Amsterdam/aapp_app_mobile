@@ -1,9 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
-import {Platform} from 'react-native'
 import simplur from 'simplur'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
-import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -95,25 +93,11 @@ export const BoatChargingPointDetails = () => {
       insetBottom="md"
       insetHorizontal="md">
       <Column gutter="lg">
-        <Column gutter="xs">
-          <Title
-            level="h3"
-            ref={autoFocus}
-            text={name}
-          />
-          {/* TODO: add share functionality once decided what to share */}
-          <ExternalLinkButton
-            alignSelf="flex-start"
-            icon={{
-              name: Platform.OS === 'android' ? 'share-android' : 'share-ios',
-              size: 'ml',
-            }}
-            label="Delen"
-            noPadding
-            testID="BoatChargingPointDetailsShareButton"
-            variant="tertiary"
-          />
-        </Column>
+        <Title
+          level="h3"
+          ref={autoFocus}
+          text={name}
+        />
         <Column gutter="xs">
           <Row gutter="sm">
             <CustomMarkerIcon
