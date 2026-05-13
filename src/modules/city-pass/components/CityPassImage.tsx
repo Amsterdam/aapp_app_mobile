@@ -11,7 +11,7 @@ export const CityPassImage = () => {
   const figureHeight = getHeight(availableHeight, isLandscape)
 
   return (
-    <Size maxHeight={figureHeight}>
+    <Size height={figureHeight}>
       <CityPassImageSvg />
     </Size>
   )
