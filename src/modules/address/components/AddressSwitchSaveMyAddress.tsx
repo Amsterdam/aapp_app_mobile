@@ -13,6 +13,7 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {usePostNotificationAddressMutation} from '@/modules/address/service'
 import {addAddress, setShowSaveAsMyAddress} from '@/modules/address/slice'
+import {clientModules} from '@/modules/modules'
 
 type Props = {
   moduleSlug: ModuleSlug
@@ -28,6 +29,9 @@ export const AddressSwitchSaveMyAddress = ({
   const {address: moduleAddress} = useSelectedAddress(moduleSlug)
   const setLocationType = useSetLocationType(moduleSlug)
   const [postNotificationAddress] = usePostNotificationAddressMutation()
+  const moduleHasPushNotificationService = clientModules.find(
+    m => m.slug === moduleSlug,
+  )?.requiresFirebaseToken
 
   const onSaveMyAddress = useCallback(() => {
     if (!moduleAddress) {
@@ -41,7 +45,7 @@ export const AddressSwitchSaveMyAddress = ({
 
     setLocationType('address')
     setIsSuccessAlertVisible(true)
-  }, [moduleAddress, dispatch, postNotificationAddress, setLocationType])
+  }, [moduleAddress, dispatch, setLocationType, postNotificationAddress])
 
   return (
     <>
@@ -53,8 +57,10 @@ export const AddressSwitchSaveMyAddress = ({
           />
           <Paragraph>
             Met Mijn adres ziet u in de hele app alle informatie die bij dit
-            adres hoort. U kunt ook meldingen uit deze buurt krijgen. Dit stelt
-            u in bij Mijn profiel.
+            adres hoort.
+            {moduleHasPushNotificationService
+              ? ' U kunt ook meldingen ontvangen voor Mijn adres.'
+              : ''}
           </Paragraph>
           <Box insetTop="smd">
             <Row gutter="smd">

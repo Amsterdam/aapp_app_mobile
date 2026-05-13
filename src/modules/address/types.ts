@@ -27,6 +27,10 @@ export type AddressState = {
    */
   address?: Address
   /**
+   * Used to override the default behavior of showing location when no address is available
+   */
+  alwaysShowAddress: boolean
+  /**
    * Error when getting coordinates or fetching address fails
    */
   getLocationIsError: boolean | undefined
