@@ -2,7 +2,7 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
-import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
+import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {AddWasteCardFigure} from '@/modules/waste-container/assets/images/AddWasteCardFigure'
@@ -14,14 +14,11 @@ export const AddWasteCardScreen = () => (
     testID="AddWasteCardScreen"
     withLeftInset={false}
     withRightInset={false}>
-    <Box insetTop="lg">
+    <Box insetTop="sm">
       <Column gutter="lg">
-        <FigureWithFacadesBackground
-          height={209}
-          illustrationAspectRatio="square"
-          testID="AddWasteCardFigureWithFacadesBackground">
+        <Row align="center">
           <AddWasteCardFigure />
-        </FigureWithFacadesBackground>
+        </Row>
         <HorizontalSafeArea>
           <Box insetHorizontal="md">
             <Column gutter="lg">
