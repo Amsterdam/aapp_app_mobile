@@ -14,14 +14,14 @@ export const ParkingSessionDetailsVisitorExtendButton = ({
   const {navigate} = useNavigation()
 
   const onPress = useCallback(() => {
-    navigate(ParkingRouteName.visitorEditSession, {
+    navigate(ParkingRouteName.visitorExtendSession, {
       parkingSession,
     })
   }, [navigate, parkingSession])
 
   return (
     <Button
-      label="Verleng parkeersessie"
+      label="Langer parkeren"
       onPress={onPress}
       testID="ParkingSessionDetailsVisitorExtendButton"
       variant="secondary"

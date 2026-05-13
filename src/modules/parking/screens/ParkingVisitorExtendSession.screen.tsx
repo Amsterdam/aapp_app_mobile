@@ -4,16 +4,20 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
-import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
-import {ParkingVisitorEditSessionButtons} from '@/modules/parking/components/form/ParkingVisitorEditSessionButtons'
+import {
+  ParkingSessionFormProvider,
+  type ParkingSessionFormValues,
+} from '@/modules/parking/components/form/ParkingSessionFormProvider'
+import {ParkingVisitorExtendSessionButton} from '@/modules/parking/components/form/ParkingVisitorExtendSessionButton'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
-import {ParkingShowStartTime} from '@/modules/parking/components/session/ParkingShowStartTime'
+import {ParkingFixedFormField} from '@/modules/parking/components/session/ParkingFixedFormField'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 type Props = NavigationProps<ParkingRouteName.editSession>
 
-export const ParkingVisitorEditSessionScreen = ({route}: Props) => {
+export const ParkingVisitorExtendSessionScreen = ({route}: Props) => {
   const {parkingSession} = route.params ?? {}
 
   return (
@@ -24,15 +28,31 @@ export const ParkingVisitorEditSessionScreen = ({route}: Props) => {
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
           hasStickyAlert
-          testID="ParkingStartSessionScreen">
+          testID="ParkingVisitorExtendSessionScreen">
           <Box>
             <Column gutter="lg">
-              <ParkingShowStartTime fieldName="originalStartTime" />
+              <ParkingFixedFormField<ParkingSessionFormValues>
+                fieldName="licensePlate.vehicle_id"
+                label="Kenteken"
+              />
+              <ParkingFixedFormField<ParkingSessionFormValues>
+                fieldName="parking_machine"
+                label="Parkeerautomaat"
+              />
+              <ParkingFixedFormField<
+                ParkingSessionFormValues,
+                'originalEndTime'
+              >
+                fieldName="originalEndTime"
+                label="Starttijd"
+                transformValue={time => formatDateTimeToDisplay(time, false)}
+              />
               <Column gutter="xl">
                 <ParkingChooseEndTimeButton />
                 <ParkingReceipt />
               </Column>
-              <ParkingVisitorEditSessionButtons />
+
+              <ParkingVisitorExtendSessionButton />
             </Column>
           </Box>
         </Screen>

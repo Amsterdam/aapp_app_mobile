@@ -57,13 +57,15 @@ const getDefaultValues = ({
   }
 }
 
+export type ParkingSessionFormValues = ReturnType<typeof getDefaultValues>
+
 export const ParkingSessionFormProvider = ({
   children,
   defaultStartTime,
   parkingSession,
   extendVisitorSession = false,
 }: Props) => {
-  const form = useForm({
+  const form = useForm<ParkingSessionFormValues>({
     defaultValues: getDefaultValues({
       defaultStartTime,
       parkingSession,
