@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect, useMemo} from 'react'
+import {useEffect} from 'react'
 import simplur from 'simplur'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {Box} from '@/components/ui/containers/Box'
@@ -24,7 +24,7 @@ import {
   resetSelectedBoatChargingPointId,
   useSelectedBoatChargingPointId,
 } from '@/modules/boat-charging/slice'
-import {ChargingPointStatus, type EVSE} from '@/modules/boat-charging/types'
+import {ChargingPointStatus} from '@/modules/boat-charging/types'
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -50,28 +50,11 @@ export const BoatChargingPointDetails = () => {
     [dispatch],
   )
 
-  const sockets = useMemo(() => {
-    const evses: EVSE[] = []
-
-    location?.charging_stations.forEach(station =>
-      station.evses.forEach(e => evses.push(e)),
-    )
-
-    return evses
-  }, [location?.charging_stations])
+  const sockets =
+    location?.charging_stations.flatMap(station => station.evses) ?? []
   const freeSockets = sockets.filter(
     s => s.status === ChargingPointStatus.OPERATIVE,
   )
-
-  const statusIcon = useMemo(() => {
-    if (!status) {
-      return boatChargingPointStateMap[
-        mapStatusToState[ChargingPointStatus.UNKNOWN]
-      ].icon
-    }
-
-    return boatChargingPointStateMap[mapStatusToState[status]]?.icon
-  }, [status])
 
   if (isLoading) {
     return <PleaseWait testID="BoatChargingPointDetailsPleaseWait" />
@@ -79,14 +62,17 @@ export const BoatChargingPointDetails = () => {
 
   if (isError || !location) {
     return (
-      <SomethingWentWrong testID="BoatChargingPointDetailsSomethingWentWrong" />
+      <Box>
+        <SomethingWentWrong testID="BoatChargingPointDetailsSomethingWentWrong" />
+      </Box>
     )
   }
 
-  const {name, tariff} = location
+  const {address, tariff} = location
 
   const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[sockets.length]}`
   const availableSocketsSentence = `${freeSockets.length} van ${sockets.length} ${pluralizedSockets} vrij`
+  const socketsSentenceMalfunction = `${sockets.length} ${pluralizedSockets}`
 
   return (
     <Box
@@ -96,16 +82,24 @@ export const BoatChargingPointDetails = () => {
         <Title
           level="h3"
           ref={autoFocus}
-          text={name}
+          text={address.street + ' ' + address.number}
         />
         <Column gutter="xs">
           <Row gutter="sm">
             <CustomMarkerIcon
-              icon={statusIcon}
+              icon={
+                boatChargingPointStateMap[
+                  mapStatusToState[status ?? ChargingPointStatus.UNKNOWN]
+                ]?.icon
+              }
               size={size.spacing.md}
               testID="BoatChargingPointDetailsCustomIcon"
             />
-            <Phrase>{availableSocketsSentence}</Phrase>
+            <Phrase>
+              {status === ChargingPointStatus.OPERATIVE
+                ? availableSocketsSentence
+                : socketsSentenceMalfunction}
+            </Phrase>
           </Row>
           <Phrase color="secondary">
             {/* Replace 3.7 by real value once available from the endpoint (AM-880) */}
