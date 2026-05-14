@@ -90,11 +90,17 @@ const getTouchedGeneralLabels = (changedFiles: string[]): string[] => {
       generalLabels.add('android')
     }
 
-    if (file.startsWith('ios/')) {
+    if (file.startsWith('ios/') && file !== 'ios/Podfile.lock') {
       generalLabels.add('ios')
     }
 
-    if (file === 'package.json' || file === 'package-lock.json') {
+    if (
+      file === 'package.json' ||
+      file === 'package-lock.json' ||
+      file === 'ios/Podfile.lock' ||
+      file === 'Gemfile' ||
+      file === 'Gemfile.lock'
+    ) {
       generalLabels.add('dependencies')
     }
   }
