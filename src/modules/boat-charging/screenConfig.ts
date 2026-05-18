@@ -4,6 +4,7 @@ import {
   BoatChargingRouteName,
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
+import {BoatChargingDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingDetails.screen'
 
 export const screenConfig: StackNavigationRoutes<
   BoatChargingStackParams,
@@ -15,6 +16,13 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Boot laden',
       headerShown: false,
+    },
+  },
+  [BoatChargingRouteName.boatChargingDetails]: {
+    component: BoatChargingDetailsScreen,
+    name: BoatChargingRouteName.boatChargingDetails,
+    options: {
+      headerTitle: 'Opladen starten',
     },
   },
 }
