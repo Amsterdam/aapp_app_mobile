@@ -10,7 +10,7 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - or from GitHub: `git clone git@github.com:Amsterdam/aapp_app_mobile.git` (please check if it is up to date)
 - Set Node version
   - Install Volta (https://volta.sh/) and make sure it has set the correct Node version (see package.json)
-- Install Node dependencies: `npm i`.
+- Install Node dependencies: `npm run ci`.
 - For iOS development, install other dependencies:
   - install rbenv: `brew install rbenv ruby-build` and execute `rbenv init`
   - install ruby version: `rbenv install` and `rbenv global $(cat .ruby-version)`
