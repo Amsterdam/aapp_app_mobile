@@ -16,7 +16,7 @@ export const useGetParkingSessions = (
   const {visitorVehicleId} = useVisitorVehicleId()
 
   const {
-    data: parkingSessions,
+    currentData: parkingSessions,
     isLoading: isLoadingParkingSessions,
     isError: isParkingSessionsError,
     refetch: refetchParkingSessions,
