@@ -27,7 +27,7 @@ steps:
       jdkSourceOption: 'PreInstalled'
     condition: eq('${{ parameters.platform }}', 'android')
 
-  - script: npm ci
+  - script: npm run ci
     displayName: 'Install node dependencies'
 
   # Extract React Native version and set as variable

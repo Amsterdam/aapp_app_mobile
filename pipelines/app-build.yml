@@ -63,6 +63,6 @@ jobs:
         fetchDepth: 1
         fetchTags: false
       - template: ./templates/install-node.yml
-      - script: npm ci
+      - script: npm run ci
         displayName: Install Dependencies
       - template: ./templates/checks.yml
