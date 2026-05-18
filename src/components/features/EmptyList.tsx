@@ -10,7 +10,7 @@ export const EmptyList = ({
     <Title
       level="h5"
       shrink={0}
-      testID={`${testID}EmptyList`}
+      testID={testID}
       text={text}
       textAlign="center"
     />

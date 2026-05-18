@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {FlatList, StyleSheet} from 'react-native'
+import {FlatList} from 'react-native'
 import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
@@ -17,6 +17,7 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {BoatChargingEmptyList} from '@/modules/boat-charging/components/BoatChargingEmptyList'
 import {BoatChargingListItem} from '@/modules/boat-charging/components/BoatChargingListItem'
 import {ModuleSlug} from '@/modules/slugs'
+import {layoutStyles} from '@/styles/layoutStyles'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 type Props = {
@@ -36,7 +37,6 @@ export const BoatChargingList = ({
     features: geojson?.features || [],
     conditionType: ConditionType.and,
   })
-  const styles = createStyles()
   const {address} = useSelectedAddress(ModuleSlug['boat-charging'])
 
   const chargingPoints = useMemo(() => {
@@ -70,7 +70,7 @@ export const BoatChargingList = ({
         grow
         insetBottom="md">
         <FlatList
-          contentContainerStyle={styles.contentContainer}
+          contentContainerStyle={layoutStyles.grow}
           data={chargingPoints}
           keyExtractor={point => String(point.properties.id)}
           ListEmptyComponent={BoatChargingEmptyList}
@@ -108,10 +108,3 @@ export const BoatChargingList = ({
     </SafeArea>
   )
 }
-
-const createStyles = () =>
-  StyleSheet.create({
-    contentContainer: {
-      flex: 1,
-    },
-  })

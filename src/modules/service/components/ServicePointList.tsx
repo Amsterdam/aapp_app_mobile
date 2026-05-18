@@ -26,6 +26,7 @@ import {ServicePointEmptyList} from '@/modules/service/components/ServicePointEm
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
+import {layoutStyles} from '@/styles/layoutStyles'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 export const ServicePointList = ({
@@ -86,9 +87,14 @@ export const ServicePointList = ({
   }
 
   return (
-    <SafeArea bottom>
-      <Box insetBottom="md">
+    <SafeArea
+      bottom
+      flex={1}>
+      <Box
+        grow
+        insetBottom="md">
         <FlatList
+          contentContainerStyle={layoutStyles.grow}
           data={servicePointsByDistance}
           keyExtractor={point => String(point.id)}
           ListEmptyComponent={ServicePointEmptyList}

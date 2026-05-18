@@ -1,19 +1,14 @@
-import {Box} from '@/components/ui/containers/Box'
-import {Title} from '@/components/ui/text/Title'
+import {EmptyList} from '@/components/features/EmptyList'
 import {ParkingSessionsList} from '@/modules/parking/components/sessionsList/ParkingSessionsList'
 import {ParkingSessionsListVisitor} from '@/modules/parking/components/sessionsList/ParkingSessionsListVisitor'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
 
 const ListEmptyComponent = () => (
-  <Box>
-    <Title
-      level="h3"
-      testID="ParkingPlannedSessionsNoSessionsTitle"
-      text="U heeft geen geplande parkeersessie."
-      textAlign="center"
-    />
-  </Box>
+  <EmptyList
+    testID="ParkingPlannedSessionsEmptyList"
+    text="U heeft geen geplande parkeersessie."
+  />
 )
 
 export const ParkingPlannedSessionsList = () => {

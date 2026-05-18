@@ -14,6 +14,7 @@ import {
   dummyTitle,
   groupParkingSessionsByDate,
 } from '@/modules/parking/utils/groupParkingSessionsByDate'
+import {layoutStyles} from '@/styles/layoutStyles'
 
 type Props = {
   ListEmptyComponent?: ComponentType
@@ -40,6 +41,7 @@ export const ParkingSessionsListVisitor = ({
 
   return (
     <SectionList
+      contentContainerStyle={layoutStyles.grow}
       ListEmptyComponent={isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
       renderItem={({item}) => <ParkingSessionListRenderItem item={item} />}
