@@ -32,7 +32,7 @@ export const useGetParkingSessions = (
   )
 
   const {
-    data: visitorParkingSessions,
+    currentData: visitorParkingSessions,
     isLoading: isLoadingVisitorParkingSessions,
     isError: isVisitorParkingSessionsError,
     refetch: refetchVisitorParkingSessions,
