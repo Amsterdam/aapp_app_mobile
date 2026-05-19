@@ -20,9 +20,13 @@ export const ChatWaitToStart = ({children}: Props) => {
   const {close} = useChat()
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsWaitingTimeExceeded(true)
     }, 60000)
+
+    return () => {
+      clearTimeout(timeout)
+    }
   }, [])
 
   return !ready ? (
