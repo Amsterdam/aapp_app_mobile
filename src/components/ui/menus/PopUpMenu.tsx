@@ -1,6 +1,10 @@
 import {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
+import {
+  useSafeAreaInsets,
+  type EdgeInsets,
+} from 'react-native-safe-area-context'
 import {PopUpMenuItem} from '@/components/ui/menus/PopUpMenuItem'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
@@ -28,11 +32,12 @@ export const PopUpMenu = ({menuItems, orientation, topInset}: Props) => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
   const {nativeScreenHeader} = useContext(ScreenContext)
   const headerHeight = useSelector(selectHeaderHeight)
-  const sheetStyles = createStyles(
-    theme,
-    orientation,
-    topInset ?? (nativeScreenHeader ? 0 : headerHeight),
-  )
+  const insets = useSafeAreaInsets()
+
+  const sheetStyles = createStyles(theme, orientation, {
+    [orientation]: insets[orientation],
+    top: topInset ?? (nativeScreenHeader ? 0 : headerHeight),
+  })
 
   useBlurEffect(() => close())
 
@@ -68,7 +73,7 @@ export const PopUpMenu = ({menuItems, orientation, topInset}: Props) => {
 const createStyles = (
   {color, z, size}: Theme,
   orientation: PopupMenuOrientation,
-  topInset: number,
+  insets: Partial<EdgeInsets>,
 ) =>
   StyleSheet.create({
     container: {
@@ -76,7 +81,9 @@ const createStyles = (
       flexShrink: 1,
       position: 'absolute',
       [orientation]: size.spacing.sm,
-      top: topInset,
+      top: insets.top,
+      marginLeft: insets.left,
+      marginRight: insets.right,
       backgroundColor: color.box.background.distinct,
       zIndex: z.tooltip,
       elevation: 2,
