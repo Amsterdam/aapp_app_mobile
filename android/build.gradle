@@ -26,6 +26,9 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
+        mavenCentral()
+
         // Required by Notifee
         maven {
             url = "$rootDir/../node_modules/@notifee/react-native/android/libs"
