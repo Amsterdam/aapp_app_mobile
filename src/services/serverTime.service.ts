@@ -1,7 +1,7 @@
 import {GlobalApiSlug} from '@/environment'
 import {baseApi} from '@/services/baseApi'
 
-export const modulesApi = baseApi.injectEndpoints({
+export const bridgeApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getServerTime: builder.query<string, void>({
       query: () => ({
@@ -15,4 +15,4 @@ export const modulesApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 
-export const {useGetServerTimeQuery} = modulesApi
+export const {useGetServerTimeQuery} = bridgeApi
