@@ -1,5 +1,6 @@
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
+import {EmptyList} from '@/components/features/EmptyList'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -7,7 +8,6 @@ import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {Title} from '@/components/ui/text/Title'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {
   parkingApi,
@@ -20,14 +20,13 @@ import {
   ParkingTransactionsEndpointRequest,
 } from '@/modules/parking/types'
 import {groupParkingSessionsByDate} from '@/modules/parking/utils/groupParkingSessionsByDate'
+import {layoutStyles} from '@/styles/layoutStyles'
 import {formatNumber} from '@/utils/formatNumber'
 
 const ListEmptyComponent = () => (
-  <Title
-    level="h3"
-    testID="ParkingMoneyTransactionsNoTransactionsTitle"
+  <EmptyList
+    testID="ParkingMoneyTransactionsEmptyList"
     text="U heeft nog geen geldsaldo toegevoegd."
-    textAlign="center"
   />
 )
 
@@ -128,6 +127,7 @@ export const ParkingMoneyTransactionsList = () => {
         </Row>
       </Box>
       <SectionList
+        contentContainerStyle={layoutStyles.grow}
         ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
         onViewableItemsChanged={onViewableItemsChanged}
         renderItem={({item}) =>
@@ -170,9 +170,7 @@ export const ParkingMoneyTransactionsList = () => {
               key={section.title}
               top>
               <Gutter height="md" />
-              <Phrase
-                // emphasis="strong"
-                testID="ParkingPlannedSessionDatePhrase">
+              <Phrase testID="ParkingPlannedSessionDatePhrase">
                 {section.title === dummyTitle ? ' ' : section.title}
               </Phrase>
             </Border>

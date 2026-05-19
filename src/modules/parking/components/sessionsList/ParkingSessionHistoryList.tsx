@@ -22,6 +22,7 @@ import {
   dummyTitle,
   groupParkingSessionsByDate,
 } from '@/modules/parking/utils/groupParkingSessionsByDate'
+import {layoutStyles} from '@/styles/layoutStyles'
 
 type ParkingHistorySessionOrDummy =
   | (ParkingHistorySession & {dummy?: never})
@@ -114,6 +115,7 @@ export const ParkingSessionHistoryList = ({
 
   return (
     <SectionList
+      contentContainerStyle={layoutStyles.grow}
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}

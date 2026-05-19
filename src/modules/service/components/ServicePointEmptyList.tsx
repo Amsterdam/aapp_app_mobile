@@ -1,13 +1,5 @@
-import {Box} from '@/components/ui/containers/Box'
-import {Title} from '@/components/ui/text/Title'
+import {EmptyList} from '@/components/features/EmptyList'
 
 export const ServicePointEmptyList = () => (
-  <Box insetVertical="xxl">
-    <Title
-      level="h5"
-      testID="ServicePointEmptyList"
-      text="Geen resultaat"
-      textAlign="center"
-    />
-  </Box>
+  <EmptyList testID="ServicePointList" />
 )

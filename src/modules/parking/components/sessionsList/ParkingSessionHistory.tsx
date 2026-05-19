@@ -1,16 +1,11 @@
-import {Box} from '@/components/ui/containers/Box'
-import {Title} from '@/components/ui/text/Title'
+import {EmptyList} from '@/components/features/EmptyList'
 import {ParkingSessionHistoryList} from '@/modules/parking/components/sessionsList/ParkingSessionHistoryList'
 
 const ListEmptyComponent = () => (
-  <Box>
-    <Title
-      level="h3"
-      testID="ParkingSessionTransactionsNoSessionsTitle"
-      text="U heeft geen parkeerhistorie."
-      textAlign="center"
-    />
-  </Box>
+  <EmptyList
+    testID="ParkingSessionTransactionsList"
+    text="Geen parkeergeschiedenis"
+  />
 )
 
 export const ParkingSessionHistory = () => (

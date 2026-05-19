@@ -21,6 +21,7 @@ import {
   dummyTitle,
   groupParkingSessionsByDate,
 } from '@/modules/parking/utils/groupParkingSessionsByDate'
+import {layoutStyles} from '@/styles/layoutStyles'
 
 type Props = {
   ListEmptyComponent?: ComponentType
@@ -125,6 +126,7 @@ export const ParkingSessionsList = ({
   return currentPermit.no_endtime ||
     currentPermit.max_session_length_in_days > 1 ? (
     <FlatList
+      contentContainerStyle={layoutStyles.grow}
       data={result.data}
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListFooterComponent={<Gutter height="md" />}
@@ -133,6 +135,7 @@ export const ParkingSessionsList = ({
     />
   ) : (
     <SectionList
+      contentContainerStyle={layoutStyles.grow}
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}

@@ -46,7 +46,9 @@ export const ParkingMachineSearch = () => {
       grow
       insetHorizontal="md"
       insetVertical={isLandscape && !isTablet ? 'no' : 'md'}>
-      <Column gutter="lg">
+      <Column
+        flex={1}
+        gutter="lg">
         <SearchField
           accessibilityLabel="Zoek een parkeerautomaat"
           autoComplete="off"
@@ -59,6 +61,7 @@ export const ParkingMachineSearch = () => {
           value={searchTerm}
         />
         <ParkingMachineSearchResults
+          isSearching={!!searchTerm.length}
           onSelectParkingMachine={onSelectParkingMachine}
           parkingMachinesData={filteredParkingMachines}
         />
