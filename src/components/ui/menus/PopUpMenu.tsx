@@ -36,7 +36,7 @@ export const PopUpMenu = ({menuItems, orientation, topInset}: Props) => {
 
   const sheetStyles = createStyles(theme, orientation, {
     [orientation]: insets[orientation],
-    top: topInset || (nativeScreenHeader ? 0 : headerHeight),
+    top: topInset ?? (nativeScreenHeader ? 0 : headerHeight),
   })
 
   useBlurEffect(() => close())
