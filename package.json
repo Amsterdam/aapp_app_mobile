@@ -3,6 +3,7 @@
   "version": "1.27.0",
   "private": true,
   "scripts": {
+    "ci": "npm ci && npm run postinstall && npm run prepare",
     "android:connect:device": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8000 tcp:8000",
     "android:phone:dev": "react-native run-android --mode=devDebug --appIdSuffix=dev --active-arch-only",
     "android:phone:prod": "react-native run-android --mode=prodDebug --active-arch-only",

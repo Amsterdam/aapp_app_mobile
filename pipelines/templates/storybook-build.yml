@@ -3,7 +3,7 @@ steps:
     fetchDepth: 1
     fetchTags: false
   - template: ./install-node.yml
-  - script: npm ci
+  - script: npm run ci
     displayName: 'Install node dependencies'
   - template: ./checks.yml
   - script: npm run storybook:build

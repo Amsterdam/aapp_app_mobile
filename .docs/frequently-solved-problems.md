@@ -21,7 +21,7 @@ Sometimes building the JS fails due to caching issues, for example after changes
 When faced with an unclear error during the native build, some options are:
 
 - Remove `package-lock.json` and `/node_modules`
-- Run `npm i`
+- Run `npm run ci`
 
 You can also run the `clean` script command to do this for you.
 

@@ -17,7 +17,7 @@ jobs:
       - uses: ./.github/actions/install-node
 
       - name: Install dependencies
-        run: npm ci
+        run: npm run ci
 
       - name: Run Unit Tests
         run: npm run test-ci
@@ -67,7 +67,7 @@ jobs:
       - uses: ./.github/actions/install-node
 
       - name: Install dependencies
-        run: npm ci
+        run: npm run ci
 
       - name: Run Type Check
         run: npm run typescript
@@ -86,7 +86,7 @@ jobs:
       - uses: ./.github/actions/install-node
 
       - name: Install dependencies
-        run: npm ci
+        run: npm run ci
 
       - name: Run react-native bundle
         run: npm run test:bundle
