@@ -24,8 +24,9 @@ export const WasteCardScreen = () => {
   }
 
   return (
-    <Screen testID="WasteCardScreen">
-      <WasteCardMenu />
+    <Screen
+      stickyHeader={<WasteCardMenu />}
+      testID="WasteCardScreen">
       {isPortrait ? (
         <Box grow>
           <Column
