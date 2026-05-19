@@ -11,6 +11,7 @@ export enum Environment {
 }
 
 export enum GlobalApiSlug {
+  bridge = 'bridge',
   modules = 'modules',
   admin = 'beheer',
   notification = 'notification',

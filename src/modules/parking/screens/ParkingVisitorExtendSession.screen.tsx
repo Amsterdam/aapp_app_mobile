@@ -2,6 +2,7 @@ import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {TimeDifferenceNotice} from '@/modules/parking/components/TimeDifferenceNotice'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
 import {
@@ -48,7 +49,10 @@ export const ParkingVisitorExtendSessionScreen = ({route}: Props) => {
                 transformValue={time => formatDateTimeToDisplay(time, false)}
               />
               <Column gutter="xl">
-                <ParkingChooseEndTimeButton />
+                <Column gutter="md">
+                  <TimeDifferenceNotice />
+                  <ParkingChooseEndTimeButton />
+                </Column>
                 <ParkingReceipt />
               </Column>
 
