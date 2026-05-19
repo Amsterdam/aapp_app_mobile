@@ -24,7 +24,7 @@ RCT_EXPORT_METHOD(destroyStorageAndAuthorization:(RCTPromiseResolveBlock)resolve
 {
     @try {
         if (coreClient != nil) {
-            [coreClient destroyStorageAndAuthorization:TRUE completion:^(NSError * _Nullable error) {
+            [coreClient destroyStorageAndAuthorization:YES completion:^(NSError * _Nullable error) {
                 [coreClient stop];
                 [coreClient removeDelegate:self];
                 conversationClient = nil;
@@ -33,17 +33,17 @@ RCT_EXPORT_METHOD(destroyStorageAndAuthorization:(RCTPromiseResolveBlock)resolve
                 localImageUri = nil;
                 config = nil;
                 coreClient = nil;
-                resolve(@"YES");
+                resolve(@(YES));
             }];
         }else {
-            resolve(@"YES");
+            resolve(@(YES));
         }
     } @catch (NSException *exception) {
         // Handle exceptions by rejecting the promise
         NSError *error = [NSError errorWithDomain:@"destroyStorageAndAuthorization Exception"
                                              code:500
                                          userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
-        reject(@"destroy_storage_and_authorizationn_exception", @"An exception occurred during destroyStorageAndAuthorization", error);
+        reject(@"destroy_storage_and_authorization_exception", @"An exception occurred during destroyStorageAndAuthorization", error);
     }
 }
 
@@ -510,10 +510,6 @@ RCT_EXPORT_METHOD(endConversation:(RCTPromiseResolveBlock)resolve
 
         [conversationClient endSessionWithCompletion:^(NSError * _Nullable error) {
             if (error == nil) {
-                conversationClient = nil;
-                remoteConfiguration = nil;
-                receivedChoices = nil;
-                localImageUri = nil;
                 resolve(@(YES));
             }else {
                 reject(@"end_conversation_exception", @"An exception occurred during endSessionWithCompletion", error);
@@ -1012,7 +1008,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
         messageDict[@"selections"] = [self parseChoiceArrayToDictionaryArray:selectionsPayload.selections];
     }
     if (format == SMIConversationFormatTypesWebView) {
-        // Describes a webview formated message.
+        // Describes a webview formatted message.
         // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITemplatedURL.html
         // text = textPayload.text ?: @"";
