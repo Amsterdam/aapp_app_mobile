@@ -149,7 +149,7 @@
     "eslint-plugin-react-native": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.7",
     "eslint-plugin-sonarjs": "^4.0.3",
-    "eslint-plugin-storybook": "10.3.6",
+    "eslint-plugin-storybook": "10.4.0",
     "eslint-plugin-typescript-sort-keys": "^3.3.0",
     "hermes-parser": "^0.25.1",
     "husky": "^9.1.6",

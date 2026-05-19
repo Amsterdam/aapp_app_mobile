@@ -35,7 +35,7 @@ PODS:
   - DoubleConversion (1.1.6)
   - EXConstants (55.0.16):
     - ExpoModulesCore
-  - Expo (55.0.23):
+  - Expo (55.0.24):
     - boost
     - DoubleConversion
     - ExpoModulesCore
@@ -76,7 +76,7 @@ PODS:
     - ExpoModulesCore
   - ExpoDomWebView (55.0.6):
     - ExpoModulesCore
-  - ExpoFileSystem (55.0.19):
+  - ExpoFileSystem (55.0.20):
     - ExpoModulesCore
   - ExpoHaptics (55.0.14):
     - ExpoModulesCore
@@ -4252,13 +4252,13 @@ SPEC CHECKSUMS:
   Clusterer: 36faca62b79315e97774a06f75b07fd0c3c9795d
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   EXConstants: dadbeba983acc30f855a919658a2b34fbd86615d
-  Expo: 71d7bf2059afadf9b54b4645b433be1748f9e75b
+  Expo: ced324f4c15e057504b98110006d674b6bf08f84
   ExpoAsset: 7721c5c4ae2a7c3c8147a046727ac6c020b05648
   ExpoBrightness: c45644152fa9087c9d6cc75418a1f9621802181e
   ExpoClipboard: 5d1b0cd2686406f21e616f2d9b3431259dee2e6a
   ExpoDocumentPicker: be59b82799ae30811e3f37a7521d6622baa63a19
   ExpoDomWebView: b2e9d601f9cb77d3c97da73234e175b64be91928
-  ExpoFileSystem: 0b73b097e67c83622640168f620defc65a1a6f70
+  ExpoFileSystem: 5d01aa6678ccde01172351aad5720ee16845ae82
   ExpoHaptics: 679f09dc37d5981e619bc197732007a3334e80b8
   ExpoImagePicker: 7c75b2f076d6f45598fcbd035908aebc4c2eb257
   ExpoLocalAuthentication: bdf67eef520f5eb22b105d139b9cb48aa994b071
@@ -4285,7 +4285,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleMaps: 0608099d4870cac8754bdba9b6953db543432438
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
-  hermes-engine: 85087fdd0b809013340bc9ec621ce2295795aa75
+  hermes-engine: aafc94d6130ac6d0fcd6799fe10dd5496ecda0fa
   Messaging-InApp-Core: d6374c08126b2992eee889e14fdf9f5d4d457338
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   NitroModules: 5bc319d441f4983894ea66b1d392c519536e6d23
