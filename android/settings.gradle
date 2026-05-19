@@ -10,6 +10,7 @@ pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin")
 }
 plugins { id("com.facebook.react.settings")
 id("expo-autolinking-settings")
+id 'com.gradle.develocity' version '4.0.2'
 }
 extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand(expoAutolinking.rnConfigCommand) }
 rootProject.name = 'AmsterdamApp'
