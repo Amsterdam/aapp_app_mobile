@@ -1065,6 +1065,17 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
             messageDict[@"estimatedWaitTime"] = @(routingResultPayload.estimatedWaitTime);
             messageDict[@"isEWTAvailable"] = @(routingResultPayload.isEWTAvailable);
             messageDict[@"isEWTRequested"] = @(routingResultPayload.isEWTRequested);
+        } else if ([type isEqualToString:@"SessionStatusChanged"]) {
+            id<SMISessionStatusChanged> sessionStatusPayload = (id<SMISessionStatusChanged>)payload;
+            messageDict[@"sessionId"] = sessionStatusPayload.sessionId ?: @"";
+            messageDict[@"channelAddressIdentifier"] = sessionStatusPayload.channelAddressIdentifier ?: @"";
+            messageDict[@"sessionStatus"] = sessionStatusPayload.sessionStatus ?: SMISessionStatusUnknown;
+            messageDict[@"sessionStatusPrev"] = sessionStatusPayload.sessionStatusPrev ?: [NSNull null];
+            messageDict[@"sessionStartTime"] = @([sessionStatusPayload.sessionStartTime timeIntervalSince1970]);
+            messageDict[@"sessionEndTime"] = sessionStatusPayload.sessionEndTime
+              ? @([sessionStatusPayload.sessionEndTime timeIntervalSince1970])
+              : [NSNull null];
+            messageDict[@"sessionEndedByRole"] = sessionStatusPayload.sessionEndedByRole ?: [NSNull null];
         }
     }
     if (format == SMIConversationFormatTypesTextMessage) {

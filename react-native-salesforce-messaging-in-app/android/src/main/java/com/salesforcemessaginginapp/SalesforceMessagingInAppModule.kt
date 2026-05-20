@@ -245,6 +245,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
                     emitOnTypingStopped(params)
                   }
                 }
+
+                is CoreEvent.ConversationEvent.QueuePosition -> {
+                  // Not currently used in JS
+                }
               }
             }
             coreClient?.events?.collect { entry ->
@@ -267,6 +271,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
                     is ServerSentEvent.Connection.Ping -> {
                       status = "Ping"
                     }
+
+                    else -> {
+                      status = entry.event.toString()
+                    }
                   }
                   emitOnConnectionStatusChanged(status)
                 }
@@ -282,6 +290,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
                 }
 
                 is CoreEvent.ConversationEvent.ProgressIndicator -> {
+                }
+
+                is CoreEvent.ConversationEvent.QueuePosition -> {
+                  // Not currently used in JS
                 }
               }
             }
@@ -381,6 +393,20 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
         optionMap.putString("optionId", option.optionId)
         optionMap.putString("parentEntryId", option.parentMessageId)
         return optionMap
+      }
+
+      is OptionItem.TypedOptionItem.ExperienceTypeOptionItem -> {
+        return Arguments.createMap().apply {
+          putString("incomplete", "true")
+          putString("optionValue", option.toString())
+        }
+      }
+
+      else -> {
+        return Arguments.createMap().apply {
+          putString("incomplete", "true")
+          putString("optionValue", option.toString())
+        }
       }
     }
   }
@@ -516,6 +542,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
           is FormResponseFormat.ResultFormResponseFormat -> {
             // TODO once implemented for iOS
           }
+
+          else -> {
+            // Ignore new/unknown message formats
+          }
         }
       }
 
@@ -576,6 +606,35 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
       }
       is EntryPayload.StreamingTokenPayload -> {
         // TODO
+      }
+
+      is EntryPayload.SessionStatusChangedPayload -> {
+        // Try to expose the key fields needed by JS without coupling to exact SDK API.
+        runCatching {
+          val status = payload.javaClass.methods
+            .firstOrNull { it.name == "getSessionStatus" }
+            ?.invoke(payload)
+            ?.toString()
+          if (!status.isNullOrBlank()) {
+            map.putString("sessionStatus", status)
+          }
+        }
+      }
+
+      is EntryPayload.QueuePositionPayload -> {
+        // Not currently used in JS
+      }
+
+      is EntryPayload.SessionContextPayload -> {
+        // Not currently used in JS
+      }
+
+      is EntryPayload.MessageUpdatedPayload -> {
+        // Not currently used in JS
+      }
+
+      is EntryPayload.CloseConversationPayload -> {
+        // Not currently used in JS
       }
     }
 

@@ -1,9 +1,5 @@
 import {useState, useEffect} from 'react'
-import {
-  ConversationEntry,
-  ConversationEntryFormat,
-  ConversationEntryRoutingWorkType,
-} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
+import {SessionStatus} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 
 /**
  * Function to check if the chat is ended or not
@@ -16,28 +12,18 @@ import {
  * This function should preferably be replaced by a reliable isEnded value that is provided by Salesforce
  */
 const isChatEnded = (
-  messages: ConversationEntry[],
   isWaitingForAgent: boolean,
   agentEnteredChat: boolean,
   agentInChat: boolean,
-): boolean => {
-  const filteredMessages = messages.filter(
-    message => message.format !== ConversationEntryFormat.transcript,
-  )
-  const lastMessage = filteredMessages[filteredMessages.length - 1]
-
-  return (
-    (lastMessage?.format === ConversationEntryFormat.routingWorkResult &&
-      lastMessage.workType === ConversationEntryRoutingWorkType.closed &&
-      !isWaitingForAgent) ||
-    (agentEnteredChat && !agentInChat)
-  )
-}
+  sessionStatus?: SessionStatus,
+): boolean =>
+  sessionStatus === SessionStatus.ended &&
+  (!isWaitingForAgent || (agentEnteredChat && !agentInChat))
 
 export const useIsChatEnded = (
-  messages: ConversationEntry[],
   isWaitingForAgent: boolean,
   agentInChat: boolean,
+  sessionStatus?: SessionStatus,
 ): boolean => {
   const [agentEnteredChat, setAgentEnteredChat] = useState(agentInChat)
 
@@ -47,5 +33,10 @@ export const useIsChatEnded = (
     }
   }, [agentInChat])
 
-  return isChatEnded(messages, isWaitingForAgent, agentEnteredChat, agentInChat)
+  return isChatEnded(
+    isWaitingForAgent,
+    agentEnteredChat,
+    agentInChat,
+    sessionStatus,
+  )
 }

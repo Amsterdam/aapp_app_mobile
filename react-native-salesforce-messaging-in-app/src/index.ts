@@ -16,6 +16,7 @@ import SalesforceMessagingInApp, {
   ConversationEntryStatus,
   ConversationEntryBase,
   ConversationEntryRoutingFailureType,
+  SessionStatus,
 } from './NativeSalesforceMessagingInApp'
 import {useListenerStatus} from './useListenerStatus'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
@@ -108,6 +109,10 @@ export const useCreateChat = ({
   )
   const [participants, setParticipants] = useState<Participant[]>([])
   const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
+  const [sessionStatus, setSessionStatus] = useState<SessionStatus>(
+    SessionStatus.unknown,
+  )
+
   const trackException = useTrackException()
   const agentInChat = useMemo(
     () =>
@@ -160,7 +165,15 @@ export const useCreateChat = ({
           SalesforceMessagingInApp.onNewMessage(
             (inMessage: ConversationEntryBase) => {
               const message: ConversationEntry = inMessage as ConversationEntry
-              // console.log('New message received:', message)
+
+              if (
+                message.entryType ===
+                  ConversationEntryFormat.sessionStatusChanged &&
+                'sessionStatus' in message &&
+                !!message.sessionStatus
+              ) {
+                setSessionStatus(message.sessionStatus)
+              }
 
               if (
                 message.format ===
@@ -323,5 +336,6 @@ export const useCreateChat = ({
     participants,
     ready,
     remoteConfiguration,
+    sessionStatus,
   }
 }
