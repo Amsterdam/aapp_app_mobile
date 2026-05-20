@@ -12,6 +12,7 @@ import {electionsModule} from '@/modules/elections'
 import {homeModule} from '@/modules/home'
 import {kingsdayModule} from '@/modules/kingsday'
 import {mijnAmsterdamModule} from '@/modules/mijn-amsterdam'
+import {newsModule} from '@/modules/news'
 import {notificationHistoryModule} from '@/modules/notification-history'
 import {onboardingModule} from '@/modules/onboarding'
 import {parkingModule} from '@/modules/parking'
@@ -48,6 +49,7 @@ export const clientModules = [
   electionsModule,
   kingsdayModule,
   mijnAmsterdamModule,
+  newsModule,
   notificationHistoryModule,
   parkingModule,
   redirectsModule,

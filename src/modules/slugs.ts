@@ -12,6 +12,7 @@ export enum ModuleSlug {
   home = 'home',
   kingsday = 'kingsday',
   'mijn-amsterdam' = 'mijn-amsterdam',
+  news = 'news',
   'notification-history' = 'notification-history',
   onboarding = 'onboarding',
   parking = 'parking',
