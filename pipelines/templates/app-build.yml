@@ -69,11 +69,11 @@ steps:
 
   - task: Cache@2
     inputs:
-      key: 'pods | "$(Agent.OS)" | ${{ parameters.platform }} | **/package-lock.json | ios/Podfile'
+      key: 'pods | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)" | **/package-lock.json | ios/Podfile'
       path: $(HOME)/Library/Caches/CocoaPods
       cacheHitVar: PODS_CACHE_RESTORED
       restoreKeys: |
-        pods | "$(Agent.OS)" | ${{ parameters.platform }}
+        pods | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)"
     displayName: 'Cache CocoaPods local cache directory'
     condition: eq('${{ parameters.platform }}', 'ios')
 
@@ -83,22 +83,22 @@ steps:
 
   - task: Cache@2
     inputs:
-      key: 'gradle | "$(Agent.OS)" | **/package-lock.json'
+      key: 'gradle | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)" | **/package-lock.json'
       path: $(Build.Repository.LocalPath)/android/build-cache
       cacheHitVar: GRADLE_CACHE_RESTORED
       restoreKeys: |
-        gradle | "$(Agent.OS)"
+        gradle | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)"
     displayName: 'Cache android build directory'
     condition: eq('${{ parameters.platform }}', 'android')
 
   # Cache the Gradle configuration-cache directory for Android builds
   - task: Cache@2
     inputs:
-      key: 'gradle_configuration | "$(Agent.OS)" | **/package-lock.json'
+      key: 'gradle_configuration | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)" | **/package-lock.json'
       path: $(Build.Repository.LocalPath)/android/.gradle/configuration-cache
       cacheHitVar: GRADLE_CONFIGURATION_CACHE_RESTORED
       restoreKeys: |
-        gradle_configuration | "$(Agent.OS)"
+        gradle_configuration | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)"
     displayName: 'Cache gradle configuration cache directory'
     condition: eq('${{ parameters.platform }}', 'android')
 
