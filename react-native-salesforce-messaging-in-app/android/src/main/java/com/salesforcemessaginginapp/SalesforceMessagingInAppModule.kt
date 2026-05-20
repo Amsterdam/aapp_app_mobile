@@ -197,10 +197,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
             })
             promise.resolve(remoteConfigMap)
           } else {
-            promise.reject("Error", remoteConfig.toString())
+            promise.reject("Error", "[remoteConfig] $remoteConfig")
           }
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[remoteConfig] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
@@ -603,18 +603,18 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
           if (matchingEntry != null) {
             val result: Result<ConversationEntry>? =
               conversationClient?.markAsRead(matchingEntry)
-            if (result is Result.Success) {
+            if (result is Result.Success || result is Result.Empty) {
               //            val params = convertEntryToMap(result.data)
               // Emit the event with message data
               promise.resolve(true)
             } else {
-              promise.reject("Error", result.toString())
+              promise.reject("Error", "[markAsRead] $result")
             }
           } else {
             promise.reject("Error", "Entry not found")
           }
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[markAsRead] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
@@ -624,30 +624,30 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  override fun endConversation(promise: Promise) {
+override fun endConversation(promise: Promise) {
     try {
       if (conversationClient == null) {
         promise.reject("Error", "conversationClient not created.")
-        return
-      }
-      scope.launch {
-        try {
+    return
+  }
+  scope.launch {
+    try {
           val result: Result<Unit>? =
             conversationClient?.endSession()
-          if (result is Result.Success) {
-            promise.resolve(true)
-          } else {
-            promise.reject("Error", result.toString())
+      if (result is Result.Success) {
+        promise.resolve(true)
+      } else {
+            promise.reject("Error", "[endConversation] $result")
           }
-        } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+    } catch (e: Exception) {
+          promise.reject("Error","[endConversation] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
       // Catch any exception and reject the promise
       promise.reject("Error", "An error occurred: ${e.message}", e)
-    }
   }
+}
 
 
   @ReactMethod
@@ -666,10 +666,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
             // Emit the event with message data
             promise.resolve(true)
           } else {
-            promise.reject("Error", result.toString())
+            promise.reject("Error", "[sendMessage] $result")
           }
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[sendMessage] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
@@ -753,10 +753,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
           if (result is Result.Success) {
             promise.resolve(true)
           } else {
-            promise.reject("Error", result.toString())
+            promise.reject("Error", "[submitRemoteConfiguration] $result")
           }
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[submitRemoteConfiguration] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
@@ -796,10 +796,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
           if (result is Result.Success) {
             promise.resolve(true)
           } else {
-            promise.reject("Error", result.toString())
+            promise.reject("Error", "[sendPDF] $result")
           }
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[sendPDF] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
@@ -831,10 +831,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
           if (result is Result.Success) {
             promise.resolve(true)
           } else {
-            promise.reject("Error", result.toString())
+            promise.reject("Error", "[sendImage] $result")
           }
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[sendImage] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
@@ -866,7 +866,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
 //            if (result is Result.Success) {
 //              promise.resolve("Success")
 //            } else {
-//              promise.reject("Error", result.toString())
+//              promise.reject("Error", "[sendReply] $result")
 //            }
 //          } else {
 //            promise.reject("Error", "Option not found")
@@ -882,12 +882,12 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
             if (result is Result.Success) {
               promise.resolve("Success")
             } else {
-              promise.reject("Error", result.toString())
+              promise.reject("Error", "[sendReply] $result")
             }
           }
 
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[sendReply] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
@@ -908,7 +908,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
             ?: throw IllegalStateException("Failed to send typing event")
           promise.resolve("Success")
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[sendTypingEvent] ${e.message}", e)
         }
       }
     } catch (e: Exception) {
@@ -929,7 +929,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
           val businessHoursInfo: BusinessHoursInfo? = result.data
           promise.resolve(businessHoursInfo?.isWithinBusinessHours())
         } else {
-          promise.reject("Error", result.toString())
+          promise.reject("Error", "[checkIfInBusinessHours] $result")
         }
       } catch (e: Exception) {
         // Catch any exception and reject the promise
@@ -983,10 +983,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
               putString("entryId", entryId)
             })
           } else {
-            promise.reject("Error", result.toString())
+            promise.reject("Error", "[retrieveTranscript] $result")
           }
         } catch (e: Exception) {
-          promise.reject("Error", e.message, e)
+          promise.reject("Error", "[retrieveTranscript] ${e.message}", e)
         }
       }
     } catch (e: Exception) {

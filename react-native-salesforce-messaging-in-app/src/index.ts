@@ -15,6 +15,7 @@ import SalesforceMessagingInApp, {
   CoreError,
   ConversationEntryStatus,
   ConversationEntryBase,
+  ConversationEntryRoutingFailureType,
 } from './NativeSalesforceMessagingInApp'
 import {useListenerStatus} from './useListenerStatus'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
@@ -238,8 +239,11 @@ export const useCreateChat = ({
                 })
               } else if (
                 message.format === ConversationEntryFormat.routingResult &&
-                message.routingType === ConversationEntryRoutingType.transfer
+                message.routingType === ConversationEntryRoutingType.transfer &&
+                message.failureType !==
+                  ConversationEntryRoutingFailureType.routingError
               ) {
+                // Setting this to true if there is a routingError results in a false isEnded and a hanging UI
                 setIsWaitingForAgent(true)
               }
             },
