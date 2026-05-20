@@ -9,6 +9,7 @@ def node_require(script)
     )", __dir__]).strip
 end
 node_require('react-native-permissions/scripts/setup.rb')
+node_require('@rnrepo/build-tools/cocoapods-plugin/lib/plugin.rb')
 
 ENV['EX_DEV_CLIENT_NETWORK_INSPECTOR'] ||= '1'
 platform :ios, min_ios_version_supported
@@ -77,6 +78,7 @@ target 'AmsterdamApp' do
   pod 'FirebaseCore', :modular_headers => true
 
   post_install do |installer|
+    rnrepo_post_install(installer)
     react_native_post_install(
       installer,
       config[:reactNativePath],

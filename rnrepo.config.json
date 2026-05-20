@@ -1,0 +1,6 @@
+{
+  "denyList": {
+    "android": ["@react-native-firebase/messaging"],
+    "ios": []
+  }
+}
