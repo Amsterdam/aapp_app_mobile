@@ -14,7 +14,8 @@ export const useMarkAsRead = (messages: ConversationEntry[]) => {
   const externalMessages = messages.filter(
     message =>
       message.sender.role !== ConversationEntrySenderRole.user &&
-      message.format !== ConversationEntryFormat.readAcknowledgement,
+      message.format !== ConversationEntryFormat.readAcknowledgement &&
+      message.format !== ConversationEntryFormat.transcript,
   )
 
   useEffect(() => {
