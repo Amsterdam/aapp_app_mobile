@@ -3,7 +3,7 @@ import {useAppState} from '@/hooks/useAppState'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 
 /**
- * Register or unregister the device for push notifications, on start up and on foreground and on module enable/disable
+ * Register the device for push notifications on mount and when the app returns to the foreground.
  */
 export const useDeviceRegistration = () => {
   const {registerDeviceIfPermitted} = useRegisterDevice()
