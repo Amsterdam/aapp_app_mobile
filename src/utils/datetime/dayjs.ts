@@ -9,7 +9,7 @@ import 'dayjs/locale/nl'
 
 export {Dayjs} from 'dayjs'
 
-const defaultTimezone = 'Europe/Amsterdam'
+export const defaultTimezone = 'Europe/Amsterdam'
 
 dayjsFn.extend(utc)
 dayjsFn.extend(timezone)
@@ -32,6 +32,7 @@ export const dayjs = (date?: ConfigType) => {
 dayjs.min = dayjsFn.min
 dayjs.max = dayjsFn.max
 dayjs.utc = dayjsFn.utc
+dayjs.tz = dayjsFn.tz
 
 export const dayjsFromUnix = (timestamp: number) => {
   const date1 = dayjsFn.unix(timestamp)
