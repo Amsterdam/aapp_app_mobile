@@ -102,6 +102,28 @@ steps:
     displayName: 'Cache gradle configuration cache directory'
     condition: eq('${{ parameters.platform }}', 'android')
 
+  # Cache Gradle wrapper distributions
+  - task: Cache@2
+    inputs:
+      key: 'gradle_wrapper | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)" | android/gradle/wrapper/gradle-wrapper.properties | **/package-lock.json'
+      path: $(HOME)/.gradle/wrapper
+      cacheHitVar: GRADLE_WRAPPER_CACHE_RESTORED
+      restoreKeys: |
+        gradle_wrapper | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)"
+    displayName: 'Cache Gradle wrapper distributions'
+    condition: eq('${{ parameters.platform }}', 'android')
+
+  # Cache Gradle dependency caches (Maven/Ivy + transforms). This is usually the biggest download saver.
+  - task: Cache@2
+    inputs:
+      key: 'gradle_caches | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)" | **/package-lock.json | android/build.gradle | android/settings.gradle'
+      path: $(HOME)/.gradle/caches
+      cacheHitVar: GRADLE_CACHES_RESTORED
+      restoreKeys: |
+        gradle_caches | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)"
+    displayName: 'Cache Gradle dependency caches'
+    condition: eq('${{ parameters.platform }}', 'android')
+
   # Install gems and run Fastlane
   - script: |
       bundle config set --local without 'iosAppBuildDependencies'
