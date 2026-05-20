@@ -20,7 +20,7 @@ export const Init = ({children}: Props) => {
       <CheckPermissions />
       <DisplayNotificationOnForeground />
       <LogGeneralAnalytics />
-      <DeviceRegistration enabledModules={enabledModules} />
+      <DeviceRegistration />
       <GetLocation />
       <PreRenderComponents enabledModules={enabledModules} />
       {children}
