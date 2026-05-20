@@ -5,6 +5,7 @@ import type {
   KingsdayModalParams,
   KingsdayStackParams,
 } from '@/modules/kingsday/routes'
+import type {NewsModalParams, NewsStackParams} from '@/modules/news/routes'
 import type {NotificationHistoryStackParams} from '@/modules/notification-history/routes'
 import type {
   ServiceModalParams,
@@ -40,6 +41,7 @@ import {HomeStack} from '@/modules/home/Stack'
 import {HomeModalParams, HomeStackParams} from '@/modules/home/routes'
 import {KingsdayStack} from '@/modules/kingsday/Stack'
 import {MijnAmsterdamStack} from '@/modules/mijn-amsterdam/Stack'
+import {NewsStack} from '@/modules/news/Stack'
 import {NotificationHistoryStack} from '@/modules/notification-history/Stack'
 import {OnboardingStack} from '@/modules/onboarding/Stack'
 import {OnboardingStackParams} from '@/modules/onboarding/routes'
@@ -89,7 +91,8 @@ export type ModuleStackParams = AccessCodeStackParams &
   ServiceStackParams &
   WasteContainerStackParams &
   WasteGuideStackParams &
-  NotificationHistoryStackParams
+  NotificationHistoryStackParams &
+  NewsStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['access-code']]: AccessCodeStack,
@@ -104,6 +107,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.home]: HomeStack,
   [ModuleSlug.kingsday]: KingsdayStack,
   [ModuleSlug['mijn-amsterdam']]: MijnAmsterdamStack,
+  [ModuleSlug.news]: NewsStack,
   [ModuleSlug['notification-history']]: NotificationHistoryStack,
   [ModuleSlug.onboarding]: OnboardingStack,
   [ModuleSlug.parking]: ParkingStack,
@@ -124,6 +128,7 @@ export type ModalParams = AddressModalParams &
   HomeModalParams &
   KingsdayModalParams &
   WasteContainerModalParams &
+  NewsModalParams &
   ReportProblemModalParams &
   UserModalParams &
   ServiceModalParams &
