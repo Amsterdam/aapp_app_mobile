@@ -23,9 +23,6 @@ export const afterError: AfterBaseQueryErrorFn = async (
       account?.scope,
       dispatch,
       state,
-      failRetry,
     ).then(() => Promise.resolve())
-  } else {
-    failRetry(error)
   }
 }
