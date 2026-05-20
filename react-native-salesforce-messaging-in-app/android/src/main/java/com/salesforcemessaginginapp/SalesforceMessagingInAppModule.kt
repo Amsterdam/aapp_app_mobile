@@ -636,6 +636,14 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
       is EntryPayload.CloseConversationPayload -> {
         // Not currently used in JS
       }
+
+      is EntryPayload.ConversationUpdatedPayload -> {
+        // Not currently used in JS
+      }
+
+      is EntryPayload.ModalityConnectionPayload -> {
+        // Not currently used in JS
+      }
     }
 
     return map

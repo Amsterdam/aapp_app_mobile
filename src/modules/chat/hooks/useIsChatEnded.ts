@@ -4,12 +4,7 @@ import {SessionStatus} from 'react-native-salesforce-messaging-in-app/src/Native
 /**
  * Function to check if the chat is ended or not
  * How it works:
- * It checks whether the last received message (excluding Transcript entries) is of format RoutingWorkResult
- * If that is the case, and the workType is 'closed' and we are not waiting for an agent, then the chat is ended
- *
- * If above condition is false, it will check whether an agent was in the chat and has since left and no agents remain.
- *
- * This function should preferably be replaced by a reliable isEnded value that is provided by Salesforce
+ * It checks whether we are waiting for an agent and if the sessionStatus is "Ended".
  */
 const isChatEnded = (
   isWaitingForAgent: boolean,
