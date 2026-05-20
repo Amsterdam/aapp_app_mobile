@@ -287,7 +287,7 @@ PODS:
   - hermes-engine (0.14.1):
     - hermes-engine/Pre-built (= 0.14.1)
   - hermes-engine/Pre-built (0.14.1)
-  - Messaging-InApp-Core (1.9.1)
+  - Messaging-InApp-Core (1.10.3)
   - nanopb (3.30910.0):
     - nanopb/decode (= 3.30910.0)
     - nanopb/encode (= 3.30910.0)
@@ -2649,7 +2649,7 @@ PODS:
     - fmt
     - glog
     - hermes-engine
-    - Messaging-InApp-Core (= 1.9.1)
+    - Messaging-InApp-Core (= 1.10.3)
     - RCT-Folly
     - RCT-Folly/Fabric
     - RCTRequired
@@ -4286,7 +4286,7 @@ SPEC CHECKSUMS:
   GoogleMaps: 0608099d4870cac8754bdba9b6953db543432438
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   hermes-engine: aafc94d6130ac6d0fcd6799fe10dd5496ecda0fa
-  Messaging-InApp-Core: d6374c08126b2992eee889e14fdf9f5d4d457338
+  Messaging-InApp-Core: 0fce52f6c73ed4359ddefd537bd63f302094e08d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   NitroModules: 5bc319d441f4983894ea66b1d392c519536e6d23
   PiwikPROSDK: 4adb36550b094396f8c744845066dd78ebaf3200
@@ -4340,7 +4340,7 @@ SPEC CHECKSUMS:
   react-native-piwik-pro-sdk: f4e01269483a141815ad5651a9f195389e707f13
   react-native-render-html: 5afc4751f1a98621b3009432ef84c47019dcb2bd
   react-native-safe-area-context: befb5404eb8a16fdc07fa2bebab3568ecabcbb8a
-  react-native-salesforce-messaging-in-app: 69d82261c78e379a838c0de67e2a2b9556d5242e
+  react-native-salesforce-messaging-in-app: 96b0a9cccfb822ceaf8ab5e6e65a24794364df42
   react-native-webview: 8407aaaf6b539b1e38b72fabb55d6885de03beaf
   React-NativeModulesApple: 519f9f98375db6458a7220becd25db81b3860b76
   React-networking: 2318cba8288ec5df38e899feed3baaac0629b4bd

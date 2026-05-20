@@ -24,20 +24,27 @@ RCT_EXPORT_METHOD(destroyStorageAndAuthorization:(RCTPromiseResolveBlock)resolve
 {
     @try {
         if (coreClient != nil) {
-            [coreClient destroyStorageAndAuthorization:TRUE completion:^(NSError * _Nullable error) {
+            [coreClient destroyStorageAndAuthorization:YES completion:^(NSError * _Nullable error) {
                 [coreClient stop];
                 [coreClient removeDelegate:self];
-                resolve(@"YES");
+                conversationClient = nil;
+                remoteConfiguration = nil;
+                receivedChoices = nil;
+                localImageUri = nil;
+                config = nil;
+                coreClient = nil;
+                [self emitOnConnectionStatusChanged:@""];
+                resolve(@(YES));
             }];
         }else {
-            resolve(@"YES");
+            resolve(@(YES));
         }
     } @catch (NSException *exception) {
         // Handle exceptions by rejecting the promise
         NSError *error = [NSError errorWithDomain:@"destroyStorageAndAuthorization Exception"
                                              code:500
                                          userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
-        reject(@"destroy_storage_and_authorizationn_exception", @"An exception occurred during destroyStorageAndAuthorization", error);
+        reject(@"destroy_storage_and_authorization_exception", @"An exception occurred during destroyStorageAndAuthorization", error);
     }
 }
 
@@ -50,7 +57,18 @@ RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
     @try {
         if (coreClient != nil) {
             [coreClient stop];
+            [coreClient removeDelegate:self];
+            coreClient = nil;
+            config = nil;
         }
+
+        // Reset conversation-specific state whenever we create a new core client.
+        conversationClient = nil;
+        remoteConfiguration = nil;
+        receivedChoices = nil;
+        localImageUri = nil;
+        [self emitOnConnectionStatusChanged:@""];
+
         // Convert the string URL to an NSURL
         NSURL *serviceAPIURL = [NSURL URLWithString:url];
 
@@ -107,9 +125,11 @@ RCT_EXPORT_METHOD(createConversationClient:(NSString *)conversationId
                   reject:(RCTPromiseRejectBlock)reject)
 {
     @try {
-        if (conversationClient != nil) {
-            [coreClient removeDelegate:self]; 
-        }
+        // Never remove the core delegate here.
+        // The delegate is required to receive connection/network events and messages.
+        // Removing it breaks subsequent chat sessions (e.g. connection remains "Closed").
+        conversationClient = nil;
+        [self emitOnConnectionStatusChanged:@""];
         NSUUID *uuid;
         
         // Check if the conversationId is nil or an empty string
@@ -320,7 +340,7 @@ RCT_EXPORT_METHOD(submitRemoteConfiguration:(JS::NativeSalesforceMessagingInApp:
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
                                             userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"send_reply_exception", @"ConversationClient is not initialized", error);
+            reject(@"send_reply_exception", @"[submitRemoteConfiguration] ConversationClient is not initialized", error);
             return;
         }
 
@@ -417,7 +437,7 @@ RCT_EXPORT_METHOD(markAsRead:(JS::NativeSalesforceMessagingInApp::ConversationEn
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
                                             userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"mark_as_read_exception", @"ConversationClient is not initialized", error);
+            reject(@"mark_as_read_exception", @"[markAsRead] ConversationClient is not initialized", error);
             return;
         }
 
@@ -486,13 +506,14 @@ RCT_EXPORT_METHOD(endConversation:(RCTPromiseResolveBlock)resolve
         if (conversationClient == nil) {
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
-                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"send_message_exception", @"ConversationClient is not initialized", error);
+                                            userInfo:@{NSLocalizedDescriptionKey: @"[endConversation] ConversationClient is not initialized"}];
+            reject(@"end_conversation_exception", @"[endConversation] ConversationClient is not initialized", error);
             return;
         }
 
         [conversationClient endSessionWithCompletion:^(NSError * _Nullable error) {
             if (error == nil) {
+                [self emitOnConnectionStatusChanged:@""];
                 resolve(@(YES));
             }else {
                 reject(@"end_conversation_exception", @"An exception occurred during endSessionWithCompletion", error);
@@ -519,7 +540,7 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
                                             userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"send_message_exception", @"ConversationClient is not initialized", error);
+            reject(@"send_message_exception", @"[sendMessage] ConversationClient is not initialized", error);
             return;
         }
 
@@ -544,7 +565,7 @@ RCT_EXPORT_METHOD(sendReply:(JS::NativeSalesforceMessagingInApp::Choice &)replyD
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
                                             userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"send_reply_exception", @"ConversationClient is not initialized", error);
+            reject(@"send_reply_exception", @"[sendReply] ConversationClient is not initialized", error);
             return;
         }
 
@@ -587,7 +608,7 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
                                             userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"send_message_exception", @"ConversationClient is not initialized", error);
+            reject(@"send_message_exception", @"[sendTypingEvent] ConversationClient is not initialized", error);
             return;
         }
 
@@ -615,7 +636,7 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
                                             userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"send_pdf_exception", @"ConversationClient is not initialized", error);
+            reject(@"send_pdf_exception", @"[sendPDF] ConversationClient is not initialized", error);
             return;
         }
         // Remove the 'file://' prefix if present
@@ -692,7 +713,7 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
                                             userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"send_image_exception", @"ConversationClient is not initialized", error);
+            reject(@"send_image_exception", @"[sendImage] ConversationClient is not initialized", error);
             return;
         }
         // Decode the Base64 string into NSData
@@ -737,7 +758,7 @@ RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
             NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
                                                 code:500
                                             userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
-            reject(@"retrieve_transcript_exception", @"ConversationClient is not initialized", error);
+            reject(@"retrieve_transcript_exception", @"[retrieveTranscript] ConversationClient is not initialized", error);
             return;
         }
         // Call retrieveTranscript on the conversationClient
@@ -991,7 +1012,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
         messageDict[@"selections"] = [self parseChoiceArrayToDictionaryArray:selectionsPayload.selections];
     }
     if (format == SMIConversationFormatTypesWebView) {
-        // Describes a webview formated message.
+        // Describes a webview formatted message.
         // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITemplatedURL.html
         // text = textPayload.text ?: @"";
@@ -1044,6 +1065,17 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
             messageDict[@"estimatedWaitTime"] = @(routingResultPayload.estimatedWaitTime);
             messageDict[@"isEWTAvailable"] = @(routingResultPayload.isEWTAvailable);
             messageDict[@"isEWTRequested"] = @(routingResultPayload.isEWTRequested);
+        } else if ([type isEqualToString:@"SessionStatusChanged"]) {
+            id<SMISessionStatusChanged> sessionStatusPayload = (id<SMISessionStatusChanged>)payload;
+            messageDict[@"sessionId"] = sessionStatusPayload.sessionId ?: @"";
+            messageDict[@"channelAddressIdentifier"] = sessionStatusPayload.channelAddressIdentifier ?: @"";
+            messageDict[@"sessionStatus"] = sessionStatusPayload.sessionStatus ?: SMISessionStatusUnknown;
+            messageDict[@"sessionStatusPrev"] = sessionStatusPayload.sessionStatusPrev ?: [NSNull null];
+            messageDict[@"sessionStartTime"] = @([sessionStatusPayload.sessionStartTime timeIntervalSince1970]);
+            messageDict[@"sessionEndTime"] = sessionStatusPayload.sessionEndTime
+              ? @([sessionStatusPayload.sessionEndTime timeIntervalSince1970])
+              : [NSNull null];
+            messageDict[@"sessionEndedByRole"] = sessionStatusPayload.sessionEndedByRole ?: [NSNull null];
         }
     }
     if (format == SMIConversationFormatTypesTextMessage) {
@@ -1098,6 +1130,9 @@ didChangeNetworkState:(nonnull SMINetworkConnectivityState)state
 - (void)core:(nonnull id<SMICoreClient>)core
 didChangeConnectionState:(nonnull SMIRealtimeConnectionState)state
 {
+    if (conversationClient == nil) {
+        return;
+    }
     [self emitOnConnectionStatusChanged:state];
 }
 

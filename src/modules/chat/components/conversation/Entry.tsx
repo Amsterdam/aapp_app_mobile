@@ -43,6 +43,11 @@ const options: Record<
     agentInfo: true,
     LastComponent: EntryGutter,
   },
+  [ConversationEntryFormat.message]: {
+    Component: EntryText,
+    agentInfo: true,
+    LastComponent: EntryGutter,
+  },
   [ConversationEntryFormat.attachments]: {
     Component: EntryAttachments,
     agentInfo: false,
@@ -105,6 +110,11 @@ const options: Record<
     Component: EntryRoutingWorkResult,
     agentInfo: false,
   },
+  [ConversationEntryFormat.typingIndicator]: {
+    Component: EntryTypingIndicator,
+    agentInfo: false,
+    LastComponent: EntryGutter,
+  },
   [ConversationEntryFormat.typingStartedIndicator]: {
     Component: EntryTypingIndicator,
     agentInfo: false,
@@ -120,6 +130,11 @@ const options: Record<
     LastComponent: undefined,
     agentInfo: undefined,
   },
+  [ConversationEntryFormat.unknownEntry]: {
+    Component: undefined,
+    LastComponent: undefined,
+    agentInfo: undefined,
+  },
   [ConversationEntryFormat.webview]: {
     Component: undefined,
     LastComponent: undefined,
@@ -128,6 +143,11 @@ const options: Record<
   [ConversationEntryFormat.transcript]: {
     Component: EntryTranscript,
     LastComponent: EntryGutter,
+  },
+  [ConversationEntryFormat.sessionStatusChanged]: {
+    Component: undefined,
+    LastComponent: undefined,
+    agentInfo: undefined,
   },
 }
 
