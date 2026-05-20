@@ -13,7 +13,6 @@ export const refreshAccessToken = (
   scope: ParkingPermitScope,
   dispatch: ReduxDispatch,
   state: RootState,
-  failRetry: (e?: unknown) => void,
 ): Promise<string> =>
   new Promise(async (resolve, reject) => {
     if (!reportCode) {
@@ -50,7 +49,6 @@ export const refreshAccessToken = (
             }),
           )
           devLog('Token parking account successful refreshed')
-          failRetry('New token, so old request should fail')
           resolve(access_token)
         },
         ({data, status}: {data?: {code?: string}; status?: number}) => {
@@ -71,7 +69,6 @@ export const refreshAccessToken = (
             )
           }
 
-          failRetry('Refresh failed')
           reject(new Error('Token refresh failed'))
         },
       )

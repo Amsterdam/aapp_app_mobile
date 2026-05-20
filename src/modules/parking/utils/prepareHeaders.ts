@@ -27,7 +27,6 @@ export const prepareHeaders: PrepareHeaders = async (
   }
 
   let accessToken = selectAccessToken(state)
-
   const nowPlusMinute = dayjs().add(1, 'minute')
 
   if (accessTokenExpiration.isBefore(nowPlusMinute)) {
@@ -36,7 +35,6 @@ export const prepareHeaders: PrepareHeaders = async (
       account.scope,
       dispatch,
       state,
-      () => null,
     )
 
     accessToken = newAccessToken
