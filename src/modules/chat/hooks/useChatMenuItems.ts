@@ -45,11 +45,7 @@ export const useChatMenuItems = () => {
       })
     }
 
-    if (
-      sessionStatus === SessionStatus.active ||
-      sessionStatus === SessionStatus.waiting ||
-      sessionStatus === SessionStatus.error
-    ) {
+    if (sessionStatus !== SessionStatus.ended) {
       menuItems.push({
         color: 'warning',
         label: 'Chat stoppen',

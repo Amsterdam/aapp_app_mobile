@@ -431,12 +431,12 @@ export type ConversationEntryParticipantChanged = ConversationEntryBase & {
 export type ConversationEntrySessionStatusChanged =
   ConversationEntryUnspecified & {
     entryType: ConversationEntryFormat.sessionStatusChanged
-    sessionEndTime?: number
-    sessionEndedByRole: ConversationEntrySenderRole
-    sessionId: string
-    sessionStartTime: number
+    sessionEndTime?: number | null
+    sessionEndedByRole?: ConversationEntrySenderRole | null
+    sessionId?: string | null
+    sessionStartTime?: number | null
     sessionStatus: SessionStatus
-    sessionStatusPrev: SessionStatus
+    sessionStatusPrev?: SessionStatus | null
   }
 
 export enum ConversationEntryRoutingType {

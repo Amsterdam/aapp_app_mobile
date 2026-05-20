@@ -20,7 +20,7 @@ type ChatContextType = {
   newMessagesCount: number
   ready: boolean
   remoteConfiguration: RemoteConfiguration | undefined
-  sessionStatus?: SessionStatus
+  sessionStatus: SessionStatus
 }
 
 const initialValue: ChatContextType = {
@@ -34,7 +34,7 @@ const initialValue: ChatContextType = {
   newMessagesCount: 0,
   ready: false,
   remoteConfiguration: undefined,
-  sessionStatus: undefined,
+  sessionStatus: SessionStatus.unknown,
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
