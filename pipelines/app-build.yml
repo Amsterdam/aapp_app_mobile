@@ -19,6 +19,8 @@ variables:
     value: $(Pipeline.Workspace)/.bundle
   - name: CMAKE_CXX_COMPILER_LAUNCHER
     value: ccache
+  - name: GRADLE_USER_HOME
+    value: $(Pipeline.Workspace)/.gradle
 
 jobs:
   - job: 'Build_Android'
