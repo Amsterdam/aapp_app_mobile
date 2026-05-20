@@ -95,7 +95,6 @@ const getTouchedGeneralLabels = (changedFiles: string[]): string[] => {
     }
 
     if (
-      file === 'package.json' ||
       file === 'package-lock.json' ||
       file === 'ios/Podfile.lock' ||
       file === 'Gemfile' ||
