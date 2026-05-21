@@ -30,7 +30,6 @@ export const constructionWorkModule = createClientModule({
       slice: constructionWorkSlice,
     },
   ],
-  requiresFirebaseToken: true,
   slug: ModuleSlug['construction-work'],
   resolvePathFromNotification,
 })

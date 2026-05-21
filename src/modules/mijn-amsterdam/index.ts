@@ -25,7 +25,6 @@ export const mijnAmsterdamModule = createClientModule({
   excludeFromHome: true,
   name: 'MijnAmsterdamModule',
   logout,
-  requiresFirebaseToken: true,
   slug: ModuleSlug['mijn-amsterdam'],
   loginRoute: [ModuleSlug.user, {screen: UserRouteName.accounts}],
 })

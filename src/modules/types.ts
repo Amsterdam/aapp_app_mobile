@@ -121,10 +121,6 @@ export type ModuleClientConfig<
    */
   requiresAuthorization?: boolean
   /**
-   * Determines whether the module requires a Firebase token.
-   */
-  requiresFirebaseToken?: boolean
-  /**
    * Derives a path into the modules handled by linking from notification context.
    **/
   resolvePathFromNotification?: (
