@@ -9,13 +9,15 @@ import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const ParkingSessionDetailsRow = ({
   children,
-  title,
   iconName,
+  testID,
+  title,
 }: PropsWithChildren<{
   iconName: SvgIconName
+  testID: string
   title: string
 }>) => (
-  <SingleSelectable>
+  <SingleSelectable testID={testID}>
     <Row
       gutter="sm"
       valign="start">
