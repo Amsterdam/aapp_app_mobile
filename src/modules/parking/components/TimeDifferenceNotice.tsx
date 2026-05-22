@@ -6,7 +6,7 @@ type Props = {isSameTime?: boolean; serverTime?: string}
 
 export const TimeDifferenceNotice = (props: Props) => {
   const {isSameTime, serverTime} = useIsLocalTimeSameAsServerTime(
-    props.serverTime ? undefined : true,
+    Boolean(props.serverTime),
   )
 
   return isSameTime || props.isSameTime ? null : (
