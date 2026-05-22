@@ -13,10 +13,12 @@ export const getDateForCostCalculation = ({
 }: Params) => {
   const isEndTimeBeforeOriginal =
     originalEndTime && endTime ? endTime.isBefore(originalEndTime) : false
-  const newEndTime = endTime?.isBefore(startTime) ? startTime : endTime
+  const newEndTime =
+    endTime && startTime && endTime.isBefore(startTime) ? startTime : endTime
   const newStartTime = originalEndTime ?? startTime
 
-  const isNewEndTimeBeforeNewStartTime = newEndTime?.isBefore(newStartTime)
+  const isNewEndTimeBeforeNewStartTime =
+    newEndTime && newStartTime ? newEndTime.isBefore(newStartTime) : false
   const calculatedEndTime = isNewEndTimeBeforeNewStartTime
     ? newStartTime
     : newEndTime
