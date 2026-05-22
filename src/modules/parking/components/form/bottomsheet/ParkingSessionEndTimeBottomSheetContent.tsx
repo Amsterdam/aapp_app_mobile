@@ -34,7 +34,7 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
   const minimumEndTime =
     parkingAccount?.scope === ParkingPermitScope.visitor
       ? dayjs.max(dayjs(), dayjs(originalEndTime))
-      : startTime
+      : dayjs.max(startTime, dayjs())
 
   return (
     <Box grow>
