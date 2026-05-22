@@ -16,13 +16,13 @@ type FieldValues = {endTime?: Dayjs; originalEndTime?: Dayjs; startTime: Dayjs}
 
 export const ParkingSessionEndTimeBottomSheetContent = () => {
   const {watch} = useFormContext<FieldValues>()
-  const startTime = watch('startTime')
   const {
     field: {value: endTime, onChange},
   } = useController<FieldValues, 'endTime'>({
     name: 'endTime',
   })
   const {close} = useBottomSheet()
+  const {originalEndTime, startTime} = watch()
 
   const currentPermit = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()
@@ -33,8 +33,8 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
 
   const minimumEndTime =
     parkingAccount?.scope === ParkingPermitScope.visitor
-      ? dayjs.max(dayjs(), dayjs(watch('originalEndTime')))
-      : dayjs()
+      ? dayjs.max(dayjs(), dayjs(originalEndTime))
+      : startTime
 
   return (
     <Box grow>
