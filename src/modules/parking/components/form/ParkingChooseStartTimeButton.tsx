@@ -21,7 +21,9 @@ export const ParkingChooseStartTimeButton = () => {
 
   const checkStartTime = useCallback(() => {
     if (!isSameTime) {
-      setValue('startTime', dayjs(serverTime))
+      if (serverTime) {
+        setValue('startTime', dayjs(serverTime))
+      }
 
       return
     }
