@@ -9,6 +9,7 @@ export const formatDateTimeToDisplay = (
   todayAsDate = true,
 ) => {
   const dateToDisplay = formatDate(date)
+
   const time = `${dayjs(date).format('HH.mm')} uur`
 
   if (!todayAsDate && isToday(date)) {
