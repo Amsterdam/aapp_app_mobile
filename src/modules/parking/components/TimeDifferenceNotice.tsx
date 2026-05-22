@@ -2,12 +2,16 @@ import {Notice} from '@/components/ui/feedback/Notice'
 import {useIsLocalTimeSameAsServerTime} from '@/hooks/useIsLocalTimeSameAsServerTime'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-export const TimeDifferenceNotice = () => {
-  const {isSameTime, serverTime} = useIsLocalTimeSameAsServerTime()
+type Props = {isSameTime?: boolean; serverTime?: string}
 
-  return isSameTime ? null : (
+export const TimeDifferenceNotice = (props: Props) => {
+  const {isSameTime, serverTime} = useIsLocalTimeSameAsServerTime(
+    Boolean(props.serverTime),
+  )
+
+  return isSameTime || props.isSameTime ? null : (
     <Notice
-      text={`We gebruiken de tijd in Nederland. Daar is het nu ${dayjs(serverTime).format('HH:mm')} uur.`}
+      text={`We gebruiken de tijd in Nederland. Daar is het nu ${dayjs(serverTime ?? props.serverTime).format('HH:mm')} uur.`}
       variant="warning"
     />
   )

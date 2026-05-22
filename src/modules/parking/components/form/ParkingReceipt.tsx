@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback, useEffect} from 'react'
+import {useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -8,7 +8,6 @@ import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -20,7 +19,7 @@ import {
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
 import {getDateForCostCalculation} from '@/modules/parking/utils/getDateForCostCalculation'
-import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
+import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -64,13 +63,11 @@ export const ParkingReceipt = () => {
 
   const currentPermit = useCurrentParkingPermit()
   const {isOpen} = useBottomSheet()
-  const nowRounded = dayjs().set('second', 0)
   const {isEndTimeBeforeOriginal, calculatedEndTime, calculatedStartTime} =
     getDateForCostCalculation({
       endTime,
       originalEndTime,
       startTime,
-      now: nowRounded,
     })
 
   const isAllDataEntered =
@@ -97,20 +94,6 @@ export const ParkingReceipt = () => {
 
   const {isLoading: isLoadingAccount, data: accountData} =
     useAccountDetailsQuery()
-
-  const checkStartTime = useCallback(() => {
-    const now = dayjs().set('second', 0)
-
-    if (!originalEndTime && now.isAfter(startTime)) {
-      setValue('startTime', now)
-    }
-  }, [originalEndTime, setValue, startTime])
-
-  useEffect(() => {
-    checkStartTime()
-  }, [endTime, checkStartTime])
-
-  useRefetchInterval(checkStartTime, 5000)
 
   const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
     startTime,
