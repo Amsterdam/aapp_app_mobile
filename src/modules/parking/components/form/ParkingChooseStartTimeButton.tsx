@@ -54,7 +54,11 @@ export const ParkingChooseStartTimeButton = () => {
         rules={{
           required: 'Kies een starttijd',
           validate: startTime => {
-            if (startTime.isBefore(startTime.subtract(1, 'minute'), 'minute')) {
+            const currentTime = !isSameTime
+              ? dayjs(serverTime)
+              : dayjs().set('second', 0)
+
+            if (startTime.isBefore(currentTime, 'minute')) {
               return 'Starttijd mag niet in het verleden liggen'
             }
 
