@@ -38,7 +38,7 @@ describe('getDateForCostCalculation', () => {
     )
   })
 
-  it('returns correct values if endTime < starttime', () => {
+  it('returns correct values if endTime < startTime', () => {
     const endTime = dayjs('2025-11-13T11:15:00.000Z')
     const originalEndTime = END_TIME
     const result = getDateForCostCalculation({
