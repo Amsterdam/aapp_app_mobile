@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, useLayoutEffect, useRef} from 'react'
 
 /**
  *
@@ -6,11 +6,18 @@ import {useEffect} from 'react'
  * @param interval time in milliseconds between refetches, set to 0 to disable
  */
 export const useRefetchInterval = (refetch: () => void, interval: number) => {
+  const refetchRef = useRef(refetch)
+
+  // Keep the ref current without triggering the interval effect
+  useLayoutEffect(() => {
+    refetchRef.current = refetch
+  })
+
   useEffect(() => {
     if (interval > 0) {
-      const intervalId = setInterval(refetch, interval)
+      const intervalId = setInterval(() => refetchRef.current(), interval)
 
       return () => clearInterval(intervalId)
     }
-  }, [refetch, interval])
+  }, [interval])
 }
