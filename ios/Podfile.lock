@@ -153,7 +153,7 @@ PODS:
     - Yoga
   - ExpoSecureStore (55.0.13):
     - ExpoModulesCore
-  - ExpoSharing (55.0.18):
+  - ExpoSharing (55.0.19):
     - ExpoModulesCore
   - fast_float (8.0.0)
   - FBLazyVector (0.83.9)
@@ -4267,7 +4267,7 @@ SPEC CHECKSUMS:
   ExpoModulesJSI: 964334271fc77832736f66ee1785761cdc778dbe
   ExpoScreenOrientation: a8f1c4d5a477de7e0fb7c72000c90a30b85354d3
   ExpoSecureStore: 38954f6bcef1287aa04c06fba3b86e8af3291ccd
-  ExpoSharing: 5acc9d78894386d31b862b12ed1cebe7dce74e68
+  ExpoSharing: 641637bdd478455f33c5f78d68c2c9a5d42cb0bc
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
   FBLazyVector: 3bcb3055086e5d90a12f0fe1668e79f6eceabc17
   Firebase: 99f203d3a114c6ba591f3b32263a9626e450af65
@@ -4285,7 +4285,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleMaps: 0608099d4870cac8754bdba9b6953db543432438
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
-  hermes-engine: aafc94d6130ac6d0fcd6799fe10dd5496ecda0fa
+  hermes-engine: 85087fdd0b809013340bc9ec621ce2295795aa75
   Messaging-InApp-Core: 0fce52f6c73ed4359ddefd537bd63f302094e08d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   NitroModules: 5bc319d441f4983894ea66b1d392c519536e6d23
