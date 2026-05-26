@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useRefetchInterval} from '@/hooks/useRefetchInterval'
+import {useInterval} from '@/hooks/useInterval'
 import {useGetServerTimeQuery} from '@/services/bridge.service'
 import {isLocalTimeSameAsServerTime} from '@/utils/datetime/isLocalTimeSameAsServerTime'
 
@@ -10,7 +10,7 @@ export const useIsLocalTimeSameAsServerTime = (skip = false) => {
     skip ? skipToken : undefined,
   )
 
-  useRefetchInterval(() => {
+  useInterval(() => {
     if (skip) {
       return
     }

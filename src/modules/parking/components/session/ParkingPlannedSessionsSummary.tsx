@@ -9,7 +9,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useRefetchInterval} from '@/hooks/useRefetchInterval'
+import {useInterval} from '@/hooks/useInterval'
 import {useRefetchTimeout} from '@/hooks/useRefetchTimeout'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -34,7 +34,7 @@ export const ParkingPlannedSessionsSummary = () => {
   }, [plannedParkingSessions, refetch])
 
   // refetch sessions every 15 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
-  useRefetchInterval(
+  useInterval(
     refetch,
     plannedParkingSessions?.some(
       session => 'is_paid' in session && !session.is_paid,

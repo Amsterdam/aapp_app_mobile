@@ -2,8 +2,8 @@ import {useCallback, useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {Column} from '@/components/ui/layout/Column'
+import {useInterval} from '@/hooks/useInterval'
 import {useIsLocalTimeSameAsServerTime} from '@/hooks/useIsLocalTimeSameAsServerTime'
-import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {TimeDifferenceNotice} from '@/modules/parking/components/TimeDifferenceNotice'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
@@ -39,7 +39,7 @@ export const ParkingChooseStartTimeButton = () => {
     checkStartTime()
   }, [endTime, checkStartTime])
 
-  useRefetchInterval(checkStartTime, 5000)
+  useInterval(checkStartTime, 5000)
 
   return (
     <Column gutter="md">
