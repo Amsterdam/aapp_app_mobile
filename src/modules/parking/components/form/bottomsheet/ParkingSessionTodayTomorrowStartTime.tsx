@@ -21,7 +21,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
   } = useController<FieldValues, 'endTime'>({
     name: 'endTime',
   })
-  const justNow = useMemo(roundDownToMinutes, [])
+  const justNow = useMemo(() => roundDownToMinutes(startTime), [startTime])
 
   return (
     <Track align="around">
