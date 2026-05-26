@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,cpp}"
 
-  s.dependency "Messaging-InApp-Core", "1.9.1"
+  s.dependency "Messaging-InApp-Core", "1.10.3"
   s.frameworks   = 'PDFKit'
 
   # Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.

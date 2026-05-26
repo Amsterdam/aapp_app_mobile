@@ -15,6 +15,8 @@ import SalesforceMessagingInApp, {
   CoreError,
   ConversationEntryStatus,
   ConversationEntryBase,
+  ConversationEntryRoutingFailureType,
+  SessionStatus,
 } from './NativeSalesforceMessagingInApp'
 import {useListenerStatus} from './useListenerStatus'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
@@ -107,6 +109,10 @@ export const useCreateChat = ({
   )
   const [participants, setParticipants] = useState<Participant[]>([])
   const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
+  const [sessionStatus, setSessionStatus] = useState<SessionStatus>(
+    SessionStatus.unknown,
+  )
+
   const trackException = useTrackException()
   const agentInChat = useMemo(
     () =>
@@ -159,7 +165,15 @@ export const useCreateChat = ({
           SalesforceMessagingInApp.onNewMessage(
             (inMessage: ConversationEntryBase) => {
               const message: ConversationEntry = inMessage as ConversationEntry
-              // console.log('New message received:', message)
+
+              if (
+                message.entryType ===
+                  ConversationEntryFormat.sessionStatusChanged &&
+                'sessionStatus' in message &&
+                !!message.sessionStatus
+              ) {
+                setSessionStatus(message.sessionStatus)
+              }
 
               if (
                 message.format ===
@@ -238,8 +252,11 @@ export const useCreateChat = ({
                 })
               } else if (
                 message.format === ConversationEntryFormat.routingResult &&
-                message.routingType === ConversationEntryRoutingType.transfer
+                message.routingType === ConversationEntryRoutingType.transfer &&
+                message.failureType !==
+                  ConversationEntryRoutingFailureType.routingError
               ) {
+                // Setting this to true if there is a routingError results in a false isEnded and a hanging UI
                 setIsWaitingForAgent(true)
               }
             },
@@ -319,5 +336,6 @@ export const useCreateChat = ({
     participants,
     ready,
     remoteConfiguration,
+    sessionStatus,
   }
 }

@@ -17,6 +17,7 @@ export enum ConversationEntryFormat {
   imageMessage = 'Image',
   inputs = 'Inputs',
   listPicker = 'Buttons',
+  message = 'Message',
   participantChanged = 'ParticipantChanged',
   quickReplies = 'QuickReplies',
   readAcknowledgement = 'ReadAcknowledgement',
@@ -25,26 +26,15 @@ export enum ConversationEntryFormat {
   routingResult = 'RoutingResult',
   routingWorkResult = 'RoutingWorkResult',
   selections = 'Selections',
+  sessionStatusChanged = 'SessionStatusChanged',
   text = 'Text',
   transcript = 'Transcript',
+  typingIndicator = 'TypingIndicator',
   typingStartedIndicator = 'TypingStartedIndicator',
   typingStoppedIndicator = 'TypingStoppedIndicator',
+  unknownEntry = 'UnknownEntry',
   unspecified = 'Unspecified',
   webview = 'WebView',
-}
-
-/**
- * @deprecated unverified values, use ConversationEntryFormat
- */
-export enum ConversationEntryType {
-  deliveryAcknowledgement = 'DeliveryAcknowledgement',
-  message = 'Message',
-  participantChanged = 'ParticipantChanged',
-  readAcknowledgement = 'ReadAcknowledgement',
-  routingResult = 'RoutingResult',
-  routingWorkResult = 'RoutingWorkResult',
-  typingIndicator = 'TypingIndicator',
-  unknownEntry = 'UnknownEntry',
 }
 
 export enum ConversationEntryStatus {
@@ -94,4 +84,15 @@ export enum ConnectionState {
 export enum NetworkState {
   connected = 'Connected',
   offline = 'Offline',
+}
+
+export enum SessionStatus {
+  active = 'Active',
+  consent = 'Consent',
+  ended = 'Ended',
+  error = 'Error',
+  inactive = 'Inactive',
+  new = 'New',
+  unknown = 'Unknown',
+  waiting = 'Waiting',
 }

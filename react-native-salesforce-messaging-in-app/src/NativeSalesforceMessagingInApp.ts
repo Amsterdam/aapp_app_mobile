@@ -168,6 +168,7 @@ export enum ConversationEntryFormat {
   imageMessage = 'Image',
   inputs = 'Inputs',
   listPicker = 'Buttons',
+  message = 'Message',
   participantChanged = 'ParticipantChanged',
   quickReplies = 'QuickReplies',
   readAcknowledgement = 'ReadAcknowledgement',
@@ -176,26 +177,15 @@ export enum ConversationEntryFormat {
   routingResult = 'RoutingResult',
   routingWorkResult = 'RoutingWorkResult',
   selections = 'Selections',
+  sessionStatusChanged = 'SessionStatusChanged',
   text = 'Text',
   transcript = 'Transcript',
+  typingIndicator = 'TypingIndicator',
   typingStartedIndicator = 'TypingStartedIndicator',
   typingStoppedIndicator = 'TypingStoppedIndicator',
+  unknownEntry = 'UnknownEntry',
   unspecified = 'Unspecified',
   webview = 'WebView',
-}
-
-/**
- * @deprecated unverified values, use ConversationEntryFormat
- */
-export enum ConversationEntryType {
-  deliveryAcknowledgement = 'DeliveryAcknowledgement',
-  message = 'Message',
-  participantChanged = 'ParticipantChanged',
-  readAcknowledgement = 'ReadAcknowledgement',
-  routingResult = 'RoutingResult',
-  routingWorkResult = 'RoutingWorkResult',
-  typingIndicator = 'TypingIndicator',
-  unknownEntry = 'UnknownEntry',
 }
 
 export enum ConversationEntryStatus {
@@ -213,11 +203,21 @@ export enum ConversationEntrySenderRole {
   user = 'EndUser',
 }
 
+export enum SessionStatus {
+  active = 'Active',
+  consent = 'Consent',
+  ended = 'Ended',
+  error = 'Error',
+  inactive = 'Inactive',
+  new = 'New',
+  unknown = 'Unknown',
+  waiting = 'Waiting',
+}
+
 export type ConversationEntryBase = {
   conversationId: string
   entryId: string
-  entryType: ConversationEntryType
-  // format: ConversationEntryFormat
+  entryType: ConversationEntryFormat
   /**
    * the id of the ConversationEntry this is a reply to
    */
@@ -264,6 +264,7 @@ export type ConversationEntry =
   | ConversationEntryDeliveryAcknowledgement
   | ConversationEntryReadAcknowledgement
   | ConversationEntryTranscript
+  | ConversationEntrySessionStatusChanged
 
 export type Attachment = {
   file?: string
@@ -426,6 +427,17 @@ export type ConversationEntryParticipantChanged = ConversationEntryBase & {
     type: ParticipantChangedOperationType
   }>
 }
+
+export type ConversationEntrySessionStatusChanged =
+  ConversationEntryUnspecified & {
+    entryType: ConversationEntryFormat.sessionStatusChanged
+    sessionEndTime?: number | null
+    sessionEndedByRole?: ConversationEntrySenderRole | null
+    sessionId?: string | null
+    sessionStartTime?: number | null
+    sessionStatus: SessionStatus
+    sessionStatusPrev?: SessionStatus | null
+  }
 
 export enum ConversationEntryRoutingType {
   initial = 'Initial',

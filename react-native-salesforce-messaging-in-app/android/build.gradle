@@ -94,7 +94,7 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   // Add Salesforce messaging dependency
-  implementation "com.salesforce.service:messaging-inapp-core:1.9.2"
+  implementation "com.salesforce.service:messaging-inapp-core:1.11.0"
   implementation 'androidx.paging:paging-common-android:3.3.2'
 }
 
