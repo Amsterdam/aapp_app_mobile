@@ -5,10 +5,10 @@ export const ParkingSessionContext = createContext<{
 } | null>(null)
 
 export const useParkingSession = () => {
-  const ctx = useContext(ParkingSessionContext)
+  const context = useContext(ParkingSessionContext)
 
-  if (!ctx)
+  if (!context)
     throw new Error('useParkingSession must be used within ParkingFormProvider')
 
-  return ctx
+  return context
 }
