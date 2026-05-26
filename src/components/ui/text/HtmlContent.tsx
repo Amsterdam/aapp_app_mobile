@@ -1,5 +1,6 @@
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import {
+  Image,
   LayoutChangeEvent,
   Platform,
   ScaledSize,
@@ -12,9 +13,11 @@ import RenderHTML, {
   CustomMixedRenderer,
   CustomTagRendererRecord,
   MixedStyleDeclaration,
+  useInternalRenderer,
 } from 'react-native-render-html'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {LazyImage} from '@/components/ui/media/LazyImage'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {type TestProps} from '@/components/ui/types'
@@ -22,6 +25,7 @@ import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {getClosestAspectRatio} from '@/modules/service/utils/getClosestAspectRatio'
 import {Theme} from '@/themes/themes'
 import {TextTokens} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -49,6 +53,8 @@ const transformContent = (
     content,
   )
 
+const testHtml = `<img src="https://media.cntraveller.com/photos/6925c058c8997bceeb7ade5c/16:9/w_2560%2Cc_limit/Canal-Bicycles-Amsterdam-GettyImages-2186230864.jpg" />`
+
 /**
  * Renders HTML content, applying the typographic design.
  */
@@ -68,7 +74,10 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
       return
     }
 
-    const transformedContent = transformContent(content, transformRules)
+    const transformedContent = transformContent(
+      testHtml + content,
+      transformRules,
+    )
 
     return isScreenReaderEnabled
       ? promoteInlineLinks(transformedContent)
@@ -109,6 +118,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
         baseStyle={baseStyle}
         contentWidth={contentWidth}
         renderers={renderers}
+        renderersProps={{img: {enableExperimentalPercentWidth: true}}}
         source={{html}}
         systemFonts={systemFonts}
         tagsStyles={tagsStyles}
@@ -253,8 +263,56 @@ const ARenderer: CustomMixedRenderer = props => {
   )
 }
 
+const ImgRenderer: CustomMixedRenderer = props => {
+  const {width: deviceWidth} = useDeviceContext()
+  const {rendererProps} = useInternalRenderer('img', props)
+
+  const [dimensions, setDimensions] = useState<{
+    height: number
+    width: number
+  } | null>(null)
+
+  useEffect(() => {
+    if (!rendererProps.source.uri) return
+    Image.getSize(
+      rendererProps.source.uri,
+      (w, h) => setDimensions({width: w, height: h}),
+      () => setDimensions(null),
+    )
+  }, [rendererProps.source.uri])
+
+  const aspectRatio = useMemo(
+    () =>
+      dimensions
+        ? getClosestAspectRatio(dimensions.width, dimensions.height)
+        : undefined,
+    [dimensions],
+  )
+
+  const {alt, source, style, width, height} = rendererProps
+
+  return (
+    <View style={style}>
+      <LazyImage
+        alt={alt}
+        aspectRatio={aspectRatio}
+        height={
+          !!height && !Number.isNaN(Number(height)) ? Number(height) : undefined
+        }
+        openInImageViewer
+        source={source}
+        testID="HtmlRendererImage"
+        width={
+          !!width && !Number.isNaN(Number(width)) ? Number(width) : deviceWidth
+        }
+      />
+    </View>
+  )
+}
+
 const renderers: CustomTagRendererRecord = {
   a: ARenderer,
   li: LiRenderer,
   ul: UlRenderer,
+  img: ImgRenderer,
 }

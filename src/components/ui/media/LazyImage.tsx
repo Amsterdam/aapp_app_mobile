@@ -94,6 +94,7 @@ export const LazyImage = ({
             onLoadEnd={handleLoadEnd}
             source={source}
             style={[styles.image, imageStyle]}
+            testID={testID}
           />
         )}
       </View>

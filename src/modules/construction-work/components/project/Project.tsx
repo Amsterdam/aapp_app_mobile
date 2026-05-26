@@ -68,6 +68,7 @@ export const Project = ({id}: Props) => {
             <ProjectWarningFallbackImage />
           </FigureWithFacadesBackground>
         }
+        openInImageViewer
         source={image?.sources}
         testID="ConstructionWorkProjectImage"
       />

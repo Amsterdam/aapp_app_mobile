@@ -1,5 +1,6 @@
 import {CardStyleInterpolators} from '@react-navigation/stack'
 import {Platform} from 'react-native'
+import {ImageViewerScreen} from '@/app/ImageViewerScreen'
 import {InactiveModuleGuard} from '@/app/navigation/InactiveModuleGuard'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
@@ -69,6 +70,15 @@ export const RootStackNavigator = () => {
         }}>
         {modalStacks}
       </Stack.Group>
+
+      <Stack.Screen
+        component={ImageViewerScreen}
+        name="ImageViewerScreen"
+        options={{
+          presentation: 'modal',
+          animation: 'fade',
+        }}
+      />
     </Stack.Navigator>
   )
 }
