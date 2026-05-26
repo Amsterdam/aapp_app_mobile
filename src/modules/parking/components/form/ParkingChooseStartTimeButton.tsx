@@ -6,6 +6,7 @@ import {useInterval} from '@/hooks/useInterval'
 import {useIsLocalTimeSameAsServerTime} from '@/hooks/useIsLocalTimeSameAsServerTime'
 import {TimeDifferenceNotice} from '@/modules/parking/components/TimeDifferenceNotice'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
+import {useParkingSession} from '@/modules/parking/hooks/useParkingSession'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
@@ -16,12 +17,13 @@ export const ParkingChooseStartTimeButton = () => {
     startTime: Dayjs
   }>()
   const {endTime, originalEndTime, startTime: startTimeField} = watch()
+  const {userHasEditedStart} = useParkingSession()
 
   const {isSameTime, serverTime} = useIsLocalTimeSameAsServerTime()
 
   const checkStartTime = useCallback(() => {
     if (!isSameTime) {
-      if (serverTime) {
+      if (serverTime && !userHasEditedStart.current) {
         setValue('startTime', dayjs(serverTime))
       }
 
@@ -33,7 +35,14 @@ export const ParkingChooseStartTimeButton = () => {
     if (!originalEndTime && now.isAfter(startTimeField)) {
       setValue('startTime', now)
     }
-  }, [isSameTime, originalEndTime, serverTime, setValue, startTimeField])
+  }, [
+    isSameTime,
+    originalEndTime,
+    serverTime,
+    setValue,
+    startTimeField,
+    userHasEditedStart,
+  ])
 
   useEffect(() => {
     checkStartTime()

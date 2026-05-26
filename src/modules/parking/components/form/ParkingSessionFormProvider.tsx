@@ -1,5 +1,6 @@
-import {ReactNode} from 'react'
+import {ReactNode, useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
+import {ParkingSessionContext} from '@/modules/parking/hooks/useParkingSession'
 import {ParkingSession} from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 
@@ -72,6 +73,13 @@ export const ParkingSessionFormProvider = ({
       extendVisitorSession,
     }),
   })
+  const userHasEditedStart = useRef(false)
 
-  return <FormProvider {...form}>{children}</FormProvider>
+  return (
+    <FormProvider {...form}>
+      <ParkingSessionContext.Provider value={{userHasEditedStart}}>
+        {children}
+      </ParkingSessionContext.Provider>
+    </FormProvider>
+  )
 }
