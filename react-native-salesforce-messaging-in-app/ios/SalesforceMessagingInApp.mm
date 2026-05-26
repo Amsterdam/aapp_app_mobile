@@ -33,7 +33,7 @@ RCT_EXPORT_METHOD(destroyStorageAndAuthorization:(RCTPromiseResolveBlock)resolve
                 localImageUri = nil;
                 config = nil;
                 coreClient = nil;
-                [self emitOnConnectionStatusChanged:@""];
+                [self emitOnConnectionStatusChanged:@"Closed"];
                 resolve(@(YES));
             }];
         }else {
@@ -67,7 +67,7 @@ RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
         remoteConfiguration = nil;
         receivedChoices = nil;
         localImageUri = nil;
-        [self emitOnConnectionStatusChanged:@""];
+        [self emitOnConnectionStatusChanged:@"Connecting"];
 
         // Convert the string URL to an NSURL
         NSURL *serviceAPIURL = [NSURL URLWithString:url];
@@ -129,7 +129,7 @@ RCT_EXPORT_METHOD(createConversationClient:(NSString *)conversationId
         // The delegate is required to receive connection/network events and messages.
         // Removing it breaks subsequent chat sessions (e.g. connection remains "Closed").
         conversationClient = nil;
-        [self emitOnConnectionStatusChanged:@""];
+        [self emitOnConnectionStatusChanged:@"Connecting"];
         NSUUID *uuid;
         
         // Check if the conversationId is nil or an empty string
@@ -513,7 +513,7 @@ RCT_EXPORT_METHOD(endConversation:(RCTPromiseResolveBlock)resolve
 
         [conversationClient endSessionWithCompletion:^(NSError * _Nullable error) {
             if (error == nil) {
-                [self emitOnConnectionStatusChanged:@""];
+                [self emitOnConnectionStatusChanged:@"Closed"];
                 resolve(@(YES));
             }else {
                 reject(@"end_conversation_exception", @"An exception occurred during endSessionWithCompletion", error);
