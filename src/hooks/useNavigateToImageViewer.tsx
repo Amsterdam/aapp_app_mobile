@@ -19,6 +19,8 @@ export const useNavigateToImageViewer = (
   const Wrapper = useCallback(
     ({children}: {children: ReactNode}) => (
       <PressableBase
+        accessibilityHint="Dubbel tik om de afbeelding beter te bekijken"
+        accessibilityLabel={imageProps.alt ? imageProps.alt : ''}
         onPress={() => navigate('ImageViewerScreen', imageProps)}
         style={styles.wrapper}
         testID={`${imageProps.testID}NavigateToImageViewerButton`}>

@@ -20,6 +20,8 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: Props) => {
   return (
     <GestureDetector gesture={gestures}>
       <Animated.Image
+        accessibilityLabel="Draai uw scherm om de afbeelding beter te bekijken"
+        accessible
         onLayout={({nativeEvent: {layout}}) => setInitialLayout(layout)}
         {...imageProps}
         style={[

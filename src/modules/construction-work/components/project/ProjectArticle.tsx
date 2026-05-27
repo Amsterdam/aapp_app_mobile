@@ -62,6 +62,7 @@ export const ProjectArticle = ({
             </FigureWithFacadesBackground>
           ) : undefined
         }
+        openInImageViewer
         source={image?.sources}
         testID={`ConstructionWorkProjectArticle${id}Image`}
       />

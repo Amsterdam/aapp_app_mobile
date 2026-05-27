@@ -1,6 +1,5 @@
-import {useCallback, useEffect, useMemo, useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import {
-  Image,
   LayoutChangeEvent,
   Platform,
   ScaledSize,
@@ -25,7 +24,7 @@ import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {getClosestAspectRatio} from '@/modules/service/utils/getClosestAspectRatio'
+import {useDynamicImageAspectRatio} from '@/hooks/useDynamicImageAspectRatio'
 import {Theme} from '@/themes/themes'
 import {TextTokens} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -53,6 +52,8 @@ const transformContent = (
     content,
   )
 
+const testHtml = `<img src="https://www.netherlands-tourism.com/wp-content/uploads/2015/03/Amsterdam-The-lights-on-the-bridges.jpg" height="100%" width="50px"/>`
+
 /**
  * Renders HTML content, applying the typographic design.
  */
@@ -72,7 +73,10 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
       return
     }
 
-    const transformedContent = transformContent(content, transformRules)
+    const transformedContent = transformContent(
+      testHtml + content,
+      transformRules,
+    )
 
     return isScreenReaderEnabled
       ? promoteInlineLinks(transformedContent)
@@ -261,30 +265,8 @@ const ARenderer: CustomMixedRenderer = props => {
 const ImgRenderer: CustomMixedRenderer = props => {
   const {width: deviceWidth} = useDeviceContext()
   const {rendererProps} = useInternalRenderer('img', props)
-
-  const [dimensions, setDimensions] = useState<{
-    height: number
-    width: number
-  } | null>(null)
-
-  useEffect(() => {
-    if (!rendererProps.source.uri) return
-    Image.getSize(
-      rendererProps.source.uri,
-      (w, h) => setDimensions({width: w, height: h}),
-      () => setDimensions(null),
-    )
-  }, [rendererProps.source.uri])
-
-  const aspectRatio = useMemo(
-    () =>
-      dimensions
-        ? getClosestAspectRatio(dimensions.width, dimensions.height)
-        : undefined,
-    [dimensions],
-  )
-
   const {alt, source, style, width, height} = rendererProps
+  const aspectRatio = useDynamicImageAspectRatio(source.uri)
 
   return (
     <View style={style}>

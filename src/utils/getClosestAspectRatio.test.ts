@@ -1,4 +1,4 @@
-import {getClosestAspectRatio} from '@/modules/service/utils/getClosestAspectRatio'
+import {getClosestAspectRatio} from '@/utils/getClosestAspectRatio'
 
 describe('getClosestAspectRatio', () => {
   it('should return extraWide for aspect ratios beyond 2.022', () => {
