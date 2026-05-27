@@ -39,7 +39,7 @@ export const ParkingIncreaseBalanceReceipt = () => {
       </ParkingReceiptItem>
       <ParkingReceiptItem>
         <Phrase>Bedrag toevoegen</Phrase>
-        <Phrase>
+        <Phrase testID="ParkingReceiptItemAddMoneyPhrase">
           {amount ? `+ ${formatNumber(amount, account?.wallet.currency)}` : '-'}
         </Phrase>
       </ParkingReceiptItem>
