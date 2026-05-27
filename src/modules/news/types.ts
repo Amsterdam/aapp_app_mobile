@@ -21,14 +21,14 @@ export type District =
   | 'zuidoost'
   | 'weesp'
 
-export type ArticlesQueryArgs = PaginationQueryArgs &
-  (
-    | {
-        district?: never
-        type: 'article' | 'highlight' | 'liveblog'
-      }
-    | {
-        district: District
-        type: 'district'
-      }
-  )
+export type ArticlesType =
+  | {
+      district?: never
+      type: 'article' | 'highlight' | 'liveblog'
+    }
+  | {
+      district: District
+      type: 'district'
+    }
+
+export type ArticlesQueryArgs = PaginationQueryArgs & ArticlesType
