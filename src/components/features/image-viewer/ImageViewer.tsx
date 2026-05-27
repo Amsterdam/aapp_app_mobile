@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {StyleSheet, Platform} from 'react-native'
+import {StyleSheet, Platform, View} from 'react-native'
 import {GestureDetector} from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 import type {ImageProps} from '@/components/ui/media/Image'
@@ -19,17 +19,24 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: Props) => {
 
   return (
     <GestureDetector gesture={gestures}>
-      <Animated.Image
-        accessibilityLabel="Draai uw scherm om de afbeelding beter te bekijken"
+      <View
+        accessibilityHint="Tik om terug te gaan"
+        accessibilityRole="button"
         accessible
-        onLayout={({nativeEvent: {layout}}) => setInitialLayout(layout)}
-        {...imageProps}
-        style={[
-          styles.image,
-          isPortrait ? styles.portrait : styles.landscape,
-          animatedStyle,
-        ]}
-      />
+        style={styles.container}>
+        <Animated.Image
+          accessibilityLabel="Maak een knijpgebaar of dubbel tik om in- en uit te zoomen, of sleep om de afbeelding te bewegen."
+          accessibilityRole="image"
+          accessible
+          onLayout={({nativeEvent: {layout}}) => setInitialLayout(layout)}
+          {...imageProps}
+          style={[
+            styles.image,
+            isPortrait ? styles.portrait : styles.landscape,
+            animatedStyle,
+          ]}
+        />
+      </View>
     </GestureDetector>
   )
 }
@@ -45,6 +52,11 @@ const createStyles =
         : undefined
 
     return StyleSheet.create({
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
       image: {
         width: minDimension,
         backgroundColor: theme.color.imageFallback.background,

@@ -6,6 +6,7 @@ import type {
   ImageViewerSharedValues,
   ZoomLevel,
 } from '@/components/features/image-viewer/hooks/useImageViewerGestures'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 const MAX_TAP_DELAY = 200
 
@@ -13,8 +14,9 @@ export const useImageViewerDoubleTapGesture = (
   sharedValues: ImageViewerSharedValues,
   zoomLevel: ZoomLevel,
   clampPosition: (x: number, y: number) => void,
-  imageDimensions: {height: number; width: number},
 ) => {
+  const {width, height} = useDeviceContext()
+
   const lastTap = useRef(0)
   const {positionX, positionY, savedScale, scale} = sharedValues
 
@@ -41,8 +43,8 @@ export const useImageViewerDoubleTapGesture = (
         scale.value = withTiming(zoomLevel.tap)
         const scaleRatio = zoomLevel.tap / scale.value
 
-        const focalX = e.x - imageDimensions.width / 2
-        const focalY = e.y - imageDimensions.height / 2
+        const focalX = e.x - width / 2
+        const focalY = e.y - height / 2
 
         const newX = focalX - (focalX - positionX.value) * scaleRatio
         const newY = focalY - (focalY - positionY.value) * scaleRatio

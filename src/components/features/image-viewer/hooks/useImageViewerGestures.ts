@@ -9,9 +9,11 @@ import {
   type DerivedValue,
   type SharedValue,
 } from 'react-native-reanimated'
+import {runOnJS} from 'react-native-worklets'
 import {useImageViewerDoubleTapGesture} from '@/components/features/image-viewer/hooks/useImageViewerDoubleTapGesture'
 import {useImageViewerDragGesture} from '@/components/features/image-viewer/hooks/useImageViewerDragGesture'
 import {useImageViewerPinchGesture} from '@/components/features/image-viewer/hooks/useImageViewerPinchGesture'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 const MIN_ZOOM_VALUE = 0.8
@@ -37,6 +39,7 @@ export const useImageViewerGestures = (initialLayout: {
   width: number
 }) => {
   const {width, height} = useDeviceContext()
+  const {goBack} = useNavigation()
 
   const scale = useSharedValue(MIN_ZOOM_VALUE)
   const savedScale = useSharedValue(MIN_ZOOM_VALUE)
@@ -48,6 +51,19 @@ export const useImageViewerGestures = (initialLayout: {
     () => ({
       x: Math.max(0, initialLayout.width * scale.value - width) / 2,
       y: Math.max(0, initialLayout.height * scale.value - height) / 2,
+    }),
+    [initialLayout, width, height],
+  )
+
+  const derivedLayout = useDerivedValue(
+    () => ({
+      imageWidth: initialLayout.width * scale.value,
+      imageHeight: initialLayout.height * scale.value,
+      screenEmptyWidth: Math.max(0, width - initialLayout.width * scale.value),
+      screenEmptyHeight: Math.max(
+        0,
+        height - initialLayout.height * scale.value,
+      ),
     }),
     [initialLayout, width, height],
   )
@@ -76,6 +92,17 @@ export const useImageViewerGestures = (initialLayout: {
     savedPosition.value = {x: clampedX, y: clampedY}
   }
 
+  const isGestureOnBackground = (x: number, y: number) => {
+    'worklet'
+
+    const isAbove = y < derivedLayout.value.screenEmptyHeight / 2
+    const isBelow = y > height - derivedLayout.value.screenEmptyHeight / 2
+    const isLeft = x < derivedLayout.value.screenEmptyWidth / 2
+    const isRight = x > width - derivedLayout.value.screenEmptyWidth / 2
+
+    return isAbove || isBelow || isLeft || isRight
+  }
+
   const pinchGesture = useImageViewerPinchGesture(
     {
       maxDragRange,
@@ -86,7 +113,6 @@ export const useImageViewerGestures = (initialLayout: {
       scale,
     },
     zoomLevel,
-    initialLayout,
   )
 
   const dragGesture = useImageViewerDragGesture(
@@ -112,10 +138,21 @@ export const useImageViewerGestures = (initialLayout: {
     },
     zoomLevel,
     clampPosition,
-    initialLayout,
   )
 
-  const gestures = Gesture.Race(doubleTapGesture, dragGesture, pinchGesture)
+  const dismissImageViewer = Gesture.Tap()
+    .numberOfTaps(1)
+    .onEnd(e => {
+      if (isGestureOnBackground(e.absoluteX, e.absoluteY)) {
+        runOnJS(goBack)()
+      }
+    })
+
+  const gestures = Gesture.Race(
+    Gesture.Simultaneous(doubleTapGesture, dismissImageViewer),
+    dragGesture,
+    pinchGesture,
+  )
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [

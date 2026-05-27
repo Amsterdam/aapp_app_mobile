@@ -4,15 +4,15 @@ import {
   type EdgeInsets,
 } from 'react-native-safe-area-context'
 import type {NavigationProps} from '@/app/navigation/types'
+import type {HomeModalName} from '@/modules/home/routes'
 import type {Theme} from '@/themes/themes'
 import {HeaderBackButton} from '@/components/features/header/HeaderBackButton'
 import {ImageViewer} from '@/components/features/image-viewer/ImageViewer'
 import {Screen} from '@/components/features/screen/Screen'
-import {Center} from '@/components/ui/layout/Center'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = NavigationProps<'ImageViewerScreen'>
+type Props = NavigationProps<HomeModalName.imageViewer>
 
 export const ImageViewerScreen = ({route}: Props) => {
   const {goBack} = useNavigation()
@@ -30,9 +30,7 @@ export const ImageViewerScreen = ({route}: Props) => {
         <HeaderBackButton onPress={goBack} />
       </View>
 
-      <Center grow>
-        <ImageViewer {...route.params} />
-      </Center>
+      <ImageViewer {...route.params} />
     </Screen>
   )
 }
