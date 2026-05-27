@@ -23,10 +23,14 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
         accessible
         style={styles.container}>
         <Animated.Image
-          accessibilityLabel="Maak een knijpgebaar of dubbel tik om in- en uit te zoomen, of sleep om de afbeelding te bewegen."
+          accessibilityHint="Maak een knijpgebaar of dubbel tik om in- en uit te zoomen, of sleep om de afbeelding te bewegen."
+          accessibilityLabel={
+            imageProps.accessibilityLabel ?? imageProps.alt ?? ''
+          }
           accessibilityRole="image"
           accessible
           onLayout={({nativeEvent: {layout}}) => setInitialLayout(layout)}
+          resizeMode="contain"
           {...imageProps}
           style={[
             styles.image,

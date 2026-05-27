@@ -21,8 +21,9 @@ export const useImageViewerDoubleTapGesture = (
   const {positionX, positionY, savedScale, scale} = sharedValues
 
   return Gesture.Tap()
-    .numberOfTaps(Platform.OS === 'ios' ? 1 : 2) // numberOfTaps does nog seem to work correctly on react-native-gesture-handler 2.31.2 (iOS)
+    .numberOfTaps(Platform.OS === 'ios' ? 1 : 2) // numberOfTaps does not seem to work correctly on react-native-gesture-handler 2.31.2 (iOS)
     .maxDelay(MAX_TAP_DELAY)
+    .runOnJS(Platform.OS === 'ios') // Due to lastTap ref usage in worklet
     .onStart(e => {
       if (Platform.OS === 'ios') {
         // Mock double tap for iOS due to bug described above

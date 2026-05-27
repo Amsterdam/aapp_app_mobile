@@ -4,12 +4,12 @@ import {
   type EdgeInsets,
 } from 'react-native-safe-area-context'
 import type {NavigationProps} from '@/app/navigation/types'
-import type {HomeModalName} from '@/modules/home/routes'
 import type {Theme} from '@/themes/themes'
 import {HeaderBackButton} from '@/components/features/header/HeaderBackButton'
 import {ImageViewer} from '@/components/features/image-viewer/ImageViewer'
 import {Screen} from '@/components/features/screen/Screen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {HomeModalName} from '@/modules/home/routes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = NavigationProps<HomeModalName.imageViewer>

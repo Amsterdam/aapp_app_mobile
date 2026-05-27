@@ -70,8 +70,10 @@ export const useImageViewerGestures = (initialLayout: {
 
   const zoomLevel: ZoomLevel = useMemo(() => {
     const tapZoomlevel =
-      Math.max(height, width) /
-      Math.min(initialLayout.height, initialLayout.width)
+      Math.min(initialLayout.height, initialLayout.width) > 0
+        ? Math.max(height, width) /
+          Math.min(initialLayout.height, initialLayout.width)
+        : 1
 
     return {
       min: MIN_ZOOM_VALUE,
