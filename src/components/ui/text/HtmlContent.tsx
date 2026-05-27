@@ -53,7 +53,7 @@ const transformContent = (
     content,
   )
 
-const testHtml = `<img src="https://media.cntraveller.com/photos/6925c058c8997bceeb7ade5c/16:9/w_2560%2Cc_limit/Canal-Bicycles-Amsterdam-GettyImages-2186230864.jpg" />`
+const testHtml = `<img src="https://www.netherlands-tourism.com/wp-content/uploads/2015/03/Amsterdam-The-lights-on-the-bridges.jpg" />`
 
 /**
  * Renders HTML content, applying the typographic design.

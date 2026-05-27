@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {StyleSheet, Platform} from 'react-native'
 import {GestureDetector} from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
@@ -11,34 +12,49 @@ import {useThemable} from '@/themes/useThemable'
 type Props = Omit<ImageProps, 'style'>
 
 export const ImageViewer = ({aspectRatio, ...imageProps}: Props) => {
-  const {width, height} = useDeviceContext()
-  const {gestures, animatedStyle} = useImageViewerGestures()
+  const {width, height, isPortrait} = useDeviceContext()
+  const [initialLayout, setInitialLayout] = useState({width: 0, height: 0})
+  const {gestures, animatedStyle} = useImageViewerGestures(initialLayout)
   const styles = useThemable(createStyles(Math.min(height, width), aspectRatio))
 
   return (
     <GestureDetector gesture={gestures}>
       <Animated.Image
+        onLayout={({nativeEvent: {layout}}) => setInitialLayout(layout)}
         {...imageProps}
-        style={[styles.image, animatedStyle]}
+        style={[
+          styles.image,
+          isPortrait ? styles.portrait : styles.landscape,
+          animatedStyle,
+        ]}
       />
     </GestureDetector>
   )
 }
 
 const createStyles =
-  (width: number, aspectRatio: ImageAspectRatio = 'wide') =>
+  (minDimension: number, aspectRatio: ImageAspectRatio = 'wide') =>
   (theme: Theme) => {
     const aspectRatioValue = theme.media.aspectRatio[aspectRatio]
 
+    const altDimension =
+      Platform.OS === 'android' && minDimension && aspectRatioValue > 0
+        ? minDimension / aspectRatioValue
+        : undefined
+
     return StyleSheet.create({
       image: {
-        width,
+        width: minDimension,
         backgroundColor: theme.color.imageFallback.background,
-        height:
-          Platform.OS === 'android' && width && aspectRatioValue > 0
-            ? width / aspectRatioValue
-            : undefined,
         aspectRatio: aspectRatioValue,
+      },
+      portrait: {
+        width: minDimension,
+        height: altDimension,
+      },
+      landscape: {
+        width: altDimension,
+        height: minDimension,
       },
     })
   }

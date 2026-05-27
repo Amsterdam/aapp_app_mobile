@@ -29,6 +29,7 @@ export const ServicePointDetailsImage = ({uri}: {uri: string}) => {
     <LazyImage
       aspectRatio={aspectRatio}
       fallbackInheritsAspectRatio={false}
+      openInImageViewer
       source={{uri}}
       testID="ServicePointDetailsPropertiesImage"
     />

@@ -23,7 +23,9 @@ export const ImageViewerScreen = ({route}: Props) => {
   return (
     <Screen
       scroll={false}
-      testID="ImageViewerScreen">
+      testID="ImageViewerScreen"
+      withBottomInset={false}
+      withTopInset={false}>
       <View style={styles.backButtonContainer}>
         <HeaderBackButton onPress={goBack} />
       </View>
