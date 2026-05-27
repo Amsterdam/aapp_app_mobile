@@ -53,8 +53,6 @@ const transformContent = (
     content,
   )
 
-const testHtml = `<img src="https://www.netherlands-tourism.com/wp-content/uploads/2015/03/Amsterdam-The-lights-on-the-bridges.jpg" />`
-
 /**
  * Renders HTML content, applying the typographic design.
  */
@@ -74,10 +72,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
       return
     }
 
-    const transformedContent = transformContent(
-      testHtml + content,
-      transformRules,
-    )
+    const transformedContent = transformContent(content, transformRules)
 
     return isScreenReaderEnabled
       ? promoteInlineLinks(transformedContent)
