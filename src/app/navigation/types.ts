@@ -11,7 +11,6 @@ import {
   StackNavigationProp as StackNavigationPropOriginal,
 } from '@react-navigation/stack'
 import {type ComponentType} from 'react'
-import type {ImageProps} from '@/components/ui/media/Image'
 import {type ModuleSlug} from '@/modules/slugs'
 import {type ModuleStackParams, type ModalParams} from '@/modules/stacks'
 
@@ -37,7 +36,7 @@ type ModuleParams<
 
 export type RootStackParams = ModuleParams<ModuleStackParams> &
   ModuleStackParams &
-  ModalParams & {ImageViewerScreen: ImageProps}
+  ModalParams
 
 /**
  * NavigationProp is the type of a navigation object as part of NavigationProps or as returned by useNavigation.

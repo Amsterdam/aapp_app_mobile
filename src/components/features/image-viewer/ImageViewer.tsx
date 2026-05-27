@@ -9,9 +9,7 @@ import {useImageViewerGestures} from '@/components/features/image-viewer/hooks/u
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = Omit<ImageProps, 'style'>
-
-export const ImageViewer = ({aspectRatio, ...imageProps}: Props) => {
+export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
   const {width, height, isPortrait} = useDeviceContext()
   const [initialLayout, setInitialLayout] = useState({width: 0, height: 0})
   const {gestures, animatedStyle} = useImageViewerGestures(initialLayout)

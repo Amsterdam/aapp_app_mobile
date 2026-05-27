@@ -1,3 +1,4 @@
+import {ImageViewerScreen} from '@/app/ImageViewerScreen'
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   HomeModalName,
@@ -34,5 +35,13 @@ export const modals: StackNavigationRoutes<HomeModalParams> = {
   [HomeModalName.permissionInstructions]: {
     component: PermissionInstructionsScreen,
     name: HomeModalName.permissionInstructions,
+  },
+  [HomeModalName.imageViewer]: {
+    component: ImageViewerScreen,
+    name: HomeModalName.imageViewer,
+    options: {
+      presentation: 'modal',
+      animation: 'fade',
+    },
   },
 }
