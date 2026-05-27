@@ -86,6 +86,7 @@ export const useImageViewerGestures = (initialLayout: {
       scale,
     },
     zoomLevel,
+    initialLayout,
   )
 
   const dragGesture = useImageViewerDragGesture(

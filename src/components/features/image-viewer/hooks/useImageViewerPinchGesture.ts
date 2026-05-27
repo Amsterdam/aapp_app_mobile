@@ -4,14 +4,12 @@ import type {
   ImageViewerSharedValues,
   ZoomLevel,
 } from '@/components/features/image-viewer/hooks/useImageViewerGestures'
-import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 export const useImageViewerPinchGesture = (
   sharedValues: ImageViewerSharedValues,
   zoomLevel: ZoomLevel,
+  imageDimensions: {height: number; width: number},
 ) => {
-  const {width, height} = useDeviceContext()
-
   const {maxDragRange, positionX, positionY, savedPosition, savedScale, scale} =
     sharedValues
 
@@ -36,8 +34,8 @@ export const useImageViewerPinchGesture = (
 
       /// This block adjusts the positionX and positionY if pinching results in the image moving beyond the max drag ranges ///
       const scaleRatio = nextScale / pinchStartScale.value
-      const focalX = e.focalX - width / 2
-      const focalY = e.focalY - height / 2
+      const focalX = e.focalX - imageDimensions.width / 2
+      const focalY = e.focalY - imageDimensions.height / 2
       const nextX = focalX - (focalX - pinchStartX.value) * scaleRatio
       const nextY = focalY - (focalY - pinchStartY.value) * scaleRatio
 
