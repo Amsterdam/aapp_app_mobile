@@ -1,0 +1,119 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target arm64-apple-ios13.1-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name MobileContainerSDK
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+import Alamofire
+import CommonCrypto
+import CoreBluetooth
+import CoreData
+import Foundation
+@_exported import MobileContainerSDK
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+public enum BluetoothAuthorization : Swift.String {
+  case notDetermined
+  case restricted
+  case denied
+  case allowedAlways
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.String)
+  #endif
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol BluetoothConnectionDelegate {
+  func onBluetoothStateChanged(bluetoothState: MobileContainerSDK.BluetoothState)
+  func onScanStarted()
+  func onScanStopped()
+  func onBluetoothContainerDeviceDiscovered(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice)
+  func onBluetoothContainerDeviceConnected(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice)
+  func onBluetoothContainerDeviceConnectionFailed(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice)
+  func onBluetoothContainerDeviceDisconnected(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice)
+  func onUnlockFinished(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice)
+  #if compiler(>=5.3) && $NonescapableTypes
+  func onUnlockError(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, error: Swift.String?)
+  #endif
+  func onGetTransactionsFinished(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, transactionData: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  func onGetTransactionsFailed(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, error: Swift.String?)
+  #endif
+  func onSetWhitelistFinished(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, resultCode: Swift.UInt8)
+  #if compiler(>=5.3) && $NonescapableTypes
+  func onSetWhitelistFailed(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, error: Swift.String?)
+  #endif
+}
+public class BluetoothConnectionManager {
+  public var bluetoothState: MobileContainerSDK.BluetoothState {
+    get
+  }
+  public var bluetoothAuthorization: MobileContainerSDK.BluetoothAuthorization {
+    get
+  }
+  public init()
+  public func startScan()
+  public func stopScan()
+  public func connect(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice)
+  public func disconnect(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice)
+  public func setup(sdkConfiguration: MobileContainerSDK.SDKConfiguration)
+  public func setBluetoothConnectionDelegate(bluetoothConnectionDelegate: any MobileContainerSDK.BluetoothConnectionDelegate)
+  public func autoUnlock(cardId: Swift.String)
+  public func unlock(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, cardId: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getTransactions(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, lastTransactionNumber: Swift.UInt32?)
+  #endif
+  public func setWhitelist(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, diffAllowListBase64: Swift.String, sequenceNumber: Swift.UInt32)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class BluetoothContainerDevice {
+  public var name: Swift.String?
+  public var uuid: Foundation.UUID
+  public var RSSI: Foundation.NSNumber?
+  @objc deinit
+}
+public enum BluetoothState : Swift.String {
+  case unknown
+  case resetting
+  case unsupported
+  case unauthorized
+  case poweredOff
+  case poweredOn
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.String)
+  #endif
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum Environment {
+  case test
+  case acceptance
+  case production
+  public static func == (a: MobileContainerSDK.Environment, b: MobileContainerSDK.Environment) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class SDKConfiguration {
+  public var organisationId: Swift.String
+  public var servicePrincipalName: Swift.String
+  public var servicePrincipalSecret: Swift.String
+  public var environment: MobileContainerSDK.Environment
+  public init(organisationId: Swift.String, servicePrincipalName: Swift.String, servicePrincipalSecret: Swift.String, environment: MobileContainerSDK.Environment)
+  @objc deinit
+}
+extension MobileContainerSDK.BluetoothAuthorization : Swift.Equatable {}
+extension MobileContainerSDK.BluetoothAuthorization : Swift.Hashable {}
+extension MobileContainerSDK.BluetoothAuthorization : Swift.RawRepresentable {}
+extension MobileContainerSDK.BluetoothState : Swift.Equatable {}
+extension MobileContainerSDK.BluetoothState : Swift.Hashable {}
+extension MobileContainerSDK.BluetoothState : Swift.RawRepresentable {}
+extension MobileContainerSDK.Environment : Swift.Equatable {}
+extension MobileContainerSDK.Environment : Swift.Hashable {}

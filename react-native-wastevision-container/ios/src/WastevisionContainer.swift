@@ -25,7 +25,7 @@ import MobileContainerSDK
 }
 
 @objc
-public class WasteVisionContainer: NSObject, BluetoothConnectionDelegate {
+public class WasteVisionContainer: NSObject, WasteVisionContainerDelegate {
     
     public weak var delegate: WasteVisionContainerDelegate?
     var discoveredDevices: [MobileContainerSDK.BluetoothContainerDevice] = []

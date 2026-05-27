@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (5.11.2)
   - boost (1.84.0)
   - BVLinearGradient (2.8.3):
     - React-Core
@@ -2568,35 +2567,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-wastevision-container (0.0.0):
-    - Alamofire (~> 5.7)
-    - boost
-    - DoubleConversion
-    - fast_float
-    - fmt
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCT-Folly/Fabric
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - SocketRocket
-    - Yoga
   - react-native-webview (13.16.1):
     - boost
     - DoubleConversion
@@ -3838,7 +3808,6 @@ DEPENDENCIES:
   - react-native-render-html (from `../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-salesforce-messaging-in-app (from `../react-native-salesforce-messaging-in-app`)
-  - react-native-wastevision-container (from `../react-native-wastevision-container`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-networking (from `../node_modules/react-native/ReactCommon/react/networking`)
@@ -3894,7 +3863,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -4070,8 +4038,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-salesforce-messaging-in-app:
     :path: "../react-native-salesforce-messaging-in-app"
-  react-native-wastevision-container:
-    :path: "../react-native-wastevision-container"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-NativeModulesApple:
@@ -4174,7 +4140,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Alamofire: 400275dd1c6d87d95a041861d2a59da4b520a203
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   BVLinearGradient: cb006ba232a1f3e4f341bb62c42d1098c284da70
   Clusterer: 36faca62b79315e97774a06f75b07fd0c3c9795d
@@ -4268,7 +4233,6 @@ SPEC CHECKSUMS:
   react-native-render-html: 5afc4751f1a98621b3009432ef84c47019dcb2bd
   react-native-safe-area-context: befb5404eb8a16fdc07fa2bebab3568ecabcbb8a
   react-native-salesforce-messaging-in-app: 69d82261c78e379a838c0de67e2a2b9556d5242e
-  react-native-wastevision-container: b74dde87f39b24297359794c086448ba445f4633
   react-native-webview: 8407aaaf6b539b1e38b72fabb55d6885de03beaf
   React-NativeModulesApple: 29290351acc118784e158aa7b23c42719dc57617
   React-networking: d01f94f15d1a6fce689a8c57d2397a5a40b0b5aa
@@ -4323,6 +4287,6 @@ SPEC CHECKSUMS:
   TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   Yoga: b669e79fa0f8d3f6f5e35372345f54b99e06b13c
 
-PODFILE CHECKSUM: 698f194b3783f42cece4ce3f89f0c2c1b5c5fc12
+PODFILE CHECKSUM: d8b57d1375e9bf827f0171834c7fbc09112ac3ab
 
 COCOAPODS: 1.15.2

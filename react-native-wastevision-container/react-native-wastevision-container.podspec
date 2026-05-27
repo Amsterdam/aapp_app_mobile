@@ -14,8 +14,8 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => min_ios_version_supported }
   s.source       = { :git => ".git", :tag => "#{s.version}" }
 
-  s.source_files = "ios/**/*.{h,m,mm,cpp,swift}"
-  s.vendored_frameworks = "ios/MobileContainerSDK.xcframework"
+  s.source_files = "ios/src/**/*.{h,m,mm,cpp,swift}"
+  s.vendored_frameworks = "ios/Frameworks/MobileContainerSDK.xcframework"
 
   # Framework Dependencies
   s.dependency 'Alamofire', '~> 5.7'

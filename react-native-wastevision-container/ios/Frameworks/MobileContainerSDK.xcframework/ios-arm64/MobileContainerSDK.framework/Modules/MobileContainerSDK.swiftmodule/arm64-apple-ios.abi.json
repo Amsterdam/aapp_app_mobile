@@ -1,0 +1,3287 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "MobileContainerSDK",
+    "printedName": "MobileContainerSDK",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreData",
+        "printedName": "CoreData",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothAuthorization",
+        "printedName": "BluetoothAuthorization",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "notDetermined",
+            "printedName": "notDetermined",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothAuthorization.Type) -> MobileContainerSDK.BluetoothAuthorization",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                    "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothAuthorization",
+                        "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                        "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO13notDeterminedyA2CmF",
+            "mangledName": "$s18MobileContainerSDK22BluetoothAuthorizationO13notDeterminedyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "restricted",
+            "printedName": "restricted",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothAuthorization.Type) -> MobileContainerSDK.BluetoothAuthorization",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                    "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothAuthorization",
+                        "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                        "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO10restrictedyA2CmF",
+            "mangledName": "$s18MobileContainerSDK22BluetoothAuthorizationO10restrictedyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "denied",
+            "printedName": "denied",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothAuthorization.Type) -> MobileContainerSDK.BluetoothAuthorization",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                    "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothAuthorization",
+                        "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                        "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO6deniedyA2CmF",
+            "mangledName": "$s18MobileContainerSDK22BluetoothAuthorizationO6deniedyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "allowedAlways",
+            "printedName": "allowedAlways",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothAuthorization.Type) -> MobileContainerSDK.BluetoothAuthorization",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                    "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothAuthorization",
+                        "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                        "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO13allowedAlwaysyA2CmF",
+            "mangledName": "$s18MobileContainerSDK22BluetoothAuthorizationO13allowedAlwaysyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "MobileContainerSDK.BluetoothAuthorization?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                    "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO8rawValueACSgSS_tcfc",
+            "mangledName": "$s18MobileContainerSDK22BluetoothAuthorizationO8rawValueACSgSS_tcfc",
+            "moduleName": "MobileContainerSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO8rawValueSSvp",
+            "mangledName": "$s18MobileContainerSDK22BluetoothAuthorizationO8rawValueSSvp",
+            "moduleName": "MobileContainerSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO8rawValueSSvg",
+                "mangledName": "$s18MobileContainerSDK22BluetoothAuthorizationO8rawValueSSvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO",
+        "mangledName": "$s18MobileContainerSDK22BluetoothAuthorizationO",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothConnectionDelegate",
+        "printedName": "BluetoothConnectionDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onBluetoothStateChanged",
+            "printedName": "onBluetoothStateChanged(bluetoothState:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothState",
+                "printedName": "MobileContainerSDK.BluetoothState",
+                "usr": "s:18MobileContainerSDK14BluetoothStateO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP02onD12StateChanged09bluetoothH0yAA0dH0O_tF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP02onD12StateChanged09bluetoothH0yAA0dH0O_tF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onScanStarted",
+            "printedName": "onScanStarted()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP13onScanStartedyyF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP13onScanStartedyyF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onScanStopped",
+            "printedName": "onScanStopped()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP13onScanStoppedyyF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP13onScanStoppedyyF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onBluetoothContainerDeviceDiscovered",
+            "printedName": "onBluetoothContainerDeviceDiscovered(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP02ondB16DeviceDiscovered09bluetoothbH0yAA0dbH0C_tF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP02ondB16DeviceDiscovered09bluetoothbH0yAA0dbH0C_tF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onBluetoothContainerDeviceConnected",
+            "printedName": "onBluetoothContainerDeviceConnected(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP02ondB15DeviceConnected09bluetoothbH0yAA0dbH0C_tF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP02ondB15DeviceConnected09bluetoothbH0yAA0dbH0C_tF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onBluetoothContainerDeviceConnectionFailed",
+            "printedName": "onBluetoothContainerDeviceConnectionFailed(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP02ondb6DeviceE6Failed09bluetoothbH0yAA0dbH0C_tF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP02ondb6DeviceE6Failed09bluetoothbH0yAA0dbH0C_tF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onBluetoothContainerDeviceDisconnected",
+            "printedName": "onBluetoothContainerDeviceDisconnected(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP02ondB18DeviceDisconnected09bluetoothbH0yAA0dbH0C_tF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP02ondB18DeviceDisconnected09bluetoothbH0yAA0dbH0C_tF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onUnlockFinished",
+            "printedName": "onUnlockFinished(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP16onUnlockFinished09bluetoothB6DeviceyAA0dbK0C_tF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP16onUnlockFinished09bluetoothB6DeviceyAA0dbK0C_tF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onUnlockError",
+            "printedName": "onUnlockError(bluetoothContainerDevice:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP13onUnlockError09bluetoothB6Device5erroryAA0dbK0C_SSSgtF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP13onUnlockError09bluetoothB6Device5erroryAA0dbK0C_SSSgtF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onGetTransactionsFinished",
+            "printedName": "onGetTransactionsFinished(bluetoothContainerDevice:transactionData:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP25onGetTransactionsFinished09bluetoothB6Device15transactionDatayAA0dbL0C_SStF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP25onGetTransactionsFinished09bluetoothB6Device15transactionDatayAA0dbL0C_SStF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onGetTransactionsFailed",
+            "printedName": "onGetTransactionsFailed(bluetoothContainerDevice:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP23onGetTransactionsFailed09bluetoothB6Device5erroryAA0dbL0C_SSSgtF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP23onGetTransactionsFailed09bluetoothB6Device5erroryAA0dbL0C_SSSgtF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onSetWhitelistFinished",
+            "printedName": "onSetWhitelistFinished(bluetoothContainerDevice:resultCode:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt8",
+                "printedName": "Swift.UInt8",
+                "usr": "s:s5UInt8V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP22onSetWhitelistFinished09bluetoothB6Device10resultCodeyAA0dbL0C_s5UInt8VtF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP22onSetWhitelistFinished09bluetoothB6Device10resultCodeyAA0dbL0C_s5UInt8VtF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onSetWhitelistFailed",
+            "printedName": "onSetWhitelistFailed(bluetoothContainerDevice:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP20onSetWhitelistFailed09bluetoothB6Device5erroryAA0dbL0C_SSSgtF",
+            "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP20onSetWhitelistFailed09bluetoothB6Device5erroryAA0dbL0C_SSSgtF",
+            "moduleName": "MobileContainerSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "sugared_genericSig": "<Self where Self : MobileContainerSDK.BluetoothConnectionDelegate>",
+            "protocolReq": true,
+            "declAttributes": ["RawDocComment"],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP",
+        "mangledName": "$s18MobileContainerSDK27BluetoothConnectionDelegateP",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothConnectionManager",
+        "printedName": "BluetoothConnectionManager",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "bluetoothState",
+            "printedName": "bluetoothState",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothState",
+                "printedName": "MobileContainerSDK.BluetoothState",
+                "usr": "s:18MobileContainerSDK14BluetoothStateO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC14bluetoothStateAA0dH0Ovp",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC14bluetoothStateAA0dH0Ovp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "MobileContainerSDK.BluetoothState",
+                    "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC14bluetoothStateAA0dH0Ovg",
+                "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC14bluetoothStateAA0dH0Ovg",
+                "moduleName": "MobileContainerSDK",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "bluetoothAuthorization",
+            "printedName": "bluetoothAuthorization",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothAuthorization",
+                "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC22bluetoothAuthorizationAA0dH0Ovp",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC22bluetoothAuthorizationAA0dH0Ovp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothAuthorization",
+                    "printedName": "MobileContainerSDK.BluetoothAuthorization",
+                    "usr": "s:18MobileContainerSDK22BluetoothAuthorizationO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC22bluetoothAuthorizationAA0dH0Ovg",
+                "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC22bluetoothAuthorizationAA0dH0Ovg",
+                "moduleName": "MobileContainerSDK",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothConnectionManager",
+                "printedName": "MobileContainerSDK.BluetoothConnectionManager",
+                "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerCACycfc",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerCACycfc",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "startScan",
+            "printedName": "startScan()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC9startScanyyF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC9startScanyyF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopScan",
+            "printedName": "stopScan()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC8stopScanyyF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC8stopScanyyF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "connect",
+            "printedName": "connect(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC7connect09bluetoothB6DeviceyAA0dbI0C_tF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC7connect09bluetoothB6DeviceyAA0dbI0C_tF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "disconnect",
+            "printedName": "disconnect(bluetoothContainerDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC10disconnect09bluetoothB6DeviceyAA0dbI0C_tF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC10disconnect09bluetoothB6DeviceyAA0dbI0C_tF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setup",
+            "printedName": "setup(sdkConfiguration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SDKConfiguration",
+                "printedName": "MobileContainerSDK.SDKConfiguration",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC5setup16sdkConfigurationyAA16SDKConfigurationC_tF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC5setup16sdkConfigurationyAA16SDKConfigurationC_tF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setBluetoothConnectionDelegate",
+            "printedName": "setBluetoothConnectionDelegate(bluetoothConnectionDelegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothConnectionDelegate",
+                "printedName": "any MobileContainerSDK.BluetoothConnectionDelegate",
+                "usr": "s:18MobileContainerSDK27BluetoothConnectionDelegateP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC03setdE8Delegate09bluetootheH0yAA0deH0_p_tF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC03setdE8Delegate09bluetootheH0yAA0deH0_p_tF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "autoUnlock",
+            "printedName": "autoUnlock(cardId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC10autoUnlock6cardIdySS_tF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC10autoUnlock6cardIdySS_tF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "unlock",
+            "printedName": "unlock(bluetoothContainerDevice:cardId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC6unlock09bluetoothB6Device6cardIdyAA0dbI0C_SStF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC6unlock09bluetoothB6Device6cardIdyAA0dbI0C_SStF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getTransactions",
+            "printedName": "getTransactions(bluetoothContainerDevice:lastTransactionNumber:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.UInt32?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt32",
+                    "printedName": "Swift.UInt32",
+                    "usr": "s:s6UInt32V"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC15getTransactions09bluetoothB6Device21lastTransactionNumberyAA0dbJ0C_s6UInt32VSgtF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC15getTransactions09bluetoothB6Device21lastTransactionNumberyAA0dbJ0C_s6UInt32VSgtF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setWhitelist",
+            "printedName": "setWhitelist(bluetoothContainerDevice:diffAllowListBase64:sequenceNumber:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "BluetoothContainerDevice",
+                "printedName": "MobileContainerSDK.BluetoothContainerDevice",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC12setWhitelist09bluetoothB6Device19diffAllowListBase6414sequenceNumberyAA0dbJ0C_SSs6UInt32VtF",
+            "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC12setWhitelist09bluetoothB6Device19diffAllowListBase6414sequenceNumberyAA0dbJ0C_SSs6UInt32VtF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl", "RawDocComment"],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:18MobileContainerSDK26BluetoothConnectionManagerC",
+        "mangledName": "$s18MobileContainerSDK26BluetoothConnectionManagerC",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothContainerDevice",
+        "printedName": "BluetoothContainerDevice",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "name",
+            "printedName": "name",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4nameSSSgvp",
+            "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4nameSSSgvp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4nameSSSgvg",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4nameSSSgvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4nameSSSgvs",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4nameSSSgvs",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4nameSSSgvM",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4nameSSSgvM",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "uuid",
+            "printedName": "uuid",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UUID",
+                "printedName": "Foundation.UUID",
+                "usr": "s:10Foundation4UUIDV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4uuid10Foundation4UUIDVvp",
+            "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4uuid10Foundation4UUIDVvp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["HasStorage", "AccessControl", "RawDocComment"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UUID",
+                    "printedName": "Foundation.UUID",
+                    "usr": "s:10Foundation4UUIDV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4uuid10Foundation4UUIDVvg",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4uuid10Foundation4UUIDVvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UUID",
+                    "printedName": "Foundation.UUID",
+                    "usr": "s:10Foundation4UUIDV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4uuid10Foundation4UUIDVvs",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4uuid10Foundation4UUIDVvs",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4uuid10Foundation4UUIDVvM",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4uuid10Foundation4UUIDVvM",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "RSSI",
+            "printedName": "RSSI",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.NSNumber?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSNumber",
+                    "printedName": "Foundation.NSNumber",
+                    "usr": "c:objc(cs)NSNumber"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4RSSISo8NSNumberCSgvp",
+            "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4RSSISo8NSNumberCSgvp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.NSNumber?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSNumber",
+                        "printedName": "Foundation.NSNumber",
+                        "usr": "c:objc(cs)NSNumber"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4RSSISo8NSNumberCSgvg",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4RSSISo8NSNumberCSgvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.NSNumber?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSNumber",
+                        "printedName": "Foundation.NSNumber",
+                        "usr": "c:objc(cs)NSNumber"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4RSSISo8NSNumberCSgvs",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4RSSISo8NSNumberCSgvs",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC4RSSISo8NSNumberCSgvM",
+                "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC4RSSISo8NSNumberCSgvM",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:18MobileContainerSDK09BluetoothB6DeviceC",
+        "mangledName": "$s18MobileContainerSDK09BluetoothB6DeviceC",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "hasMissingDesignatedInitializers": true,
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BluetoothState",
+        "printedName": "BluetoothState",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "unknown",
+            "printedName": "unknown",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothState.Type) -> MobileContainerSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "MobileContainerSDK.BluetoothState",
+                    "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "MobileContainerSDK.BluetoothState",
+                        "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK14BluetoothStateO7unknownyA2CmF",
+            "mangledName": "$s18MobileContainerSDK14BluetoothStateO7unknownyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "resetting",
+            "printedName": "resetting",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothState.Type) -> MobileContainerSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "MobileContainerSDK.BluetoothState",
+                    "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "MobileContainerSDK.BluetoothState",
+                        "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK14BluetoothStateO9resettingyA2CmF",
+            "mangledName": "$s18MobileContainerSDK14BluetoothStateO9resettingyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "unsupported",
+            "printedName": "unsupported",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothState.Type) -> MobileContainerSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "MobileContainerSDK.BluetoothState",
+                    "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "MobileContainerSDK.BluetoothState",
+                        "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK14BluetoothStateO11unsupportedyA2CmF",
+            "mangledName": "$s18MobileContainerSDK14BluetoothStateO11unsupportedyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "unauthorized",
+            "printedName": "unauthorized",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothState.Type) -> MobileContainerSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "MobileContainerSDK.BluetoothState",
+                    "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "MobileContainerSDK.BluetoothState",
+                        "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK14BluetoothStateO12unauthorizedyA2CmF",
+            "mangledName": "$s18MobileContainerSDK14BluetoothStateO12unauthorizedyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "poweredOff",
+            "printedName": "poweredOff",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothState.Type) -> MobileContainerSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "MobileContainerSDK.BluetoothState",
+                    "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "MobileContainerSDK.BluetoothState",
+                        "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK14BluetoothStateO10poweredOffyA2CmF",
+            "mangledName": "$s18MobileContainerSDK14BluetoothStateO10poweredOffyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Var",
+            "name": "poweredOn",
+            "printedName": "poweredOn",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.BluetoothState.Type) -> MobileContainerSDK.BluetoothState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "MobileContainerSDK.BluetoothState",
+                    "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.BluetoothState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "BluetoothState",
+                        "printedName": "MobileContainerSDK.BluetoothState",
+                        "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK14BluetoothStateO9poweredOnyA2CmF",
+            "mangledName": "$s18MobileContainerSDK14BluetoothStateO9poweredOnyA2CmF",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["RawDocComment"]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "MobileContainerSDK.BluetoothState?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BluetoothState",
+                    "printedName": "MobileContainerSDK.BluetoothState",
+                    "usr": "s:18MobileContainerSDK14BluetoothStateO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:18MobileContainerSDK14BluetoothStateO8rawValueACSgSS_tcfc",
+            "mangledName": "$s18MobileContainerSDK14BluetoothStateO8rawValueACSgSS_tcfc",
+            "moduleName": "MobileContainerSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK14BluetoothStateO8rawValueSSvp",
+            "mangledName": "$s18MobileContainerSDK14BluetoothStateO8rawValueSSvp",
+            "moduleName": "MobileContainerSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK14BluetoothStateO8rawValueSSvg",
+                "mangledName": "$s18MobileContainerSDK14BluetoothStateO8rawValueSSvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:18MobileContainerSDK14BluetoothStateO",
+        "mangledName": "$s18MobileContainerSDK14BluetoothStateO",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["AccessControl", "RawDocComment"],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreData",
+        "printedName": "CoreData",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Alamofire",
+        "printedName": "Alamofire",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "CommonCrypto",
+        "printedName": "CommonCrypto",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Environment",
+        "printedName": "Environment",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "test",
+            "printedName": "test",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.Environment.Type) -> MobileContainerSDK.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "MobileContainerSDK.Environment",
+                    "usr": "s:18MobileContainerSDK11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "MobileContainerSDK.Environment",
+                        "usr": "s:18MobileContainerSDK11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK11EnvironmentO4testyA2CmF",
+            "mangledName": "$s18MobileContainerSDK11EnvironmentO4testyA2CmF",
+            "moduleName": "MobileContainerSDK"
+          },
+          {
+            "kind": "Var",
+            "name": "acceptance",
+            "printedName": "acceptance",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.Environment.Type) -> MobileContainerSDK.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "MobileContainerSDK.Environment",
+                    "usr": "s:18MobileContainerSDK11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "MobileContainerSDK.Environment",
+                        "usr": "s:18MobileContainerSDK11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK11EnvironmentO10acceptanceyA2CmF",
+            "mangledName": "$s18MobileContainerSDK11EnvironmentO10acceptanceyA2CmF",
+            "moduleName": "MobileContainerSDK"
+          },
+          {
+            "kind": "Var",
+            "name": "production",
+            "printedName": "production",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MobileContainerSDK.Environment.Type) -> MobileContainerSDK.Environment",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "MobileContainerSDK.Environment",
+                    "usr": "s:18MobileContainerSDK11EnvironmentO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MobileContainerSDK.Environment.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Environment",
+                        "printedName": "MobileContainerSDK.Environment",
+                        "usr": "s:18MobileContainerSDK11EnvironmentO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:18MobileContainerSDK11EnvironmentO10productionyA2CmF",
+            "mangledName": "$s18MobileContainerSDK11EnvironmentO10productionyA2CmF",
+            "moduleName": "MobileContainerSDK"
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "MobileContainerSDK.Environment",
+                "usr": "s:18MobileContainerSDK11EnvironmentO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "MobileContainerSDK.Environment",
+                "usr": "s:18MobileContainerSDK11EnvironmentO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK11EnvironmentO2eeoiySbAC_ACtFZ",
+            "mangledName": "$s18MobileContainerSDK11EnvironmentO2eeoiySbAC_ACtFZ",
+            "moduleName": "MobileContainerSDK",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "hashValue",
+            "printedName": "hashValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK11EnvironmentO9hashValueSivp",
+            "mangledName": "$s18MobileContainerSDK11EnvironmentO9hashValueSivp",
+            "moduleName": "MobileContainerSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK11EnvironmentO9hashValueSivg",
+                "mangledName": "$s18MobileContainerSDK11EnvironmentO9hashValueSivg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18MobileContainerSDK11EnvironmentO4hash4intoys6HasherVz_tF",
+            "mangledName": "$s18MobileContainerSDK11EnvironmentO4hash4intoys6HasherVz_tF",
+            "moduleName": "MobileContainerSDK",
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:18MobileContainerSDK11EnvironmentO",
+        "mangledName": "$s18MobileContainerSDK11EnvironmentO",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["AccessControl"],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SDKConfiguration",
+        "printedName": "SDKConfiguration",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "organisationId",
+            "printedName": "organisationId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK16SDKConfigurationC14organisationIdSSvp",
+            "mangledName": "$s18MobileContainerSDK16SDKConfigurationC14organisationIdSSvp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["HasStorage", "AccessControl"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC14organisationIdSSvg",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC14organisationIdSSvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC14organisationIdSSvs",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC14organisationIdSSvs",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC14organisationIdSSvM",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC14organisationIdSSvM",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "servicePrincipalName",
+            "printedName": "servicePrincipalName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK16SDKConfigurationC20servicePrincipalNameSSvp",
+            "mangledName": "$s18MobileContainerSDK16SDKConfigurationC20servicePrincipalNameSSvp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["HasStorage", "AccessControl"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC20servicePrincipalNameSSvg",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC20servicePrincipalNameSSvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC20servicePrincipalNameSSvs",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC20servicePrincipalNameSSvs",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC20servicePrincipalNameSSvM",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC20servicePrincipalNameSSvM",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "servicePrincipalSecret",
+            "printedName": "servicePrincipalSecret",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK16SDKConfigurationC22servicePrincipalSecretSSvp",
+            "mangledName": "$s18MobileContainerSDK16SDKConfigurationC22servicePrincipalSecretSSvp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["HasStorage", "AccessControl"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC22servicePrincipalSecretSSvg",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC22servicePrincipalSecretSSvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC22servicePrincipalSecretSSvs",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC22servicePrincipalSecretSSvs",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC22servicePrincipalSecretSSvM",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC22servicePrincipalSecretSSvM",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "environment",
+            "printedName": "environment",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "MobileContainerSDK.Environment",
+                "usr": "s:18MobileContainerSDK11EnvironmentO"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18MobileContainerSDK16SDKConfigurationC11environmentAA11EnvironmentOvp",
+            "mangledName": "$s18MobileContainerSDK16SDKConfigurationC11environmentAA11EnvironmentOvp",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["HasStorage", "AccessControl"],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "MobileContainerSDK.Environment",
+                    "usr": "s:18MobileContainerSDK11EnvironmentO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC11environmentAA11EnvironmentOvg",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC11environmentAA11EnvironmentOvg",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Environment",
+                    "printedName": "MobileContainerSDK.Environment",
+                    "usr": "s:18MobileContainerSDK11EnvironmentO"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC11environmentAA11EnvironmentOvs",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC11environmentAA11EnvironmentOvs",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC11environmentAA11EnvironmentOvM",
+                "mangledName": "$s18MobileContainerSDK16SDKConfigurationC11environmentAA11EnvironmentOvM",
+                "moduleName": "MobileContainerSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(organisationId:servicePrincipalName:servicePrincipalSecret:environment:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SDKConfiguration",
+                "printedName": "MobileContainerSDK.SDKConfiguration",
+                "usr": "s:18MobileContainerSDK16SDKConfigurationC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Environment",
+                "printedName": "MobileContainerSDK.Environment",
+                "usr": "s:18MobileContainerSDK11EnvironmentO"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:18MobileContainerSDK16SDKConfigurationC14organisationId20servicePrincipalName0gH6Secret11environmentACSS_S2SAA11EnvironmentOtcfc",
+            "mangledName": "$s18MobileContainerSDK16SDKConfigurationC14organisationId20servicePrincipalName0gH6Secret11environmentACSS_S2SAA11EnvironmentOtcfc",
+            "moduleName": "MobileContainerSDK",
+            "declAttributes": ["AccessControl"],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:18MobileContainerSDK16SDKConfigurationC",
+        "mangledName": "$s18MobileContainerSDK16SDKConfigurationC",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["AccessControl"],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MobileContainerSDK",
+        "declAttributes": ["RawDocComment"]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/ContainerLogManager.swift",
+      "kind": "IntegerLiteral",
+      "offset": 691,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/ContainerLogManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1773,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/ContainerLogManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5907,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/ContainerLogManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6166,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/bluetooth\/BluetoothConnectionManager.swift",
+      "kind": "Array",
+      "offset": 1201,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/bluetooth\/BluetoothConnectionManager.swift",
+      "kind": "Dictionary",
+      "offset": 1531,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/bluetooth\/BluetoothConnectionManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1754,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/bluetooth\/BluetoothConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 262,
+      "length": 38,
+      "value": "\"0783B03E-8535-B5A0-7140-A304D2495CB7\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/bluetooth\/BluetoothConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 403,
+      "length": 38,
+      "value": "\"0783B03E-8535-B5A0-7140-A304D2495CB8\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/bluetooth\/BluetoothConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 540,
+      "length": 38,
+      "value": "\"0783B03E-8535-B5A0-7140-A304D2495CBA\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 374,
+      "length": 20,
+      "value": "\"MobileContainerSDK\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 496,
+      "length": 27,
+      "value": "\"Unresolved error \""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 522,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 1046,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/EncryptionKeyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 377,
+      "length": 26,
+      "value": "\"com.wastevision.wastekey\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/network\/EncryptionKeyManager.swift",
+      "kind": "StringLiteral",
+      "offset": 415,
+      "length": 9,
+      "value": "\"network\""
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 833,
+      "length": 12,
+      "value": "[0x00, 0x00]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 877,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 919,
+      "length": 6,
+      "value": "[0x01]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1130,
+      "length": 12,
+      "value": "[0x00, 0x07]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1174,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1216,
+      "length": 6,
+      "value": "[0x00]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1513,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1557,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 1599,
+      "length": 6,
+      "value": "[0x00]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 2180,
+      "length": 12,
+      "value": "[0x00, 0x03]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 2224,
+      "length": 12,
+      "value": "[0x00, 0x10]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 2266,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 3380,
+      "length": 12,
+      "value": "[0x00, 0x06]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 3424,
+      "length": 12,
+      "value": "[0x00, 0x01]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 3466,
+      "length": 6,
+      "value": "[0x00]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 3627,
+      "length": 12,
+      "value": "[0x00, 0x0C]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 3672,
+      "length": 12,
+      "value": "[0x00, 0x04]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 4209,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5043,
+      "length": 12,
+      "value": "[0x00, 0x04]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5087,
+      "length": 12,
+      "value": "[0x00, 0x04]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5129,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5355,
+      "length": 12,
+      "value": "[0x00, 0x09]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5399,
+      "length": 12,
+      "value": "[0x00, 0x06]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5441,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5808,
+      "length": 12,
+      "value": "[0x00, 0x0A]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5859,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPCommand.swift",
+      "kind": "Array",
+      "offset": 5891,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 220,
+      "length": 3,
+      "value": "255"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 244,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 269,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 288,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 302,
+      "length": 1,
+      "value": "4"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 319,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 347,
+      "length": 1,
+      "value": "6"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 368,
+      "length": 1,
+      "value": "7"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 385,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 409,
+      "length": 1,
+      "value": "9"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 434,
+      "length": 2,
+      "value": "10"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 466,
+      "length": 2,
+      "value": "11"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 494,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 523,
+      "length": 2,
+      "value": "13"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1810,
+      "length": 3,
+      "value": "255"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1856,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2003,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2075,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2121,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2230,
+      "length": 1,
+      "value": "4"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2330,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2385,
+      "length": 1,
+      "value": "6"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPEnums.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2433,
+      "length": 1,
+      "value": "7"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPReadTransactionsHandler.swift",
+      "kind": "IntegerLiteral",
+      "offset": 655,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPReadTransactionsHandler.swift",
+      "kind": "IntegerLiteral",
+      "offset": 815,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPSetWhitelistHandler.swift",
+      "kind": "IntegerLiteral",
+      "offset": 433,
+      "length": 2,
+      "value": "20"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPSetWhitelistHandler.swift",
+      "kind": "IntegerLiteral",
+      "offset": 507,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPSetWhitelistHandler.swift",
+      "kind": "IntegerLiteral",
+      "offset": 547,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/janderk\/Baseflow\/projects\/WasteVision\/mobile-container-ios-sdk\/MobileContainerSDK\/MobileContainerSDK\/util\/SWNP\/SWNPSetWhitelistHandler.swift",
+      "kind": "Array",
+      "offset": 594,
+      "length": 2,
+      "value": "[]"
+    }
+  ]
+}
