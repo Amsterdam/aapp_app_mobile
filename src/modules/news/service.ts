@@ -14,3 +14,5 @@ export const newsApi = baseApi.injectEndpoints({
   }),
   overrideExisting: false,
 })
+
+export const {useArticlesQuery} = newsApi
