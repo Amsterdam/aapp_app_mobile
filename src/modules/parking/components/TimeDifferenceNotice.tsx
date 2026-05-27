@@ -9,7 +9,12 @@ export const TimeDifferenceNotice = (props: Props) => {
     Boolean(props.serverTime),
   )
 
-  return !(isSameTime && props.isSameTime) ? (
+  const showNotice =
+    props.isSameTime !== undefined
+      ? !(isSameTime && props.isSameTime)
+      : !isSameTime
+
+  return showNotice ? (
     <Notice
       text={`We gebruiken de tijd in Nederland. Daar is het nu ${dayjs(serverTime ?? props.serverTime).format('HH:mm')} uur.`}
       variant="warning"
