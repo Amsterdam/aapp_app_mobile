@@ -5,9 +5,10 @@ import {baseApi} from '@/services/baseApi'
 export const newsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     articles: builder.query<ArticlesResponse, ArticlesQueryArgs>({
-      query: () => ({
+      query: args => ({
         url: '/articles',
         slug: ModuleSlug.news,
+        params: args,
       }),
     }),
   }),
