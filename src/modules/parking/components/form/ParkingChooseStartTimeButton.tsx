@@ -74,10 +74,6 @@ export const ParkingChooseStartTimeButton = () => {
             if (!endTime) {
               return true
             }
-
-            return (
-              startTime.isBefore(endTime) || 'Deze starttijd is niet toegestaan'
-            )
           },
         }}
         testID="ParkingChooseStartTimeButton"
