@@ -1,5 +1,6 @@
 import {type PropsWithChildren} from 'react'
 import type {SvgIconName} from '@/components/ui/media/svgIcons'
+import type {TestProps} from '@/components/ui/types'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -12,11 +13,12 @@ export const ParkingSessionDetailsRow = ({
   iconName,
   testID,
   title,
-}: PropsWithChildren<{
-  iconName: SvgIconName
-  testID: string
-  title: string
-}>) => (
+}: PropsWithChildren<
+  {
+    iconName: SvgIconName
+    title: string
+  } & TestProps
+>) => (
   <SingleSelectable testID={testID}>
     <Row
       gutter="sm"

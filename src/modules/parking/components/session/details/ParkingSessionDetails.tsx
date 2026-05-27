@@ -66,7 +66,7 @@ export const ParkingSessionDetails = ({
       <Column gutter="lg">
         <ParkingSessionDetailsRow
           iconName="car"
-          testID="ParkingSessionDetailsLicensePlate"
+          testID="ParkingSessionDetailsLicensePlateRow"
           title="Kenteken">
           <Phrase>{licensePlateString}</Phrase>
         </ParkingSessionDetailsRow>
@@ -81,7 +81,7 @@ export const ParkingSessionDetails = ({
         {!parkingSession.parking_machine && (
           <ParkingSessionDetailsRow
             iconName="map-marker"
-            testID="ParkingSessionDetailsPermitZone"
+            testID="ParkingSessionDetailsPermitZoneRow"
             title={getPermitZoneLabel(currentPermit.permit_zone)}>
             <NavigationButton
               chevronSize="smd"
@@ -97,7 +97,7 @@ export const ParkingSessionDetails = ({
 
         <ParkingSessionDetailsRow
           iconName="clock"
-          testID="ParkingSessionDetailsParkingTime"
+          testID="ParkingSessionDetailsParkingTimeRow"
           title={
             isActiveWithoutEndTime
               ? 'Starttijd'
@@ -119,7 +119,7 @@ export const ParkingSessionDetails = ({
         {!!shouldShowCosts && (
           <ParkingSessionDetailsRow
             iconName="euro-coins"
-            testID="ParkingSessionDetailsParkingCost"
+            testID="ParkingSessionDetailsParkingCostRow"
             title="Kosten">
             <Phrase>
               {formatNumber(
