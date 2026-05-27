@@ -1,4 +1,4 @@
-import {useLayoutEffect, useMemo, useRef} from 'react'
+import {useLayoutEffect, useRef} from 'react'
 import {useController} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
@@ -32,14 +32,6 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
 
     startTimeRef.current = startTime
   })
-
-  const justNow = useMemo(
-    () =>
-      roundDownToMinutes(
-        startTimeRef.current ? startTimeRef.current : undefined,
-      ),
-    [],
-  )
 
   return (
     <Track align="around">
@@ -83,7 +75,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           date={startTimeRef.current.toDate()}
           is24hourSource="locale"
           locale="nl-NL"
-          minimumDate={justNow.toDate()}
+          minimumDate={roundDownToMinutes(startTimeRef.current).toDate()}
           mode="time"
           onDateChange={newStartTime => {
             userHasEditedStart.current = true
