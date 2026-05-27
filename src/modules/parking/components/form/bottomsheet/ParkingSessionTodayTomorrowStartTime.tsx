@@ -1,4 +1,4 @@
-import {useMemo, useRef} from 'react'
+import {useLayoutEffect, useMemo, useRef} from 'react'
 import {useController} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
@@ -22,15 +22,33 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
   } = useController<FieldValues, 'endTime'>({
     name: 'endTime',
   })
-  const startTimeRef = useRef(startTime)
+  const startTimeRef = useRef<Dayjs | null>(null)
   const {userHasEditedStart} = useParkingSession()
 
-  const justNow = useMemo(() => roundDownToMinutes(startTimeRef.current), [])
+  useLayoutEffect(() => {
+    if (startTimeRef.current) {
+      return
+    }
+
+    startTimeRef.current = startTime
+  })
+
+  const justNow = useMemo(
+    () =>
+      roundDownToMinutes(
+        startTimeRef.current ? startTimeRef.current : undefined,
+      ),
+    [],
+  )
 
   return (
     <Track align="around">
       <RadioGroup
         onChange={value => {
+          if (!startTimeRef.current) {
+            return
+          }
+
           let newStartTime = startTimeRef.current
 
           newStartTime = newStartTime
@@ -60,19 +78,21 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
         testID="ParkingSessionTodayTomorrowStartTimeRadioGroup"
         value={isToday(startTime) ? 'Today' : 'Tomorrow'}
       />
-      <DatePicker
-        date={startTimeRef.current.toDate()}
-        is24hourSource="locale"
-        locale="nl-NL"
-        minimumDate={justNow.toDate()}
-        mode="time"
-        onDateChange={newStartTime => {
-          userHasEditedStart.current = true
-          onChangeStartTime(dayjs(newStartTime))
-        }}
-        style={styles.centerSelf}
-        theme="light"
-      />
+      {startTimeRef.current ? (
+        <DatePicker
+          date={startTimeRef.current.toDate()}
+          is24hourSource="locale"
+          locale="nl-NL"
+          minimumDate={justNow.toDate()}
+          mode="time"
+          onDateChange={newStartTime => {
+            userHasEditedStart.current = true
+            onChangeStartTime(dayjs(newStartTime))
+          }}
+          style={styles.centerSelf}
+          theme="light"
+        />
+      ) : null}
     </Track>
   )
 }
