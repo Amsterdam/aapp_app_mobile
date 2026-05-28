@@ -90,6 +90,7 @@ export const lightColorTokens = {
       cityPass: baseColor.secondary.purple,
       primary: baseColor.primary.blue,
       default: baseColor.transparent.full,
+      positive: baseColor.secondary.darkgreen,
     },
     border: {
       default: baseColor.neutral.grey1,
@@ -328,6 +329,18 @@ export const lightColorTokens = {
         background: baseColor.transparent.grey50,
         border: baseColor.transparent.full,
         label: baseColor.primary.white,
+      },
+    },
+    positive: {
+      default: {
+        background: baseColor.primary.white,
+        border: baseColor.secondary.darkgreen,
+        label: baseColor.secondary.darkgreen,
+      },
+      pressed: {
+        background: baseColor.neutral.grey1,
+        border: baseColor.secondary.darkgreen,
+        label: baseColor.secondary.darkgreen,
       },
     },
   },
