@@ -17,7 +17,7 @@ export const ParkingSessionDateTime = ({
   setDateTime,
   maxDateTime,
 }: Props) => {
-  const {minDate, newStartTime, setNewStartTime} = useChangeSessionStartDate(
+  const {minDate, newStartTime, changeNewStartTime} = useChangeSessionStartDate(
     setDateTime,
     dateTime,
   )
@@ -37,7 +37,7 @@ export const ParkingSessionDateTime = ({
               minDate={minDate}
               mode="time"
               onChange={newDateTime => {
-                setNewStartTime(dayjs(newDateTime))
+                changeNewStartTime(dayjs(newDateTime))
               }}
             />
           ) : null}
@@ -50,7 +50,7 @@ export const ParkingSessionDateTime = ({
               minDate={minDate}
               mode="date"
               onChange={newDateTime => {
-                setNewStartTime(dayjs(newDateTime))
+                changeNewStartTime(dayjs(newDateTime))
               }}
             />
           ) : null}

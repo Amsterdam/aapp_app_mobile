@@ -19,7 +19,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
   } = useController<FieldValues, 'endTime'>({
     name: 'endTime',
   })
-  const {minDate, newStartTime, setNewStartTime} = useChangeSessionStartDate(
+  const {minDate, newStartTime, changeNewStartTime} = useChangeSessionStartDate(
     onChangeStartTime,
     startTime,
   )
@@ -28,21 +28,21 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
     <Track align="around">
       <RadioGroup
         onChange={value => {
-          if (!newStartTime) {
+          if (!(newStartTime && minDate)) {
             return
           }
 
-          setNewStartTime(prev =>
-            prev
+          changeNewStartTime(
+            newStartTime
               ?.set('date', startTime.date())
               ?.set('month', startTime.month())
               ?.set('year', startTime.year()),
           )
 
           if (value === 'Today') {
-            setNewStartTime(prev => prev?.subtract(1, 'day'))
+            changeNewStartTime(minDate)
           } else {
-            setNewStartTime(prev => prev?.add(1, 'day'))
+            changeNewStartTime(minDate.add(1, 'day'))
           }
 
           if (endTime) {
@@ -67,7 +67,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           minDate={minDate}
           mode="time"
           onChange={newTime => {
-            setNewStartTime(dayjs(newTime))
+            changeNewStartTime(dayjs(newTime))
           }}
         />
       ) : null}
