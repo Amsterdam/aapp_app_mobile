@@ -78,6 +78,11 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const tagsStyles: Record<string, MixedStyleDeclaration> = useMemo(
     () => ({
       b: styles.boldText,
+      blockquote: {
+        ...styles.boldText,
+        ...styles.titleLevel4,
+        ...styles.spaceAround,
+      },
       h1: {...styles.boldText, ...styles.titleLevel1, ...styles.titleMargins},
       h2: {...styles.boldText, ...styles.titleLevel2, ...styles.titleMargins},
       h3: {...styles.boldText, ...styles.titleLevel3, ...styles.titleMargins},
@@ -129,7 +134,7 @@ const createStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
-  ({text}: Theme) => {
+  ({size, text}: Theme) => {
     const lineHeight = getLineHeight(text, isIntro)
 
     // By default, Android sets this to `bold` – which breaks the font family.
@@ -148,6 +153,9 @@ const createStyles: (
       boldText: {
         fontFamily: text.fontFamily.bold,
         fontWeight: platformDependentFontWeight,
+      },
+      spaceAround: {
+        margin: size.spacing.md,
       },
       titleLevel1: {
         fontSize: text.fontSize.h1,
@@ -246,7 +254,7 @@ const ARenderer: CustomMixedRenderer = props => {
 }
 
 const renderers: CustomTagRendererRecord = {
-  ul: UlRenderer,
-  li: LiRenderer,
   a: ARenderer,
+  li: LiRenderer,
+  ul: UlRenderer,
 }
