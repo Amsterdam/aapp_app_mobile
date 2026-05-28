@@ -2,7 +2,6 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
-import {htmlContent} from '@/modules/news/mockHtml'
 import {useNewsArticleQuery} from '@/modules/news/service'
 
 type Props = {
@@ -22,8 +21,9 @@ export const NewsArticle = ({id}: Props) => {
 
   return (
     <HtmlContent
-      content={article?.content ?? htmlContent}
+      content={article?.content}
       testID="NewsArticleContent"
     />
+    // TODO: Add "Lees ook" section when endpoint is available
   )
 }
