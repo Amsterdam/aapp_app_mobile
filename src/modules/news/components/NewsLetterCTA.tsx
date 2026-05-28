@@ -21,7 +21,7 @@ export const NewsletterCTA = () => (
 
       <ExternalLinkButton
         label="Ik wil de nieuwsbrief"
-        redirectKey={RedirectKey.newsletter}
+        redirectKey={RedirectKey.contactNewsletterSignup}
         testID="NewsletterCTAButton"
         variant="positive"
       />
