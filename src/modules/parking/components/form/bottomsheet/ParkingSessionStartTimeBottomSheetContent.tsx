@@ -7,6 +7,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {ParkingSessionDateTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDateTime'
 import {ParkingSessionTodayTomorrowStartTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionTodayTomorrowStartTime'
+import {useChangeSessionStartDate} from '@/modules/parking/hooks/useChangeSessionStartDate'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
@@ -17,6 +18,10 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
   } = useController<{startTime: Dayjs}, 'startTime'>({
     name: 'startTime',
   })
+  const {minDate, newStartTime, changeNewStartTime} = useChangeSessionStartDate(
+    onChange,
+    startTime,
+  )
   const {close} = useBottomSheet()
   const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
@@ -37,11 +42,12 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
         <ParkingSessionTodayTomorrowStartTime />
       ) : (
         <ParkingSessionDateTime
-          dateTime={startTime}
+          dateTime={newStartTime}
           maxDateTime={dayjs()
             .add(max_session_length_in_days, 'day')
             .endOf('day')}
-          setDateTime={onChange}
+          minDateTime={minDate}
+          setDateTime={changeNewStartTime}
         />
       )}
       <Button
