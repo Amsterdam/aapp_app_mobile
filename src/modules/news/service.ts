@@ -1,4 +1,9 @@
-import type {ArticlesQueryArgs, ArticlesResponse} from '@/modules/news/types'
+import {
+  NewsEndpointName,
+  type ArticlesQueryArgs,
+  type ArticlesResponse,
+  type NewsArticleResponse,
+} from '@/modules/news/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 
@@ -11,8 +16,15 @@ export const newsApi = baseApi.injectEndpoints({
         params: args,
       }),
     }),
+    [NewsEndpointName.article]: builder.query<NewsArticleResponse, string>({
+      query: id => ({
+        method: 'GET',
+        slug: ModuleSlug.news,
+        url: `/articles/${id}`,
+      }),
+    }),
   }),
   overrideExisting: false,
 })
 
-export const {useArticlesQuery} = newsApi
+export const {useArticlesQuery, useNewsArticleQuery} = newsApi

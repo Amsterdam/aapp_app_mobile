@@ -4,6 +4,14 @@ import type {ImageURISource} from 'react-native'
 export type ArticleSummary = {
   id: number
   images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
+}
+export enum NewsEndpointName {
+  article = 'NewsArticle',
+}
+
+export type NewsArticleResponse = {
+  content: string
+  id: number
   modification_datetime: string
   publication_datetime: string
   title: string
