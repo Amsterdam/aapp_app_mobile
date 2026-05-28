@@ -1,4 +1,4 @@
-import type {NewsArticleSummary} from '@/modules/news/types'
+import type {NewsArticleBase} from '@/modules/news/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -8,7 +8,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
-type Props = NewsArticleSummary
+type Props = NewsArticleBase
 
 export const NewsListItem = ({
   id,

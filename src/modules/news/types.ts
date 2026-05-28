@@ -3,12 +3,10 @@ import type {ImageURISource} from 'react-native'
 
 export type NewsArticleBase = {
   id: number
+  images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
   modification_datetime: string
   publication_datetime: string
   title: string
-}
-export type NewsArticleSummary = NewsArticleBase & {
-  images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
 }
 
 export enum NewsEndpointName {
@@ -17,10 +15,25 @@ export enum NewsEndpointName {
 }
 
 export type NewsArticleResponse = NewsArticleBase & {
-  content: string
+  body: string
+  creation_datetime: string
+  district: 'noord'
+  expiration_datetime: string
+  foreign_id: number
+  id: number
+  intro: string
+  is_active_liveblog: true
+  last_seen: string
+  liveblog_notification_send: true
+  modification_datetime: string
+  publication_datetime: string
+  summary: string
+  title: string
+  type: 'article'
+  url: string
 }
 
-export type NewsArticlesResponse = Paginated<NewsArticleSummary>
+export type NewsArticlesResponse = Paginated<NewsArticleBase>
 
 export type District =
   | 'west'
