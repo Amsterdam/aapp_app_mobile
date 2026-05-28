@@ -1,8 +1,8 @@
 import {
   NewsEndpointName,
-  type ArticlesQueryArgs,
-  type ArticlesResponse,
+  type NewsArticlesResponse,
   type NewsArticleResponse,
+  type NewsArticlesQueryArgs,
 } from '@/modules/news/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
@@ -10,8 +10,8 @@ import {baseApi} from '@/services/baseApi'
 export const newsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [NewsEndpointName.articles]: builder.query<
-      ArticlesResponse,
-      ArticlesQueryArgs
+      NewsArticlesResponse,
+      NewsArticlesQueryArgs
     >({
       query: args => ({
         url: '/articles',

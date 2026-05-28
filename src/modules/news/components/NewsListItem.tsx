@@ -1,11 +1,11 @@
-import type {ArticleSummary} from '@/modules/news/types'
+import type {NewsArticleSummary} from '@/modules/news/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
-type Props = ArticleSummary
+type Props = NewsArticleSummary
 
 export const NewsListItem = ({
   id,

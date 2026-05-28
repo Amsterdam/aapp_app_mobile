@@ -11,7 +11,7 @@ export const NewsStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={NewsRouteName.article}
+      initialRouteName={NewsRouteName.dashboard}
       screenOptions={screenOptions}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen

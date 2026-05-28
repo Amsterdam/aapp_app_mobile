@@ -1,12 +1,14 @@
 import type {Paginated, PaginationQueryArgs} from '@/types/api'
 import type {ImageURISource} from 'react-native'
 
-export type ArticleSummary = {
+export type NewsArticleBase = {
   id: number
-  images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
   modification_datetime: string
   publication_datetime: string
   title: string
+}
+export type NewsArticleSummary = NewsArticleBase & {
+  images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
 }
 
 export enum NewsEndpointName {
@@ -14,15 +16,11 @@ export enum NewsEndpointName {
   articles = 'NewsArticles',
 }
 
-export type NewsArticleResponse = {
+export type NewsArticleResponse = NewsArticleBase & {
   content: string
-  id: number
-  modification_datetime: string
-  publication_datetime: string
-  title: string
 }
 
-export type ArticlesResponse = Paginated<ArticleSummary>
+export type NewsArticlesResponse = Paginated<NewsArticleSummary>
 
 export type District =
   | 'west'
@@ -34,7 +32,7 @@ export type District =
   | 'zuidoost'
   | 'weesp'
 
-export type ArticlesType =
+export type NewsArticlesType =
   | {
       district?: never
       type: 'article' | 'highlight' | 'liveblog'
@@ -44,4 +42,4 @@ export type ArticlesType =
       type: 'district'
     }
 
-export type ArticlesQueryArgs = PaginationQueryArgs & ArticlesType
+export type NewsArticlesQueryArgs = PaginationQueryArgs & NewsArticlesType
