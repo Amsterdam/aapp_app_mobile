@@ -17,14 +17,26 @@ export const ParkingChooseStartTimeButton = () => {
     startTime: Dayjs
   }>()
   const {endTime, originalEndTime, startTime: startTimeField} = watch()
-  const {userHasEditedStart} = useParkingSession()
+  const {startTimeRef, userHasEditedStart} = useParkingSession()
 
-  const {isSameTime, serverTime} = useIsLocalTimeSameAsServerTime()
+  const {isSameTime, isLoading, serverTime} = useIsLocalTimeSameAsServerTime()
 
   const checkStartTime = useCallback(() => {
+    if (isLoading) {
+      return
+    }
+
     if (!isSameTime) {
-      if (serverTime && !userHasEditedStart.current) {
+      if (
+        serverTime &&
+        (!userHasEditedStart.current ||
+          startTimeField.isBefore(dayjs(serverTime)))
+      ) {
         setValue('startTime', dayjs(serverTime))
+
+        if (!startTimeRef.current) {
+          startTimeRef.current = dayjs(serverTime)
+        }
       }
 
       return
@@ -32,15 +44,22 @@ export const ParkingChooseStartTimeButton = () => {
 
     const now = dayjs().set('second', 0)
 
+    if (!startTimeRef.current) {
+      startTimeRef.current = now
+    }
+
     if (!originalEndTime && now.isAfter(startTimeField)) {
       setValue('startTime', now)
+      startTimeRef.current = now
     }
   }, [
     isSameTime,
+    isLoading,
     originalEndTime,
     serverTime,
     setValue,
     startTimeField,
+    startTimeRef,
     userHasEditedStart,
   ])
 

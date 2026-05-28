@@ -6,9 +6,11 @@ import {isLocalTimeSameAsServerTime} from '@/utils/datetime/isLocalTimeSameAsSer
 const REFRESH_INTERVAL_SECONDS = 30
 
 export const useIsLocalTimeSameAsServerTime = (skip = false) => {
-  const {data: serverTime, refetch} = useGetServerTimeQuery(
-    skip ? skipToken : undefined,
-  )
+  const {
+    data: serverTime,
+    isLoading,
+    refetch,
+  } = useGetServerTimeQuery(skip ? skipToken : undefined)
 
   useInterval(() => {
     if (skip) {
@@ -20,5 +22,5 @@ export const useIsLocalTimeSameAsServerTime = (skip = false) => {
 
   const isSameTime = isLocalTimeSameAsServerTime(serverTime)
 
-  return {isSameTime, serverTime}
+  return {isSameTime, isLoading, serverTime}
 }
