@@ -1,13 +1,10 @@
 import {Screen} from '@/components/features/screen/Screen'
-import {Box} from '@/components/ui/containers/Box'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {NewsletterCTA} from '@/modules/news/components/NewsletterCTA'
+import {NewsletterSignup} from '@/modules/contact/components/NewsletterSignup'
 
 export const NewsDashboardScreen = () => (
   <Screen testID="NewsDashboardScreen">
-    <Box>
-      <Phrase>Nieuws</Phrase>
-      <NewsletterCTA />
-    </Box>
+    <Phrase>Nieuws</Phrase>
+    <NewsletterSignup variant="news" />
   </Screen>
 )
