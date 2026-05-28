@@ -1,13 +1,10 @@
-import {useLayoutEffect, useRef} from 'react'
 import {useController} from 'react-hook-form'
-import {StyleSheet} from 'react-native'
-import DatePicker from 'react-native-date-picker'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Track} from '@/components/ui/layout/Track'
-import {useParkingSession} from '@/modules/parking/hooks/useParkingSession'
+import {ParkingStartSessionDatePicker} from '@/modules/parking/components/form/bottomsheet/ParkingStartSessionDatePicker'
+import {useChangeSessionStartDate} from '@/modules/parking/hooks/useChangeSessionStartDate'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {isToday} from '@/utils/datetime/isToday'
-import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
 
 type FieldValues = {endTime?: Dayjs; startTime: Dayjs}
 
@@ -22,37 +19,31 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
   } = useController<FieldValues, 'endTime'>({
     name: 'endTime',
   })
-  const startTimeRef = useRef<Dayjs | null>(null)
-  const {userHasEditedStart} = useParkingSession()
-
-  useLayoutEffect(() => {
-    if (startTimeRef.current) {
-      return
-    }
-
-    startTimeRef.current = startTime
-  })
+  const {minDate, newStartTime, setNewStartTime} = useChangeSessionStartDate(
+    onChangeStartTime,
+    startTime,
+  )
 
   return (
     <Track align="around">
       <RadioGroup
         onChange={value => {
-          if (!startTimeRef.current) {
+          if (!newStartTime) {
             return
           }
 
-          let newStartTime = startTimeRef.current
+          setNewStartTime(prev =>
+            prev
+              ?.set('date', startTime.date())
+              ?.set('month', startTime.month())
+              ?.set('year', startTime.year()),
+          )
 
-          newStartTime = newStartTime
-            .set('date', startTimeRef.current.date())
-            .set('month', startTimeRef.current.month())
-            .set('year', startTimeRef.current.year())
-
-          if (value !== 'Today') {
-            newStartTime = newStartTime.add(1, 'day')
+          if (value === 'Today') {
+            setNewStartTime(prev => prev?.subtract(1, 'day'))
+          } else {
+            setNewStartTime(prev => prev?.add(1, 'day'))
           }
-
-          onChangeStartTime(newStartTime)
 
           if (endTime) {
             const newEndTime = endTime
@@ -70,27 +61,16 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
         testID="ParkingSessionTodayTomorrowStartTimeRadioGroup"
         value={isToday(startTime) ? 'Today' : 'Tomorrow'}
       />
-      {startTimeRef.current ? (
-        <DatePicker
-          date={startTimeRef.current.toDate()}
-          is24hourSource="locale"
-          locale="nl-NL"
-          minimumDate={roundDownToMinutes(startTimeRef.current).toDate()}
+      {minDate && newStartTime ? (
+        <ParkingStartSessionDatePicker
+          date={newStartTime}
+          minDate={minDate}
           mode="time"
-          onDateChange={newStartTime => {
-            userHasEditedStart.current = true
-            onChangeStartTime(dayjs(newStartTime))
+          onChange={newTime => {
+            setNewStartTime(dayjs(newTime))
           }}
-          style={styles.centerSelf}
-          theme="light"
         />
       ) : null}
     </Track>
   )
 }
-
-const styles = StyleSheet.create({
-  centerSelf: {
-    alignSelf: 'center',
-  },
-})

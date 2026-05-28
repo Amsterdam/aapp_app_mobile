@@ -1,6 +1,8 @@
 import {createContext, type RefObject, useContext} from 'react'
+import type {Dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingSessionContext = createContext<{
+  startTimeRef: RefObject<Dayjs | null>
   userHasEditedStart: RefObject<boolean>
 } | null>(null)
 
