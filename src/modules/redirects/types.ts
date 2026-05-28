@@ -27,7 +27,7 @@ export enum RedirectKey {
   my_parking = 'my_parking',
   my_reported_problems = 'my_reported_problems',
   naturalisation = 'naturalisation',
-  newsLetter = 'newsLetter',
+  newsletter = 'newsletter',
   parking = 'parking',
   parking_request_license_plate_ga_bewoners = 'parking_request_license_plate_ga_bewoners',
   parking_request_license_plate_ga_bezoekers = 'parking_request_license_plate_ga_bezoekers',

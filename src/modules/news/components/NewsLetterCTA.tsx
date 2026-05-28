@@ -5,7 +5,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {RedirectKey} from '@/modules/redirects/types'
 
-export const NewsLetterCTA = () => (
+export const NewsletterCTA = () => (
   <Box
     inset="lg"
     variant="positive">
@@ -21,8 +21,8 @@ export const NewsLetterCTA = () => (
 
       <ExternalLinkButton
         label="Ik wil de nieuwsbrief"
-        redirectKey={RedirectKey.newsLetter}
-        testID="NewsLetterCTAButton"
+        redirectKey={RedirectKey.newsletter}
+        testID="NewsletterCTAButton"
         variant="positive"
       />
     </Column>

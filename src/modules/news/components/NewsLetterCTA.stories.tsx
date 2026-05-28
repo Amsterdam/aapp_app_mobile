@@ -1,8 +1,8 @@
-import {NewsLetterCTA} from './NewsLetterCTA'
+import {NewsletterCTA} from './NewsletterCTA'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
-  component: NewsLetterCTA,
-} as Meta<typeof NewsLetterCTA>
+  component: NewsletterCTA,
+} as Meta<typeof NewsletterCTA>
 
-export const Default: StoryObj<typeof NewsLetterCTA> = {}
+export const Default: StoryObj<typeof NewsletterCTA> = {}
