@@ -34,7 +34,7 @@ export const NewsArticle = ({id}: Props) => {
           testID="NewsArticleTitle"
           text={title}
         />
-        <Phrase color="secondary">{`${dayjs(publication_datetime).format('dd MMMM, HH.mm')} uur`}</Phrase>
+        <Phrase color="secondary">{`${dayjs(publication_datetime).format('DD MMMM, HH.mm')} uur`}</Phrase>
       </Column>
       <LazyImage
         aspectRatio="wide"
