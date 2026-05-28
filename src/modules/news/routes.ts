@@ -5,7 +5,7 @@ export enum NewsRouteName {
 
 export type NewsStackParams = {
   [NewsRouteName.dashboard]: undefined
-  [NewsRouteName.article]: {id: string}
+  [NewsRouteName.article]: {id: number}
 }
 
 export enum NewsModalName {}

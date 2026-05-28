@@ -19,7 +19,7 @@ export const newsApi = baseApi.injectEndpoints({
         params: args,
       }),
     }),
-    [NewsEndpointName.article]: builder.query<NewsArticleResponse, string>({
+    [NewsEndpointName.article]: builder.query<NewsArticleResponse, number>({
       query: id => ({
         method: 'GET',
         slug: ModuleSlug.news,

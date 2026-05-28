@@ -1,11 +1,12 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import type {NewsArticleBase} from '@/modules/news/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {useNewsArticleQuery} from '@/modules/news/service'
 
 type Props = {
-  id: string
+  id: NewsArticleBase['id']
 }
 
 export const NewsArticle = ({id}: Props) => {
