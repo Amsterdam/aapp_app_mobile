@@ -12,9 +12,11 @@ import RenderHTML, {
   CustomMixedRenderer,
   CustomTagRendererRecord,
   MixedStyleDeclaration,
+  useInternalRenderer,
 } from 'react-native-render-html'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {LazyImage} from '@/components/ui/media/LazyImage'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {type TestProps} from '@/components/ui/types'
@@ -22,6 +24,7 @@ import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {useDynamicImageAspectRatio} from '@/hooks/useDynamicImageAspectRatio'
 import {Theme} from '@/themes/themes'
 import {TextTokens} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -109,6 +112,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
         baseStyle={baseStyle}
         contentWidth={contentWidth}
         renderers={renderers}
+        renderersProps={{img: {enableExperimentalPercentWidth: true}}}
         source={{html}}
         systemFonts={systemFonts}
         tagsStyles={tagsStyles}
@@ -253,8 +257,34 @@ const ARenderer: CustomMixedRenderer = props => {
   )
 }
 
+const ImgRenderer: CustomMixedRenderer = props => {
+  const {width: deviceWidth} = useDeviceContext()
+  const {rendererProps} = useInternalRenderer('img', props)
+  const {alt, source, style, width, height} = rendererProps
+  const aspectRatio = useDynamicImageAspectRatio(source.uri)
+
+  return (
+    <View style={style}>
+      <LazyImage
+        alt={alt}
+        aspectRatio={aspectRatio}
+        height={
+          !!height && !Number.isNaN(Number(height)) ? Number(height) : undefined
+        }
+        openInImageViewer
+        source={source}
+        testID="HtmlRendererImage"
+        width={
+          !!width && !Number.isNaN(Number(width)) ? Number(width) : deviceWidth
+        }
+      />
+    </View>
+  )
+}
+
 const renderers: CustomTagRendererRecord = {
   a: ARenderer,
   li: LiRenderer,
   ul: UlRenderer,
+  img: ImgRenderer,
 }
