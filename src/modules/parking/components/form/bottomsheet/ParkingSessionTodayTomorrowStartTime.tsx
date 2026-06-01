@@ -28,22 +28,21 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
     <Track align="around">
       <RadioGroup
         onChange={value => {
-          if (!(newStartTime && minDate)) {
+          if (!newStartTime) {
             return
           }
 
-          changeNewStartTime(
-            newStartTime
-              ?.set('date', startTime.date())
-              ?.set('month', startTime.month())
-              ?.set('year', startTime.year()),
-          )
+          let tempStartTime = newStartTime
 
-          if (value === 'Today') {
-            changeNewStartTime(minDate)
-          } else {
-            changeNewStartTime(minDate.add(1, 'day'))
+          if (value === 'Today' && !isToday(tempStartTime)) {
+            tempStartTime = tempStartTime.subtract(1, 'day')
           }
+
+          if (value === 'Tomorrow' && isToday(tempStartTime)) {
+            tempStartTime = tempStartTime.add(1, 'day')
+          }
+
+          changeNewStartTime(tempStartTime)
 
           if (endTime) {
             const newEndTime = endTime
