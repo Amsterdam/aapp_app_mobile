@@ -1,4 +1,3 @@
-import {ImageViewerScreen} from '@/app/ImageViewerScreen'
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   HomeModalName,
@@ -8,6 +7,7 @@ import {
 } from '@/modules/home/routes'
 import {AdminScreen} from '@/modules/home/screens/Admin.screen'
 import {HomeScreen} from '@/modules/home/screens/Home.screen'
+import {ImageViewerScreen} from '@/modules/home/screens/ImageViewer.screen'
 import {PermissionInstructionsScreen} from '@/modules/home/screens/PermissionInstructions.screen'
 
 export const screenConfig: StackNavigationRoutes<

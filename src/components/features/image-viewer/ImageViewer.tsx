@@ -11,8 +11,8 @@ import {useThemable} from '@/themes/useThemable'
 
 export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
   const {width, height, isPortrait} = useDeviceContext()
-  const [initialLayout, setInitialLayout] = useState({width: 0, height: 0})
-  const {gestures, animatedStyle} = useImageViewerGestures(initialLayout)
+  const [imageLayout, setImageLayout] = useState({width: 0, height: 0})
+  const {gestures, animatedStyle} = useImageViewerGestures(imageLayout)
   const styles = useThemable(createStyles(Math.min(height, width), aspectRatio))
 
   return (
@@ -29,7 +29,7 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
           }
           accessibilityRole="image"
           accessible
-          onLayout={({nativeEvent: {layout}}) => setInitialLayout(layout)}
+          onLayout={({nativeEvent: {layout}}) => setImageLayout(layout)}
           resizeMode="contain"
           {...imageProps}
           style={[
@@ -56,6 +56,7 @@ const createStyles =
     return StyleSheet.create({
       container: {
         flex: 1,
+        backgroundColor: theme.color.text.default,
         justifyContent: 'center',
         alignItems: 'center',
       },

@@ -34,7 +34,7 @@ export const useImageViewerPinchGesture = (
 
       scale.value = nextScale
 
-      /// This block adjusts the positionX and positionY if pinching results in the image moving beyond the max drag ranges ///
+      // #region This block adjusts the positionX and positionY if pinching results in the image moving beyond the max drag ranges
       const scaleRatio = nextScale / pinchStartScale.value
       const focalX = e.focalX - width / 2
       const focalY = e.focalY - height / 2
@@ -51,7 +51,7 @@ export const useImageViewerPinchGesture = (
         -maxDragRange.value.y,
         maxDragRange.value.y,
       )
-      /// End block ///
+      // #endregion
     })
     .onEnd(() => {
       savedScale.value = scale.value

@@ -16,7 +16,7 @@ import {useImageViewerPinchGesture} from '@/components/features/image-viewer/hoo
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
-const MIN_ZOOM_VALUE = 0.8
+const MIN_ZOOM_VALUE = 1
 const MAX_ZOOM_VALUE = 5
 
 export type ZoomLevel = {
