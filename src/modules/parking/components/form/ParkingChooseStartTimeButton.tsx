@@ -96,7 +96,9 @@ export const ParkingChooseStartTimeButton = () => {
           },
         }}
         testID="ParkingChooseStartTimeButton"
-        text={startTime => formatDateTimeToDisplay(startTime, false)}
+        text={startTime =>
+          formatDateTimeToDisplay(startTime, false, serverTime)
+        }
         title="Starttijd"
       />
     </Column>
