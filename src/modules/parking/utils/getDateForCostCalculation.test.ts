@@ -38,7 +38,7 @@ describe('getDateForCostCalculation', () => {
     )
   })
 
-  it('returns correct values if endTime < startTime', () => {
+  it('returns correct values if endTime < originalEndTime', () => {
     const endTime = dayjs('2025-11-13T11:15:00.000Z')
     const originalEndTime = END_TIME
     const result = getDateForCostCalculation({
@@ -50,6 +50,24 @@ describe('getDateForCostCalculation', () => {
     expect(result.isEndTimeBeforeOriginal).toBe(true)
     expect(result.calculatedStartTime?.toISOString()).toBe(
       '2025-11-13T11:15:00.000Z',
+    )
+    expect(result.calculatedEndTime?.toISOString()).toBe(
+      '2025-11-13T12:00:00.000Z',
+    )
+  })
+
+  it('returns correct values if endTime < startTime', () => {
+    const endTime = dayjs('2025-11-13T10:45:00.000Z')
+    const originalEndTime = END_TIME
+    const result = getDateForCostCalculation({
+      endTime,
+      originalEndTime,
+      startTime: START_TIME,
+    })
+
+    expect(result.isEndTimeBeforeOriginal).toBe(true)
+    expect(result.calculatedStartTime?.toISOString()).toBe(
+      '2025-11-13T11:00:00.000Z',
     )
     expect(result.calculatedEndTime?.toISOString()).toBe(
       '2025-11-13T12:00:00.000Z',
