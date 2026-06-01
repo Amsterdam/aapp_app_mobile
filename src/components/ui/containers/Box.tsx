@@ -43,6 +43,7 @@ export type BoxProps = {
    * distinct: In light mode, it is white. Only to be used when the box covers another color, like on light grey (settings) screens or in the navigation header.
    * cityPass: for use in city-pass module
    * primary: for primary color boxes
+   * positive: for positive color boxes
    */
   variant?: keyof Theme['color']['box']['background']
 } & Omit<ViewProps, 'style'>

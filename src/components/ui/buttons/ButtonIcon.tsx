@@ -19,11 +19,13 @@ export const ButtonIcon = ({
 }: Props) => {
   const iconName = getIconName({isError, isLoading, icon})
   const iconColor =
-    variant === 'primary'
-      ? 'inverse'
-      : variant === 'secondaryDestructive'
-        ? 'warning'
-        : 'link'
+    variant === 'positive'
+      ? 'confirm'
+      : variant === 'primary'
+        ? 'inverse'
+        : variant === 'secondaryDestructive'
+          ? 'warning'
+          : 'link'
   const iconSize = icon?.size ?? 'lg'
 
   return (

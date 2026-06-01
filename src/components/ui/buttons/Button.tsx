@@ -18,6 +18,7 @@ export type ButtonVariant =
   | 'secondary'
   | 'tertiary'
   | 'secondaryDestructive'
+  | 'positive'
 
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
@@ -37,7 +38,7 @@ export type ButtonProps = {
 } & Omit<PressableBaseProps, 'style' | 'children'> &
   FlexStyle
 
-const defaultVariant = 'primary'
+const DEFAULT_VARIANT = 'primary'
 
 export const Button = ({
   ellipsizeMode,
@@ -56,7 +57,7 @@ export const Button = ({
   small,
   testID,
   underline = false,
-  variant = defaultVariant,
+  variant = DEFAULT_VARIANT,
   ...pressableProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
@@ -134,19 +135,19 @@ export const Button = ({
 const getBorderColor = (
   color: Theme['color'],
   isPressed: boolean,
-  variant: ButtonProps['variant'] = defaultVariant,
+  variant: ButtonProps['variant'] = DEFAULT_VARIANT,
 ) => color.pressable[variant][isPressed ? 'pressed' : 'default'].border
 
 const getLabelColor = (
   color: Theme['color'],
   isPressed: boolean,
-  variant: ButtonProps['variant'] = defaultVariant,
+  variant: ButtonProps['variant'] = DEFAULT_VARIANT,
 ) => color.pressable[variant][isPressed ? 'pressed' : 'default'].label
 
 const getBackgroundColor = (
   color: Theme['color'],
   isPressed: boolean,
-  variant: ButtonProps['variant'] = defaultVariant,
+  variant: ButtonProps['variant'] = DEFAULT_VARIANT,
 ) => color.pressable[variant][isPressed ? 'pressed' : 'default'].background
 
 const createStyles = (
