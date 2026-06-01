@@ -3,6 +3,7 @@ import {ReactNode} from 'react'
 import {TextProps} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
 import type {Theme} from '@/themes/themes'
+import type {TitleTokensPerLevel} from '@/themes/tokens/text'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -32,9 +33,11 @@ type Props = {
   isDescriptionBelowIcon?: boolean
   onPress: () => void
   title: string
+  titleLevel?: keyof TitleTokensPerLevel
 } & TestProps
 
 export const NavigationButton = ({
+  titleLevel = 'h5',
   color = 'link',
   description,
   direction = 'forward',
@@ -97,7 +100,7 @@ export const NavigationButton = ({
               {emphasis === 'strong' ? (
                 <Title
                   color={color}
-                  level="h5"
+                  level={titleLevel}
                   testID="NavigationButtonTitle"
                   text={title}
                 />
