@@ -12,12 +12,18 @@ export const useChangeSessionStartDate = (
   )
 
   useEffect(() => {
+    if (startTime) {
+      setNewStartTime(startTime)
+    }
+  }, [startTime])
+
+  useEffect(() => {
     if (!newStartTime) {
       return
     }
 
     onChange(newStartTime)
-  }, [newStartTime, onChange, userHasEditedStart])
+  }, [newStartTime, onChange])
 
   const changeNewStartTime = useCallback(
     (date: Dayjs) => {
