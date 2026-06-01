@@ -1,10 +1,10 @@
+import {useCallback} from 'react'
 import {useController} from 'react-hook-form'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Track} from '@/components/ui/layout/Track'
 import {ParkingStartSessionDatePicker} from '@/modules/parking/components/form/bottomsheet/ParkingStartSessionDatePicker'
 import {useParkingSession} from '@/modules/parking/hooks/useParkingSession'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
-import {isToday} from '@/utils/datetime/isToday'
 
 type FieldValues = {endTime?: Dayjs; startTime: Dayjs}
 
@@ -20,6 +20,10 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
     name: 'endTime',
   })
   const {startTimeRef, userHasEditedStart} = useParkingSession()
+  const getStartTimeIsToday = useCallback(
+    (start: Dayjs) => start.isSame(dayjs(startTimeRef.current), 'day'),
+    [startTimeRef],
+  )
 
   return (
     <Track align="around">
@@ -31,11 +35,11 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
 
           let tempStartTime = startTime
 
-          if (value === 'Today' && !isToday(tempStartTime)) {
+          if (value === 'Today' && !getStartTimeIsToday(tempStartTime)) {
             tempStartTime = tempStartTime.subtract(1, 'day')
           }
 
-          if (value === 'Tomorrow' && isToday(tempStartTime)) {
+          if (value === 'Tomorrow' && getStartTimeIsToday(tempStartTime)) {
             tempStartTime = tempStartTime.add(1, 'day')
           }
 
@@ -56,7 +60,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           {label: 'Morgen', value: 'Tomorrow'},
         ]}
         testID="ParkingSessionTodayTomorrowStartTimeRadioGroup"
-        value={isToday(startTime) ? 'Today' : 'Tomorrow'}
+        value={getStartTimeIsToday(startTime) ? 'Today' : 'Tomorrow'}
       />
       {startTimeRef.current && startTime ? (
         <ParkingStartSessionDatePicker
