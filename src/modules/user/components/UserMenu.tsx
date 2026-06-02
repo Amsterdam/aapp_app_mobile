@@ -25,7 +25,7 @@ const accessCodeSection: UserMenuSection = {
     },
     {
       icon: {name: 'biometrics'},
-      label: 'Toegang met biometrische gevens',
+      label: 'Toegang met biometrische gegevens',
       route: UserRouteName.userBiometrics,
     },
   ],
