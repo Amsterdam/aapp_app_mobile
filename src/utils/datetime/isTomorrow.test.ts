@@ -42,10 +42,8 @@ describe('isTomorrow', () => {
     expect(isTomorrow(null as unknown as string, baseDate)).toBe(false)
   })
 
-  it('returns false when date is undefined', () => {
-    const baseDate = dayjs('2026-06-01T08:00:00.000Z')
-
-    expect(isTomorrow(undefined as unknown as string, baseDate)).toBe(false)
+  it('returns false when both dates are undefined', () => {
+    expect(isTomorrow(undefined as unknown as string, undefined)).toBe(false)
   })
 
   it('uses the current date when baseDate is omitted', () => {
