@@ -1,4 +1,4 @@
-import {createContext, useContext} from 'react'
+import {createContext, use} from 'react'
 import {
   RetrieveTranscriptResponse,
   ConnectionState,
@@ -39,4 +39,4 @@ const initialValue: ChatContextType = {
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
 
-export const useChatContext = () => useContext(ChatContext)
+export const useChatContext = () => use(ChatContext)

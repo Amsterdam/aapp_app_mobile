@@ -72,9 +72,7 @@ const withTrackScroll = (
 
     return (
       <ScrollViewComp {...scrollViewProps}>
-        <ScrollContext.Provider value={value}>
-          {children}
-        </ScrollContext.Provider>
+        <ScrollContext value={value}>{children}</ScrollContext>
       </ScrollViewComp>
     )
   }

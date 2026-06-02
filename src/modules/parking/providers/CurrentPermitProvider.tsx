@@ -62,8 +62,8 @@ export const CurrentPermitProvider = ({children}: Props) => {
   }
 
   return (
-    <CurrentPermitContext.Provider value={currentPermit}>
+    <CurrentPermitContext value={currentPermit}>
       {children}
-    </CurrentPermitContext.Provider>
+    </CurrentPermitContext>
   )
 }

@@ -5,7 +5,7 @@ import type {ConfigureStoreOptions, StoreEnhancer} from '@reduxjs/toolkit'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 
 export const devStoreEnhancer: ConfigureStoreOptions['enhancers'] =
-  enhancers => {
+  defaultEnhancers => {
     if (__DEV__) {
       const devToolsEnhancer = (
         require('redux-devtools-expo-dev-plugin') as {
@@ -13,12 +13,12 @@ export const devStoreEnhancer: ConfigureStoreOptions['enhancers'] =
         }
       ).default
 
-      return enhancers.concat(
+      return defaultEnhancers.concat(
         devToolsEnhancer({
           name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()} - ${SHA256EncryptedDeviceId}`,
         }),
       )
     }
 
-    return enhancers
+    return defaultEnhancers
   }

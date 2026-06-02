@@ -1,8 +1,8 @@
-import {useContext} from 'react'
+import {use} from 'react'
 import {MapContext} from '@/components/features/map/MapContext'
 
 export const useMap = () => {
-  const mapContext = useContext(MapContext)
+  const mapContext = use(MapContext)
 
   if (!mapContext) {
     throw new Error('useMap must be used within a MapProvider')

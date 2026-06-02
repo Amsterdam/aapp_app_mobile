@@ -1,8 +1,8 @@
-import {useContext} from 'react'
+import {use} from 'react'
 import {EventsByDateContext} from '@/modules/waste-guide/providers/EventsByDateContext'
 
 export const useEventsByDate = () => {
-  const context = useContext(EventsByDateContext)
+  const context = use(EventsByDateContext)
 
   if (!context) {
     throw new Error(

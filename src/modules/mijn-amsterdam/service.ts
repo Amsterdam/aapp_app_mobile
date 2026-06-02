@@ -1,4 +1,4 @@
-import type {QueryReturnValue} from '@reduxjs/toolkit/dist/query/baseQueryTypes'
+import type {QueryReturnValue} from '@/services/types'
 import {DeviatingApiSlug} from '@/environment'
 import {setIsLoggedIn} from '@/modules/mijn-amsterdam/slice'
 import {

@@ -49,7 +49,7 @@ export const MapBase = ({
   )
 
   return (
-    <MapContext.Provider value={context}>
+    <MapContext value={context}>
       <View style={styles.container}>
         {(!!controls?.length || !!isError || !!FilterComponent) && (
           <View
@@ -109,7 +109,7 @@ export const MapBase = ({
           {children}
         </MapView>
       </View>
-    </MapContext.Provider>
+    </MapContext>
   )
 }
 

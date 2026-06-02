@@ -1,3 +1,3 @@
-import {createContext, useContext} from 'react'
+import {createContext, use} from 'react'
 export const BottomSheetPresenceContext = createContext(false)
-export const useIsInBottomSheet = () => useContext(BottomSheetPresenceContext)
+export const useIsInBottomSheet = () => use(BottomSheetPresenceContext)

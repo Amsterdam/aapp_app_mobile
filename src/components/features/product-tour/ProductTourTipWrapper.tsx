@@ -1,4 +1,4 @@
-import {ReactNode, useCallback, useContext, useRef} from 'react'
+import {ReactNode, useCallback, use, useRef} from 'react'
 import {View} from 'react-native'
 import {ScrollContext} from '@/components/features/product-tour/ScrollContext'
 import {
@@ -33,7 +33,7 @@ export const ProductTourTipWrapper = ({
   const seenTips = useSelector(selectSeenTips)
   const hasSeenTip = seenTips.includes(tipSlug)
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
-  const scrollContext = useContext(ScrollContext)
+  const scrollContext = use(ScrollContext)
   const hasNoScrollViewParent = scrollContext === null
   const {setElementRef, isElementVisible} = scrollContext ?? {}
   const tipTargetRef = useRef<View | null>(null)

@@ -11,8 +11,9 @@ import {
 import {useEffect, useState} from 'react'
 import type {ApiSlug} from '@/environment'
 import type {Paginated, PaginationQueryArgs} from '@/types/api'
-import type {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
+import type {SerializedError} from '@reduxjs/toolkit'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {baseApi} from '@/services/baseApi'
 
 const getEmptyItems = <DummyItem>(
   length: number,
@@ -42,6 +43,13 @@ type QueryDef<Item, QueryArgs extends PaginationQueryArgs> = QueryDefinition<
   Paginated<Item>
 >
 
+type UseQueryHook<QueryArgs, Result> = (arg: QueryArgs | typeof skipToken) => {
+  data?: Result
+  error?: FetchBaseQueryError | SerializedError
+  isError: boolean
+  isLoading: boolean
+}
+
 export const useInfiniteScroller = <
   Item,
   ItemOrDummyItem,
@@ -50,12 +58,12 @@ export const useInfiniteScroller = <
   defaultEmptyItem: ItemOrDummyItem,
   endpoint: ApiEndpointQuery<QueryDef<Item, QueryArgs>, EndpointDefinitions>,
   keyName: keyof ItemOrDummyItem,
-  useQueryHook: UseQuery<QueryDef<Item, QueryArgs>>,
+  useQueryHook: UseQueryHook<QueryArgs, Paginated<Item>>,
   page = config.page,
   pageSize = config.pageSize,
   queryParams: QueryArgs | typeof skipToken = {} as QueryArgs,
 ) => {
-  const reduxApiState = useSelector(state => state.api)
+  const reduxApiState = useSelector(state => state[baseApi.reducerPath])
   const [totalPages, setTotalPages] = useState<number>(config.totalPages)
 
   const {
@@ -112,6 +120,10 @@ export const useInfiniteScroller = <
     nextData?.page.totalElements ??
     0
 
+  const endpointSelectorState = {
+    [baseApi.reducerPath]: reduxApiState,
+  } as Parameters<ReturnType<typeof endpoint.select>>[0]
+
   return {
     // create an array of pages with data
     data:
@@ -125,9 +137,7 @@ export const useInfiniteScroller = <
               const {data, status} = endpoint.select({
                 ...queryParams,
                 page: index + 1,
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-              })({api: reduxApiState})
+              })(endpointSelectorState)
               // if there is no data, fill the page with empty items
               const pageData =
                 data?.result && status === QueryStatus.fulfilled
