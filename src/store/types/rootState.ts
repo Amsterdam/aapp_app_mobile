@@ -29,7 +29,7 @@ import type {ReduxKey} from '@/store/types/reduxKey'
 import type {ThemeState} from '@/themes/slice'
 
 export type RootState = {
-  [baseApi.reducerPath]: typeof baseApi.reducer
+  [baseApi.reducerPath]: ReturnType<typeof baseApi.reducer>
   [ReduxKey.accessCode]: AccessCodeState
   [ReduxKey.address]: AddressState
   [ReduxKey.alert]: AlertState

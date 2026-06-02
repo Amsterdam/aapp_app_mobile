@@ -21,8 +21,6 @@ export const SearchFieldProvider = ({children, amount, type}: Props) => {
   }, [amount, searchFieldValue, setProviderValue, type])
 
   return (
-    <SearchFieldContext.Provider value={providerValue}>
-      {children}
-    </SearchFieldContext.Provider>
+    <SearchFieldContext value={providerValue}>{children}</SearchFieldContext>
   )
 }

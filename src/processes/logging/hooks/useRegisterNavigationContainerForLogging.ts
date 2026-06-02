@@ -3,7 +3,7 @@ import {
   NavigationContainerRefWithCurrent,
   Route,
 } from '@react-navigation/native'
-import {useRef, useCallback, useEffect, useContext} from 'react'
+import {useRef, useCallback, useEffect, use} from 'react'
 import {RootStackParams} from '@/app/navigation/types'
 import {devError, devLog} from '@/processes/development'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
@@ -26,7 +26,7 @@ export const useRegisterNavigationContainerForLogging = () => {
   const trackException = useTrackException()
   const appInsights = useAppInsights()
 
-  const piwikInstance = useContext(PiwikContext)
+  const piwikInstance = use(PiwikContext)
 
   /**
    * This method is responsible for storing the start time of every React-Navigation action dispatch.

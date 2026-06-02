@@ -25,9 +25,5 @@ export const MapViewSwitchProvider = ({
     [viewTypeIndex, toggleViewType, variant],
   )
 
-  return (
-    <MapViewSwitchContext.Provider value={value}>
-      {children}
-    </MapViewSwitchContext.Provider>
-  )
+  return <MapViewSwitchContext value={value}>{children}</MapViewSwitchContext>
 }

@@ -104,5 +104,5 @@ export const ChatProvider = ({children}: Props) => {
     sessionStatus,
   ])
 
-  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
+  return <ChatContext value={value}>{children}</ChatContext>
 }

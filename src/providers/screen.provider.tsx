@@ -17,7 +17,5 @@ export const ScreenProvider = ({
     [scrollDisabled, setScrollDisabled, nativeScreenHeader],
   )
 
-  return (
-    <ScreenContext.Provider value={value}>{children}</ScreenContext.Provider>
-  )
+  return <ScreenContext value={value}>{children}</ScreenContext>
 }

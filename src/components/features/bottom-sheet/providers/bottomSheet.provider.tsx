@@ -53,9 +53,5 @@ export const BottomSheetProvider = ({children}: {children: ReactNode}) => {
     [close, open, state, toggle],
   )
 
-  return (
-    <BottomSheetContext.Provider value={value}>
-      {children}
-    </BottomSheetContext.Provider>
-  )
+  return <BottomSheetContext value={value}>{children}</BottomSheetContext>
 }

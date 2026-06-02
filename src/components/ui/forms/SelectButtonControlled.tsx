@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {use} from 'react'
 import {
   type FieldPath,
   type FieldValues,
@@ -49,7 +49,7 @@ export const SelectButtonControlled = <
   accessibilityHint,
   ...controllerProps
 }: Props<TFieldValues, TName>) => {
-  const {toggle} = useContext(BottomSheetContext)
+  const {toggle} = use(BottomSheetContext)
   const {navigate} = useNavigation()
   const {
     field: {value},

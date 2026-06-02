@@ -46,9 +46,5 @@ export const PermitMapProvider = ({children}: {children: ReactNode}) => {
     ],
   )
 
-  return (
-    <PermitMapContext.Provider value={value}>
-      {children}
-    </PermitMapContext.Provider>
-  )
+  return <PermitMapContext value={value}>{children}</PermitMapContext>
 }

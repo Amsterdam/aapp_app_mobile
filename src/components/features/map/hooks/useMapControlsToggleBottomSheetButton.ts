@@ -1,4 +1,4 @@
-import {useCallback, useContext} from 'react'
+import {useCallback, use} from 'react'
 import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
 
 export enum MapControlBottomSheetKey {
@@ -9,7 +9,7 @@ export enum MapControlBottomSheetKey {
 export const useMapControlsToggleBottomSheetButton = (
   key: MapControlBottomSheetKey,
 ) => {
-  const {toggle} = useContext(BottomSheetContext)
+  const {toggle} = use(BottomSheetContext)
 
   const onPressControlButton = useCallback(() => {
     toggle(key)

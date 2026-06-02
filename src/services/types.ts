@@ -1,9 +1,20 @@
-import type {QueryReturnValue} from '@reduxjs/toolkit/dist/query/baseQueryTypes'
 import type {
   BaseQueryApi,
   FetchBaseQueryError,
   FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/query'
+
+export type QueryReturnValue<T = unknown, E = unknown, M = unknown> =
+  | {
+      data: T
+      error: undefined
+      meta?: M
+    }
+  | {
+      data: undefined
+      error: E
+      meta?: M
+    }
 
 type RTKQueryAPI = Pick<
   BaseQueryApi,
