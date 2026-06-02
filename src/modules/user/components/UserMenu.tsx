@@ -24,7 +24,7 @@ const accessCodeSection: UserMenuSection = {
       route: AccessCodeRouteName.accessCode,
     },
     {
-      icon: {name: 'lock-closed'},
+      icon: {name: 'biometrics'},
       label: 'Toegang met biometrische gevens',
       route: UserRouteName.userBiometrics,
     },
