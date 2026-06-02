@@ -6,7 +6,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Title} from '@/components/ui/text/Title'
 import {useNewsArticlesQuery} from '@/modules/news/service'
-import {getClosestAspectRatio} from '@/utils/getClosestAspectRatio'
 
 export const NewsDashboardHighlightedArticle = () => {
   const {
@@ -25,6 +24,15 @@ export const NewsDashboardHighlightedArticle = () => {
     )
   }
 
+  if (!highlights?.result.length) {
+    return null
+  }
+
+  // eslint-disable-next-line sonarjs/pseudo-random
+  const randomHighlight = Math.floor(Math.random() * highlights.result.length)
+
+  const {images, title} = highlights.result[randomHighlight]
+
   return (
     <Box>
       <Column gutter="md">
@@ -40,13 +48,14 @@ export const NewsDashboardHighlightedArticle = () => {
           titleLevel="h2"
         />
         <LazyImage
-          aspectRatio={getClosestAspectRatio(1, 1)}
-          source={[]}
+          aspectRatio="wide"
+          fallbackInheritsAspectRatio
+          source={images}
           testID="NewsHighlightsLazyImage"
         />
         <Title
           level="h3"
-          text={'title'}
+          text={title}
         />
       </Column>
     </Box>
