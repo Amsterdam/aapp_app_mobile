@@ -52,7 +52,7 @@
     "base-64": "^1.0.0",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.20",
-    "expo": "^55.0.24",
+    "expo": "^55.0.26",
     "expo-brightness": "~55.0.13",
     "expo-clipboard": "~55.0.13",
     "expo-document-picker": "~55.0.13",
