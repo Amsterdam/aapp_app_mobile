@@ -7,11 +7,13 @@ import type {
 export type QueryReturnValue<T = unknown, E = unknown, M = unknown> =
   | {
       data: T
-      error: undefined
+      // eslint-disable-next-line sonarjs/no-redundant-optional
+      error?: undefined
       meta?: M
     }
   | {
-      data: undefined
+      // eslint-disable-next-line sonarjs/no-redundant-optional
+      data?: undefined
       error: E
       meta?: M
     }
