@@ -30,7 +30,7 @@
     "sync:assets": "react-native-asset",
     "test": "jest",
     "test-ci": "jest --ci --coverage",
-    "test:bundle": "react-native bundle --dev true --entry-file index.js --bundle-output ./bundle.js && rm ./bundle.js",
+    "test:bundle": "expo export:embed --platform ios --dev true --entry-file index.js --bundle-output ./bundle.js && rm ./bundle.js",
     "typescript": "tsc",
     "codegen": "node nodescripts/codegen/codegen.mts",
     "codegen:watch": "node nodescripts/codegen/codegen.watch.mts"
