@@ -1,27 +1,10 @@
 import {mediaTokens, type ImageAspectRatio} from '@/themes/tokens/media'
 
-export function getClosestAspectRatio(
+export const getClosestAspectRatio = (
   width: number,
-  height: number,
-): ImageAspectRatio
-
-export function getClosestAspectRatio(aspectRatio: number): ImageAspectRatio
-
-export function getClosestAspectRatio(
-  widthOrAspectRatioValue: number,
-  height?: number,
-): ImageAspectRatio {
-  let dynamicAspectRatio: number
-
-  if (typeof height === 'undefined') {
-    const aspectRatioValue = widthOrAspectRatioValue
-
-    dynamicAspectRatio = aspectRatioValue
-  } else {
-    const width = widthOrAspectRatioValue
-
-    dynamicAspectRatio = width / height
-  }
+  height: number = 1,
+): ImageAspectRatio => {
+  const dynamicAspectRatio = width / height
 
   let closestAspectRatio: ImageAspectRatio = 'wide'
   let smallestDifference = Infinity

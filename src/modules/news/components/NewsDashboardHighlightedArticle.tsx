@@ -12,7 +12,7 @@ export const NewsDashboardHighlightedArticle = () => {
   const {
     isError,
     isLoading,
-    // data,
+    data: highlights,
   } = useNewsArticlesQuery({type: 'highlight'})
 
   if (isLoading) {
