@@ -205,12 +205,12 @@
     ]
   },
   "overrides": {
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "@types/react": "^19.2.14",
-    "redux": "4.2.1",
+    "react": "$react",
+    "react-dom": "$react-dom",
+    "@types/react": "$@types/react",
+    "redux": "$redux",
     "react-native-reanimated-carousel": {
-      "react-native-worklets": "^0.8.3"
+      "react-native-worklets": "$react-native-worklets"
     }
   },
   "volta": {
