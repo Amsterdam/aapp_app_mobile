@@ -1,5 +1,6 @@
 import type {NewsArticleBase} from '@/modules/news/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
+import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -22,21 +23,25 @@ export const NewsListItem = ({
     <Pressable
       onPress={() => navigate(NewsRouteName.article, {id})}
       testID={`NewsListItem${id}Button`}>
-      <Row gutter="smd">
-        <LazyImage
-          source={images}
-          testID={`NewsListItem${id}Image`}
-          width={100}
-        />
-        <Column>
-          <Phrase variant="small">{title}</Phrase>
-          <Phrase
-            color="secondary"
-            variant="small">
-            {formatDateToDisplay(publication_datetime, false, false)}
-          </Phrase>
-        </Column>
-      </Row>
+      <Box
+        insetHorizontal="md"
+        insetVertical="no">
+        <Row gutter="smd">
+          <LazyImage
+            source={images}
+            testID={`NewsListItem${id}Image`}
+            width={100}
+          />
+          <Column>
+            <Phrase variant="small">{title}</Phrase>
+            <Phrase
+              color="secondary"
+              variant="small">
+              {formatDateToDisplay(publication_datetime, false, false)}
+            </Phrase>
+          </Column>
+        </Row>
+      </Box>
     </Pressable>
   )
 }
