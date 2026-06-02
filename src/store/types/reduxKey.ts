@@ -16,6 +16,7 @@ export enum ReduxKey {
   messageDraft = 'messageDraft',
   mijnAmsterdam = 'mijnAmsterdam',
   modules = 'modules',
+  news = 'news',
   onboarding = 'onboarding',
   parking = 'parking',
   permissions = 'permissions',

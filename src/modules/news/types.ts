@@ -12,12 +12,13 @@ export type NewsArticleBase = {
 export enum NewsEndpointName {
   article = 'NewsArticle',
   articles = 'NewsArticles',
+  districts = 'NewsDistricts',
 }
 
 export type NewsArticleResponse = NewsArticleBase & {
   body: string
   creation_datetime: string
-  district: 'noord'
+  district: string
   expiration_datetime: string
   foreign_id: number
   id: number
@@ -35,24 +36,23 @@ export type NewsArticleResponse = NewsArticleBase & {
 
 export type NewsArticlesResponse = Paginated<NewsArticleBase>
 
-export type District =
-  | 'west'
-  | 'noord'
-  | 'zuid'
-  | 'oost'
-  | 'centrum'
-  | 'nieuw-west'
-  | 'zuidoost'
-  | 'weesp'
-
 export type NewsArticlesType =
   | {
       district?: never
       type: 'article' | 'highlight' | 'liveblog'
     }
   | {
-      district: District
+      district: string
       type: 'district'
     }
 
 export type NewsArticlesQueryArgs = PaginationQueryArgs & NewsArticlesType
+
+export type District = {
+  label: string
+  name: string
+}
+
+export type DistrictsResponse = {
+  data: District[]
+}

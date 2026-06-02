@@ -1,5 +1,11 @@
+import {NewsSlice} from '@/modules/news/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
+import {ReduxKey} from '@/store/types/reduxKey'
+
+const persistWhitelist: (keyof ReturnType<typeof NewsSlice.reducer>)[] = [
+  'selectedDistrict',
+]
 
 export const newsModule = createClientModule({
   name: 'NewsModule',
@@ -7,4 +13,12 @@ export const newsModule = createClientModule({
   linking: {
     [ModuleSlug.news]: ModuleSlug.news,
   },
+  reduxConfigs: [
+    {
+      key: ReduxKey.news,
+      persistVersion: 0,
+      persistWhitelist,
+      slice: NewsSlice,
+    },
+  ],
 })

@@ -1,24 +1,23 @@
 import {Screen} from '@/components/features/screen/Screen'
-import {Box} from '@/components/ui/containers/Box'
-import {Title} from '@/components/ui/text/Title'
-import {NewsletterSignup} from '@/modules/contact/components/NewsletterSignup'
-import {NewsList} from '@/modules/news/components/NewsList'
+import {Tabs} from '@/components/ui/Tabs'
+import {AllNews} from '@/modules/news/components/AllNews'
+import {DistrictNews} from '@/modules/news/components/DistrictNews'
+import {SelectDistrictBottomSheet} from '@/modules/news/components/SelectDistrictBottomSheet'
 
 export const NewsDashboardScreen = () => (
   <Screen
+    bottomSheet={<SelectDistrictBottomSheet />}
     scroll={false}
     testID="NewsDashboardScreen">
-    <NewsList
-      footerComponent={<NewsletterSignup variant="news" />}
-      headerComponent={
-        <Box>
-          <Title
-            level="h4"
-            text="Laatste nieuws"
-          />
-        </Box>
-      }
-      type="article"
-    />
+    <Tabs testID="NewsDashboardTabs">
+      <Tabs.Tab label="Nieuws">
+        <AllNews />
+      </Tabs.Tab>
+      <Tabs.Tab
+        accessibilityLabel="Stadsdeel nieuws"
+        label="Stadsdeel">
+        <DistrictNews />
+      </Tabs.Tab>
+    </Tabs>
   </Screen>
 )
