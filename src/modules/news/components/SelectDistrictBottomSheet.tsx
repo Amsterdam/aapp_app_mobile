@@ -34,7 +34,7 @@ export const SelectDistrictBottomSheet = () => {
                   dispatch(setSelectedDistrict(district.label))
                   close()
                 }}
-                testID={`ContactCityOffice${district.label}Button`}>
+                testID={`NewsSelectDistrict${district.label}Button`}>
                 <Box>
                   <Row gutter="md">
                     <Icon
