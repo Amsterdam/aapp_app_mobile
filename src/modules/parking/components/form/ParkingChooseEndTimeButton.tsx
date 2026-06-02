@@ -29,7 +29,7 @@ export const ParkingChooseEndTimeButton = () => {
       }}
       testID="ParkingChooseEndTimeButton"
       text={endTime =>
-        endTime ? formatDateTimeToDisplay(endTime, false) : undefined
+        endTime ? formatDateTimeToDisplay(endTime, false, startTime) : undefined
       }
       title={endTime => (endTime ? 'Eindtijd' : 'Kies eindtijd')}
     />
