@@ -17,7 +17,7 @@ export const TimeDifferenceNotice = (props: Props) => {
 
   return showNotice ? (
     <Notice
-      text={`We gebruiken de tijd in Nederland. Daar is het nu ${dayjs(serverTime ?? props.serverTime).format(isSameDay ? 'HH:mm' : 'DD MMM, HH:mm')} uur.`}
+      text={`We gebruiken de tijd in Nederland. Daar is het nu ${dayjs(serverTime ?? props.serverTime).format(isSameDay ? 'HH:mm' : 'D MMMM, HH:mm')} uur.`}
       variant="warning"
     />
   ) : null
