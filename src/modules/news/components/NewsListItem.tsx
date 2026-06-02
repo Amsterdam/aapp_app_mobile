@@ -21,6 +21,7 @@ export const NewsListItem = ({
 
   return (
     <Pressable
+      disabled={id === -1}
       onPress={() => navigate(NewsRouteName.article, {id})}
       testID={`NewsListItem${id}Button`}>
       <Box
