@@ -41,7 +41,7 @@ export const SelectDistrictBottomSheet = () => {
                       color="link"
                       name="map-marker"
                       size="lg"
-                      testID={`ContactCityOffice${district.label}Icon`}
+                      testID={`NewsSelectDistrict${district.label}Icon`}
                     />
                     <Title
                       color="link"
