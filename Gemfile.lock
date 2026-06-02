@@ -333,6 +333,7 @@ DEPENDENCIES
   fastlane (= 2.234.0)
   logger
   mutex_m
+  nkf
   openssl (~> 3.3)
   xcodeproj (< 1.26.0)
 
