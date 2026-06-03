@@ -12,7 +12,7 @@ jobs:
   unit-tests:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/install-node
 
@@ -62,7 +62,7 @@ jobs:
   typing-and-linting:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/install-node
 
@@ -81,7 +81,7 @@ jobs:
   bundle-check:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/install-node
 
