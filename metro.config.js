@@ -1,18 +1,14 @@
 /* eslint-disable no-console */
-const {
-  getDefaultConfig: getReactNativeDefaultConfig,
-  mergeConfig,
-} = require('@react-native/metro-config')
+const {mergeConfig} = require('@react-native/metro-config')
 const {getDefaultConfig: getExpoDefaultConfig} = require('expo/metro-config')
 
-const reactNativeConfig = getReactNativeDefaultConfig(__dirname)
 const expoConfig = getExpoDefaultConfig(__dirname)
 
 const {serializer, transformer, resolver} = expoConfig
 
 const config = {
   serializer: {
-    ...reactNativeConfig.serializer,
+    ...expoConfig.serializer,
     customSerializer: serializer.customSerializer,
   },
   transformer: {
@@ -43,4 +39,4 @@ const config = {
   },
 }
 
-module.exports = mergeConfig(reactNativeConfig, config)
+module.exports = mergeConfig(expoConfig, config)
