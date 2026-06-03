@@ -62,7 +62,7 @@ const createStyles =
       },
       image: {
         width: minDimension,
-        backgroundColor: theme.color.text.default,
+        backgroundColor: theme.color.imageFallback.background,
         aspectRatio: aspectRatioValue,
       },
       portrait: {
