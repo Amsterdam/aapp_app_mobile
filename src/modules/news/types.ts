@@ -12,7 +12,10 @@ export type NewsArticleBase = {
 export enum NewsEndpointName {
   article = 'NewsArticle',
   articles = 'NewsArticles',
+  deleteLiveBlogNotifications = 'NewsDeleteLiveBlogNotifications',
   districts = 'NewsDistricts',
+  getLiveBlogNotifications = 'NewsGetLiveBlogNotifications',
+  postLiveBlogNotifications = 'NewsPostLiveBlogNotifications',
 }
 
 export type NewsArticleResponse = NewsArticleBase & {
@@ -55,4 +58,10 @@ export type District = {
 
 export type DistrictsResponse = {
   data: District[]
+}
+
+export type NewsLiveBlogNotificationsResponse = {
+  article: number
+  device_id: string
+  id: number
 }
