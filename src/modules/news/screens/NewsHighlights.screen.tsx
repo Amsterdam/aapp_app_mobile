@@ -1,20 +1,19 @@
 import {Screen} from '@/components/features/screen/Screen'
-import {Gutter} from '@/components/ui/layout/Gutter'
+import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
 import {NewsletterSignup} from '@/modules/contact/components/NewsletterSignup'
-import {NewsList} from '@/modules/news/components/NewsList'
+import {NewsHighlights} from '@/modules/news/components/NewsHighlights'
 
 export const NewsHighlightsScreen = () => (
   <Screen
     scroll
     testID="NewsHighlightsScreen">
-    <NewsList
-      footerComponent={
-        <>
-          <Gutter height="xl" />
-          <NewsletterSignup variant="news" />
-        </>
-      }
-      type="highlight"
-    />
+    <Box insetTop="xl">
+      <Column gutter="xl">
+        <NewsHighlights />
+
+        <NewsletterSignup variant="news" />
+      </Column>
+    </Box>
   </Screen>
 )

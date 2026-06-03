@@ -7,6 +7,7 @@ export const NewsHighlightsNavigationButton = () => {
 
   return (
     <NavigationButton
+      accessibilityLabel="Navigeer naar uitgelichte artikelen"
       chevronColor="secondary"
       chevronSize="ml"
       color="default"

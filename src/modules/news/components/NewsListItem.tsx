@@ -10,13 +10,14 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
-type Props = NewsArticleBase
+type Props = NewsArticleBase & {includeDate?: boolean}
 
 export const NewsListItem = ({
   id,
   images,
   publication_datetime,
   title,
+  includeDate = true,
 }: Props) => {
   const {navigate} = useNavigation()
 
@@ -44,11 +45,13 @@ export const NewsListItem = ({
               variant="small">
               {title}
             </Phrase>
-            <Phrase
-              color="secondary"
-              variant="small">
-              {formatDateToDisplay(publication_datetime, false, false)}
-            </Phrase>
+            {!!includeDate && (
+              <Phrase
+                color="secondary"
+                variant="small">
+                {formatDateToDisplay(publication_datetime, false, false)}
+              </Phrase>
+            )}
           </Column>
         </Row>
       </Box>

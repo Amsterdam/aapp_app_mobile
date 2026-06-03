@@ -47,10 +47,13 @@ export const useHighlightedArticle = () => {
   }, [highlights, dispatch, highlightedArticleId, liveblog])
 
   useEffect(() => {
-    if (highlightedArticleStatus === DashboardHighlightStatus.stale) {
+    if (
+      highlightedArticleStatus === DashboardHighlightStatus.stale ||
+      highlightedArticleId === undefined
+    ) {
       advanceHighlight()
     }
-  }, [highlightedArticleStatus, advanceHighlight])
+  }, [highlightedArticleStatus, highlightedArticleId, advanceHighlight])
 
   return {
     highlightedArticle: useMemo(
