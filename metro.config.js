@@ -7,10 +7,7 @@ const expoConfig = getExpoDefaultConfig(__dirname)
 const {serializer, transformer, resolver} = expoConfig
 
 const config = {
-  serializer: {
-    ...expoConfig.serializer,
-    customSerializer: serializer.customSerializer,
-  },
+  serializer,
   transformer: {
     ...transformer,
     babelTransformerPath: require.resolve('react-native-svg-transformer/expo'),
