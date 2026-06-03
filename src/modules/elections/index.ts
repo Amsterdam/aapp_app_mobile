@@ -14,7 +14,6 @@ export const electionsModule = createClientModule({
   reduxConfigs: [
     {
       key: ReduxKey.elections,
-      persistVersion: 0,
       slice: electionsSlice,
     },
   ],
