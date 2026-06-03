@@ -12,6 +12,7 @@ export const screenConfig: StackNavigationRoutes<
     name: NewsRouteName.dashboard,
     options: {
       headerTitle: 'Nieuws',
+      headerShown: false,
     },
   },
   [NewsRouteName.article]: {
