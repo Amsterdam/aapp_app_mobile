@@ -5,8 +5,6 @@ import {
 } from '@reduxjs/toolkit'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
-import {accessCodeSlice} from '@/modules/access-code/slice'
-import {electionsSlice} from '@/modules/elections/slice'
 import {clientModules, coreModules} from '@/modules/modules'
 import {reduxLoggerMiddleware} from '@/processes/logging/reduxLoggerMiddleware'
 import {baseApi} from '@/services/baseApi'
@@ -26,9 +24,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {themeSlice} from '@/themes/slice'
 
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
-  {key: ReduxKey.accessCode, slice: accessCodeSlice},
   {key: ReduxKey.alert, slice: alertSlice},
-  {key: ReduxKey.elections, slice: electionsSlice},
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: 0},
   {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
   {key: ReduxKey.menu, slice: menuSlice},
