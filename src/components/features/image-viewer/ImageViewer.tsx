@@ -1,5 +1,11 @@
-import {useState} from 'react'
-import {StyleSheet, Platform, View} from 'react-native'
+import {useEffect, useState} from 'react'
+import {
+  StyleSheet,
+  Platform,
+  View,
+  Image,
+  type ImageSourcePropType,
+} from 'react-native'
 import {GestureDetector} from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 import type {ImageProps} from '@/components/ui/media/Image'
@@ -9,11 +15,47 @@ import {useImageViewerGestures} from '@/components/features/image-viewer/hooks/u
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useThemable} from '@/themes/useThemable'
 
+const getUriFromImageSourcePropType = (source: ImageSourcePropType) => {
+  if (typeof source === 'number') {
+    return
+  }
+
+  if (Array.isArray(source)) {
+    return source[0].uri
+  }
+
+  if (typeof source === 'string') {
+    return source
+  }
+
+  if (typeof source === 'object' && 'uri' in source) {
+    return source.uri
+  }
+}
+
 export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
   const {width, height, isPortrait} = useDeviceContext()
   const [imageLayout, setImageLayout] = useState({width: 0, height: 0})
   const {gestures, animatedStyle} = useImageViewerGestures(imageLayout)
-  const styles = useThemable(createStyles(Math.min(height, width), aspectRatio))
+  const [sourceAspectRatio, setSourceAspectRatio] = useState<
+    number | ImageAspectRatio | undefined
+  >(aspectRatio)
+
+  const styles = useThemable(
+    createStyles(Math.min(height, width), sourceAspectRatio),
+  )
+
+  useEffect(() => {
+    if (!imageProps.source) {
+      return
+    }
+
+    const uri = getUriFromImageSourcePropType(imageProps.source)
+
+    if (uri) {
+      Image.getSize(uri, (w, h) => setSourceAspectRatio(w / h))
+    }
+  }, [imageProps.source])
 
   return (
     <GestureDetector gesture={gestures}>
@@ -44,9 +86,12 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
 }
 
 const createStyles =
-  (minDimension: number, aspectRatio: ImageAspectRatio = 'wide') =>
+  (minDimension: number, aspectRatio: number | ImageAspectRatio = 'wide') =>
   (theme: Theme) => {
-    const aspectRatioValue = theme.media.aspectRatio[aspectRatio]
+    const aspectRatioValue =
+      typeof aspectRatio === 'number'
+        ? aspectRatio
+        : theme.media.aspectRatio[aspectRatio]
 
     const altDimension =
       Platform.OS === 'android' && minDimension && aspectRatioValue > 0
