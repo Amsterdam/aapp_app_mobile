@@ -1,7 +1,7 @@
 export enum NewsRouteName {
   article = 'NewsArticle',
   dashboard = 'NewsDashboard',
-  highlights = 'highlights',
+  highlights = 'NewsHighlights',
 }
 
 export type NewsStackParams = {

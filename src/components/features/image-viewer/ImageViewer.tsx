@@ -30,7 +30,7 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
           accessibilityRole="image"
           accessible
           onLayout={({nativeEvent: {layout}}) => setImageLayout(layout)}
-          resizeMode="cover"
+          resizeMode="contain"
           {...imageProps}
           style={[
             styles.image,

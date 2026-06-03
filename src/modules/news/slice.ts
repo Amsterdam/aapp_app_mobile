@@ -38,7 +38,7 @@ export const NewsSlice = createSlice({
       }
     },
     markHighlightArticleAsStale: state => {
-      if (!state.highlightedArticleId?.id) return
+      if (state.highlightedArticleId?.id === undefined) return
 
       state.highlightedArticleId = {
         ...state.highlightedArticleId,
