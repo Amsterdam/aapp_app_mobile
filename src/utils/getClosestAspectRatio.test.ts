@@ -42,7 +42,7 @@ describe('getClosestAspectRatio', () => {
   })
 
   describe('with absent second parameter', () => {
-    it('should return an appropriate aspect ration based on the first param only', () => {
+    it('should return an appropriate aspect ratio based on the first param only', () => {
       expect(getClosestAspectRatio(2.022)).toBe('extraWide')
       expect(getClosestAspectRatio(1.514)).toBe('wide')
       expect(getClosestAspectRatio(1.125)).toBe('narrow')
