@@ -1,9 +1,9 @@
 import {useCallback} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
 import {
-  useNewsDeleteLiveBlogNotificationsMutation,
-  useNewsGetLiveBlogNotificationsQuery,
-  useNewsPostLiveBlogNotificationsMutation,
+  useNewsDeleteLiveblogNotificationsMutation,
+  useNewsGetLiveblogNotificationsQuery,
+  useNewsPostLiveblogNotificationsMutation,
 } from '@/modules/news/service'
 
 type Props = {
@@ -12,21 +12,21 @@ type Props = {
 
 export const LiveblogNotificationToggleBox = ({articleId}: Props) => {
   const {isLoading, isSuccess, data} =
-    useNewsGetLiveBlogNotificationsQuery(articleId)
+    useNewsGetLiveblogNotificationsQuery(articleId)
 
-  const [postLiveBlogNotification] = useNewsPostLiveBlogNotificationsMutation()
-  const [deleteLiveBlogNotification] =
-    useNewsDeleteLiveBlogNotificationsMutation()
+  const [postLiveblogNotification] = useNewsPostLiveblogNotificationsMutation()
+  const [deleteLiveblogNotification] =
+    useNewsDeleteLiveblogNotificationsMutation()
 
   const onChange = useCallback(
     (value: boolean) => {
       if (value) {
-        void postLiveBlogNotification(articleId)
+        void postLiveblogNotification(articleId)
       } else {
-        void deleteLiveBlogNotification(articleId)
+        void deleteLiveblogNotification(articleId)
       }
     },
-    [deleteLiveBlogNotification, postLiveBlogNotification, articleId],
+    [deleteLiveblogNotification, postLiveblogNotification, articleId],
   )
 
   return (

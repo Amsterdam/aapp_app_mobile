@@ -4,7 +4,7 @@ import {
   type NewsArticleResponse,
   type NewsArticlesQueryArgs,
   type DistrictsResponse,
-  type NewsLiveBlogNotificationsResponse,
+  type NewsLiveblogNotificationsResponse,
 } from '@/modules/news/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
@@ -36,8 +36,8 @@ export const newsApi = baseApi.injectEndpoints({
         url: '/districts',
       }),
     }),
-    [NewsEndpointName.getLiveBlogNotifications]: builder.query<
-      NewsLiveBlogNotificationsResponse,
+    [NewsEndpointName.getLiveblogNotifications]: builder.query<
+      NewsLiveblogNotificationsResponse,
       number
     >({
       query: articleId => ({
@@ -48,8 +48,8 @@ export const newsApi = baseApi.injectEndpoints({
       }),
       providesTags: ['NewsLiveblogNotifications'],
     }),
-    [NewsEndpointName.postLiveBlogNotifications]: builder.mutation<
-      NewsLiveBlogNotificationsResponse,
+    [NewsEndpointName.postLiveblogNotifications]: builder.mutation<
+      NewsLiveblogNotificationsResponse,
       number
     >({
       query: articleId => ({
@@ -60,7 +60,7 @@ export const newsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['NewsLiveblogNotifications'],
     }),
-    [NewsEndpointName.deleteLiveBlogNotifications]: builder.mutation<
+    [NewsEndpointName.deleteLiveblogNotifications]: builder.mutation<
       void,
       number
     >({
@@ -80,7 +80,7 @@ export const {
   useNewsArticleQuery,
   useNewsArticlesQuery,
   useNewsDistrictsQuery,
-  useNewsGetLiveBlogNotificationsQuery,
-  useNewsPostLiveBlogNotificationsMutation,
-  useNewsDeleteLiveBlogNotificationsMutation,
+  useNewsGetLiveblogNotificationsQuery,
+  useNewsPostLiveblogNotificationsMutation,
+  useNewsDeleteLiveblogNotificationsMutation,
 } = newsApi
