@@ -22,4 +22,11 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Nieuws',
     },
   },
+  [NewsRouteName.highlights]: {
+    component: NewsArticleScreen,
+    name: NewsRouteName.highlights,
+    options: {
+      headerTitle: 'Uitgelicht',
+    },
+  },
 }

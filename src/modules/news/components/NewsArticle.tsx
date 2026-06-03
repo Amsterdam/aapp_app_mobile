@@ -38,6 +38,7 @@ export const NewsArticle = ({id}: Props) => {
       </Column>
       <LazyImage
         aspectRatio="wide"
+        openInImageViewer
         source={images}
         testID={`NewsListItem${id}Image`}
       />

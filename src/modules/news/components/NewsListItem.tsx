@@ -3,6 +3,7 @@ import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {Size} from '@/components/ui/layout/Size'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -22,19 +23,27 @@ export const NewsListItem = ({
   return (
     <Pressable
       disabled={id === -1}
+      flex={1}
       onPress={() => navigate(NewsRouteName.article, {id})}
       testID={`NewsListItem${id}Button`}>
-      <Box
-        insetHorizontal="md"
-        insetVertical="no">
+      <Box insetHorizontal="md">
         <Row gutter="smd">
-          <LazyImage
-            source={images}
-            testID={`NewsListItem${id}Image`}
-            width={100}
-          />
-          <Column>
-            <Phrase variant="small">{title}</Phrase>
+          <Size width={100}>
+            <LazyImage
+              aspectRatio="narrow"
+              fallbackInheritsAspectRatio
+              source={images}
+              testID={`NewsListItem${id}Image`}
+            />
+          </Size>
+          <Column
+            grow={1}
+            shrink={1}>
+            <Phrase
+              numberOfLines={2}
+              variant="small">
+              {title}
+            </Phrase>
             <Phrase
               color="secondary"
               variant="small">
