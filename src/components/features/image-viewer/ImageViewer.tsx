@@ -1,11 +1,5 @@
 import {useEffect, useState} from 'react'
-import {
-  StyleSheet,
-  Platform,
-  View,
-  Image,
-  type ImageSourcePropType,
-} from 'react-native'
+import {StyleSheet, Platform, View} from 'react-native'
 import {GestureDetector} from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 import type {ImageProps} from '@/components/ui/media/Image'
@@ -14,24 +8,7 @@ import type {ImageAspectRatio} from '@/themes/tokens/media'
 import {useImageViewerGestures} from '@/components/features/image-viewer/hooks/useImageViewerGestures'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useThemable} from '@/themes/useThemable'
-
-const getUriFromImageSourcePropType = (source: ImageSourcePropType) => {
-  if (typeof source === 'number') {
-    return
-  }
-
-  if (Array.isArray(source)) {
-    return source[0].uri
-  }
-
-  if (typeof source === 'string') {
-    return source
-  }
-
-  if (typeof source === 'object' && 'uri' in source) {
-    return source.uri
-  }
-}
+import {getAspectRatioFromImageSourcePropType} from '@/utils/getAspectRatioFromImageSourcePropType'
 
 export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
   const {width, height, isPortrait} = useDeviceContext()
@@ -50,11 +27,9 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
       return
     }
 
-    const uri = getUriFromImageSourcePropType(imageProps.source)
-
-    if (uri) {
-      Image.getSize(uri, (w, h) => setSourceAspectRatio(w / h))
-    }
+    void getAspectRatioFromImageSourcePropType(imageProps.source).then(
+      setSourceAspectRatio,
+    )
   }, [imageProps.source])
 
   return (
