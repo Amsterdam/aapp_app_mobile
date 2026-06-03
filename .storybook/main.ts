@@ -86,6 +86,11 @@ const config: StorybookConfig = {
               require.resolve('./mocks/react-native-keyboard-controller'),
           },
           {
+            find: 'react-native-linear-gradient',
+            replacement:
+              require.resolve('./mocks/react-native-linear-gradient'),
+          },
+          {
             find: 'react-native',
             replacement: 'react-native-web',
           },
