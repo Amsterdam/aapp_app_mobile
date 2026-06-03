@@ -70,7 +70,7 @@ const config: Config = {
   ],
   testTimeout: 30000,
   transformIgnorePatterns: [
-    'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@react-navigation)',
+    'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@react-navigation|@reduxjs|react-redux|redux|redux-persist|immer|reselect)',
   ],
   globals: {
     API_KEY_DEV: '',
