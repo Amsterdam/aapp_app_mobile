@@ -1,4 +1,8 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import {
+  combineReducers,
+  configureStore,
+  type ConfigureStoreOptions,
+} from '@reduxjs/toolkit'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
 import {accessCodeSlice} from '@/modules/access-code/slice'
@@ -6,7 +10,7 @@ import {electionsSlice} from '@/modules/elections/slice'
 import {clientModules, coreModules} from '@/modules/modules'
 import {reduxLoggerMiddleware} from '@/processes/logging/reduxLoggerMiddleware'
 import {baseApi} from '@/services/baseApi'
-import {devStoreEnhancer} from '@/store/devStoreEnhancer'
+import {getDevStoreEnhancer} from '@/store/devStoreEnhancer'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {alertSlice} from '@/store/slices/alert'
 import {environmentSlice} from '@/store/slices/environment'
@@ -43,12 +47,30 @@ const reducers = getReducers([
   ...getReduxConfigs(clientModules),
 ])
 
+const rootReducer = combineReducers({
+  [baseApi.reducerPath]: baseApi.reducer,
+  ...reducers,
+})
+
+type StoreState = ReturnType<typeof rootReducer>
+
+type StoreEnhancers = NonNullable<
+  ConfigureStoreOptions<StoreState>['enhancers']
+>
+
+const storeEnhancers: StoreEnhancers = getDefaultEnhancers => {
+  const defaultEnhancers = getDefaultEnhancers()
+  const devStoreEnhancer = getDevStoreEnhancer()
+
+  if (!devStoreEnhancer) {
+    return defaultEnhancers
+  }
+
+  return defaultEnhancers.concat(devStoreEnhancer)
+}
+
 export const store = configureStore({
-  enhancers: devStoreEnhancer,
-  reducer: combineReducers({
-    [baseApi.reducerPath]: baseApi.reducer,
-    ...reducers,
-  }),
+  reducer: rootReducer,
   devTools: false,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -59,5 +81,6 @@ export const store = configureStore({
       immutableCheck: {
         warnAfter: 256,
       },
-    }).concat([baseApi.middleware, reduxLoggerMiddleware]),
+    }).concat(baseApi.middleware, reduxLoggerMiddleware),
+  enhancers: storeEnhancers,
 })
