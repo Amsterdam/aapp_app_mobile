@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Pressable} from '@/components/ui/buttons/Pressable'
@@ -34,14 +35,14 @@ export const SelectDistrictBottomSheet = () => {
                   dispatch(setSelectedDistrict(district.label))
                   close()
                 }}
-                testID={`NewsSelectDistrict${district.label}Button`}>
+                testID={`NewsSelectDistrict${pascalCase(district.label)}Button`}>
                 <Box>
                   <Row gutter="md">
                     <Icon
                       color="link"
                       name="map-marker"
                       size="lg"
-                      testID={`NewsSelectDistrict${district.label}Icon`}
+                      testID={`NewsSelectDistrict${pascalCase(district.label)}Icon`}
                     />
                     <Title
                       color="link"

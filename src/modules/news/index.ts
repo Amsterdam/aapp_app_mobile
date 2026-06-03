@@ -1,11 +1,9 @@
-import {NewsSlice} from '@/modules/news/slice'
+import {NewsSlice, type NewsState} from '@/modules/news/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-const persistWhitelist: (keyof ReturnType<typeof NewsSlice.reducer>)[] = [
-  'selectedDistrict',
-]
+const persistWhitelist: (keyof NewsState)[] = ['selectedDistrict']
 
 export const newsModule = createClientModule({
   name: 'NewsModule',
