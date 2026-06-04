@@ -222,6 +222,14 @@ export const lightColorTokens = {
     background: baseColor.primary.white,
     border: baseColor.primary.blue,
   },
+  imageBackground: {
+    light: {
+      background: baseColor.primary.white,
+    },
+    dark: {
+      background: baseColor.primary.black,
+    },
+  },
   logo: baseColor.primary.red,
   module: {
     highlight: {

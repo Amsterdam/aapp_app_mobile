@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {StyleSheet, Platform, View} from 'react-native'
 import {GestureDetector} from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
@@ -8,12 +8,29 @@ import type {ImageAspectRatio} from '@/themes/tokens/media'
 import {useImageViewerGestures} from '@/components/features/image-viewer/hooks/useImageViewerGestures'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useThemable} from '@/themes/useThemable'
+import {getAspectRatioFromImageSourcePropType} from '@/utils/getAspectRatioFromImageSourcePropType'
 
 export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
   const {width, height, isPortrait} = useDeviceContext()
   const [imageLayout, setImageLayout] = useState({width: 0, height: 0})
   const {gestures, animatedStyle} = useImageViewerGestures(imageLayout)
-  const styles = useThemable(createStyles(Math.min(height, width), aspectRatio))
+  const [sourceAspectRatio, setSourceAspectRatio] = useState<
+    number | ImageAspectRatio | undefined
+  >(aspectRatio)
+
+  const styles = useThemable(
+    createStyles(Math.min(height, width), sourceAspectRatio),
+  )
+
+  useEffect(() => {
+    if (!imageProps.source) {
+      return
+    }
+
+    void getAspectRatioFromImageSourcePropType(imageProps.source).then(
+      setSourceAspectRatio,
+    )
+  }, [imageProps.source])
 
   return (
     <GestureDetector gesture={gestures}>
@@ -44,9 +61,12 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
 }
 
 const createStyles =
-  (minDimension: number, aspectRatio: ImageAspectRatio = 'wide') =>
+  (minDimension: number, aspectRatio: number | ImageAspectRatio = 'wide') =>
   (theme: Theme) => {
-    const aspectRatioValue = theme.media.aspectRatio[aspectRatio]
+    const aspectRatioValue =
+      typeof aspectRatio === 'number'
+        ? aspectRatio
+        : theme.media.aspectRatio[aspectRatio]
 
     const altDimension =
       Platform.OS === 'android' && minDimension && aspectRatioValue > 0
@@ -56,13 +76,13 @@ const createStyles =
     return StyleSheet.create({
       container: {
         flex: 1,
-        backgroundColor: theme.color.text.default,
+        backgroundColor: theme.color.imageBackground.dark.background,
         justifyContent: 'center',
         alignItems: 'center',
       },
       image: {
         width: minDimension,
-        backgroundColor: theme.color.imageFallback.background,
+        backgroundColor: theme.color.imageBackground.dark.background,
         aspectRatio: aspectRatioValue,
       },
       portrait: {
