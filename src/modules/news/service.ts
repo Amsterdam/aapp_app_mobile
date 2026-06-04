@@ -5,6 +5,7 @@ import {
   type NewsArticlesQueryArgs,
   type DistrictsResponse,
   type NewsLiveblogNotificationsResponse,
+  type LiveblogResponse,
 } from '@/modules/news/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
@@ -22,7 +23,10 @@ export const newsApi = baseApi.injectEndpoints({
         params: args,
       }),
     }),
-    [NewsEndpointName.article]: builder.query<NewsArticleResponse, number>({
+    [NewsEndpointName.article]: builder.query<
+      NewsArticleResponse | LiveblogResponse,
+      number
+    >({
       query: id => ({
         method: 'GET',
         slug: ModuleSlug.news,

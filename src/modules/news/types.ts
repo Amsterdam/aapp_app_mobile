@@ -25,19 +25,32 @@ export enum NewsEndpointName {
 export type NewsArticleResponse = NewsArticleBase & {
   body: string
   creation_datetime: string
-  district: string
-  expiration_datetime: string
+  district: string | null
+  expiration_datetime: string | null
   foreign_id: number
   id: number
   intro: string
-  is_active_liveblog: true
   last_seen: string
-  liveblog_notification_send: true
   modification_datetime: string
   publication_datetime: string
   summary: string
   title: string
   url: string
+}
+
+type LiveblogItem = {
+  body: string
+  creation_datetime: string
+  id: number
+  images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
+  message_order: number
+  title: string
+}
+
+export type LiveblogResponse = NewsArticleResponse & {
+  liveblog_items: Array<LiveblogItem>
+  liveblog_notification_send: boolean
+  liveblog_version: number | null
 }
 
 export type NewsArticlesResponse = Paginated<NewsArticleBase>
