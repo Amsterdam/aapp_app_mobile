@@ -7,10 +7,7 @@ import {
   selectHighlightedArticleStatus,
   setHighlightedArticleQueue,
 } from '@/modules/news/slice'
-import {
-  DashboardHighlightStatus,
-  type NewsArticleBase,
-} from '@/modules/news/types'
+import {DashboardHighlightStatus} from '@/modules/news/types'
 import {mergeAndOrderQueue} from '@/modules/news/utils/mergeAndOrderQueue'
 
 export const useHighlightedArticle = () => {
@@ -49,8 +46,7 @@ export const useHighlightedArticle = () => {
 
   const highlightedArticle = useMemo(() => {
     const liveblog = highlights?.result.find(
-      highlight =>
-        !!(highlight as NewsArticleBase & {isLiveblog: boolean}).isLiveblog,
+      highlight => highlight.is_active_liveblog,
     )
 
     if (liveblog) {

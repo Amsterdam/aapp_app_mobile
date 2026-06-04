@@ -17,12 +17,9 @@ export const NewsDashboardHighlightedArticle = () => {
   const navigateTo = useCallback(() => {
     if (!highlightedArticle) return
 
-    const {id, isLiveblog} = {
-      ...highlightedArticle,
-      isLiveblog: true,
-    } //TODO: fix check once backend is available
+    const {id, type} = highlightedArticle
 
-    if (isLiveblog) {
+    if (type === 'liveblog') {
       return navigate(NewsRouteName.liveblog, {id})
     }
 
@@ -43,10 +40,7 @@ export const NewsDashboardHighlightedArticle = () => {
     return null
   }
 
-  const {images, title, id, isLiveblog} = {
-    ...highlightedArticle,
-    isLiveblog: true,
-  } //TODO: fix check once backend is available
+  const {images, title, id, is_active_liveblog} = highlightedArticle
 
   return (
     <Column gutter="md">
@@ -58,7 +52,7 @@ export const NewsDashboardHighlightedArticle = () => {
         testID={`NewsDashboardHighlightedArticle${id}Button`}>
         <Column gutter="smd">
           <NewsDashboardHighlightedArticleImage
-            isLiveblog={isLiveblog}
+            isLiveblog={is_active_liveblog}
             source={images}
           />
           <Title

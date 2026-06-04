@@ -4,10 +4,14 @@ import type {ImageURISource} from 'react-native'
 export type NewsArticleBase = {
   id: number
   images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
+  is_active_liveblog?: boolean
   modification_datetime: string
   publication_datetime: string
   title: string
+  type?: NewsArticleType
 }
+
+type NewsArticleType = 'article' | 'highlight' | 'liveblog' | 'district'
 
 export enum NewsEndpointName {
   article = 'NewsArticle',
@@ -33,7 +37,6 @@ export type NewsArticleResponse = NewsArticleBase & {
   publication_datetime: string
   summary: string
   title: string
-  type: 'article'
   url: string
 }
 
@@ -42,7 +45,7 @@ export type NewsArticlesResponse = Paginated<NewsArticleBase>
 export type NewsArticlesType =
   | {
       district?: never
-      type: 'article' | 'highlight' | 'liveblog'
+      type: Exclude<NewsArticleType, 'district'>
     }
   | {
       district: string
