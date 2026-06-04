@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {ReduxKey} from '@/store/types/reduxKey'
 import type {RootState} from '@/store/types/rootState'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 export type NewsState = {
   selectedDistrict: string
