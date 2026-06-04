@@ -387,7 +387,12 @@ export const lightColorTokens = {
     },
   },
   tag: {
-    background: baseColor.secondary.yellow,
+    warning: {
+      background: baseColor.secondary.yellow,
+    },
+    default: {
+      background: baseColor.primary.white,
+    },
   },
   text: {
     alert: baseColor.secondary.orange,

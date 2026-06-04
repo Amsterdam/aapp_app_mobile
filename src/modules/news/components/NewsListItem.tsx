@@ -7,10 +7,11 @@ import {Size} from '@/components/ui/layout/Size'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {LiveblogTag} from '@/modules/news/components/LiveblogTag'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
-type Props = NewsArticleBase & {includeDate?: boolean}
+type Props = NewsArticleBase & {includeDate?: boolean; isLiveBlog?: boolean}
 
 export const NewsListItem = ({
   id,
@@ -18,8 +19,11 @@ export const NewsListItem = ({
   publication_datetime,
   title,
   includeDate = true,
+  isLiveBlog = false, // TODO: fix prop once backend sends correct indicator
 }: Props) => {
   const {navigate} = useNavigation()
+
+  const showDate = includeDate && !isLiveBlog
 
   return (
     <Pressable
@@ -40,12 +44,13 @@ export const NewsListItem = ({
           <Column
             grow={1}
             shrink={1}>
+            {!!isLiveBlog && <LiveblogTag />}
             <Phrase
               numberOfLines={2}
               variant="small">
               {title}
             </Phrase>
-            {!!includeDate && (
+            {!!showDate && (
               <Phrase
                 color="secondary"
                 variant="small">

@@ -1,26 +1,49 @@
 import {StyleSheet, View} from 'react-native'
-import type {FC} from 'react'
+import type {TestProps} from '@/components/ui/types'
+import type {SpacingTokens} from '@/themes/tokens/size'
+import type {ReactNode} from 'react'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = {label: string}
+type Variant = keyof Theme['color']['tag']
+type PaddingVertical = keyof Pick<SpacingTokens, 'no' | 'xs'>
 
-export const Tag: FC<Props> = ({label}) => {
-  const styles = useThemable(createStyles)
+type BaseProps = {
+  paddingVertical?: PaddingVertical
+  variant?: Variant
+} & TestProps
+type LabelProps = {children?: never; label: string}
+type NodeProps = {children: Exclude<ReactNode, 'string'>; label?: never}
 
-  return (
-    <View style={styles.tag}>
-      <Paragraph>{label}</Paragraph>
-    </View>
-  )
+export const Tag = ({
+  children,
+  label,
+  variant = 'default',
+  paddingVertical = 'xs',
+  testID = 'Tag',
+}: BaseProps & (LabelProps | NodeProps)) => {
+  const styles = useThemable(createStyles(variant, paddingVertical))
+
+  if (label) {
+    return (
+      <View
+        style={styles.tag}
+        testID={testID}>
+        <Paragraph>{label}</Paragraph>
+      </View>
+    )
+  }
+
+  return <View style={styles.tag}>{children}</View>
 }
 
-const createStyles = ({color, size}: Theme) =>
-  StyleSheet.create({
-    tag: {
-      backgroundColor: color.tag.background,
-      paddingHorizontal: size.spacing.sm,
-      paddingVertical: size.spacing.xs,
-    },
-  })
+const createStyles =
+  (variant: Variant, paddingVertical: PaddingVertical) => (theme: Theme) =>
+    StyleSheet.create({
+      tag: {
+        backgroundColor: theme.color.tag[variant].background,
+        paddingHorizontal: theme.size.spacing.sm,
+        paddingVertical: theme.size.spacing[paddingVertical],
+      },
+    })

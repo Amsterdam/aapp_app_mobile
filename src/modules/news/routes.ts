@@ -2,11 +2,13 @@ export enum NewsRouteName {
   article = 'NewsArticle',
   dashboard = 'NewsDashboard',
   highlights = 'NewsHighlights',
+  liveblog = 'NewsLiveblog',
 }
 
 export type NewsStackParams = {
   [NewsRouteName.dashboard]: undefined
   [NewsRouteName.article]: {id: number}
+  [NewsRouteName.liveblog]: {id: number}
   [NewsRouteName.highlights]: undefined
 }
 
