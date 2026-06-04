@@ -1,16 +1,14 @@
-import {useMemo} from 'react'
-import {StyleSheet} from 'react-native'
-import DatePicker from 'react-native-date-picker'
 import {Tabs} from '@/components/ui/Tabs' // Updated import
 import {Column} from '@/components/ui/layout/Column'
+import {ParkingStartSessionDatePicker} from '@/modules/parking/components/form/bottomsheet/ParkingStartSessionDatePicker'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
-import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
 
 type Props = {
-  dateTime: Dayjs
+  dateTime: Dayjs | null
   maxDateTime?: Dayjs
+  minDateTime?: Dayjs | null
   setDateTime: (time: Dayjs) => void
 }
 
@@ -18,8 +16,11 @@ export const ParkingSessionDateTime = ({
   dateTime,
   setDateTime,
   maxDateTime,
+  minDateTime,
 }: Props) => {
-  const justNow = useMemo(roundDownToMinutes, [])
+  if (!dateTime) {
+    return null
+  }
 
   return (
     <Column grow={1}>
@@ -29,46 +30,31 @@ export const ParkingSessionDateTime = ({
             hoursLabelShort: true,
             includeHoursLabel: true,
           })}>
-          <DatePicker
-            date={dateTime.toDate()}
-            is24hourSource="locale"
-            locale="nl-NL"
-            maximumDate={maxDateTime?.toDate()}
-            minimumDate={justNow.toDate()}
+          <ParkingStartSessionDatePicker
+            date={dateTime}
+            maxDate={maxDateTime}
+            minDate={minDateTime ?? dateTime}
             mode="time"
-            onDateChange={newDateTime => {
+            onChange={newDateTime => {
               setDateTime(dayjs(newDateTime))
             }}
-            style={styles.centerSelf}
-            theme="light"
           />
         </Tabs.Tab>
         <Tabs.Tab label={formatDateToDisplay(dateTime, false)}>
-          <DatePicker
-            date={dateTime.toDate()}
-            is24hourSource="locale"
-            locale="nl-NL"
-            maximumDate={maxDateTime
+          <ParkingStartSessionDatePicker
+            date={dateTime}
+            maxDate={maxDateTime
               ?.set('hours', dateTime.hour())
               .set('minute', dateTime.minute())
-              .set('second', dateTime.second())
-              .toDate()}
-            minimumDate={justNow.toDate()}
+              .set('second', dateTime.second())}
+            minDate={minDateTime ?? dateTime}
             mode="date"
-            onDateChange={newDateTime => {
+            onChange={newDateTime => {
               setDateTime(dayjs(newDateTime))
             }}
-            style={styles.centerSelf}
-            theme="light"
           />
         </Tabs.Tab>
       </Tabs>
     </Column>
   )
 }
-
-const styles = StyleSheet.create({
-  centerSelf: {
-    alignSelf: 'center',
-  },
-})

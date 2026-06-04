@@ -6,7 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useRefetchInterval} from '@/hooks/useRefetchInterval'
+import {useInterval} from '@/hooks/useInterval'
 import {ParkingAddMoneyButton} from '@/modules/parking/components/ParkingAddMoneyButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
@@ -37,7 +37,7 @@ export const ParkingPermitBalanceMoney = () => {
   }, [dispatch, walletBalance, accountWalletBalance])
 
   // refetch account details every 5 seconds if the wallet balance hasn't updated yet, it can take a bit before the payment is processed
-  useRefetchInterval(
+  useInterval(
     refetch,
     walletBalanceIncreaseStartedAt &&
       dayjs().diff(walletBalanceIncreaseStartedAt, 'minutes') < 15 &&
