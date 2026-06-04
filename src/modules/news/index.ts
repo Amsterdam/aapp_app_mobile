@@ -3,7 +3,10 @@ import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-const persistWhitelist: (keyof NewsState)[] = ['selectedDistrict']
+const persistWhitelist: (keyof NewsState)[] = [
+  'selectedDistrict',
+  'highlightedArticles',
+]
 
 export const newsModule = createClientModule({
   name: 'NewsModule',

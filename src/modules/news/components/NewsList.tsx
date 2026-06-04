@@ -1,5 +1,6 @@
 import {useState, useCallback} from 'react'
-import {FlatList, type FlatListProps} from 'react-native'
+import {FlatList, StyleSheet, type FlatListProps} from 'react-native'
+import type {Theme} from '@/themes/themes'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {NewsListItem} from '@/modules/news/components/NewsListItem'
@@ -10,6 +11,7 @@ import {
   type NewsArticlesQueryArgs,
   type NewsArticlesType,
 } from '@/modules/news/types'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = NewsArticlesType & {
   footerComponent?: FlatListProps<NewsArticleBase>['ListFooterComponent']
@@ -33,6 +35,7 @@ export const NewsList = ({
   district,
 }: Props) => {
   const [page, setPage] = useState(1)
+  const styles = useThemable(createStyles)
 
   const params: NewsArticlesType =
     type === 'district' ? {type, district} : {type}
@@ -71,6 +74,7 @@ export const NewsList = ({
 
   return (
     <FlatList
+      contentContainerStyle={styles.contentContainer}
       data={result.data ?? []}
       ItemSeparatorComponent={<Gutter height="md" />}
       ListFooterComponent={footerComponent}
@@ -80,3 +84,10 @@ export const NewsList = ({
     />
   )
 }
+
+const createStyles = ({size}: Theme) =>
+  StyleSheet.create({
+    contentContainer: {
+      paddingBottom: size.spacing.md,
+    },
+  })

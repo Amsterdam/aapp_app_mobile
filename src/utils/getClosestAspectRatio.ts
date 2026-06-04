@@ -2,7 +2,7 @@ import {mediaTokens, type ImageAspectRatio} from '@/themes/tokens/media'
 
 export const getClosestAspectRatio = (
   width: number,
-  height: number,
+  height: number = 1,
 ): ImageAspectRatio => {
   const dynamicAspectRatio = width / height
 

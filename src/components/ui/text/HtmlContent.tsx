@@ -258,9 +258,8 @@ const ARenderer: CustomMixedRenderer = props => {
 }
 
 const ImgRenderer: CustomMixedRenderer = props => {
-  const {width: deviceWidth} = useDeviceContext()
   const {rendererProps} = useInternalRenderer('img', props)
-  const {alt, source, style, width, height} = rendererProps
+  const {alt, source, style} = rendererProps
   const aspectRatio = useDynamicImageAspectRatio(source.uri)
 
   return (
@@ -268,15 +267,9 @@ const ImgRenderer: CustomMixedRenderer = props => {
       <LazyImage
         alt={alt}
         aspectRatio={aspectRatio}
-        height={
-          !!height && !Number.isNaN(Number(height)) ? Number(height) : undefined
-        }
         openInImageViewer
         source={source}
         testID="HtmlRendererImage"
-        width={
-          !!width && !Number.isNaN(Number(width)) ? Number(width) : deviceWidth
-        }
       />
     </View>
   )

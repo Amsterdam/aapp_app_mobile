@@ -40,4 +40,15 @@ describe('getClosestAspectRatio', () => {
     expect(getClosestAspectRatio(0.625, 1)).toBe('tight')
     expect(getClosestAspectRatio(Number.MIN_VALUE, 1)).toBe('tight')
   })
+
+  describe('with absent second parameter', () => {
+    it('should return an appropriate aspect ratio based on the first param only', () => {
+      expect(getClosestAspectRatio(2.022)).toBe('extraWide')
+      expect(getClosestAspectRatio(1.514)).toBe('wide')
+      expect(getClosestAspectRatio(1.125)).toBe('narrow')
+      expect(getClosestAspectRatio(0.875)).toBe('square')
+      expect(getClosestAspectRatio(0.626)).toBe('portrait')
+      expect(getClosestAspectRatio(0.625)).toBe('tight')
+    })
+  })
 })

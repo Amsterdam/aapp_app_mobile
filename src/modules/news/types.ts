@@ -65,3 +65,8 @@ export type NewsLiveblogNotificationsResponse = {
   device_id: string
   id: number
 }
+
+export enum DashboardHighlightStatus {
+  active = 'Active',
+  stale = 'Stale',
+}
