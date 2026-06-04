@@ -21,7 +21,8 @@ export const useHighlightedArticle = () => {
   const {data: highlights, ...rest} = useNewsArticlesQuery({type: 'highlight'})
 
   const advanceHighlightQueue = useCallback(() => {
-    const incomingQueue = highlights?.result.map(h => h.id) ?? []
+    const incomingQueue =
+      highlights?.result.map(highlight => highlight.id) ?? []
 
     const newQueue = mergeAndOrderQueue(
       new Set(highlightedArticleQueue),

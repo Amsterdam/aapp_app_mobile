@@ -41,7 +41,7 @@ export const NewsSlice = createSlice({
         status: DashboardHighlightStatus.active,
       }
     },
-    markHighlightArticleAsStale: state => {
+    markHighlightedArticleAsStale: state => {
       state.highlightedArticles.status = DashboardHighlightStatus.stale
     },
   },
@@ -50,14 +50,14 @@ export const NewsSlice = createSlice({
 export const {
   setSelectedDistrict,
   setHighlightedArticleQueue,
-  markHighlightArticleAsStale,
+  markHighlightedArticleAsStale,
 } = NewsSlice.actions
 
 export const selectSelectedDistrict = (state: RootState) =>
   state[ReduxKey.news].selectedDistrict
 
 export const selectHighlightedArticleQueue = (state: RootState) =>
-  state[ReduxKey.news].highlightedArticles?.queue
+  state[ReduxKey.news].highlightedArticles.queue
 
 export const selectHighlightedArticleStatus = (state: RootState) =>
-  state[ReduxKey.news].highlightedArticles?.status
+  state[ReduxKey.news].highlightedArticles.status
