@@ -43,13 +43,6 @@ export const SecondaryDestructive: Story = {
   },
 }
 
-export const Positive: Story = {
-  args: {
-    label: 'Positive',
-    variant: 'positive',
-  },
-}
-
 export const _Inline: Story<typeof Row> = {
   args: {align: 'start'},
   render: ({align}) => (

@@ -51,13 +51,7 @@ describe('Button', () => {
 
   it('renders with different variants', () => {
     ;(
-      [
-        'primary',
-        'secondary',
-        'tertiary',
-        'secondaryDestructive',
-        'positive',
-      ] as const
+      ['primary', 'secondary', 'tertiary', 'secondaryDestructive'] as const
     ).forEach(variant => {
       const {getByTestId, unmount} = render(
         <StoreProvider>
