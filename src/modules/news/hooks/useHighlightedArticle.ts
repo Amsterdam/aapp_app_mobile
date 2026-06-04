@@ -3,64 +3,66 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useNewsArticlesQuery} from '@/modules/news/service'
 import {
-  selectHighlightedArticleId,
+  selectHighlightedArticleQueue,
   selectHighlightedArticleStatus,
-  setHighlightedArticleId,
+  setHighlightedArticleQueue,
 } from '@/modules/news/slice'
 import {
   DashboardHighlightStatus,
   type NewsArticleBase,
 } from '@/modules/news/types'
+import {mergeAndOrderQueue} from '@/modules/news/utils/mergeAndOrderQueue'
 
 export const useHighlightedArticle = () => {
-  const highlightedArticleId = useSelector(selectHighlightedArticleId)
+  const highlightedArticleQueue = useSelector(selectHighlightedArticleQueue)
   const highlightedArticleStatus = useSelector(selectHighlightedArticleStatus)
   const dispatch = useDispatch()
 
   const {data: highlights, ...rest} = useNewsArticlesQuery({type: 'highlight'})
 
-  const liveblog = useMemo(
-    // TODO: add liveblog check once possible
-    () =>
-      highlights?.result.find(
-        highlight =>
-          !!(highlight as NewsArticleBase & {isLiveblog: boolean}).isLiveblog,
-      ),
-    [highlights],
-  )
+  const advanceHighlightQueue = useCallback(() => {
+    const incomingQueue = highlights?.result.map(h => h.id) ?? []
 
-  const advanceHighlight = useCallback(() => {
-    if (!highlights?.result.length || liveblog) {
+    const newQueue = mergeAndOrderQueue(
+      new Set(highlightedArticleQueue),
+      new Set(incomingQueue),
+    )
+
+    dispatch(setHighlightedArticleQueue([...newQueue]))
+  }, [highlights, dispatch, highlightedArticleQueue])
+
+  useEffect(() => {
+    if (rest.isError || rest.isLoading) {
       return
     }
 
-    const indexOfHighlightedArticle = highlights.result.findIndex(
-      highlight => highlight.id === highlightedArticleId,
+    if (highlightedArticleStatus === DashboardHighlightStatus.stale) {
+      advanceHighlightQueue()
+    }
+  }, [
+    highlightedArticleStatus,
+    advanceHighlightQueue,
+    rest.isError,
+    rest.isLoading,
+  ])
+
+  const highlightedArticle = useMemo(() => {
+    const liveblog = highlights?.result.find(
+      highlight =>
+        !!(highlight as NewsArticleBase & {isLiveblog: boolean}).isLiveblog,
     )
 
-    const nextIndex =
-      indexOfHighlightedArticle + 1 > highlights.result.length - 1
-        ? 0
-        : indexOfHighlightedArticle + 1
-
-    dispatch(setHighlightedArticleId(highlights.result[nextIndex].id))
-  }, [highlights, dispatch, highlightedArticleId, liveblog])
-
-  useEffect(() => {
-    if (
-      highlightedArticleStatus === DashboardHighlightStatus.stale ||
-      highlightedArticleId === undefined
-    ) {
-      advanceHighlight()
+    if (liveblog) {
+      return liveblog
     }
-  }, [highlightedArticleStatus, highlightedArticleId, advanceHighlight])
+
+    return highlights?.result.find(
+      highlight => highlight.id === highlightedArticleQueue[0],
+    )
+  }, [highlightedArticleQueue, highlights?.result])
 
   return {
-    highlightedArticle: useMemo(
-      () =>
-        liveblog || highlights?.result.find(h => h.id === highlightedArticleId),
-      [highlights, highlightedArticleId, liveblog],
-    ),
+    highlightedArticle,
     ...rest,
   }
 }

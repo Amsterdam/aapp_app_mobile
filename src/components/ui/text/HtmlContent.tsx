@@ -265,7 +265,6 @@ const ImgRenderer: CustomMixedRenderer = props => {
   return (
     <View style={style}>
       <LazyImage
-        accessibilityLabel={alt ?? ''}
         alt={alt}
         aspectRatio={aspectRatio}
         openInImageViewer

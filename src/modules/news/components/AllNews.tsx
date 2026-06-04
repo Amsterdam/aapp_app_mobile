@@ -10,7 +10,7 @@ export const AllNews = () => (
   <NewsList
     footerComponent={
       <>
-        <Gutter height="xl" />
+        <Gutter height="md" />
         <NewsletterSignup variant="news" />
       </>
     }

@@ -5,7 +5,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 
 const persistWhitelist: (keyof NewsState)[] = [
   'selectedDistrict',
-  'highlightedArticleId',
+  'highlightedArticles',
 ]
 
 export const newsModule = createClientModule({

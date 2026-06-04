@@ -7,8 +7,8 @@ import {
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export type NewsState = {
-  highlightedArticleId?: {
-    id: NewsArticleBase['id']
+  highlightedArticles: {
+    queue: Array<NewsArticleBase['id']>
     status: DashboardHighlightStatus
   }
   selectedDistrict: string
@@ -16,6 +16,10 @@ export type NewsState = {
 
 const initialState: NewsState = {
   selectedDistrict: 'centrum',
+  highlightedArticles: {
+    queue: [],
+    status: DashboardHighlightStatus.stale,
+  },
 }
 
 export const NewsSlice = createSlice({
@@ -28,37 +32,32 @@ export const NewsSlice = createSlice({
     ) => {
       state.selectedDistrict = district
     },
-    setHighlightedArticleId: (
+    setHighlightedArticleQueue: (
       state,
-      {payload: articleId}: PayloadAction<NewsArticleBase['id']>,
+      {payload: articleIds}: PayloadAction<Array<NewsArticleBase['id']>>,
     ) => {
-      state.highlightedArticleId = {
-        id: articleId,
+      state.highlightedArticles = {
+        queue: articleIds,
         status: DashboardHighlightStatus.active,
       }
     },
     markHighlightArticleAsStale: state => {
-      if (state.highlightedArticleId?.id === undefined) return
-
-      state.highlightedArticleId = {
-        ...state.highlightedArticleId,
-        status: DashboardHighlightStatus.stale,
-      }
+      state.highlightedArticles.status = DashboardHighlightStatus.stale
     },
   },
 })
 
 export const {
   setSelectedDistrict,
-  setHighlightedArticleId,
+  setHighlightedArticleQueue,
   markHighlightArticleAsStale,
 } = NewsSlice.actions
 
 export const selectSelectedDistrict = (state: RootState) =>
   state[ReduxKey.news].selectedDistrict
 
-export const selectHighlightedArticleId = (state: RootState) =>
-  state[ReduxKey.news].highlightedArticleId?.id
+export const selectHighlightedArticleQueue = (state: RootState) =>
+  state[ReduxKey.news].highlightedArticles?.queue
 
 export const selectHighlightedArticleStatus = (state: RootState) =>
-  state[ReduxKey.news].highlightedArticleId?.status
+  state[ReduxKey.news].highlightedArticles?.status
