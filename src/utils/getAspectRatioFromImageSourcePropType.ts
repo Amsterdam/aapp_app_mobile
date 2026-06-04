@@ -1,4 +1,5 @@
 import {type ImageSourcePropType, Image} from 'react-native'
+import {devError} from '@/processes/development'
 
 export const getAspectRatioFromImageSourcePropType = async (
   source: ImageSourcePropType,
@@ -14,14 +15,34 @@ export const getAspectRatioFromImageSourcePropType = async (
   }
 
   if (source && typeof source === 'object' && 'uri' in source) {
-    uri = source.uri
+    if (typeof source.uri === 'number') {
+      uri = Image.resolveAssetSource(source.uri)?.uri
+    } else if (typeof source.uri === 'string') {
+      uri = source.uri
+    }
   }
 
   if (!uri) {
     return
   }
 
-  const {width, height} = await Image.getSize(uri)
+  try {
+    return await new Promise<number>((resolve, reject) => {
+      Image.getSize(
+        uri,
+        (width, height) => {
+          const aspectRatio = height > 0 && width > 0 ? width / height : 0
 
-  return width / height
+          resolve(aspectRatio)
+        },
+        () => {
+          reject(new Error('Failed to get image size'))
+        },
+      )
+    })
+  } catch (e) {
+    devError(e)
+
+    return
+  }
 }

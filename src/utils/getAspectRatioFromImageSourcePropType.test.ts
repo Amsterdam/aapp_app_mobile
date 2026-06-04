@@ -1,6 +1,10 @@
 import {Image, type ImageResolvedAssetSource} from 'react-native'
 import {getAspectRatioFromImageSourcePropType} from '@/utils/getAspectRatioFromImageSourcePropType'
 
+jest.mock('@/processes/development', () => ({
+  devError: jest.fn(),
+}))
+
 jest.mock('react-native', () => ({
   Image: {
     getSize: jest.fn(),
@@ -10,7 +14,14 @@ jest.mock('react-native', () => ({
 
 describe('getAspectRatioFromImageSourcePropType', () => {
   const mockedImage = Image as unknown as {
-    getSize: jest.Mock<Promise<{height: number; width: number}>, [string]>
+    getSize: jest.Mock<
+      void,
+      [
+        string,
+        (width: number, height: number) => void,
+        ((error: unknown) => void)?,
+      ]
+    >
     resolveAssetSource: jest.Mock<
       ImageResolvedAssetSource | undefined,
       [number]
@@ -19,7 +30,9 @@ describe('getAspectRatioFromImageSourcePropType', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    mockedImage.getSize.mockResolvedValue({width: 1200, height: 800})
+    mockedImage.getSize.mockImplementation((_uri, onSuccess) => {
+      onSuccess(1200, 800)
+    })
   })
 
   it('returns undefined when a numeric asset source has no uri', async () => {
@@ -48,7 +61,11 @@ describe('getAspectRatioFromImageSourcePropType', () => {
     await expect(getAspectRatioFromImageSourcePropType(7)).resolves.toBe(1.5)
 
     expect(mockedImage.resolveAssetSource).toHaveBeenCalledWith(7)
-    expect(mockedImage.getSize).toHaveBeenCalledWith('asset://image')
+    expect(mockedImage.getSize).toHaveBeenCalledWith(
+      'asset://image',
+      expect.any(Function),
+      expect.any(Function),
+    )
   })
 
   it('calculates the aspect ratio for an array source using the first uri item', async () => {
@@ -60,6 +77,8 @@ describe('getAspectRatioFromImageSourcePropType', () => {
 
     expect(mockedImage.getSize).toHaveBeenCalledWith(
       'https://example.com/a.jpg',
+      expect.any(Function),
+      expect.any(Function),
     )
   })
 
@@ -70,6 +89,8 @@ describe('getAspectRatioFromImageSourcePropType', () => {
 
     expect(mockedImage.getSize).toHaveBeenCalledWith(
       'https://example.com/b.jpg',
+      expect.any(Function),
+      expect.any(Function),
     )
   })
 
