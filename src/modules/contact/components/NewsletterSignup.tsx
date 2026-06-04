@@ -24,8 +24,10 @@ export const NewsletterSignup = ({
         />
         <Paragraph color="inverse">
           Schrijf u nu in voor de Nieuwsbrief Amsterdam en ontvang wekelijks
-          nieuws{' '}
-          {variant === 'contact' ? ', tips en mooie verhalen over' : 'uit'} de
+          nieuws
+          {variant === 'contact'
+            ? ', tips en mooie verhalen over'
+            : ' uit'} de
           stad en uw stadsdeel.
         </Paragraph>
         <ExternalLinkButton
