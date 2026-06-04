@@ -5,14 +5,14 @@ import {isThisYear} from '@/utils/datetime/isThisYear'
 
 export const formatDateTimeToDisplay = (
   date: string | Dayjs,
-  todayAsDate = true,
+  showTodayAsDate = true,
   serverTimeDate?: string | Dayjs,
 ) => {
   const dateToDisplay = formatDate(date)
 
   const time = `${dayjs(date).format('HH.mm')} uur`
 
-  if (!todayAsDate && dayjs(date).isSame(dayjs(serverTimeDate), 'day')) {
+  if (!showTodayAsDate && dayjs(date).isSame(dayjs(serverTimeDate), 'day')) {
     return `Vandaag, ${time}`
   }
 
