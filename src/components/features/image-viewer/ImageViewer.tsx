@@ -76,13 +76,13 @@ const createStyles =
     return StyleSheet.create({
       container: {
         flex: 1,
-        backgroundColor: theme.color.text.default,
+        backgroundColor: theme.color.imageBackground.dark.background,
         justifyContent: 'center',
         alignItems: 'center',
       },
       image: {
         width: minDimension,
-        backgroundColor: theme.color.text.default,
+        backgroundColor: theme.color.imageBackground.dark.background,
         aspectRatio: aspectRatioValue,
       },
       portrait: {
