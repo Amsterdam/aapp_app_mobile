@@ -10,7 +10,6 @@ def node_require(script)
 end
 node_require('react-native-permissions/scripts/setup.rb')
 
-ENV['EX_DEV_CLIENT_NETWORK_INSPECTOR'] ||= '1'
 platform :ios, '16.4'
 prepare_react_native_project!
 
