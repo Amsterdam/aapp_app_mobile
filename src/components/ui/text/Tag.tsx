@@ -14,7 +14,7 @@ type BaseProps = {
   variant?: Variant
 } & TestProps
 type LabelProps = {children?: never; label: string}
-type NodeProps = {children: Exclude<ReactNode, 'string'>; label?: never}
+type NodeProps = {children: Exclude<ReactNode, string>; label?: never}
 
 export const Tag = ({
   children,
