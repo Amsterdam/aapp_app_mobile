@@ -7,7 +7,6 @@ apply plugin: "com.facebook.react"
 apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
-import org.apache.tools.ant.taskdefs.condition.Os
 
 /**
  * Load environment variables from a .env file into the Gradle project
@@ -83,7 +82,7 @@ react {
     // cliFile = new File(["node", "--print", "require.resolve('@expo/cli')"].execute(null, rootDir).text.trim())
     // above 2 commands are replaced by the next two to enable gradle configuration cache
     entryFile = file("$rootDir/../index.js")
-    cliFile = new File("$rootDir/../node_modules/expo/node_modules/@expo/cli/build/bin/cli")
+    cliFile = new File("$rootDir/../node_modules/@expo/cli/build/bin/cli")
     bundleCommand = "export:embed"
 }
 
@@ -124,7 +123,7 @@ def reactNativeArchitectures() {
 }
 
 /**
- * Get build and versie nummers
+ * Get build and version numbers
  */
 import groovy.json.JsonSlurper
 
