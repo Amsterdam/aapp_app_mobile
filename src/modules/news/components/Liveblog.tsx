@@ -6,7 +6,6 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useInterval} from '@/hooks/useInterval'
@@ -97,7 +96,10 @@ export const Liveblog = ({id}: {id: LiveblogResponse['id']}) => {
             level="h4"
             text="Samenvatting"
           />
-          <Paragraph>{intro}</Paragraph>
+          <HtmlContent
+            content={intro}
+            testID="LiveblogIntroHtmlContent"
+          />
         </Column>
       )}
 
