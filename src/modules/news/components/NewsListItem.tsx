@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import type {NewsArticleBase} from '@/modules/news/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -20,14 +21,26 @@ export const NewsListItem = ({
   title,
   includeDate = true,
   is_active_liveblog = false,
+  type,
 }: Props) => {
   const {navigate} = useNavigation()
+
+  const navigateTo = useCallback(() => {
+    if (type === 'liveblog') {
+      return navigate(NewsRouteName.liveblog, {
+        id,
+        isActive: is_active_liveblog,
+      })
+    }
+
+    return navigate(NewsRouteName.article, {id})
+  }, [type, navigate, id, is_active_liveblog])
 
   return (
     <Pressable
       disabled={id === -1}
       flex={1}
-      onPress={() => navigate(NewsRouteName.article, {id})}
+      onPress={navigateTo}
       testID={`NewsListItem${id}Button`}>
       <Box insetHorizontal="md">
         <Row gutter="smd">

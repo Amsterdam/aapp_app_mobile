@@ -25,17 +25,13 @@ export const Tag = ({
 }: BaseProps & (LabelProps | NodeProps)) => {
   const styles = useThemable(createStyles(variant, paddingVertical))
 
-  if (label) {
-    return (
-      <View
-        style={styles.tag}
-        testID={testID}>
-        <Paragraph>{label}</Paragraph>
-      </View>
-    )
-  }
-
-  return <View style={styles.tag}>{children}</View>
+  return (
+    <View
+      style={styles.tag}
+      testID={testID}>
+      {label ? <Paragraph>{label}</Paragraph> : children}
+    </View>
+  )
 }
 
 const createStyles =

@@ -3,7 +3,7 @@ import {type NewsStackParams, NewsRouteName} from '@/modules/news/routes'
 import {NewsArticleScreen} from '@/modules/news/screens/NewsArticle.screen'
 import {NewsDashboardScreen} from '@/modules/news/screens/NewsDashboard.screen'
 import {NewsHighlightsScreen} from '@/modules/news/screens/NewsHighlights.screen'
-import {NewsLiveblogScreen} from '@/modules/news/screens/NewsLiveblog.sreen'
+import {NewsLiveblogScreen} from '@/modules/news/screens/NewsLiveblog.screen'
 
 export const screenConfig: StackNavigationRoutes<
   NewsStackParams,

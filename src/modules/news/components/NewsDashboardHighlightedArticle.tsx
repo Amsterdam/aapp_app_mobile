@@ -17,10 +17,13 @@ export const NewsDashboardHighlightedArticle = () => {
   const navigateTo = useCallback(() => {
     if (!highlightedArticle) return
 
-    const {id, type} = highlightedArticle
+    const {id, type, is_active_liveblog} = highlightedArticle
 
     if (type === 'liveblog') {
-      return navigate(NewsRouteName.liveblog, {id})
+      return navigate(NewsRouteName.liveblog, {
+        id,
+        isActive: !!is_active_liveblog,
+      })
     }
 
     return navigate(NewsRouteName.article, {id})
