@@ -11,7 +11,7 @@ import {LiveblogTag} from '@/modules/news/components/LiveblogTag'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
-type Props = NewsArticleBase & {includeDate?: boolean; isLiveBlog?: boolean}
+type Props = NewsArticleBase & {includeDate?: boolean}
 
 export const NewsListItem = ({
   id,
@@ -19,11 +19,9 @@ export const NewsListItem = ({
   publication_datetime,
   title,
   includeDate = true,
-  isLiveBlog = false, // TODO: fix prop once backend sends correct indicator
+  is_active_liveblog = false,
 }: Props) => {
   const {navigate} = useNavigation()
-
-  const showDate = includeDate && !isLiveBlog
 
   return (
     <Pressable
@@ -44,13 +42,13 @@ export const NewsListItem = ({
           <Column
             grow={1}
             shrink={1}>
-            {!!isLiveBlog && <LiveblogTag />}
+            {!!is_active_liveblog && <LiveblogTag />}
             <Phrase
               numberOfLines={2}
               variant="small">
               {title}
             </Phrase>
-            {!!showDate && (
+            {!!includeDate && !is_active_liveblog && (
               <Phrase
                 color="secondary"
                 variant="small">

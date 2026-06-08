@@ -48,7 +48,7 @@ export const NewsDashboardHighlightedArticle = () => {
 
       <Pressable
         accessibilityLabel={`Uitgelicht artikel: ${title}`}
-        onPress={() => navigateTo()}
+        onPress={navigateTo}
         testID={`NewsDashboardHighlightedArticle${id}Button`}>
         <Column gutter="smd">
           <NewsDashboardHighlightedArticleImage
