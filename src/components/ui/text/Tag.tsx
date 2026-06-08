@@ -16,13 +16,15 @@ type BaseProps = {
 type LabelProps = {children?: never; label: string}
 type NodeProps = {children: Exclude<ReactNode, string>; label?: never}
 
+type Props = BaseProps & (LabelProps | NodeProps)
+
 export const Tag = ({
   children,
   label,
   variant = 'default',
   paddingVertical = 'xs',
   testID = 'Tag',
-}: BaseProps & (LabelProps | NodeProps)) => {
+}: Props) => {
   const styles = useThemable(createStyles(variant, paddingVertical))
 
   return (
