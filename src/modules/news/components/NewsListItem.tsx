@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import type {NewsArticleBase} from '@/modules/news/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -7,6 +8,7 @@ import {Size} from '@/components/ui/layout/Size'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {LiveblogTag} from '@/modules/news/components/LiveblogTag'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
@@ -18,14 +20,27 @@ export const NewsListItem = ({
   publication_datetime,
   title,
   includeDate = true,
+  is_active_liveblog = false,
+  type,
 }: Props) => {
   const {navigate} = useNavigation()
+
+  const navigateTo = useCallback(() => {
+    if (type === 'liveblog') {
+      return navigate(NewsRouteName.liveblog, {
+        id,
+        isActive: is_active_liveblog,
+      })
+    }
+
+    return navigate(NewsRouteName.article, {id})
+  }, [type, navigate, id, is_active_liveblog])
 
   return (
     <Pressable
       disabled={id === -1}
       flex={1}
-      onPress={() => navigate(NewsRouteName.article, {id})}
+      onPress={navigateTo}
       testID={`NewsListItem${id}Button`}>
       <Box insetHorizontal="md">
         <Row gutter="smd">
@@ -40,12 +55,13 @@ export const NewsListItem = ({
           <Column
             grow={1}
             shrink={1}>
+            {!!is_active_liveblog && <LiveblogTag />}
             <Phrase
               numberOfLines={2}
               variant="small">
               {title}
             </Phrase>
-            {!!includeDate && (
+            {!!includeDate && !is_active_liveblog && (
               <Phrase
                 color="secondary"
                 variant="small">
