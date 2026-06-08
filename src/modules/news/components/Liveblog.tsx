@@ -5,6 +5,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {Size} from '@/components/ui/layout/Size'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
@@ -14,7 +15,7 @@ import {useNewsArticleQuery} from '@/modules/news/service'
 import {devLog} from '@/processes/development'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
-const REFETCH_INTERVAL = 30
+const REFETCH_INTERVAL = 30 * 1000 // 30 seconds
 
 export const Liveblog = ({id}: {id: LiveblogResponse['id']}) => {
   const refetchMockRef = useRef<number>(0) //TODO: remove
@@ -32,7 +33,7 @@ export const Liveblog = ({id}: {id: LiveblogResponse['id']}) => {
     void refetch()
     // eslint-disable-next-line sonarjs/pseudo-random
     refetchMockRef.current = refetchMockRef.current + Math.round(Math.random()) //TODO: remove
-  }, 1000 * REFETCH_INTERVAL)
+  }, REFETCH_INTERVAL)
 
   if (isLoading) {
     return <PleaseWait testID="LiveblogPleaseWait" />
@@ -78,7 +79,7 @@ export const Liveblog = ({id}: {id: LiveblogResponse['id']}) => {
         title: `${item.title} ${index + 1}`,
       }))
 
-  devLog(items)
+  devLog(items?.length)
 
   return (
     <Column gutter="lg">
@@ -142,11 +143,15 @@ const LiveblogRefetchButton = ({
   newItemCount: number
 }) => {
   if (isFetching) {
-    return <PleaseWait testID="LiveblogRefetchButtonPleaseWait" />
+    return (
+      <Size height={100}>
+        <PleaseWait testID="LiveblogRefetchButtonPleaseWait" />
+      </Size>
+    )
   }
 
   return (
-    <>
+    <Size height={100}>
       {newItemCount ? (
         <Button
           alignSelf="center"
@@ -166,6 +171,6 @@ const LiveblogRefetchButton = ({
           {lastCheckedTimestamp.format('HH.mm')} uur
         </Phrase>
       )}
-    </>
+    </Size>
   )
 }
