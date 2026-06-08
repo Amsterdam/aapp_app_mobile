@@ -8,6 +8,5 @@ export const burningGuideModule = createClientModule({
   linking: {
     [ModuleSlug['burning-guide']]: ModuleSlug['burning-guide'],
   },
-  requiresFirebaseToken: true,
   onNotificationEvent,
 })

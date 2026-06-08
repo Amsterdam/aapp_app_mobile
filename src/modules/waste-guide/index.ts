@@ -18,7 +18,6 @@ export const wasteGuideModule = createClientModule({
       slice: wasteGuideSlice,
     },
   ],
-  requiresFirebaseToken: true,
   slug: ModuleSlug['waste-guide'],
   linking: {
     [WasteGuideRouteName.wasteGuide]: {
