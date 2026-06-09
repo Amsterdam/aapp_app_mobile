@@ -18,7 +18,6 @@ export type ButtonVariant =
   | 'secondary'
   | 'tertiary'
   | 'secondaryDestructive'
-  | 'positive'
 
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
