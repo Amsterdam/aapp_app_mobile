@@ -1,7 +1,7 @@
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Tag} from '@/components/ui/text/Tag'
-import {LiveblogDot} from '@/modules/news/components/LiveblogDot'
+import {LiveblogDot} from '@/modules/news/components/liveblog/LiveblogDot'
 
 export const LiveblogTag = () => (
   <Tag

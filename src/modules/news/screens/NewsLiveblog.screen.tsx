@@ -3,8 +3,8 @@ import type {NavigationProps} from '@/app/navigation/types'
 import type {NewsRouteName} from '@/modules/news/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
-import {ActiveLiveblogHeaderTitle} from '@/modules/news/components/ActiveLiveblogHeaderTitle'
-import {Liveblog} from '@/modules/news/components/Liveblog'
+import {Liveblog} from '@/modules/news/components/liveblog/Liveblog'
+import {LiveblogActiveHeaderTitle} from '@/modules/news/components/liveblog/LiveblogActiveHeaderTitle'
 
 type Props = NavigationProps<NewsRouteName.liveblog>
 
@@ -15,16 +15,21 @@ export const NewsLiveblogScreen = ({navigation, route}: Props) => {
     }
 
     navigation.setOptions({
-      headerTitle: ActiveLiveblogHeaderTitle,
+      headerTitle: LiveblogActiveHeaderTitle,
     })
   }, [navigation, route.params])
 
   return (
     <Screen
-      scroll
-      testID="NewsLiveblogScreen">
+      scroll={false}
+      testID="NewsLiveblogScreen"
+      withBottomInset={false}>
       <Box>
-        <Liveblog id={2} />
+        <Liveblog
+          id={
+            2 //TODO: change
+          }
+        />
       </Box>
     </Screen>
   )

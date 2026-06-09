@@ -19,6 +19,7 @@ export enum NewsEndpointName {
   deleteLiveblogNotifications = 'NewsDeleteLiveblogNotifications',
   districts = 'NewsDistricts',
   getLiveblogNotifications = 'NewsGetLiveblogNotifications',
+  liveblog = 'NewsLiveblog',
   postLiveblogNotifications = 'NewsPostLiveblogNotifications',
 }
 

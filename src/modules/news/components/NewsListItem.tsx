@@ -8,7 +8,7 @@ import {Size} from '@/components/ui/layout/Size'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {LiveblogTag} from '@/modules/news/components/LiveblogTag'
+import {LiveblogTag} from '@/modules/news/components/liveblog/LiveblogTag'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 

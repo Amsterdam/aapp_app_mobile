@@ -2,7 +2,7 @@ import {StyleSheet, View} from 'react-native'
 import type {NewsArticleBase} from '@/modules/news/types'
 import type {Theme} from '@/themes/themes'
 import {LazyImage} from '@/components/ui/media/LazyImage'
-import {LiveblogTag} from '@/modules/news/components/LiveblogTag'
+import {LiveblogTag} from '@/modules/news/components/liveblog/LiveblogTag'
 import {useThemable} from '@/themes/useThemable'
 
 export const NewsDashboardHighlightedArticleImage = ({

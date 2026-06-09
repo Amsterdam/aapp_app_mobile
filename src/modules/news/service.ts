@@ -23,10 +23,14 @@ export const newsApi = baseApi.injectEndpoints({
         params: args,
       }),
     }),
-    [NewsEndpointName.article]: builder.query<
-      NewsArticleResponse | LiveblogResponse,
-      number
-    >({
+    [NewsEndpointName.article]: builder.query<NewsArticleResponse, number>({
+      query: id => ({
+        method: 'GET',
+        slug: ModuleSlug.news,
+        url: `/articles/${id}`,
+      }),
+    }),
+    [NewsEndpointName.liveblog]: builder.query<LiveblogResponse, number>({
       query: id => ({
         method: 'GET',
         slug: ModuleSlug.news,
@@ -83,6 +87,7 @@ export const newsApi = baseApi.injectEndpoints({
 export const {
   useNewsArticleQuery,
   useNewsArticlesQuery,
+  useNewsLiveblogQuery,
   useNewsDistrictsQuery,
   useNewsGetLiveblogNotificationsQuery,
   useNewsPostLiveblogNotificationsMutation,
