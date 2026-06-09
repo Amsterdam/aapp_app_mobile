@@ -76,7 +76,7 @@ export const LazyImage = ({
       )
     }
 
-    return null
+    return <ImageFallback aspectRatio={aspectRatio} />
   }
 
   return (
