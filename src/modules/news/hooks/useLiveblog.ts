@@ -1,14 +1,16 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback, useEffect, useMemo, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import type {LiveblogResponse, NewsArticleBase} from '@/modules/news/types'
 import {useInterval} from '@/hooks/useInterval'
 import {useNewsLiveblogQuery} from '@/modules/news/service'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {sortByDateDescending} from '@/modules/news/utils/sortByDateDescending'
 
-const REFETCH_INTERVAL = 10 * 1000 // 30 seconds
+const REFETCH_INTERVAL = 30 * 1000
 
 export const useLiveblog = (id: NewsArticleBase['id']) => {
-  const [visibleItemCount, setVisibleItemCount] = useState<number>(0)
+  const [visibleItems, setVisibleItems] = useState<
+    LiveblogResponse['liveblog_items']
+  >([])
 
   const {data, refetch, ...rest} = useNewsLiveblogQuery(id ?? skipToken)
 
@@ -19,39 +21,36 @@ export const useLiveblog = (id: NewsArticleBase['id']) => {
   }, REFETCH_INTERVAL)
 
   useEffect(() => {
-    if (!data?.liveblog_items || visibleItemCount > 0) {
+    if (!data?.liveblog_items || visibleItems.length > 0) {
       return
     }
 
-    // Initial items are always visible
-    setVisibleItemCount(data.liveblog_items.length)
-  }, [data, visibleItemCount])
+    const sortedItems = sortByDateDescending(
+      data.liveblog_items,
+      'creation_datetime',
+    )
 
-  const sortedItems: LiveblogResponse['liveblog_items'] = useMemo(() => {
-    if (!data) {
-      return []
-    }
-
-    return data?.liveblog_items
-      ?.slice(0, visibleItemCount)
-      .sort((a, b) =>
-        dayjs(a.creation_datetime).isBefore(b.creation_datetime) ? 1 : -1,
-      )
-  }, [data, visibleItemCount])
+    setVisibleItems(sortedItems)
+  }, [data, visibleItems])
 
   const showPendingItems = useCallback(() => {
     if (!data) {
       return
     }
 
-    setVisibleItemCount(data?.liveblog_items.length)
+    const sortedItems = sortByDateDescending(
+      data.liveblog_items,
+      'creation_datetime',
+    )
+
+    setVisibleItems(sortedItems)
   }, [data])
 
   return {
-    data: data ? {...data, liveblog_items: sortedItems} : undefined,
+    data: data ? {...data, liveblog_items: visibleItems} : undefined,
     refetch,
     ...rest,
     showPendingItems,
-    pendingItemCount: (data?.liveblog_items.length || 0) - visibleItemCount,
+    pendingItemCount: (data?.liveblog_items.length || 0) - visibleItems.length,
   }
 }

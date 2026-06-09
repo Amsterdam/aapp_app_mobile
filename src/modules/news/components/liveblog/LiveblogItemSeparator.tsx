@@ -13,7 +13,6 @@ const createStyles = (theme: Theme) =>
     separator: {
       backgroundColor: theme.color.box.border.default,
       height: theme.size.spacing.xs,
-      width: '100%',
       marginVertical: theme.size.spacing.md,
     },
   })

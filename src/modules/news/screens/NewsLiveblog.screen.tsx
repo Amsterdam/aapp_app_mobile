@@ -2,7 +2,6 @@ import {useLayoutEffect} from 'react'
 import type {NavigationProps} from '@/app/navigation/types'
 import type {NewsRouteName} from '@/modules/news/routes'
 import {Screen} from '@/components/features/screen/Screen'
-import {Box} from '@/components/ui/containers/Box'
 import {Liveblog} from '@/modules/news/components/liveblog/Liveblog'
 import {LiveblogActiveHeaderTitle} from '@/modules/news/components/liveblog/LiveblogActiveHeaderTitle'
 
@@ -24,9 +23,7 @@ export const NewsLiveblogScreen = ({navigation, route}: Props) => {
       scroll={false}
       testID="NewsLiveblogScreen"
       withBottomInset={false}>
-      <Box>
-        <Liveblog id={route.params.id} />
-      </Box>
+      <Liveblog id={route.params.id} />
     </Screen>
   )
 }
