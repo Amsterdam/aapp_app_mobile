@@ -5,14 +5,14 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-export const LiveblogItem = ({
-  item: {id, creation_datetime, title, body},
-}: {
+type Props = {
   item: LiveblogResponse['liveblog_items'][number]
-}) => (
-  <Column
-    gutter="md"
-    key={id}>
+}
+
+export const LiveblogItem = ({
+  item: {creation_datetime, title, body},
+}: Props) => (
+  <Column gutter="md">
     <Phrase
       color="warning"
       emphasis="strong"

@@ -6,4 +6,14 @@ export const sortByDateDescending = <
 >(
   array: T[],
   key: K,
-) => array.slice().sort((a, b) => (dayjs(a[key]).isBefore(b[key]) ? 1 : -1))
+) =>
+  array.slice().sort((a, b) => {
+    const aDate = dayjs(a[key])
+    const bDate = dayjs(b[key])
+
+    if (aDate.isSame(bDate)) {
+      return 0
+    }
+
+    return aDate.isBefore(bDate) ? 1 : -1
+  })

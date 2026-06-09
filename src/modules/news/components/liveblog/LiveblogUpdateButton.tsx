@@ -27,7 +27,7 @@ export const LiveblogUpdateButton = ({
 
   return (
     <Size height={REFETCH_SECTION_HEIGHT}>
-      {pendingItemCount ? (
+      {pendingItemCount > 0 ? (
         <Button
           alignSelf="center"
           label={

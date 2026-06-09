@@ -7,7 +7,7 @@ import {sortByDateDescending} from '@/modules/news/utils/sortByDateDescending'
 
 const REFETCH_INTERVAL = 30 * 1000
 
-export const useLiveblog = (id: NewsArticleBase['id']) => {
+export const useLiveblog = (id?: NewsArticleBase['id']) => {
   const [visibleItems, setVisibleItems] = useState<
     LiveblogResponse['liveblog_items']
   >([])
@@ -51,6 +51,9 @@ export const useLiveblog = (id: NewsArticleBase['id']) => {
     refetch,
     ...rest,
     showPendingItems,
-    pendingItemCount: (data?.liveblog_items.length || 0) - visibleItems.length,
+    pendingItemCount: Math.max(
+      0,
+      (data?.liveblog_items.length || 0) - visibleItems.length,
+    ),
   }
 }
