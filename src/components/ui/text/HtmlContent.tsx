@@ -14,6 +14,7 @@ import RenderHTML, {
   MixedStyleDeclaration,
   useInternalRenderer,
 } from 'react-native-render-html'
+import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -98,6 +99,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
       p: {...styles.paragraph, ...styles.margins},
       strong: styles.boldText,
       ul: styles.margins,
+      cite: {...styles.small, ...styles.citeMargins},
     }),
     [styles],
   )
@@ -138,7 +140,7 @@ const createStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
-  ({size, text}: Theme) => {
+  ({size, text, color}: Theme) => {
     const lineHeight = getLineHeight(text, isIntro)
 
     // By default, Android sets this to `bold` – which breaks the font family.
@@ -149,6 +151,11 @@ const createStyles: (
       margins: {
         marginTop: 0,
         marginBottom: lineHeight,
+      },
+      small: {
+        fontSize: text.fontSize.small,
+        lineHeight: text.lineHeight.small,
+        color: color.text.secondary,
       },
       paragraph: {
         fontSize: getFontSize(text, isIntro),
@@ -189,6 +196,10 @@ const createStyles: (
         marginTop: 0,
         marginBottom: lineHeight / 2,
       },
+      citeMargins: {
+        marginTop: -size.spacing.md,
+        marginBottom: lineHeight,
+      },
     }
   }
 
@@ -199,7 +210,9 @@ const createFontList = ({text}: Theme): string[] => [
 
 // An unordered list only renders its children, without the bullet point and any spacing.
 const UlRenderer: CustomBlockRenderer = ({TNodeChildrenRenderer, ...props}) => (
-  <TNodeChildrenRenderer {...props} />
+  <Box insetBottom="lg">
+    <TNodeChildrenRenderer {...props} />
+  </Box>
 )
 
 const createLiMarkerStyles = (fontScale: ScaledSize['fontScale']) =>
