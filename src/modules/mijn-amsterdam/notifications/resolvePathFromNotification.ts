@@ -9,7 +9,7 @@ const mapTypeToRoute: Record<string, string> = {
 export const resolvePathFromNotification: ModuleClientConfig<{
   subtype?: 'article' | 'warning'
   type?: string
->}['resolvePathFromNotification'] = (
+}>['resolvePathFromNotification'] = (
   notification,
   _isPushNotificationDeeplink,
 ) => {
