@@ -25,11 +25,7 @@ export const NewsLiveblogScreen = ({navigation, route}: Props) => {
       testID="NewsLiveblogScreen"
       withBottomInset={false}>
       <Box>
-        <Liveblog
-          id={
-            2 //TODO: change
-          }
-        />
+        <Liveblog id={route.params.id} />
       </Box>
     </Screen>
   )

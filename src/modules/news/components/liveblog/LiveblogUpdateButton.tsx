@@ -1,21 +1,21 @@
-import type {Dayjs} from 'dayjs'
 import {Button} from '@/components/ui/buttons/Button'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Size} from '@/components/ui/layout/Size'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 const REFETCH_SECTION_HEIGHT = 130
 
 export const LiveblogUpdateButton = ({
   isFetching,
-  loadNewItems,
-  newItemCount,
-  lastCheckedTimestamp,
+  showPendingItems,
+  pendingItemCount,
+  lastUpdated,
 }: {
   isFetching: boolean
-  lastCheckedTimestamp: Dayjs
-  loadNewItems: () => void
-  newItemCount: number
+  lastUpdated?: number
+  pendingItemCount: number
+  showPendingItems: () => void
 }) => {
   if (isFetching) {
     return (
@@ -27,15 +27,15 @@ export const LiveblogUpdateButton = ({
 
   return (
     <Size height={REFETCH_SECTION_HEIGHT}>
-      {newItemCount ? (
+      {pendingItemCount ? (
         <Button
           alignSelf="center"
           label={
-            newItemCount > 1
-              ? `Toon ${newItemCount} nieuwe berichten`
+            pendingItemCount > 1
+              ? `Toon ${pendingItemCount} nieuwe berichten`
               : 'Toon nieuw bericht'
           }
-          onPress={() => loadNewItems()}
+          onPress={showPendingItems}
           testID="LiveblogUpdateButton"
         />
       ) : (
@@ -43,7 +43,7 @@ export const LiveblogUpdateButton = ({
           color="secondary"
           textAlign="center">
           Gecontroleerd op nieuwe berichten om{' '}
-          {lastCheckedTimestamp.format('HH.mm')} uur
+          {dayjs(lastUpdated).format('HH.mm')} uur
         </Phrase>
       )}
     </Size>

@@ -1,50 +1,33 @@
-import {skipToken} from '@reduxjs/toolkit/query'
-import {useRef} from 'react'
 import type {LiveblogResponse} from '@/modules/news/types'
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useInterval} from '@/hooks/useInterval'
 import {LiveblogItemSeparator} from '@/modules/news/components/liveblog/LiveblogItemSeparator'
 import {LiveblogNotificationToggleBox} from '@/modules/news/components/liveblog/LiveblogNotificationToggleBox'
 import {LiveblogUpdateStatus} from '@/modules/news/components/liveblog/LiveblogUpdateStatus'
-import {useNewsLiveblogQuery} from '@/modules/news/service'
-import {devLog} from '@/processes/development'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
-const REFETCH_INTERVAL = 30 * 1000 // 30 seconds
+type Props = {
+  data?: LiveblogResponse
+  fulfilledTimeStamp?: number
+  isFetching: boolean
+  pendingItemCount: number
+  showPendingItems: () => void
+}
 
-export const LiveblogHeader = ({id}: {id: LiveblogResponse['id']}) => {
-  const refetchMockRef = useRef<number>(0) //TODO: remove
-
-  const {
-    data: liveblog,
-    isFetching,
-    fulfilledTimeStamp,
-    refetch,
-  } = useNewsLiveblogQuery(id ?? skipToken, {
-    selectFromResult: ({data, currentData, ...rest}) => {
-      devLog(data)
-
-      return {
-        ...rest,
-        data: {...currentData, liveblog_items: []} as LiveblogResponse,
-      }
-    },
-  })
-
-  useInterval(() => {
-    void refetch()
-    // eslint-disable-next-line sonarjs/pseudo-random
-    refetchMockRef.current = refetchMockRef.current + Math.round(Math.random()) //TODO: remove
-  }, REFETCH_INTERVAL)
-
-  if (!liveblog) {
+export const LiveblogHeader = ({
+  data,
+  isFetching,
+  fulfilledTimeStamp,
+  pendingItemCount,
+  showPendingItems,
+}: Props) => {
+  if (!data) {
     return null
   }
 
-  const {title, intro, is_active_liveblog, modification_datetime} = liveblog
+  const {title, intro, is_active_liveblog, modification_datetime, id} = data
 
   return (
     <>
@@ -78,6 +61,8 @@ export const LiveblogHeader = ({id}: {id: LiveblogResponse['id']}) => {
         isActive={!!is_active_liveblog}
         isFetching={isFetching}
         lastUpdated={fulfilledTimeStamp}
+        pendingItemCount={pendingItemCount}
+        showPendingItems={showPendingItems}
       />
 
       <LiveblogItemSeparator />

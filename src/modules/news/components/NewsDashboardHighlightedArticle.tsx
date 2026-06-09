@@ -46,7 +46,7 @@ export const NewsDashboardHighlightedArticle = () => {
   const {images, title, id, is_active_liveblog} = highlightedArticle
 
   return (
-    <Column gutter="md">
+    <Column gutter="sm">
       <NewsHighlightsNavigationButton />
 
       <Pressable

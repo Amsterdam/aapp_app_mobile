@@ -20,9 +20,6 @@ export const screenConfig: StackNavigationRoutes<
   [NewsRouteName.article]: {
     component: NewsArticleScreen,
     name: NewsRouteName.article,
-    options: {
-      headerTitle: 'Nieuws',
-    },
   },
   [NewsRouteName.highlights]: {
     component: NewsHighlightsScreen,
