@@ -9,16 +9,15 @@ const mapTypeToRoute: Record<string, string> = {
 export const resolvePathFromNotification: ModuleClientConfig<{
   subtype?: 'article' | 'warning'
   type?: string
-}>['resolvePathFromNotification'] = (
+>}['resolvePathFromNotification'] = (
   notification,
-  isPushNotificationDeeplink,
+  _isPushNotificationDeeplink,
 ) => {
-  if (
-    !notification?.data?.type ||
-    !(notification.data.type in mapTypeToRoute)
-  ) {
+  const type = notification?.data?.type
+
+  if (!type || !Object.prototype.hasOwnProperty.call(mapTypeToRoute, type)) {
     return
   }
 
-  return `${mapTypeToRoute[notification.data.type]}/${isPushNotificationDeeplink}` // Linking is handled by user module
+  return `/${mapTypeToRoute[type]}`
 }
