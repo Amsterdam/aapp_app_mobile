@@ -5,13 +5,9 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {RedirectKey} from '@/modules/redirects/types'
 
-type Variants = 'news' | 'contact'
+type Props = {variant?: 'news' | 'contact'}
 
-export const NewsletterSignup = ({
-  variant = 'contact',
-}: {
-  variant?: Variants
-}) => (
+export const NewsletterSignup = ({variant = 'contact'}: Props) => (
   <Box>
     <Box
       inset="lg"
