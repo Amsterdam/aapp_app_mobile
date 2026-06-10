@@ -1,4 +1,6 @@
+import {NewsRouteName} from '@/modules/news/routes'
 import {NewsSlice, type NewsState} from '@/modules/news/slice'
+import {resolvePathFromNotification} from '@/modules/news/utils/resolvePathFromNotification'
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -13,6 +15,7 @@ export const newsModule = createClientModule({
   slug: ModuleSlug.news,
   linking: {
     [ModuleSlug.news]: ModuleSlug.news,
+    [NewsRouteName.liveblog]: 'news/liveblog/:id',
   },
   reduxConfigs: [
     {
@@ -22,4 +25,5 @@ export const newsModule = createClientModule({
       slice: NewsSlice,
     },
   ],
+  resolvePathFromNotification,
 })

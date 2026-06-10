@@ -34,12 +34,11 @@ export const NewsListItem = ({
     if (is_liveblog) {
       return navigate(NewsRouteName.liveblog, {
         id,
-        isActive: is_active_liveblog,
       })
     }
 
     return navigate(NewsRouteName.article, {id})
-  }, [dummy, is_liveblog, navigate, id, is_active_liveblog])
+  }, [dummy, is_liveblog, navigate, id])
 
   return (
     <Pressable
@@ -61,7 +60,7 @@ export const NewsListItem = ({
           <Column
             grow={1}
             shrink={1}>
-            {!!is_active_liveblog && <LiveblogTag />}
+            {!!is_active_liveblog && <LiveblogTag variant="transparent" />}
             <Phrase
               numberOfLines={2}
               variant="small">

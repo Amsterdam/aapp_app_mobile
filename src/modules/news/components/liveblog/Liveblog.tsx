@@ -1,8 +1,11 @@
+import {useEffect} from 'react'
 import {FlatList, StyleSheet} from 'react-native'
 import type {NewsArticleBase} from '@/modules/news/types'
 import type {Theme} from '@/themes/themes'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {LiveblogActiveHeaderTitle} from '@/modules/news/components/liveblog/LiveblogActiveHeaderTitle'
 import {LiveblogHeader} from '@/modules/news/components/liveblog/LiveblogHeader'
 import {LiveblogItem} from '@/modules/news/components/liveblog/LiveblogItem'
 import {LiveblogItemSeparator} from '@/modules/news/components/liveblog/LiveblogItemSeparator'
@@ -12,6 +15,15 @@ import {useThemable} from '@/themes/useThemable'
 export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
   const {data, isError, isLoading, ...rest} = useLiveblog(id)
   const styles = useThemable(createStyles)
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: data?.is_active_liveblog
+        ? LiveblogActiveHeaderTitle
+        : 'Liveblog',
+    })
+  }, [navigation, data?.is_active_liveblog])
 
   if (isLoading) {
     return <PleaseWait testID="LiveblogPleaseWait" />

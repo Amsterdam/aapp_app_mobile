@@ -3,10 +3,15 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Tag} from '@/components/ui/text/Tag'
 import {LiveblogDot} from '@/modules/news/components/liveblog/LiveblogDot'
 
-export const LiveblogTag = () => (
+type Props = {
+  variant?: 'default' | 'transparent'
+}
+
+export const LiveblogTag = ({variant = 'default'}: Props) => (
   <Tag
     paddingVertical="no"
-    testID="LiveblogTag">
+    testID="LiveblogTag"
+    variant={variant}>
     <Row gutter="sm">
       <LiveblogDot />
       <Phrase
