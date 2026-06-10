@@ -13,7 +13,5 @@ export const resolvePathFromNotification: ModuleClientConfig<{
 
   if (type === 'news:new-liveblog' || type === 'news:liveblog-update') {
     return `/news/liveblog/${linkSourceid}`
-  } else {
-    return
   }
 }

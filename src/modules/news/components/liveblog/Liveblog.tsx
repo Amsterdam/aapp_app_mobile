@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useLayoutEffect} from 'react'
 import {FlatList, StyleSheet} from 'react-native'
 import type {NewsArticleBase} from '@/modules/news/types'
 import type {Theme} from '@/themes/themes'
@@ -17,7 +17,7 @@ export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
   const styles = useThemable(createStyles)
   const navigation = useNavigation()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: data?.is_active_liveblog
         ? LiveblogActiveHeaderTitle
