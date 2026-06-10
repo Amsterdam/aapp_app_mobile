@@ -217,10 +217,6 @@ export const lightColorTokens = {
       border: baseColor.primary.red,
     },
   },
-  imageFallback: {
-    background: baseColor.primary.white,
-    border: baseColor.primary.blue,
-  },
   imageBackground: {
     light: {
       background: baseColor.primary.white,
