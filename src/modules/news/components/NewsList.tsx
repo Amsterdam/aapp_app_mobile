@@ -43,7 +43,7 @@ export const NewsList = ({
 
   const result = useInfiniteScroller<
     NewsArticleBase,
-    NewsArticleBase & {dummy: boolean},
+    NewsArticleBase & {dummy?: boolean},
     NewsArticlesQueryArgs
   >(
     emptyNewsItem,

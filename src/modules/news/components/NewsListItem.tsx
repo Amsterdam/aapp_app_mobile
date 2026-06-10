@@ -27,6 +27,10 @@ export const NewsListItem = ({
   const {navigate} = useNavigation()
 
   const navigateTo = useCallback(() => {
+    if (dummy) {
+      return
+    }
+
     if (is_liveblog) {
       return navigate(NewsRouteName.liveblog, {
         id,
@@ -35,7 +39,7 @@ export const NewsListItem = ({
     }
 
     return navigate(NewsRouteName.article, {id})
-  }, [is_liveblog, navigate, id, is_active_liveblog])
+  }, [dummy, is_liveblog, navigate, id, is_active_liveblog])
 
   return (
     <Pressable
