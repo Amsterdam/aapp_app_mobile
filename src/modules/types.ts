@@ -138,7 +138,12 @@ export type ModuleClientConfig<
  */
 export type ModuleServerConfig = {
   description: string
+  /**
+   * The name of the icon to show for the module.
+   * @deprecated: use `iconPath` instead, which allows modules to provide their own custom icons. The `icon` property will still be used as a fallback for older app versions that do not yet handle iconPath.
+   */
   icon: SvgIconName
+  iconPath: string
   /**
    * The reason why the module is not available in all app versions.
    */
