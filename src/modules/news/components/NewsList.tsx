@@ -20,7 +20,7 @@ type Props = NewsArticlesType & {
 
 const PAGE_SIZE = 20
 
-const emptyNewsItem: NewsArticleBase & {dummy: boolean} = {
+const emptyNewsItem: NewsArticleBase & {dummy?: boolean} = {
   id: -1,
   images: [],
   modification_datetime: '',
