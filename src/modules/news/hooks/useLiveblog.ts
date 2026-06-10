@@ -5,7 +5,7 @@ import {useInterval} from '@/hooks/useInterval'
 import {useNewsLiveblogQuery} from '@/modules/news/service'
 import {sortByDateDescending} from '@/modules/news/utils/sortByDateDescending'
 
-const REFETCH_INTERVAL = 30 * 1000
+const REFETCH_INTERVAL = 10 * 1000
 
 export const useLiveblog = (id?: NewsArticleBase['id']) => {
   const [visibleItems, setVisibleItems] = useState<

@@ -2,22 +2,24 @@ import {Button} from '@/components/ui/buttons/Button'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Size} from '@/components/ui/layout/Size'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
 const REFETCH_SECTION_HEIGHT = 130
+
+type Props = {
+  isFetching: boolean
+  lastUpdated?: number
+  pendingItemCount: number
+  showPendingItems: () => void
+}
 
 export const LiveblogUpdateButton = ({
   isFetching,
   showPendingItems,
   pendingItemCount,
   lastUpdated,
-}: {
-  isFetching: boolean
-  lastUpdated?: number
-  pendingItemCount: number
-  showPendingItems: () => void
-}) => {
-  if (isFetching) {
+}: Props) => {
+  if (pendingItemCount === 0 && isFetching) {
     return (
       <Size height={REFETCH_SECTION_HEIGHT}>
         <PleaseWait testID="LiveblogUpdateButtonPleaseWait" />
@@ -39,12 +41,14 @@ export const LiveblogUpdateButton = ({
           testID="LiveblogUpdateButton"
         />
       ) : (
-        <Phrase
-          color="secondary"
-          textAlign="center">
-          Gecontroleerd op nieuwe berichten om{' '}
-          {dayjs(lastUpdated).format('HH.mm')} uur
-        </Phrase>
+        !!lastUpdated && (
+          <Phrase
+            color="secondary"
+            textAlign="center">
+            Gecontroleerd op nieuwe berichten om{' '}
+            {formatTimeToDisplay(lastUpdated, {includeHoursLabel: true})}
+          </Phrase>
+        )
       )}
     </Size>
   )
