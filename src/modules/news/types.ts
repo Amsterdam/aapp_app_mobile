@@ -5,13 +5,11 @@ export type NewsArticleBase = {
   id: number
   images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
   is_active_liveblog?: boolean
+  is_liveblog?: boolean
   modification_datetime: string
   publication_datetime: string
   title: string
-  type?: NewsArticleType
 }
-
-type NewsArticleType = 'article' | 'highlight' | 'liveblog' | 'district'
 
 export enum NewsEndpointName {
   article = 'NewsArticle',
@@ -19,20 +17,19 @@ export enum NewsEndpointName {
   deleteLiveblogNotifications = 'NewsDeleteLiveblogNotifications',
   districts = 'NewsDistricts',
   getLiveblogNotifications = 'NewsGetLiveblogNotifications',
+  liveblog = 'NewsLiveblog',
   postLiveblogNotifications = 'NewsPostLiveblogNotifications',
 }
 
 export type NewsArticleResponse = NewsArticleBase & {
   body: string
   creation_datetime: string
-  district: string
-  expiration_datetime: string
+  district: string | null
+  expiration_datetime: string | null
   foreign_id: number
   id: number
   intro: string
-  is_active_liveblog: true
   last_seen: string
-  liveblog_notification_send: true
   modification_datetime: string
   publication_datetime: string
   summary: string
@@ -40,7 +37,24 @@ export type NewsArticleResponse = NewsArticleBase & {
   url: string
 }
 
+type LiveblogItem = {
+  body: string
+  creation_datetime: string
+  id: number
+  images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
+  message_order: number
+  title: string
+}
+
+export type LiveblogResponse = NewsArticleResponse & {
+  liveblog_items: Array<LiveblogItem>
+  liveblog_notification_send: boolean
+  liveblog_version: number | null
+}
+
 export type NewsArticlesResponse = Paginated<NewsArticleBase>
+
+type NewsArticleType = 'article' | 'highlight' | 'liveblog' | 'district'
 
 export type NewsArticlesType =
   | {

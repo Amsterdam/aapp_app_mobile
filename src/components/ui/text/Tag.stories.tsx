@@ -2,7 +2,7 @@ import {Row} from '../layout/Row'
 import {Phrase} from './Phrase'
 import {Tag} from './Tag'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
-import {LiveblogDot} from '@/modules/news/components/LiveblogDot'
+import {LiveblogDot} from '@/modules/news/components/liveblog/LiveblogDot'
 
 const meta: Meta<typeof Tag> = {
   component: Tag,

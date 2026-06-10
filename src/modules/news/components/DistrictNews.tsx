@@ -2,7 +2,6 @@ import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottom
 import {ContextSwitchButton} from '@/components/ui/buttons/ContextSwitchButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
 import {NewsletterSignup} from '@/modules/contact/components/NewsletterSignup'
 import {NewsList} from '@/modules/news/components/NewsList'
@@ -17,16 +16,16 @@ export const DistrictNews = () => {
     <NewsList
       district={district.label}
       footerComponent={
-        <>
-          <Gutter height="md" />
+        <Box
+          insetBottom="xl"
+          insetTop="md">
           <NewsletterSignup variant="news" />
-        </>
+        </Box>
       }
       headerComponent={
         <Box
-          insetBottom="md"
           insetHorizontal="md"
-          insetTop="lg">
+          insetVertical="lg">
           <Column
             gutter="sm"
             halign="start">

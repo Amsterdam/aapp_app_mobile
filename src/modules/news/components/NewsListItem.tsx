@@ -8,7 +8,7 @@ import {Size} from '@/components/ui/layout/Size'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {LiveblogTag} from '@/modules/news/components/LiveblogTag'
+import {LiveblogTag} from '@/modules/news/components/liveblog/LiveblogTag'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
@@ -21,12 +21,12 @@ export const NewsListItem = ({
   title,
   includeDate = true,
   is_active_liveblog = false,
-  type,
+  is_liveblog = false,
 }: Props) => {
   const {navigate} = useNavigation()
 
   const navigateTo = useCallback(() => {
-    if (type === 'liveblog') {
+    if (is_liveblog) {
       return navigate(NewsRouteName.liveblog, {
         id,
         isActive: is_active_liveblog,
@@ -34,7 +34,7 @@ export const NewsListItem = ({
     }
 
     return navigate(NewsRouteName.article, {id})
-  }, [type, navigate, id, is_active_liveblog])
+  }, [is_liveblog, navigate, id, is_active_liveblog])
 
   return (
     <Pressable
