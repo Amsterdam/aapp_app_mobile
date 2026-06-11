@@ -5,7 +5,6 @@ import {Phrase} from '../text/Phrase'
 import {Icon} from './Icon'
 import {
   DesignSystemSvgIcons,
-  DesignSystemSvgIconsDeprecated,
   SvgIconName,
   SvgIconsConfig,
   SystemSvgIcons,
@@ -21,7 +20,6 @@ import {Theme} from '@/themes/themes'
 import {lightColorTokens} from '@/themes/tokens/color-light'
 
 enum IconCategory {
-  deprecated = 'deprecated',
   designSystem = 'designSystem',
   elections = 'elections',
   kingsday = 'kingsday',
@@ -35,7 +33,6 @@ const ICONS_PER_CATEGORY: Record<IconCategory, SvgIconVariantConfig> = {
   [IconCategory.wasteGuide]: fractionIconConfig,
   [IconCategory.system]: SystemSvgIcons,
   [IconCategory.designSystem]: DesignSystemSvgIcons,
-  [IconCategory.deprecated]: DesignSystemSvgIconsDeprecated,
 }
 
 type Props = {
@@ -169,13 +166,5 @@ export const SystemIcons: StoryObj<typeof MultipleIconsTemplate> = {
   args: {
     color: 'default',
     category: IconCategory.system,
-  },
-}
-
-export const DeprecatedIcons: StoryObj<typeof MultipleIconsTemplate> = {
-  render: MultipleIconsTemplate,
-  args: {
-    color: 'default',
-    category: IconCategory.deprecated,
   },
 }

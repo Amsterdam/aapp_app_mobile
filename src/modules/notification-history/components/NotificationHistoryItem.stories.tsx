@@ -1,5 +1,7 @@
 import {NotificationHistoryItem} from './NotificationHistoryItem'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {SvgIconsConfig} from '@/components/ui/media/svgIcons'
+import {SvgIconVariant} from '@/components/ui/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 const slug = ModuleSlug['construction-work']
@@ -24,7 +26,8 @@ export const Default: Story = {
         releaseButtonLabel: null,
         releaseAppReason: null,
         title: 'Werkzaamheden',
-        icon: 'construction-work',
+        icon: 'construction',
+        iconPath: SvgIconsConfig.construction[SvgIconVariant.default].path,
         slug,
         status: 1,
         description: '',
