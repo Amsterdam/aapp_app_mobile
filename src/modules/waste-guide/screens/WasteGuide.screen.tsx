@@ -9,7 +9,7 @@ import {WasteGuideAddressSwitch} from '@/modules/waste-guide/components/WasteGui
 import {WasteGuideInformation} from '@/modules/waste-guide/components/WasteGuideInformation'
 import {WasteGuideMoreOptions} from '@/modules/waste-guide/components/WasteGuideMoreOptions'
 import {WasteGuideNotificationToggleBox} from '@/modules/waste-guide/components/WasteGuideNotificationToggleBox'
-import {WasteGuideShare} from '@/modules/waste-guide/components/WasteGuideShare'
+import {WasteGuideShareIconButton} from '@/modules/waste-guide/components/WasteGuideShareIconButton'
 import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
 
 export const WasteGuideScreen = () => {
@@ -18,7 +18,7 @@ export const WasteGuideScreen = () => {
   return (
     <Screen
       bottomSheet={<BottomSheetSurvey testID="SelectLocationTypeBottomSheet" />}
-      headerOptions={{SideComponent: WasteGuideShare}}
+      headerOptions={{SideComponent: WasteGuideShareIconButton}}
       testID="WasteGuideScreen"
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
