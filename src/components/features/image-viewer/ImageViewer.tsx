@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {StyleSheet, Platform, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {GestureDetector} from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 import type {ImageProps} from '@/components/ui/media/Image'
@@ -11,16 +11,14 @@ import {useThemable} from '@/themes/useThemable'
 import {getAspectRatioFromImageSourcePropType} from '@/utils/getAspectRatioFromImageSourcePropType'
 
 export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
-  const {width, height, isPortrait} = useDeviceContext()
+  const {width, height} = useDeviceContext()
   const [imageLayout, setImageLayout] = useState({width: 0, height: 0})
   const {gestures, animatedStyle} = useImageViewerGestures(imageLayout)
   const [sourceAspectRatio, setSourceAspectRatio] = useState<
     number | ImageAspectRatio | undefined
   >(aspectRatio)
 
-  const styles = useThemable(
-    createStyles(Math.min(height, width), sourceAspectRatio),
-  )
+  const styles = useThemable(createStyles(width, height, sourceAspectRatio))
 
   useEffect(() => {
     if (!imageProps.source) {
@@ -49,11 +47,7 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
           onLayout={({nativeEvent: {layout}}) => setImageLayout(layout)}
           resizeMode="contain"
           {...imageProps}
-          style={[
-            styles.image,
-            isPortrait ? styles.portrait : styles.landscape,
-            animatedStyle,
-          ]}
+          style={[styles.image, animatedStyle]}
         />
       </View>
     </GestureDetector>
@@ -61,17 +55,24 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
 }
 
 const createStyles =
-  (minDimension: number, aspectRatio: number | ImageAspectRatio = 'wide') =>
+  (
+    width: number,
+    height: number,
+    imageAspectRatio: number | ImageAspectRatio = 'wide',
+  ) =>
   (theme: Theme) => {
     const aspectRatioValue =
-      typeof aspectRatio === 'number'
-        ? aspectRatio
-        : theme.media.aspectRatio[aspectRatio]
+      typeof imageAspectRatio === 'number'
+        ? imageAspectRatio
+        : theme.media.aspectRatio[imageAspectRatio]
+    const deviceAspectRatio = width / height
+    const isImageWiderThanDevice = aspectRatioValue > deviceAspectRatio
 
-    const altDimension =
-      Platform.OS === 'android' && minDimension && aspectRatioValue > 0
-        ? minDimension / aspectRatioValue
-        : undefined
+    if (isImageWiderThanDevice) {
+      height = width / aspectRatioValue
+    } else {
+      width = height * aspectRatioValue
+    }
 
     return StyleSheet.create({
       container: {
@@ -81,17 +82,10 @@ const createStyles =
         alignItems: 'center',
       },
       image: {
-        width: minDimension,
         backgroundColor: theme.color.imageBackground.dark.background,
         aspectRatio: aspectRatioValue,
-      },
-      portrait: {
-        width: minDimension,
-        height: altDimension,
-      },
-      landscape: {
-        width: altDimension,
-        height: minDimension,
+        width,
+        height,
       },
     })
   }
