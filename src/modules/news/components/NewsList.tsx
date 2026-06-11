@@ -20,12 +20,13 @@ type Props = NewsArticlesType & {
 
 const PAGE_SIZE = 20
 
-const emptyNewsItem: NewsArticleBase = {
+const emptyNewsItem: NewsArticleBase & {dummy?: boolean} = {
   id: -1,
   images: [],
   modification_datetime: '',
   publication_datetime: '',
   title: '',
+  dummy: true,
 }
 
 export const NewsList = ({
@@ -42,7 +43,7 @@ export const NewsList = ({
 
   const result = useInfiniteScroller<
     NewsArticleBase,
-    NewsArticleBase,
+    NewsArticleBase & {dummy?: boolean},
     NewsArticlesQueryArgs
   >(
     emptyNewsItem,

@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {Fragment, useCallback} from 'react'
 import type {NewsArticleBase} from '@/modules/news/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -12,7 +12,7 @@ import {LiveblogTag} from '@/modules/news/components/liveblog/LiveblogTag'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
-type Props = NewsArticleBase & {includeDate?: boolean}
+type Props = NewsArticleBase & {dummy?: boolean; includeDate?: boolean}
 
 export const NewsListItem = ({
   id,
@@ -22,10 +22,15 @@ export const NewsListItem = ({
   includeDate = true,
   is_active_liveblog = false,
   is_liveblog = false,
+  dummy = false,
 }: Props) => {
   const {navigate} = useNavigation()
 
   const navigateTo = useCallback(() => {
+    if (dummy) {
+      return
+    }
+
     if (is_liveblog) {
       return navigate(NewsRouteName.liveblog, {
         id,
@@ -34,11 +39,11 @@ export const NewsListItem = ({
     }
 
     return navigate(NewsRouteName.article, {id})
-  }, [is_liveblog, navigate, id, is_active_liveblog])
+  }, [dummy, is_liveblog, navigate, id, is_active_liveblog])
 
   return (
     <Pressable
-      disabled={id === -1}
+      disabled={dummy}
       flex={1}
       onPress={navigateTo}
       testID={`NewsListItem${id}Button`}>
@@ -48,6 +53,7 @@ export const NewsListItem = ({
             <LazyImage
               aspectRatio="narrow"
               fallbackInheritsAspectRatio
+              missingSourceFallback={dummy ? <Fragment /> : undefined}
               source={images}
               testID={`NewsListItem${id}Image`}
             />
