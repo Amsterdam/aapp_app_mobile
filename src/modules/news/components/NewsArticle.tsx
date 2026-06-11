@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import type {NewsArticleBase} from '@/modules/news/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -7,7 +6,7 @@ import {LazyImage} from '@/components/ui/media/LazyImage'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useNewsArticleQuery} from '@/modules/news/service'
+import {useNewsArticle} from '@/modules/news/hooks/useNewsArticle'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
@@ -15,13 +14,13 @@ type Props = {
 }
 
 export const NewsArticle = ({id}: Props) => {
-  const {data: article, isLoading, error} = useNewsArticleQuery(id ?? skipToken)
+  const {article, isLoading, isError} = useNewsArticle()
 
   if (isLoading) {
     return <PleaseWait testID="NewsArticlePleaseWait" />
   }
 
-  if (error || !article) {
+  if (isError || !article) {
     return <SomethingWentWrong testID="NewsArticleSomethingWentWrong" />
   }
 
