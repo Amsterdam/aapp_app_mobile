@@ -56,8 +56,8 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
 
 const createStyles =
   (
-    width: number,
-    height: number,
+    deviceWidth: number,
+    deviceHeight: number,
     imageAspectRatio: number | ImageAspectRatio = 'wide',
   ) =>
   (theme: Theme) => {
@@ -65,13 +65,18 @@ const createStyles =
       typeof imageAspectRatio === 'number'
         ? imageAspectRatio
         : theme.media.aspectRatio[imageAspectRatio]
-    const deviceAspectRatio = width / height
+    const deviceAspectRatio = deviceWidth / deviceHeight
     const isImageWiderThanDevice = aspectRatioValue > deviceAspectRatio
 
+    let width: number
+    let height: number
+
     if (isImageWiderThanDevice) {
-      height = width / aspectRatioValue
+      height = deviceWidth / aspectRatioValue
+      width = deviceWidth
     } else {
-      width = height * aspectRatioValue
+      height = deviceHeight
+      width = deviceHeight * aspectRatioValue
     }
 
     return StyleSheet.create({
