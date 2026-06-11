@@ -4,6 +4,7 @@ import {
   type BoatChargingGeoJSON,
   type BoatChargingGuestLoginEndpointResponse,
   type BoatChargingLocationDetailsResponse,
+  type BoatChargingOidcSettings,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
@@ -36,6 +37,17 @@ export const boatChargingApi = baseApi.injectEndpoints({
       providesTags: ['BoatChargingLocationDetails'],
       keepUnusedDataFor: CacheLifetime.minute,
     }),
+    [BoatChargingEndpointName.boatChargingOidcSettings]: builder.query<
+      BoatChargingOidcSettings,
+      void
+    >({
+      query: () => ({
+        prepareHeaders,
+        method: 'GET',
+        slug: ModuleSlug['boat-charging'],
+        url: '/oidc-settings',
+      }),
+    }),
     [BoatChargingEndpointName.guestLogin]: builder.mutation<
       BoatChargingGuestLoginEndpointResponse,
       void
@@ -64,4 +76,5 @@ export const {
   useBoatChargingLocationsQuery,
   useBoatChargingLocationDetailsQuery,
   useGuestLoginMutation,
+  useBoatChargingOidcSettingsQuery,
 } = boatChargingApi

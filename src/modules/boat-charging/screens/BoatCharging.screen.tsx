@@ -4,25 +4,30 @@ import {Screen} from '@/components/features/screen/Screen'
 import {BoatChargingHeaderButton} from '@/modules/boat-charging/components/BoatChargingHeaderButton'
 import {BoatChargingView} from '@/modules/boat-charging/components/BoatChargingView'
 import {bottomsheetVariants} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
+import {useInitAuth} from '@/modules/boat-charging/hooks/useInitAuth'
 
-export const BoatChargingScreen = () => (
-  <MapViewSwitchProvider>
-    <Screen
-      bottomSheet={
-        <BottomSheet
-          scroll
-          testID="BoatChargingPointBottomSheet"
-          variants={bottomsheetVariants}
-          withCloseButton
-        />
-      }
-      headerOptions={{
-        SideComponent: BoatChargingHeaderButton,
-      }}
-      scroll={false}
-      testID="BoatChargingScreen"
-      withBottomInset={false}>
-      <BoatChargingView />
-    </Screen>
-  </MapViewSwitchProvider>
-)
+export const BoatChargingScreen = () => {
+  useInitAuth()
+
+  return (
+    <MapViewSwitchProvider>
+      <Screen
+        bottomSheet={
+          <BottomSheet
+            scroll
+            testID="BoatChargingPointBottomSheet"
+            variants={bottomsheetVariants}
+            withCloseButton
+          />
+        }
+        headerOptions={{
+          SideComponent: BoatChargingHeaderButton,
+        }}
+        scroll={false}
+        testID="BoatChargingScreen"
+        withBottomInset={false}>
+        <BoatChargingView />
+      </Screen>
+    </MapViewSwitchProvider>
+  )
+}

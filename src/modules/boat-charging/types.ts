@@ -1,9 +1,11 @@
 import type {Address} from '@/modules/address/types'
+import type {OAuthResponseType} from '@okta/okta-auth-js'
 import type {Feature, Point} from 'geojson'
 
 export enum BoatChargingEndpointName {
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
+  boatChargingOidcSettings = 'boatChargingOidcSettings',
   guestLogin = 'guestLogin',
 }
 
@@ -59,6 +61,16 @@ type ChargingStation = {
   id: string
   location_id: string
   status: ChargingPointStatus
+}
+
+export type BoatChargingOidcSettings = {
+  client_id: string
+  discovery_url: string
+  issuer: string
+  pkce_required: string
+  redirect_uri: string
+  response_type: OAuthResponseType | OAuthResponseType[] | 'none' | undefined
+  scopes: string[]
 }
 
 export enum ChargingPointStatus {
