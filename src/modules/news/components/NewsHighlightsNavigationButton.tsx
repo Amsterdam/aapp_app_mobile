@@ -16,7 +16,7 @@ export const NewsHighlightsNavigationButton = () => {
       onPress={() => navigate(NewsRouteName.highlights)}
       testID="NewsHighlightsNavigationButton"
       title="Uitgelicht"
-      titleLevel="h3"
+      titleLevel="h4"
     />
   )
 }
