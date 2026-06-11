@@ -44,9 +44,9 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
             .add(max_session_length_in_days, 'day')
             .endOf('day')}
           minDateTime={startTimeRef.current}
-          setDateTime={() => {
+          setDateTime={newTime => {
             userHasEditedStart.current = true
-            onChange(startTimeRef.current)
+            onChange(newTime)
           }}
         />
       )}
