@@ -21,10 +21,10 @@ export const pushNotificationTypes: Record<
   PushNotificationRouteConfig
 > = {
   NewsUpdatedByProjectManager: {
-    route: '/news',
+    route: 'news',
   },
   ProjectWarningCreatedByProjectManager: {
-    route: '/warning',
+    route: 'warning',
   },
 }
 
@@ -44,7 +44,7 @@ export const resolvePathFromNotification: ModuleClientConfig<{
   let route: string | undefined
 
   if (type === ARTICLE_MESSAGE_TYPE) {
-    route = `/${subtype === 'article' ? 'news' : subtype}`
+    route = `${subtype === 'article' ? 'news' : subtype}`
   }
 
   // TODO: Remove this when the app version has exceeded 1.30.0. Check with backend first to be certain.
@@ -63,5 +63,5 @@ export const resolvePathFromNotification: ModuleClientConfig<{
     `${notification.title ?? ''} - ${notification.body ?? ''}`,
   )
 
-  return `${route}/${notification.data.linkSourceid}/${encodeURIComponent(notification.title ?? '')}/${analyticsTitle}/${isPushNotificationDeeplink}`
+  return `/construction-work/${route}/${notification.data.linkSourceid}/${encodeURIComponent(notification.title ?? '')}/${analyticsTitle}/${isPushNotificationDeeplink}`
 }

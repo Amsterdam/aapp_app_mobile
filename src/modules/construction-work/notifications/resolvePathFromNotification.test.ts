@@ -60,7 +60,7 @@ describe('createRoute', () => {
 
         true,
       ),
-    ).toBe('/news/123//%20-%20Body/true')
+    ).toBe('/construction-work/news/123//%20-%20Body/true')
   })
 
   it('should return route with linkSourceid param and title param, if body is missing', () => {
@@ -72,12 +72,12 @@ describe('createRoute', () => {
         },
         false,
       ),
-    ).toBe('/news/123/Title/Title%20-%20/false')
+    ).toBe('/construction-work/news/123/Title/Title%20-%20/false')
   })
 
   it('should return route with all params', () => {
     expect(resolvePathFromNotification?.(mockNotification, true)).toBe(
-      '/news/123/Title/Title%20-%20Body/true',
+      '/construction-work/news/123/Title/Title%20-%20Body/true',
     )
   })
 
@@ -91,7 +91,7 @@ describe('createRoute', () => {
         },
         false,
       ),
-    ).toBe('/news/123//%20-%20Body/false')
+    ).toBe('/construction-work/news/123//%20-%20Body/false')
   })
 
   it('should return route with linkSourceid param and title param, if body is an empty string', () => {
@@ -104,7 +104,7 @@ describe('createRoute', () => {
         },
         false,
       ),
-    ).toBe('/news/123/Title/Title%20-%20/false')
+    ).toBe('/construction-work/news/123/Title/Title%20-%20/false')
   })
 
   it('should url encode title and body', () => {
@@ -117,7 +117,9 @@ describe('createRoute', () => {
         },
         true,
       ),
-    ).toBe('/news/123/Test%20title/Test%20title%20-%20Test%2Fbody/true')
+    ).toBe(
+      '/construction-work/news/123/Test%20title/Test%20title%20-%20Test%2Fbody/true',
+    )
   })
 
   it('should return warning route with url encode title and body', () => {
@@ -130,7 +132,9 @@ describe('createRoute', () => {
         },
         true,
       ),
-    ).toBe('/warning/123/Test%20title/Test%20title%20-%20Test%2Fbody/true')
+    ).toBe(
+      '/construction-work/warning/123/Test%20title/Test%20title%20-%20Test%2Fbody/true',
+    )
   })
   it('should return news route with url encode title and body', () => {
     expect(
@@ -142,6 +146,8 @@ describe('createRoute', () => {
         },
         true,
       ),
-    ).toBe('/news/123/Test%20title/Test%20title%20-%20Test%2Fbody/true')
+    ).toBe(
+      '/construction-work/news/123/Test%20title/Test%20title%20-%20Test%2Fbody/true',
+    )
   })
 })

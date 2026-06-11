@@ -19,12 +19,11 @@ export const NewsDashboardHighlightedArticle = () => {
       return
     }
 
-    const {id, is_active_liveblog, is_liveblog} = highlightedArticle
+    const {id, is_liveblog} = highlightedArticle
 
     if (is_liveblog) {
       return navigate(NewsRouteName.liveblog, {
         id,
-        isActive: !!is_active_liveblog,
       })
     }
 

@@ -8,7 +8,7 @@ export enum NewsRouteName {
 export type NewsStackParams = {
   [NewsRouteName.dashboard]: undefined
   [NewsRouteName.article]: {id: number}
-  [NewsRouteName.liveblog]: {id: number; isActive: boolean}
+  [NewsRouteName.liveblog]: {id: number}
   [NewsRouteName.highlights]: undefined
 }
 
