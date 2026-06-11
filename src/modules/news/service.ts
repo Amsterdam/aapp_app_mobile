@@ -65,7 +65,6 @@ export const newsApi = baseApi.injectEndpoints({
         slug: ModuleSlug.news,
         url: `/liveblog-notifications/${articleId}`,
         headers: deviceIdHeader,
-        body: {},
       }),
       invalidatesTags: ['NewsLiveblogNotifications'],
     }),

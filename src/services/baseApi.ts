@@ -57,11 +57,17 @@ const dynamicBaseQuery: BaseQueryFn<
         afterError,
         afterSuccess,
         prepareHeaders: argsPrepareHeaders = headers => headers,
+        method,
+        url,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        body,
       } = args
+
+      const newBody: unknown = method === 'POST' ? (body ?? {}) : body
 
       const baseUrl = selectApi(slug)(baseQueryApi.getState() as RootState)
 
-      const requestInfo = `${baseQueryApi.endpoint}: ${args.method ?? 'GET'} ${baseUrl}${args.url}`
+      const requestInfo = `${baseQueryApi.endpoint}: ${method ?? 'GET'} ${baseUrl}${url}`
 
       devInfo(`Request started: ${requestInfo}`)
 
@@ -79,18 +85,18 @@ const dynamicBaseQuery: BaseQueryFn<
             },
           ),
         timeout: TimeOutDuration.long,
-      })(args, baseQueryApi, extraOptions)
+      })({...args, body: newBody}, baseQueryApi, extraOptions)
 
       const {error, meta} = result
 
       const status = meta?.response?.status ?? error?.status ?? 0
 
-      if (!error) {
-        devInfo(`Request success: ${requestInfo}`)
-      } else {
+      if (error) {
         devError(
           `Request failed (${status}): ${requestInfo}, ${JSON.stringify(error.data)}`,
         )
+      } else {
+        devInfo(`Request success: ${requestInfo}`)
       }
 
       if (status === 404) {
