@@ -63,6 +63,7 @@ const dynamicBaseQuery: BaseQueryFn<
         body,
       } = args
 
+      // this prevents sending post requests with an empty body, which causes issues with the firewall when sending from android
       const newBody: unknown = method === 'POST' ? (body ?? {}) : body
 
       const baseUrl = selectApi(slug)(baseQueryApi.getState() as RootState)
