@@ -6,6 +6,9 @@ export const permitMock: ParkingPermit = {
   max_session_length_in_days: 0,
   money_balance_applicable: true,
   no_endtime: false,
+  cancelled_at: null,
+  ended_at: null,
+  started_at: '2025-12-31T23:59:59+01:00',
   parking_rate: {
     currency: 'EUR',
     value: 0.56,
