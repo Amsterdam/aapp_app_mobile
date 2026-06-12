@@ -6,9 +6,11 @@ import {useInterval} from '@/hooks/useInterval'
 import {useIsLocalTimeSameAsServerTime} from '@/hooks/useIsLocalTimeSameAsServerTime'
 import {TimeDifferenceNotice} from '@/modules/parking/components/TimeDifferenceNotice'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingSession} from '@/modules/parking/hooks/useParkingSession'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
+import {isToday} from '@/utils/datetime/isToday'
 
 export const ParkingChooseStartTimeButton = () => {
   const {setValue, watch} = useFormContext<{
@@ -18,6 +20,7 @@ export const ParkingChooseStartTimeButton = () => {
   }>()
   const {endTime, originalEndTime, startTime: startTimeField} = watch()
   const {startTimeRef, userHasEditedStart} = useParkingSession()
+  const {started_at} = useCurrentParkingPermit()
 
   const {isSameTime, isLoading, serverTime} = useIsLocalTimeSameAsServerTime()
 
@@ -82,6 +85,17 @@ export const ParkingChooseStartTimeButton = () => {
         rules={{
           required: 'Kies een starttijd',
           validate: startTime => {
+            if (started_at && startTime.isBefore(dayjs(started_at))) {
+              const permitStartDate = dayjs(started_at)
+              const today = isToday(permitStartDate)
+
+              const dateString = today
+                ? permitStartDate.format('HH:mm')
+                : `${permitStartDate.format('DD MMMM')} om ${permitStartDate.format('HH:mm')}`
+
+              return `Uw vergunning is pas vanaf ${dateString} uur actief`
+            }
+
             const currentTime = !isSameTime
               ? dayjs(serverTime)
               : dayjs().set('second', 0)

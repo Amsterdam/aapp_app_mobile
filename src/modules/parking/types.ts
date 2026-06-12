@@ -149,7 +149,9 @@ export type PermitZoneGeoJsonResponse = {
 
 export type ParkingPermit = {
   can_select_zone?: boolean
+  cancelled_at: string | null
   discount: number
+  ended_at: string | null
   forced_license_plate_list: boolean
   max_session_length_in_days: number
   money_balance_applicable: boolean
@@ -172,9 +174,11 @@ export type ParkingPermit = {
     show_permit_zone_url: boolean
   }
   report_code: string
+  started_at: string | null
   time_balance: number
   time_balance_applicable: boolean
   time_valid_until: string
+
   visitor_account?: {
     pin: string
     report_code: string
