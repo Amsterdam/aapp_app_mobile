@@ -322,7 +322,7 @@ const ImgRenderer: CustomMixedRenderer = props => {
 
   const combinedStyle =
     hasInnerCaption || parentHasCaption
-      ? ({...style, ...styles.imgWithCaptionMargins} as ViewProps['style'])
+      ? ([style, styles.imgWithCaptionMargins] as ViewProps['style'])
       : style
 
   return (
