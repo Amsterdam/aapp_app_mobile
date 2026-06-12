@@ -142,8 +142,8 @@ const createStyles = ({color, size}: Theme, passWidth: number) =>
       alignItems: 'center',
     },
     contentContainer: {
-      flex: 1,
-    },
+      flexGrow: 1,
+    }
     containerInner: {
       overflow: 'hidden', // to make sure the border radius is visible in all cases
       borderRadius: PASS_BORDER_RADIUS,
