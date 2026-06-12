@@ -85,9 +85,8 @@ export const ParkingChooseStartTimeButton = () => {
         rules={{
           required: 'Kies een starttijd',
           validate: startTime => {
-            const permitStartDate = dayjs(started_at)
-
-            if (startTime.isBefore(permitStartDate)) {
+            if (started_at && startTime.isBefore(dayjs(started_at))) {
+              const permitStartDate = dayjs(started_at)
               const today = isToday(permitStartDate)
 
               const dateString = today
