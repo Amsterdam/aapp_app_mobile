@@ -14,6 +14,7 @@ import RenderHTML, {
   CustomTagRendererRecord,
   type Element,
   MixedStyleDeclaration,
+  type TNode,
   useInternalRenderer,
 } from 'react-native-render-html'
 import {Box} from '@/components/ui/containers/Box'
@@ -73,12 +74,33 @@ const convertParagraphToFigure = (element: Element) => {
     element.tagName = 'figure'
 
     element.children.forEach(child => {
-      if ('tagName' in child && child?.tagName !== 'img')
+      if (
+        'tagName' in child &&
+        CAPTION_TAGS.has((child.tagName as string) || '')
+      )
         child.tagName = 'figcaption'
     })
   }
 
   return element
+}
+
+/**
+ * Returns all parent tag names as an array
+ * @param tnode
+ * @returns
+ */
+const getParentTags = (tnode: TNode) => {
+  const tags: string[] = []
+  let parent = tnode.parent
+
+  while (parent && 'tagName' in parent && typeof parent.tagName === 'string') {
+    tags.push(parent.tagName)
+
+    parent = parent.parent
+  }
+
+  return tags
 }
 
 /**
@@ -292,7 +314,9 @@ const LiRenderer: CustomBlockRenderer = props => {
 const ARenderer: CustomMixedRenderer = props => {
   const {href} = props.tnode.attributes
   const openUrl = useOpenUrl()
-  const isInCaption = CAPTION_TAGS.has(props.tnode.parent?.tagName || '')
+
+  const parentTags = getParentTags(props.tnode)
+  const isInCaption = parentTags.some(tag => CAPTION_TAGS.has(tag))
 
   const {TNodeChildrenRenderer} = props
 
