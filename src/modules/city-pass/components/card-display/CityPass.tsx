@@ -65,9 +65,10 @@ export const CityPass = ({
         <ScrollView
           accessibilityLabel={accessibilityLabel}
           accessible
+          contentContainerStyle={styles.contentContainer}
           ref={accessibilityAutoFocusRef}
           style={styles.pass}>
-          <HideFromAccessibility>
+          <HideFromAccessibility style={styles.contentContainer}>
             <Column
               grow={1}
               gutter="md">
@@ -78,43 +79,39 @@ export const CityPass = ({
               </View>
               <View style={styles.passInner}>
                 <Column
+                  align="evenly"
                   grow={1}
-                  gutter="md"
                   halign="center">
                   <Phrase
                     emphasis="strong"
                     testID="CityPassCityPassNamePhrase">
                     {firstname} {infix} {lastname}
                   </Phrase>
-                  <Column halign="center">
-                    {actief === false ? (
-                      <>
-                        <Gutter height="md" />
-                        <Phrase
-                          color="warning"
-                          emphasis="strong"
-                          testID="CityPassCityPassBlockedPhrase">
-                          Geblokkeerd
-                        </Phrase>
-                        <Gutter height="xl" />
-                      </>
-                    ) : (
-                      <Delay>
-                        <BarCode
-                          format="CODE128"
-                          value={passNumberComplete}
-                          width={passWidth}
-                        />
-                      </Delay>
-                    )}
-                    <View style={styles.passNumber}>
+                  {actief === false ? (
+                    <>
+                      <Gutter height="md" />
                       <Phrase
+                        color="warning"
                         emphasis="strong"
-                        testID="CityPassCityPassPassNumber">
-                        {stringGroupInto(passNumberComplete, 4)}
+                        testID="CityPassCityPassBlockedPhrase">
+                        Geblokkeerd
                       </Phrase>
-                    </View>
-                  </Column>
+                      <Gutter height="xl" />
+                    </>
+                  ) : (
+                    <Delay>
+                      <BarCode
+                        format="CODE128"
+                        value={passNumberComplete}
+                        width={passWidth}
+                      />
+                    </Delay>
+                  )}
+                  <Phrase
+                    emphasis="strong"
+                    testID="CityPassCityPassPassNumber">
+                    {stringGroupInto(passNumberComplete, 4)}
+                  </Phrase>
                   {actief !== false && (
                     <>
                       <Delay>
@@ -144,6 +141,9 @@ const createStyles = ({color, size}: Theme, passWidth: number) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
+    contentContainer: {
+      flex: 1,
+    },
     containerInner: {
       overflow: 'hidden', // to make sure the border radius is visible in all cases
       borderRadius: PASS_BORDER_RADIUS,
@@ -162,10 +162,7 @@ const createStyles = ({color, size}: Theme, passWidth: number) =>
     passInner: {
       backgroundColor: color.cityPass.passInner,
       borderRadius: PASS_BORDER_RADIUS,
-      paddingTop: size.spacing.md,
+      flexGrow: 1,
       paddingBottom: size.spacing.md,
-    },
-    passNumber: {
-      marginTop: -size.spacing.md,
     },
   })
