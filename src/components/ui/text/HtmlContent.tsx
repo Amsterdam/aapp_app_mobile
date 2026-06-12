@@ -12,7 +12,7 @@ import RenderHTML, {
   CustomBlockRenderer,
   CustomMixedRenderer,
   CustomTagRendererRecord,
-  Element,
+  type Element,
   MixedStyleDeclaration,
   useInternalRenderer,
 } from 'react-native-render-html'
