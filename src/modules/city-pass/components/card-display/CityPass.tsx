@@ -24,6 +24,7 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
 const PASS_BORDER_RADIUS = 10
+const BARCODE_WIDTH_PERCENTAGE = 85
 
 type Props = {
   cityPass: CityPassPass
@@ -87,31 +88,36 @@ export const CityPass = ({
                     testID="CityPassCityPassNamePhrase">
                     {firstname} {infix} {lastname}
                   </Phrase>
-                  {actief === false ? (
-                    <>
-                      <Gutter height="md" />
-                      <Phrase
-                        color="warning"
-                        emphasis="strong"
-                        testID="CityPassCityPassBlockedPhrase">
-                        Geblokkeerd
-                      </Phrase>
-                      <Gutter height="xl" />
-                    </>
-                  ) : (
-                    <Delay>
-                      <BarCode
-                        format="CODE128"
-                        value={passNumberComplete}
-                        width={passWidth}
-                      />
-                    </Delay>
-                  )}
-                  <Phrase
-                    emphasis="strong"
-                    testID="CityPassCityPassPassNumber">
-                    {stringGroupInto(passNumberComplete, 4)}
-                  </Phrase>
+                  <Column
+                    gutter="sm"
+                    halign="center">
+                    {actief === false ? (
+                      <>
+                        <Gutter height="md" />
+                        <Phrase
+                          color="warning"
+                          emphasis="strong"
+                          testID="CityPassCityPassBlockedPhrase">
+                          Geblokkeerd
+                        </Phrase>
+                        <Gutter height="xl" />
+                      </>
+                    ) : (
+                      <Delay>
+                        <BarCode
+                          format="CODE128"
+                          value={passNumberComplete}
+                          width={(passWidth / 100) * BARCODE_WIDTH_PERCENTAGE}
+                        />
+                      </Delay>
+                    )}
+                    <Phrase
+                      emphasis="strong"
+                      testID="CityPassCityPassPassNumber">
+                      {stringGroupInto(passNumberComplete, 4)}
+                    </Phrase>
+                  </Column>
+
                   {actief !== false && (
                     <>
                       <Delay>
