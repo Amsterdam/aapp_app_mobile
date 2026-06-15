@@ -37,7 +37,6 @@ export const ProjectArticle = ({
   projectId,
   publicationDate,
   title,
-  type = 'article',
 }: Props) => {
   const {data: project, isLoading: isLoadingProject} = useProjectDetailsQuery(
     projectId
@@ -55,12 +54,10 @@ export const ProjectArticle = ({
         aspectRatio="wide"
         fallbackInheritsAspectRatio={false}
         missingSourceFallback={
-          type !== 'warning' ? (
-            <FigureWithFacadesBackground
-              testID={`ConstructionWorkProjectArticle${id}ImageFallback`}>
-              <ProjectWarningFallbackImage />
-            </FigureWithFacadesBackground>
-          ) : undefined
+          <FigureWithFacadesBackground
+            testID={`ConstructionWorkProjectArticle${id}ImageFallback`}>
+            <ProjectWarningFallbackImage />
+          </FigureWithFacadesBackground>
         }
         openInImageViewer
         source={image?.sources}
