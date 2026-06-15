@@ -12,7 +12,6 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
-import {ArticleType} from '@/modules/construction-work/types/api'
 import {ApiImage} from '@/types/api'
 import {formatDate} from '@/utils/datetime/formatDate'
 
@@ -25,7 +24,6 @@ type Props = {
   projectId: number | undefined
   publicationDate: string
   title: string
-  type?: ArticleType
 }
 
 export const ProjectArticle = ({
