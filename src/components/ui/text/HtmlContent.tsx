@@ -163,6 +163,11 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
     <View onLayout={onLayoutChange}>
       <RenderHTML
         baseStyle={baseStyle}
+        classesStyles={{
+          'css-text-align-right': {
+            textAlign: 'right',
+          },
+        }}
         contentWidth={contentWidth}
         domVisitors={{onElement: convertParagraphToFigure}}
         renderers={renderers}
