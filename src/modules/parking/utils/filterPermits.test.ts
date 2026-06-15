@@ -20,6 +20,9 @@ describe('filterPermits', () => {
     time_balance_applicable: false,
     time_valid_until: '',
     visitor_account_allowed: false,
+    cancelled_at: null,
+    ended_at: null,
+    started_at: '2025-12-31T23:59:59+02:00',
   } as ParkingPermit
 
   it('filters permits with known keywords', () => {
