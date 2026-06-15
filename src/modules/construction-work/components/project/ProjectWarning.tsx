@@ -56,8 +56,7 @@ export const ProjectWarning = ({id, projectId: passedProjectId}: Props) => {
       image={images?.[0]}
       projectId={projectId}
       publicationDate={publication_date}
-      title={title}
-      type="warning">
+      title={title}>
       {!!projectData?.contacts && (
         <Box>
           <ProjectContacts contacts={projectData.contacts} />
