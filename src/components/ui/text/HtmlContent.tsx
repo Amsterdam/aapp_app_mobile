@@ -6,12 +6,15 @@ import {
   StyleSheet,
   TextStyle,
   View,
+  type ViewProps,
 } from 'react-native'
 import RenderHTML, {
   CustomBlockRenderer,
   CustomMixedRenderer,
   CustomTagRendererRecord,
+  type Element,
   MixedStyleDeclaration,
+  type TNode,
   useInternalRenderer,
 } from 'react-native-render-html'
 import {Box} from '@/components/ui/containers/Box'
@@ -41,6 +44,8 @@ export type HtmlTransformRule = {
   replace: string
 }
 
+const CAPTION_TAGS = new Set(['figcaption', 'cite', 'sub', 'sup'])
+
 /**
  * Applies all transform rules to the content.
  */
@@ -52,6 +57,51 @@ const transformContent = (
     (result, {find, replace}) => result.replace(find, replace),
     content,
   )
+
+/**
+ * Convert a parent <p> tag into a <figure> tag if its children contains an <img> tag.
+ * Converts all non <img> children into <figcaption>
+ * @param element
+ * @returns
+ */
+const convertParagraphToFigure = (element: Element) => {
+  if (
+    element.tagName === 'p' &&
+    element.children.some(
+      child => 'tagName' in child && child.tagName === 'img',
+    )
+  ) {
+    element.tagName = 'figure'
+
+    element.children.forEach(child => {
+      if (
+        'tagName' in child &&
+        CAPTION_TAGS.has((child.tagName as string) || '')
+      )
+        child.tagName = 'figcaption'
+    })
+  }
+
+  return element
+}
+
+/**
+ * Returns all parent tag names as an array
+ * @param tnode
+ * @returns
+ */
+const getParentTags = (tnode: TNode) => {
+  const tags: string[] = []
+  let parent = tnode.parent
+
+  while (parent && 'tagName' in parent && typeof parent.tagName === 'string') {
+    tags.push(parent.tagName)
+
+    parent = parent.parent
+  }
+
+  return tags
+}
 
 /**
  * Renders HTML content, applying the typographic design.
@@ -99,7 +149,8 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
       p: {...styles.paragraph, ...styles.margins},
       strong: styles.boldText,
       ul: styles.margins,
-      cite: {...styles.small, ...styles.citeMargins},
+      figcaption: {...styles.small, ...styles.captionMargins},
+      sup: {...styles.small, ...styles.supMargins},
     }),
     [styles],
   )
@@ -113,6 +164,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
       <RenderHTML
         baseStyle={baseStyle}
         contentWidth={contentWidth}
+        domVisitors={{onElement: convertParagraphToFigure}}
         renderers={renderers}
         renderersProps={{img: {enableExperimentalPercentWidth: true}}}
         source={{html}}
@@ -196,9 +248,14 @@ const createStyles: (
         marginTop: 0,
         marginBottom: lineHeight / 2,
       },
-      citeMargins: {
-        marginTop: -size.spacing.md,
+      captionMargins: {
         marginBottom: lineHeight,
+      },
+      supMargins: {
+        marginTop: -size.spacing.md,
+      },
+      imgWithCaptionMargins: {
+        marginBottom: size.spacing.sm,
       },
     }
   }
@@ -258,13 +315,17 @@ const ARenderer: CustomMixedRenderer = props => {
   const {href} = props.tnode.attributes
   const openUrl = useOpenUrl()
 
+  const parentTags = getParentTags(props.tnode)
+  const isInCaption = parentTags.some(tag => CAPTION_TAGS.has(tag))
+
   const {TNodeChildrenRenderer} = props
 
   return (
     <InlineLink
       isExternal
       onPress={() => openUrl(href)}
-      testID="HtmlRendererAInlineLink">
+      testID="HtmlRendererAInlineLink"
+      variant={isInCaption ? 'small' : 'body'}>
       <TNodeChildrenRenderer {...props} />
     </InlineLink>
   )
@@ -272,11 +333,24 @@ const ARenderer: CustomMixedRenderer = props => {
 
 const ImgRenderer: CustomMixedRenderer = props => {
   const {rendererProps} = useInternalRenderer('img', props)
+  const hasInnerCaption = props.tnode.children.some(child =>
+    CAPTION_TAGS.has(child?.tagName || ''),
+  )
+  const parentHasCaption = props.tnode.parent?.children.some(child =>
+    CAPTION_TAGS.has(child?.tagName || ''),
+  )
+
+  const styles = useThemable(createStyles(false))
   const {alt, source, style} = rendererProps
   const aspectRatio = useDynamicImageAspectRatio(source.uri)
 
+  const combinedStyle =
+    hasInnerCaption || parentHasCaption
+      ? ([style, styles.imgWithCaptionMargins] as ViewProps['style'])
+      : style
+
   return (
-    <View style={style}>
+    <View style={combinedStyle}>
       <LazyImage
         alt={alt}
         aspectRatio={aspectRatio}
