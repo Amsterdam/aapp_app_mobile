@@ -15,6 +15,7 @@ import RenderHTML, {
   type Element,
   MixedStyleDeclaration,
   type TNode,
+  type TRenderEngineConfig,
   useInternalRenderer,
 } from 'react-native-render-html'
 import {Box} from '@/components/ui/containers/Box'
@@ -103,6 +104,12 @@ const getParentTags = (tnode: TNode) => {
   return tags
 }
 
+const classesStyles: TRenderEngineConfig['classesStyles'] = {
+  'css-text-align-right': {
+    textAlign: 'right',
+  },
+}
+
 /**
  * Renders HTML content, applying the typographic design.
  */
@@ -163,11 +170,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
     <View onLayout={onLayoutChange}>
       <RenderHTML
         baseStyle={baseStyle}
-        classesStyles={{
-          'css-text-align-right': {
-            textAlign: 'right',
-          },
-        }}
+        classesStyles={classesStyles}
         contentWidth={contentWidth}
         domVisitors={{onElement: convertParagraphToFigure}}
         renderers={renderers}
