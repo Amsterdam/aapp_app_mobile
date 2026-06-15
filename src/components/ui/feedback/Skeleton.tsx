@@ -7,8 +7,6 @@ import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionE
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
-const ANIMATION_SPEED_MS = 1000
-
 type Props = {
   children?: ReactElement
   isLoading: boolean
@@ -19,18 +17,18 @@ export const Skeleton = ({children, isLoading}: Props) => {
   const theme = useTheme()
   const {skeleton} = theme.color
   const styles = createStyles(theme)
-  const isSkeletonVisible = !isReduceMotionEnabled && isLoading
 
   return (
     <View>
-      {!!isSkeletonVisible && (
+      {!!isLoading && (
         <Animated.View
           exiting={FadeOut}
           style={styles.wrapper}>
           <SkeletonPlaceholder
             backgroundColor={skeleton.background}
             highlightColor={skeleton.highlight}
-            speed={ANIMATION_SPEED_MS}>
+            // eslint-disable-next-line sonarjs/no-all-duplicated-branches
+            speed={isReduceMotionEnabled ? 0 : 0}>
             <SkeletonPlaceholder.Item
               height="100%"
               width="100%"
@@ -38,9 +36,7 @@ export const Skeleton = ({children, isLoading}: Props) => {
           </SkeletonPlaceholder>
         </Animated.View>
       )}
-      <HideFromAccessibility hide={isSkeletonVisible}>
-        {children}
-      </HideFromAccessibility>
+      <HideFromAccessibility hide={isLoading}>{children}</HideFromAccessibility>
     </View>
   )
 }
