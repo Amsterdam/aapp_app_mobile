@@ -8,7 +8,6 @@ import {HideFromAccessibility} from '@/components/features/accessibility/HideFro
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Delay} from '@/components/ui/layout/Delay'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -85,38 +84,34 @@ export const CityPass = ({
                   halign="center">
                   <Phrase
                     emphasis="strong"
-                    testID="CityPassCityPassNamePhrase">
+                    testID="CityPassCityPassNamePhrase"
+                    textAlign="center">
                     {firstname} {infix} {lastname}
                   </Phrase>
-                  <Column
-                    gutter="sm"
-                    halign="center">
-                    {actief === false ? (
-                      <>
-                        <Gutter height="md" />
-                        <Phrase
-                          color="warning"
-                          emphasis="strong"
-                          testID="CityPassCityPassBlockedPhrase">
-                          Geblokkeerd
-                        </Phrase>
-                        <Gutter height="xl" />
-                      </>
-                    ) : (
-                      <Delay>
-                        <BarCode
-                          format="CODE128"
-                          value={passNumberComplete}
-                          width={(passWidth / 100) * BARCODE_WIDTH_PERCENTAGE}
-                        />
-                      </Delay>
-                    )}
+
+                  {actief === false ? (
                     <Phrase
+                      color="warning"
                       emphasis="strong"
-                      testID="CityPassCityPassPassNumber">
-                      {stringGroupInto(passNumberComplete, 4)}
+                      testID="CityPassCityPassBlockedPhrase"
+                      textAlign="center">
+                      Geblokkeerd
                     </Phrase>
-                  </Column>
+                  ) : (
+                    <Delay>
+                      <BarCode
+                        format="CODE128"
+                        value={passNumberComplete}
+                        width={(passWidth / 100) * BARCODE_WIDTH_PERCENTAGE}
+                      />
+                    </Delay>
+                  )}
+                  <Phrase
+                    emphasis="strong"
+                    testID="CityPassCityPassPassNumber"
+                    textAlign="center">
+                    {stringGroupInto(passNumberComplete, 4)}
+                  </Phrase>
 
                   {actief !== false && (
                     <>
