@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -9,19 +10,16 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useModules} from '@/hooks/useModules'
 import {setAlwaysShowAddress, setLocationType} from '@/modules/address/slice'
-import {ModuleSlug} from '@/modules/slugs'
 import {Module} from '@/modules/types'
 import {NotificationSetting} from '@/modules/user/components/notification-settings/NotificationSetting'
 import {
   useGetDisabledPushModulesQuery,
   useGetNotificationModulesQuery,
 } from '@/modules/user/service'
-import {NotificationModule} from '@/modules/user/types'
-
-const settingsInModuleModuleSlugs = new Set([
-  ModuleSlug['burning-guide'],
-  ModuleSlug['waste-guide'],
-])
+import {
+  NotificationModule,
+  NotificationSettingVisibility,
+} from '@/modules/user/types'
 
 export const NotificationSettings = () => {
   const {data: notificationModules, isLoading: isLoadingModules} =
@@ -33,6 +31,45 @@ export const NotificationSettings = () => {
   const {navigate} = useNavigation()
   const dispatch = useDispatch()
 
+  const activeModules = useMemo(
+    () =>
+      (enabledModules
+        ?.map<NotificationModule & Partial<Module>>(enabledModule => {
+          const slug = enabledModule.moduleSlug
+          const notificationModule: Partial<Module> =
+            notificationModules?.find(({module}) => module === slug) ?? {}
+
+          return {
+            ...enabledModule,
+            ...notificationModule,
+          } as NotificationModule & Partial<Module>
+        })
+        .filter(module => !!module.module) ?? []) as Array<
+        NotificationModule & Module
+      >,
+    [enabledModules, notificationModules],
+  )
+
+  const [activeModulesWithSettingsHere, activeModulesWithSettingsInModule] =
+    useMemo(
+      () => [
+        activeModules
+          .map(({types, ...rest}) => ({
+            ...rest,
+            types: types.filter(
+              type => type.visibility === NotificationSettingVisibility.visible,
+            ),
+          }))
+          .filter(module => module.types.length),
+        activeModules.filter(({types}) =>
+          types.some(
+            t => t.visibility === NotificationSettingVisibility.deeplink,
+          ),
+        ),
+      ],
+      [activeModules],
+    )
+
   if (isLoadingModules || isLoadingDisabledPushModules) {
     return <PleaseWait testID="NotificationSettingsPleaseWait" />
   }
@@ -42,28 +79,6 @@ export const NotificationSettings = () => {
       <SomethingWentWrong testID="NotificationSettingsSomethingWentWrong" />
     )
   }
-
-  const activeModules = (enabledModules
-    ?.map<NotificationModule & Partial<Module>>(enabledModule => {
-      const slug = enabledModule.moduleSlug
-      const notificationModule: Partial<Module> =
-        notificationModules?.find(({module}) => module === slug) ?? {}
-
-      return {
-        ...enabledModule,
-        ...notificationModule,
-      } as NotificationModule & Partial<Module>
-    })
-    .filter(module => !!module.module) ?? []) as Array<
-    NotificationModule & Module
-  >
-
-  const activeModulesWithSettingsHere = activeModules.filter(
-    ({slug}) => !settingsInModuleModuleSlugs.has(slug),
-  )
-  const activeModulesWithSettingsInModule = activeModules.filter(({slug}) =>
-    settingsInModuleModuleSlugs.has(slug),
-  )
 
   return (
     <Column gutter="lg">
