@@ -21,9 +21,16 @@ export type UserMenuSectionItem = {
     | OnboardingRouteName
 }
 
+export enum NotificationSettingVisibility {
+  deeplink = 'deeplink',
+  invisible = 'invisible',
+  visible = 'visible',
+}
+
 export type NotificationType = {
   description: string
   type: string
+  visibility: NotificationSettingVisibility
 }
 
 export type NotificationModule = {
