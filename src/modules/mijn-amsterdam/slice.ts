@@ -24,6 +24,11 @@ export const mijnAmsterdamSlice = createSlice({
         payload: {isLoggedIn, profileName},
       }: PayloadAction<{isLoggedIn: boolean; profileName?: string}>,
     ) => {
+      if (state.isLoggedIn && isLoggedIn === false) {
+        // If previous logged in state is true and now becomes false, banner should show again.
+        state.shouldShowBanner = true
+      }
+
       state.isLoggedIn = isLoggedIn
 
       if (isLoggedIn) {
@@ -31,7 +36,6 @@ export const mijnAmsterdamSlice = createSlice({
         state.shouldShowBanner = false
       } else {
         state.profileName = undefined
-        state.shouldShowBanner = initialState.shouldShowBanner
       }
     },
     setShouldShowBanner: (
