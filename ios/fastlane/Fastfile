@@ -181,7 +181,7 @@ platform :ios do
     end
   end
 
-  desc "Build prod and dev version of the app"
+  desc "Build iOS app(s); optionally limit with variant:test|prod|all"
   lane :buildApps do |options|
 
     selectedApps = selectAppsForVariant(apps, options && options[:variant])
