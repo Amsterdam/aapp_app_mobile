@@ -10,7 +10,9 @@ export const NewsDashboardScreen = () => (
     scroll={false}
     testID="NewsDashboardScreen">
     <Tabs testID="NewsDashboardTabs">
-      <Tabs.Tab label="Nieuws">
+      <Tabs.Tab
+        accessibilityLabel="Algemeen nieuws"
+        label="Nieuws">
         <AllNews />
       </Tabs.Tab>
       <Tabs.Tab

@@ -6,12 +6,14 @@ import type {ImageProps} from '@/components/ui/media/Image'
 import type {Theme} from '@/themes/themes'
 import type {ImageAspectRatio} from '@/themes/tokens/media'
 import {useImageViewerGestures} from '@/components/features/image-viewer/hooks/useImageViewerGestures'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useThemable} from '@/themes/useThemable'
 import {getAspectRatioFromImageSourcePropType} from '@/utils/getAspectRatioFromImageSourcePropType'
 
 export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
   const {width, height} = useDeviceContext()
+  const navigation = useNavigation()
   const [imageLayout, setImageLayout] = useState({width: 0, height: 0})
   const {gestures, animatedStyle} = useImageViewerGestures(imageLayout)
   const [sourceAspectRatio, setSourceAspectRatio] = useState<
@@ -33,17 +35,14 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
   return (
     <GestureDetector gesture={gestures}>
       <View
-        accessibilityHint="Tik om terug te gaan"
+        accessibilityHint="Dubbel tik om terug te gaan"
         accessibilityRole="button"
         accessible
+        onAccessibilityTap={() => navigation.goBack()}
         style={styles.container}>
         <Animated.Image
-          accessibilityHint="Maak een knijpgebaar of dubbel tik om in- en uit te zoomen, of sleep om de afbeelding te bewegen."
-          accessibilityLabel={
-            imageProps.accessibilityLabel ?? imageProps.alt ?? ''
-          }
+          accessibilityLabel={`Vergrote ${imageProps.accessibilityLabel ?? imageProps.alt ?? 'afbeelding'}`}
           accessibilityRole="image"
-          accessible
           onLayout={({nativeEvent: {layout}}) => setImageLayout(layout)}
           resizeMode="contain"
           {...imageProps}

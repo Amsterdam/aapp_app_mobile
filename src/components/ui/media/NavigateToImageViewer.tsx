@@ -11,7 +11,7 @@ type Props = PropsWithChildren<{
 }>
 
 export const NavigateToImageViewer = ({
-  imageProps: {alt, source, testID, aspectRatio},
+  imageProps: {alt, source, testID, aspectRatio, accessibilityLabel},
   shouldNavigate,
   children,
 }: Props) => {
@@ -30,7 +30,7 @@ export const NavigateToImageViewer = ({
           source,
           testID,
           aspectRatio,
-          alt,
+          alt: alt || accessibilityLabel,
         })
       }
       style={styles.wrapper}
