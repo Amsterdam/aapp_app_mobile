@@ -55,7 +55,6 @@
     "expo": "~56.0.8",
     "expo-brightness": "~56.0.5",
     "expo-clipboard": "~56.0.3",
-    "expo-document-picker": "~56.0.4",
     "expo-file-system": "~56.0.7",
     "expo-haptics": "~56.0.3",
     "expo-image-picker": "~56.0.15",
@@ -198,9 +197,14 @@
     },
     "plugins": [
       "expo-local-authentication",
-      "expo-document-picker",
       "expo-image-picker",
-      "expo-file-system",
+      [
+        "expo-file-system",
+        {
+          "supportsOpeningDocumentsInPlace": true,
+          "enableFileSharing": true
+        }
+      ],
       "expo-sharing",
       "expo-secure-store"
     ]
