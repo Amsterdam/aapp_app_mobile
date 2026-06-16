@@ -24,7 +24,7 @@ export const NewsArticle = ({id}: Props) => {
     return <SomethingWentWrong testID="NewsArticleSomethingWentWrong" />
   }
 
-  const {body, images, publication_datetime, title} = article
+  const {body, images, publication_datetime, title, intro} = article
 
   return (
     <Column gutter="md">
@@ -39,12 +39,20 @@ export const NewsArticle = ({id}: Props) => {
         aspectRatio="wide"
         openInImageViewer
         source={images}
-        testID={`NewsListItem${id}Image`}
+        testID={`NewsArticle${id}Image`}
       />
-      <HtmlContent
-        content={body}
-        testID="NewsArticleContent"
-      />
+      <Column gutter="no">
+        {!!intro && (
+          <HtmlContent
+            content={intro}
+            testID="NewsArticleIntroHtmlContent"
+          />
+        )}
+        <HtmlContent
+          content={body}
+          testID="NewsArticleBodyHtmlContent"
+        />
+      </Column>
     </Column>
   )
 }
