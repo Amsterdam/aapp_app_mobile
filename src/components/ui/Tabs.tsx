@@ -49,12 +49,15 @@ export const Tabs = ({children, grow = 0, testID}: TabsProps) => {
         <Row>
           {childrenArray.map((child, index) => (
             <PressableBase
+              accessibilityLabel={`${child.props.accessibilityLabel || child.props.label}, tab, ${index + 1} van ${childrenArray.length}`}
+              accessibilityRole="tab"
+              accessibilityState={{selected: activeTab === index}}
+              accessible
               key={child.props.label}
               onPress={() => setActiveTab(index)}
               style={[styles.tab, activeTab === index && styles.tabActive]}
               testID={`${testID}Tab${child.props.label}Button`}>
               <Phrase
-                accessibilityLabel={`${child.props.accessibilityLabel || child.props.label}, tab, ${activeTab === index ? 'geselecteerd,' : ''} ${index + 1} van ${childrenArray.length}`}
                 color="link"
                 emphasis={activeTab === index ? 'strong' : 'default'}
                 textAlign="center">

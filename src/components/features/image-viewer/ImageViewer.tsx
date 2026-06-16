@@ -41,7 +41,7 @@ export const ImageViewer = ({aspectRatio, ...imageProps}: ImageProps) => {
         onAccessibilityTap={() => navigation.goBack()}
         style={styles.container}>
         <Animated.Image
-          accessibilityLabel={`Vergrote ${imageProps.accessibilityLabel ?? imageProps.alt ?? ''}`}
+          accessibilityLabel={`Vergrote ${imageProps.accessibilityLabel ?? imageProps.alt ?? 'afbeelding'}`}
           accessibilityRole="image"
           onLayout={({nativeEvent: {layout}}) => setImageLayout(layout)}
           resizeMode="contain"
