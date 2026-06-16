@@ -130,20 +130,19 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
   const addPDF = useCallback(() => {
     void File.pickFileAsync({mimeTypes: 'application/pdf'}).then(
       async ({result, canceled}) => {
-        if (canceled) {
-          devLog('Upload pdf cancelled')
+        if (canceled || !result) {
+          devLog('Upload pdf cancelled or no result.')
 
           return
         }
 
         const copiedFile = new File(Paths.cache, `${generateUUID()}.pdf`)
 
-        await result.copy(copiedFile)
+        await result.copy(copiedFile, {overwrite: true})
 
         if (result) {
           try {
             await sendPDF(copiedFile.uri, result.name)
-            copiedFile.delete()
             onSelect()
           } catch (error) {
             devError(error)
@@ -155,6 +154,8 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
             trackException(ExceptionLogKey.chatSendPDF, fileName, {
               error,
             })
+          } finally {
+            copiedFile.delete()
           }
         }
       },
