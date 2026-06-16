@@ -5,29 +5,33 @@ parameters:
   - name: environment
     type: string
     default: 'Internal'
+  - name: variant
+    type: string
+    default: 'all'
 
 jobs:
-  - deployment: ${{ parameters.environment }}
+  - deployment: ${{ parameters.environment }}_${{ parameters.variant }}
     timeoutInMinutes: 90
     pool:
       vmImage: macOS-26
     environment: 'aapp_app_mobile ${{ parameters.platform }} ${{ parameters.environment }}'
     variables:
       platform: ${{ parameters.platform }}
+      artifactName: ${{ parameters.platform }}-build-${{ parameters.variant }}
       ${{ if eq(variables.platform, 'android') }}:
-        artifactFolder: $(Pipeline.Workspace)/build/${{ parameters.platform }}-build/${{ parameters.platform }}/app/build/outputs
+        artifactFolder: $(Pipeline.Workspace)/build/$(artifactName)/${{ parameters.platform }}/app/build/outputs
       ${{ else }}:
-        artifactFolder: $(Pipeline.Workspace)/build/${{ parameters.platform }}-build/${{ parameters.platform }}/builds
+        artifactFolder: $(Pipeline.Workspace)/build/$(artifactName)/${{ parameters.platform }}/builds
     strategy:
       runOnce:
         deploy:
           steps:
             - download: build
-              artifact: '${{ parameters.platform }}-build'
-              displayName: 'Download artifact: ${{ parameters.platform }}-build'
+              artifact: '${{ parameters.platform }}-build-${{ parameters.variant }}'
+              displayName: 'Download artifact: ${{ parameters.platform }}-build-${{ parameters.variant }}'
             - script: |
-                echo "##vso[task.setvariable variable=versionNumber;]$(cat '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build/version.txt')"
-                echo "##vso[build.updatebuildnumber]$(cat '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build/version.txt')-$(Build.SourceBranchName)-$(System.JobId)"
+                echo "##vso[task.setvariable variable=versionNumber;]$(cat '$(Pipeline.Workspace)/build/$(artifactName)/version.txt')"
+                echo "##vso[build.updatebuildnumber]$(cat '$(Pipeline.Workspace)/build/$(artifactName)/version.txt')-$(Build.SourceBranchName)-$(System.JobId)"
               displayName: 'Set version number'
             - task: DownloadSecureFile@1
               displayName: 'Download Play Store API key'
@@ -35,9 +39,9 @@ jobs:
                 secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
               condition: and(succeeded(), eq('${{ parameters.platform }}', 'android'))
             - script: |
-                mkdir -p ${{ parameters.platform }}-build/${{ parameters.platform }}/certs
-                cp $(Agent.TempDirectory)/api-5152920179310760437-158079-bad988ebb867.json ${{ parameters.platform }}-build/${{ parameters.platform }}/certs
-              workingDirectory: '$(Pipeline.Workspace)/build'
+                mkdir -p ${{ parameters.platform }}/certs
+                cp $(Agent.TempDirectory)/api-5152920179310760437-158079-bad988ebb867.json ${{ parameters.platform }}/certs
+              workingDirectory: '$(Pipeline.Workspace)/build/$(artifactName)'
               displayName: 'Move Download Play Store API key'
               condition: and(succeeded(), eq('${{ parameters.platform }}', 'android'))
             - task: DownloadSecureFile@1
@@ -46,30 +50,30 @@ jobs:
                 secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
               condition: and(succeeded(), eq('${{ parameters.platform }}', 'ios'))
             - script: |
-                mkdir -p ${{ parameters.platform }}-build/${{ parameters.platform }}/certs
-                cp $(Agent.TempDirectory)/App_Store_Connect_API_Key_4B3KZ8N747.p8 ${{ parameters.platform }}-build/${{ parameters.platform }}/certs
-              workingDirectory: '$(Pipeline.Workspace)/build'
+                mkdir -p ${{ parameters.platform }}/certs
+                cp $(Agent.TempDirectory)/App_Store_Connect_API_Key_4B3KZ8N747.p8 ${{ parameters.platform }}/certs
+              workingDirectory: '$(Pipeline.Workspace)/build/$(artifactName)'
               displayName: 'Move Download Appstore API key'
               condition: and(succeeded(), eq('${{ parameters.platform }}', 'ios'))
             - template: ./install-ruby.yml
               parameters:
-                workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
+                workingDirectory: '$(Pipeline.Workspace)/build/$(artifactName)'
             - script: |
                 bundle config set --local without 'iosAppBuildDependencies'
-              workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
+              workingDirectory: '$(Pipeline.Workspace)/build/$(artifactName)'
               displayName: 'Set Bundler to ignore iosAppBuildDependencies'
             # Next step is disabled because of a bug in azure pipelines: https://github.com/microsoft/azure-pipelines-tasks/issues/21567
             # - template: ./cache-gems.yml
             #   parameters:
             #     platform: ${{ parameters.platform }}
-            #     gemfileLocation: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
+            #     gemfileLocation: '$(Pipeline.Workspace)/build/$(artifactName)'
             - script: 'bundle install'
-              workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build'
+              workingDirectory: '$(Pipeline.Workspace)/build/$(artifactName)'
               displayName: 'Install Ruby gems'
             - script: |
-                bundle exec fastlane distribute${{ parameters.environment }}
-              workingDirectory: '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build/${{ parameters.platform }}'
-              displayName: 'Fastlane distribute'
+                bundle exec fastlane distribute${{ parameters.environment }} variant:${{ parameters.variant }}
+              workingDirectory: '$(Pipeline.Workspace)/build/$(artifactName)/${{ parameters.platform }}'
+              displayName: 'Fastlane distribute (${{ parameters.variant }})'
               env:
                 VERSION_NUMBER: $(versionNumber)
                 ARTIFACT_FOLDER: $(artifactFolder)

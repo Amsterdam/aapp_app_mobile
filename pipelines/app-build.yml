@@ -53,6 +53,24 @@ jobs:
       - template: ./templates/app-build.yml
         parameters:
           platform: 'ios'
+          variant: 'prod'
+  - job: 'Build_iOS_Test'
+    timeoutInMinutes: 180
+    pool:
+      vmImage: macOS-26
+    variables:
+      - group: React Native Variables
+      - group: React Native Piwik Pro Analytics
+      - group: device-authorization
+      - name: lc.all
+        value: 'en_US.UTF-8'
+      - name: lang
+        value: 'en_US.UTF-8'
+    steps:
+      - template: ./templates/app-build.yml
+        parameters:
+          platform: 'ios'
+          variant: 'test'
   - job: 'Tests'
     timeoutInMinutes: 30
     pool:
