@@ -2,6 +2,9 @@ parameters:
   - name: platform
     type: string
     default: 'ios'
+  - name: variant
+    type: string
+    default: 'all'
 
 steps:
   - checkout: self
@@ -60,11 +63,11 @@ steps:
 
   - task: Cache@2
     inputs:
-      key: 'ccache | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)" | **/package-lock.json'
+      key: 'ccache | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | ${{ parameters.variant }} | "$(REACT_NATIVE_VERSION)" | **/package-lock.json'
       path: $(CCACHE_DIR)
       cacheHitVar: CCACHE_CACHE_RESTORED
       restoreKeys: |
-        ccache | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | "$(REACT_NATIVE_VERSION)"
+        ccache | "$(Agent.OS)$(Agent.OSArchitecture)" | ${{ parameters.platform }} | ${{ parameters.variant }} | "$(REACT_NATIVE_VERSION)"
     displayName: 'Cache ccache directory'
 
   - task: Cache@2
@@ -111,8 +114,8 @@ steps:
       bundle install
     displayName: 'Bundle install Ruby gems'
   - script: |
-      bundle exec fastlane buildApps
-    displayName: 'Build ${{ parameters.platform }}'
+      bundle exec fastlane buildApps variant:${{ parameters.variant }}
+    displayName: 'Build ${{ parameters.platform }} (${{ parameters.variant }})'
     workingDirectory: ${{ parameters.platform }}
     env:
       APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV: $(APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV)
@@ -166,4 +169,4 @@ steps:
     displayName: 'Publish artifacts'
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: ${{ parameters.platform }}-build
+      artifactName: ${{ parameters.platform }}-build-${{ parameters.variant }}
