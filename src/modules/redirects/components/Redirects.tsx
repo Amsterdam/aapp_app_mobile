@@ -6,7 +6,6 @@ import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {redirects} from '@/modules/redirects/data/redirects'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const Redirects = () => {
   const navigation = useNavigation<RedirectsRouteName>()
@@ -22,7 +21,6 @@ export const Redirects = () => {
       ) : (
         redirects.map(({iconName, routeName, testID, text, title, urlKey}) => (
           <TopTaskButton
-            accessibilityLabel={accessibleText(title, text)}
             accessibilityRole={routeName ? 'button' : 'link'}
             icon={{name: iconName}}
             isExternalLink={!routeName}

@@ -1,6 +1,7 @@
 import {type ReactNode, type Ref, useMemo} from 'react'
 import {Text, type TextProps} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
+import {getAccessibleLabel} from '@/utils/accessibility/getAccessibleLabel'
 
 export type AccessibleTextProps = {
   children: ReactNode
@@ -11,16 +12,13 @@ export type AccessibleTextProps = {
 export const AccessibleText = ({
   ref,
   children,
+  accessibilityLabel: explicitAccessibilityLabel,
   ...props
 }: AccessibleTextProps) => {
-  // This is a workaround for the issue that TalkBack reads numbers as a single number.
-  const accessibilityLabel = useMemo(() => {
-    if (typeof children === 'string' || typeof children === 'number') {
-      const str = String(children)
-
-      return str.replace(/\d{4,}/g, match => match.split('').join(', '))
-    }
-  }, [children])
+  const accessibilityLabel = useMemo(() => getAccessibleLabel({
+      accessibilityLabel: explicitAccessibilityLabel,
+      children,
+    }), [children, explicitAccessibilityLabel])
 
   return (
     <Text
