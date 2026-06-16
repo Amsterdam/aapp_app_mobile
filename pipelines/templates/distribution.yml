@@ -39,8 +39,8 @@ jobs:
                 secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
               condition: and(succeeded(), eq('${{ parameters.platform }}', 'android'))
             - script: |
-                mkdir -p ${{ parameters.platform }}-build/${{ parameters.platform }}/certs
-                cp $(Agent.TempDirectory)/api-5152920179310760437-158079-bad988ebb867.json ${{ parameters.platform }}-build/${{ parameters.platform }}/certs
+                mkdir -p ${{ parameters.platform }}/certs
+                cp $(Agent.TempDirectory)/api-5152920179310760437-158079-bad988ebb867.json ${{ parameters.platform }}/certs
               workingDirectory: '$(Pipeline.Workspace)/build/$(artifactName)'
               displayName: 'Move Download Play Store API key'
               condition: and(succeeded(), eq('${{ parameters.platform }}', 'android'))
@@ -50,8 +50,8 @@ jobs:
                 secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
               condition: and(succeeded(), eq('${{ parameters.platform }}', 'ios'))
             - script: |
-                mkdir -p ${{ parameters.platform }}-build/${{ parameters.platform }}/certs
-                cp $(Agent.TempDirectory)/App_Store_Connect_API_Key_4B3KZ8N747.p8 ${{ parameters.platform }}-build/${{ parameters.platform }}/certs
+                mkdir -p ${{ parameters.platform }}/certs
+                cp $(Agent.TempDirectory)/App_Store_Connect_API_Key_4B3KZ8N747.p8 ${{ parameters.platform }}/certs
               workingDirectory: '$(Pipeline.Workspace)/build/$(artifactName)'
               displayName: 'Move Download Appstore API key'
               condition: and(succeeded(), eq('${{ parameters.platform }}', 'ios'))
