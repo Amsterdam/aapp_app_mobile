@@ -23,7 +23,6 @@ test(`accessibleText skips undefined fragments`, () => {
   expect(accessibleText('text', undefined)).toBe('text')
 })
 
-// @ts-ignore
 test(`accessibleText skips null fragments`, () => {
   expect(accessibleText('text', null)).toBe('text')
 })
