@@ -137,8 +137,8 @@ def getVersionFromPackagejson() {
 }
 
 def getBuildNumber() {
-   def buildNumber = System.getenv("BUILD_NUMBER")
-    if (buildNumber != null) {
+    def buildNumber = System.getenv("BUILD_NUMBER")
+    if (buildNumber != null && buildNumber != "0") {
         return Integer.parseInt(buildNumber)
     } else {
         return 1
