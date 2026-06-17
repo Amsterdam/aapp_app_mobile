@@ -44,7 +44,7 @@ export const ProjectCard = memo(
     return (
       <>
         <PressableBase
-          accessibilityLabel={`${title + ', '}${subtitle ?? '' + ', '}${additionalAccessibilityLabel ?? ''}`}
+          accessibilityLabel={`${title + ', '}${subtitle ?? ''}${additionalAccessibilityLabel ? ', ' + additionalAccessibilityLabel : ''}`}
           accessibilityRole="button"
           onPress={onPress}
           style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
