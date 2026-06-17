@@ -190,7 +190,6 @@ module.exports = {
         'prettier/prettier': 'off',
         'react/jsx-no-explicit-spread': 'off',
         'amsterdam/jsx-no-explicit-spread': 'error',
-        'amsterdam/module-stack-required': 'error',
         'padding-line-between-statements': [
           'warn',
           {
