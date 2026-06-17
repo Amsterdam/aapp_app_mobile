@@ -20,8 +20,17 @@ const getTextFragments = (children: ReactNode): string[] => {
     return children.flatMap(getTextFragments)
   }
 
-  if (isValidElement<{children?: ReactNode}>(children)) {
-    return getTextFragments(children.props.children)
+  if (isValidElement(children)) {
+    const props = children.props as {children?: ReactNode; text?: unknown}
+    const fragments: string[] = []
+
+    if (typeof props.text === 'string' || typeof props.text === 'number') {
+      fragments.push(String(props.text))
+    }
+
+    fragments.push(...getTextFragments(props.children))
+
+    return fragments
   }
 
   return []
