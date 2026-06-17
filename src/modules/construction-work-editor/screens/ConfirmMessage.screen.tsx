@@ -75,12 +75,12 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
 
         formData.append('image', {
           name:
-            mainImage?.filename ??
-            mainImage?.path.split('/')[mainImage?.path.split('/').length - 1],
-          type: mainImage?.mime,
-          uri: mainImage?.path.startsWith('file://')
-            ? mainImage?.path
-            : `file://${mainImage?.path}`,
+            mainImage?.fileName ??
+            mainImage?.uri.split('/')[mainImage?.uri.split('/').length - 1],
+          type: mainImage?.mimeType,
+          uri: mainImage?.uri.startsWith('file://')
+            ? mainImage?.uri
+            : `file://${mainImage?.uri}`,
         })
         const description = mainImageDescription ?? 'Vervangende afbeelding'
 
@@ -108,7 +108,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   const image = (
     <Column gutter="sm">
       {mainImage ? (
-        <Image source={{uri: mainImage?.path}} />
+        <Image source={mainImage} />
       ) : (
         <FigureWithFacadesBackground testID="ConstructionWorkEditorConfirmBackground">
           <ProjectWarningFallbackImage />

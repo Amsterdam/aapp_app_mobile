@@ -73,11 +73,16 @@ export const MessageForm = ({ref, onMainImageSelected}: Props) => {
     (viaCamera = false) =>
       (data: FormData) => {
         void openImagePicker(viaCamera).then(mainImage => {
-          if (!mainImage) {
+          if (!mainImage?.[0]) {
             return
           }
 
-          dispatch(setMainImage({projectId: currentProjectId, mainImage}))
+          dispatch(
+            setMainImage({
+              projectId: currentProjectId,
+              mainImage: mainImage[0],
+            }),
+          )
 
           if (!mainImageDescription) {
             dispatch(
