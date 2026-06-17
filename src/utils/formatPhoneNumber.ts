@@ -41,8 +41,12 @@ const threeDigitAreaCodes = [
  * https://www.amsterdam.nl/schrijfwijzer/tekstonderdelen-heldere-taal/telefoonnummers/
  */
 export const formatPhoneNumber = (
-  phoneNumber: string | undefined = '',
+  phoneNumber?: string,
 ): string | undefined => {
+  if (!phoneNumber) {
+    return undefined
+  }
+
   if (phoneNumber.startsWith('+31')) {
     phoneNumber = phoneNumber.replace('+31', '0')
   }
