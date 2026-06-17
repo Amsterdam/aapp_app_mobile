@@ -13,6 +13,7 @@ export const PhoneButton = ({
   ...buttonProps
 }: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
+  const formattedPhoneNumber = formatPhoneNumber(phoneNumber)
 
   return (
     <Row>
@@ -20,10 +21,11 @@ export const PhoneButton = ({
         accessibilityLanguage="nl-NL"
         {...buttonProps}
         accessibilityLabel={
-          accessibilityLabel || `Bel ${formatPhoneNumber(phoneNumber)}`
+          accessibilityLabel ||
+          `Bel ${(formattedPhoneNumber ?? '').split(' ').join(', ')}`
         }
         icon={{isFilled: true, name: 'phone'}}
-        label={formatPhoneNumber(phoneNumber)}
+        label={formattedPhoneNumber}
         onPress={() => {
           openPhoneUrl(phoneNumber)
         }}
