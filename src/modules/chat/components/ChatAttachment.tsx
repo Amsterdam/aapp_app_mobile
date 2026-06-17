@@ -140,23 +140,21 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
 
         await result.copy(copiedFile, {overwrite: true})
 
-        if (result) {
-          try {
-            await sendPDF(copiedFile.uri, result.name)
-            onSelect()
-          } catch (error) {
-            devError(error)
-            Alert.alert(
-              'PDF opsturen is mislukt',
-              'Sorry, opsturen van het PDF document is mislukt. Probeer het later nog eens.',
-            )
+        try {
+          await sendPDF(copiedFile.uri, result.name)
+          onSelect()
+        } catch (error) {
+          devError(error)
+          Alert.alert(
+            'PDF opsturen is mislukt',
+            'Sorry, opsturen van het PDF document is mislukt. Probeer het later nog eens.',
+          )
 
-            trackException(ExceptionLogKey.chatSendPDF, fileName, {
-              error,
-            })
-          } finally {
-            copiedFile.delete()
-          }
+          trackException(ExceptionLogKey.chatSendPDF, fileName, {
+            error,
+          })
+        } finally {
+          copiedFile.delete()
         }
       },
       error => {
