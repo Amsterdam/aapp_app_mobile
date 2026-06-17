@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/redirects/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const RedirectsStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

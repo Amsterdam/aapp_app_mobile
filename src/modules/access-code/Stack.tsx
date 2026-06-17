@@ -13,7 +13,7 @@ import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.s
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const AccessCodeStack = () => {
+export const ModuleStack = () => {
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isCodeConfirmed} = useConfirmAccessCode()
   const screenOptions = useScreenOptions()

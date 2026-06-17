@@ -13,58 +13,35 @@ import type {
 } from '@/modules/service/routes'
 import type {SurveyStackParams} from '@/modules/survey/routes'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
-import {AccessCodeStack} from '@/modules/access-code/Stack'
 import {AccessCodeStackParams} from '@/modules/access-code/routes'
-import {AddressStack} from '@/modules/address/Stack'
 import {AddressModalParams, AddressStackParams} from '@/modules/address/routes'
-import {BoatChargingStack} from '@/modules/boat-charging/Stack'
-import {BurningGuideStack} from '@/modules/burning-guide/Stack'
-import {ChatStack} from '@/modules/chat/Stack'
-import {CityPassStack} from '@/modules/city-pass/Stack'
 import {
   CityPassModalParams,
   CityPassStackParams,
 } from '@/modules/city-pass/routes'
-import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
 import {ConstructionWorkStackParams} from '@/modules/construction-work/routes'
-import {ConstructionWorkEditorStack} from '@/modules/construction-work-editor/Stack'
 import {
   ConstructionWorkEditorModalParams,
   ConstructionWorkEditorStackParams,
 } from '@/modules/construction-work-editor/routes'
-import {ContactStack} from '@/modules/contact/Stack'
 import {ContactModalParams, ContactStackParams} from '@/modules/contact/routes'
-import {ElectionsStack} from '@/modules/elections/Stack'
 import {ElectionsStackParams} from '@/modules/elections/routes'
 import {modals as modalsGenerated} from '@/modules/generated/modals.generated'
-import {HomeStack} from '@/modules/home/Stack'
+import {stacks as stacksGenerated} from '@/modules/generated/stacks.generated'
 import {HomeModalParams, HomeStackParams} from '@/modules/home/routes'
-import {KingsdayStack} from '@/modules/kingsday/Stack'
-import {MijnAmsterdamStack} from '@/modules/mijn-amsterdam/Stack'
-import {NewsStack} from '@/modules/news/Stack'
-import {NotificationHistoryStack} from '@/modules/notification-history/Stack'
-import {OnboardingStack} from '@/modules/onboarding/Stack'
 import {OnboardingStackParams} from '@/modules/onboarding/routes'
-import {ParkingStack} from '@/modules/parking/Stack'
 import {ParkingStackParams} from '@/modules/parking/routes'
-import {RedirectsStack} from '@/modules/redirects/Stack'
 import {RedirectsStackParams} from '@/modules/redirects/routes'
-import {ReportProblemStack} from '@/modules/report-problem/Stack'
 import {
   ReportProblemModalParams,
   ReportProblemStackParams,
 } from '@/modules/report-problem/routes'
-import {ServiceStack} from '@/modules/service/Stack'
 import {ModuleSlug} from '@/modules/slugs'
-import {SurveyStack} from '@/modules/survey/Stack'
-import {UserStack} from '@/modules/user/Stack'
 import {UserModalParams, UserStackParams} from '@/modules/user/routes'
-import {WasteContainerStack} from '@/modules/waste-container/Stack'
 import {
   WasteContainerModalParams,
   WasteContainerStackParams,
 } from '@/modules/waste-container/routes'
-import {WasteGuideStack} from '@/modules/waste-guide/Stack'
 import {
   WasteGuideModalParams,
   WasteGuideStackParams,
@@ -94,32 +71,7 @@ export type ModuleStackParams = AccessCodeStackParams &
   NotificationHistoryStackParams &
   NewsStackParams
 
-const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
-  [ModuleSlug['access-code']]: AccessCodeStack,
-  [ModuleSlug.address]: AddressStack,
-  [ModuleSlug['boat-charging']]: BoatChargingStack,
-  [ModuleSlug['burning-guide']]: BurningGuideStack,
-  [ModuleSlug.chat]: ChatStack,
-  [ModuleSlug['city-pass']]: CityPassStack,
-  [ModuleSlug['construction-work']]: ConstructionWorkStack,
-  [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
-  [ModuleSlug.contact]: ContactStack,
-  [ModuleSlug.home]: HomeStack,
-  [ModuleSlug.kingsday]: KingsdayStack,
-  [ModuleSlug['mijn-amsterdam']]: MijnAmsterdamStack,
-  [ModuleSlug.news]: NewsStack,
-  [ModuleSlug['notification-history']]: NotificationHistoryStack,
-  [ModuleSlug.onboarding]: OnboardingStack,
-  [ModuleSlug.parking]: ParkingStack,
-  [ModuleSlug['waste-container']]: WasteContainerStack,
-  [ModuleSlug['report-problem']]: ReportProblemStack,
-  [ModuleSlug.user]: UserStack,
-  [ModuleSlug.redirects]: RedirectsStack,
-  [ModuleSlug.service]: ServiceStack,
-  [ModuleSlug.survey]: SurveyStack,
-  [ModuleSlug.elections]: ElectionsStack,
-  [ModuleSlug['waste-guide']]: WasteGuideStack,
-}
+const stacks: Record<ModuleSlug, ComponentType<unknown>> = stacksGenerated
 
 export type ModalParams = AddressModalParams &
   CityPassModalParams &

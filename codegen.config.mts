@@ -23,6 +23,21 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
+    match: 'Stack.tsx',
+    output: 'src/modules/generated/stacks.generated.ts',
+    imports: [
+      {
+        import: 'ModuleStack',
+        exportName: 'stacks',
+        optional: true,
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies: defaultSatisfies,
+      },
+    ],
+  },
+  {
+    inputDir,
     match: 'PreRenderComponent.tsx',
     output: 'src/modules/generated/preRenderComponents.generated.ts',
     imports: [

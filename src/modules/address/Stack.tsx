@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/address/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const AddressStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
   const screenOptionsSettings = useScreenOptions({
     screenType: 'settings',

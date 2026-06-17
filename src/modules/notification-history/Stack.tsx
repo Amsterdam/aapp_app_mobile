@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/notification-history/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const NotificationHistoryStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (
