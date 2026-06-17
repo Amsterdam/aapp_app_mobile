@@ -9,7 +9,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {type Notification} from '@/modules/notification-history/types'
 import {notificationToPushNotification} from '@/modules/notification-history/utils/notificationToPushNotification'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {stripAppPrefixFromRoute} from '@/utils/stripAppPrefixFromRoute'
 
 type Props = {
@@ -85,13 +84,7 @@ export const NotificationHistoryItemPressable = ({
 
   return (
     <PressableBase
-      accessibilityLabel={accessibleText(
-        is_read ? '' : 'Ongelezen bericht: ',
-        title,
-        body,
-        `ontvangen: ${createdAt}`,
-        context.url ? 'Opent in webbrowser.' : '',
-      )}
+      accessibilityLabel={`${is_read ? '' : 'Ongelezen bericht: '} ${title} ${body}, ontvangen: ${createdAt} ${context.url ? 'Opent in webbrowser.' : ''}`}
       onPress={onNotificationPress}
       testID={`NotificationHistoryItem${id}Button`}>
       {children}

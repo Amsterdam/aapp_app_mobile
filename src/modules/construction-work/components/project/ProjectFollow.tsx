@@ -18,7 +18,6 @@ import {
 import {PiwikDimension} from '@/processes/piwik/types'
 import {zTokens} from '@/themes/tokens/z'
 import {Permissions} from '@/types/permissions'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   followers: number
@@ -115,10 +114,7 @@ export const ProjectFollow = ({
           />
         </ProductTourTipWrapper>
         <SingleSelectable
-          accessibilityLabel={accessibleText(
-            followers.toString(),
-            followersPhrase,
-          )}>
+          accessibilityLabel={`${followers.toString()}, ${followersPhrase}`}>
           <Phrase
             testID="ConstructionWorkProjectFollowersText"
             variant="small">

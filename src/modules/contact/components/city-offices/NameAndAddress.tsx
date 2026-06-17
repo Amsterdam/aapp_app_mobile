@@ -9,7 +9,6 @@ import {
   getAddressLine2,
 } from '@/modules/address/utils/addDerivedAddressFields'
 import {CityOffice} from '@/modules/contact/types'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>
 
@@ -20,11 +19,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
     <Column gutter="md">
       <TopTaskButton
         accessibilityHint="Tik om een ander stadsloket te selecteren."
-        accessibilityLabel={accessibleText(
-          title,
-          getAddressLine1(address),
-          getAddressLine2(address),
-        )}
+        accessibilityLabel={`${title} ${getAddressLine1(address)} ${getAddressLine2(address)}`}
         icon={{name: 'person-at-desk'}}
         onPress={() => openBottomSheet()}
         testID="ContactCurrentCityOfficeButton"

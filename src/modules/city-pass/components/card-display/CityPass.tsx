@@ -19,7 +19,6 @@ import {CityPassPass} from '@/modules/city-pass/types'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
 const PASS_BORDER_RADIUS = 10
@@ -54,7 +53,7 @@ export const CityPass = ({
 
   const accessibilityLabel =
     actief === false
-      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel ${accessibleText('020 252 6000')} om te deblokkeren.`
+      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel 020 252 6000 om te deblokkeren.`
       : `De stadspas van ${firstname} ${infix ?? ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`
 
   return (

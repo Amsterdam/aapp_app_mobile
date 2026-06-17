@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {useCallback, useRef} from 'react'
 import type {TestProps} from '@/components/ui/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Switch} from '@/components/ui/forms/Switch'
@@ -10,7 +10,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {Permissions} from '@/types/permissions'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   description: string
@@ -37,6 +36,7 @@ export const NotificationToggleBox = ({
   onChange,
   disabled,
 }: Props) => {
+  const valueRef = useRef(value)
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
     Permissions.notifications,
   )
@@ -44,10 +44,12 @@ export const NotificationToggleBox = ({
   const onChangeFn = useCallback(() => {
     if (value) {
       onChange(false)
+      valueRef.current = false
     } else {
       void registerDeviceIfPermitted(true).then(hasPermission => {
         if (hasPermission) {
           onChange(true)
+          valueRef.current = true
         } else {
           navigateToInstructionsScreen()
         }
@@ -57,7 +59,7 @@ export const NotificationToggleBox = ({
 
   return (
     <Switch
-      accessibilityLabel={`"${accessibleText(description)}" staat ${value ? 'aan' : 'uit'}`}
+      accessibilityLabel={`${description} staat ${valueRef.current ? 'aan' : 'uit'}`}
       disabled={disabled}
       label={
         <Column

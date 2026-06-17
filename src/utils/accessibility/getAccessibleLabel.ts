@@ -1,12 +1,11 @@
 import {Children, isValidElement, type ReactNode} from 'react'
 import {abbreviationsPronounce} from '@/utils/accessibility/abbreviationsPronounce'
 
-const normalizeAccessibleLabel = (
-  ...fragments: (string | undefined | null)[]
-) =>
-  abbreviationsPronounce(
-    fragments.filter(fragment => fragment).join(', '),
-  ).replace(/\d{4,}/g, match => match.split('').join(', '))
+const injectCommas = (...fragments: (string | undefined | null)[]) =>
+  fragments.filter(fragment => fragment).join(', ')
+
+export const accessibleText = (...fragments: (string | undefined | null)[]) =>
+  abbreviationsPronounce(injectCommas(...fragments))
 
 const getTextFragments = (children: ReactNode): string[] => {
   if (typeof children === 'string' || typeof children === 'number') {
@@ -36,12 +35,10 @@ export const getAccessibleLabel = ({
   children?: ReactNode
 }) => {
   if (accessibilityLabel !== undefined) {
-    return normalizeAccessibleLabel(accessibilityLabel)
+    return accessibleText(accessibilityLabel)
   }
 
   const textFragments = Children.toArray(children).flatMap(getTextFragments)
 
-  return textFragments.length > 0
-    ? normalizeAccessibleLabel(...textFragments)
-    : undefined
+  return textFragments.length > 0 ? accessibleText(...textFragments) : undefined
 }

@@ -10,7 +10,6 @@ import {ParkingAccountNameForm} from '@/modules/parking/components/accounts/Park
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccounts} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   reportCode?: string
@@ -37,11 +36,7 @@ export const ParkingAccountDetail = ({reportCode}: Props) => {
       <Box variant="distinct">
         <Column gutter="md">
           <AccessibilityGroup
-            accessibilityLabel={accessibleText(
-              'Meldcode',
-              reportCode,
-              accountType,
-            )}>
+            accessibilityLabel={`Meldcode ${reportCode} ${accountType}`}>
             <Column>
               <Title
                 level="h2"
