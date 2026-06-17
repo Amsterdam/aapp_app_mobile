@@ -87,7 +87,11 @@ target 'AmsterdamApp' do
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
         config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = min_ios_version_supported
+        if target.name == 'Alamofire'
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.1'
+        else
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = min_ios_version_supported
+        end
       end
 
       # Fix for Xcode 26.4 build error
