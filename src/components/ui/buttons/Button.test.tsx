@@ -202,7 +202,7 @@ describe('Button', () => {
       </StoreProvider>,
     )
 
-    expect(getByTestId('Button').props.accessibilityLabel).toBe('12345')
+    expect(getByTestId('Button').props.accessibilityLabel).toBe('1, 2, 3, 4, 5')
   })
 
   it('normalizes an explicit accessibility label', () => {
@@ -216,7 +216,7 @@ describe('Button', () => {
     )
 
     expect(getByTestId('Button').props.accessibilityLabel).toBe(
-      'tot en met 12345',
+      'tot en met 1, 2, 3, 4, 5',
     )
   })
 })

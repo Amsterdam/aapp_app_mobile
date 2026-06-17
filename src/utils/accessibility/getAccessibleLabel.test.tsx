@@ -39,7 +39,7 @@ test('accessibleText joins text fragments with commas', () => {
 
 test('returns normalized explicit accessibility label', () => {
   expect(getAccessibleLabel({accessibilityLabel: 't/m 12345'})).toBe(
-    'tot en met 12345',
+    'tot en met 1, 2, 3, 4, 5',
   )
 })
 
@@ -53,7 +53,7 @@ test('derives accessibility label from nested children', () => {
         </>
       ),
     }),
-  ).toBe('Onderwerp, tot en met 12345')
+  ).toBe('Onderwerp, tot en met 1, 2, 3, 4, 5')
 })
 
 test('returns undefined when there is no readable text', () => {
