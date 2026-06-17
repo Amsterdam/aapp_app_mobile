@@ -11,7 +11,6 @@ test(`accessibleText returns empty string`, () => {
   expect(accessibleText('')).toBe('')
 })
 
-// @ts-ignore
 test(`accessibleText ignores null`, () => {
   expect(accessibleText(null)).toBe('')
 })
