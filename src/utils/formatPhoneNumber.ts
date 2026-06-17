@@ -40,9 +40,7 @@ const threeDigitAreaCodes = [
  * Formats phone numbers according to the City’s editorial style.
  * https://www.amsterdam.nl/schrijfwijzer/tekstonderdelen-heldere-taal/telefoonnummers/
  */
-export const formatPhoneNumber = (
-  phoneNumber?: string,
-): string | undefined => {
+export const formatPhoneNumber = (phoneNumber?: string): string | undefined => {
   if (!phoneNumber) {
     return undefined
   }

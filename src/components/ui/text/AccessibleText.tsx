@@ -15,10 +15,14 @@ export const AccessibleText = ({
   accessibilityLabel: explicitAccessibilityLabel,
   ...props
 }: AccessibleTextProps) => {
-  const accessibilityLabel = useMemo(() => getAccessibleLabel({
-      accessibilityLabel: explicitAccessibilityLabel,
-      children,
-    }), [children, explicitAccessibilityLabel])
+  const accessibilityLabel = useMemo(
+    () =>
+      getAccessibleLabel({
+        accessibilityLabel: explicitAccessibilityLabel,
+        children,
+      }),
+    [children, explicitAccessibilityLabel],
+  )
 
   return (
     <Text
