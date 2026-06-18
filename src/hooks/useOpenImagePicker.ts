@@ -17,11 +17,8 @@ const PERMISSION_ERRORS = new Set([
   'Missing camera or camera roll permission',
 ])
 
-const getAddPhotoFeedback = (
-  viaCamera = false,
-  code?: ImagePicker.ImagePickerErrorResult['code'],
-) => {
-  if (code && PERMISSION_ERRORS.has(code)) {
+const getAddPhotoFeedback = (viaCamera = false, errorMessage?: string) => {
+  if (errorMessage && PERMISSION_ERRORS.has(errorMessage)) {
     return `Sorry, je kunt geen foto ${
       viaCamera ? 'maken' : 'toevoegen'
     }, omdat de app geen toestemming heeft om je ${
