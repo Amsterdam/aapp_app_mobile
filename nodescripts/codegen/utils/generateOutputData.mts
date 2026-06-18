@@ -19,7 +19,7 @@ const generateOutputType = (
   `
 
 export type ${exportName} = 
-  ${list.join(` ${joinType === 'union' ? '|' : '&'} `)}
+  ${list.length ? list.join(` ${joinType === 'union' ? '|' : '&'} `) : 'Record<string, never>'}
 `
 
 const generateOutputDataSpreadObject = (

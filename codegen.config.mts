@@ -32,7 +32,7 @@ export const config: CodeGenConfig = [
         optional: true,
         result: moduleBasedResult,
         resultImports: defaultResultImports,
-        satisfies: defaultSatisfies,
+        satisfies: 'Record<ModuleSlug, React.ComponentType>',
       },
     ],
   },

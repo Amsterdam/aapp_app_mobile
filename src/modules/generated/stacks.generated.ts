@@ -49,4 +49,4 @@ export const stacks = {
   [ModuleSlug.user]: stacks21,
   [ModuleSlug['waste-container']]: stacks22,
   [ModuleSlug['waste-guide']]: stacks23,
-} satisfies Partial<Record<ModuleSlug, React.ComponentType>>
+} satisfies Record<ModuleSlug, React.ComponentType>
