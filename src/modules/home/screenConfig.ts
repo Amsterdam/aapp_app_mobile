@@ -3,7 +3,7 @@ import {
   HomeModalName,
   HomeModalParams,
   HomeRouteName,
-  HomeStackParams,
+  ModuleStackParams,
 } from '@/modules/home/routes'
 import {AdminScreen} from '@/modules/home/screens/Admin.screen'
 import {HomeScreen} from '@/modules/home/screens/Home.screen'
@@ -11,7 +11,7 @@ import {ImageViewerScreen} from '@/modules/home/screens/ImageViewer.screen'
 import {PermissionInstructionsScreen} from '@/modules/home/screens/PermissionInstructions.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  HomeStackParams,
+  ModuleStackParams,
   HomeRouteName
 > = {
   [HomeRouteName.admin]: {

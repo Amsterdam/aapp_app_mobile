@@ -2,13 +2,13 @@ import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   ReportProblemModalParams,
   ReportProblemRouteName,
-  ReportProblemStackParams,
+  ModuleStackParams,
 } from '@/modules/report-problem/routes'
 import {ReportProblemScreen} from '@/modules/report-problem/screens/ReportProblem.screen'
 import {ReportProblemWebViewScreen} from '@/modules/report-problem/screens/ReportProblemWebView.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  ReportProblemStackParams,
+  ModuleStackParams,
   ReportProblemRouteName
 > = {
   [ReportProblemRouteName.reportProblem]: {

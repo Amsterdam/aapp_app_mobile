@@ -38,6 +38,19 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
+    match: 'routes.ts',
+    output: 'src/modules/generated/moduleStackParams.generated.ts',
+    imports: [
+      {
+        import: 'ModuleStackParams',
+        exportName: 'ModuleStackParams',
+        optional: true,
+        result: 'typeIntersection',
+      },
+    ],
+  },
+  {
+    inputDir,
     match: 'PreRenderComponent.tsx',
     output: 'src/modules/generated/preRenderComponents.generated.ts',
     imports: [

@@ -4,7 +4,7 @@ import {
   WasteContainerModalName,
   WasteContainerModalParams,
   WasteContainerRouteName,
-  WasteContainerStackParams,
+  ModuleStackParams,
 } from '@/modules/waste-container/routes'
 import {AddWasteCardScreen} from '@/modules/waste-container/screens/AddWasteCard.screen'
 import {AddWasteCardSuccessScreen} from '@/modules/waste-container/screens/AddWasteCardSuccess.screen'
@@ -12,7 +12,7 @@ import {WasteCardScreen} from '@/modules/waste-container/screens/WasteCard.scree
 import {WasteCardHelpScreen} from '@/modules/waste-container/screens/WasteCardHelp.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  WasteContainerStackParams,
+  ModuleStackParams,
   WasteContainerRouteName
 > = {
   [WasteContainerRouteName.addWasteCard]: {

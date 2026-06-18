@@ -9,7 +9,7 @@ export enum WasteGuideRouteName {
   wasteGuideRecyclePoints = 'WasteGuideRecyclePoints',
 }
 
-export type WasteGuideStackParams = {
+export type ModuleStackParams = {
   [WasteGuideRouteName.wasteGuide]: {adres: string} | undefined
   [WasteGuideRouteName.wasteGuideCalendar]: undefined
   [WasteGuideRouteName.wasteGuideFeedback]: undefined

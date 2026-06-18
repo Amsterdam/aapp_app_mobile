@@ -5,7 +5,7 @@ export enum ServiceRouteName {
   overview = 'ServiceOverview',
 }
 
-export type ServiceStackParams = {
+export type ModuleStackParams = {
   [ServiceRouteName.overview]: undefined
   [ServiceRouteName.map]: {id: Service['id']; title: Service['title']}
 }

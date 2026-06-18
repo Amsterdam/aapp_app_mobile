@@ -6,7 +6,7 @@ export enum HomeRouteName {
   home = 'Home',
 }
 
-export type HomeStackParams = {
+export type ModuleStackParams = {
   [HomeRouteName.admin]: undefined
   [HomeRouteName.home]: undefined
 }

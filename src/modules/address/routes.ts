@@ -6,7 +6,7 @@ export enum AddressRouteName {
   chooseAddress = 'ChooseAddress',
 }
 
-export type AddressStackParams = {
+export type ModuleStackParams = {
   [AddressRouteName.address]: undefined
   [AddressRouteName.chooseAddress]: {
     highAccuracyPurposeKey?: HighAccuracyPurposeKey

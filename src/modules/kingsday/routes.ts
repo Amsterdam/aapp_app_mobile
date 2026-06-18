@@ -5,7 +5,7 @@ export enum KingsdayRouteName {
   overview = 'KingsdayOverview',
 }
 
-export type KingsdayStackParams = {
+export type ModuleStackParams = {
   [KingsdayRouteName.overview]: undefined
   [KingsdayRouteName.details]: {id: Service['id']; title: Service['title']}
 }

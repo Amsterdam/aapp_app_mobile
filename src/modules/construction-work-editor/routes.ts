@@ -7,7 +7,7 @@ export enum ConstructionWorkEditorRouteName {
   createMessage = 'CreateMessage',
 }
 
-export type ConstructionWorkEditorStackParams = {
+export type ModuleStackParams = {
   [ConstructionWorkEditorRouteName.addMainImageToMessage]: undefined
   [ConstructionWorkEditorRouteName.authorizedProjects]: {
     accessToken?: string

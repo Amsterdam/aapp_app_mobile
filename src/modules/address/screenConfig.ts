@@ -3,14 +3,14 @@ import {
   AddressModalName,
   AddressModalParams,
   AddressRouteName,
-  AddressStackParams,
+  type ModuleStackParams,
 } from '@/modules/address/routes'
 import {AddressScreen} from '@/modules/address/screens/Address.screen'
 import {ChooseAddressScreen} from '@/modules/address/screens/ChooseAddress.screen'
 import {MyAddressFormScreen} from '@/modules/address/screens/MyAddressForm.screen'
 import {PrivacyInfoScreen} from '@/modules/address/screens/PrivacyInfo.screen'
 
-export const screenConfig: StackNavigationRoutes<AddressStackParams> = {
+export const screenConfig: StackNavigationRoutes<ModuleStackParams> = {
   [AddressRouteName.address]: {
     component: AddressScreen,
     name: AddressRouteName.address,

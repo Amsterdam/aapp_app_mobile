@@ -15,7 +15,7 @@ export enum CityPassRouteName {
   securityCode = 'SecurityCode',
 }
 
-export type CityPassStackParams = {
+export type ModuleStackParams = {
   [CityPassRouteName.cityPassDetails]: {passNumber: CityPass['passNumber']}
   [CityPassRouteName.cityPassLogout]: undefined
   [CityPassRouteName.cityPasses]: {index?: number}

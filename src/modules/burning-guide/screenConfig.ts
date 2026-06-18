@@ -1,7 +1,7 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
-  type BurningGuideStackParams,
   BurningGuideRouteName,
+  type ModuleStackParams,
 } from '@/modules/burning-guide/routes'
 import {BurningGuideScreen} from '@/modules/burning-guide/screens/BurningGuide.screen'
 import {BurningGuideCodeInfoScreen} from '@/modules/burning-guide/screens/BurningGuideCodeInfo.screen'
@@ -10,7 +10,7 @@ import {BurningGuideRisksScreen} from '@/modules/burning-guide/screens/BurningGu
 import {BurningGuideTipsScreen} from '@/modules/burning-guide/screens/BurningGuideTips.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  BurningGuideStackParams,
+  ModuleStackParams,
   BurningGuideRouteName
 > = {
   [BurningGuideRouteName.burningGuide]: {

@@ -17,7 +17,6 @@ export type ImportConfig = {
    * - 'namespace' for namespace import
    * - string for named import
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
   import: 'default' | 'namespace' | (string & {})
   optional?: boolean
   /**
@@ -32,6 +31,8 @@ export type ImportConfig = {
     | 'spreadArray'
     | 'spreadObject'
     | 'array'
+    | 'typeUnion'
+    | 'typeIntersection'
     | ((path: fs.Dirent<string>, name: string) => string)
   resultImports?: string[]
   satisfies?: string

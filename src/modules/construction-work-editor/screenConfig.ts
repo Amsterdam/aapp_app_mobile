@@ -3,7 +3,7 @@ import {
   ConstructionWorkEditorModalName,
   ConstructionWorkEditorModalParams,
   ConstructionWorkEditorRouteName,
-  ConstructionWorkEditorStackParams,
+  type ModuleStackParams,
 } from '@/modules/construction-work-editor/routes'
 import {AddMainImageToMessageScreen} from '@/modules/construction-work-editor/screens/AddMainImageToMessage.screen'
 import {AuthorizedProjectsScreen} from '@/modules/construction-work-editor/screens/AuthorizedProjects.screen'
@@ -12,7 +12,7 @@ import {CreateMessageScreen} from '@/modules/construction-work-editor/screens/Cr
 import {WritingGuideScreen} from '@/modules/construction-work-editor/screens/WritingGuide.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  ConstructionWorkEditorStackParams,
+  ModuleStackParams,
   ConstructionWorkEditorRouteName
 > = {
   [ConstructionWorkEditorRouteName.authorizedProjects]: {

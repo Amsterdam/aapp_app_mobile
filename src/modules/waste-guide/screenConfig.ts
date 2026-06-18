@@ -3,7 +3,7 @@ import {WasteGuideHeaderSideComponent} from '@/modules/waste-guide/components/Wa
 import {
   WasteGuideModalParams,
   WasteGuideRouteName,
-  WasteGuideStackParams,
+  type ModuleStackParams,
 } from '@/modules/waste-guide/routes'
 import {WasteGuideScreen} from '@/modules/waste-guide/screens/WasteGuide.screen'
 import {WasteGuideCalendarScreen} from '@/modules/waste-guide/screens/WasteGuideCalendar.screen'
@@ -13,7 +13,7 @@ import {WasteGuideRecyclePointMapScreen} from '@/modules/waste-guide/screens/Was
 import {WasteGuideRecyclePointsScreen} from '@/modules/waste-guide/screens/WasteGuideRecyclePoints.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  WasteGuideStackParams,
+  ModuleStackParams,
   WasteGuideRouteName
 > = {
   [WasteGuideRouteName.wasteGuide]: {
