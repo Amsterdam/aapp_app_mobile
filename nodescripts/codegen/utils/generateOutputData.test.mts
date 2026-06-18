@@ -122,6 +122,58 @@ export const myExport = [
 ];`)
   })
 
+  it('should generate intersection type output', () => {
+    const entriesWithImports: EntriesWithImports = [
+      //@ts-ignore
+      {dir: {name: 'x'}},
+      //@ts-ignore
+      {dir: {name: 'y'}},
+    ]
+    const imports: ImportConfig[] = [
+      {
+        exportName: 'Intersection',
+        result: 'typeIntersection',
+        import: 'default',
+      },
+    ]
+    const importsEntries: string[] = []
+
+    const output = generateOutputData(
+      entriesWithImports,
+      imports,
+      importsEntries,
+    )
+
+    expect(output.trim()).toContain(`export type Intersection = 
+  Intersection0 & Intersection1`)
+  })
+
+  it('should generate union type output', () => {
+    const entriesWithImports: EntriesWithImports = [
+      //@ts-ignore
+      {dir: {name: 'x'}},
+      //@ts-ignore
+      {dir: {name: 'y'}},
+    ]
+    const imports: ImportConfig[] = [
+      {
+        exportName: 'Union',
+        result: 'typeUnion',
+        import: 'default',
+      },
+    ]
+    const importsEntries: string[] = []
+
+    const output = generateOutputData(
+      entriesWithImports,
+      imports,
+      importsEntries,
+    )
+
+    expect(output.trim()).toContain(`export type Union = 
+  Union0 | Union1`)
+  })
+
   it('should handle empty imports and entries', () => {
     const entriesWithImports: EntriesWithImports = []
     const imports: ImportConfig[] = []

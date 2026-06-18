@@ -14,12 +14,12 @@ export const ${exportName} = [
 const generateOutputType = (
   exportName: string | undefined,
   list: string[],
-  joinType: 'union' | 'intersection' = 'intersection',
+  joinType: 'union' | 'intersection',
 ) =>
   `
 
 export type ${exportName} = 
-  ${list.join(` ${joinType === 'union' ? '&' : '|'} `)}
+  ${list.join(` ${joinType === 'union' ? '|' : '&'} `)}
 `.trim()
 
 const generateOutputDataSpreadObject = (

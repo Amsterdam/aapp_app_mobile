@@ -19,8 +19,6 @@ import {devError} from '@/processes/development'
 
 export type {ModuleStackParams} from '@/modules/generated/moduleStackParams.generated'
 
-const stacks: Record<ModuleSlug, ComponentType<unknown>> = stacksGenerated
-
 export type ModalParams = AddressModalParams &
   CityPassModalParams &
   ConstructionWorkEditorModalParams &
@@ -33,6 +31,8 @@ export type ModalParams = AddressModalParams &
   UserModalParams &
   ServiceModalParams &
   WasteGuideModalParams
+
+const stacks: Record<ModuleSlug, ComponentType<unknown>> = stacksGenerated
 
 export const modals: StackNavigationRoutes<RootStackParams> = modalsGenerated
 
