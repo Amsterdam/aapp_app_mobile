@@ -6,7 +6,6 @@ import {
   Modal,
   ImageProps,
   DimensionValue,
-  Platform,
 } from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -159,7 +158,7 @@ const createStyles = (
       backgroundColor: color.box.background.distinct,
       justifyContent: 'center',
       zIndex: z.overlay,
-      paddingTop: Platform.OS === 'android' ? 0 : insets.top,
+      paddingTop: insets.top,
       paddingRight: insets.right,
       paddingBottom: size.spacing.md + insets.bottom,
       paddingLeft: insets.left,

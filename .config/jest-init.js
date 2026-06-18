@@ -92,9 +92,7 @@ jest.mock(
   'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp.ts',
   () => require('react-native-salesforce-messaging-in-app/src/jestMock.ts'),
 )
-jest.mock('expo-document-picker', () => ({}))
 jest.mock('expo-image-picker', () => ({}))
-jest.mock('expo-file-system/legacy', () => ({}))
 jest.mock('expo-file-system', () => ({}))
 jest.mock('expo-sharing', () => ({}))
 jest.mock('expo-clipboard', () => ({}))

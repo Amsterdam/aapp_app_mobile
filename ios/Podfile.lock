@@ -59,8 +59,6 @@ PODS:
     - ExpoModulesCore
   - ExpoClipboard (56.0.3):
     - ExpoModulesCore
-  - ExpoDocumentPicker (56.0.4):
-    - ExpoModulesCore
   - ExpoDomWebView (56.0.5):
     - ExpoModulesCore
   - ExpoFileSystem (56.0.7):
@@ -2843,7 +2841,6 @@ DEPENDENCIES:
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
   - ExpoBrightness (from `../node_modules/expo-brightness/ios`)
   - ExpoClipboard (from `../node_modules/expo-clipboard/ios`)
-  - ExpoDocumentPicker (from `../node_modules/expo-document-picker/ios`)
   - "ExpoDomWebView (from `../node_modules/@expo/dom-webview/ios`)"
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoHaptics (from `../node_modules/expo-haptics/ios`)
@@ -3005,8 +3002,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-brightness/ios"
   ExpoClipboard:
     :path: "../node_modules/expo-clipboard/ios"
-  ExpoDocumentPicker:
-    :path: "../node_modules/expo-document-picker/ios"
   ExpoDomWebView:
     :path: "../node_modules/@expo/dom-webview/ios"
   ExpoFileSystem:
@@ -3249,7 +3244,6 @@ SPEC CHECKSUMS:
   ExpoAsset: c3045ed094105f5f2bf332e36ef1bd63401c948f
   ExpoBrightness: db4e1904c09d8cad3e120cd82466fdb3cfb8ff85
   ExpoClipboard: eee843698341fd26d571fd2807800f98abb6123c
-  ExpoDocumentPicker: caa9c7c1071dc31262d86a8fe48f51929d291a43
   ExpoDomWebView: 27205be8754f9992913b8a9a08e65019f2207075
   ExpoFileSystem: d730a1cb33f2c91dec01561f0d710054fda32ae9
   ExpoHaptics: 89364cf3c3ca2cfd54cafed42f3be3169bab6d42

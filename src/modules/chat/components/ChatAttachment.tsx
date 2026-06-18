@@ -1,14 +1,19 @@
-import {getDocumentAsync} from 'expo-document-picker'
+import {File, Paths} from 'expo-file-system'
 import {launchCameraAsync, launchImageLibraryAsync} from 'expo-image-picker'
 import {useCallback} from 'react'
 import {Alert, StyleSheet} from 'react-native'
 import Animated, {SlideInDown} from 'react-native-reanimated'
-import {sendImage, sendPDF} from 'react-native-salesforce-messaging-in-app/src'
+import {
+  generateUUID,
+  sendImage,
+  sendPDF,
+} from 'react-native-salesforce-messaging-in-app/src'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {ChatAttachmentButton} from '@/modules/chat/components/ChatAttachmentButton'
+import {devError, devLog} from '@/processes/development'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {Theme} from '@/themes/themes'
@@ -123,28 +128,37 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
     )
   }, [hasCameraPermission, requestCameraPermission, onSelect, trackException])
   const addPDF = useCallback(() => {
-    void getDocumentAsync({
-      type: 'application/pdf',
-    }).then(
-      result => {
-        const asset = result.assets?.[0]
+    void File.pickFileAsync({mimeTypes: 'application/pdf'}).then(
+      async ({result, canceled}) => {
+        if (canceled || !result) {
+          devLog('Upload pdf cancelled or no result.')
 
-        if (asset) {
-          const {uri, name} = asset
+          return
+        }
 
-          sendPDF(uri, name).then(onSelect, error => {
-            Alert.alert(
-              'PDF opsturen is mislukt',
-              'Sorry, opsturen van het PDF document is mislukt. Probeer het later nog eens.',
-            )
+        const copiedFile = new File(Paths.cache, `${generateUUID()}.pdf`)
 
-            trackException(ExceptionLogKey.chatSendPDF, fileName, {
-              error,
-            })
+        await result.copy(copiedFile, {overwrite: true})
+
+        try {
+          await sendPDF(copiedFile.uri, result.name)
+          onSelect()
+        } catch (error) {
+          devError(error)
+          Alert.alert(
+            'PDF opsturen is mislukt',
+            'Sorry, opsturen van het PDF document is mislukt. Probeer het later nog eens.',
+          )
+
+          trackException(ExceptionLogKey.chatSendPDF, fileName, {
+            error,
           })
+        } finally {
+          copiedFile.delete()
         }
       },
       error => {
+        devError(error)
         Alert.alert(
           'PDF kiezen is mislukt',
           'Sorry, kiezen van een PDF document is mislukt. Probeer het later nog eens.',
