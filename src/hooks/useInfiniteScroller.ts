@@ -32,7 +32,7 @@ const getEmptyItems = <DummyItem>(
 
 const config = {
   page: 1,
-  totalPages: 2,
+  totalPages: 1,
   pageSize: 10,
 }
 
