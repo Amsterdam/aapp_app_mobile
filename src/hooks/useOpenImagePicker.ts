@@ -1,13 +1,10 @@
 import * as ImagePicker from 'expo-image-picker'
-import {Platform} from 'react-native'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
-import {usePermission} from '@/hooks/permissions/usePermission'
 import {
   ExceptionLogKey,
   useTrackException,
 } from '@/processes/logging/hooks/useTrackException'
 import {useAlert} from '@/store/slices/alert'
-import {Permissions} from '@/types/permissions'
 
 const DEFAULT_OPTIONS: ImagePicker.ImagePickerOptions = {
   allowsEditing: true,
@@ -46,31 +43,30 @@ export const useOpenImagePicker = (
   const {setAlert} = useAlert()
   const trackException = useTrackException()
 
-  const {
-    hasPermission: hasCameraPermission,
-    requestPermission: requestCameraPermission,
-  } = usePermission(Permissions.camera)
-
   return async (viaCamera = false) => {
+    let assets: ImagePicker.ImagePickerAsset[] | null = null
+    const permissionMethod: keyof typeof ImagePicker = viaCamera
+      ? 'requestCameraPermissionsAsync'
+      : 'requestMediaLibraryPermissionsAsync'
     const method: keyof typeof ImagePicker = viaCamera
       ? 'launchCameraAsync'
       : 'launchImageLibraryAsync'
 
     try {
-      if (
-        method === 'launchCameraAsync' &&
-        !hasCameraPermission &&
-        Platform.OS === 'ios'
-      ) {
-        await requestCameraPermission()
-      }
+      await ImagePicker[permissionMethod]().then(async ({granted}) => {
+        if (!granted) {
+          throw new Error('Missing camera or camera roll permission')
+        }
 
-      const data = await ImagePicker[method]({
-        ...DEFAULT_OPTIONS,
-        ...options,
+        const data = await ImagePicker[method]({
+          ...DEFAULT_OPTIONS,
+          ...options,
+        })
+
+        assets = data.assets
       })
 
-      return data.assets
+      return assets
     } catch (error) {
       const {code, message} = error as ImagePicker.ImagePickerErrorResult
 
