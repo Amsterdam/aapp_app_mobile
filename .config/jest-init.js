@@ -57,8 +57,6 @@ jest.mock('react-native-worklets', () =>
   require('react-native-worklets/src/mock'),
 )
 
-jest.mock('react-native-image-crop-picker', () => ({}))
-
 jest.mock('@notifee/react-native', () =>
   require('@notifee/react-native/jest-mock'),
 )
@@ -97,6 +95,7 @@ jest.mock(
 jest.mock('expo-document-picker', () => ({}))
 jest.mock('expo-image-picker', () => ({}))
 jest.mock('expo-file-system/legacy', () => ({}))
+jest.mock('expo-file-system', () => ({}))
 jest.mock('expo-sharing', () => ({}))
 jest.mock('expo-clipboard', () => ({}))
 jest.mock('expo-brightness', () => ({}))

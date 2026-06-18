@@ -2568,55 +2568,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - RNImageCropPicker (0.51.1):
-    - hermes-engine
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-Core-prebuilt
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-RCTImage
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - ReactNativeDependencies
-    - RNImageCropPicker/QBImagePickerController (= 0.51.1)
-    - TOCropViewController (~> 2.8.0)
-    - Yoga
-  - RNImageCropPicker/QBImagePickerController (0.51.1):
-    - hermes-engine
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-Core-prebuilt
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-RCTImage
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - ReactNativeDependencies
-    - TOCropViewController (~> 2.8.0)
-    - Yoga
   - RNNotifee (9.1.8):
     - React-Core
     - RNNotifee/NotifeeCore (= 9.1.8)
@@ -2881,7 +2832,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - TOCropViewController (2.8.0)
   - TrustKit (3.0.7)
   - Yoga (0.0.0)
 
@@ -3010,7 +2960,6 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - "RNNotifee (from `../node_modules/@notifee/react-native`)"
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -3039,7 +2988,6 @@ SPEC REPOS:
     - nanopb
     - PiwikPROSDK
     - PromisesObjC
-    - TOCropViewController
     - TrustKit
 
 EXTERNAL SOURCES:
@@ -3278,8 +3226,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/messaging"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNImageCropPicker:
-    :path: "../node_modules/react-native-image-crop-picker"
   RNNotifee:
     :path: "../node_modules/@notifee/react-native"
   RNPermissions:
@@ -3331,7 +3277,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleMaps: 0608099d4870cac8754bdba9b6953db543432438
   GoogleUtilities: 4f2618a4a1e762a1ee134a1e2323bba9843e06da
-  hermes-engine: 887a4ed7b01908dede158d69feb79352fa0383ef
+  hermes-engine: a9252ff827cfcaf75e540b56e51acbf41bbf6fbc
   Messaging-InApp-Core: 0fce52f6c73ed4359ddefd537bd63f302094e08d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   NitroModules: 36c5d6bb6a3e21e38b1a3f47f5049d0d4a6d04b9
@@ -3345,7 +3291,7 @@ SPEC CHECKSUMS:
   React: e2dc35338068bbd299c66f043ae0d7f25de8499e
   React-callinvoker: 28b25d21b124c26cebaea713ba7d801b9351dc48
   React-Core: 02ed7d2ffb70437bdf2aba074a13078a7b0b9ff0
-  React-Core-prebuilt: 82ab984411c6ea066c621b1e207b0f66cdaddbff
+  React-Core-prebuilt: d5679040a1eb49f090f02a0418ca7c8a4a02a3e7
   React-CoreModules: b3a5a42dadcde3b5d47b325bd912eb2ced89e146
   React-cxxreact: fe8f88dda044e5905e99a00f41b7a874c3908716
   React-debug: 92944dc4d89f56d640e75498266cbde557a48189
@@ -3421,7 +3367,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 25c9c516839be2c5e3d3344f95dc7da5f7e63fc2
   ReactCodegen: c8f81e6c6f762dcf442a6203a1fb58f7dafc8014
   ReactCommon: 7dfc3250793bf36cf221096ff59e1179e13eef7f
-  ReactNativeDependencies: fb648244bc61e8a0c3c945a610b132f871c0cf41
+  ReactNativeDependencies: 99d6d3962d4f5a5476c12fb661f11a15deb33cf2
   RestartNewArch: 229b04862634bfcf903b0988d336e6559b2fe7e3
   RNBootSplash: 65ee0b8120092c12ef024d082016a0ab6bcf035e
   RNCAsyncStorage: 2ad919e88b8bc2cd80e8697ce66d04d006743283
@@ -3430,14 +3376,12 @@ SPEC CHECKSUMS:
   RNFBApp: e8e006a376b78203874f7dc9db1373fbce8eddce
   RNFBMessaging: c9d94c0494692e87380c09c25d0f5ef1a0733a6c
   RNGestureHandler: 2ff61eac036eaf89f6818bf4ed9c39771a17d134
-  RNImageCropPicker: 6b9ac564593efdf86b886f93aab4356e80db12de
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
   RNPermissions: 55582a496f9e3153be326eb98ed98c2fa0001e95
   RNReanimated: f735b1747a7a93bda7ca102c6d37a3cf54b6d5e8
   RNScreens: 991cc417cd396602a6cf59a42139e5a9d91462a9
   RNSVG: 0e52210d4d43165e7e2cf9c890a9848b27e513ac
   RNWorklets: 4931990f73bc8f347586918b2e13f11dfadf3b75
-  TOCropViewController: 797deaf39c90e6e9ddd848d88817f6b9a8a09888
   TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   Yoga: 77dfa8673de2874e1855002ae59c68b8be9b007b
 

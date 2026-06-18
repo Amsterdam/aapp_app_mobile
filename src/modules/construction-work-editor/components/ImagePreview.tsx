@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native'
-import {Image as ImageType} from 'react-native-image-crop-picker'
+import type {ImagePickerAsset} from 'expo-image-picker'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {Image} from '@/components/ui/media/Image'
@@ -8,7 +8,7 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
-  image: ImageType
+  image: ImagePickerAsset
   onPress: () => void
 } & TestProps
 
@@ -19,7 +19,7 @@ export const ImagePreview = ({image, onPress, testID}: Props) => {
 
   return (
     <View>
-      <Image source={{uri: image.path}} />
+      <Image source={image} />
       <View style={styles.buttonContainer}>
         <IconButton
           accessibilityHint="Verwijder foto"
