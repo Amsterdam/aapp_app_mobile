@@ -1,4 +1,5 @@
 import * as ImagePicker from 'expo-image-picker'
+import {useCallback} from 'react'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {
   ExceptionLogKey,
@@ -40,47 +41,50 @@ export const useOpenImagePicker = (
   const {setAlert} = useAlert()
   const trackException = useTrackException()
 
-  return async (viaCamera = false) => {
-    let assets: ImagePicker.ImagePickerAsset[] | null = null
-    const permissionMethod: keyof typeof ImagePicker = viaCamera
-      ? 'requestCameraPermissionsAsync'
-      : 'requestMediaLibraryPermissionsAsync'
-    const method: keyof typeof ImagePicker = viaCamera
-      ? 'launchCameraAsync'
-      : 'launchImageLibraryAsync'
+  return useCallback(
+    async (viaCamera = false) => {
+      let assets: ImagePicker.ImagePickerAsset[] | null = null
+      const permissionMethod: keyof typeof ImagePicker = viaCamera
+        ? 'requestCameraPermissionsAsync'
+        : 'requestMediaLibraryPermissionsAsync'
+      const method: keyof typeof ImagePicker = viaCamera
+        ? 'launchCameraAsync'
+        : 'launchImageLibraryAsync'
 
-    try {
-      await ImagePicker[permissionMethod]().then(async ({granted}) => {
-        if (!granted) {
-          throw new Error('Missing camera or camera roll permission')
-        }
+      try {
+        await ImagePicker[permissionMethod]().then(async ({granted}) => {
+          if (!granted) {
+            throw new Error('Missing camera or camera roll permission')
+          }
 
-        const data = await ImagePicker[method]({
-          ...DEFAULT_OPTIONS,
-          ...options,
+          const data = await ImagePicker[method]({
+            ...DEFAULT_OPTIONS,
+            ...options,
+          })
+
+          assets = data.assets
         })
 
-        assets = data.assets
-      })
+        return assets
+      } catch (error) {
+        const {code, message} = error as ImagePicker.ImagePickerErrorResult
 
-      return assets
-    } catch (error) {
-      const {code, message} = error as ImagePicker.ImagePickerErrorResult
+        setAlert({
+          text: getAddPhotoFeedback(viaCamera, code || message),
+          testID: 'OpenImagePicker',
+          variant: AlertVariant.negative,
+          hasIcon: false,
+        })
 
-      setAlert({
-        text: getAddPhotoFeedback(viaCamera, code || message),
-        testID: 'OpenImagePicker',
-        variant: AlertVariant.negative,
-        hasIcon: false,
-      })
-
-      trackException(
-        viaCamera
-          ? ExceptionLogKey.takingPhotoFailed
-          : ExceptionLogKey.pickingImageFailed,
-        'useOpenImagePicker.ts',
-        {error, code, viaCamera},
-      )
-    }
-  }
+        trackException(
+          viaCamera
+            ? ExceptionLogKey.takingPhotoFailed
+            : ExceptionLogKey.pickingImageFailed,
+          'useOpenImagePicker.ts',
+          {error, code, viaCamera},
+        )
+      }
+    },
+    [setAlert, trackException, options],
+  )
 }
