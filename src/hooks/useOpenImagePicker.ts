@@ -1,10 +1,13 @@
 import * as ImagePicker from 'expo-image-picker'
+import {Platform} from 'react-native'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
+import {usePermission} from '@/hooks/permissions/usePermission'
 import {
   ExceptionLogKey,
   useTrackException,
 } from '@/processes/logging/hooks/useTrackException'
 import {useAlert} from '@/store/slices/alert'
+import {Permissions} from '@/types/permissions'
 
 const DEFAULT_OPTIONS: ImagePicker.ImagePickerOptions = {
   allowsEditing: true,
@@ -12,7 +15,10 @@ const DEFAULT_OPTIONS: ImagePicker.ImagePickerOptions = {
   mediaTypes: 'images',
 }
 
-const PermissionErrors = new Set(['ERR_USER_REJECTED_PERMISSIONS'])
+const PermissionErrors = new Set([
+  'ERR_USER_REJECTED_PERMISSIONS',
+  'Missing camera or camera roll permission',
+])
 
 const getAddPhotoFeedback = (
   viaCamera = false,
@@ -40,12 +46,25 @@ export const useOpenImagePicker = (
   const {setAlert} = useAlert()
   const trackException = useTrackException()
 
+  const {
+    hasPermission: hasCameraPermission,
+    requestPermission: requestCameraPermission,
+  } = usePermission(Permissions.camera)
+
   return async (viaCamera = false) => {
     const method: keyof typeof ImagePicker = viaCamera
       ? 'launchCameraAsync'
       : 'launchImageLibraryAsync'
 
     try {
+      if (
+        method === 'launchCameraAsync' &&
+        !hasCameraPermission &&
+        Platform.OS === 'ios'
+      ) {
+        await requestCameraPermission()
+      }
+
       const data = await ImagePicker[method]({
         ...DEFAULT_OPTIONS,
         ...options,
@@ -53,10 +72,10 @@ export const useOpenImagePicker = (
 
       return data.assets
     } catch (error) {
-      const {code} = error as ImagePicker.ImagePickerErrorResult
+      const {code, message} = error as ImagePicker.ImagePickerErrorResult
 
       setAlert({
-        text: getAddPhotoFeedback(viaCamera, code),
+        text: getAddPhotoFeedback(viaCamera, code || message),
         testID: 'OpenImagePicker',
         variant: AlertVariant.negative,
         hasIcon: false,
