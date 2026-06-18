@@ -5,13 +5,9 @@ export enum NewsRouteName {
   liveblog = 'NewsLiveblog',
 }
 
-export type NewsStackParams = {
+export type ModuleStackParams = {
   [NewsRouteName.dashboard]: undefined
   [NewsRouteName.article]: {id: number}
   [NewsRouteName.liveblog]: {id: number}
   [NewsRouteName.highlights]: undefined
 }
-
-export enum NewsModalName {}
-
-export type NewsModalParams = Record<string, never>

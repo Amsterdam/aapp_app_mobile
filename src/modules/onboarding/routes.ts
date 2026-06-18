@@ -2,6 +2,6 @@ export enum OnboardingRouteName {
   onboarding = 'Onboarding',
 }
 
-export type OnboardingStackParams = {
+export type ModuleStackParams = {
   [OnboardingRouteName.onboarding]: undefined
 }

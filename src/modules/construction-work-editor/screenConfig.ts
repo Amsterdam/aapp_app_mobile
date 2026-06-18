@@ -1,9 +1,9 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   ConstructionWorkEditorModalName,
-  ConstructionWorkEditorModalParams,
+  ModuleModalParams,
   ConstructionWorkEditorRouteName,
-  ConstructionWorkEditorStackParams,
+  type ModuleStackParams,
 } from '@/modules/construction-work-editor/routes'
 import {AddMainImageToMessageScreen} from '@/modules/construction-work-editor/screens/AddMainImageToMessage.screen'
 import {AuthorizedProjectsScreen} from '@/modules/construction-work-editor/screens/AuthorizedProjects.screen'
@@ -12,7 +12,7 @@ import {CreateMessageScreen} from '@/modules/construction-work-editor/screens/Cr
 import {WritingGuideScreen} from '@/modules/construction-work-editor/screens/WritingGuide.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  ConstructionWorkEditorStackParams,
+  ModuleStackParams,
   ConstructionWorkEditorRouteName
 > = {
   [ConstructionWorkEditorRouteName.authorizedProjects]: {
@@ -43,7 +43,7 @@ export const screenConfig: StackNavigationRoutes<
 }
 
 export const modals: StackNavigationRoutes<
-  ConstructionWorkEditorModalParams,
+  ModuleModalParams,
   ConstructionWorkEditorModalName
 > = {
   [ConstructionWorkEditorModalName.writingGuide]: {

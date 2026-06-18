@@ -1,1 +1,1 @@
-export const SurveyStack = () => null
+export const ModuleStack = () => null

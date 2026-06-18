@@ -11,6 +11,17 @@ export const ${exportName} = [
   ${list.map(item => `...${item}`).join(', \n  ')}
 ]${satisfiesString};`
 
+const generateOutputType = (
+  exportName: string | undefined,
+  list: string[],
+  joinType: 'union' | 'intersection',
+) =>
+  `
+
+export type ${exportName} = 
+  ${list.length ? list.join(` ${joinType === 'union' ? '|' : '&'} `) : 'Record<string, never>'}
+`
+
 const generateOutputDataSpreadObject = (
   exportName: string | undefined,
   list: string[],
@@ -64,6 +75,12 @@ ${imports.flatMap(({resultImports}) => resultImports ?? []).join('\n')}${imports
         result,
         entriesWithImports,
         satisfiesString,
+      )
+    } else if (result === 'typeUnion' || result === 'typeIntersection') {
+      return generateOutputType(
+        exportName,
+        list,
+        result === 'typeUnion' ? 'union' : 'intersection',
       )
     } else {
       return generateOutputDataArray(exportName, list, satisfiesString)

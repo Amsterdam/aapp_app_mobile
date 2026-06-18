@@ -1,13 +1,13 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
-  type BoatChargingStackParams,
   BoatChargingRouteName,
+  type ModuleStackParams,
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingDetails.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  BoatChargingStackParams,
+  ModuleStackParams,
   BoatChargingRouteName
 > = {
   [BoatChargingRouteName.boatCharging]: {

@@ -1,9 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
-import {
-  UserModalParams,
-  UserRouteName,
-  UserStackParams,
-} from '@/modules/user/routes'
+import {UserRouteName, ModuleStackParams} from '@/modules/user/routes'
 import {AccessibilityStatementScreen} from '@/modules/user/screens/AccessibilityStatement.screen'
 import {FeedbackScreen} from '@/modules/user/screens/Feedback.screen'
 import {ModuleSettingsScreen} from '@/modules/user/screens/ModuleSettings.screen'
@@ -17,7 +13,7 @@ import {AccountsScreen} from '@/modules/user/screens/my-accounts/Accounts.screen
 import {LogoutModuleScreen} from '@/modules/user/screens/my-accounts/LogoutModule.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  UserStackParams,
+  ModuleStackParams,
   UserRouteName
 > = {
   [UserRouteName.logoutModule]: {
@@ -105,5 +101,3 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
 }
-
-export const modals: StackNavigationRoutes<UserModalParams> = {}

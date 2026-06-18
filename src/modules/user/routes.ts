@@ -16,7 +16,7 @@ export enum UserRouteName {
   userBiometrics = 'UserBiometrics',
 }
 
-export type UserStackParams = {
+export type ModuleStackParams = {
   [UserRouteName.aboutEnglish]: undefined
   [UserRouteName.accessibilityStatement]: undefined
   [UserRouteName.accounts]:
@@ -36,7 +36,3 @@ export type UserStackParams = {
   [UserRouteName.user]: undefined
   [UserRouteName.userBiometrics]: undefined
 }
-
-export enum UserModalName {}
-
-export type UserModalParams = Record<string, never>

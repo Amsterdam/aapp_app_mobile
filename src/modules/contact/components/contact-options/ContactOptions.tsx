@@ -8,12 +8,11 @@ import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ChatOption} from '@/modules/contact/components/contact-options/ChatOption'
 import {contactOptions} from '@/modules/contact/data/contact'
-import {ContactStackParams} from '@/modules/contact/routes'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const ContactOptions = () => {
-  const {navigate} = useNavigation<keyof ContactStackParams>()
+  const {navigate} = useNavigation()
   const openUrl = useOpenUrl()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 

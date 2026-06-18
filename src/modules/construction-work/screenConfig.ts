@@ -1,9 +1,8 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {ConstructionWorkSearchHeaderButton} from '@/modules/construction-work/components/projects/ConstructionWorkSearchHeaderButton'
 import {
-  ConstructionWorkModalParams,
   ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
+  type ModuleStackParams,
 } from '@/modules/construction-work/routes'
 import {ConstructionWorkScreen} from '@/modules/construction-work/screens/ConstructionWork.screen'
 import {ConstructionWorkSearchScreen} from '@/modules/construction-work/screens/ConstructionWorkSearch.screen'
@@ -13,7 +12,7 @@ import {ProjectSegmentScreen} from '@/modules/construction-work/screens/ProjectS
 import {ProjectWarningScreen} from '@/modules/construction-work/screens/ProjectWarning.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  ConstructionWorkStackParams,
+  ModuleStackParams,
   ConstructionWorkRouteName
 > = {
   [ConstructionWorkRouteName.constructionWork]: {
@@ -58,5 +57,3 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
 }
-
-export const modals: StackNavigationRoutes<ConstructionWorkModalParams> = {}

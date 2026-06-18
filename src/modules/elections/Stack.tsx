@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/elections/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const ElectionsStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

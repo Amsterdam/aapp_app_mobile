@@ -28,7 +28,7 @@ import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 const Stack = createStackNavigator<RootStackParams>()
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
-export const CityPassStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const {accessCode, isLoading} = useGetSecureAccessCode()

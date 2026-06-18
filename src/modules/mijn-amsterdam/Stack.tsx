@@ -1,1 +1,1 @@
-export const MijnAmsterdamStack = () => null
+export const ModuleStack = () => null

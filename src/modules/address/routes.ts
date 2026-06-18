@@ -6,7 +6,7 @@ export enum AddressRouteName {
   chooseAddress = 'ChooseAddress',
 }
 
-export type AddressStackParams = {
+export type ModuleStackParams = {
   [AddressRouteName.address]: undefined
   [AddressRouteName.chooseAddress]: {
     highAccuracyPurposeKey?: HighAccuracyPurposeKey
@@ -19,7 +19,7 @@ export enum AddressModalName {
   privacyInfo = 'PrivacyInfo',
 }
 
-export type AddressModalParams = {
+export type ModuleModalParams = {
   [AddressModalName.myAddressForm]: {showAlertAfterSuccess: boolean}
   [AddressModalName.privacyInfo]: undefined
 }

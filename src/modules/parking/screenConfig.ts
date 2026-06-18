@@ -1,7 +1,7 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {ParkingTransactionHistoryHeaderButton} from '@/modules/parking/components/ParkingTransactionHistoryHeaderButton'
 import {AddLicensePlateHeaderButton} from '@/modules/parking/components/license-plates/AddLicensePlateHeaderButton'
-import {ParkingRouteName, ParkingStackParams} from '@/modules/parking/routes'
+import {ParkingRouteName, ModuleStackParams} from '@/modules/parking/routes'
 import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.screen'
 import {ParkingActiveSessionsScreen} from '@/modules/parking/screens/ParkingActiveSessions.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
@@ -30,7 +30,7 @@ export type ParkingScreenConfigRoutes = Exclude<
 >
 
 export const parkingScreenConfig: StackNavigationRoutes<
-  ParkingStackParams,
+  ModuleStackParams,
   ParkingScreenConfigRoutes
 > = {
   [ParkingRouteName.dashboard]: {

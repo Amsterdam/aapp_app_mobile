@@ -23,6 +23,47 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
+    match: 'Stack.tsx',
+    output: 'src/modules/generated/stacks.generated.ts',
+    imports: [
+      {
+        import: 'ModuleStack',
+        exportName: 'stacks',
+        optional: true,
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies: 'Record<ModuleSlug, React.ComponentType>',
+      },
+    ],
+  },
+  {
+    inputDir,
+    match: 'routes.ts',
+    output: 'src/modules/generated/moduleStackParams.generated.ts',
+    imports: [
+      {
+        import: 'ModuleStackParams',
+        exportName: 'ModuleStackParams',
+        optional: true,
+        result: 'typeIntersection',
+      },
+    ],
+  },
+  {
+    inputDir,
+    match: 'routes.ts',
+    output: 'src/modules/generated/moduleModalParams.generated.ts',
+    imports: [
+      {
+        import: 'ModuleModalParams',
+        exportName: 'ModalParams',
+        optional: true,
+        result: 'typeIntersection',
+      },
+    ],
+  },
+  {
+    inputDir,
     match: 'PreRenderComponent.tsx',
     output: 'src/modules/generated/preRenderComponents.generated.ts',
     imports: [

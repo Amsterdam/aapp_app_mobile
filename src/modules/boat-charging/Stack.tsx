@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/boat-charging/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const BoatChargingStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

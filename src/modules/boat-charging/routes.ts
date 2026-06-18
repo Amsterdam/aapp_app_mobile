@@ -3,7 +3,7 @@ export enum BoatChargingRouteName {
   boatChargingDetails = 'BoatChargingDetails',
 }
 
-export type BoatChargingStackParams = {
+export type ModuleStackParams = {
   [BoatChargingRouteName.boatCharging]: undefined
   [BoatChargingRouteName.boatChargingDetails]: undefined
 }

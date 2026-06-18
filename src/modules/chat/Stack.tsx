@@ -1,1 +1,1 @@
-export const ChatStack = () => null
+export const ModuleStack = () => null

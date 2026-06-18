@@ -3,7 +3,7 @@ import {StackNavigationRoutes} from '@/app/navigation/types'
 import {CityPassDetailsHeaderButton} from '@/modules/city-pass/components/CityPassDetailsHeaderButton'
 import {
   CityPassRouteName,
-  CityPassStackParams,
+  type ModuleStackParams,
 } from '@/modules/city-pass/routes'
 import {BudgetScreen} from '@/modules/city-pass/screens/Budget.screen'
 import {CityPassBlockPassScreen} from '@/modules/city-pass/screens/CityPassBlockPass.screen'
@@ -23,7 +23,7 @@ export type CityPassScreenConfigRoutes =
   | CityPassRouteName.securityCode
 
 export const cityPassScreenConfig: StackNavigationRoutes<
-  CityPassStackParams,
+  ModuleStackParams,
   CityPassScreenConfigRoutes
 > = {
   [CityPassRouteName.dashboard]: {

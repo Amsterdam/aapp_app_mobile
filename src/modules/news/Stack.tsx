@@ -7,7 +7,7 @@ import {screenConfig} from '@/modules/news/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const NewsStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   useAdvanceHighlightedArticle()

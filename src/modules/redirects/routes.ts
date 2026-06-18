@@ -4,7 +4,7 @@ export enum RedirectsRouteName {
   selectCity = 'SelectCity',
 }
 
-export type RedirectsStackParams = {
+export type ModuleStackParams = {
   [RedirectsRouteName.makeAppointment]: undefined
   [RedirectsRouteName.selectCity]: undefined
   [RedirectsRouteName.redirects]: undefined

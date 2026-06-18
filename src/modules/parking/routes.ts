@@ -29,7 +29,7 @@ export enum ParkingRouteName {
   visitorExtendSession = 'ParkingVisitorExtendSession',
 }
 
-export type ParkingStackParams = {
+export type ModuleStackParams = {
   [ParkingRouteName.account]: {reportCode: string}
   [ParkingRouteName.accounts]: undefined
   [ParkingRouteName.addLicensePlate]: undefined

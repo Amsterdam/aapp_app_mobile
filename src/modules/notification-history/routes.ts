@@ -3,7 +3,7 @@ export enum NotificationHistoryRouteName {
   NotificationRedirect = 'NotificationRedirect',
 }
 
-export type NotificationHistoryStackParams = {
+export type ModuleStackParams = {
   [NotificationHistoryRouteName.NotificationHistory]: undefined
   [NotificationHistoryRouteName.NotificationRedirect]:
     | {
@@ -13,7 +13,3 @@ export type NotificationHistoryStackParams = {
       }
     | undefined
 }
-
-export enum NotificationHistoryModalName {}
-
-export type NotificationHistoryModalParams = Record<string, never>

@@ -1,12 +1,9 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
-import {
-  ElectionsStackParams,
-  ElectionsRouteName,
-} from '@/modules/elections/routes'
+import {ModuleStackParams, ElectionsRouteName} from '@/modules/elections/routes'
 import {ElectionsScreen} from '@/modules/elections/screens/Elections.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  ElectionsStackParams,
+  ModuleStackParams,
   ElectionsRouteName
 > = {
   [ElectionsRouteName.elections]: {

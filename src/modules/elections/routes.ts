@@ -2,6 +2,6 @@ export enum ElectionsRouteName {
   elections = 'Elections',
 }
 
-export type ElectionsStackParams = {
+export type ModuleStackParams = {
   [ElectionsRouteName.elections]: undefined
 }

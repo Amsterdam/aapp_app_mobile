@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/report-problem/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const ReportProblemStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

@@ -26,7 +26,7 @@ import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const ParkingStack = () => {
+export const ModuleStack = () => {
   const dispatch = useDispatch()
   const screenOptions = useScreenOptions()
   const screenOptionsSettings = useScreenOptions({
