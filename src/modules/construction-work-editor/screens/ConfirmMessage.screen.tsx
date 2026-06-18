@@ -1,3 +1,4 @@
+import {File} from 'expo-file-system'
 import {type NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -29,6 +30,7 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/service'
+import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 import {escapeHtml} from '@/utils/escapeHtml'
 
@@ -73,15 +75,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       if (mainImage) {
         const formData = new FormData()
 
-        formData.append('image', {
-          name:
-            mainImage?.filename ??
-            mainImage?.path.split('/')[mainImage?.path.split('/').length - 1],
-          type: mainImage?.mime,
-          uri: mainImage?.path.startsWith('file://')
-            ? mainImage?.path
-            : `file://${mainImage?.path}`,
-        })
+        formData.append('image', new File(mainImage.uri))
         const description = mainImageDescription ?? 'Vervangende afbeelding'
 
         formData.append('description', description)
@@ -100,7 +94,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       navigation.popTo(ConstructionWorkEditorRouteName.authorizedProjects, {
         showSuccessfullySentMessageAlert: true,
       })
-    } catch {
+    } catch (err) {
+      devError(err)
       setAlert(alerts.saveMessageFailed)
     }
   }
@@ -108,7 +103,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   const image = (
     <Column gutter="sm">
       {mainImage ? (
-        <Image source={{uri: mainImage?.path}} />
+        <Image source={mainImage} />
       ) : (
         <FigureWithFacadesBackground testID="ConstructionWorkEditorConfirmBackground">
           <ProjectWarningFallbackImage />

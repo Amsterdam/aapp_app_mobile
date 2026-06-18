@@ -15,9 +15,11 @@ import RenderHTML, {
   type Element,
   MixedStyleDeclaration,
   type TNode,
+  type TRenderEngineConfig,
   useInternalRenderer,
 } from 'react-native-render-html'
 import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -103,6 +105,12 @@ const getParentTags = (tnode: TNode) => {
   return tags
 }
 
+const classesStyles: TRenderEngineConfig['classesStyles'] = {
+  'css-text-align-right': {
+    textAlign: 'right',
+  },
+}
+
 /**
  * Renders HTML content, applying the typographic design.
  */
@@ -163,6 +171,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
     <View onLayout={onLayoutChange}>
       <RenderHTML
         baseStyle={baseStyle}
+        classesStyles={classesStyles}
         contentWidth={contentWidth}
         domVisitors={{onElement: convertParagraphToFigure}}
         renderers={renderers}
@@ -321,38 +330,55 @@ const ARenderer: CustomMixedRenderer = props => {
   const {TNodeChildrenRenderer} = props
 
   return (
-    <InlineLink
-      isExternal
-      onPress={() => openUrl(href)}
-      testID="HtmlRendererAInlineLink"
-      variant={isInCaption ? 'small' : 'body'}>
-      <TNodeChildrenRenderer {...props} />
-    </InlineLink>
+    <SingleSelectable>
+      <InlineLink
+        isExternal
+        onPress={() => openUrl(href)}
+        testID="HtmlRendererAInlineLink"
+        variant={isInCaption ? 'small' : 'body'}>
+        <TNodeChildrenRenderer {...props} />
+      </InlineLink>
+    </SingleSelectable>
+  )
+}
+
+const getTextContent = (node: TNode): string => {
+  if ('data' in node && typeof node.data === 'string') {
+    return node.data
+  }
+
+  return (
+    node.children
+      ?.map(child => getTextContent(child))
+      .join('')
+      .trim() ?? ''
   )
 }
 
 const ImgRenderer: CustomMixedRenderer = props => {
   const {rendererProps} = useInternalRenderer('img', props)
-  const hasInnerCaption = props.tnode.children.some(child =>
-    CAPTION_TAGS.has(child?.tagName || ''),
-  )
-  const parentHasCaption = props.tnode.parent?.children.some(child =>
-    CAPTION_TAGS.has(child?.tagName || ''),
-  )
+  const captionNode =
+    props.tnode.children.find(child =>
+      CAPTION_TAGS.has(child?.tagName || ''),
+    ) ??
+    props.tnode.parent?.children.find(child =>
+      CAPTION_TAGS.has(child?.tagName || ''),
+    )
 
   const styles = useThemable(createStyles(false))
   const {alt, source, style} = rendererProps
   const aspectRatio = useDynamicImageAspectRatio(source.uri)
 
-  const combinedStyle =
-    hasInnerCaption || parentHasCaption
-      ? ([style, styles.imgWithCaptionMargins] as ViewProps['style'])
-      : style
+  const combinedStyle = captionNode
+    ? ([style, styles.imgWithCaptionMargins] as ViewProps['style'])
+    : style
+
+  const captionText = captionNode ? getTextContent(captionNode) : undefined
 
   return (
     <View style={combinedStyle}>
       <LazyImage
-        alt={alt}
+        accessibilityLabel={alt || captionText}
         aspectRatio={aspectRatio}
         openInImageViewer
         source={source}

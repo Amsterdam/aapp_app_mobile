@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {Button, type ButtonProps} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -14,16 +14,18 @@ export const AdditionalLoginButton = (props: Props) => {
   const dispatch = useDispatch()
   const {navigate} = useNavigation()
   const isLoggingIn = useParkingAccountIsLoggingIn()
+  const [isPressed, setIsPressed] = useState(false)
 
   const onPress = useCallback(() => {
     dispatch(setIsLoggingIn(true))
+    setIsPressed(true)
   }, [dispatch])
 
   useEffect(() => {
-    if (isLoggingIn) {
+    if (isLoggingIn && isPressed) {
       navigate(ParkingRouteName.login)
     }
-  }, [isLoggingIn, navigate])
+  }, [isLoggingIn, isPressed, navigate])
 
   return (
     <Button

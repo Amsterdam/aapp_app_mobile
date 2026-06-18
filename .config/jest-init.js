@@ -57,8 +57,6 @@ jest.mock('react-native-worklets', () =>
   require('react-native-worklets/src/mock'),
 )
 
-jest.mock('react-native-image-crop-picker', () => ({}))
-
 jest.mock('@notifee/react-native', () =>
   require('@notifee/react-native/jest-mock'),
 )

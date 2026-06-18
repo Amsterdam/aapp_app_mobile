@@ -24,6 +24,12 @@ stages:
         parameters:
           platform: 'ios'
           environment: 'Internal'
+          variant: 'test'
+      - template: ./templates/distribution.yml
+        parameters:
+          platform: 'ios'
+          environment: 'Internal'
+          variant: 'prod'
   - stage: iOSStakeholders
     displayName: 'iOS Stakeholders'
     dependsOn: iOSInternal
@@ -33,6 +39,12 @@ stages:
         parameters:
           platform: 'ios'
           environment: 'Stakeholders'
+          variant: 'test'
+      - template: ./templates/distribution.yml
+        parameters:
+          platform: 'ios'
+          environment: 'Stakeholders'
+          variant: 'prod'
   - stage: iOSProduction
     displayName: 'iOS Production'
     dependsOn: iOSStakeholders
@@ -42,3 +54,4 @@ stages:
         parameters:
           platform: 'ios'
           environment: 'Production'
+          variant: 'prod'
