@@ -24,6 +24,8 @@ export type ImportConfig = {
    * - 'array' return items as an array
    * - 'spreadArray' return items spread into an array
    * - 'spreadObject' return items spread into an object
+   * - 'typeUnion' return a union type
+   * - 'typeIntersection' return an intersection type
    * - `(path, name) => string` custom function to handle the imports
    * @default 'array'
    */
