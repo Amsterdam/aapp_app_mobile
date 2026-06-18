@@ -231,6 +231,7 @@ platform :ios do
           build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
           app_identifier: app[:app_identifier],
           groups: "AmsterdamApp-internal",
+          reject_build_waiting_for_review: true,
           changelog: releaseNotes,
           localized_build_info: {
             "default": {
