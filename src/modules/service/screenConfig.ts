@@ -1,7 +1,6 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   ServiceRouteName,
-  type ServiceModalParams,
   type ModuleStackParams,
 } from '@/modules/service/routes'
 import {ServiceScreen} from '@/modules/service/screens/Service.screen'
@@ -26,5 +25,3 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
 }
-
-export const modals: StackNavigationRoutes<ServiceModalParams> = {}

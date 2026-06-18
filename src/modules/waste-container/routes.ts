@@ -14,6 +14,6 @@ export enum WasteContainerModalName {
   addWasteCardSuccess = 'AddWasteCardSuccess',
 }
 
-export type WasteContainerModalParams = {
+export type ModuleModalParams = {
   [WasteContainerModalName.addWasteCardSuccess]: undefined
 }

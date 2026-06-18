@@ -11,7 +11,3 @@ export type ModuleStackParams = {
   [NewsRouteName.liveblog]: {id: number}
   [NewsRouteName.highlights]: undefined
 }
-
-export enum NewsModalName {}
-
-export type NewsModalParams = Record<string, never>

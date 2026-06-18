@@ -9,7 +9,3 @@ export type ModuleStackParams = {
   [ServiceRouteName.overview]: undefined
   [ServiceRouteName.map]: {id: Service['id']; title: Service['title']}
 }
-
-export enum ServiceModalName {}
-
-export type ServiceModalParams = Record<string, never>

@@ -20,6 +20,7 @@ import {ModuleStackParams as ModuleStackParams18} from '@/modules/survey/routes'
 import {ModuleStackParams as ModuleStackParams19} from '@/modules/user/routes'
 import {ModuleStackParams as ModuleStackParams20} from '@/modules/waste-container/routes'
 import {ModuleStackParams as ModuleStackParams21} from '@/modules/waste-guide/routes'
+
 export type ModuleStackParams = ModuleStackParams0 &
   ModuleStackParams1 &
   ModuleStackParams2 &

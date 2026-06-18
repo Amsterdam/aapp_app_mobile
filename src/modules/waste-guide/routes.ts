@@ -19,7 +19,3 @@ export type ModuleStackParams = {
   [WasteGuideRouteName.wasteGuideRecyclePoints]: undefined
   [WasteGuideRouteName.wasteGuideRecyclePointMap]: undefined
 }
-
-export enum WasteGuideModalName {}
-
-export type WasteGuideModalParams = Record<string, never>

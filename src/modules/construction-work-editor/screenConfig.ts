@@ -1,7 +1,7 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   ConstructionWorkEditorModalName,
-  ConstructionWorkEditorModalParams,
+  ModuleModalParams,
   ConstructionWorkEditorRouteName,
   type ModuleStackParams,
 } from '@/modules/construction-work-editor/routes'
@@ -43,7 +43,7 @@ export const screenConfig: StackNavigationRoutes<
 }
 
 export const modals: StackNavigationRoutes<
-  ConstructionWorkEditorModalParams,
+  ModuleModalParams,
   ConstructionWorkEditorModalName
 > = {
   [ConstructionWorkEditorModalName.writingGuide]: {

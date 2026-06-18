@@ -1,7 +1,7 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   AddressModalName,
-  AddressModalParams,
+  ModuleModalParams,
   AddressRouteName,
   type ModuleStackParams,
 } from '@/modules/address/routes'
@@ -29,7 +29,7 @@ export const screenConfig: StackNavigationRoutes<ModuleStackParams> = {
 }
 
 export const modals: StackNavigationRoutes<
-  AddressModalParams,
+  ModuleModalParams,
   AddressModalName
 > = {
   [AddressModalName.myAddressForm]: {

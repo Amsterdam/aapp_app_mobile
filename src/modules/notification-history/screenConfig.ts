@@ -1,7 +1,6 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   NotificationHistoryRouteName,
-  type NotificationHistoryModalParams,
   type ModuleStackParams,
 } from '@/modules/notification-history/routes'
 import {NotificationHistoryScreen} from '@/modules/notification-history/screens/NotificationHistory.screen'
@@ -26,6 +25,3 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
 }
-
-export const notificationHistoryModals: StackNavigationRoutes<NotificationHistoryModalParams> =
-  {}

@@ -39,7 +39,3 @@ export type ModuleStackParams = {
   [CityPassRouteName.securityCode]: {id: CityPass['id']}
   [CityPassRouteName.cityPassBlockPass]: {passNumber: CityPass['passNumber']}
 }
-
-export enum CityPassModalName {}
-
-export type CityPassModalParams = Record<string, never>

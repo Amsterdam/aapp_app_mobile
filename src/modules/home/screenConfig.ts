@@ -1,7 +1,7 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   HomeModalName,
-  HomeModalParams,
+  ModuleModalParams,
   HomeRouteName,
   ModuleStackParams,
 } from '@/modules/home/routes'
@@ -31,7 +31,7 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const modals: StackNavigationRoutes<HomeModalParams> = {
+export const modals: StackNavigationRoutes<ModuleModalParams> = {
   [HomeModalName.permissionInstructions]: {
     component: PermissionInstructionsScreen,
     name: HomeModalName.permissionInstructions,

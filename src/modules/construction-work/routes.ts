@@ -28,7 +28,3 @@ export type ModuleStackParams = {
     projectId?: number
   }
 }
-
-export enum ConstructionWorkModalName {}
-
-export type ConstructionWorkModalParams = Record<string, never>

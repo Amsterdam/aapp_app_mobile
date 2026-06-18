@@ -1,6 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
-  ReportProblemModalParams,
   ReportProblemRouteName,
   ModuleStackParams,
 } from '@/modules/report-problem/routes'
@@ -29,5 +28,3 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
 }
-
-export const modals: StackNavigationRoutes<ReportProblemModalParams> = {}

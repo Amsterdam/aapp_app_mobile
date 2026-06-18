@@ -13,7 +13,3 @@ export type ModuleStackParams = {
       }
     | undefined
 }
-
-export enum NotificationHistoryModalName {}
-
-export type NotificationHistoryModalParams = Record<string, never>

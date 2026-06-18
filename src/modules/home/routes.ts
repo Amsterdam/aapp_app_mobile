@@ -1,5 +1,5 @@
 import type {ImageProps} from '@/components/ui/media/Image'
-import {PermissionInstructionScreenParams} from '@/modules/home/types'
+import type {PermissionInstructionScreenParams} from '@/modules/home/types'
 
 export enum HomeRouteName {
   admin = 'Admin',
@@ -16,7 +16,7 @@ export enum HomeModalName {
   permissionInstructions = 'PermissionInstructions',
 }
 
-export type HomeModalParams = {
+export type ModuleModalParams = {
   [HomeModalName.permissionInstructions]: PermissionInstructionScreenParams
   [HomeModalName.imageViewer]: Pick<
     ImageProps,

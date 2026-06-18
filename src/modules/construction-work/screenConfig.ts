@@ -1,7 +1,6 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {ConstructionWorkSearchHeaderButton} from '@/modules/construction-work/components/projects/ConstructionWorkSearchHeaderButton'
 import {
-  ConstructionWorkModalParams,
   ConstructionWorkRouteName,
   type ModuleStackParams,
 } from '@/modules/construction-work/routes'
@@ -58,5 +57,3 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
 }
-
-export const modals: StackNavigationRoutes<ConstructionWorkModalParams> = {}

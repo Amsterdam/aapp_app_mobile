@@ -11,8 +11,8 @@ import {
   StackNavigationProp as StackNavigationPropOriginal,
 } from '@react-navigation/stack'
 import {type ComponentType} from 'react'
-import {type ModuleSlug} from '@/modules/slugs'
-import {type ModuleStackParams, type ModalParams} from '@/modules/stacks'
+import type {ModuleStackParams, ModalParams} from '@/modules/stacks'
+import {ModuleSlug} from '@/modules/slugs'
 
 /** We use these param names exclusively to set a screen's titles: the header title and the title for analytics */
 export type TitleParams = {
@@ -36,7 +36,8 @@ type ModuleParams<
 
 export type RootStackParams = ModuleParams<ModuleStackParams> &
   ModuleStackParams &
-  ModalParams
+  ModalParams &
+  Record<string, never> // This typing was previously added to this intersection via ModalParams containing Record<string, never>. Without it, typing would break in some files.
 
 /**
  * NavigationProp is the type of a navigation object as part of NavigationProps or as returned by useNavigation.

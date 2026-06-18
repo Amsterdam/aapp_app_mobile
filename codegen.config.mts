@@ -51,6 +51,19 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
+    match: 'routes.ts',
+    output: 'src/modules/generated/moduleModalParams.generated.ts',
+    imports: [
+      {
+        import: 'ModuleModalParams',
+        exportName: 'ModalParams',
+        optional: true,
+        result: 'typeIntersection',
+      },
+    ],
+  },
+  {
+    inputDir,
     match: 'PreRenderComponent.tsx',
     output: 'src/modules/generated/preRenderComponents.generated.ts',
     imports: [

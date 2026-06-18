@@ -20,7 +20,7 @@ const generateOutputType = (
 
 export type ${exportName} = 
   ${list.join(` ${joinType === 'union' ? '|' : '&'} `)}
-`.trim()
+`
 
 const generateOutputDataSpreadObject = (
   exportName: string | undefined,
