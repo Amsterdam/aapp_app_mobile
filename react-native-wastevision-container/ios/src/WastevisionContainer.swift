@@ -25,7 +25,7 @@ import MobileContainerSDK
 }
 
 @objc
-public class WasteVisionContainer: NSObject, WasteVisionContainerDelegate {
+public class WasteVisionContainer: NSObject, BluetoothConnectionDelegate {
     
     public weak var delegate: WasteVisionContainerDelegate?
     var discoveredDevices: [MobileContainerSDK.BluetoothContainerDevice] = []
@@ -129,5 +129,21 @@ public class WasteVisionContainer: NSObject, WasteVisionContainerDelegate {
     public func onUnlockError(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, error: String?) {
         self.delegate?.onUnlockError(bluetoothContainerDevice: BluetoothContainerDevice(address: bluetoothContainerDevice.uuid.uuidString, name: bluetoothContainerDevice.name, rssi: bluetoothContainerDevice.RSSI), error: error)
         
+    }
+
+    public func onGetTransactionsFinished(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, transactionData: String) {
+        // Not yet exposed through the RN bridge.
+    }
+
+    public func onGetTransactionsFailed(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, error: String?) {
+        // Not yet exposed through the RN bridge.
+    }
+
+    public func onSetWhitelistFinished(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, resultCode: UInt8) {
+        // Not yet exposed through the RN bridge.
+    }
+
+    public func onSetWhitelistFailed(bluetoothContainerDevice: MobileContainerSDK.BluetoothContainerDevice, error: String?) {
+        // Not yet exposed through the RN bridge.
     }
 }
