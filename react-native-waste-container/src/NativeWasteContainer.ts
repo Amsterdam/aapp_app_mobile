@@ -3,7 +3,7 @@ import type {TurboModule} from 'react-native'
 import type {EventEmitter} from 'react-native/Libraries/Types/CodegenTypes'
 
 export interface Spec extends TurboModule {
-  autoUnlock(cardId: CardId): void
+  autoUnlock(cardId: string): void
   checkBluetoothPermission(): Promise<Record<string, BluetoothPermission>>
   connect(bluetoothContainerDevice: BluetoothContainerDevice): void
   disconnect(bluetoothContainerDevice: BluetoothContainerDevice): void
@@ -27,7 +27,7 @@ export interface Spec extends TurboModule {
   stopScan(): void
   unlock(
     bluetoothContainerDevice: BluetoothContainerDevice,
-    cardId: CardId,
+    cardId: string,
   ): void
 }
 
@@ -48,8 +48,6 @@ export type BluetoothContainerDevice = {
    */
   rssi?: number
 }
-
-export type CardId = string // cardId is bij android type [UInt8]
 
 export enum BluetoothState {
   off = 'off',
@@ -80,4 +78,4 @@ export enum BluetoothPermission {
 }
 
 // eslint-disable-next-line import-x/no-default-export
-export default TurboModuleRegistry.getEnforcing<Spec>('WastevisionContainer')
+export default TurboModuleRegistry.getEnforcing<Spec>('WasteContainer')

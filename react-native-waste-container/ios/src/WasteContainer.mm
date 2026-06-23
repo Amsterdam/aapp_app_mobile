@@ -1,33 +1,33 @@
-#import "WastevisionContainer.h"
-#import "react_native_wastevision_container-Swift.h"
+#import "WasteContainer.h"
+#import "react_native_waste_container-Swift.h"
 
-@interface WastevisionContainer () <WasteVisionContainerDelegate> {
+@interface WasteContainer () <WasteContainerDelegate> {
   bool hasListeners;
 }
 
 @end
-@implementation WastevisionContainer
+@implementation WasteContainer
 RCT_EXPORT_MODULE()
 
-WasteVisionContainer* wasteVisionContainer;
+WasteContainerSDK* wasteContainer;
 
 - (void)init:(NSString *)servicePrincipalName servicePrincipalSecret:(NSString *)servicePrincipalSecret organisationId:(NSString *)organisationId {
-    wasteVisionContainer = [[WasteVisionContainer alloc] initWithServicePrincipalName:servicePrincipalName servicePrincipalSecret:servicePrincipalSecret organisationId:organisationId delegate: self];
+    wasteContainer = [[WasteContainerSDK alloc] initWithServicePrincipalName:servicePrincipalName servicePrincipalSecret:servicePrincipalSecret organisationId:organisationId delegate: self];
 }
 
 - (void)startScan{
-    [wasteVisionContainer startScan];
+    [wasteContainer startScan];
 }
 
 - (void)stopScan{
-    [wasteVisionContainer stopScan];
+    [wasteContainer stopScan];
 }
 
 - (void)dispose{
 }
 
 - (void)autoUnlock:(NSString *)cardNumber{
-    [wasteVisionContainer autoUnlockWithCardId:cardNumber];
+    [wasteContainer autoUnlockWithCardId:cardNumber];
 }
 
 - (void)checkBluetoothPermission:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
@@ -35,19 +35,19 @@ WasteVisionContainer* wasteVisionContainer;
 }
 
 
-- (void)connect:(JS::NativeWastevisionContainer::BluetoothContainerDevice &)bluetoothContainerDevice {
-    [wasteVisionContainer connectWithBluetoothContainerDevice:[self parseJSBluetoothContainerDevice:bluetoothContainerDevice]];
+- (void)connect:(JS::NativeWasteContainer::BluetoothContainerDevice &)bluetoothContainerDevice {
+    [wasteContainer connectWithBluetoothContainerDevice:[self parseJSBluetoothContainerDevice:bluetoothContainerDevice]];
 }
 
-- (void)disconnect:(JS::NativeWastevisionContainer::BluetoothContainerDevice &)bluetoothContainerDevice {
-    [wasteVisionContainer disconnectWithBluetoothContainerDevice:[self parseJSBluetoothContainerDevice:bluetoothContainerDevice]];
+- (void)disconnect:(JS::NativeWasteContainer::BluetoothContainerDevice &)bluetoothContainerDevice {
+    [wasteContainer disconnectWithBluetoothContainerDevice:[self parseJSBluetoothContainerDevice:bluetoothContainerDevice]];
 }
 
-- (void)unlock:(JS::NativeWastevisionContainer::BluetoothContainerDevice &)bluetoothContainerDevice cardId:(NSString *)cardId {
-    [wasteVisionContainer unlockWithBluetoothContainerDevice:[self parseJSBluetoothContainerDevice:bluetoothContainerDevice] cardId:cardId];
+- (void)unlock:(JS::NativeWasteContainer::BluetoothContainerDevice &)bluetoothContainerDevice cardId:(NSString *)cardId {
+    [wasteContainer unlockWithBluetoothContainerDevice:[self parseJSBluetoothContainerDevice:bluetoothContainerDevice] cardId:cardId];
 }
 
-- (BluetoothContainerDevice * _Nonnull)parseJSBluetoothContainerDevice:(JS::NativeWastevisionContainer::BluetoothContainerDevice &)bluetoothContainerDeviceDict {
+- (BluetoothContainerDevice * _Nonnull)parseJSBluetoothContainerDevice:(JS::NativeWasteContainer::BluetoothContainerDevice &)bluetoothContainerDeviceDict {
     NSNumber *rssi = nil;
     
     // Check if rssi has a value
@@ -116,7 +116,7 @@ WasteVisionContainer* wasteVisionContainer;
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params
 {
-    return std::make_shared<facebook::react::NativeWastevisionContainerSpecJSI>(params);
+    return std::make_shared<facebook::react::NativeWasteContainerSpecJSI>(params);
 }
 
 @end

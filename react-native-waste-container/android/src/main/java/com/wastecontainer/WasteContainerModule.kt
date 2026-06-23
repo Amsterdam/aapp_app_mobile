@@ -1,4 +1,4 @@
-package com.wastevisioncontainer
+package com.wastecontainer
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
@@ -13,9 +13,9 @@ import com.wastevision.mobile_container_android_sdk.network.Config
 import com.wastevision.mobile_container_android_sdk.network.types.WasteVisionEnvironment
 import com.wastevision.mobile_container_android_sdk.util.BluetoothUtil.Companion.checkBluetoothPermissions
 
-@ReactModule(name = WastevisionContainerModule.NAME)
-class WastevisionContainerModule(reactContext: ReactApplicationContext) :
-  NativeWastevisionContainerSpec(reactContext), BluetoothConnectionDelegate {
+@ReactModule(name = WasteContainerModule.NAME)
+class WasteContainerModule(reactContext: ReactApplicationContext) :
+  NativeWasteContainerSpec(reactContext), BluetoothConnectionDelegate {
 
   private lateinit var bluetoothConnectionManager: BluetoothConnectionManager
 
@@ -94,7 +94,7 @@ class WastevisionContainerModule(reactContext: ReactApplicationContext) :
   }
 
   companion object {
-    const val NAME = "WastevisionContainer"
+    const val NAME = "WasteContainer"
   }
 
   private fun convertBluetoothContainerDevice(bluetoothContainerDevice: BluetoothContainerDevice): ReadableMap {

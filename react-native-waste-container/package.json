@@ -1,10 +1,10 @@
 {
-  "name": "react-native-wastevision-container",
+  "name": "react-native-waste-container",
   "version": "0.0.0",
-  "description": "open waste vision container",
+  "description": "open waste container",
   "main": "src/index",
   "codegenConfig": {
-    "name": "RNWastevisionContainerSpec",
+    "name": "RNWasteContainerSpec",
     "type": "modules",
     "jsSrcsDir": "src"
   },

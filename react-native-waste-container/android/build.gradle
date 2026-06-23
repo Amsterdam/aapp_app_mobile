@@ -1,6 +1,6 @@
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["WastevisionContainer_kotlinVersion"]
+  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["WasteContainer_kotlinVersion"]
 
   repositories {
     google()
@@ -31,11 +31,11 @@ if (isNewArchitectureEnabled()) {
 }
 
 def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["WastevisionContainer_" + name]
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["WasteContainer_" + name]
 }
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["WastevisionContainer_" + name]).toInteger()
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["WasteContainer_" + name]).toInteger()
 }
 
 def supportsNamespace() {
@@ -49,7 +49,7 @@ def supportsNamespace() {
 
 android {
   if (supportsNamespace()) {
-    namespace "com.wastevisioncontainer"
+    namespace "com.wastecontainer"
 
     sourceSets {
       main {
@@ -112,9 +112,9 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-  // waste vision SDK
+  // waste container SDK
   implementation(files("libs/mobile_container_android_sdk_v0.9.0.aar"))
-  // waste vision SDK dependencies
+  // waste container SDK dependencies
   implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
   implementation("androidx.room:room-runtime:2.5.0")
   // kapt("androidx.room:room-compiler:2.5.0")
@@ -126,7 +126,7 @@ dependencies {
 if (isNewArchitectureEnabled()) {
   react {
     jsRootDir = file("../src/")
-    libraryName = "WastevisionContainer"
-    codegenJavaPackageName = "com.wastevisioncontainer"
+    libraryName = "WasteContainer"
+    codegenJavaPackageName = "com.wastecontainer"
   }
 }

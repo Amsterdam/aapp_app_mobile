@@ -12,7 +12,7 @@ import MobileContainerSDK
     }
 }
 
-@objc public protocol WasteVisionContainerDelegate {
+@objc public protocol WasteContainerDelegate {
     func onBluetoothStateChanged(bluetoothState: String)
     func onScanStarted()
     func onScanStopped()
@@ -25,14 +25,14 @@ import MobileContainerSDK
 }
 
 @objc
-public class WasteVisionContainer: NSObject, BluetoothConnectionDelegate {
+public class WasteContainerSDK: NSObject, BluetoothConnectionDelegate {
     
-    public weak var delegate: WasteVisionContainerDelegate?
+    public weak var delegate: WasteContainerDelegate?
     var discoveredDevices: [MobileContainerSDK.BluetoothContainerDevice] = []
     
     private var bluetoothConnectionManager: BluetoothConnectionManager
     @objc
-    public init(servicePrincipalName: String, servicePrincipalSecret: String, organisationId: String, delegate: WasteVisionContainerDelegate) {
+    public init(servicePrincipalName: String, servicePrincipalSecret: String, organisationId: String, delegate: WasteContainerDelegate) {
         self.bluetoothConnectionManager = BluetoothConnectionManager()
         super.init()
         self.bluetoothConnectionManager.setBluetoothConnectionDelegate(bluetoothConnectionDelegate: self)
@@ -85,7 +85,7 @@ public class WasteVisionContainer: NSObject, BluetoothConnectionDelegate {
     
     public func onScanStarted() {
 //        DispatchQueue.main.async {
-//            WastevisionContainer.sharedInstance.onScanStarted()
+//            WasteContainer.sharedInstance.onScanStarted()
 //        }
         self.delegate?.onScanStarted()
     }

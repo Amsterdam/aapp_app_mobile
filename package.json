@@ -172,7 +172,8 @@
     "ts-node": "^10.9.2",
     "tsc-files": "^1.1.4",
     "typescript": "~5.9.3",
-    "vite-plugin-svgr": "^5.2.0"
+    "vite-plugin-svgr": "^5.2.0",
+    "react-native-waste-container": "file:./react-native-waste-container"
   },
   "optionalDependencies": {
     "@esbuild/darwin-arm64": "0.27.3",

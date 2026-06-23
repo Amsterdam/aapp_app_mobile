@@ -1,8 +1,7 @@
-import WastevisionContainer, {
+import WasteContainer, {
   BluetoothPermission,
   BluetoothContainerDevice,
-  CardId,
-} from './NativeWastevisionContainer'
+} from './NativeWasteContainer'
 import type {EventSubscription} from 'react-native'
 
 export const init = (
@@ -10,7 +9,7 @@ export const init = (
   servicePrincipalSecret: string,
   organisationId: string,
 ): void => {
-  WastevisionContainer.init(
+  WasteContainer.init(
     servicePrincipalName,
     servicePrincipalSecret,
     organisationId,
@@ -18,78 +17,78 @@ export const init = (
 }
 
 export const startScan = (): void => {
-  WastevisionContainer.startScan()
+  WasteContainer.startScan()
 }
 
 export const autoUnlock = (cardNumber: string): void => {
-  WastevisionContainer.autoUnlock(cardNumber)
+  WasteContainer.autoUnlock(cardNumber)
 }
 
 export const checkBluetoothPermission = (): Promise<
   Record<string, BluetoothPermission>
-> => WastevisionContainer.checkBluetoothPermission()
+> => WasteContainer.checkBluetoothPermission()
 
 export const connect = (
   bluetoothContainerDevice: BluetoothContainerDevice,
 ): void => {
-  WastevisionContainer.connect(bluetoothContainerDevice)
+  WasteContainer.connect(bluetoothContainerDevice)
 }
 
 export const disconnect = (
   bluetoothContainerDevice: BluetoothContainerDevice,
 ): void => {
-  WastevisionContainer.disconnect(bluetoothContainerDevice)
+  WasteContainer.disconnect(bluetoothContainerDevice)
 }
 
 export const stopScan = (): void => {
-  WastevisionContainer.stopScan()
+  WasteContainer.stopScan()
 }
 
 export const unlock = (
   bluetoothContainerDevice: BluetoothContainerDevice,
-  cardId: CardId,
+  cardId: string,
 ): void => {
-  WastevisionContainer.unlock(bluetoothContainerDevice, cardId)
+  WasteContainer.unlock(bluetoothContainerDevice, cardId)
 }
 
 export const dispose = (): void => {
-  WastevisionContainer.dispose()
+  WasteContainer.dispose()
 }
 
 export const onBluetoothContainerDeviceConnected = (
   callback: (bluetoothContainerDevice: BluetoothContainerDevice) => void,
 ): EventSubscription =>
-  WastevisionContainer.onBluetoothContainerDeviceConnected(callback)
+  WasteContainer.onBluetoothContainerDeviceConnected(callback)
 
 export const onBluetoothContainerDeviceConnectionFailed = (
   callback: (bluetoothContainerDevice: BluetoothContainerDevice) => void,
 ): EventSubscription =>
-  WastevisionContainer.onBluetoothContainerDeviceConnectionFailed(callback)
+  WasteContainer.onBluetoothContainerDeviceConnectionFailed(callback)
 
 export const onBluetoothContainerDeviceDisconnected = (
   callback: (bluetoothContainerDevice: BluetoothContainerDevice) => void,
 ): EventSubscription =>
-  WastevisionContainer.onBluetoothContainerDeviceDisconnected(callback)
+  WasteContainer.onBluetoothContainerDeviceDisconnected(callback)
 
 export const onBluetoothContainerDeviceDiscovered = (
   callback: (bluetoothContainerDevice: BluetoothContainerDevice) => void,
 ): EventSubscription =>
-  WastevisionContainer.onBluetoothContainerDeviceDiscovered(callback)
+  WasteContainer.onBluetoothContainerDeviceDiscovered(callback)
 
 export const onBluetoothStateChanged = (
   callback: (bluetoothState: string) => void,
-): EventSubscription => WastevisionContainer.onBluetoothStateChanged(callback)
+): EventSubscription => WasteContainer.onBluetoothStateChanged(callback)
 
 export const onScanStarted = (callback: () => void): EventSubscription =>
-  WastevisionContainer.onScanStarted(callback)
+  WasteContainer.onScanStarted(callback)
 
 export const onScanStopped = (callback: () => void): EventSubscription =>
-  WastevisionContainer.onScanStopped(callback)
+  WasteContainer.onScanStopped(callback)
 
 export const onUnlockError = (
   callback: (error: string) => void,
-): EventSubscription => WastevisionContainer.onUnlockError(callback)
+): EventSubscription => WasteContainer.onUnlockError(callback)
 
 export const onUnlockFinished = (
   callback: (bluetoothContainerDevice: BluetoothContainerDevice) => void,
-): EventSubscription => WastevisionContainer.onUnlockFinished(callback)
+): EventSubscription => WasteContainer.onUnlockFinished(callback)
