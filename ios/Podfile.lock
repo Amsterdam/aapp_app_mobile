@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.11.2)
   - BVLinearGradient (2.8.3):
     - React-Core
   - Clusterer (5.0.2):
@@ -2019,6 +2020,29 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
+  - react-native-waste-container (0.0.0):
+    - Alamofire (= 5.11.2)
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - react-native-webview (13.16.1):
     - hermes-engine
     - RCTRequired
@@ -2914,6 +2938,7 @@ DEPENDENCIES:
   - react-native-render-html (from `../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-salesforce-messaging-in-app (from `../react-native-salesforce-messaging-in-app`)
+  - react-native-waste-container (from `../react-native-waste-container`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-networking (from `../node_modules/react-native/ReactCommon/react/networking`)
@@ -2968,6 +2993,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -3135,6 +3161,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-salesforce-messaging-in-app:
     :path: "../react-native-salesforce-messaging-in-app"
+  react-native-waste-container:
+    :path: "../react-native-waste-container"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-NativeModulesApple:
@@ -3237,6 +3265,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Alamofire: 400275dd1c6d87d95a041861d2a59da4b520a203
   BVLinearGradient: cb006ba232a1f3e4f341bb62c42d1098c284da70
   Clusterer: a4d875a495f13388c95968de0657046fb08ecff4
   EXConstants: e836b478e4f5c835f3c77921d8162e1918e2c06e
@@ -3271,7 +3300,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleMaps: 0608099d4870cac8754bdba9b6953db543432438
   GoogleUtilities: 4f2618a4a1e762a1ee134a1e2323bba9843e06da
-  hermes-engine: 406291b9339ba48515988098950ac71dc454b39a
+  hermes-engine: 887a4ed7b01908dede158d69feb79352fa0383ef
   Messaging-InApp-Core: 0fce52f6c73ed4359ddefd537bd63f302094e08d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   NitroModules: 36c5d6bb6a3e21e38b1a3f47f5049d0d4a6d04b9
@@ -3285,7 +3314,7 @@ SPEC CHECKSUMS:
   React: e2dc35338068bbd299c66f043ae0d7f25de8499e
   React-callinvoker: 28b25d21b124c26cebaea713ba7d801b9351dc48
   React-Core: 02ed7d2ffb70437bdf2aba074a13078a7b0b9ff0
-  React-Core-prebuilt: e88b847bd914e434a65234e778d358f84e3b7444
+  React-Core-prebuilt: 82ab984411c6ea066c621b1e207b0f66cdaddbff
   React-CoreModules: b3a5a42dadcde3b5d47b325bd912eb2ced89e146
   React-cxxreact: fe8f88dda044e5905e99a00f41b7a874c3908716
   React-debug: 92944dc4d89f56d640e75498266cbde557a48189
@@ -3327,6 +3356,7 @@ SPEC CHECKSUMS:
   react-native-render-html: 5afc4751f1a98621b3009432ef84c47019dcb2bd
   react-native-safe-area-context: 6b4966397ada0f7dd481e4486a2ef936834861a1
   react-native-salesforce-messaging-in-app: 971e8a9471b74bf7ac9073c21e461dc376b06c59
+  react-native-waste-container: 9e52576b050c4da72ee71eb8ee47c71e104ffe49
   react-native-webview: 2da09bdea1aeb6c46e27dd94632e21059cade6c1
   React-NativeModulesApple: deba264b03bd79c6bd61014fa30e40321b5e443a
   React-networking: 35e6070b084f435429f85c5db40b4d5b38652fe9
@@ -3361,7 +3391,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 25c9c516839be2c5e3d3344f95dc7da5f7e63fc2
   ReactCodegen: c8f81e6c6f762dcf442a6203a1fb58f7dafc8014
   ReactCommon: 7dfc3250793bf36cf221096ff59e1179e13eef7f
-  ReactNativeDependencies: 1c56e04321564d1360da0272f6e32d8a3e727375
+  ReactNativeDependencies: fb648244bc61e8a0c3c945a610b132f871c0cf41
   RestartNewArch: 229b04862634bfcf903b0988d336e6559b2fe7e3
   RNBootSplash: 65ee0b8120092c12ef024d082016a0ab6bcf035e
   RNCAsyncStorage: 2ad919e88b8bc2cd80e8697ce66d04d006743283
@@ -3379,6 +3409,6 @@ SPEC CHECKSUMS:
   TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   Yoga: 77dfa8673de2874e1855002ae59c68b8be9b007b
 
-PODFILE CHECKSUM: 77852d52dae2899f06431bd00a270bbbc5c4c3d0
+PODFILE CHECKSUM: 2c4ff150f2b1b8e735b8836b2448ce0f7cf7a8b8
 
 COCOAPODS: 1.15.2

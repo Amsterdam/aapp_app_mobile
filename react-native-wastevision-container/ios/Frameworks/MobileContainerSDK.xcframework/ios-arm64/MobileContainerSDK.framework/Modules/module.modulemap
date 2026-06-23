@@ -1,0 +1,6 @@
+framework module MobileContainerSDK {
+  umbrella header "MobileContainerSDK.h"
+  export *
+
+  module * { export * }
+}
