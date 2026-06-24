@@ -109,9 +109,7 @@ export const ModuleStack = () => {
           <Stack.Screen
             component={ParkingAccountInactiveScreen}
             name={ParkingRouteName.accountInactive}
-            options={{
-              headerTitle: 'Inloggen niet mogelijk',
-            }}
+            options={parkingScreenConfig[ParkingRouteName.accountInactive].options}
           />
         </Stack.Group>
       )}
