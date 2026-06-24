@@ -93,19 +93,12 @@ export const ParkingLoginForm = () => {
       return
     }
 
-    const errorCode =
-      'data' in error &&
-      error.data &&
-      typeof error.data === 'object' &&
-      'code' in error.data &&
-      error.data.code
+    const alert = getLoginFailedAlert(error)
 
-    if (errorCode === 'SSP_ACCOUNT_INACTIVE') {
-      navigation.navigate(ParkingRouteName.accountInactive)
-    } else {
-      const alert = getLoginFailedAlert(error)
-
-      if (alert) {
+    if (alert) {
+      if (alert === alerts.loginAccountInactiveFailed) {
+        navigation.navigate(ParkingRouteName.accountInactive)
+      } else {
         setAlert(alert)
       }
     }
