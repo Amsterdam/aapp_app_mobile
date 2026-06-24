@@ -109,7 +109,9 @@ export const ModuleStack = () => {
           <Stack.Screen
             component={ParkingAccountInactiveScreen}
             name={ParkingRouteName.accountInactive}
-            options={parkingScreenConfig[ParkingRouteName.accountInactive].options}
+            options={
+              parkingScreenConfig[ParkingRouteName.accountInactive].options
+            }
           />
         </Stack.Group>
       )}
