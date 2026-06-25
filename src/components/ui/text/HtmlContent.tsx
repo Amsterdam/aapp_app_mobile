@@ -330,7 +330,7 @@ const ARenderer: CustomMixedRenderer = props => {
   const {TNodeChildrenRenderer} = props
 
   return (
-    <SingleSelectable>
+    <SingleSelectable accessibilityRole="link">
       <InlineLink
         isExternal
         onPress={() => openUrl(href)}
@@ -339,19 +339,6 @@ const ARenderer: CustomMixedRenderer = props => {
         <TNodeChildrenRenderer {...props} />
       </InlineLink>
     </SingleSelectable>
-  )
-}
-
-const getTextContent = (node: TNode): string => {
-  if ('data' in node && typeof node.data === 'string') {
-    return node.data
-  }
-
-  return (
-    node.children
-      ?.map(child => getTextContent(child))
-      .join('')
-      .trim() ?? ''
   )
 }
 
@@ -373,12 +360,10 @@ const ImgRenderer: CustomMixedRenderer = props => {
     ? ([style, styles.imgWithCaptionMargins] as ViewProps['style'])
     : style
 
-  const captionText = captionNode ? getTextContent(captionNode) : undefined
-
   return (
     <View style={combinedStyle}>
       <LazyImage
-        accessibilityLabel={alt || captionText}
+        accessibilityLabel={alt}
         aspectRatio={aspectRatio}
         openInImageViewer
         source={source}
