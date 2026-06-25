@@ -79,6 +79,7 @@ export const useOpenIdConnectAuth = () => {
         )
       } catch {
         dispatch(resetAccessToken())
+        dispatch(resetLoggedInUsername())
       }
     }
   }, [dispatch, openIdConnectConfig])
