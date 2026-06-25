@@ -55,9 +55,7 @@ const getAccessTokenExpirationInSeconds = (
     accessTokenExpirationInSeconds,
   ).diff(dayjs(), 'second')
 
-  return secondsUntilExpiration > 0
-    ? secondsUntilExpiration
-    : DEFAULT_ACCESS_TOKEN_EXPIRATION_IN_SECONDS
+  return Math.max(secondsUntilExpiration, 0)
 }
 
 const sessionFromAuthSession = (
