@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from 'react'
 import {Button, type ButtonProps} from '@/components/ui/buttons/Button'
+import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -27,12 +28,15 @@ export const AdditionalLoginButton = (props: Props) => {
     }
   }, [isLoggingIn, isPressed, navigate])
 
+  useBlurEffect(() => {
+    setIsPressed(false)
+  })
+
   return (
     <Button
       {...props}
-      label="Inloggen"
+      label="Account toevoegen"
       onPress={onPress}
-      variant="secondary"
     />
   )
 }
