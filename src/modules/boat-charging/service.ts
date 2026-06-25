@@ -38,7 +38,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
       providesTags: ['BoatChargingLocationDetails'],
       keepUnusedDataFor: CacheLifetime.minute,
     }),
-    [BoatChargingEndpointName.boatChargingOIDCConfig]: builder.query<
+    [BoatChargingEndpointName.boatChargingOpenIdConnectConfig]: builder.query<
       BoatChargingOIDCConfigResponse,
       void
     >({
@@ -68,7 +68,5 @@ export const boatChargingApi = baseApi.injectEndpoints({
 export const {
   useBoatChargingLocationsQuery,
   useBoatChargingLocationDetailsQuery,
-  useBoatChargingOIDCConfigQuery,
+  useBoatChargingOpenIdConnectConfigQuery,
 } = boatChargingApi
-
-export const useBoatChargingOidcSettingsQuery = useBoatChargingOIDCConfigQuery

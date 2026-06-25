@@ -1,15 +1,14 @@
-import {useCallback, useEffect, useMemo} from 'react'
+import {useCallback, useMemo} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useAsync} from '@/hooks/useAsync'
-import {useBoatChargingOIDCConfigQuery} from '@/modules/boat-charging/service'
+import {useBoatChargingOpenIdConnectConfigQuery} from '@/modules/boat-charging/service'
 import {
   selectBoatChargingAccessToken,
   selectBoatChargingAccessTokenExpiration,
   resetAccessToken,
   setAccessToken,
   selectBoatChargingOpenIdConnectConfig,
-  setBoatChargingOpenIdConnectConfig,
   selectBoatChargingLoggedInUsername,
   setBoatChargingLoggedInUsername,
   resetLoggedInUsername,
@@ -27,15 +26,9 @@ export const useOpenIdConnectAuth = () => {
   const accessTokenExpiration = useSelector(
     selectBoatChargingAccessTokenExpiration,
   )
-  const {isLoading, isError} = useBoatChargingOIDCConfigQuery()
+  const {isLoading, isError} = useBoatChargingOpenIdConnectConfigQuery()
   const openIdConnectConfig = useSelector(selectBoatChargingOpenIdConnectConfig)
   const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
-
-  useEffect(() => {
-    if (openIdConnectConfig) {
-      setBoatChargingOpenIdConnectConfig(openIdConnectConfig)
-    }
-  }, [openIdConnectConfig])
 
   const isAuthenticated = useMemo(() => Boolean(accessToken), [accessToken])
 
@@ -103,6 +96,10 @@ export const useOpenIdConnectAuth = () => {
           }),
         )
         dispatch(setBoatChargingLoggedInUsername(username))
+      } else {
+        return Promise.reject(
+          new Error('OpenID Connect config is not available'),
+        )
       }
     },
     [dispatch, openIdConnectConfig],
@@ -111,9 +108,10 @@ export const useOpenIdConnectAuth = () => {
   const signOut = useCallback(async () => {
     if (openIdConnectConfig) {
       await signOutFromOpenIdConnect(openIdConnectConfig)
-      dispatch(resetAccessToken())
-      dispatch(resetLoggedInUsername())
     }
+
+    dispatch(resetAccessToken())
+    dispatch(resetLoggedInUsername())
   }, [dispatch, openIdConnectConfig])
 
   return {

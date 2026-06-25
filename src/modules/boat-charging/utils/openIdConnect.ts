@@ -23,7 +23,7 @@ const DEFAULT_ACCESS_TOKEN_EXPIRATION_IN_SECONDS = 3600
 
 let configuredOpenIdConnectConfigKey: string | null = null
 
-export const setBoatChargingOpenIdConnectConfig = (
+const initBoatChargingOpenIdConnectConfig = (
   config: BoatChargingOIDCConfigResponse,
 ) => {
   const openIdConnectConfigKey = `${config.user_pool_id}:${config.client_id}`
@@ -110,7 +110,7 @@ export const signInWithOpenIdConnect = async (
   password: string,
   config: BoatChargingOIDCConfigResponse,
 ): Promise<BoatChargingOpenIdConnectTokens> => {
-  setBoatChargingOpenIdConnectConfig(config)
+  initBoatChargingOpenIdConnectConfig(config)
 
   await signIn({
     username,
@@ -132,7 +132,7 @@ export const refreshOpenIdConnectAccessToken = async (
 export const getCurrentOpenIdConnectUser = async (
   config: BoatChargingOIDCConfigResponse,
 ): Promise<AuthUser> => {
-  setBoatChargingOpenIdConnectConfig(config)
+  initBoatChargingOpenIdConnectConfig(config)
 
   return getCurrentUser()
 }
@@ -140,7 +140,7 @@ export const getCurrentOpenIdConnectUser = async (
 export const signOutFromOpenIdConnect = async (
   config: BoatChargingOIDCConfigResponse,
 ) => {
-  setBoatChargingOpenIdConnectConfig(config)
+  initBoatChargingOpenIdConnectConfig(config)
 
   return signOut()
 }

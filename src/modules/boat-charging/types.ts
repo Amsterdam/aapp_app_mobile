@@ -4,7 +4,7 @@ import type {Feature, Point} from 'geojson'
 export enum BoatChargingEndpointName {
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
-  boatChargingOIDCConfig = 'boatChargingOIDCConfig',
+  boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
 }
 
 export type BoatChargingPointFeature = Feature<Point, BoatChargingLocation>
