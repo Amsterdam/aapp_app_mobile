@@ -9,10 +9,12 @@ import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {tagTypes} from '@/modules/parking/constants'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
   parkingSlice,
@@ -45,6 +47,7 @@ export const ParkingLoginForm = () => {
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
   const setSecureParkingAccount = useAddSecureParkingAccount()
   const dispatch = useDispatch()
+  const navigation = useNavigation()
 
   const onSubmit = handleSubmit(async ({pin, reportCode}) => {
     try {
@@ -93,9 +96,13 @@ export const ParkingLoginForm = () => {
     const alert = getLoginFailedAlert(error)
 
     if (alert) {
-      setAlert(alert)
+      if (alert === alerts.loginAccountInactiveFailed) {
+        navigation.navigate(ParkingRouteName.accountInactive)
+      } else {
+        setAlert(alert)
+      }
     }
-  }, [isError, error, setAlert])
+  }, [isError, error, setAlert, navigation])
 
   useEffect(() => {
     if (isLoading) {

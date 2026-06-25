@@ -3,6 +3,7 @@ import {ParkingTransactionHistoryHeaderButton} from '@/modules/parking/component
 import {AddLicensePlateHeaderButton} from '@/modules/parking/components/license-plates/AddLicensePlateHeaderButton'
 import {ParkingRouteName, ModuleStackParams} from '@/modules/parking/routes'
 import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.screen'
+import {ParkingAccountInactiveScreen} from '@/modules/parking/screens/ParkingAccountInactiveScreen.screen'
 import {ParkingActiveSessionsScreen} from '@/modules/parking/screens/ParkingActiveSessions.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingEditSessionScreen} from '@/modules/parking/screens/ParkingEditSession.screen'
@@ -167,5 +168,12 @@ export const parkingScreenConfig: StackNavigationRoutes<
       headerTitle: 'Aanmelden parkeren account',
     },
     screenType: 'settings',
+  },
+  [ParkingRouteName.accountInactive]: {
+    component: ParkingAccountInactiveScreen,
+    name: ParkingRouteName.accountInactive,
+    options: {
+      headerTitle: 'Inloggen niet mogelijk',
+    },
   },
 }

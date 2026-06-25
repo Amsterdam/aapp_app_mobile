@@ -6,6 +6,7 @@ import {
 
 export enum ParkingRouteName {
   account = 'ParkingAccount',
+  accountInactive = 'ParkingAccountInactive',
   accounts = 'ParkingAccounts',
   addLicensePlate = 'ParkingAddLicensePlate',
   dashboard = 'ParkingDashboard',
@@ -31,6 +32,7 @@ export enum ParkingRouteName {
 
 export type ModuleStackParams = {
   [ParkingRouteName.account]: {reportCode: string}
+  [ParkingRouteName.accountInactive]: undefined
   [ParkingRouteName.accounts]: undefined
   [ParkingRouteName.addLicensePlate]: undefined
   [ParkingRouteName.dashboard]:

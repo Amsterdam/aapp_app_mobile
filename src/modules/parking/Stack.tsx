@@ -13,6 +13,7 @@ import {
   type ParkingScreenConfigRoutes,
 } from '@/modules/parking/screenConfig'
 import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
+import {ParkingAccountInactiveScreen} from '@/modules/parking/screens/ParkingAccountInactiveScreen.screen'
 import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingForgotAccessCode.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
@@ -104,6 +105,13 @@ export const ModuleStack = () => {
             component={ParkingLoginScreen}
             name={ParkingRouteName.login}
             options={{headerTitle: 'Inloggen'}}
+          />
+          <Stack.Screen
+            component={ParkingAccountInactiveScreen}
+            name={ParkingRouteName.accountInactive}
+            options={
+              parkingScreenConfig[ParkingRouteName.accountInactive].options
+            }
           />
         </Stack.Group>
       )}
