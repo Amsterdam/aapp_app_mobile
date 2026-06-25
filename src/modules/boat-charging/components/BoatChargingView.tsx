@@ -9,7 +9,7 @@ import {BoatChargingList} from '@/modules/boat-charging/components/BoatChargingL
 import {BoatChargingMap} from '@/modules/boat-charging/components/BoatChargingMap'
 import {BoatChargingBottomSheetVariant} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
 import {mapFilters} from '@/modules/boat-charging/constants/filters'
-import {useLoginAsGuest} from '@/modules/boat-charging/hooks/useLoginAsGuest'
+import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
 import {useBoatChargingLocationsQuery} from '@/modules/boat-charging/service'
 import {
   selectBoatChargingAccessToken,
@@ -17,13 +17,11 @@ import {
 } from '@/modules/boat-charging/slice'
 
 export const BoatChargingView = () => {
+  useOpenIdConnectAuth()
   const dispatch = useDispatch()
   const {open} = useBottomSheet()
 
   const boatChargingAccessToken = useSelector(selectBoatChargingAccessToken)
-
-  const {isError: isErrorGuestLogin, isLoading: isLoadingGuestLogin} =
-    useLoginAsGuest()
 
   const onSelectBoatChargingPoint = useCallback(
     (id: BoatChargingLocation['id']) => {
@@ -49,8 +47,8 @@ export const BoatChargingView = () => {
           list: BoatChargingList,
         }}
         geojson={data}
-        isError={isErrorLocations || isErrorGuestLogin}
-        isLoading={isLoadingLocations || isLoadingGuestLogin}
+        isError={isErrorLocations}
+        isLoading={isLoadingLocations}
         onChargingPointPress={onSelectBoatChargingPoint}
       />
     </MapFiltersProvider>

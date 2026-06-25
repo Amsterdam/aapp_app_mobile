@@ -102,6 +102,8 @@ jest.mock('react-native-block-screenshot', () => ({}))
 jest.mock('react-native-webview', () => ({}))
 jest.mock('react-native-maps', () => ({}))
 jest.mock('react-native-restart-newarch', () => ({}))
+jest.mock('aws-amplify', () => ({}))
+jest.mock('aws-amplify/auth', () => ({}))
 jest.mock('react-native-geolocation-service', () => ({
   __esModule: true,
   default: jest.fn(() => ({})),
