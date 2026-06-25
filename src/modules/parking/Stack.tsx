@@ -76,7 +76,7 @@ export const ModuleStack = () => {
               <Stack.Screen
                 component={ParkingLoginScreen}
                 name={ParkingRouteName.login}
-                options={{headerTitle: 'Inloggen'}}
+                options={{headerTitle: 'Aanmelden parkeren'}}
               />
             )}
             {screenConfigPendingFirst.map(([key, parkingRoute]) => (
@@ -104,7 +104,7 @@ export const ModuleStack = () => {
           <Stack.Screen
             component={ParkingLoginScreen}
             name={ParkingRouteName.login}
-            options={{headerTitle: 'Inloggen'}}
+            options={{headerTitle: 'Aanmelden parkeren'}}
           />
           <Stack.Screen
             component={ParkingAccountInactiveScreen}
