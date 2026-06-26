@@ -11,6 +11,7 @@ import {useStore} from '@/hooks/redux/useStore'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {CurrentPermitContext} from '@/modules/parking/providers/CurrentPermit.context'
 import {logout} from '@/modules/parking/utils/logout'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   children: ReactNode
@@ -61,8 +62,13 @@ export const CurrentPermitProvider = ({children}: Props) => {
     )
   }
 
+  const isNotYetActive =
+    currentPermit.max_session_length_in_days === 1 &&
+    !!currentPermit.started_at &&
+    dayjs(currentPermit.started_at).isAfter(dayjs().add(2, 'day'))
+
   return (
-    <CurrentPermitContext value={currentPermit}>
+    <CurrentPermitContext value={{...currentPermit, isNotYetActive}}>
       {children}
     </CurrentPermitContext>
   )

@@ -96,6 +96,12 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingInactiveSessionFailedAlert',
   },
+  inactivePermitInfo: {
+    variant: AlertVariant.information,
+    title: 'Uw vergunning is nog niet actief',
+    hasIcon: true,
+    testID: 'ParkingInactivePermitInfoAlert',
+  },
   increaseBalanceSuccess: {
     variant: AlertVariant.positive,
     text: 'Geldsaldo is verhoogd. Het kan even duren voordat het saldo is bijgewerkt.',
