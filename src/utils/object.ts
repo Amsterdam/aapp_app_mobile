@@ -68,3 +68,21 @@ export const filterOutUndefinedProperties = <
       {} as Record<T, S>,
     )
 }
+
+/**
+ * Compares two objects with the same type to check for shallow equality
+ * @param object1
+ * @param object2
+ * @param omitKey An optional (array of) key(s) to omit in the comparison
+ * @returns true if objects have the same values, false if not.
+ */
+export const hasEqualValues = <Properties extends Record<string, unknown>>(
+  object1: Properties,
+  object2: Properties,
+  omitKey?: keyof Properties | Array<keyof Properties>,
+) =>
+  Object.keys(object1)
+    .filter(key =>
+      Array.isArray(omitKey) ? !omitKey.includes(key) : key !== omitKey,
+    )
+    .every(key => object1[key] === object2[key])

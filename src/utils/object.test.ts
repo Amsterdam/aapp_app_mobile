@@ -2,6 +2,7 @@ import {
   filterOutUndefinedProperties,
   getPropertyFromMaybeError,
   getPropertyFromMaybeObject,
+  hasEqualValues,
   isEmptyObject,
   isErrorObject,
 } from '@/utils/object'
@@ -87,5 +88,38 @@ describe('filterOutUndefinedProperties', () => {
   })
   test('should work with undefined input', () => {
     expect(filterOutUndefinedProperties(undefined)).toStrictEqual(undefined)
+  })
+})
+
+describe('hasEqualValues', () => {
+  it('should return true for objects with the same values', () => {
+    const object = {
+      a: 1,
+      b: 2,
+      c: 'test',
+    }
+
+    expect(hasEqualValues(object, object)).toBe(true)
+  })
+
+  it('should return false for objects with different values', () => {
+    const object = {
+      a: 1,
+      b: 2,
+      c: 'test',
+    }
+
+    expect(hasEqualValues(object, {...object, a: 2})).toBe(false)
+  })
+
+  it('should ignore keys that are passed as omitKeys', () => {
+    const object = {
+      a: 1,
+      b: 2,
+      c: 'test',
+    }
+
+    expect(hasEqualValues(object, {...object, a: 2}, 'a')).toBe(true)
+    expect(hasEqualValues(object, {...object, a: 2}, ['a', 'b'])).toBe(true)
   })
 })
