@@ -4,7 +4,7 @@ import {ParkingPermit} from '@/modules/parking/types'
 export const CurrentPermitContext = createContext<
   | (ParkingPermit & {
       /**
-       * Determines wether permit has started and can be used to start sessions today or tomorrow.
+       * True when the permit is not yet active (its `started_at` date is after today/tomorrow).
        */
       isNotYetActive: boolean
     })
