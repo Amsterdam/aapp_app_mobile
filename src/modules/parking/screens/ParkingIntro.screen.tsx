@@ -30,7 +30,7 @@ export const ParkingIntroScreen = ({navigation: {navigate}}: Props) => (
               starten en te betalen.
             </Paragraph>
             <Button
-              label="Inloggen"
+              label="Start met parkeren"
               onPress={() => navigate(ParkingRouteName.login)}
               testID="ParkingHomeLoginButton"
             />
