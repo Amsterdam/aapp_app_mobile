@@ -65,7 +65,7 @@ export const CurrentPermitProvider = ({children}: Props) => {
   const isNotYetActive =
     currentPermit.max_session_length_in_days === 1 &&
     !!currentPermit.started_at &&
-    dayjs(currentPermit.started_at).isAfter(dayjs().add(2, 'day'))
+    dayjs(currentPermit.started_at).isAfter(dayjs().add(1, 'day'), 'day')
 
   return (
     <CurrentPermitContext value={{...currentPermit, isNotYetActive}}>
