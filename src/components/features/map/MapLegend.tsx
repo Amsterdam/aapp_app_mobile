@@ -51,7 +51,7 @@ export const MapLegend = ({title = 'Legenda', legendItemGroups}: Props) => {
             {items.map(
               ({label: legendItemLabel, icon, Icon: CustomIcon}, itemIndex) => (
                 <Row
-                  gutter="sm"
+                  gutter="smd"
                   key={legendItemLabel || `legendItem-${itemIndex + 1}`}>
                   {!!CustomIcon && CustomIcon}
                   {!!icon && (

@@ -1,3 +1,4 @@
+import {mapSvgIcons} from '@/components/features/map/constants/icons'
 import {SvgIconVariant} from '@/components/ui/types'
 import {clientModules} from '@/modules/modules'
 
@@ -700,6 +701,7 @@ export const SvgIconsConfig = {
   ...DesignSystemSvgIcons,
   ...moduleIcons,
   ...helperIcons,
+  ...mapSvgIcons,
 } satisfies SvgIconVariantConfig
 
 export type SvgIconName = keyof typeof SvgIconsConfig

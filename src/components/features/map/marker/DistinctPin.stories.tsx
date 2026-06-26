@@ -24,13 +24,9 @@ export default meta
 type Story = StoryObj<typeof MapMarkerDistinctPin>
 
 export const Default: Story = {
-  args: {
-    height: 40,
-    width: 40,
-  },
-  render: args => (
+  render: () => (
     <View style={styles.wrapper}>
-      <MapMarkerDistinctPin {...args} />
+      <MapMarkerDistinctPin />
     </View>
   ),
 }
