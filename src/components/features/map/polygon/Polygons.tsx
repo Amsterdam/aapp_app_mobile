@@ -1,10 +1,5 @@
-import {
-  Feature,
-  Polygon,
-  type GeoJsonProperties,
-  type MultiPolygon,
-} from 'geojson'
 import {Geojson} from 'react-native-maps'
+import type {Feature, Polygon, GeoJsonProperties, MultiPolygon} from 'geojson'
 
 export const Polygons = <P extends GeoJsonProperties>({
   data,

@@ -6,7 +6,6 @@ const BASE = {
   'stroke-width': 2,
   fillOpacity: 0.3,
   'fill-opacity': 0.3,
-  strokeDashArray: undefined,
 }
 
 describe('getPermitZoneFeatureProperties', () => {
@@ -34,7 +33,7 @@ describe('getPermitZoneFeatureProperties', () => {
   })
 
   it.each(['#e95625', '#e925b5', '#25e925', undefined])(
-    'should return base properties and stroke/fill as %i.',
+    'should return base properties and stroke/fill as %p.',
     fillColor => {
       const {label, ...properties} = getPermitZoneFeatureProperties(
         fillColor as 'blue' | 'red',
