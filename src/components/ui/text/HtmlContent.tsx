@@ -19,7 +19,6 @@ import RenderHTML, {
   useInternalRenderer,
 } from 'react-native-render-html'
 import {Box} from '@/components/ui/containers/Box'
-import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -330,15 +329,13 @@ const ARenderer: CustomMixedRenderer = props => {
   const {TNodeChildrenRenderer} = props
 
   return (
-    <SingleSelectable accessibilityRole="link">
-      <InlineLink
-        isExternal
-        onPress={() => openUrl(href)}
-        testID="HtmlRendererAInlineLink"
-        variant={isInCaption ? 'small' : 'body'}>
-        <TNodeChildrenRenderer {...props} />
-      </InlineLink>
-    </SingleSelectable>
+    <InlineLink
+      isExternal
+      onPress={() => openUrl(href)}
+      testID="HtmlRendererAInlineLink"
+      variant={isInCaption ? 'small' : 'body'}>
+      <TNodeChildrenRenderer {...props} />
+    </InlineLink>
   )
 }
 

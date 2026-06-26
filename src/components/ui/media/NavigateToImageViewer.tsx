@@ -24,7 +24,7 @@ export const NavigateToImageViewer = ({
   return (
     <PressableBase
       accessibilityHint="Dubbel tik om groot te bekijken"
-      accessibilityLabel={alt ?? ''}
+      accessibilityLabel={alt || accessibilityLabel}
       onPress={() =>
         navigate(HomeModalName.imageViewer, {
           source,
