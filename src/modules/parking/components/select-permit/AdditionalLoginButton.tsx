@@ -9,7 +9,7 @@ import {
   useParkingAccountIsLoggingIn,
 } from '@/modules/parking/slice'
 
-type Props = ButtonProps
+type Props = Omit<ButtonProps, 'label'>
 
 export const AdditionalLoginButton = (props: Props) => {
   const dispatch = useDispatch()
@@ -28,9 +28,11 @@ export const AdditionalLoginButton = (props: Props) => {
     }
   }, [isLoggingIn, isPressed, navigate])
 
-  useBlurEffect(() => {
-    setIsPressed(false)
-  })
+  useBlurEffect(
+    useCallback(() => {
+      setIsPressed(false)
+    }, []),
+  )
 
   return (
     <Button
