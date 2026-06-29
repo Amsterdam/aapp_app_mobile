@@ -17,6 +17,7 @@ import RenderHTML, {
   type TNode,
   type TRenderEngineConfig,
   useInternalRenderer,
+  useRendererProps,
 } from 'react-native-render-html'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -120,6 +121,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const styles = useThemable(createStyles(isIntro))
   const systemFonts = useThemable(createFontList)
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const openUrl = useOpenUrl()
 
   const onLayoutChange = useCallback((event: LayoutChangeEvent) => {
     setContentWidth(event.nativeEvent.layout.width)
@@ -175,7 +177,10 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
         contentWidth={contentWidth}
         domVisitors={{onElement: convertParagraphToFigure}}
         renderers={renderers}
-        renderersProps={{img: {enableExperimentalPercentWidth: true}}}
+        renderersProps={{
+          img: {enableExperimentalPercentWidth: true},
+          anchor: {isScreenReaderEnabled, openUrl},
+        }}
         source={{html}}
         systemFonts={systemFonts}
         tagsStyles={tagsStyles}
@@ -322,8 +327,10 @@ const LiRenderer: CustomBlockRenderer = props => {
 
 const ARenderer: CustomMixedRenderer = props => {
   const {href} = props.tnode.attributes
-  const openUrl = useOpenUrl()
-  const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const {openUrl, isScreenReaderEnabled} = useRendererProps('anchor') as {
+    isScreenReaderEnabled: boolean
+    openUrl: ReturnType<typeof useOpenUrl>
+  }
 
   const parentTags = getParentTags(props.tnode)
   const isInCaption = parentTags.some(tag => CAPTION_TAGS.has(tag))
@@ -333,10 +340,25 @@ const ARenderer: CustomMixedRenderer = props => {
   const Wrapper = isScreenReaderEnabled ? SingleSelectable : Fragment
 
   return (
-    <Wrapper {...(isScreenReaderEnabled && {accessibilityRole: 'link'})}>
+    <Wrapper
+      {...(isScreenReaderEnabled && {
+        accessibilityRole: 'link',
+        accessibilityActions: [
+          {
+            name: 'open',
+            label: 'Open de link',
+          },
+        ],
+        onAccessibilityAction: event => {
+          if (event.nativeEvent.actionName === 'open') {
+            openUrl(href)
+          }
+        },
+      })}>
       <InlineLink
         isExternal
         onPress={() => openUrl(href)}
+        screenReaderFocusable={false}
         testID="HtmlRendererAInlineLink"
         variant={isInCaption ? 'small' : 'body'}>
         <TNodeChildrenRenderer {...props} />
