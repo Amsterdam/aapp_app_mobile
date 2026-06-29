@@ -164,7 +164,7 @@
     "patch-package": "^8.0.1",
     "path": "^0.12.7",
     "react-dom": "19.2.3",
-    "react-native-asset": "^2.2.8",
+    "react-native-asset": "^2.3.0",
     "react-native-clean-project": "^4.0.3",
     "react-native-dotenv": "^3.4.11",
     "react-native-svg-transformer": "^1.5.3",
