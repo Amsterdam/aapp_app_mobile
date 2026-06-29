@@ -8,20 +8,20 @@ import {getPermitStartDateString} from '@/modules/parking/utils/getPermitStartDa
 import {useAlert} from '@/store/slices/alert'
 
 export const ParkingSessionChooseTime = () => {
-  const {payment_zones, no_endtime, isNotYetActive, started_at} =
+  const {payment_zones, no_endtime, isPermitStartedAtInFuture, started_at} =
     useCurrentParkingPermit()
   const {setAlert} = useAlert()
 
   const hasPaymentZoneId = payment_zones[0]?.id
 
   useEffect(() => {
-    if (isNotYetActive) {
+    if (isPermitStartedAtInFuture) {
       setAlert({
         ...alerts.inactivePermitInfo,
         text: getPermitStartDateString(started_at),
       })
     }
-  }, [setAlert, isNotYetActive, started_at])
+  }, [setAlert, isPermitStartedAtInFuture, started_at])
 
   if (no_endtime) {
     return null

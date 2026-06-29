@@ -7,7 +7,7 @@ export const CurrentPermitContext = createContext<
        * True when the permit is not yet active (its `started_at` date is after today/tomorrow).
        * Only relevant for permits with `max_session_length_in_days === 1` (can plan a session max one day ahead).
        */
-      isNotYetActive: boolean
+      isPermitStartedAtInFuture: boolean
     })
   | null
 >(null)

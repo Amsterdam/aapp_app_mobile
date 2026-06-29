@@ -28,7 +28,7 @@ export const CurrentPermitProvider = ({children}: Props) => {
     void logout(dispatch, store.getState())
   }
 
-  const isNotYetActive = useMemo(() => {
+  const isPermitStartedAtInFuture = useMemo(() => {
     if (!currentPermit) {
       return false
     }
@@ -75,7 +75,7 @@ export const CurrentPermitProvider = ({children}: Props) => {
   }
 
   return (
-    <CurrentPermitContext value={{...currentPermit, isNotYetActive}}>
+    <CurrentPermitContext value={{...currentPermit, isPermitStartedAtInFuture}}>
       {children}
     </CurrentPermitContext>
   )

@@ -26,7 +26,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
     [startTimeRef],
   )
 
-  const {isNotYetActive} = useCurrentParkingPermit()
+  const {isPermitStartedAtInFuture} = useCurrentParkingPermit()
 
   return (
     <Track align="around">
@@ -63,7 +63,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           {label: 'Morgen', value: 'Tomorrow'},
         ]}
         testID="ParkingSessionTodayTomorrowStartTimeRadioGroup"
-        {...(!isNotYetActive && {
+        {...(!isPermitStartedAtInFuture && {
           value: getStartTimeIsToday(startTime) ? 'Today' : 'Tomorrow',
         })}
       />
