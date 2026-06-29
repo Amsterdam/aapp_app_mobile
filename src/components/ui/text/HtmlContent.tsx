@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState} from 'react'
+import {Fragment, useCallback, useMemo, useState} from 'react'
 import {
   LayoutChangeEvent,
   Platform,
@@ -19,6 +19,7 @@ import RenderHTML, {
   useInternalRenderer,
 } from 'react-native-render-html'
 import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -322,20 +323,25 @@ const LiRenderer: CustomBlockRenderer = props => {
 const ARenderer: CustomMixedRenderer = props => {
   const {href} = props.tnode.attributes
   const openUrl = useOpenUrl()
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
   const parentTags = getParentTags(props.tnode)
   const isInCaption = parentTags.some(tag => CAPTION_TAGS.has(tag))
 
   const {TNodeChildrenRenderer} = props
 
+  const Wrapper = isScreenReaderEnabled ? SingleSelectable : Fragment
+
   return (
-    <InlineLink
-      isExternal
-      onPress={() => openUrl(href)}
-      testID="HtmlRendererAInlineLink"
-      variant={isInCaption ? 'small' : 'body'}>
-      <TNodeChildrenRenderer {...props} />
-    </InlineLink>
+    <Wrapper {...(isScreenReaderEnabled && {accessibilityRole: 'link'})}>
+      <InlineLink
+        isExternal
+        onPress={() => openUrl(href)}
+        testID="HtmlRendererAInlineLink"
+        variant={isInCaption ? 'small' : 'body'}>
+        <TNodeChildrenRenderer {...props} />
+      </InlineLink>
+    </Wrapper>
   )
 }
 
