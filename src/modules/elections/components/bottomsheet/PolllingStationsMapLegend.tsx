@@ -16,9 +16,11 @@ const LEGEND_ITEMS = [
   typeof MapLegend
 >['legendItemGroups'][number]['items']
 
+const MAP_LEGEND_ITEMS = [{label: 'Drukte nu', items: LEGEND_ITEMS}]
+
 export const PollingStationsMapLegend = () => (
   <MapLegend
-    legendItemGroups={[{label: 'Drukte nu', items: LEGEND_ITEMS}]}
+    legendItemGroups={MAP_LEGEND_ITEMS}
     title="Kaartlagen"
   />
 )

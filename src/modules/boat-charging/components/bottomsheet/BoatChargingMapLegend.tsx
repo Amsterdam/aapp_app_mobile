@@ -5,7 +5,7 @@ import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIco
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {BoatChargingPointState} from '@/modules/boat-charging/types'
 
-const LEGEND_ITEMS = [
+const ITEMS = [
   BoatChargingPointState.free,
   BoatChargingPointState.occupied,
   BoatChargingPointState.malfunction,
@@ -21,6 +21,8 @@ const LEGEND_ITEMS = [
   typeof MapLegend
 >['legendItemGroups'][number]['items']
 
+const MAP_LEGEND_ITEMS = [{items: ITEMS}]
+
 export const BoatChargingMapLegend = () => (
-  <MapLegend legendItemGroups={[{items: LEGEND_ITEMS}]} />
+  <MapLegend legendItemGroups={MAP_LEGEND_ITEMS} />
 )

@@ -22,38 +22,23 @@ type Story = StoryObj<typeof CustomMarkerIcon>
 export const Default: Story = {
   render: args => (
     <Column gutter="md">
-      <Row gutter="md">
-        {Object.values(themes.light.size.spacing).map(size => (
-          <CustomMarkerIcon
-            {...args}
-            icon={boatChargingPointStateMap[BoatChargingPointState.free].icon}
-            size={size}
-          />
-        ))}
-      </Row>
-      <Row gutter="md">
-        {Object.values(themes.light.size.spacing).map(size => (
-          <CustomMarkerIcon
-            {...args}
-            icon={
-              boatChargingPointStateMap[BoatChargingPointState.occupied].icon
-            }
-            size={size}
-          />
-        ))}
-      </Row>
-
-      <Row gutter="md">
-        {Object.values(themes.light.size.spacing).map(size => (
-          <CustomMarkerIcon
-            {...args}
-            icon={
-              boatChargingPointStateMap[BoatChargingPointState.malfunction].icon
-            }
-            size={size}
-          />
-        ))}
-      </Row>
+      {[
+        boatChargingPointStateMap[BoatChargingPointState.free],
+        boatChargingPointStateMap[BoatChargingPointState.occupied],
+        boatChargingPointStateMap[BoatChargingPointState.malfunction],
+      ].map(({icon}) => (
+        <Row
+          gutter="md"
+          key={icon.path}>
+          {Object.values(themes.light.size.spacing).map(size => (
+            <CustomMarkerIcon
+              {...args}
+              icon={icon}
+              size={size}
+            />
+          ))}
+        </Row>
+      ))}
     </Column>
   ),
 }

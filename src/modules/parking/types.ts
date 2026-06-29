@@ -1,5 +1,5 @@
 import type {EmptyObject} from '@/types/utils'
-import type {FeatureCollection} from 'geojson'
+import type {FeatureCollection, Polygon} from 'geojson'
 import {Paginated, PaginationQueryArgs} from '@/types/api'
 
 // Routes
@@ -143,8 +143,25 @@ export enum PermitType {
   mantelzorgvergunning = 'Mantelzorgvergunning',
 }
 
+export enum PermitZoneColorValue {
+  blue = 'blue',
+  red = 'red',
+}
+
+export type PermitZoneFeatureProperties = {
+  /**
+   * From Egis we receive either 'blue' for permit zone, or 'red' for exceptions.
+   */
+  fill: PermitZoneColorValue
+  'fill-opacity'?: number
+  popupContent?: string
+  stroke?: PermitZoneColorValue
+  'stroke-opacity'?: number
+  'stroke-width'?: number
+}
+
 export type PermitZoneGeoJsonResponse = {
-  geojson: FeatureCollection | EmptyObject
+  geojson: FeatureCollection<Polygon, PermitZoneFeatureProperties> | EmptyObject
 }
 
 export type ParkingPermit = {

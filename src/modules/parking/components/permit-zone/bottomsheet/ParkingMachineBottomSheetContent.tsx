@@ -15,7 +15,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
-import {ParkingMachineBottomSheetErrorMessage} from '@/modules/parking/components/permit-zone/ParkingMachineBottomSheetErrorMessage'
+import {ParkingMachineBottomSheetErrorMessage} from '@/modules/parking/components/permit-zone/bottomsheet/ParkingMachineBottomSheetErrorMessage'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -30,7 +30,7 @@ import {
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const ParkingMachineBottomSheetContent = () => {
-  const {close: closeBottomSheet, isOpen} = useBottomSheet()
+  const {close: closeBottomSheet} = useBottomSheet()
   const autoFocus = useAccessibilityFocus()
   const navigation = useNavigation()
 
@@ -64,11 +64,12 @@ export const ParkingMachineBottomSheetContent = () => {
     [parkingMachineDetails],
   )
 
-  useEffect(() => {
-    if (!isOpen) {
+  useEffect(
+    () => () => {
       resetSelectedParkingMachineId()
-    }
-  }, [isOpen, resetSelectedParkingMachineId])
+    },
+    [resetSelectedParkingMachineId],
+  )
 
   if (!parkingMachine) {
     return null
