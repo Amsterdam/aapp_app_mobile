@@ -29,7 +29,7 @@ export const config: CodeGenConfig = [
       {
         import: 'ModuleStack',
         exportName: 'stacks',
-        optional: true,
+        optional: false,
         result: moduleBasedResult,
         resultImports: defaultResultImports,
         satisfies: 'Record<ModuleSlug, React.ComponentType>',
@@ -44,7 +44,7 @@ export const config: CodeGenConfig = [
       {
         import: 'ModuleStackParams',
         exportName: 'ModuleStackParams',
-        optional: true,
+        optional: false,
         result: 'typeIntersection',
       },
     ],
@@ -124,7 +124,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'useIsLoggedIn.ts',
+    match: 'hooks/useIsLoggedIn.ts',
     output: 'src/modules/generated/useIsLoggedIn.generated.ts',
     imports: [
       {

@@ -1,7 +1,7 @@
-import {useIsLoggedIn as useIsLoggedIn0} from '@/modules/boat-charging/useIsLoggedIn'
-import {useIsLoggedIn as useIsLoggedIn1} from '@/modules/city-pass/useIsLoggedIn'
-import {useIsLoggedIn as useIsLoggedIn2} from '@/modules/mijn-amsterdam/useIsLoggedIn'
-import {useIsLoggedIn as useIsLoggedIn3} from '@/modules/parking/useIsLoggedIn'
+import {useIsLoggedIn as useIsLoggedIn0} from '@/modules/boat-charging/hooks/useIsLoggedIn'
+import {useIsLoggedIn as useIsLoggedIn1} from '@/modules/city-pass/hooks/useIsLoggedIn'
+import {useIsLoggedIn as useIsLoggedIn2} from '@/modules/mijn-amsterdam/hooks/useIsLoggedIn'
+import {useIsLoggedIn as useIsLoggedIn3} from '@/modules/parking/hooks/useIsLoggedIn'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const useIsLoggedIn = {

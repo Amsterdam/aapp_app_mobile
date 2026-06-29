@@ -7,8 +7,8 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {AddressModalName} from '@/modules/address/routes'
 import {useMyAddress} from '@/modules/address/slice'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
+import {useIsLoggedIn} from '@/modules/mijn-amsterdam/hooks/useIsLoggedIn'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
-import {useIsLoggedIn} from '@/modules/mijn-amsterdam/useIsLoggedIn'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   selectIsPermissionGranted,
