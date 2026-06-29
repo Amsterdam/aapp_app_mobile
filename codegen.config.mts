@@ -29,7 +29,7 @@ export const config: CodeGenConfig = [
       {
         import: 'ModuleStack',
         exportName: 'stacks',
-        optional: true,
+        optional: false,
         result: moduleBasedResult,
         resultImports: defaultResultImports,
         satisfies: 'Record<ModuleSlug, React.ComponentType>',
@@ -44,7 +44,7 @@ export const config: CodeGenConfig = [
       {
         import: 'ModuleStackParams',
         exportName: 'ModuleStackParams',
-        optional: true,
+        optional: false,
         result: 'typeIntersection',
       },
     ],
@@ -64,7 +64,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'PreRenderComponent.tsx',
+    match: 'components/PreRenderComponent.tsx',
     output: 'src/modules/generated/preRenderComponents.generated.ts',
     imports: [
       {
@@ -79,7 +79,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'PostRenderComponent.tsx',
+    match: 'components/PostRenderComponent.tsx',
     output: 'src/modules/generated/postRenderComponents.generated.ts',
     imports: [
       {
@@ -94,7 +94,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'HeaderComponent.tsx',
+    match: 'components/HeaderComponent.tsx',
     output: 'src/modules/generated/headerComponents.generated.ts',
     imports: [
       {
@@ -109,7 +109,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'ActionButton.tsx',
+    match: 'components/ActionButton.tsx',
     output: 'src/modules/generated/actionButtons.generated.ts',
     imports: [
       {
@@ -124,7 +124,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'useIsLoggedIn.ts',
+    match: 'hooks/useIsLoggedIn.ts',
     output: 'src/modules/generated/useIsLoggedIn.generated.ts',
     imports: [
       {
@@ -140,7 +140,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'Account.tsx',
+    match: 'components/Account.tsx',
     output: 'src/modules/generated/account.generated.ts',
     imports: [
       {

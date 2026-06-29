@@ -5,6 +5,7 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {usePendingScreen} from '@/hooks/navigation/usePendingScreen'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAccessCodeGate} from '@/modules/access-code/hooks/useAccessCodeGate'
+import {useIsLoggedIn} from '@/modules/parking/hooks/useIsLoggedIn'
 import {useIsRecentlyLoggedOut} from '@/modules/parking/hooks/useIsRecentlyLoggedOut'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -22,7 +23,6 @@ import {
   useParkingAccountIsLoggingIn,
   useParkingAccountIsLoggingOut,
 } from '@/modules/parking/slice'
-import {useIsLoggedIn} from '@/modules/parking/useIsLoggedIn'
 import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()
