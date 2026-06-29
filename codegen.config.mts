@@ -140,7 +140,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'Account.tsx',
+    match: 'components/Account.tsx',
     output: 'src/modules/generated/account.generated.ts',
     imports: [
       {

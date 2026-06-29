@@ -1,7 +1,7 @@
-import {Account as Account0} from '@/modules/boat-charging/Account.tsx'
-import {Account as Account1} from '@/modules/city-pass/Account.tsx'
-import {Account as Account2} from '@/modules/mijn-amsterdam/Account.tsx'
-import {Account as Account3} from '@/modules/parking/Account.tsx'
+import {Account as Account0} from '@/modules/boat-charging/components/Account.tsx'
+import {Account as Account1} from '@/modules/city-pass/components/Account.tsx'
+import {Account as Account2} from '@/modules/mijn-amsterdam/components/Account.tsx'
+import {Account as Account3} from '@/modules/parking/components/Account.tsx'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const Account = {
