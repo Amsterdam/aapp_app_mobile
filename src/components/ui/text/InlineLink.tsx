@@ -46,7 +46,7 @@ export const InlineLink = ({
       variant={phraseVariant}
       {...otherProps}>
       {children}
-      {isExternal ? (
+      {!!isExternal && (
         <>
           {'  '}
           <Icon
@@ -56,7 +56,7 @@ export const InlineLink = ({
             testID={`${testID}Icon`}
           />
         </>
-      ) : null}
+      )}
     </Phrase>
   )
 }

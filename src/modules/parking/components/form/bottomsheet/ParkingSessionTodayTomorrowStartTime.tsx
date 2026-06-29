@@ -62,7 +62,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
         testID="ParkingSessionTodayTomorrowStartTimeRadioGroup"
         value={getStartTimeIsToday(startTime) ? 'Today' : 'Tomorrow'}
       />
-      {startTimeRef.current && startTime ? (
+      {!!startTimeRef.current && !!startTime && (
         <ParkingStartSessionDatePicker
           date={startTime}
           minDate={startTimeRef.current}
@@ -72,7 +72,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
             onChangeStartTime(dayjs(newTime))
           }}
         />
-      ) : null}
+      )}
     </Track>
   )
 }

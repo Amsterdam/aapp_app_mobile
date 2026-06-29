@@ -226,6 +226,7 @@ module.exports = {
       rules: {
         'amsterdam/no-relative-file-import': 'warn',
         'amsterdam/jsx-strict-logical-expression': 'error',
+        'amsterdam/jsx-prefer-coerced-and-over-null-ternary': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/restrict-template-expressions': 'error',

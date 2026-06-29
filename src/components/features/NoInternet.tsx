@@ -47,7 +47,7 @@ export const NoInternet = memo(() => {
 
   return (
     <>
-      {!hasInternet && !isClosed ? (
+      {!hasInternet && !isClosed && (
         <View style={styles.container}>
           <Animated.View
             entering={SlideInDown}
@@ -86,7 +86,7 @@ export const NoInternet = memo(() => {
             </View>
           </Animated.View>
         </View>
-      ) : null}
+      )}
     </>
   )
 })

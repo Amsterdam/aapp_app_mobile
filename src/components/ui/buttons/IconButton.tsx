@@ -49,7 +49,7 @@ export const IconButton = ({
         variant="transparent"
         {...pressableProps}>
         {icon}
-        {badgeValue ? (
+        {!!badgeValue && (
           <View style={styles.badgePosition}>
             <Badge
               color={badgeColor}
@@ -58,7 +58,7 @@ export const IconButton = ({
               variant="on-icon"
             />
           </View>
-        ) : null}
+        )}
       </Pressable>
     </Row>
   )
