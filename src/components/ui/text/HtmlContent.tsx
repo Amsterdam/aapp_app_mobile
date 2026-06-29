@@ -19,7 +19,6 @@ import RenderHTML, {
   useInternalRenderer,
 } from 'react-native-render-html'
 import {Box} from '@/components/ui/containers/Box'
-import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -330,28 +329,13 @@ const ARenderer: CustomMixedRenderer = props => {
   const {TNodeChildrenRenderer} = props
 
   return (
-    <SingleSelectable>
-      <InlineLink
-        isExternal
-        onPress={() => openUrl(href)}
-        testID="HtmlRendererAInlineLink"
-        variant={isInCaption ? 'small' : 'body'}>
-        <TNodeChildrenRenderer {...props} />
-      </InlineLink>
-    </SingleSelectable>
-  )
-}
-
-const getTextContent = (node: TNode): string => {
-  if ('data' in node && typeof node.data === 'string') {
-    return node.data
-  }
-
-  return (
-    node.children
-      ?.map(child => getTextContent(child))
-      .join('')
-      .trim() ?? ''
+    <InlineLink
+      isExternal
+      onPress={() => openUrl(href)}
+      testID="HtmlRendererAInlineLink"
+      variant={isInCaption ? 'small' : 'body'}>
+      <TNodeChildrenRenderer {...props} />
+    </InlineLink>
   )
 }
 
@@ -373,12 +357,10 @@ const ImgRenderer: CustomMixedRenderer = props => {
     ? ([style, styles.imgWithCaptionMargins] as ViewProps['style'])
     : style
 
-  const captionText = captionNode ? getTextContent(captionNode) : undefined
-
   return (
     <View style={combinedStyle}>
       <LazyImage
-        accessibilityLabel={alt || captionText}
+        accessibilityLabel={alt}
         aspectRatio={aspectRatio}
         openInImageViewer
         source={source}

@@ -36,7 +36,6 @@ export const NewsArticle = ({id}: Props) => {
         <Phrase color="secondary">{`${dayjs(publication_datetime).format('DD MMMM, HH.mm')} uur`}</Phrase>
       </Column>
       <LazyImage
-        accessibilityLabel={title}
         aspectRatio="wide"
         openInImageViewer
         source={images}
