@@ -72,13 +72,13 @@ export const BoatChargingLoginForm = () => {
               testID="BoatChargingLoginFormPasswordInputField"
             />
           </Column>
-          {errorMessage ? (
+          {!!errorMessage && (
             <Paragraph
               color="warning"
               testID="BoatChargingLoginFormErrorMessage">
               {errorMessage}
             </Paragraph>
-          ) : null}
+          )}
           <Button
             isLoading={form.formState.isSubmitting}
             label="Inloggen"

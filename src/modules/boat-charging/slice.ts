@@ -1,26 +1,19 @@
 import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
-import type {BoatChargingLocation} from '@/modules/boat-charging/types'
+import type {
+  BoatChargingLocation,
+  BoatChargingOIDCConfigResponse,
+} from '@/modules/boat-charging/types'
 import type {RootState} from '@/store/types/rootState'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-export type OpenIdConnectConfig = {
-  client_id: string
-  issuer: string
-  pkce_required?: string
-  redirect_uri?: string
-  response_type?: string
-  scopes?: string[]
-  user_pool_id: string
-}
-
 export type BoatChargingState = {
   accessToken?: {accessToken: string; accessTokenExpiration: string}
   loggedInUsername?: string
-  openIdConnectConfig?: OpenIdConnectConfig
+  openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
 }
 
@@ -69,7 +62,7 @@ export const boatChargingSlice = createSlice({
     },
     setBoatChargingOpenIdConnectConfig: (
       state,
-      {payload}: PayloadAction<OpenIdConnectConfig>,
+      {payload}: PayloadAction<BoatChargingOIDCConfigResponse>,
     ) => {
       state.openIdConnectConfig = payload
     },
@@ -97,7 +90,7 @@ export const selectBoatChargingAccessTokenExpiration = (state: RootState) =>
 
 export const selectBoatChargingOpenIdConnectConfig = (
   state: RootState,
-): OpenIdConnectConfig | undefined =>
+): BoatChargingOIDCConfigResponse | undefined =>
   state[ReduxKey.boatCharging].openIdConnectConfig
 
 export const selectBoatChargingLoggedInUsername = (

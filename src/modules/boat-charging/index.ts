@@ -1,14 +1,18 @@
 import {boatChargingSvgIcons} from '@/modules/boat-charging/constants/icons'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {boatChargingSlice} from '@/modules/boat-charging/slice'
+import {
+  boatChargingSlice,
+  type BoatChargingState,
+} from '@/modules/boat-charging/slice'
 import {logout} from '@/modules/boat-charging/utils/logout'
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-const persistWhitelist: (keyof ReturnType<
-  typeof boatChargingSlice.getInitialState
->)[] = ['selectedBoatChargingPointId', 'openIdConnectConfig']
+const persistWhitelist: (keyof BoatChargingState)[] = [
+  'selectedBoatChargingPointId',
+  'openIdConnectConfig',
+]
 
 export const boatChargingModule = createClientModule({
   logout,
