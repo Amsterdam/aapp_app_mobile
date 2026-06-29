@@ -3,6 +3,7 @@ import {useController} from 'react-hook-form'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Track} from '@/components/ui/layout/Track'
 import {ParkingStartSessionDatePicker} from '@/modules/parking/components/form/bottomsheet/ParkingStartSessionDatePicker'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingSession} from '@/modules/parking/hooks/useParkingSession'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 
@@ -24,6 +25,8 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
     (start: Dayjs) => start.isSame(dayjs(startTimeRef.current), 'day'),
     [startTimeRef],
   )
+
+  const {isPermitStartedAtInFuture} = useCurrentParkingPermit()
 
   return (
     <Track align="around">
@@ -60,7 +63,9 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           {label: 'Morgen', value: 'Tomorrow'},
         ]}
         testID="ParkingSessionTodayTomorrowStartTimeRadioGroup"
-        value={getStartTimeIsToday(startTime) ? 'Today' : 'Tomorrow'}
+        {...(!isPermitStartedAtInFuture && {
+          value: getStartTimeIsToday(startTime) ? 'Today' : 'Tomorrow',
+        })}
       />
       {startTimeRef.current && startTime ? (
         <ParkingStartSessionDatePicker

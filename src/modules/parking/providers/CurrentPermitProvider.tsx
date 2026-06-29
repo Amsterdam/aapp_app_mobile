@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react'
+import {useMemo, type ReactNode} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -11,6 +11,7 @@ import {useStore} from '@/hooks/redux/useStore'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {CurrentPermitContext} from '@/modules/parking/providers/CurrentPermit.context'
 import {logout} from '@/modules/parking/utils/logout'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   children: ReactNode
@@ -26,6 +27,18 @@ export const CurrentPermitProvider = ({children}: Props) => {
   const onPressLogout = () => {
     void logout(dispatch, store.getState())
   }
+
+  const isPermitStartedAtInFuture = useMemo(() => {
+    if (!currentPermit) {
+      return false
+    }
+
+    return (
+      currentPermit.max_session_length_in_days === 1 &&
+      !!currentPermit.started_at &&
+      dayjs(currentPermit.started_at).isAfter(dayjs().add(1, 'day'), 'day')
+    )
+  }, [currentPermit])
 
   if (isLoading) {
     return (
@@ -62,7 +75,7 @@ export const CurrentPermitProvider = ({children}: Props) => {
   }
 
   return (
-    <CurrentPermitContext value={currentPermit}>
+    <CurrentPermitContext value={{...currentPermit, isPermitStartedAtInFuture}}>
       {children}
     </CurrentPermitContext>
   )

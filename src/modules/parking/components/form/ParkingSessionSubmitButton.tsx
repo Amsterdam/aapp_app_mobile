@@ -3,9 +3,13 @@ import {ParkingStartSessionButton} from '@/modules/parking/components/form/Parki
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 
 export const ParkingSessionSubmitButton = () => {
-  const currentPermit = useCurrentParkingPermit()
+  const {isPermitStartedAtInFuture, no_endtime} = useCurrentParkingPermit()
 
-  if (currentPermit.no_endtime) {
+  if (isPermitStartedAtInFuture) {
+    return null
+  }
+
+  if (no_endtime) {
     return <ParkingActivateLicensePlateButton />
   }
 

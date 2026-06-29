@@ -1,5 +1,6 @@
 import {ReactNode, useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingSessionContext} from '@/modules/parking/hooks/useParkingSession'
 import {ParkingSession} from '@/modules/parking/types'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
@@ -66,9 +67,17 @@ export const ParkingSessionFormProvider = ({
   parkingSession,
   extendVisitorSession = false,
 }: Props) => {
+  const {started_at} = useCurrentParkingPermit()
+
+  const isNotYetActivePermit = dayjs(started_at).isAfter(
+    dayjs(defaultStartTime),
+  )
+
   const form = useForm<ParkingSessionFormValues>({
     defaultValues: getDefaultValues({
-      defaultStartTime,
+      defaultStartTime: isNotYetActivePermit
+        ? String(started_at)
+        : defaultStartTime,
       parkingSession,
       extendVisitorSession,
     }),
