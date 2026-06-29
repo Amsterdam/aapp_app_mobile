@@ -109,7 +109,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'ActionButton.tsx',
+    match: 'components/ActionButton.tsx',
     output: 'src/modules/generated/actionButtons.generated.ts',
     imports: [
       {
