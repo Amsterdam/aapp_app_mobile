@@ -64,7 +64,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'PreRenderComponent.tsx',
+    match: 'components/PreRenderComponent.tsx',
     output: 'src/modules/generated/preRenderComponents.generated.ts',
     imports: [
       {
@@ -79,7 +79,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'PostRenderComponent.tsx',
+    match: 'components/PostRenderComponent.tsx',
     output: 'src/modules/generated/postRenderComponents.generated.ts',
     imports: [
       {
@@ -94,7 +94,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'HeaderComponent.tsx',
+    match: 'components/HeaderComponent.tsx',
     output: 'src/modules/generated/headerComponents.generated.ts',
     imports: [
       {
