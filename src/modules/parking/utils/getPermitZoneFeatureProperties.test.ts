@@ -1,3 +1,4 @@
+import {PermitZoneColorValue} from '@/modules/parking/types'
 import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
 import {baseColor} from '@/themes/tokens/base-color'
 
@@ -10,7 +11,9 @@ const BASE = {
 
 describe('getPermitZoneFeatureProperties', () => {
   it("should return the properties associated with blue if fill is 'blue'.", () => {
-    const {label, ...properties} = getPermitZoneFeatureProperties('blue')
+    const {label, ...properties} = getPermitZoneFeatureProperties(
+      PermitZoneColorValue.blue,
+    )
 
     expect(label).toBe('Uw vergunningsgebied')
     expect(properties).toEqual({
@@ -21,7 +24,9 @@ describe('getPermitZoneFeatureProperties', () => {
   })
 
   it("should return the properties associated with red if fill is 'red'.", () => {
-    const {label, ...properties} = getPermitZoneFeatureProperties('red')
+    const {label, ...properties} = getPermitZoneFeatureProperties(
+      PermitZoneColorValue.red,
+    )
 
     expect(label).toBe('Uitzonderingsgebied')
     expect(properties).toEqual({
@@ -36,7 +41,7 @@ describe('getPermitZoneFeatureProperties', () => {
     'should return base properties and stroke/fill as %p.',
     fillColor => {
       const {label, ...properties} = getPermitZoneFeatureProperties(
-        fillColor as 'blue' | 'red',
+        fillColor as PermitZoneColorValue,
       )
 
       if (fillColor === undefined) {

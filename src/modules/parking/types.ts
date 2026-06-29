@@ -143,14 +143,19 @@ export enum PermitType {
   mantelzorgvergunning = 'Mantelzorgvergunning',
 }
 
+export enum PermitZoneColorValue {
+  blue = 'blue',
+  red = 'red',
+}
+
 export type PermitZoneFeatureProperties = {
   /**
    * From Egis we receive either 'blue' for permit zone, or 'red' for exceptions.
    */
-  fill: 'blue' | 'red'
+  fill: PermitZoneColorValue
   'fill-opacity'?: number
   popupContent?: string
-  stroke?: string
+  stroke?: PermitZoneColorValue
   'stroke-opacity'?: number
   'stroke-width'?: number
 }

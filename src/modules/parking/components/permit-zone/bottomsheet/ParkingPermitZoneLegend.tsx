@@ -32,7 +32,7 @@ export const ParkingPermitZoneLegend = () => {
 
   const items = useMemo(() => {
     if (!permitZoneData || !('features' in permitZoneData.geojson)) {
-      return LEGEND_ITEMS
+      return [{items: LEGEND_ITEMS}]
     }
 
     const propertiesSet = permitZoneData.geojson.features.reduce<
@@ -56,13 +56,8 @@ export const ParkingPermitZoneLegend = () => {
       }),
     )
 
-    return [...LEGEND_ITEMS, ...dynamicItems]
+    return [{items: [...LEGEND_ITEMS, ...dynamicItems]}]
   }, [permitZoneData])
 
-  return (
-    <MapLegend
-      legendItemGroups={[{items}]}
-      title="Legenda"
-    />
-  )
+  return <MapLegend legendItemGroups={items} />
 }

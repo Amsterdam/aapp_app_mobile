@@ -100,6 +100,7 @@ describe('hasEqualValues', () => {
     }
 
     expect(hasEqualValues(object, object)).toBe(true)
+    expect(hasEqualValues({}, {})).toBe(true)
   })
 
   it('should return false for objects with different values', () => {
@@ -110,6 +111,9 @@ describe('hasEqualValues', () => {
     }
 
     expect(hasEqualValues(object, {...object, a: 2})).toBe(false)
+    expect(hasEqualValues({}, {a: 2})).toBe(false)
+    expect(hasEqualValues({b: 1}, {})).toBe(false)
+    expect(hasEqualValues({a: 1}, {a: 1, b: 2})).toBe(false)
   })
 
   it('should ignore keys that are passed as omitKeys', () => {

@@ -16,10 +16,16 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
     isError,
   } = useServiceQuery(serviceId || skipToken)
 
-  const entries = useMemo(() => {
+  const legendItemGroup = useMemo(() => {
     const {icons_to_include, data} = service || {}
 
-    if (!data || !('type' in data) || !icons_to_include) return []
+    if (!data || !('type' in data) || !icons_to_include) {
+      return [
+        {
+          items: [],
+        },
+      ]
+    }
 
     const featuresByIconType = data.features.reduce<
       Record<string, ServiceFeature>
@@ -33,7 +39,7 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
       return acc
     }, {})
 
-    return Object.entries(icons_to_include).map(([key, icon]) => {
+    const items = Object.entries(icons_to_include).map(([key, icon]) => {
       const entry = featuresByIconType[key]
 
       return {
@@ -46,6 +52,8 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
         ),
       }
     })
+
+    return [{items}]
   }, [service])
 
   if (isError) {
@@ -60,14 +68,5 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
     return <PleaseWait testID="ServiceMapLegendPleaseWait" />
   }
 
-  return (
-    <MapLegend
-      legendItemGroups={[
-        {
-          items: entries,
-        },
-      ]}
-      title="Legenda"
-    />
-  )
+  return <MapLegend legendItemGroups={legendItemGroup} />
 }

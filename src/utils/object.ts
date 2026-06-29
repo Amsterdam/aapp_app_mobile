@@ -81,7 +81,7 @@ export const hasEqualValues = <Properties extends Record<string, unknown>>(
   object2: Properties,
   omitKey?: keyof Properties | Array<keyof Properties>,
 ) =>
-  Object.keys(object1)
+  [...new Set([...Object.keys(object1), ...Object.keys(object2)])]
     .filter(key =>
       Array.isArray(omitKey) ? !omitKey.includes(key) : key !== omitKey,
     )

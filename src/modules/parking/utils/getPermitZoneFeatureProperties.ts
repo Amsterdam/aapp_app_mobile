@@ -1,5 +1,8 @@
-import type {PermitZoneFeatureProperties} from '@/modules/parking/types'
 import type {GeoJsonProperties} from 'geojson'
+import {
+  PermitZoneColorValue,
+  type PermitZoneFeatureProperties,
+} from '@/modules/parking/types'
 import {baseColor} from '@/themes/tokens/base-color'
 
 const PERMIT_ZONE_PROPERTIES: Record<
@@ -18,12 +21,12 @@ const PERMIT_ZONE_PROPERTIES: Record<
     'fill-opacity': 0.3,
     'stroke-width': 2,
   },
-  blue: {
+  [PermitZoneColorValue.blue]: {
     label: 'Uw vergunningsgebied',
     fill: '#0075FF', // Custom blue color
     stroke: baseColor.primary.blue,
   },
-  red: {
+  [PermitZoneColorValue.red]: {
     label: 'Uitzonderingsgebied',
     fill: baseColor.primary.red,
     stroke: baseColor.primary.red,
