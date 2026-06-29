@@ -1,40 +1,35 @@
-import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
+import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
-describe('formatDateToDisplay', () => {
+describe('formatDateTimeToDisplay', () => {
+  beforeEach(() => {
+    jest.useFakeTimers()
+    jest.setSystemTime(new Date('2026-06-29T12:00:00+02:00'))
+  })
   afterEach(() => {
     jest.useRealTimers()
   })
 
-  it('should return the full date, when the date is not in the current year', () => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2025-09-01T12:00:00'))
-    expect(formatDateToDisplay('2026-01-01')).toBe('1 januari 2026')
-    jest.useRealTimers()
-    expect(formatDateToDisplay('2025-01-01')).toBe('1 januari 2025')
+  it('should return the date as date, without year if date is in current year.', () => {
+    expect(formatDateTimeToDisplay('2026-06-29T12:01:00')).toBe(
+      '29 juni, 12.01 uur',
+    )
   })
 
-  it('should only return day and month, when date is in the current year', () => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2025-10-01T12:00:00'))
-    expect(formatDateToDisplay('2025-01-01')).toBe('1 januari')
-    jest.useRealTimers()
+  it('should return the date as date, with year if date is not in current year.', () => {
+    expect(formatDateTimeToDisplay('2025-06-29T12:01:00')).toBe(
+      '29 juni 2025, 12.01 uur',
+    )
   })
 
-  it('should return "vandaag" for a date that is today and todayAsDate is set accordingly', () => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date('2025-10-01T12:00:00'))
-    expect(formatDateToDisplay('2025-10-01', false)).toBe('Vandaag')
-    expect(formatDateToDisplay('2025-10-01', true)).toBe('1 oktober')
-    expect(formatDateToDisplay('2025-10-01')).toBe('1 oktober')
-    jest.useRealTimers()
+  it('should return the date with today, if date is today.', () => {
+    expect(formatDateTimeToDisplay('2026-06-29T12:01:00', false)).toBe(
+      'Vandaag, 12.01 uur',
+    )
   })
 
   it('should return an empty string for an empty input', () => {
-    expect(formatDateToDisplay('')).toBe('')
-  })
-
-  it('should return null or undefined for an empty input', () => {
-    expect(formatDateToDisplay(null as unknown as string)).toBe('')
-    expect(formatDateToDisplay(undefined as unknown as string)).toBe('')
+    expect(formatDateTimeToDisplay('')).toBe('')
+    expect(formatDateTimeToDisplay(null as unknown as string)).toBe('')
+    expect(formatDateTimeToDisplay(undefined as unknown as string)).toBe('')
   })
 })

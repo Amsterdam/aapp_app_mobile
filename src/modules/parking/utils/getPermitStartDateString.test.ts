@@ -1,4 +1,7 @@
-import {getPermitStartDateString} from '@/modules/parking/utils/getPermitStartDateString'
+import {
+  BASE_STRING,
+  getPermitStartDateString,
+} from '@/modules/parking/utils/getPermitStartDateString'
 
 describe('getPermitStartDateString', () => {
   beforeEach(() => {
@@ -14,19 +17,18 @@ describe('getPermitStartDateString', () => {
   it('should return date and time if started_at is in future and not today.', () => {
     const dateString = getPermitStartDateString('2026-06-28T19:51:41')
 
-    expect(dateString).toBe(
-      'U kunt een parkeersessie starten vanaf 28 juni 2026 om 19:51 uur.',
-    )
+    expect(dateString).toBe(`${BASE_STRING} 28 juni, 19.51 uur.`)
   })
 
   it('should return only time if started_at is in future and today.', () => {
     const dateString = getPermitStartDateString('2026-06-26T19:51:41')
 
-    expect(dateString).toBe('U kunt een parkeersessie starten vanaf 19:51 uur.')
+    expect(dateString).toBe(`${BASE_STRING} vandaag, 19.51 uur.`)
   })
-  it('should return undefined if no started_at is provided.', () => {
-    const dateString = getPermitStartDateString(null)
-
-    expect(dateString).toBeUndefined()
+  it('should return empty string if no started_at is provided or is an invalid date.', () => {
+    expect(getPermitStartDateString(null)).toBe('')
+    expect(getPermitStartDateString(undefined as unknown as null)).toBe('')
+    expect(getPermitStartDateString('')).toBe('')
+    expect(getPermitStartDateString('INVALID_DATE')).toBe('')
   })
 })

@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react'
+import {useMemo, type ReactNode} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -27,6 +27,18 @@ export const CurrentPermitProvider = ({children}: Props) => {
   const onPressLogout = () => {
     void logout(dispatch, store.getState())
   }
+
+  const isNotYetActive = useMemo(() => {
+    if (!currentPermit) {
+      return false
+    }
+
+    return (
+      currentPermit.max_session_length_in_days === 1 &&
+      !!currentPermit.started_at &&
+      dayjs(currentPermit.started_at).isAfter(dayjs().add(1, 'day'), 'day')
+    )
+  }, [currentPermit])
 
   if (isLoading) {
     return (
@@ -61,11 +73,6 @@ export const CurrentPermitProvider = ({children}: Props) => {
       </Screen>
     )
   }
-
-  const isNotYetActive =
-    currentPermit.max_session_length_in_days === 1 &&
-    !!currentPermit.started_at &&
-    dayjs(currentPermit.started_at).isAfter(dayjs().add(1, 'day'), 'day')
 
   return (
     <CurrentPermitContext value={{...currentPermit, isNotYetActive}}>
