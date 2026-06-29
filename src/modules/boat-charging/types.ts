@@ -4,13 +4,7 @@ import type {Feature, Point} from 'geojson'
 export enum BoatChargingEndpointName {
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
-  guestLogin = 'guestLogin',
-}
-
-export type BoatChargingGuestLoginEndpointResponse = {
-  access_token: string
-  expires_in: number
-  token_type: string
+  boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
 }
 
 export type BoatChargingPointFeature = Feature<Point, BoatChargingLocation>
@@ -73,4 +67,14 @@ export enum BoatChargingPointState {
   free = 'free',
   malfunction = 'malfunction',
   occupied = 'occupied',
+}
+
+export type BoatChargingOIDCConfigResponse = {
+  client_id: string
+  issuer: string
+  pkce_required?: string
+  redirect_uri?: string
+  response_type?: string
+  scopes?: string[]
+  user_pool_id: string
 }

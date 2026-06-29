@@ -86,6 +86,7 @@ export const TextInputField = ({
                 placeholder={placeholder}
                 ref={ref}
                 required={!!rules?.required}
+                secureTextEntry={fieldType === FieldType.password}
                 testID={`${testID}Input`}
                 textTransform={textTransform ?? getTextTransform(fieldType)}
                 value={value as string}

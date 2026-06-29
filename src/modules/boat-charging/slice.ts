@@ -1,14 +1,19 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
-import type {BoatChargingLocation} from '@/modules/boat-charging/types'
+import type {
+  BoatChargingLocation,
+  BoatChargingOIDCConfigResponse,
+} from '@/modules/boat-charging/types'
+import type {RootState} from '@/store/types/rootState'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export type BoatChargingState = {
   accessToken?: {accessToken: string; accessTokenExpiration: string}
+  loggedInUsername?: string
+  openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
 }
 
@@ -43,6 +48,24 @@ export const boatChargingSlice = createSlice({
           .toISOString(),
       }
     },
+    resetAccessToken: state => {
+      state.accessToken = undefined
+    },
+    resetLoggedInUsername: state => {
+      state.loggedInUsername = undefined
+    },
+    setBoatChargingLoggedInUsername: (
+      state,
+      {payload}: PayloadAction<string>,
+    ) => {
+      state.loggedInUsername = payload
+    },
+    setBoatChargingOpenIdConnectConfig: (
+      state,
+      {payload}: PayloadAction<BoatChargingOIDCConfigResponse>,
+    ) => {
+      state.openIdConnectConfig = payload
+    },
   },
 })
 
@@ -50,6 +73,10 @@ export const {
   setSelectedBoatChargingPointId,
   resetSelectedBoatChargingPointId,
   setAccessToken,
+  resetAccessToken,
+  resetLoggedInUsername,
+  setBoatChargingOpenIdConnectConfig,
+  setBoatChargingLoggedInUsername,
 } = boatChargingSlice.actions
 
 export const selectSelectedBoatChargingPointId = (state: RootState) =>
@@ -60,6 +87,15 @@ export const selectBoatChargingAccessToken = (state: RootState) =>
 
 export const selectBoatChargingAccessTokenExpiration = (state: RootState) =>
   state[ReduxKey.boatCharging].accessToken?.accessTokenExpiration
+
+export const selectBoatChargingOpenIdConnectConfig = (
+  state: RootState,
+): BoatChargingOIDCConfigResponse | undefined =>
+  state[ReduxKey.boatCharging].openIdConnectConfig
+
+export const selectBoatChargingLoggedInUsername = (
+  state: RootState,
+): string | undefined => state[ReduxKey.boatCharging].loggedInUsername
 
 export const useSelectedBoatChargingPointId = () =>
   useSelector(selectSelectedBoatChargingPointId)
