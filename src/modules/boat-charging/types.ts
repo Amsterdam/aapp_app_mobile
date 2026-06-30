@@ -29,6 +29,7 @@ export type BoatChargingLocationDetailsResponse = BoatChargingLocation & {
 export type BoatChargingLocation = {
   address: Address
   id: string
+  max_kw: number | null
   name: string
   opening_times: {
     exceptional_closings: unknown[] //TODO: add typing

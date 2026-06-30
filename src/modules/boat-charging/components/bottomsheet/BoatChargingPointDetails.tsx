@@ -25,6 +25,7 @@ import {
   useSelectedBoatChargingPointId,
 } from '@/modules/boat-charging/slice'
 import {ChargingPointStatus} from '@/modules/boat-charging/types'
+import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -68,7 +69,7 @@ export const BoatChargingPointDetails = () => {
     )
   }
 
-  const {address, tariff} = location
+  const {address, tariff, max_kw} = location
 
   const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[sockets.length]}`
   const availableSocketsSentence = `${freeSockets.length} van ${sockets.length} ${pluralizedSockets} vrij`
@@ -102,8 +103,13 @@ export const BoatChargingPointDetails = () => {
             </Phrase>
           </Row>
           <Phrase color="secondary">
-            {/* Replace 3.7 by real value once available from the endpoint (AM-880) */}
-            3.7 kW – {formatNumber(tariff.energy_price_per_kwh, 'EUR')} per kWh
+            {[
+              formatMaxKW(max_kw),
+              formatNumber(tariff.energy_price_per_kwh, 'EUR'),
+            ]
+              .filter(Boolean)
+              .join(' - ')}{' '}
+            per kWh
           </Phrase>
         </Column>
         <BoatChargingPointDetailsButton
