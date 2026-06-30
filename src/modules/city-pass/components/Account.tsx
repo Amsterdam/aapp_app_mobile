@@ -22,7 +22,7 @@ export const Account = () => {
       <Column gutter="lg">
         {isLoggedIn ? (
           <>
-            <Paragraph>U bent ingelogd.</Paragraph>
+            <Paragraph>U bent ingelogd</Paragraph>
             <Button
               label="Uitloggen"
               onPress={() =>

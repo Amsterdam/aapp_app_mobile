@@ -26,7 +26,7 @@ export const Account = () => {
         {isLoggedIn ? (
           <>
             <Paragraph>
-              U bent ingelogd met {simplur`${numberOfAccounts} account[|s]`}.
+              U bent ingelogd met {simplur`${numberOfAccounts} account[|s]`}
             </Paragraph>
             <NavigationButton
               chevronSize="md"
