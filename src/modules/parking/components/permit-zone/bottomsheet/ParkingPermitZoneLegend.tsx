@@ -7,20 +7,19 @@ import {usePermitZonesQuery} from '@/modules/parking/service'
 import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
 import {hasEqualValues} from '@/utils/object'
 
-type LegendItem = ComponentProps<
-  typeof MapLegend
->['legendItemGroups'][number]['items'][number]
+const SIZE: ComponentProps<typeof MapLegend.Item>['iconSize'] = 'lgx'
 
-const LEGEND_ITEMS: Array<LegendItem> = [
+const LEGEND_ITEMS: Array<ComponentProps<typeof MapLegend.Item>> = [
   {
     label: 'Parkeerautomaat of paal',
-    icon: {name: 'marker-point', color: 'default'},
+    icon: {name: 'marker-point', color: 'default', size: SIZE},
   },
   {
     label: 'Standaard parkeerautomaat',
     icon: {
       name: 'marker-distinct',
       color: 'link',
+      size: SIZE,
     },
   },
 ]
@@ -32,7 +31,7 @@ export const ParkingPermitZoneLegend = () => {
 
   const items = useMemo(() => {
     if (!permitZoneData || !('features' in permitZoneData.geojson)) {
-      return [{items: LEGEND_ITEMS}]
+      return LEGEND_ITEMS
     }
 
     const propertiesSet = permitZoneData.geojson.features.reduce<
@@ -49,15 +48,32 @@ export const ParkingPermitZoneLegend = () => {
       return [...set, current.properties]
     }, [])
 
-    const dynamicItems = propertiesSet.map<LegendItem>(
-      ({fill, popupContent}) => ({
-        label: getPermitZoneFeatureProperties(fill)?.label || popupContent,
-        Icon: <ParkingPermitZoneLegendRect fill={fill} />,
-      }),
-    )
+    const dynamicItems = propertiesSet.map<
+      ComponentProps<typeof MapLegend.Item>
+    >(({fill, popupContent}) => ({
+      label: getPermitZoneFeatureProperties(fill)?.label || popupContent,
+      Icon: (
+        <ParkingPermitZoneLegendRect
+          fill={fill}
+          size="ml"
+        />
+      ),
+    }))
 
-    return [{items: [...LEGEND_ITEMS, ...dynamicItems]}]
+    return [...LEGEND_ITEMS, ...dynamicItems]
   }, [permitZoneData])
 
-  return <MapLegend legendItemGroups={items} />
+  return (
+    <MapLegend>
+      <MapLegend.Category>
+        {items.map((item, index) => (
+          <MapLegend.Item
+            {...item}
+            iconSize={SIZE}
+            key={item.label || index}
+          />
+        ))}
+      </MapLegend.Category>
+    </MapLegend>
+  )
 }

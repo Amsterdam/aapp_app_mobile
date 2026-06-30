@@ -1,11 +1,14 @@
-import type {ComponentProps, ReactNode} from 'react'
+import type {ComponentProps, PropsWithChildren, ReactNode} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {Size} from '@/components/ui/layout/Size'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {IconSize} from '@/components/ui/types'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 type LegendItem = {
   label?: string
@@ -14,17 +17,10 @@ type LegendItem = {
   | {Icon: ReactNode; icon?: never}
 )
 
-type LegendItemGroup = {
-  items: LegendItem[]
-  label?: string
-}
-
-type Props = {
-  legendItemGroups: LegendItemGroup[]
-  title?: string
-}
-
-export const MapLegend = ({title = 'Legenda', legendItemGroups}: Props) => {
+export const MapLegend = ({
+  title = 'Legenda',
+  children,
+}: PropsWithChildren<{title?: string}>) => {
   const autoFocus = useAccessibilityFocus()
 
   return (
@@ -38,35 +34,65 @@ export const MapLegend = ({title = 'Legenda', legendItemGroups}: Props) => {
           text={title}
         />
 
-        {legendItemGroups.map(({label: groupLabel, items}, groupIndex) => (
-          <Column
-            gutter="sm"
-            key={groupLabel || `legendGroup-${groupIndex + 1}`}>
-            {!!groupLabel && (
-              <Title
-                level="h5"
-                text={groupLabel}
-              />
-            )}
-            {items.map(
-              ({label: legendItemLabel, icon, Icon: CustomIcon}, itemIndex) => (
-                <Row
-                  gutter="smd"
-                  key={legendItemLabel || `legendItem-${itemIndex + 1}`}>
-                  {!!CustomIcon && CustomIcon}
-                  {!!icon && (
-                    <Icon
-                      {...icon}
-                      size="lg"
-                    />
-                  )}
-                  <Phrase>{legendItemLabel}</Phrase>
-                </Row>
-              ),
-            )}
-          </Column>
-        ))}
+        {children}
       </Column>
     </Box>
   )
 }
+
+const MapLegendItemCategory = ({
+  children,
+  label,
+}: PropsWithChildren<{label?: string}>) => (
+  <Column gutter="sm">
+    {!!label && (
+      <Title
+        level="h5"
+        text={label}
+      />
+    )}
+    {children}
+  </Column>
+)
+
+const MapLegendItem = ({
+  label,
+  ...iconProps
+}: LegendItem & {iconSize?: keyof typeof IconSize}) => (
+  <Row gutter="smd">
+    <MapLegendItemIcon {...iconProps} />
+
+    <Phrase>{label}</Phrase>
+  </Row>
+)
+
+const MapLegendItemIcon = ({
+  icon,
+  Icon: CustomIcon,
+  iconSize = 'lg',
+}: Partial<LegendItem> & {iconSize?: keyof typeof IconSize}) => {
+  const {fontScale} = useDeviceContext()
+
+  if (!icon && !CustomIcon) {
+    return null
+  }
+
+  const scaledSize = IconSize[iconSize] * fontScale
+
+  return (
+    <Size width={scaledSize}>
+      <Column align="center">
+        {!!CustomIcon && CustomIcon}
+        {!!icon && (
+          <Icon
+            {...icon}
+            size={icon.size || iconSize}
+          />
+        )}
+      </Column>
+    </Size>
+  )
+}
+
+MapLegend.Category = MapLegendItemCategory
+MapLegend.Item = MapLegendItem
