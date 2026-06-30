@@ -1,10 +1,13 @@
 import {ModuleTitle} from '@/components/features/ModuleTitle'
 import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {RedirectKey} from '@/modules/redirects/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
 
@@ -21,7 +24,9 @@ export const Account = () => {
       <Column gutter="lg">
         {isLoggedIn ? (
           <>
-            <Paragraph>U bent ingelogd met {username}.</Paragraph>
+            <Paragraph>
+              U bent ingelogd met <Phrase emphasis="strong">{username}</Phrase>
+            </Paragraph>
             <Button
               label="Uitloggen"
               onPress={() =>
@@ -45,6 +50,12 @@ export const Account = () => {
                 })
               }
               testID="UserAccountBoatChargingLoginButton"
+            />
+            <ExternalLinkButton
+              label="Account aanmaken"
+              redirectKey={RedirectKey.boatChargingCreateAccount}
+              testID="BoatChargingLoginFormCreateAccountButton"
+              variant="tertiary"
             />
           </>
         )}

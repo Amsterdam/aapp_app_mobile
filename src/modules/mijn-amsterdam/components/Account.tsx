@@ -57,10 +57,9 @@ export const Account = () => {
                 {!!profileName && (
                   <Phrase>
                     {' '}
-                    als <Phrase emphasis="strong">{profileName}</Phrase>
+                    met <Phrase emphasis="strong">{profileName}</Phrase>
                   </Phrase>
                 )}
-                .
               </Paragraph>
               {hasPermission ? (
                 <Paragraph>

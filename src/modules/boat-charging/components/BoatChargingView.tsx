@@ -4,24 +4,18 @@ import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottom
 import {MapViewSwitchView} from '@/components/features/map/MapViewSwitchView'
 import {MapFiltersProvider} from '@/components/features/map/providers/MapFiltersProvider'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {BoatChargingList} from '@/modules/boat-charging/components/BoatChargingList'
 import {BoatChargingMap} from '@/modules/boat-charging/components/BoatChargingMap'
 import {BoatChargingBottomSheetVariant} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
 import {mapFilters} from '@/modules/boat-charging/constants/filters'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
 import {useBoatChargingLocationsQuery} from '@/modules/boat-charging/service'
-import {
-  selectBoatChargingAccessToken,
-  setSelectedBoatChargingPointId,
-} from '@/modules/boat-charging/slice'
+import {setSelectedBoatChargingPointId} from '@/modules/boat-charging/slice'
 
 export const BoatChargingView = () => {
   useOpenIdConnectAuth()
   const dispatch = useDispatch()
   const {open} = useBottomSheet()
-
-  const boatChargingAccessToken = useSelector(selectBoatChargingAccessToken)
 
   const onSelectBoatChargingPoint = useCallback(
     (id: BoatChargingLocation['id']) => {
@@ -35,9 +29,7 @@ export const BoatChargingView = () => {
     data,
     isLoading: isLoadingLocations,
     isError: isErrorLocations,
-  } = useBoatChargingLocationsQuery(undefined, {
-    skip: !boatChargingAccessToken,
-  })
+  } = useBoatChargingLocationsQuery()
 
   return (
     <MapFiltersProvider filters={mapFilters}>
