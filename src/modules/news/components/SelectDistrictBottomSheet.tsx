@@ -30,7 +30,7 @@ export const SelectDistrictBottomSheet = () => {
           />
           <Column gutter="no">
             {isLoading ? (
-              <PleaseWait testID="NewsListPleaseWait" />
+              <PleaseWait testID="NewsSelectDistrictPleaseWait" />
             ) : (
               districts?.map(district => (
                 <Pressable
