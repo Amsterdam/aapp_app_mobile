@@ -4,7 +4,7 @@ import jsxPreferCoercedAndOverNullTernary from './jsx-prefer-coerced-and-over-nu
 const ruleTester = new RuleTester({
   parser: require.resolve('@typescript-eslint/parser'),
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
