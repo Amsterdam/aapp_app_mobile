@@ -1,6 +1,7 @@
 import {useState, useCallback} from 'react'
 import {FlatList, StyleSheet, type FlatListProps} from 'react-native'
 import type {Theme} from '@/themes/themes'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {NewsListItem} from '@/modules/news/components/NewsListItem'
@@ -78,6 +79,9 @@ export const NewsList = ({
       contentContainerStyle={styles.contentContainer}
       data={result.data ?? []}
       ItemSeparatorComponent={<Gutter height="md" />}
+      ListEmptyComponent={
+        result.isLoading ? <PleaseWait testID="NewsListPleaseWait" /> : null
+      }
       ListFooterComponent={footerComponent}
       ListHeaderComponent={headerComponent}
       onViewableItemsChanged={onViewableItemsChanged}
