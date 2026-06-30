@@ -79,7 +79,7 @@ export const NewsList = ({
       contentContainerStyle={styles.contentContainer}
       data={result.data ?? []}
       ItemSeparatorComponent={<Gutter height="md" />}
-      ListEmptyComponent={<PleaseWait testID="NewsListPleaseWait" />}
+      ListEmptyComponent={result.isLoading ? <PleaseWait testID="NewsListPleaseWait" /> : null}
       ListFooterComponent={footerComponent}
       ListHeaderComponent={headerComponent}
       onViewableItemsChanged={onViewableItemsChanged}
