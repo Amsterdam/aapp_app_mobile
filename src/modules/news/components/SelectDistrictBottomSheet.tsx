@@ -14,7 +14,9 @@ import {setSelectedDistrict} from '@/modules/news/slice'
 
 export const SelectDistrictBottomSheet = () => {
   const {data, isLoading} = useNewsDistrictsQuery()
-  const districts = data?.data?.slice()?.sort((a, b) => a.name.localeCompare(b.name))
+  const districts = data?.data
+    ?.slice()
+    ?.sort((a, b) => a.name.localeCompare(b.name))
   const dispatch = useDispatch()
   const {close} = useBottomSheet()
 
