@@ -1,4 +1,4 @@
-import type {ComponentProps, PropsWithChildren, ReactNode} from 'react'
+import type {ComponentProps, JSX, PropsWithChildren, ReactNode} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -17,10 +17,12 @@ type LegendItem = {
   | {Icon: ReactNode; icon?: never}
 )
 
-export const MapLegend = ({
-  title = 'Legenda',
-  children,
-}: PropsWithChildren<{title?: string}>) => {
+export const MapLegend: ((
+  props: PropsWithChildren<{title?: string}>,
+) => JSX.Element) & {
+  Category: typeof MapLegendItemCategory
+  Item: typeof MapLegendItem
+} = ({title = 'Legenda', children}: PropsWithChildren<{title?: string}>) => {
   const autoFocus = useAccessibilityFocus()
 
   return (
@@ -70,7 +72,9 @@ const MapLegendItemIcon = ({
   icon,
   Icon: CustomIcon,
   iconSize = 'lg',
-}: Partial<LegendItem> & {iconSize?: keyof typeof IconSize}) => {
+}: Partial<LegendItem> & {
+  iconSize?: keyof typeof IconSize
+}) => {
   const {fontScale} = useDeviceContext()
 
   if (!icon && !CustomIcon) {
