@@ -144,8 +144,8 @@ export const alerts = {
   },
   loginForbiddenFailed: {
     variant: AlertVariant.negative,
-    text: 'Controleer uw meldcode en pincode en probeer het opnieuw.',
-    title: loginFailedTitle,
+    text: 'Vul de meldcode en pincode opnieuw in.',
+    title: 'Meld- of pincode klopt niet',
     testID: 'ParkingLoginForbiddenFailedAlert',
   },
   loginFailed: {
