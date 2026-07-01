@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect} from 'react'
+import {useEffect, useMemo} from 'react'
 import simplur from 'simplur'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {Box} from '@/components/ui/containers/Box'
@@ -16,15 +16,13 @@ import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {
-  useBoatChargingLocationDetailsQuery,
-  useBoatChargingLocationsQuery,
-} from '@/modules/boat-charging/service'
+import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {
   resetSelectedBoatChargingPointId,
   useSelectedBoatChargingPointId,
 } from '@/modules/boat-charging/slice'
 import {ChargingPointStatus} from '@/modules/boat-charging/types'
+import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -37,11 +35,8 @@ export const BoatChargingPointDetails = () => {
     isLoading,
     isError,
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
-  const {data: locations} = useBoatChargingLocationsQuery() // Remove this once we receive status in the location-details endpoint (AM-881)
   const autoFocus = useAccessibilityFocus()
   const {size} = useTheme()
-  const {status} =
-    locations?.features.find(f => f.properties.id === id)?.properties || {}
 
   useEffect(
     () => () => {
@@ -49,6 +44,19 @@ export const BoatChargingPointDetails = () => {
     },
     [dispatch],
   )
+
+  const details = useMemo(() => {
+    if (!location) {
+      return ''
+    }
+
+    const maxKw = formatMaxKW(location.max_kw)
+    const rate = location.tariff
+      ? `${formatNumber(location.tariff.energy_price_per_kwh, 'EUR')} per kWh`
+      : ''
+
+    return [maxKw, rate].filter(Boolean).join(' - ')
+  }, [location])
 
   const sockets =
     location?.charging_stations.flatMap(station => station.evses) ?? []
@@ -68,7 +76,7 @@ export const BoatChargingPointDetails = () => {
     )
   }
 
-  const {address, tariff} = location
+  const {address, status} = location
 
   const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[sockets.length]}`
   const availableSocketsSentence = `${freeSockets.length} van ${sockets.length} ${pluralizedSockets} vrij`
@@ -101,10 +109,7 @@ export const BoatChargingPointDetails = () => {
                 : socketsSentenceMalfunction}
             </Phrase>
           </Row>
-          <Phrase color="secondary">
-            {/* Replace 3.7 by real value once available from the endpoint (AM-880) */}
-            3.7 kW – {formatNumber(tariff.energy_price_per_kwh, 'EUR')} per kWh
-          </Phrase>
+          {!!details && <Phrase color="secondary">{details}</Phrase>}
         </Column>
         <BoatChargingPointDetailsButton
           onPress={() => navigate(BoatChargingRouteName.boatChargingDetails)}
