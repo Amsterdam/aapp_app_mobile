@@ -63,7 +63,9 @@ export const BoatChargingHelpScreen = ({navigation}: Props) => (
           />
           <Paragraph>Meld een storing of onjuiste informatie.</Paragraph>
           <NavigationButton
+            chevronSize="md"
             emphasis="default"
+            horizontallyAlign="start"
             insetHorizontal="no"
             onPress={() =>
               navigation.navigate(ModuleSlug['report-problem'], {
