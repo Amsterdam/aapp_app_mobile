@@ -42,18 +42,19 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
     void refetch()
   }, REFETCH_INTERVAL)
 
-  const form = useForm<{socket: string}>()
+  const form = useForm<{socketId: string}>()
 
   const infoRows = useMemo(
-    () => ({
-      Vermogen: formatMaxKW(location?.max_kw),
-      Kosten: location?.tariff
-        ? `${formatNumber(location?.tariff.energy_price_per_kwh, 'EUR')} per kWh`
-        : undefined,
-      Starttarief: location?.tariff
-        ? formatNumber(location?.tariff.flat_fee_price, 'EUR')
-        : undefined,
-    }),
+    () =>
+      Object.entries({
+        Vermogen: formatMaxKW(location?.max_kw),
+        Kosten: location?.tariff
+          ? `${formatNumber(location?.tariff.energy_price_per_kwh, 'EUR')} per kWh`
+          : undefined,
+        Starttarief: location?.tariff
+          ? formatNumber(location?.tariff.flat_fee_price, 'EUR')
+          : undefined,
+      }),
     [location],
   )
 

@@ -7,25 +7,25 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {devLog} from '@/processes/development'
 
 export const BoatChargingDetailsSocketSubmitButton = () => {
-  const form = useFormContext<{socket: string}>()
+  const form = useFormContext<{socketId: string}>()
   const {isLoggedIn} = useIsLoggedIn()
   const {navigate} = useNavigation()
 
   const onSubmit = useCallback(
-    (values: {socket?: string}) => {
-      if (!values.socket) {
+    ({socketId}: {socketId?: string}) => {
+      if (!socketId) {
         form.setError('root', {message: 'Kies een stopcontact uit de lijst.'})
 
         return
       }
 
-      devLog(values.socket)
+      devLog(socketId)
 
       if (isLoggedIn) {
         navigate(BoatChargingRouteName.boatCharging) // TODO: initiate payment flow
       } else {
         navigate(BoatChargingRouteName.boatChargingGuestEmail, {
-          socketId: values.socket,
+          socketId,
         })
       }
     },

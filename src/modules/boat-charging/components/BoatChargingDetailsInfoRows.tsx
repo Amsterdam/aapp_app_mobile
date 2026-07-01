@@ -5,10 +5,10 @@ import {Phrase} from '@/components/ui/text/Phrase'
 export const BoatChargingDetailsInfoRows = ({
   rows,
 }: {
-  rows: Record<string, string | null | undefined>
+  rows: Array<[string, string | undefined]>
 }) => (
   <Column>
-    {Object.entries(rows).map(([key, value]) => {
+    {rows.map(([key, value]) => {
       if (!value) return null
 
       return (

@@ -18,7 +18,7 @@ export const BoatChargingDetailsSocketRadioGroup = ({
 }: {
   chargingStations: ChargingStation[]
 }) => {
-  const form = useFormContext<{socket: string}>()
+  const form = useFormContext<{socketId: string}>()
 
   const [availableSockets, otherSockets] = useMemo(
     () =>
@@ -43,7 +43,7 @@ export const BoatChargingDetailsSocketRadioGroup = ({
       {!!availableSockets.length && (
         <RadioGroupControlled
           {...form}
-          name="socket"
+          name="socketId"
           options={availableSockets.map(socket => ({
             label: (
               <BoatChargingSocketRadioLabel
