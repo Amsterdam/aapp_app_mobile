@@ -20,7 +20,11 @@ type Dependencies = {
 
 // get the dependencies from the package-lock.json file
 const npmLsOutput = JSON.parse(
-  (await exec('npm ls --json --package-lock-only')).stdout,
+  (
+    await exec('npm ls --json --package-lock-only --depth=0', {
+      maxBuffer: 10 * 1024 * 1024,
+    })
+  ).stdout,
 ) as PackageLock
 
 // filter the dependencies to only include those that start with @actions/ and have a version
