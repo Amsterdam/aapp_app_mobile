@@ -45,9 +45,12 @@ if (actionDependencies.length > 0) {
   )
   // rename package.json to package.json.temp to avoid npm from installing all dependencies from package.json
   renameSync('package.json', 'package.json.temp')
-  await exec(
-    `npm install --no-save --no-package-lock --ignore-scripts --install-strategy=shallow ${actionDependencies.join(' ')}`,
-  )
-  // restore package.json
-  renameSync('package.json.temp', 'package.json')
+  try {
+    await exec(
+      `npm install --no-save --no-package-lock --ignore-scripts --install-strategy=shallow ${actionDependencies.join(' ')}`,
+    )
+  } finally {
+    // restore package.json
+    renameSync('package.json.temp', 'package.json')
+  }
 }
