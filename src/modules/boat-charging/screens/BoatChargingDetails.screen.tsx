@@ -12,6 +12,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
+import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {formatNumber} from '@/utils/formatNumber'
 
 type Props = NavigationProps<BoatChargingRouteName.boatChargingDetails>
@@ -44,30 +45,40 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
   const {address, max_kw, tariff} = location
 
   return (
-    <Column gutter="md">
-      <Title
-        level="h2"
-        testID="BoatChargingDetailsScreenTitle"
-        text={getAddressLine1(address)}
-      />
+    <Column gutter="xl">
+      <Column gutter="md">
+        <Title
+          level="h2"
+          testID="BoatChargingDetailsScreenTitle"
+          text={getAddressLine1(address)}
+        />
+
+        <Column>
+          {Object.entries({
+            Vermogen: formatMaxKW(max_kw) || 'Onbekend',
+            Kosten: `${formatNumber(tariff.energy_price_per_kwh, 'EUR')} per kWh`,
+            Starttarief: formatNumber(tariff.flat_fee_price, 'EUR'),
+          }).map(([key, value]) => (
+            <Row
+              flex={1}
+              key={key}>
+              <Column flex={1}>
+                <Phrase color="secondary">{key}</Phrase>
+              </Column>
+              <Column flex={1}>
+                <Phrase color="secondary">{value}</Phrase>
+              </Column>
+            </Row>
+          ))}
+        </Column>
+      </Column>
 
       <Column>
-        {Object.entries({
-          Vermogen: max_kw ?? 'Onbekend', // TODO: add kW
-          Kosten: `${formatNumber(tariff.energy_price_per_kwh, 'EUR')} per kWh`,
-          Starttarief: formatNumber(tariff.flat_fee_price, 'EUR'),
-        }).map(([key, value]) => (
-          <Row
-            flex={1}
-            key={key}>
-            <Column flex={1}>
-              <Phrase color="secondary">{key}</Phrase>
-            </Column>
-            <Column flex={1}>
-              <Phrase color="secondary">{value}</Phrase>
-            </Column>
-          </Row>
-        ))}
+        <Title
+          level="h4"
+          testID="BoatChargingDetailsChooseSocketTitle"
+          text="Kies stopcontact en betaal"
+        />
       </Column>
     </Column>
   )
