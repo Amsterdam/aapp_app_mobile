@@ -13,7 +13,27 @@ export type ExternalLinkProps =
       url: string
     }
 
-export const useOpenExternalLink = ({redirectKey, url}: ExternalLinkProps) => {
+export function useOpenExternalLink({
+  redirectKey,
+}: {
+  redirectKey: RedirectKey
+}): {
+  isError: boolean
+  isLoading: boolean
+  onPress: () => void
+}
+export function useOpenExternalLink({url}: {url: string}): {
+  isError: false
+  isLoading: false
+  onPress: () => void
+}
+export function useOpenExternalLink({redirectKey, url}: ExternalLinkProps): {
+  isError: boolean
+  isLoading: boolean
+  onPress: () => void
+}
+
+export function useOpenExternalLink({redirectKey, url}: ExternalLinkProps) {
   const {
     openRedirect,
     isLoading: isRedirectLoading,
