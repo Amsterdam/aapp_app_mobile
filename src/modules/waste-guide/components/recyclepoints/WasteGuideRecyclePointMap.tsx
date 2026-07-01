@@ -71,12 +71,14 @@ export const WasteGuideRecyclePointMap = () => {
         </Marker>
       </MapBase>
       <View style={styles.routeButtonContainer}>
-        <ExternalLinkButton
-          label="Route openen"
-          testID="WasteGuideRecyclePointMapExternalLinkButton"
-          url={directionsUrl}
-          variant="secondary"
-        />
+        {!!directionsUrl && (
+          <ExternalLinkButton
+            label="Route openen"
+            testID="WasteGuideRecyclePointMapExternalLinkButton"
+            url={directionsUrl}
+            variant="secondary"
+          />
+        )}
       </View>
     </View>
   )

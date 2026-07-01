@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {useCallback, type ReactElement} from 'react'
 import {type ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, type FlatGridProps} from 'react-native-super-grid'
@@ -30,7 +30,7 @@ type Props = {
   error?: FetchBaseQueryError | SerializedError
   isError: boolean
   isLoading: boolean
-  listHeader?: React.JSX.Element
+  listHeader?: ReactElement
   noResultsMessage?: string
   onItemsPerRowChange?: FlatGridProps<ProjectsItem>['onItemsPerRowChange']
   onViewableItemsChanged?: FlatGridProps<ProjectsItem>['onViewableItemsChanged']

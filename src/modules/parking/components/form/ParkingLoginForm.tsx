@@ -6,9 +6,8 @@ import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
-import {InlineLink} from '@/components/ui/text/InlineLink'
+import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
@@ -40,7 +39,6 @@ export const ParkingLoginForm = () => {
   const {setAccessToken} = useParkingAccessToken()
   const {resetAlert, setAlert} = useAlert()
   const trackException = useTrackException()
-  const {openRedirect} = useOpenRedirect()
   const accounts = useParkingAccounts()
 
   const {handleSubmit, setValue} = form
@@ -158,13 +156,11 @@ export const ParkingLoginForm = () => {
         <Column gutter="sm">
           <Paragraph>
             U vindt uw meldcode en pincode in{' '}
-            <InlineLink
-              isExternal
-              logging-label="ParkingLoginFormInlineLink"
-              onPress={() => openRedirect(RedirectKey.my_parking)}
+            <ExternalInlineLink
+              redirectKey={RedirectKey.my_parking}
               testID="ParkingLoginFormInlineLink">
               Mijn Parkeren
-            </InlineLink>
+            </ExternalInlineLink>
           </Paragraph>
           <Paragraph>
             Bent u op bezoek? Vraag de meldcode en pincode van het

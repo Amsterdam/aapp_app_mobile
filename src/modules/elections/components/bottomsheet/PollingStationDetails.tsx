@@ -80,13 +80,15 @@ export const PollingStationDetails = () => {
               text="Adres"
             />
             <Paragraph>{pollingStation.address1}</Paragraph>
-            <ExternalLinkButton
-              label="Route openen"
-              noPadding
-              testID="PollingStationDetailsRouteExternalLinkButton"
-              url={directionsUrl}
-              variant="tertiary"
-            />
+            {!!directionsUrl && (
+              <ExternalLinkButton
+                label="Route openen"
+                noPadding
+                testID="PollingStationDetailsRouteExternalLinkButton"
+                url={directionsUrl}
+                variant="tertiary"
+              />
+            )}
           </Column>
         </Row>
         <PollingStationCrowdStatus pollingStation={pollingStation} />
