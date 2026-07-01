@@ -49,7 +49,7 @@ export type EVSE = {
   status: ChargingPointStatus
 }
 
-type ChargingStation = {
+export type ChargingStation = {
   evses: EVSE[]
   id: string
   location_id: string

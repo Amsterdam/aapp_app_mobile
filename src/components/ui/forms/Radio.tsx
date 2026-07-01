@@ -1,4 +1,5 @@
 import {Circle, Svg} from 'react-native-svg'
+import type {ReactNode} from 'react'
 import type {GestureResponderEvent} from 'react-native'
 import {
   PressableBase,
@@ -10,7 +11,7 @@ import {useTheme} from '@/themes/useTheme'
 
 type RadioProps = {
   isSelected: boolean
-  label: string
+  label: ReactNode
   onPress: (event: GestureResponderEvent) => void
 } & PressableBaseProps
 
@@ -62,7 +63,11 @@ export const Radio = ({
     testID={testID}>
     <Row gutter="sm">
       <RadioIndicator checked={isSelected} />
-      <Phrase testID={`${testID}Phrase`}>{label}</Phrase>
+      {typeof label === 'string' ? (
+        <Phrase testID={`${testID}Phrase`}>{label}</Phrase>
+      ) : (
+        label
+      )}
     </Row>
   </PressableBase>
 )

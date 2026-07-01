@@ -37,10 +37,6 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       providesTags: ['BoatChargingLocationDetails'],
       keepUnusedDataFor: CacheLifetime.minute,
-      transformResponse: (data: BoatChargingLocationDetailsResponse) => ({
-        ...data,
-        max_kw: 22,
-      }),
     }),
     [BoatChargingEndpointName.boatChargingOpenIdConnectConfig]: builder.query<
       BoatChargingOIDCConfigResponse,

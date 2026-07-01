@@ -1,3 +1,4 @@
+import type {ReactNode} from 'react'
 import {OrientationBasedLayout} from '@/components/ui/containers/OrientationBasedLayout'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Label} from '@/components/ui/forms/Label'
@@ -7,16 +8,16 @@ import {LayoutOrientation, type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
-export type RadioGroupOption<T> = {
-  label: string
+export type RadioGroupOption<T, Node extends ReactNode = string> = {
+  label: Node
   value: T
 }
 
-type RadioGroupProps<T> = {
+type RadioGroupProps<T, Node extends ReactNode = string> = {
   errorMessage?: string
   label?: string
   onChange: (value: T) => void
-  options: RadioGroupOption<T>[]
+  options: RadioGroupOption<T, Node>[]
   orientation?: LayoutOrientation
   required?: boolean
   /**
@@ -29,7 +30,10 @@ type RadioGroupProps<T> = {
 
 type RadioValue = string | number | boolean
 
-export const RadioGroup = <T extends RadioValue>({
+export const RadioGroup = <
+  T extends RadioValue,
+  Node extends ReactNode = string,
+>({
   errorMessage,
   label,
   options = [],
@@ -42,7 +46,7 @@ export const RadioGroup = <T extends RadioValue>({
   useOptionValuesForLogging = false,
   logDimensions = {},
   ...props
-}: RadioGroupProps<T>) => {
+}: RadioGroupProps<T, Node>) => {
   const onPress = usePiwikTrackCustomEventFromProps({
     ...props,
     logAction,
@@ -69,7 +73,7 @@ export const RadioGroup = <T extends RadioValue>({
           return (
             <Radio
               isSelected={value === optionValue}
-              key={optionLabel}
+              key={typeof optionLabel === 'string' ? optionLabel : index}
               label={optionLabel}
               logging-label={logName}
               logName={logName}

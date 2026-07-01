@@ -16,7 +16,6 @@ export const screenConfig: StackNavigationRoutes<
     component: BoatChargingScreen,
     name: BoatChargingRouteName.boatCharging,
     options: {
-      headerTitle: 'Boot laden',
       headerShown: false,
     },
   },
