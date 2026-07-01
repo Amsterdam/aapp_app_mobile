@@ -25,10 +25,14 @@ export const useOpenRedirect = () => {
       if (redirectKey && redirectUrls?.[redirectKey]) {
         openWebUrl(redirectUrls[redirectKey])
       } else {
-        Alert.alert(
-          `Sorry, deze functie is ${!redirectUrls ? 'even ' : ''}niet beschikbaar.`,
-          !redirectUrls ? 'Probeer het later opnieuw.' : '',
-        )
+        if (redirectUrls) {
+          Alert.alert(`Sorry, deze functie is niet beschikbaar.`)
+        } else {
+          Alert.alert(
+            `Sorry, deze functie is even niet beschikbaar.`,
+            'Probeer het later opnieuw.',
+          )
+        }
 
         if (redirectUrls) {
           trackException(ExceptionLogKey.redirectNotFound, 'Redirects.tsx', {
