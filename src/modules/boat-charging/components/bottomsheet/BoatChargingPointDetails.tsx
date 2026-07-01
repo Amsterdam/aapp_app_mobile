@@ -35,6 +35,7 @@ export const BoatChargingPointDetails = () => {
     isLoading,
     isError,
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
+
   const autoFocus = useAccessibilityFocus()
   const {size} = useTheme()
 
@@ -111,10 +112,14 @@ export const BoatChargingPointDetails = () => {
           </Row>
           {!!details && <Phrase color="secondary">{details}</Phrase>}
         </Column>
-        <BoatChargingPointDetailsButton
-          onPress={() => navigate(BoatChargingRouteName.boatChargingDetails)}
-          status={status}
-        />
+        {!!id && (
+          <BoatChargingPointDetailsButton
+            onPress={() =>
+              navigate(BoatChargingRouteName.boatChargingDetails, {id})
+            }
+            status={status}
+          />
+        )}
       </Column>
     </Box>
   )

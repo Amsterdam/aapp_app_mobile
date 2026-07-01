@@ -24,7 +24,7 @@ export const screenConfig: StackNavigationRoutes<
     component: BoatChargingDetailsScreen,
     name: BoatChargingRouteName.boatChargingDetails,
     options: {
-      headerTitle: 'Opladen starten',
+      headerTitle: 'Laadpunt',
     },
   },
   [BoatChargingRouteName.boatChargingLogin]: {
