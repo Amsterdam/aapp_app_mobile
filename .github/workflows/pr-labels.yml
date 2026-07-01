@@ -21,8 +21,8 @@ jobs:
 
       - uses: ./.github/actions/install-node
 
-      - name: Install dependencies
-        run: npm run ci
+      - name: Install github actions dependencies
+        run: node ./nodescripts/installGithubActions.mts
 
       - name: Annotate PR with labels
         run: node nodescripts/pr-label.mts
