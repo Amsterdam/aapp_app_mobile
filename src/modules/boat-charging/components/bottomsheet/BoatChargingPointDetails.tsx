@@ -16,10 +16,7 @@ import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {
-  useBoatChargingLocationDetailsQuery,
-  useBoatChargingLocationsQuery,
-} from '@/modules/boat-charging/service'
+import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {
   resetSelectedBoatChargingPointId,
   useSelectedBoatChargingPointId,
@@ -38,11 +35,8 @@ export const BoatChargingPointDetails = () => {
     isLoading,
     isError,
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
-  const {data: locations} = useBoatChargingLocationsQuery() // Remove this once we receive status in the location-details endpoint (AM-881)
   const autoFocus = useAccessibilityFocus()
   const {size} = useTheme()
-  const {status} =
-    locations?.features.find(f => f.properties.id === id)?.properties || {}
 
   useEffect(
     () => () => {
@@ -69,7 +63,7 @@ export const BoatChargingPointDetails = () => {
     )
   }
 
-  const {address, tariff, max_kw} = location
+  const {address, tariff, max_kw, status} = location
 
   const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[sockets.length]}`
   const availableSocketsSentence = `${freeSockets.length} van ${sockets.length} ${pluralizedSockets} vrij`
@@ -105,7 +99,7 @@ export const BoatChargingPointDetails = () => {
           <Phrase color="secondary">
             {[
               formatMaxKW(max_kw),
-              formatNumber(tariff.energy_price_per_kwh, 'EUR'),
+              formatNumber(tariff?.energy_price_per_kwh, 'EUR'),
             ]
               .filter(Boolean)
               .join(' - ')}{' '}
