@@ -1,26 +1,29 @@
-import {useMemo, type ComponentProps} from 'react'
+import {useMemo} from 'react'
+import type {IconSize} from '@/components/ui/types'
 import type {PermitZoneFeatureProperties} from '@/modules/parking/types'
-import {MapLegend} from '@/components/features/map/MapLegend'
+import {
+  MapLegend,
+  type MapLegendItem,
+} from '@/components/features/map/MapLegend'
 import {ParkingPermitZoneLegendRect} from '@/modules/parking/components/permit-zone/ParkingPermitZoneLegendRect'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitZonesQuery} from '@/modules/parking/service'
 import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
 import {hasEqualValues} from '@/utils/object'
 
-type LegendItem = ComponentProps<
-  typeof MapLegend
->['legendItemGroups'][number]['items'][number]
+const SIZE: keyof typeof IconSize = 'lgx'
 
-const LEGEND_ITEMS: Array<LegendItem> = [
+const LEGEND_ITEMS: Array<MapLegendItem> = [
   {
     label: 'Parkeerautomaat of paal',
-    icon: {name: 'marker-point', color: 'default'},
+    icon: {name: 'marker-point', color: 'default', size: SIZE},
   },
   {
     label: 'Standaard parkeerautomaat',
     icon: {
       name: 'marker-distinct',
       color: 'link',
+      size: SIZE,
     },
   },
 ]
@@ -32,7 +35,7 @@ export const ParkingPermitZoneLegend = () => {
 
   const items = useMemo(() => {
     if (!permitZoneData || !('features' in permitZoneData.geojson)) {
-      return [{items: LEGEND_ITEMS}]
+      return LEGEND_ITEMS
     }
 
     const propertiesSet = permitZoneData.geojson.features.reduce<
@@ -49,15 +52,32 @@ export const ParkingPermitZoneLegend = () => {
       return [...set, current.properties]
     }, [])
 
-    const dynamicItems = propertiesSet.map<LegendItem>(
+    const dynamicItems = propertiesSet.map<MapLegendItem>(
       ({fill, popupContent}) => ({
         label: getPermitZoneFeatureProperties(fill)?.label || popupContent,
-        Icon: <ParkingPermitZoneLegendRect fill={fill} />,
+        Icon: (
+          <ParkingPermitZoneLegendRect
+            fill={fill}
+            size="ml"
+          />
+        ),
       }),
     )
 
-    return [{items: [...LEGEND_ITEMS, ...dynamicItems]}]
+    return [...LEGEND_ITEMS, ...dynamicItems]
   }, [permitZoneData])
 
-  return <MapLegend legendItemGroups={items} />
+  return (
+    <MapLegend>
+      <MapLegend.Category>
+        {items.map((item, index) => (
+          <MapLegend.Item
+            {...item}
+            iconSize={SIZE}
+            key={item.label || index}
+          />
+        ))}
+      </MapLegend.Category>
+    </MapLegend>
+  )
 }
