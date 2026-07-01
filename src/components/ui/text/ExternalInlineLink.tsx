@@ -13,6 +13,7 @@ export const ExternalInlineLink = ({
   url,
   testID,
   accessibilityHint,
+  ...props
 }: PropsWithChildren<Props>) => {
   const {onPress} = useOpenExternalLink({redirectKey, url} as ExternalLinkProps)
 
@@ -22,7 +23,8 @@ export const ExternalInlineLink = ({
       accessibilityRole="link"
       isExternal
       onPress={onPress}
-      testID={testID}>
+      testID={testID}
+      {...props}>
       {children}
     </InlineLink>
   )
