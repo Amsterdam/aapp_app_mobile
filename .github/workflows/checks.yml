@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   unit-tests:
-    runs-on: macos-latest
+    runs-on: ubuntu-26.04-arm
     steps:
       - uses: actions/checkout@v6
 
@@ -60,7 +60,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   typing-and-linting:
-    runs-on: macos-latest
+    runs-on: ubuntu-26.04-arm
     steps:
       - uses: actions/checkout@v6
 
@@ -79,7 +79,7 @@ jobs:
         run: npm run format
 
   bundle-check:
-    runs-on: macos-latest
+    runs-on: ubuntu-26.04-arm
     steps:
       - uses: actions/checkout@v6
 
