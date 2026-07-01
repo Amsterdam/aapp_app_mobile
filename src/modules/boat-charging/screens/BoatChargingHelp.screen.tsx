@@ -22,7 +22,7 @@ export const BoatChargingHelpScreen = ({navigation}: Props) => (
         <Column gutter="md">
           <Title
             level="h2"
-            testID="BoatChargingHelpScreenTitle"
+            testID="BoatChargingHelpScreenTryFirstTitle"
             text="Probeer dit eerst"
           />
           <Paragraph>Volg deze stappen om het probleem op te lossen.</Paragraph>
@@ -44,7 +44,7 @@ export const BoatChargingHelpScreen = ({navigation}: Props) => (
         <Column gutter="md">
           <Title
             level="h2"
-            testID="BoatChargingHelpScreenTitle"
+            testID="BoatChargingHelpScreenCallTitle"
             text="Bel voor hulp"
           />
           <Paragraph>
@@ -58,7 +58,7 @@ export const BoatChargingHelpScreen = ({navigation}: Props) => (
         <Column gutter="md">
           <Title
             level="h2"
-            testID="BoatChargingHelpScreenTitle"
+            testID="BoatChargingHelpScreenReportProblemTitle"
             text="Probleem melden"
           />
           <Paragraph>Meld een storing of onjuiste informatie.</Paragraph>
