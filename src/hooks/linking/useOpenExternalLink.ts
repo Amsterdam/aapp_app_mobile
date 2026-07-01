@@ -14,16 +14,24 @@ export type ExternalLinkProps =
     }
 
 export const useOpenExternalLink = ({redirectKey, url}: ExternalLinkProps) => {
-  const {openRedirect, isLoading, isError} = useOpenRedirect()
+  const {
+    openRedirect,
+    isLoading: isRedirectLoading,
+    isError: isRedirectError,
+  } = useOpenRedirect()
   const openUrl = useOpenUrl()
 
   const onPress = useCallback(() => {
     if (redirectKey) {
       openRedirect(redirectKey)
-    } else if (url) {
+    } else {
       openUrl(url)
     }
   }, [openRedirect, openUrl, redirectKey, url])
 
-  return {onPress, isLoading, isError}
+  return {
+    onPress,
+    isLoading: redirectKey ? isRedirectLoading : false,
+    isError: redirectKey ? isRedirectError : false,
+  }
 }
