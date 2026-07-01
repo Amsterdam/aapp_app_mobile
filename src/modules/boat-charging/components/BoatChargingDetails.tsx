@@ -116,7 +116,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
             emphasis="default"
             horizontallyAlign="start"
             insetHorizontal="no"
-            onPress={() => navigate(BoatChargingRouteName.boatCharging)} // TODO: change route
+            onPress={() => navigate(BoatChargingRouteName.boatChargingHelp)}
             testID="BoatChargingDetailsHelpNavigationButton"
             title="Hulp bij laden"
           />
@@ -125,6 +125,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
         {location.charging_stations.some(
           socket => socket.status === ChargingPointStatus.OPERATIVE,
         ) && <BoatChargingDetailsSocketSubmitButton />}
+        {/*TODO: Also hide button if user has an active session */}
       </FormProvider>
     </Column>
   )

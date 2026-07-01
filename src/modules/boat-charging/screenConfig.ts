@@ -5,6 +5,7 @@ import {
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingDetails.screen'
+import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
 
@@ -24,6 +25,13 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.boatChargingDetails,
     options: {
       headerTitle: 'Laadpunt',
+    },
+  },
+  [BoatChargingRouteName.boatChargingGuestEmail]: {
+    component: BoatChargingGuestEmailScreen,
+    name: BoatChargingRouteName.boatChargingGuestEmail,
+    options: {
+      headerTitle: 'Laden zonder account',
     },
   },
   [BoatChargingRouteName.boatChargingLogin]: {

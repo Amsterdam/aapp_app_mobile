@@ -21,14 +21,16 @@ export const BoatChargingDetailsSocketRadioGroup = ({
   const form = useFormContext<{socket: string}>()
 
   const [availableSockets, otherSockets] = useMemo(
-    () => [
-      chargingStations.filter(
-        station => station.status === ChargingPointStatus.OPERATIVE,
-      ),
-      chargingStations.filter(
-        station => station.status !== ChargingPointStatus.OPERATIVE,
-      ),
-    ],
+    () =>
+      //TODO: Should not return any available socket if user has an active session.
+      [
+        chargingStations.filter(
+          station => station.status === ChargingPointStatus.OPERATIVE,
+        ),
+        chargingStations.filter(
+          station => station.status !== ChargingPointStatus.OPERATIVE,
+        ),
+      ],
     [chargingStations],
   )
 
