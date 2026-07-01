@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect} from 'react'
+import {useEffect, useMemo} from 'react'
 import simplur from 'simplur'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {Box} from '@/components/ui/containers/Box'
@@ -45,6 +45,19 @@ export const BoatChargingPointDetails = () => {
     [dispatch],
   )
 
+  const details = useMemo(() => {
+    if (!location) {
+      return ''
+    }
+
+    const maxKw = formatMaxKW(location.max_kw)
+    const rate = location.tariff
+      ? `${formatNumber(location.tariff.energy_price_per_kwh, 'EUR')} per kWh`
+      : ''
+
+    return [maxKw, rate].filter(Boolean).join(' - ')
+  }, [location])
+
   const sockets =
     location?.charging_stations.flatMap(station => station.evses) ?? []
   const freeSockets = sockets.filter(
@@ -63,7 +76,7 @@ export const BoatChargingPointDetails = () => {
     )
   }
 
-  const {address, tariff, max_kw, status} = location
+  const {address, status} = location
 
   const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[sockets.length]}`
   const availableSocketsSentence = `${freeSockets.length} van ${sockets.length} ${pluralizedSockets} vrij`
@@ -96,15 +109,7 @@ export const BoatChargingPointDetails = () => {
                 : socketsSentenceMalfunction}
             </Phrase>
           </Row>
-          <Phrase color="secondary">
-            {[
-              formatMaxKW(max_kw),
-              formatNumber(tariff?.energy_price_per_kwh, 'EUR'),
-            ]
-              .filter(Boolean)
-              .join(' - ')}{' '}
-            per kWh
-          </Phrase>
+          {!!details && <Phrase color="secondary">{details}</Phrase>}
         </Column>
         <BoatChargingPointDetailsButton
           onPress={() => navigate(BoatChargingRouteName.boatChargingDetails)}
