@@ -1,4 +1,9 @@
-import type {ComponentProps, JSX, PropsWithChildren, ReactNode} from 'react'
+import type {
+  ComponentProps,
+  PropsWithChildren,
+  ReactElement,
+  ReactNode,
+} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -10,16 +15,38 @@ import {IconSize} from '@/components/ui/types'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
-type LegendItem = {
+export type MapLegendItem = {
   label?: string
 } & (
   | {Icon?: never; icon: ComponentProps<typeof Icon>}
   | {Icon: ReactNode; icon?: never}
 )
 
+/**
+ * Renders a map legend as a compound component.
+ *
+ * Use `MapLegend` as the outer wrapper, group entries with
+ * `MapLegend.Category`, and render each legend row with `MapLegend.Item`.
+ * Items support either `icon` props for the shared `Icon` component or a
+ * custom `Icon` node when the marker needs bespoke rendering.
+ *
+ * @example
+ * <MapLegend title="Kaartlagen">
+ *   <MapLegend.Category label="Drukte nu">
+ *     <MapLegend.Item
+ *       label="Rustig"
+ *       icon={{name: 'status-ok', color: 'positive'}}
+ *     />
+ *     <MapLegend.Item
+ *       label="Laadpunt"
+ *       Icon={<CustomMarkerIcon icon="boat" />}
+ *     />
+ *   </MapLegend.Category>
+ * </MapLegend>
+ */
 export const MapLegend: ((
   props: PropsWithChildren<{title?: string}>,
-) => JSX.Element) & {
+) => ReactElement) & {
   Category: typeof MapLegendItemCategory
   Item: typeof MapLegendItem
 } = ({title = 'Legenda', children}: PropsWithChildren<{title?: string}>) => {
@@ -60,7 +87,7 @@ const MapLegendItemCategory = ({
 const MapLegendItem = ({
   label,
   ...iconProps
-}: LegendItem & {iconSize?: keyof typeof IconSize}) => (
+}: MapLegendItem & {iconSize?: keyof typeof IconSize}) => (
   <Row gutter="smd">
     <MapLegendItemIcon {...iconProps} />
 
@@ -72,7 +99,7 @@ const MapLegendItemIcon = ({
   icon,
   Icon: CustomIcon,
   iconSize = 'lg',
-}: Partial<LegendItem> & {
+}: Partial<MapLegendItem> & {
   iconSize?: keyof typeof IconSize
 }) => {
   const {fontScale} = useDeviceContext()

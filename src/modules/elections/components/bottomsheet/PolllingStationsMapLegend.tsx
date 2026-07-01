@@ -1,9 +1,11 @@
-import type {ComponentProps} from 'react'
-import {MapLegend} from '@/components/features/map/MapLegend'
+import {
+  MapLegend,
+  type MapLegendItem,
+} from '@/components/features/map/MapLegend'
 import {crowdStateMap} from '@/modules/elections/constants/crowdDetails'
 import {ElectionsState} from '@/modules/elections/types'
 
-const LEGEND_ITEMS: Array<ComponentProps<typeof MapLegend.Item>> = [
+const LEGEND_ITEMS: Array<MapLegendItem> = [
   ElectionsState.calm,
   ElectionsState.medium,
   ElectionsState.busy,

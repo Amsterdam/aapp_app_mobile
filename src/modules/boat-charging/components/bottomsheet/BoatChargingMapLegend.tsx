@@ -1,11 +1,13 @@
 import {pascalCase} from 'pascal-case'
-import type {ComponentProps} from 'react'
-import {MapLegend} from '@/components/features/map/MapLegend'
+import {
+  MapLegend,
+  type MapLegendItem,
+} from '@/components/features/map/MapLegend'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {BoatChargingPointState} from '@/modules/boat-charging/types'
 
-const ITEMS: Array<ComponentProps<typeof MapLegend.Item>> = [
+const ITEMS: Array<MapLegendItem> = [
   BoatChargingPointState.free,
   BoatChargingPointState.occupied,
   BoatChargingPointState.malfunction,

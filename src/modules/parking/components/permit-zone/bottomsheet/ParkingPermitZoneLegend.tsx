@@ -1,15 +1,19 @@
-import {useMemo, type ComponentProps} from 'react'
+import {useMemo} from 'react'
+import type {IconSize} from '@/components/ui/types'
 import type {PermitZoneFeatureProperties} from '@/modules/parking/types'
-import {MapLegend} from '@/components/features/map/MapLegend'
+import {
+  MapLegend,
+  type MapLegendItem,
+} from '@/components/features/map/MapLegend'
 import {ParkingPermitZoneLegendRect} from '@/modules/parking/components/permit-zone/ParkingPermitZoneLegendRect'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitZonesQuery} from '@/modules/parking/service'
 import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
 import {hasEqualValues} from '@/utils/object'
 
-const SIZE: ComponentProps<typeof MapLegend.Item>['iconSize'] = 'lgx'
+const SIZE: keyof typeof IconSize = 'lgx'
 
-const LEGEND_ITEMS: Array<ComponentProps<typeof MapLegend.Item>> = [
+const LEGEND_ITEMS: Array<MapLegendItem> = [
   {
     label: 'Parkeerautomaat of paal',
     icon: {name: 'marker-point', color: 'default', size: SIZE},
@@ -48,17 +52,17 @@ export const ParkingPermitZoneLegend = () => {
       return [...set, current.properties]
     }, [])
 
-    const dynamicItems = propertiesSet.map<
-      ComponentProps<typeof MapLegend.Item>
-    >(({fill, popupContent}) => ({
-      label: getPermitZoneFeatureProperties(fill)?.label || popupContent,
-      Icon: (
-        <ParkingPermitZoneLegendRect
-          fill={fill}
-          size="ml"
-        />
-      ),
-    }))
+    const dynamicItems = propertiesSet.map<MapLegendItem>(
+      ({fill, popupContent}) => ({
+        label: getPermitZoneFeatureProperties(fill)?.label || popupContent,
+        Icon: (
+          <ParkingPermitZoneLegendRect
+            fill={fill}
+            size="ml"
+          />
+        ),
+      }),
+    )
 
     return [...LEGEND_ITEMS, ...dynamicItems]
   }, [permitZoneData])

@@ -5,7 +5,7 @@ import {IconSize} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
 
-const SIZE = 'lg' // 24
+const SIZE = 'lg'
 const STROKE_WIDTH = 2
 
 export const ParkingPermitZoneLegendRect = ({
