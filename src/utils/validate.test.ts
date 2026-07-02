@@ -13,6 +13,8 @@ describe('validateEmail', () => {
     expect(validateEmail('@amsterdam.nl')).toBeTruthy()
     expect(validateEmail('<>@amsterdam.nl')).toBeTruthy()
     expect(validateEmail('@@amsterdam.nl')).toBeTruthy()
+    expect(validateEmail('a@b.nl ')).toBeTruthy()
+    expect(validateEmail(' a@b.nl')).toBeTruthy()
   })
 
   it('should return a custom invalidString for invalid email addresses, with custom string passed as prop', () => {

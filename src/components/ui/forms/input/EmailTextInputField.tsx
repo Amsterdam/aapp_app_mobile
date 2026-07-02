@@ -12,13 +12,13 @@ type Props<TName extends string> = Omit<
   | 'keyboardType'
   | 'textContentType'
   | 'name'
-  | 'returnKeyType'
 > & {name: TName}
 
 export const EmailTextInputField = <TName extends string>({
   rules,
   testID,
   label = 'E-mailadres',
+  returnKeyType = 'next',
   ...props
 }: Props<TName>) => (
   <TextInputField
@@ -29,12 +29,12 @@ export const EmailTextInputField = <TName extends string>({
     inputMode="email"
     keyboardType="email-address"
     label={label}
-    returnKeyType="next"
+    returnKeyType={returnKeyType}
     rules={{
       ...rules,
       validate: {
         ...rules?.validate,
-        validateEmail: (value: string) => validateEmail(value.trim()),
+        validateEmail: (value: string) => validateEmail(value),
       },
     }}
     testID={testID}

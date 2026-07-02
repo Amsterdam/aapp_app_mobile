@@ -25,7 +25,7 @@ export const BoatChargingGuestEmailForm = ({
   const onSubmit = useCallback(
     ({email}: {email: string}) => {
       navigate(BoatChargingRouteName.boatChargingGuestEmailConfirm, {
-        email: email.trim(),
+        email,
         socketId,
       })
     },
