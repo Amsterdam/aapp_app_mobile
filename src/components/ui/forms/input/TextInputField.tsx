@@ -39,6 +39,8 @@ type Props = {
     | 'submitBehavior'
     | 'returnKeyType'
     | 'maxLength'
+    | 'textContentType'
+    | 'importantForAutofill'
   >
 
 export const TextInputField = ({
