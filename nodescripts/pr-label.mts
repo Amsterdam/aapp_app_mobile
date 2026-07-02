@@ -188,7 +188,7 @@ const getIsReviewedByCopilotAndTeam = async (
       r =>
         (r.author_association === 'OWNER' ||
           r.author_association === 'MEMBER') &&
-        r.state === 'APPROVED',
+        r.state === 'COMMENTED',
     ),
   }
 }
