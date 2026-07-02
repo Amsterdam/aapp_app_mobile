@@ -1,27 +1,17 @@
 import {useCallback, useEffect} from 'react'
 import {useAppState} from '@/hooks/useAppState'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {Module} from '@/modules/types'
 
 /**
- * Register or unregister the device for push notifications, on start up and on foreground and on module enable/disable
+ * Register the device for push notifications on mount and when the app returns to the foreground.
  */
-export const useDeviceRegistration = (enabledModules?: Module[]) => {
-  const {registerDeviceIfPermitted, unregisterDevice} = useRegisterDevice()
-
-  const isAnyFirebaseModuleEnabled = enabledModules?.some(
-    ({requiresFirebaseToken}) => requiresFirebaseToken,
-  )
+export const useDeviceRegistration = () => {
+  const {registerDeviceIfPermitted} = useRegisterDevice()
 
   const handleDeviceRegistration = useCallback(() => {
-    if (isAnyFirebaseModuleEnabled) {
-      // Because tokens refresh regularly, we need to re-register regularly
-      void registerDeviceIfPermitted()
-    } else {
-      // When the user has disabled all modules that require a Firebase token, we unregister the device so the user stops receiving push notifications
-      void unregisterDevice(undefined)
-    }
-  }, [isAnyFirebaseModuleEnabled, registerDeviceIfPermitted, unregisterDevice])
+    // Because tokens refresh regularly, we need to re-register regularly
+    void registerDeviceIfPermitted()
+  }, [registerDeviceIfPermitted])
 
   useEffect(handleDeviceRegistration, [handleDeviceRegistration])
 

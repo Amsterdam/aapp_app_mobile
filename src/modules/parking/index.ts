@@ -36,7 +36,6 @@ export const parkingModule = createClientModule({
       slice: parkingSlice,
     },
   ],
-  requiresFirebaseToken: true,
   slug: ModuleSlug.parking,
   loginRoute: {screen: ParkingRouteName.login},
 })

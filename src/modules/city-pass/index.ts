@@ -30,7 +30,6 @@ export const cityPassModule = createClientModule({
       persistWhitelist,
     },
   ],
-  requiresFirebaseToken: true,
   slug: ModuleSlug['city-pass'],
   loginRoute: {screen: CityPassRouteName.login},
 })

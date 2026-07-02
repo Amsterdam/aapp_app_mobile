@@ -18,7 +18,6 @@ export const wasteGuideModule = createClientModule({
       slice: wasteGuideSlice,
     },
   ],
-  requiresFirebaseToken: true,
   slug: ModuleSlug['waste-guide'],
   linking: {
     [WasteGuideRouteName.wasteGuide]: {
@@ -30,4 +29,5 @@ export const wasteGuideModule = createClientModule({
   icons: fractionIconConfig,
   onNotificationEvent,
   resolvePathFromNotification,
+  extraSaveAddressText: 'U kunt ook meldingen ontvangen voor Mijn adres.',
 })

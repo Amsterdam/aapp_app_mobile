@@ -27,7 +27,6 @@ export const mijnAmsterdamModule = createClientModule({
       slice: mijnAmsterdamSlice,
     },
   ],
-  requiresFirebaseToken: true,
   resolvePathFromNotification,
   slug: ModuleSlug['mijn-amsterdam'],
 })

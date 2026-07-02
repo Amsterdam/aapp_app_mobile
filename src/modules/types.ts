@@ -79,6 +79,10 @@ export type ModuleClientConfig<
    */
   excludeFromHome?: boolean
   /**
+   * Extra text to show in the AddressSwitchSaveMyAddress component when shown from this module. This is used to provide extra context to the user about why they should save their address.
+   */
+  extraSaveAddressText?: string
+  /**
    * Module specific icons.
    */
   icons?: Icons
@@ -120,10 +124,6 @@ export type ModuleClientConfig<
    * Determines whether the module requires authorization to be accessed.
    */
   requiresAuthorization?: boolean
-  /**
-   * Determines whether the module requires a Firebase token.
-   */
-  requiresFirebaseToken?: boolean
   /**
    * Derives a path into the modules handled by linking from notification context.
    **/
