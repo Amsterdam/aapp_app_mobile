@@ -77,7 +77,7 @@ export const ProjectFollow = ({
     <Column
       gutter="md"
       zIndex={zTokens.productTourTooltipWrapperParent}>
-      {isFollowError || isUnfollowError ? (
+      {!!(isFollowError || isUnfollowError) && (
         <SomethingWentWrong
           hasIcon
           retryFn={() => onPressFollowButton(isProjectFollowed)}
@@ -85,7 +85,7 @@ export const ProjectFollow = ({
           text={`Het ${isUnfollowError ? 'ont' : ''}volgen is niet gelukt, probeer het later nog eens.`}
           title=""
         />
-      ) : null}
+      )}
       <Row gutter="md">
         <ProductTourTipWrapper
           extraSpace="md"

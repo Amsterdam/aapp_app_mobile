@@ -95,7 +95,7 @@ export const NavigationButton = ({
                 testID={`${testID}${pascalCase(icon.name)}Icon`}
               />
             )}
-            {!!props.Icon && !icon ? props.Icon : null}
+            {!!props.Icon && !icon && props.Icon}
             <Column shrink={1}>
               {emphasis === 'strong' ? (
                 <Title

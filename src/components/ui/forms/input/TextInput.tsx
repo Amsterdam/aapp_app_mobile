@@ -108,7 +108,7 @@ export const TextInput = ({
           textAlignVertical="top"
           value={value}
         />
-        {value && hasClearButton ? (
+        {!!value && !!hasClearButton && (
           <View>
             <IconButton
               accessibilityHint="Maak dit tekstveld leeg"
@@ -124,7 +124,7 @@ export const TextInput = ({
               testID={`${testID}ClearButton`}
             />
           </View>
-        ) : null}
+        )}
       </View>
     </Column>
   )

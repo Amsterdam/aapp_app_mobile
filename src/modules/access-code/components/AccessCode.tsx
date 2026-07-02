@@ -46,12 +46,12 @@ export const AccessCode = ({
               index === accessCode.length ? styles.active : undefined,
             ]}>
             {/* eslint-disable-next-line sonarjs/different-types-comparison */}
-            {accessCode[index] !== undefined || isCodeEntered ? ( // Just `accessCode[index]` excludes 0 value
+            {!!(accessCode[index] !== undefined || isCodeEntered) && ( // Just `accessCode[index]` excludes 0 value
               <Icon
                 name="asterisk"
                 testID="AccessCodeDigitAsteriskIcon"
               />
-            ) : null}
+            )}
           </View>
         ))}
       </Row>
