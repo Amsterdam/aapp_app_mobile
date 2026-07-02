@@ -29,4 +29,5 @@ export const wasteGuideModule = createClientModule({
   icons: fractionIconConfig,
   onNotificationEvent,
   resolvePathFromNotification,
+  extraSaveAddressText: 'U kunt ook meldingen ontvangen voor Mijn adres.',
 })

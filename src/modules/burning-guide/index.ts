@@ -9,4 +9,5 @@ export const burningGuideModule = createClientModule({
     [ModuleSlug['burning-guide']]: ModuleSlug['burning-guide'],
   },
   onNotificationEvent,
+  extraSaveAddressText: 'U kunt ook meldingen ontvangen voor Mijn adres.',
 })
