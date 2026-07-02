@@ -4,6 +4,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingChooseLicensePlateButton} from '@/modules/parking/components/form/ParkingChooseLicensePlateButton'
+import {ParkingPermitNotYetActiveNotice} from '@/modules/parking/components/form/ParkingPermitNotYetActiveNotice'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
 import {ParkingSessionChooseParkingMachine} from '@/modules/parking/components/form/ParkingSessionChooseParkingMachine'
 import {ParkingSessionChooseTime} from '@/modules/parking/components/form/ParkingSessionChooseTime'
@@ -30,7 +31,6 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
       <ParkingSessionFormProvider defaultStartTime={params?.defaultStartTime}>
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
-          hasStickyAlert
           keyboardAware
           testID="ParkingStartSessionScreen">
           <Box
@@ -63,6 +63,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                   selectedParkingMachineId={params?.parkingMachineId}
                 />
 
+                <ParkingPermitNotYetActiveNotice />
                 <ParkingSessionChooseTime />
 
                 <ParkingMaxSessionsWarning />

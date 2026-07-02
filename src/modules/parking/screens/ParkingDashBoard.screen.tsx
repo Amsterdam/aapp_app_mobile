@@ -1,21 +1,11 @@
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type NavigationProps} from '@/app/navigation/types'
-import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
-import {Tip} from '@/components/features/product-tour/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {BackgroundColorArea} from '@/components/ui/containers/BackgroundColorArea'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {Column} from '@/components/ui/layout/Column'
-import {Placement} from '@/components/ui/types'
-import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
-import {ParkingPermitSwitcher} from '@/modules/parking/components/ParkingPermitSwitcher'
-import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
-import {ParkingPaymentByVisitorButton} from '@/modules/parking/components/dashboard/ParkingPaymentByVisitorButton'
-import {ParkingPermitBalance} from '@/modules/parking/components/dashboard/ParkingPermitBalance'
-import {ParkingPermitSessions} from '@/modules/parking/components/dashboard/ParkingPermitSessions'
-import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
+import {ParkingDashboard} from '@/modules/parking/components/dashboard/ParkingDashboard'
 import {ParkingDashboardBottomSheet} from '@/modules/parking/components/dashboard/bottomsheet/ParkingDashboardBottomSheet'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useHandleDeeplink} from '@/modules/parking/hooks/useHandleDeeplink'
@@ -83,24 +73,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
           insetBottom="md"
           insetHorizontal="md"
           insetTop="lg">
-          <Column gutter="lg">
-            <ProductTourTipWrapper
-              placement={Placement.below}
-              testID="ParkingPermitTopTaskButtonTooltip"
-              tipSlug={Tip.parkingPermitTopTaskButtonTooltip}>
-              <ParkingPermitSwitcher />
-            </ProductTourTipWrapper>
-            <Column gutter="xl">
-              <ParkingPermitSessions />
-              <Column gutter="md">
-                <ParkingStartSessionButton />
-                <ParkingPaymentByVisitorButton />
-              </Column>
-              <ParkingDashboardNavigationButtons />
-              <ParkingPermitBalance />
-            </Column>
-            <ParkingInfoSection />
-          </Column>
+          <ParkingDashboard />
         </Box>
       </Screen>
     </CurrentPermitProvider>
