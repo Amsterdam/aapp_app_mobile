@@ -8,6 +8,6 @@ export const burningGuideModule = createClientModule({
   linking: {
     [ModuleSlug['burning-guide']]: ModuleSlug['burning-guide'],
   },
-  requiresFirebaseToken: true,
   onNotificationEvent,
+  extraSaveAddressText: 'U kunt ook meldingen ontvangen voor Mijn adres.',
 })

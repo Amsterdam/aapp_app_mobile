@@ -8,12 +8,12 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useModule} from '@/hooks/useModule'
 import {alerts} from '@/modules/address/alerts'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {usePostNotificationAddressMutation} from '@/modules/address/service'
 import {addAddress, setShowSaveAsMyAddress} from '@/modules/address/slice'
-import {clientModules} from '@/modules/modules'
 
 type Props = {
   moduleSlug: ModuleSlug
@@ -29,9 +29,7 @@ export const AddressSwitchSaveMyAddress = ({
   const {address: moduleAddress} = useSelectedAddress(moduleSlug)
   const setLocationType = useSetLocationType(moduleSlug)
   const [postNotificationAddress] = usePostNotificationAddressMutation()
-  const moduleHasPushNotificationService = clientModules.find(
-    m => m.slug === moduleSlug,
-  )?.requiresFirebaseToken
+  const {extraSaveAddressText} = useModule(moduleSlug) ?? {}
 
   const onSaveMyAddress = useCallback(() => {
     if (!moduleAddress) {
@@ -57,10 +55,7 @@ export const AddressSwitchSaveMyAddress = ({
           />
           <Paragraph>
             Met Mijn adres ziet u in de hele app alle informatie die bij dit
-            adres hoort.
-            {moduleHasPushNotificationService
-              ? ' U kunt ook meldingen ontvangen voor Mijn adres.'
-              : ''}
+            adres hoort. {!!extraSaveAddressText && extraSaveAddressText}
           </Paragraph>
           <Box insetTop="smd">
             <Row gutter="smd">
