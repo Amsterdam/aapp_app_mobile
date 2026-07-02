@@ -38,7 +38,7 @@ const SwitchWrapper = ({children}: {children: ReactNode}) => (
 
 export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
   const {resetForm} = useGuestSessionFormValues()
-  const {data: terms, isLoading, isError} = useBoatChargingTermsQuery()
+  const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
   const lastApprovedTermsVersion = useSelector(
     selectLastApprovedTermsVersionWhileLoggedIn,
   )
@@ -56,7 +56,8 @@ export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
     }
   }, [alreadyAgreedToTerms])
 
-  const onChangeFn = () => {
+  const onChange = () => {
+    setError(false)
     setValue(oldValue => !oldValue)
   }
 
@@ -81,8 +82,9 @@ export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
         <Box>
           <Button
             icon={{name: 'boat-charging-free', color: 'inverse'}}
+            isLoading={isLoading}
             label="Betalen en laden"
-            onPress={onSubmit}
+            onPress={isError ? refetch : onSubmit}
             testID="BoatChargingTermsAndConditionsScreenSubmitButton"
           />
         </Box>
@@ -117,7 +119,7 @@ export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
           accessibilityLabel={`Ik ga akkoord met de voorwaarden staat ${value ? 'aan' : 'uit'}`}
           disabled={isLoading || isError}
           label={<Phrase>Ik ga akkoord met de voorwaarden</Phrase>}
-          onChange={onChangeFn}
+          onChange={onChange}
           testID="BoatChargingTermsAndConditionsSwitch"
           value={value}
           wrapper={SwitchWrapper}

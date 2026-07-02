@@ -73,7 +73,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         slug: ModuleSlug['boat-charging'],
         url: '/terms',
       }),
-      keepUnusedDataFor: CacheLifetime.minute,
+      keepUnusedDataFor: CacheLifetime.hour,
     }),
     [BoatChargingEndpointName.boatChargingSessions]: builder.query<
       BoatChargingSession[],

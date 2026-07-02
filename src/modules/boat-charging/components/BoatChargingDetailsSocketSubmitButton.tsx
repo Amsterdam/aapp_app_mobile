@@ -13,7 +13,7 @@ import {
 
 export const BoatChargingDetailsSocketSubmitButton = () => {
   const form = useFormContext<{socketId: string}>()
-  const {data: terms, isLoading, isError} = useBoatChargingTermsQuery()
+  const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
   const lastApprovedTermsVersion = useSelector(
     selectLastApprovedTermsVersionWhileLoggedIn,
   )
@@ -49,11 +49,11 @@ export const BoatChargingDetailsSocketSubmitButton = () => {
   if (isLoggedIn && terms?.version === lastApprovedTermsVersion) {
     return (
       <Button
-        disabled={isLoading || isError}
+        disabled={isLoading}
         icon={{name: 'boat-charging-free', color: 'inverse'}}
         label="Betalen en laden"
         marginTop="auto"
-        onPress={form.handleSubmit(onSubmit)}
+        onPress={isError ? refetch : form.handleSubmit(onSubmit)}
         testID="BoatChargingDetailsChooseSocketSubmitButton"
       />
     )
