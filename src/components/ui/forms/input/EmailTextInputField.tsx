@@ -34,7 +34,7 @@ export const EmailTextInputField = <TName extends string>({
       ...rules,
       validate: {
         ...rules?.validate,
-        validateEmail: (value: string) => validateEmail(value),
+        validateEmail: (value: string) => validateEmail(value.trim()),
       },
     }}
     testID={testID}
