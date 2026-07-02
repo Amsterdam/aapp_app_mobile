@@ -66,7 +66,7 @@ export const BoatChargingGuestEmailForm = ({
           <ExternalLinkButton
             label="Account aanmaken"
             redirectKey={RedirectKey.boatChargingCreateAccount}
-            testID="BoatChargingLoginFormCreateAccountButton"
+            testID="BoatChargingGuestEmailFormCreateAccountButton"
             variant="tertiary"
           />
         </Column>
