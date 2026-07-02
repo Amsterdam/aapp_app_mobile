@@ -5,6 +5,7 @@ export enum BoatChargingEndpointName {
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
   boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
+  boatChargingSessions = 'boatChargingSessions',
 }
 
 export type BoatChargingPointFeature = Feature<Point, BoatChargingLocation>
@@ -49,7 +50,7 @@ export type EVSE = {
   status: ChargingPointStatus
 }
 
-type ChargingStation = {
+export type ChargingStation = {
   evses: EVSE[]
   id: string
   location_id: string
@@ -78,4 +79,18 @@ export type BoatChargingOIDCConfigResponse = {
   response_type?: string
   scopes?: string[]
   user_pool_id: string
+}
+
+export type BoatChargingSession = {
+  created_date_time: string
+  currency: 'EUR'
+  end_date_time: string
+  id: string
+  kwh: number
+  location: BoatChargingLocation
+  nrg_status: number
+  socket_number: string
+  start_date_time: string
+  station_id: string
+  total_cost: number
 }

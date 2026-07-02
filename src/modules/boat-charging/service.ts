@@ -9,7 +9,9 @@ import {
   type BoatChargingGeoJSON,
   type BoatChargingLocationDetailsResponse,
   type BoatChargingOIDCConfigResponse,
+  type BoatChargingSession,
 } from '@/modules/boat-charging/types'
+import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
@@ -61,6 +63,19 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.minute,
     }),
+    [BoatChargingEndpointName.boatChargingSessions]: builder.query<
+      BoatChargingSession[],
+      void
+    >({
+      query: () => ({
+        prepareHeaders,
+        method: 'GET',
+        slug: ModuleSlug['boat-charging'],
+        url: '/sessions',
+      }),
+      providesTags: ['BoatChargingSessions'],
+      keepUnusedDataFor: CacheLifetime.minute,
+    }),
   }),
   overrideExisting: false,
 })
@@ -69,4 +84,5 @@ export const {
   useBoatChargingLocationsQuery,
   useBoatChargingLocationDetailsQuery,
   useBoatChargingOpenIdConnectConfigQuery,
+  useBoatChargingSessionsQuery,
 } = boatChargingApi

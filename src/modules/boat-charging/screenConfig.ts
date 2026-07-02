@@ -5,8 +5,11 @@ import {
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingDetails.screen'
+import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
+import {BoatChargingGuestEmailConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmailConfirm.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
+import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
@@ -16,7 +19,6 @@ export const screenConfig: StackNavigationRoutes<
     component: BoatChargingScreen,
     name: BoatChargingRouteName.boatCharging,
     options: {
-      headerTitle: 'Boot laden',
       headerShown: false,
     },
   },
@@ -24,7 +26,21 @@ export const screenConfig: StackNavigationRoutes<
     component: BoatChargingDetailsScreen,
     name: BoatChargingRouteName.boatChargingDetails,
     options: {
-      headerTitle: 'Opladen starten',
+      headerTitle: 'Laadpunt',
+    },
+  },
+  [BoatChargingRouteName.boatChargingGuestEmail]: {
+    component: BoatChargingGuestEmailScreen,
+    name: BoatChargingRouteName.boatChargingGuestEmail,
+    options: {
+      headerTitle: 'Laden zonder account',
+    },
+  },
+  [BoatChargingRouteName.boatChargingGuestEmailConfirm]: {
+    component: BoatChargingGuestEmailConfirmScreen,
+    name: BoatChargingRouteName.boatChargingGuestEmailConfirm,
+    options: {
+      headerTitle: 'Controleer uw e-mailadres',
     },
   },
   [BoatChargingRouteName.boatChargingLogin]: {
@@ -39,6 +55,13 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.boatChargingHelp,
     options: {
       headerTitle: 'Hulp bij laden',
+    },
+  },
+  [BoatChargingRouteName.boatChargingTermsAndConditions]: {
+    component: BoatChargingTermsAndConditionsScreen,
+    name: BoatChargingRouteName.boatChargingTermsAndConditions,
+    options: {
+      headerTitle: 'Voorwaarden',
     },
   },
 }

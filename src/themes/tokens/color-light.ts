@@ -391,6 +391,12 @@ export const lightColorTokens = {
     transparent: {
       background: baseColor.transparent.full,
     },
+    positive: {
+      background: baseColor.secondary.darkgreen,
+    },
+    secondary: {
+      background: baseColor.neutral.grey3,
+    },
   },
   text: {
     alert: baseColor.secondary.orange,
