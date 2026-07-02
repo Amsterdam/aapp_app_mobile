@@ -19,7 +19,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
     <Column gutter="md">
       <TopTaskButton
         accessibilityHint="Tik om een ander stadsloket te selecteren."
-        accessibilityLabel={`${title} ${getAddressLine1(address)} ${getAddressLine2(address)}`}
+        accessibilityLabel={`${title}, ${getAddressLine1(address)}, ${getAddressLine2(address)}`}
         icon={{name: 'person-at-desk'}}
         onPress={() => openBottomSheet()}
         testID="ContactCurrentCityOfficeButton"

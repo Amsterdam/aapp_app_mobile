@@ -1,7 +1,7 @@
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
-import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
+import {formatPhoneNumber, replaceCountryCode} from '@/utils/formatPhoneNumber'
 
 type Props = {
   phoneNumber: string
@@ -13,7 +13,6 @@ export const PhoneButton = ({
   ...buttonProps
 }: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
-  const formattedPhoneNumber = formatPhoneNumber(phoneNumber)
 
   return (
     <Row>
@@ -21,11 +20,10 @@ export const PhoneButton = ({
         accessibilityLanguage="nl-NL"
         {...buttonProps}
         accessibilityLabel={
-          accessibilityLabel ||
-          `Bel ${(formattedPhoneNumber ?? '').split(' ').join(', ')}`
+          accessibilityLabel || `Bel ${replaceCountryCode(phoneNumber) ?? ''}`
         }
         icon={{isFilled: true, name: 'phone'}}
-        label={formattedPhoneNumber}
+        label={formatPhoneNumber(phoneNumber)}
         onPress={() => {
           openPhoneUrl(phoneNumber)
         }}

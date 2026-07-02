@@ -58,7 +58,7 @@ export const ContactOptions = () => {
                 <TopTaskButton
                   key={key}
                   {...props}
-                  accessibilityLabel={`${props.accessibilityLabel ?? props.title} ${props.text}`}
+                  accessibilityLabel={`${props.accessibilityLabel ?? props.title}, ${props.text}`}
                   accessibilityRole="link"
                   icon={redirectsKey && isLoading ? {name: 'spinner'} : icon}
                   isExternalLink={/^https:/.test(resultUrl ?? '')}

@@ -12,7 +12,7 @@ export const ChatOption = ({icon, ...props}: ContactOption) => {
   return chatModule ? (
     <TopTaskButton
       {...props}
-      accessibilityLabel={`${props.accessibilityLabel ?? props.title} ${props.text}`}
+      accessibilityLabel={`${props.accessibilityLabel ?? props.title}, ${props.text}`}
       icon={icon}
       onPress={open}
     />

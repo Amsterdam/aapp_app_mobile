@@ -4,7 +4,7 @@ import {CityPassContactPhoneInlineLink} from '@/modules/city-pass/components/Cit
 
 export const CityPassDetailsBlockedAlert = () => (
   <AlertWarning
-    accessibilityLabel="Wil je de pas deblokkeren of een nieuwe pas aanvragen? Bel dan naar 020 252 6000."
+    accessibilityLabel="Wil je de pas deblokkeren of een nieuwe pas aanvragen? Bel dan naar 0202526000."
     hasIcon
     testID="CityPassDetailsBlockedAlert"
     text={

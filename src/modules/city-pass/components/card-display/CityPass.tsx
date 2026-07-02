@@ -53,7 +53,7 @@ export const CityPass = ({
 
   const accessibilityLabel =
     actief === false
-      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel 020 252 6000 om te deblokkeren.`
+      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel 0202526000 om te deblokkeren.`
       : `De stadspas van ${firstname} ${infix ?? ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`
 
   return (

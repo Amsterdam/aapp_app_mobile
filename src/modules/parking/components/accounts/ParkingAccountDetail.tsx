@@ -36,7 +36,7 @@ export const ParkingAccountDetail = ({reportCode}: Props) => {
       <Box variant="distinct">
         <Column gutter="md">
           <AccessibilityGroup
-            accessibilityLabel={`Meldcode ${reportCode} ${accountType}`}>
+            accessibilityLabel={`Meldcode ${reportCode}, ${accountType}`}>
             <Column>
               <Title
                 level="h2"

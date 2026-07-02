@@ -60,7 +60,7 @@ export const NotificationSettingSwitch = ({
 
   return (
     <Switch
-      accessibilityLabel={`Onderwerp ${title} ${description} staat ${isDisabled ? 'uit' : 'aan'}`}
+      accessibilityLabel={`Meldingen voor onderwerp ${title} ${description} staan ${isDisabled ? 'uit' : 'aan'}`}
       disabled={isLoading}
       key={type}
       label={<Phrase>{description}</Phrase>}

@@ -84,7 +84,7 @@ export const NotificationHistoryItemPressable = ({
 
   return (
     <PressableBase
-      accessibilityLabel={`${is_read ? '' : 'Ongelezen bericht: '} ${title} ${body}, ontvangen: ${createdAt} ${context.url ? 'Opent in webbrowser.' : ''}`}
+      accessibilityLabel={`${is_read ? '' : 'Ongelezen bericht: '} ${title}, ${body}, ontvangen: ${createdAt}. ${context.url ? 'Opent in webbrowser.' : ''}`}
       onPress={onNotificationPress}
       testID={`NotificationHistoryItem${id}Button`}>
       {children}
