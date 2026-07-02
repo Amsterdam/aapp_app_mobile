@@ -114,6 +114,10 @@ const config: StorybookConfig = {
             find: 'expo-clipboard',
             replacement: require.resolve('./mocks/expo-clipboard'),
           },
+          {
+            find: 'expo-modules-core',
+            replacement: require.resolve('./mocks/expo-modules-core'),
+          },
           ...aliases,
         ],
       },
