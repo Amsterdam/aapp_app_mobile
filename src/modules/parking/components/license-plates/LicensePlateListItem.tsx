@@ -27,7 +27,9 @@ export const LicensePlateListItem = ({
       align="between"
       gutter="md"
       key={vehicle_id}>
-      <SingleSelectable accessibilityLabel={`Kenteken ${licensePlate}`}>
+      <SingleSelectable
+        accessibilityLabel={`Kenteken ${licensePlate}`}
+        testID="LicensePlateListItem">
         <Row gutter="md">
           <Phrase
             emphasis="strong"

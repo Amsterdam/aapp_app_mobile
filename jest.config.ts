@@ -4,7 +4,7 @@ import {Config} from 'jest'
 process.env.TZ = 'UTC+1'
 
 const config: Config = {
-  preset: 'react-native',
+  preset: '@react-native/jest-preset',
   moduleFileExtensions: [
     'ts',
     'tsx',
@@ -28,7 +28,7 @@ const config: Config = {
   setupFiles: [
     './.config/jest-init.js',
     '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
-    '<rootDir>/node_modules/react-native/jest/setup.js',
+    '<rootDir>/node_modules/@react-native/jest-preset/jest/setup.js',
   ],
   testPathIgnorePatterns: [
     'node_modules',
@@ -70,7 +70,7 @@ const config: Config = {
   ],
   testTimeout: 30000,
   transformIgnorePatterns: [
-    'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@react-navigation)',
+    'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@react-navigation|@reduxjs|react-redux|redux|redux-persist|immer|reselect)',
   ],
   globals: {
     API_KEY_DEV: '',

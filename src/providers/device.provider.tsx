@@ -21,7 +21,5 @@ export const DeviceProvider = ({children}: Props) => {
     })
   }, [window])
 
-  return (
-    <DeviceContext.Provider value={value}>{children}</DeviceContext.Provider>
-  )
+  return <DeviceContext value={value}>{children}</DeviceContext>
 }

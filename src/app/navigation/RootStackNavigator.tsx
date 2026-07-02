@@ -34,18 +34,26 @@ const moduleStacks = allModules.map(({screenOptions: options, slug}) => {
   )
 })
 
-const modalStacks = Object.entries(modals).map(([key, route]) => (
-  <Stack.Screen
-    key={key}
-    {...route}
-    options={{
-      cardStyleInterpolator:
-        Platform.OS === 'ios'
-          ? CardStyleInterpolators.forModalPresentationIOS
-          : undefined,
-    }}
-  />
-))
+const modalStacks = Object.entries(modals).map(([key, route]) => {
+  const options = {
+    ...(route.options?.animation
+      ? route.options
+      : {
+          cardStyleInterpolator:
+            Platform.OS === 'ios'
+              ? CardStyleInterpolators.forModalPresentationIOS
+              : undefined,
+        }),
+  }
+
+  return (
+    <Stack.Screen
+      key={key}
+      {...route}
+      options={options}
+    />
+  )
+})
 
 export const RootStackNavigator = () => {
   const shouldShowOnboarding = useShouldShowOnboarding()

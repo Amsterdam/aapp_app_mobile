@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/construction-work-editor/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const ConstructionWorkEditorStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

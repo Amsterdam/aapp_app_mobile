@@ -31,7 +31,9 @@ export const ManageVisitorTimeBalanceOverview = () => {
             align="between"
             flex={1}>
             <Phrase>Tijdsaldo</Phrase>
-            <Phrase emphasis="strong">
+            <Phrase
+              emphasis="strong"
+              testID="ManageVisitorTimeBalanceOverviewAmountPhrase">
               {formatTimeDurationToDisplay(
                 currentPermit.visitor_account?.seconds_remaining,
                 'seconds',

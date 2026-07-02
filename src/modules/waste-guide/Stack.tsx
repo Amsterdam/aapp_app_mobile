@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/waste-guide/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const WasteGuideStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

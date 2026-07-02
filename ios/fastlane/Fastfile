@@ -12,7 +12,7 @@ end
 
 # TF_BUILD will be true when this is run in a DevOps pipeline
 if ENV["TF_BUILD"]
-  xcode_select("/Applications/Xcode_26.3.app")
+  xcode_select("/Applications/Xcode_26.4.1.app")
   setup_ci(timeout: 0)
 end
 
@@ -53,6 +53,19 @@ apps = [
     },
   },
 ]
+
+def selectAppsForVariant(apps, variant)
+  case variant
+  when nil, '', 'all'
+    apps
+  when 'test'
+    apps.select { |app| app[:name] == 'amsterdam-test' }
+  when 'prod', 'production'
+    apps.select { |app| app[:name] == 'amsterdam' }
+  else
+    UI.user_error!("ERROR: Unknown variant '#{variant}'")
+  end
+end
 
 def parseVersionNumber(fullVersionNumber)
   if fullVersionNumber
@@ -168,8 +181,10 @@ platform :ios do
     end
   end
 
-  desc "Build prod and dev version of the app"
-  lane :buildApps do
+  desc "Build iOS app(s); optionally limit with variant:test|prod|all"
+  lane :buildApps do |options|
+
+    selectedApps = selectAppsForVariant(apps, options && options[:variant])
 
     desc "Create single app build"
     private_lane :buildLane do |app|
@@ -192,19 +207,21 @@ platform :ios do
       podfile: "./Podfile",
     )
 
-    apps.each do |app|
+    selectedApps.each do |app|
       puts "Build #{app[:app_identifier]}"
       setEnvironmentForApp(app)
       buildLane(app)
     end
   end
 
-  lane :distributeInternal do
+  lane :distributeInternal do |options|
+
+    selectedApps = selectAppsForVariant(apps, options && options[:variant])
 
     installAppStoreApiKey()
 
     releaseNotes = getReleaseInfoForVersion(true)['releaseNotes']
-    apps.each do |app|
+    selectedApps.each do |app|
       full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
       puts "Upload to testflight for #{full_ipa_path}"
       if File.exist?(full_ipa_path)
@@ -214,6 +231,7 @@ platform :ios do
           build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
           app_identifier: app[:app_identifier],
           groups: "AmsterdamApp-internal",
+          reject_build_waiting_for_review: true,
           changelog: releaseNotes,
           localized_build_info: {
             "default": {
@@ -231,12 +249,14 @@ platform :ios do
 
   end
 
-  lane :distributeStakeholders do
+  lane :distributeStakeholders do |options|
+
+    selectedApps = selectAppsForVariant(apps, options && options[:variant])
 
     installAppStoreApiKey()
 
     releaseNotes = getReleaseInfoForVersion()['releaseNotes']
-    apps.each do |app|
+    selectedApps.each do |app|
       if app[:distribute_to_stakeholders]
         full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
         puts "Upload to testflight for #{full_ipa_path}"
@@ -267,7 +287,9 @@ platform :ios do
 
   end
   
-  lane :distributeProduction do
+  lane :distributeProduction do |options|
+
+    selectedApps = selectAppsForVariant(apps, options && options[:variant])
 
     installAppStoreApiKey()
 
@@ -291,7 +313,7 @@ platform :ios do
       FastlaneCore::UI.error('ERROR: Release date not in the future! Fix this or users will get update notifications to an yet unreleased version!')
       exit(1)
     end
-    apps.each do |app|
+    selectedApps.each do |app|
       if app[:distribute_to_production]
         full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
         puts "Release to App Store: #{full_ipa_path}"

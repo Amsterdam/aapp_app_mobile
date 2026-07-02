@@ -5,6 +5,7 @@ import {TextInput as TextInputRN} from 'react-native-gesture-handler'
 export enum FieldType {
   email = 'email',
   numeric = 'numeric',
+  password = 'password',
   pin = 'pin',
   tel = 'tel',
   text = 'text',

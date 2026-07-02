@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import type {TestProps} from '@/components/ui/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Switch} from '@/components/ui/forms/Switch'
@@ -7,10 +7,10 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {Permissions} from '@/types/permissions'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   description: string
@@ -40,8 +40,12 @@ export const NotificationToggleBox = ({
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
     Permissions.notifications,
   )
+  const accessibilityAnnounce = useAccessibilityAnnounce()
   const {registerDeviceIfPermitted} = useRegisterDevice()
+  const [isValueChanged, setIsValueChanged] = useState(false)
   const onChangeFn = useCallback(() => {
+    setIsValueChanged(true)
+
     if (value) {
       onChange(false)
     } else {
@@ -55,9 +59,15 @@ export const NotificationToggleBox = ({
     }
   }, [onChange, value, registerDeviceIfPermitted, navigateToInstructionsScreen])
 
+  useEffect(() => {
+    if (isValueChanged) {
+      accessibilityAnnounce(value ? 'aangezet' : 'uitgezet')
+    }
+  }, [accessibilityAnnounce, isValueChanged, value])
+
   return (
     <Switch
-      accessibilityLabel={`"${accessibleText(description)}" staat ${value ? 'aan' : 'uit'}`}
+      accessibilityLabel={`${description} staat ${value ? 'aan' : 'uit'}`}
       disabled={disabled}
       label={
         <Column

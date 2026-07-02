@@ -5,7 +5,10 @@ import {StoreProvider} from '@/providers/store.provider'
 it('Tag renders correctly', () => {
   render(
     <StoreProvider>
-      <Tag label="Label" />
+      <Tag
+        label="Label"
+        testID="Tag"
+      />
     </StoreProvider>,
   )
 })

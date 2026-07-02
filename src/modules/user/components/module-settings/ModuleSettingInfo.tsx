@@ -1,4 +1,3 @@
-import type {SvgIconName} from '@/components/ui/media/svgIcons'
 import type {TestProps} from '@/components/ui/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -9,14 +8,14 @@ import {InactiveModuleMessage} from '@/modules/user/components/module-settings/I
 
 type ModuleSettingInfoProps = {
   description: string
-  iconName: SvgIconName
+  iconPath: string
   isInactive?: boolean
   title: string
 } & TestProps
 
 export const ModuleSettingInfo = ({
   description,
-  iconName,
+  iconPath,
   isInactive = false,
   testID,
   title,
@@ -26,10 +25,10 @@ export const ModuleSettingInfo = ({
   return (
     <Column gutter="sm">
       <Row gutter="sm">
-        {!!iconName && (
+        {!!iconPath && (
           <Icon
             color={color}
-            name={iconName}
+            path={iconPath}
             size="lg"
             testID={`${testID}Icon`}
           />

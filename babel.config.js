@@ -4,7 +4,8 @@ module.exports = {
   presets: ['babel-preset-expo'],
   overrides: [
     {
-      exclude: /node_modules/,
+      exclude: filename =>
+        typeof filename === 'string' && /node_modules/.test(filename),
       plugins: [
         [
           'module:react-native-dotenv',

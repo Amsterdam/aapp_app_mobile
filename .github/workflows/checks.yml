@@ -10,9 +10,9 @@ permissions:
 
 jobs:
   unit-tests:
-    runs-on: macos-latest
+    runs-on: ubuntu-26.04-arm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/install-node
 
@@ -60,9 +60,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   typing-and-linting:
-    runs-on: macos-latest
+    runs-on: ubuntu-26.04-arm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/install-node
 
@@ -79,9 +79,9 @@ jobs:
         run: npm run format
 
   bundle-check:
-    runs-on: macos-latest
+    runs-on: ubuntu-26.04-arm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/install-node
 

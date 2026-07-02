@@ -6,7 +6,7 @@ export enum BurningGuideRouteName {
   burningGuideTips = 'BurningGuideTips',
 }
 
-export type BurningGuideStackParams = {
+export type ModuleStackParams = {
   [BurningGuideRouteName.burningGuide]: undefined
   [BurningGuideRouteName.burningGuideCodeInfo]: undefined
   [BurningGuideRouteName.burningGuideNuisance]: undefined

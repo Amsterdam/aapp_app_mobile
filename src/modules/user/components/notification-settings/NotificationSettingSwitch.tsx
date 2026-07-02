@@ -9,7 +9,6 @@ import {
   useAddDisabledPushTypeMutation,
   useDeleteDisabledPushTypeMutation,
 } from '@/modules/user/service'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   isDisabled: boolean
@@ -61,7 +60,7 @@ export const NotificationSettingSwitch = ({
 
   return (
     <Switch
-      accessibilityLabel={`Melding "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
+      accessibilityLabel={`Meldingen voor onderwerp ${title} ${description} staan ${isDisabled ? 'uit' : 'aan'}`}
       disabled={isLoading}
       key={type}
       label={<Phrase>{description}</Phrase>}

@@ -69,26 +69,25 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
           onPress={onMapElementPress}
         />
       )}
-      {lineStrings?.length
-        ? lineStrings.map((feature, index) => (
-            <LineString
-              coordinates={
-                'coordinates' in feature.geometry
-                  ? feature.geometry.coordinates
-                  : []
-              }
-              id={feature.id ?? `feature-${index}`}
-              key={feature.id ?? `feature-${index}`}
-              onPress={onMapElementPress}
-              strokeColor={feature.properties.stroke as string | null}
-              strokeWidth={
-                feature.properties['stroke-width']
-                  ? Number(feature.properties['stroke-width'])
-                  : null
-              }
-            />
-          ))
-        : null}
+      {!!lineStrings?.length &&
+        lineStrings.map((feature, index) => (
+          <LineString
+            coordinates={
+              'coordinates' in feature.geometry
+                ? feature.geometry.coordinates
+                : []
+            }
+            id={feature.id ?? `feature-${index}`}
+            key={feature.id ?? `feature-${index}`}
+            onPress={onMapElementPress}
+            strokeColor={feature.properties.stroke as string | null}
+            strokeWidth={
+              feature.properties['stroke-width']
+                ? Number(feature.properties['stroke-width'])
+                : null
+            }
+          />
+        ))}
       <Clusterer
         clusterOptions={
           points.length < 400

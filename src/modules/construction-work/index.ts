@@ -15,9 +15,9 @@ export const constructionWorkModule = createClientModule({
   linking: {
     [ModuleSlug['construction-work']]: ModuleSlug['construction-work'],
     [ConstructionWorkRouteName.projectNews]:
-      'news/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
+      'construction-work/news/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
     [ConstructionWorkRouteName.projectWarning]:
-      'warning/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
+      'construction-work/warning/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
     [ConstructionWorkRouteName.project]: 'construction-work/project/:id',
   },
   logDimension: PiwikSessionDimension.constructionWorkModule,

@@ -7,7 +7,6 @@ apply plugin: "com.facebook.react"
 apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
-import org.apache.tools.ant.taskdefs.condition.Os
 
 /**
  * Load environment variables from a .env file into the Gradle project
@@ -44,9 +43,9 @@ react {
     // cliFile = file("../../node_modules/react-native/cli.js")
     /* Variants */
     //   The list of variants to that are debuggable. For those we're going to
-    //   skip the bundling of the JS bundle and the assets. By default is just 'debug'.
+    //   skip the bundling of the JS bundle and the assets. Default is "debug", "debugOptimized".
     //   If you add flavors like lite, prod, etc. you'll have to list your debuggableVariants.
-    debuggableVariants = ["devDebug", "prodDebug"]
+    // debuggableVariants = ["liteDebug", "liteDebugOptimized", "prodDebug", "prodDebugOptimized"]
     /* Bundling */
     //   A list containing the node command and its flags. Default is just 'node'.
     // nodeExecutableAndArgs = ["node"]
@@ -124,7 +123,7 @@ def reactNativeArchitectures() {
 }
 
 /**
- * Get build and versie nummers
+ * Get build and version numbers
  */
 import groovy.json.JsonSlurper
 
@@ -138,8 +137,8 @@ def getVersionFromPackagejson() {
 }
 
 def getBuildNumber() {
-   def buildNumber = System.getenv("BUILD_NUMBER")
-    if (buildNumber != null) {
+    def buildNumber = System.getenv("BUILD_NUMBER")
+    if (buildNumber != null && buildNumber != "0") {
         return Integer.parseInt(buildNumber)
     } else {
         return 1

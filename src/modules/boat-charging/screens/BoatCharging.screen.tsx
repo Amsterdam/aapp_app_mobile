@@ -17,6 +17,7 @@ export const BoatChargingScreen = () => (
         />
       }
       headerOptions={{
+        headerTitle: 'Boot laden',
         SideComponent: BoatChargingHeaderButton,
       }}
       scroll={false}

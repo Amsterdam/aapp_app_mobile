@@ -1,7 +1,6 @@
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
 import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {emailPronounce} from '@/utils/accessibility/emailPronounce'
 
 type Props = {
@@ -16,10 +15,7 @@ export const EmailButton = ({email, subject, ...buttonProps}: Props) => {
     <Row>
       <Button
         {...buttonProps}
-        accessibilityLabel={accessibleText(
-          'Stuur een e-mail naar',
-          emailPronounce(email),
-        )}
+        accessibilityLabel={`Stuur een e-mail naar ${emailPronounce(email)}`}
         ellipsizeMode="tail"
         icon={{name: 'mail'}}
         label={email}

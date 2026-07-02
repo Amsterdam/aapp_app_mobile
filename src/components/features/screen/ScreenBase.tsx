@@ -72,7 +72,8 @@ export const ScreenBase = ({
     />
   )
 
-  const customScreenHeader = !isOutsideNavigation && !!bottomSheet
+  const customScreenHeader =
+    (!isOutsideNavigation && !!bottomSheet) || !!headerOptions
 
   return (
     <ScreenProvider nativeScreenHeader={!customScreenHeader}>

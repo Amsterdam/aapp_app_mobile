@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {use} from 'react'
 import {StyleSheet, View} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
 import {
@@ -30,7 +30,7 @@ export const PopUpMenu = ({menuItems, orientation, topInset}: Props) => {
   const {close, isOpen} = useMenu()
   const theme = useTheme()
   const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
-  const {nativeScreenHeader} = useContext(ScreenContext)
+  const {nativeScreenHeader} = use(ScreenContext)
   const headerHeight = useSelector(selectHeaderHeight)
   const insets = useSafeAreaInsets()
 

@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/burning-guide/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const BurningGuideStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

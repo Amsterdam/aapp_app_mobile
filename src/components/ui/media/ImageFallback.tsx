@@ -19,22 +19,21 @@ export const ImageFallback = ({aspectRatio = 'wide'}: Props) => {
       accessibilityLabel="Afbeelding niet gevonden"
       accessibilityLanguage="nl-NL"
       style={fallback}>
-      <ImageFallbackSvg />
+      <ImageFallbackSvg
+        height="100%"
+        preserveAspectRatio="xMidYMid slice"
+        width="100%"
+      />
     </View>
   )
 }
 
 const createStyles =
   (aspectRatio: ImageAspectRatio) =>
-  ({color, media, border}: Theme) =>
+  ({media}: Theme) =>
     StyleSheet.create({
       fallback: {
         alignItems: 'center',
         aspectRatio: media.aspectRatio[aspectRatio],
-        backgroundColor: color.imageFallback.background,
-        borderWidth: border.width.sm,
-        borderColor: color.imageFallback.border,
-        flex: 1,
-        justifyContent: 'center',
       },
     })

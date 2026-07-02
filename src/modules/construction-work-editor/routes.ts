@@ -1,4 +1,4 @@
-import {type TitleParams} from '@/app/navigation/types'
+import type {TitleParams} from '@/app/navigation/types'
 
 export enum ConstructionWorkEditorRouteName {
   addMainImageToMessage = 'AddMainImageToMessage',
@@ -7,7 +7,7 @@ export enum ConstructionWorkEditorRouteName {
   createMessage = 'CreateMessage',
 }
 
-export type ConstructionWorkEditorStackParams = {
+export type ModuleStackParams = {
   [ConstructionWorkEditorRouteName.addMainImageToMessage]: undefined
   [ConstructionWorkEditorRouteName.authorizedProjects]: {
     accessToken?: string
@@ -24,6 +24,6 @@ export enum ConstructionWorkEditorModalName {
   writingGuide = 'WritingGuide',
 }
 
-export type ConstructionWorkEditorModalParams = {
+export type ModuleModalParams = {
   [ConstructionWorkEditorModalName.writingGuide]: TitleParams
 }

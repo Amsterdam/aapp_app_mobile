@@ -70,10 +70,8 @@ These mocked packages are referenced in the alias config in `main.ts`:
 
 - `@storybook/addon-a11y` - Storybook addon: a11y tools.
 - `@storybook/addon-essentials` - Storybook addon: the basic controls.
-- `@storybook/react-vite` - The Vite-built version of Storybook.
-- `@vitejs/plugin-react` - Allows Vite to handle ReactJS.
+- `@storybook/react-native-web-vite` - The Vite-built version of Storybook.
 - `eslint-plugin-storybook` - Linting.
-- `lodash/merge` - Helper to merge the Vite config objects. One would usually use Vite's `mergeConfig` function, but that would require making Vite a dev dependency.
 - `path` - Helper to resolve various folders in the Storybook `main.ts` config.
 - `react-docgen-typescript-plugin` - Generates Storybook controls and documentation from props, types, JSDoc comments and other code patterns.
 - `react-native-web` - React Native Web itself.

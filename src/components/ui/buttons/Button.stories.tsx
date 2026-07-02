@@ -36,6 +36,13 @@ export const Tertiary: Story = {
   },
 }
 
+export const SecondaryDestructive: Story = {
+  args: {
+    label: 'Secondary Destructive',
+    variant: 'secondaryDestructive',
+  },
+}
+
 export const _Inline: Story<typeof Row> = {
   args: {align: 'start'},
   render: ({align}) => (

@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
-import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
+import {Button} from '@/components/ui/buttons/Button'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -53,8 +53,11 @@ export const ParkingIncreaseBalanceButton = () => {
   )
 
   return (
-    <ExternalLinkButton
+    <Button
+      accessibilityHint="Opent in webbrowser"
+      accessibilityRole="link"
       disabled={formState.isSubmitting}
+      icon={{name: 'link-external', size: 'md'}}
       label="Nu betalen"
       onPress={handleSubmit(onSubmit)}
       testID="ParkingIncreaseBalanceExternalLinkButton"

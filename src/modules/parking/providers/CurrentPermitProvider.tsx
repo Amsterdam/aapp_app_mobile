@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react'
+import {useMemo, type ReactNode} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -7,11 +7,11 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useStore} from '@/hooks/redux/useStore'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {CurrentPermitContext} from '@/modules/parking/providers/CurrentPermit.context'
 import {logout} from '@/modules/parking/utils/logout'
-import {store} from '@/store/store'
-import {RootState} from '@/store/types/rootState'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   children: ReactNode
@@ -19,13 +19,26 @@ type Props = {
 
 export const CurrentPermitProvider = ({children}: Props) => {
   const dispatch = useDispatch()
+  const store = useStore()
   const {currentPermit, isLoading, refetch} = useGetCurrentParkingPermit()
   const {headerShown = true} = (navigationRef.current?.getCurrentOptions() ??
     {}) as {headerShown?: boolean}
 
   const onPressLogout = () => {
-    void logout(dispatch, store.getState() as RootState)
+    void logout(dispatch, store.getState())
   }
+
+  const isPermitStartedAtInFuture = useMemo(() => {
+    if (!currentPermit) {
+      return false
+    }
+
+    return (
+      currentPermit.max_session_length_in_days === 1 &&
+      !!currentPermit.started_at &&
+      dayjs(currentPermit.started_at).isAfter(dayjs().add(1, 'day'), 'day')
+    )
+  }, [currentPermit])
 
   if (isLoading) {
     return (
@@ -62,8 +75,8 @@ export const CurrentPermitProvider = ({children}: Props) => {
   }
 
   return (
-    <CurrentPermitContext.Provider value={currentPermit}>
+    <CurrentPermitContext value={{...currentPermit, isPermitStartedAtInFuture}}>
       {children}
-    </CurrentPermitContext.Provider>
+    </CurrentPermitContext>
   )
 }

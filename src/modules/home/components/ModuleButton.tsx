@@ -4,7 +4,6 @@ import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -14,14 +13,14 @@ import {useTheme} from '@/themes/useTheme'
 
 type ModuleButtonContentProps = {
   disabled: boolean | undefined
-  iconName: SvgIconName
+  iconPath?: string
   label: string
   variant: ButtonVariants
 } & TestProps
 
 const ModuleButtonContent = ({
   disabled,
-  iconName,
+  iconPath,
   label,
   testID,
   variant,
@@ -41,10 +40,10 @@ const ModuleButtonContent = ({
   return (
     <Row gutter="sm">
       <Row gutter="md">
-        {!!iconName && (
+        {!!iconPath && (
           <Icon
             color={color}
-            name={iconName}
+            path={iconPath}
             size="lgx"
             testID={`${testID}Icon`}
           />
@@ -73,7 +72,7 @@ type ButtonVariants = 'primary' | 'tertiary'
 type ModuleButtonProps = {
   background?: keyof Theme['color']['module']['highlight']
   disabled?: boolean
-  iconName: SvgIconName
+  iconPath?: string
   label: string
   slug: ModuleSlug
   variant?: ButtonVariants
@@ -82,7 +81,7 @@ type ModuleButtonProps = {
 export const ModuleButton = ({
   background,
   disabled,
-  iconName,
+  iconPath,
   label,
   slug,
   testID,
@@ -105,7 +104,7 @@ export const ModuleButton = ({
       variant={variant}>
       <ModuleButtonContent
         disabled={disabled}
-        iconName={iconName}
+        iconPath={iconPath}
         label={label}
         testID={testID}
         variant={variant}

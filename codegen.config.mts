@@ -23,7 +23,48 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'PreRenderComponent.tsx',
+    match: 'Stack.tsx',
+    output: 'src/modules/generated/stacks.generated.ts',
+    imports: [
+      {
+        import: 'ModuleStack',
+        exportName: 'stacks',
+        optional: false,
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies: 'Record<ModuleSlug, React.ComponentType>',
+      },
+    ],
+  },
+  {
+    inputDir,
+    match: 'routes.ts',
+    output: 'src/modules/generated/moduleStackParams.generated.ts',
+    imports: [
+      {
+        import: 'ModuleStackParams',
+        exportName: 'ModuleStackParams',
+        optional: false,
+        result: 'typeIntersection',
+      },
+    ],
+  },
+  {
+    inputDir,
+    match: 'routes.ts',
+    output: 'src/modules/generated/moduleModalParams.generated.ts',
+    imports: [
+      {
+        import: 'ModuleModalParams',
+        exportName: 'ModalParams',
+        optional: true,
+        result: 'typeIntersection',
+      },
+    ],
+  },
+  {
+    inputDir,
+    match: 'components/PreRenderComponent.tsx',
     output: 'src/modules/generated/preRenderComponents.generated.ts',
     imports: [
       {
@@ -38,7 +79,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'PostRenderComponent.tsx',
+    match: 'components/PostRenderComponent.tsx',
     output: 'src/modules/generated/postRenderComponents.generated.ts',
     imports: [
       {
@@ -53,7 +94,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'HeaderComponent.tsx',
+    match: 'components/HeaderComponent.tsx',
     output: 'src/modules/generated/headerComponents.generated.ts',
     imports: [
       {
@@ -68,7 +109,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'ActionButton.tsx',
+    match: 'components/ActionButton.tsx',
     output: 'src/modules/generated/actionButtons.generated.ts',
     imports: [
       {
@@ -83,7 +124,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'useIsLoggedIn.ts',
+    match: 'hooks/useIsLoggedIn.ts',
     output: 'src/modules/generated/useIsLoggedIn.generated.ts',
     imports: [
       {
@@ -99,7 +140,7 @@ export const config: CodeGenConfig = [
   },
   {
     inputDir,
-    match: 'Account.tsx',
+    match: 'components/Account.tsx',
     output: 'src/modules/generated/account.generated.ts',
     imports: [
       {

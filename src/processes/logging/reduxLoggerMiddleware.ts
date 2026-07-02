@@ -57,11 +57,12 @@ const logRequestFailed = (
 /**
  * RTK middleware to catch API errors and other rejections
  */
-export const reduxLoggerMiddleware: Middleware =
-  () => next => (action: PayloadAction<Payload, string, Meta>) => {
-    if (isRejectedWithValue(action)) {
-      logRequestFailed(action)
-    }
-
-    return next(action)
+export const reduxLoggerMiddleware: Middleware = () => next => action => {
+  if (isRejectedWithValue(action)) {
+    logRequestFailed(action as PayloadAction<Payload, string, Meta>)
   }
+
+  const result: unknown = next(action)
+
+  return result
+}

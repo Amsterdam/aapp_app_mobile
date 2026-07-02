@@ -12,9 +12,5 @@ export const EventsByDateProvider = ({
     [calendar],
   )
 
-  return (
-    <EventsByDateContext.Provider value={value}>
-      {children}
-    </EventsByDateContext.Provider>
-  )
+  return <EventsByDateContext value={value}>{children}</EventsByDateContext>
 }

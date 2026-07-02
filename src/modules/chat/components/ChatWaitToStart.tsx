@@ -8,7 +8,6 @@ import {ChatAnimatedContentWrapper} from '@/modules/chat/components/ChatAnimated
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'
 import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
-import {isDevApp} from '@/processes/development'
 
 type Props = {
   children?: ReactNode
@@ -20,9 +19,13 @@ export const ChatWaitToStart = ({children}: Props) => {
   const {close} = useChat()
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsWaitingTimeExceeded(true)
     }, 60000)
+
+    return () => {
+      clearTimeout(timeout)
+    }
   }, [])
 
   return !ready ? (
@@ -48,11 +51,7 @@ export const ChatWaitToStart = ({children}: Props) => {
           isImageFullSize={false}
           onPress={close}
           testID="ChatWaitToStartErrorTitle"
-          text={
-            isDevApp
-              ? 'Switchen van omgeving: verander eerst van omgeving en herstart dan de app'
-              : 'Probeer het later nog eens.'
-          }
+          text="Probeer het later nog eens."
           title="De chat kon niet geladen worden"
         />
       </ChatAnimatedContentWrapper>

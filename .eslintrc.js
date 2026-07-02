@@ -59,7 +59,7 @@ module.exports = {
         'react-refresh/only-export-components': 'warn',
         'react-native/no-raw-text': [
           'error',
-          {skip: ['Phrase', 'Paragraph', 'InlineLink']},
+          {skip: ['Phrase', 'Paragraph', 'InlineLink', 'ExternalInlineLink']},
         ],
         'react-native/no-single-element-style-arrays': 'warn',
         'import-x/no-default-export': 'error',
@@ -226,6 +226,7 @@ module.exports = {
       rules: {
         'amsterdam/no-relative-file-import': 'warn',
         'amsterdam/jsx-strict-logical-expression': 'error',
+        'amsterdam/jsx-prefer-coerced-and-over-null-ternary': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/restrict-template-expressions': 'error',

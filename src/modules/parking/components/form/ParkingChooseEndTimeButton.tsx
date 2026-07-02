@@ -2,6 +2,7 @@ import {useFormContext} from 'react-hook-form'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useParkingSession} from '@/modules/parking/hooks/useParkingSession'
 import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
@@ -12,6 +13,7 @@ export const ParkingChooseEndTimeButton = () => {
 
   const {watch} = useFormContext<{endTime?: Dayjs; startTime: Dayjs}>()
   const startTime = watch('startTime')
+  const {startTimeRef} = useParkingSession()
 
   if (no_endtime) {
     return null
@@ -29,7 +31,13 @@ export const ParkingChooseEndTimeButton = () => {
       }}
       testID="ParkingChooseEndTimeButton"
       text={endTime =>
-        endTime ? formatDateTimeToDisplay(endTime, false) : undefined
+        endTime
+          ? formatDateTimeToDisplay(
+              endTime,
+              false,
+              startTimeRef.current ? startTimeRef.current : undefined,
+            )
+          : undefined
       }
       title={endTime => (endTime ? 'Eindtijd' : 'Kies eindtijd')}
     />

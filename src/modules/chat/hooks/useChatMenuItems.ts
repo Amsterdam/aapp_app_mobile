@@ -1,5 +1,6 @@
 import {useMemo} from 'react'
 import {endConversation} from 'react-native-salesforce-messaging-in-app/src'
+import {SessionStatus} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {PopupMenuItem} from '@/components/ui/menus/types'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useChatContext} from '@/modules/chat/providers/chat.context'
@@ -13,7 +14,7 @@ import {useMenu} from '@/store/slices/menu'
 export const useChatMenuItems = () => {
   const {close} = useChat()
   const {close: closeMenu} = useMenu()
-  const {addDownloadedTranscriptId, ready, isEnded} = useChatContext()
+  const {addDownloadedTranscriptId, ready, sessionStatus} = useChatContext()
   const trackException = useTrackException()
   const {isLoading, isError, openRedirect} = useOpenRedirect()
 
@@ -44,7 +45,7 @@ export const useChatMenuItems = () => {
       })
     }
 
-    if (!isEnded) {
+    if (sessionStatus !== SessionStatus.ended) {
       menuItems.push({
         color: 'warning',
         label: 'Chat stoppen',
@@ -71,10 +72,10 @@ export const useChatMenuItems = () => {
 
     return menuItems
   }, [
+    sessionStatus,
     addDownloadedTranscriptId,
     close,
     closeMenu,
-    isEnded,
     isError,
     isLoading,
     openRedirect,

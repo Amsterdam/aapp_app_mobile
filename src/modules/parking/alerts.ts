@@ -96,6 +96,12 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingInactiveSessionFailedAlert',
   },
+  inactivePermitInfo: {
+    variant: AlertVariant.information,
+    title: 'Uw vergunning is nog niet actief',
+    hasIcon: true,
+    testID: 'ParkingInactivePermitInfoAlert',
+  },
   increaseBalanceSuccess: {
     variant: AlertVariant.positive,
     text: 'Geldsaldo is verhoogd. Het kan even duren voordat het saldo is bijgewerkt.',
@@ -138,8 +144,8 @@ export const alerts = {
   },
   loginForbiddenFailed: {
     variant: AlertVariant.negative,
-    text: 'Controleer uw meldcode en pincode en probeer het opnieuw.',
-    title: loginFailedTitle,
+    text: 'Vul de meldcode en pincode opnieuw in.',
+    title: 'Meld- of pincode klopt niet',
     testID: 'ParkingLoginForbiddenFailedAlert',
   },
   loginFailed: {

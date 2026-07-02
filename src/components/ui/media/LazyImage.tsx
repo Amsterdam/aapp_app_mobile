@@ -76,7 +76,13 @@ export const LazyImage = ({
       )
     }
 
-    return null
+    return (
+      <View
+        style={fallbackInheritsAspectRatio ? styles.aspectRatio : undefined}
+        testID={testID}>
+        <ImageFallback aspectRatio={aspectRatio} />
+      </View>
+    )
   }
 
   return (
@@ -89,11 +95,17 @@ export const LazyImage = ({
         ) : (
           <Image
             {...rest}
+            accessibilityLabel={
+              rest.alt || rest.accessibilityLabel
+                ? `Afbeelding, ${rest.alt || rest.accessibilityLabel}`
+                : undefined
+            }
             aspectRatio={aspectRatio}
             onError={handleError}
             onLoadEnd={handleLoadEnd}
             source={source}
             style={[styles.image, imageStyle]}
+            testID={testID}
           />
         )}
       </View>

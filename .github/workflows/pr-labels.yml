@@ -15,14 +15,14 @@ permissions:
 
 jobs:
   pr-labels:
-    runs-on: macos-latest
+    runs-on: ubuntu-26.04-arm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: ./.github/actions/install-node
 
-      - name: Install dependencies
-        run: npm run ci
+      - name: Install github actions dependencies
+        run: node ./nodescripts/installGithubActions.mts
 
       - name: Annotate PR with labels
         run: node nodescripts/pr-label.mts

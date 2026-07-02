@@ -5,7 +5,7 @@ import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {type LogProps, PiwikAction} from '@/processes/piwik/types'
 
-type Props = {
+export type InlineLinkProps = {
   children: ReactNode
   emphasis?: PhraseProps['emphasis']
   isExternal?: boolean
@@ -27,7 +27,7 @@ export const InlineLink = ({
   isExternal = false,
   testID,
   ...otherProps
-}: Props) => {
+}: InlineLinkProps) => {
   const onEvent = usePiwikTrackCustomEventFromProps({
     ...otherProps,
     testID,
@@ -46,7 +46,7 @@ export const InlineLink = ({
       variant={phraseVariant}
       {...otherProps}>
       {children}
-      {isExternal ? (
+      {!!isExternal && (
         <>
           {'  '}
           <Icon
@@ -56,7 +56,7 @@ export const InlineLink = ({
             testID={`${testID}Icon`}
           />
         </>
-      ) : null}
+      )}
     </Phrase>
   )
 }

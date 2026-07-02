@@ -21,6 +21,13 @@ export const HeaderContent = ({
     getHeaderTitle(navigationRef.current?.getCurrentOptions() ?? {}, ''),
   )
   const {accessibilityLanguage, preventInitialFocus, SideComponent} = options
+  const titleElement =
+    typeof options.headerTitle === 'function'
+      ? options.headerTitle({
+          children: title,
+          tintColor: options.headerTintColor,
+        })
+      : null
 
   const onBackPress =
     back?.onPress ??
@@ -49,10 +56,12 @@ export const HeaderContent = ({
         )}
       </View>
       <View style={styles.middleColumn}>
-        <ScreenHeaderTitle
-          accessibilityLanguage={accessibilityLanguage}
-          text={title}
-        />
+        {titleElement ?? (
+          <ScreenHeaderTitle
+            accessibilityLanguage={accessibilityLanguage}
+            text={title}
+          />
+        )}
       </View>
       <View style={styles.sideColumn}>
         {!!SideComponent && <SideComponent route={route} />}

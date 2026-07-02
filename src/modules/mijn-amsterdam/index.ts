@@ -1,3 +1,4 @@
+import {resolvePathFromNotification} from '@/modules/mijn-amsterdam/notifications/resolvePathFromNotification'
 import {
   mijnAmsterdamSlice,
   type MijnAmsterdamState,
@@ -14,6 +15,10 @@ const persistWhitelist: (keyof MijnAmsterdamState)[] = [
 ]
 
 export const mijnAmsterdamModule = createClientModule({
+  excludeFromHome: true,
+  loginRoute: [ModuleSlug.user, {screen: UserRouteName.accounts}],
+  logout,
+  name: 'MijnAmsterdamModule',
   reduxConfigs: [
     {
       key: ReduxKey.mijnAmsterdam,
@@ -22,9 +27,6 @@ export const mijnAmsterdamModule = createClientModule({
       slice: mijnAmsterdamSlice,
     },
   ],
-  excludeFromHome: true,
-  name: 'MijnAmsterdamModule',
-  logout,
+  resolvePathFromNotification,
   slug: ModuleSlug['mijn-amsterdam'],
-  loginRoute: [ModuleSlug.user, {screen: UserRouteName.accounts}],
 })

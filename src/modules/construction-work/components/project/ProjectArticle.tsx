@@ -12,7 +12,6 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
-import {ArticleType} from '@/modules/construction-work/types/api'
 import {ApiImage} from '@/types/api'
 import {formatDate} from '@/utils/datetime/formatDate'
 
@@ -25,7 +24,6 @@ type Props = {
   projectId: number | undefined
   publicationDate: string
   title: string
-  type?: ArticleType
 }
 
 export const ProjectArticle = ({
@@ -37,7 +35,6 @@ export const ProjectArticle = ({
   projectId,
   publicationDate,
   title,
-  type = 'article',
 }: Props) => {
   const {data: project, isLoading: isLoadingProject} = useProjectDetailsQuery(
     projectId
@@ -55,13 +52,12 @@ export const ProjectArticle = ({
         aspectRatio="wide"
         fallbackInheritsAspectRatio={false}
         missingSourceFallback={
-          type !== 'warning' ? (
-            <FigureWithFacadesBackground
-              testID={`ConstructionWorkProjectArticle${id}ImageFallback`}>
-              <ProjectWarningFallbackImage />
-            </FigureWithFacadesBackground>
-          ) : undefined
+          <FigureWithFacadesBackground
+            testID={`ConstructionWorkProjectArticle${id}ImageFallback`}>
+            <ProjectWarningFallbackImage />
+          </FigureWithFacadesBackground>
         }
+        openInImageViewer
         source={image?.sources}
         testID={`ConstructionWorkProjectArticle${id}Image`}
       />

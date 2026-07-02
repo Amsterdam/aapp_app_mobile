@@ -5,6 +5,7 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {usePendingScreen} from '@/hooks/navigation/usePendingScreen'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAccessCodeGate} from '@/modules/access-code/hooks/useAccessCodeGate'
+import {useIsLoggedIn} from '@/modules/parking/hooks/useIsLoggedIn'
 import {useIsRecentlyLoggedOut} from '@/modules/parking/hooks/useIsRecentlyLoggedOut'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -13,6 +14,7 @@ import {
   type ParkingScreenConfigRoutes,
 } from '@/modules/parking/screenConfig'
 import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
+import {ParkingAccountInactiveScreen} from '@/modules/parking/screens/ParkingAccountInactiveScreen.screen'
 import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingForgotAccessCode.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
@@ -21,12 +23,11 @@ import {
   useParkingAccountIsLoggingIn,
   useParkingAccountIsLoggingOut,
 } from '@/modules/parking/slice'
-import {useIsLoggedIn} from '@/modules/parking/useIsLoggedIn'
 import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const ParkingStack = () => {
+export const ModuleStack = () => {
   const dispatch = useDispatch()
   const screenOptions = useScreenOptions()
   const screenOptionsSettings = useScreenOptions({
@@ -75,7 +76,7 @@ export const ParkingStack = () => {
               <Stack.Screen
                 component={ParkingLoginScreen}
                 name={ParkingRouteName.login}
-                options={{headerTitle: 'Inloggen'}}
+                options={{headerTitle: 'Aanmelden parkeren'}}
               />
             )}
             {screenConfigPendingFirst.map(([key, parkingRoute]) => (
@@ -103,7 +104,14 @@ export const ParkingStack = () => {
           <Stack.Screen
             component={ParkingLoginScreen}
             name={ParkingRouteName.login}
-            options={{headerTitle: 'Inloggen'}}
+            options={{headerTitle: 'Aanmelden parkeren'}}
+          />
+          <Stack.Screen
+            component={ParkingAccountInactiveScreen}
+            name={ParkingRouteName.accountInactive}
+            options={
+              parkingScreenConfig[ParkingRouteName.accountInactive].options
+            }
           />
         </Stack.Group>
       )}

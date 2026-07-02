@@ -20,10 +20,6 @@ export const Permissions = {
     Platform.OS === 'android'
       ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
       : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-  photos:
-    Platform.OS === 'android'
-      ? PERMISSIONS.ANDROID.READ_MEDIA_IMAGES
-      : PERMISSIONS.IOS.PHOTO_LIBRARY,
   notifications: 'PERMISSION_NOTIFICATIONS',
 } as const
 
@@ -46,10 +42,6 @@ export const ALL_PERMISSIONS_WITH_LOG_DIMENSION: Array<{
   {
     permission: Permissions.camera,
     logDimension: PiwikSessionDimension.hasCameraPermission,
-  },
-  {
-    permission: Permissions.photos,
-    logDimension: PiwikSessionDimension.hasPhotosPermission,
   },
   {
     permission: Permissions.notifications,

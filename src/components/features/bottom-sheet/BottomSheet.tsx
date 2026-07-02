@@ -92,7 +92,7 @@ export const BottomSheet = ({
   }
 
   return (
-    <BottomSheetPresenceContext.Provider value={true}>
+    <BottomSheetPresenceContext value={true}>
       <View
         pointerEvents="box-none"
         style={[StyleSheet.absoluteFill, styles.wrapper]}>
@@ -145,7 +145,7 @@ export const BottomSheet = ({
           </BackgroundComponent>
         </BottomSheetContainer>
       </View>
-    </BottomSheetPresenceContext.Provider>
+    </BottomSheetPresenceContext>
   )
 }
 

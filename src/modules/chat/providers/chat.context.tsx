@@ -1,9 +1,10 @@
-import {createContext, useContext} from 'react'
+import {createContext, use} from 'react'
 import {
   RetrieveTranscriptResponse,
   ConnectionState,
   ConversationEntry,
   RemoteConfiguration,
+  SessionStatus,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 
 type ChatContextType = {
@@ -19,6 +20,7 @@ type ChatContextType = {
   newMessagesCount: number
   ready: boolean
   remoteConfiguration: RemoteConfiguration | undefined
+  sessionStatus: SessionStatus
 }
 
 const initialValue: ChatContextType = {
@@ -32,8 +34,9 @@ const initialValue: ChatContextType = {
   newMessagesCount: 0,
   ready: false,
   remoteConfiguration: undefined,
+  sessionStatus: SessionStatus.unknown,
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
 
-export const useChatContext = () => useContext(ChatContext)
+export const useChatContext = () => use(ChatContext)

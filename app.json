@@ -1,4 +1,6 @@
 {
   "name": "AmsterdamApp",
-  "displayName": "AmsterdamApp"
+  "experiments": {
+    "reactCompiler": true
+  }
 }

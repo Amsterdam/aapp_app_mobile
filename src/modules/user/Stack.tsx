@@ -8,7 +8,7 @@ import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const UserStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
   const screenOptionsSettings = useScreenOptions({
     screenType: 'settings',

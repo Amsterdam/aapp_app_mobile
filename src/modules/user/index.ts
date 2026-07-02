@@ -6,6 +6,9 @@ export const userModule = createCoreModule({
   name: 'UserModule',
   slug: ModuleSlug.user,
   linking: {
-    [UserRouteName.accounts]: 'mijn-amsterdam/:loginResult',
+    [UserRouteName.accounts]: {
+      path: 'mijn-amsterdam/:loginResult',
+      alias: ['mijn-amsterdam/logout'],
+    },
   },
 })

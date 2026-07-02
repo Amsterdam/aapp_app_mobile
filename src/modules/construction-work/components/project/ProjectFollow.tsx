@@ -18,7 +18,6 @@ import {
 import {PiwikDimension} from '@/processes/piwik/types'
 import {zTokens} from '@/themes/tokens/z'
 import {Permissions} from '@/types/permissions'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   followers: number
@@ -78,7 +77,7 @@ export const ProjectFollow = ({
     <Column
       gutter="md"
       zIndex={zTokens.productTourTooltipWrapperParent}>
-      {isFollowError || isUnfollowError ? (
+      {!!(isFollowError || isUnfollowError) && (
         <SomethingWentWrong
           hasIcon
           retryFn={() => onPressFollowButton(isProjectFollowed)}
@@ -86,7 +85,7 @@ export const ProjectFollow = ({
           text={`Het ${isUnfollowError ? 'ont' : ''}volgen is niet gelukt, probeer het later nog eens.`}
           title=""
         />
-      ) : null}
+      )}
       <Row gutter="md">
         <ProductTourTipWrapper
           extraSpace="md"
@@ -115,10 +114,7 @@ export const ProjectFollow = ({
           />
         </ProductTourTipWrapper>
         <SingleSelectable
-          accessibilityLabel={accessibleText(
-            followers.toString(),
-            followersPhrase,
-          )}>
+          accessibilityLabel={`${followers.toString()}, ${followersPhrase}`}>
           <Phrase
             testID="ConstructionWorkProjectFollowersText"
             variant="small">

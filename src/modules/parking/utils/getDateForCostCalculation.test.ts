@@ -1,16 +1,13 @@
 import {getDateForCostCalculation} from '@/modules/parking/utils/getDateForCostCalculation'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-const NOW = dayjs('2025-11-13T10:00:00.000Z')
 const END_TIME = dayjs('2025-11-13T12:00:00.000Z')
 const START_TIME = dayjs('2025-11-13T11:00:00.000Z')
-const NOW_SESSION_ACTIVE = dayjs('2025-11-13T11:30:00.000Z')
 
 describe('getDateForCostCalculation', () => {
   it('returns endTime and startTime unchanged if no originalEndTime', () => {
     const result = getDateForCostCalculation({
       endTime: END_TIME,
-      now: NOW,
       startTime: START_TIME,
     })
 
@@ -30,7 +27,6 @@ describe('getDateForCostCalculation', () => {
       endTime,
       originalEndTime,
       startTime: START_TIME,
-      now: NOW,
     })
 
     expect(result.isEndTimeBeforeOriginal).toBe(false)
@@ -42,19 +38,36 @@ describe('getDateForCostCalculation', () => {
     )
   })
 
-  it('returns correct values if endTime < now', () => {
+  it('returns correct values if endTime < originalEndTime', () => {
     const endTime = dayjs('2025-11-13T11:15:00.000Z')
     const originalEndTime = END_TIME
     const result = getDateForCostCalculation({
       endTime,
       originalEndTime,
       startTime: START_TIME,
-      now: NOW_SESSION_ACTIVE,
     })
 
     expect(result.isEndTimeBeforeOriginal).toBe(true)
     expect(result.calculatedStartTime?.toISOString()).toBe(
-      '2025-11-13T11:30:00.000Z',
+      '2025-11-13T11:15:00.000Z',
+    )
+    expect(result.calculatedEndTime?.toISOString()).toBe(
+      '2025-11-13T12:00:00.000Z',
+    )
+  })
+
+  it('returns correct values if endTime < startTime', () => {
+    const endTime = dayjs('2025-11-13T10:45:00.000Z')
+    const originalEndTime = END_TIME
+    const result = getDateForCostCalculation({
+      endTime,
+      originalEndTime,
+      startTime: START_TIME,
+    })
+
+    expect(result.isEndTimeBeforeOriginal).toBe(true)
+    expect(result.calculatedStartTime?.toISOString()).toBe(
+      '2025-11-13T11:00:00.000Z',
     )
     expect(result.calculatedEndTime?.toISOString()).toBe(
       '2025-11-13T12:00:00.000Z',
@@ -62,7 +75,7 @@ describe('getDateForCostCalculation', () => {
   })
 
   it('returns undefined if no endTime', () => {
-    const result = getDateForCostCalculation({now: NOW})
+    const result = getDateForCostCalculation({})
 
     expect(result.calculatedEndTime).toBeUndefined()
     expect(result.calculatedStartTime).toBeUndefined()

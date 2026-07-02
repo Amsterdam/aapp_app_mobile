@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/contact/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const ContactStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

@@ -29,7 +29,7 @@ export const Label = ({
         emphasis={emphasis}
         testID="TextInputLabel">
         {text}
-        {suffix ? <Phrase>{suffix}</Phrase> : null}
+        {!!suffix && <Phrase>{suffix}</Phrase>}
       </Phrase>
     </View>
   )

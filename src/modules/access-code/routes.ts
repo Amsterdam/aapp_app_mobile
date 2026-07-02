@@ -7,7 +7,7 @@ export enum AccessCodeRouteName {
   validAccessCode = 'ValidAccessCode',
 }
 
-export type AccessCodeStackParams = {
+export type ModuleStackParams = {
   [AccessCodeRouteName.accessCode]: undefined
   [AccessCodeRouteName.accessCodeInvalid]: undefined
   [AccessCodeRouteName.biometricsPermission]: undefined

@@ -1,16 +1,17 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   HomeModalName,
-  HomeModalParams,
+  ModuleModalParams,
   HomeRouteName,
-  HomeStackParams,
+  ModuleStackParams,
 } from '@/modules/home/routes'
 import {AdminScreen} from '@/modules/home/screens/Admin.screen'
 import {HomeScreen} from '@/modules/home/screens/Home.screen'
+import {ImageViewerScreen} from '@/modules/home/screens/ImageViewer.screen'
 import {PermissionInstructionsScreen} from '@/modules/home/screens/PermissionInstructions.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  HomeStackParams,
+  ModuleStackParams,
   HomeRouteName
 > = {
   [HomeRouteName.admin]: {
@@ -30,9 +31,17 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const modals: StackNavigationRoutes<HomeModalParams> = {
+export const modals: StackNavigationRoutes<ModuleModalParams> = {
   [HomeModalName.permissionInstructions]: {
     component: PermissionInstructionsScreen,
     name: HomeModalName.permissionInstructions,
+  },
+  [HomeModalName.imageViewer]: {
+    component: ImageViewerScreen,
+    name: HomeModalName.imageViewer,
+    options: {
+      presentation: 'modal',
+      animation: 'fade',
+    },
   },
 }

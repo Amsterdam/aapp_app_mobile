@@ -18,7 +18,6 @@ import {ProjectSegmentMenu} from '@/modules/construction-work/components/project
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
 import {ModuleSlug} from '@/modules/slugs'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   id: number
@@ -68,6 +67,7 @@ export const Project = ({id}: Props) => {
             <ProjectWarningFallbackImage />
           </FigureWithFacadesBackground>
         }
+        openInImageViewer
         source={image?.sources}
         testID="ConstructionWorkProjectImage"
       />
@@ -82,9 +82,7 @@ export const Project = ({id}: Props) => {
               projectTitle={title}
             />
             <Column gutter="md">
-              <SingleSelectable
-                accessibilityLabel={accessibleText(title, subtitle)}
-                accessibilityRole="header">
+              <SingleSelectable accessibilityRole="header">
                 {!!title && (
                   <Title
                     testID="ConstructionWorkProjectTitle"

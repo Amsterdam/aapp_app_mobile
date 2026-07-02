@@ -42,7 +42,10 @@ export const ParkingSelectPermit = () => {
           />
         </Column>
         <Column gutter="md">
-          <AdditionalLoginButton testID="ParkingSelectPermitLoginTopTaskButton" />
+          <AdditionalLoginButton
+            testID="ParkingSelectPermitLoginTopTaskButton"
+            variant="secondary"
+          />
           <NavigationButton
             chevronSize="md"
             emphasis="default"

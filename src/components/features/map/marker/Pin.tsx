@@ -1,16 +1,12 @@
-import {Circle} from 'react-native-svg'
-import {
-  MapMarkerBase,
-  type MapMarkerBaseProps,
-} from '@/components/features/map/marker/MarkerBase'
+import {mapSvgIcons} from '@/components/features/map/constants/icons'
+import {CustomMarker} from '@/components/features/map/marker/CustomMarker'
 
-export const MapMarkerPin = (props: MapMarkerBaseProps) => (
-  <MapMarkerBase {...props}>
-    <Circle
-      cx={20.3334}
-      cy={18}
-      fill="#181818"
-      r={8.75}
-    />
-  </MapMarkerBase>
+export const MapMarkerPin = () => (
+  <CustomMarker
+    icon={{
+      path: mapSvgIcons['marker-point'].default.path,
+      pathColor: '#181818',
+    }}
+    testID="PinMarker"
+  />
 )

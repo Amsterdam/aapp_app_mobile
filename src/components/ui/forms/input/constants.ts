@@ -1,3 +1,5 @@
+import type {FieldValues, RegisterOptions} from 'react-hook-form'
+import type {InputModeOptions, KeyboardTypeOptions} from 'react-native'
 import {FieldType} from '@/components/ui/forms/input/types'
 
 const PINCODE_MESSAGE = 'Uw pincode mag alleen uit 4 cijfers bestaan.'
@@ -31,6 +33,7 @@ export const fieldTypeRules = {
     },
   },
   [FieldType.text]: {},
+  [FieldType.password]: {},
   [FieldType.url]: {
     pattern: {
       value: /^(https?:\/\/|www\.)[^\s]+\.[^\s]+/i,
@@ -51,7 +54,13 @@ export const fieldTypeRules = {
       message: PINCODE_MESSAGE,
     },
   },
-}
+} as const satisfies Record<
+  FieldType,
+  Omit<
+    RegisterOptions<FieldValues, string>,
+    'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'
+  >
+>
 
 export const fieldTypeToInputMode = {
   [FieldType.email]: 'email',
@@ -60,7 +69,8 @@ export const fieldTypeToInputMode = {
   [FieldType.tel]: 'tel',
   [FieldType.text]: 'text',
   [FieldType.url]: 'url',
-} as const
+  [FieldType.password]: 'text',
+} as const satisfies Record<FieldType, InputModeOptions>
 
 export const fieldTypeToKeyboardType = {
   [FieldType.email]: 'email-address',
@@ -69,7 +79,9 @@ export const fieldTypeToKeyboardType = {
   [FieldType.tel]: 'phone-pad',
   [FieldType.text]: 'default',
   [FieldType.url]: 'url',
-} as const
+  // eslint-disable-next-line sonarjs/no-hardcoded-passwords
+  [FieldType.password]: 'visible-password',
+} as const satisfies Record<FieldType, KeyboardTypeOptions>
 
 export const numericFieldTypes = [FieldType.numeric, FieldType.pin]
 

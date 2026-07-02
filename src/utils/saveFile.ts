@@ -1,10 +1,4 @@
-import {
-  documentDirectory,
-  EncodingType,
-  StorageAccessFramework,
-  writeAsStringAsync,
-  downloadAsync,
-} from 'expo-file-system/legacy'
+import {Directory, EncodingType, File, Paths} from 'expo-file-system'
 import {shareAsync} from 'expo-sharing'
 import {Platform} from 'react-native'
 import {devLog} from '@/processes/development'
@@ -59,32 +53,21 @@ export const saveFile = async ({
   }
 }
 
-const requestDirectoryPermission = async (): Promise<string> => {
+const requestDirectoryPermission = async (): Promise<Directory> => {
   try {
-    const permissions =
-      await StorageAccessFramework.requestDirectoryPermissionsAsync()
-
-    if (permissions.granted) {
-      return permissions.directoryUri
-    } else {
-      throw 'Not granted directory permission.'
-    }
+    return await Directory.pickDirectoryAsync()
   } catch {
     throw 'Requesting directory permission failed.'
   }
 }
 
-const createEmptyFile = async (
-  directoryUri: string,
+const createEmptyFile = (
+  directory: Directory,
   fileName: string,
   mimeType = 'application/pdf',
-): Promise<string> => {
+): File => {
   try {
-    return await StorageAccessFramework.createFileAsync(
-      directoryUri,
-      fileName,
-      mimeType,
-    )
+    return directory.createFile(fileName, mimeType)
   } catch {
     throw 'Creating empty file failed.'
   }
@@ -92,23 +75,18 @@ const createEmptyFile = async (
 
 const readContentsAsBase64 = async (uri: string): Promise<string> => {
   try {
-    return await StorageAccessFramework.readAsStringAsync(uri, {
-      encoding: EncodingType.Base64,
-    })
+    return await new File(uri).base64()
   } catch {
     throw 'Reading file as base64 string failed.'
   }
 }
 
-const writeFileContentsAsBase64String = async (
-  safUri: string,
-  base64: string,
-) => {
+const writeFileContentsAsBase64String = (file: File, base64: string) => {
   try {
-    await StorageAccessFramework.writeAsStringAsync(safUri, base64, {
+    file.write(base64, {
       encoding: EncodingType.Base64,
     })
-    devLog(`saved to file ${safUri}`)
+    devLog(`saved to file ${file.uri}`)
   } catch {
     throw 'Writing base64 string to file failed.'
   }
@@ -119,17 +97,18 @@ const shareFile = async (
   fileName: string,
   mimeType?: string,
 ) => {
-  const fileUri = `${documentDirectory}${fileName}`
+  const file = new File(Paths.document, fileName)
 
   try {
-    await writeAsStringAsync(fileUri, base64, {
+    file.create({intermediates: true, overwrite: true})
+    file.write(base64, {
       encoding: EncodingType.Base64,
     })
-    await shareAsync(fileUri, {
+    await shareAsync(file.uri, {
       mimeType,
       UTI: mimeType ? contentTypeToUTI[mimeType] : undefined,
     })
-    devLog(`saved to file ${fileUri}`)
+    devLog(`saved to file ${file.uri}`)
   } catch {
     throw 'Failed to share file with other applications.'
   }
@@ -141,10 +120,10 @@ const saveOnAndroid = async (
   mimeType?: string,
 ) => {
   try {
-    const directoryUri = await requestDirectoryPermission()
-    const safUri = await createEmptyFile(directoryUri, fileName, mimeType)
+    const directory = await requestDirectoryPermission()
+    const file = createEmptyFile(directory, fileName, mimeType)
 
-    await writeFileContentsAsBase64String(safUri, base64)
+    writeFileContentsAsBase64String(file, base64)
   } catch (error) {
     await shareFile(base64, fileName, mimeType)
     throw error
@@ -167,10 +146,16 @@ const saveFileOnDevice = async (
 }
 
 const downloadFile = async (downloadUri: string, filename: string) => {
-  const {headers, uri} = await downloadAsync(
-    downloadUri,
-    documentDirectory + filename,
-  )
+  const file = new File(Paths.document, filename)
 
-  return {uri, mimeType: headers['content-type']}
+  const downloadedFile = await File.downloadFileAsync(downloadUri, file, {
+    idempotent: true,
+  })
+
+  const mimeType =
+    downloadedFile.type ||
+    fileExtensionToMimeType[filename.split('.').pop() || ''] ||
+    undefined
+
+  return {uri: downloadedFile.uri, mimeType}
 }

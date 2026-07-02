@@ -1,14 +1,13 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   ServiceRouteName,
-  type ServiceModalParams,
-  type ServiceStackParams,
+  type ModuleStackParams,
 } from '@/modules/service/routes'
 import {ServiceScreen} from '@/modules/service/screens/Service.screen'
 import {ServiceHomeScreen} from '@/modules/service/screens/ServiceHome.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  ServiceStackParams,
+  ModuleStackParams,
   ServiceRouteName
 > = {
   [ServiceRouteName.overview]: {
@@ -26,5 +25,3 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
 }
-
-export const modals: StackNavigationRoutes<ServiceModalParams> = {}

@@ -34,11 +34,12 @@ export const ChatProvider = ({children}: Props) => {
     remoteConfiguration,
     connectionStatus,
     isWaitingForAgent,
+    sessionStatus,
   } = useCreateChat({
     ...coreConfig,
     conversationId,
   })
-  const isEnded = useIsChatEnded(messages, isWaitingForAgent, agentInChat)
+  const isEnded = useIsChatEnded(isWaitingForAgent, agentInChat, sessionStatus)
 
   const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
     setDownloadedTranscriptIds(ids => [...ids, transcriptId])
@@ -86,6 +87,7 @@ export const ChatProvider = ({children}: Props) => {
             message => message.format === ConversationEntryFormat.text,
           )),
       remoteConfiguration,
+      sessionStatus,
     }
   }, [
     addDownloadedTranscriptId,
@@ -99,7 +101,8 @@ export const ChatProvider = ({children}: Props) => {
     newMessagesCount,
     ready,
     remoteConfiguration,
+    sessionStatus,
   ])
 
-  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
+  return <ChatContext value={value}>{children}</ChatContext>
 }

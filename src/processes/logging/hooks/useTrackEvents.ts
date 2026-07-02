@@ -1,4 +1,4 @@
-import {useContext, useMemo} from 'react'
+import {use, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {getTrackEvents} from '@/processes/logging/utils/getTrackEvents'
@@ -16,7 +16,7 @@ export {
 export type Params = Record<string, unknown>
 
 export const useTrackEvents = () => {
-  const piwikInstance = useContext(PiwikContext)
+  const piwikInstance = use(PiwikContext)
   const route = navigationRef.isReady()
     ? navigationRef.getCurrentRoute()
     : undefined

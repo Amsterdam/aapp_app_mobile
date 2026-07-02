@@ -1,7 +1,6 @@
 import type {IconProps} from '@/components/ui/media/Icon'
 import {type Address, type LocationType} from '@/modules/address/types'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const getAddressSwitchIcon = (
   locationType?: LocationType,
@@ -57,8 +56,4 @@ export const getAddressSwitchAccessibilityLabel = (
   address?: Address,
   isFetching = false,
 ) =>
-  accessibleText(
-    getAddressSwitchLabel(locationType, address, isFetching),
-    address ? getLocationTypeLabel(locationType) : '',
-    'Druk om adres te wijzigen.',
-  )
+  `${getAddressSwitchLabel(locationType, address, isFetching)}, ${address ? getLocationTypeLabel(locationType) + ', ' : ''}Druk om adres te wijzigen.`

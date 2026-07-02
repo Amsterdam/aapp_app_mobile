@@ -1,8 +1,8 @@
-import {useContext} from 'react'
+import {use} from 'react'
 import {MapFiltersContext} from '@/components/features/map/providers/MapFiltersContext'
 
 export const useMapFilters = () => {
-  const context = useContext(MapFiltersContext)
+  const context = use(MapFiltersContext)
 
   if (!context) {
     throw new Error('useMapFilters must be used within a MapFiltersProvider')

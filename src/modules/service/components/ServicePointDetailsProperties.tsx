@@ -32,7 +32,7 @@ export const ServicePointDetailsProperties = ({
               key={`${ServiceDetailPropertyType.malfunction}-${value}`}>
               <Icon
                 color="warning"
-                name="alert"
+                name="warning"
                 size="lg"
               />
               <Paragraph color="warning">{value}</Paragraph>

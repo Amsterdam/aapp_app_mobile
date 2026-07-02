@@ -1,6 +1,8 @@
 import {electionsSvgIcons} from '@/modules/elections/constants/icons'
+import {electionsSlice} from '@/modules/elections/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 export const electionsModule = createClientModule({
   name: 'ElectionsModule',
@@ -9,4 +11,10 @@ export const electionsModule = createClientModule({
   },
   slug: ModuleSlug.elections,
   icons: electionsSvgIcons,
+  reduxConfigs: [
+    {
+      key: ReduxKey.elections,
+      slice: electionsSlice,
+    },
+  ],
 })

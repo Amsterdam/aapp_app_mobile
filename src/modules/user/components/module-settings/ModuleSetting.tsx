@@ -18,14 +18,13 @@ import {
   selectDisabledModules,
   toggleModuleDisabled,
 } from '@/store/slices/modules'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   module: Module
 } & TestProps
 
 export const ModuleSetting = ({
-  module: {description, icon: iconName, slug, status, title},
+  module: {description, iconPath, slug, status, title},
   testID,
 }: Props) => {
   const dispatch = useDispatch()
@@ -67,7 +66,7 @@ export const ModuleSetting = ({
       <ModuleSettingBox slug={slug}>
         <ModuleSettingInfo
           description={description}
-          iconName={iconName}
+          iconPath={iconPath}
           isInactive
           testID={`${testID}Content`}
           title={title}
@@ -78,11 +77,11 @@ export const ModuleSetting = ({
 
   return (
     <Switch
-      accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
+      accessibilityLabel={`Onderwerp ${title} ${description} staat ${isDisabled ? 'uit' : 'aan'}`}
       label={
         <ModuleSettingInfo
           description={description}
-          iconName={iconName}
+          iconPath={iconPath}
           testID={`${testID}Content`}
           title={title}
         />

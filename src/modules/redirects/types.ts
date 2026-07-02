@@ -5,6 +5,9 @@ export enum RedirectEndpointName {
 export enum RedirectKey {
   acknowledgeChild = 'acknowledgeChild',
   birth = 'birth',
+  boatChargingCreateAccount = 'boatChargingCreateAccount',
+  boatChargingFAQ = 'boatChargingFAQ',
+  boatChargingForgotPassword = 'boatChargingForgotPassword',
   chatPrivacy = 'chatPrivacy',
   cityPassChildBudget = 'cityPassChildBudget',
   cityPassLowIncomeSupport = 'cityPassLowIncomeSupport',

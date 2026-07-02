@@ -8,7 +8,7 @@ type Options = {
 }
 
 export const formatTimeToDisplay = (
-  date: string | Dayjs,
+  date: string | number | Dayjs,
   {
     includeHoursLabel = false,
     hoursLabelShort = false,

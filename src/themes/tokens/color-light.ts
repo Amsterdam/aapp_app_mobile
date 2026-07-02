@@ -217,9 +217,13 @@ export const lightColorTokens = {
       border: baseColor.primary.red,
     },
   },
-  imageFallback: {
-    background: baseColor.primary.white,
-    border: baseColor.primary.blue,
+  imageBackground: {
+    light: {
+      background: baseColor.primary.white,
+    },
+    dark: {
+      background: baseColor.primary.black,
+    },
   },
   logo: baseColor.primary.red,
   module: {
@@ -330,6 +334,18 @@ export const lightColorTokens = {
         label: baseColor.primary.white,
       },
     },
+    positive: {
+      default: {
+        background: baseColor.primary.white,
+        border: baseColor.secondary.darkgreen,
+        label: baseColor.secondary.darkgreen,
+      },
+      pressed: {
+        background: baseColor.neutral.grey1,
+        border: baseColor.secondary.darkgreen,
+        label: baseColor.secondary.darkgreen,
+      },
+    },
   },
   screen: {
     background: {
@@ -366,7 +382,21 @@ export const lightColorTokens = {
     },
   },
   tag: {
-    background: baseColor.secondary.yellow,
+    warning: {
+      background: baseColor.secondary.yellow,
+    },
+    default: {
+      background: baseColor.primary.white,
+    },
+    transparent: {
+      background: baseColor.transparent.full,
+    },
+    positive: {
+      background: baseColor.secondary.darkgreen,
+    },
+    secondary: {
+      background: baseColor.neutral.grey3,
+    },
   },
   text: {
     alert: baseColor.secondary.orange,

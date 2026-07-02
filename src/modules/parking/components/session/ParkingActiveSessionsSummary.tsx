@@ -10,7 +10,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useBoolean} from '@/hooks/useBoolean'
-import {useRefetchInterval} from '@/hooks/useRefetchInterval'
+import {useInterval} from '@/hooks/useInterval'
 import {useRefetchTimeout} from '@/hooks/useRefetchTimeout'
 import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
@@ -53,7 +53,7 @@ export const ParkingActiveSessionsSummary = () => {
   ])
 
   // refetch sessions every 5 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
-  useRefetchInterval(
+  useInterval(
     refetch,
     activeParkingSessions?.some(
       session => 'is_paid' in session && !session.is_paid,

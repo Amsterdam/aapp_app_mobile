@@ -1,7 +1,9 @@
-import {ReactNode} from 'react'
+import {ReactNode, useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {ParkingSessionContext} from '@/modules/parking/hooks/useParkingSession'
 import {ParkingSession} from '@/modules/parking/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   children: ReactNode
@@ -65,13 +67,30 @@ export const ParkingSessionFormProvider = ({
   parkingSession,
   extendVisitorSession = false,
 }: Props) => {
+  const {started_at} = useCurrentParkingPermit()
+
+  const isNotYetActivePermit = dayjs(started_at).isAfter(
+    dayjs(defaultStartTime),
+  )
+
   const form = useForm<ParkingSessionFormValues>({
     defaultValues: getDefaultValues({
-      defaultStartTime,
+      defaultStartTime: isNotYetActivePermit
+        ? String(started_at)
+        : defaultStartTime,
       parkingSession,
       extendVisitorSession,
     }),
   })
+  const startTimeRef = useRef<Dayjs | null>(null)
+  const userHasEditedStart = useRef(false)
 
-  return <FormProvider {...form}>{children}</FormProvider>
+  return (
+    <FormProvider {...form}>
+      <ParkingSessionContext.Provider
+        value={{startTimeRef, userHasEditedStart}}>
+        {children}
+      </ParkingSessionContext.Provider>
+    </FormProvider>
+  )
 }

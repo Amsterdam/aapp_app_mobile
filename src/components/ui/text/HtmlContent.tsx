@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState} from 'react'
+import {Fragment, useCallback, useMemo, useState} from 'react'
 import {
   LayoutChangeEvent,
   Platform,
@@ -6,15 +6,24 @@ import {
   StyleSheet,
   TextStyle,
   View,
+  type ViewProps,
 } from 'react-native'
 import RenderHTML, {
   CustomBlockRenderer,
   CustomMixedRenderer,
   CustomTagRendererRecord,
+  type Element,
   MixedStyleDeclaration,
+  type TNode,
+  type TRenderEngineConfig,
+  useInternalRenderer,
+  useRendererProps,
 } from 'react-native-render-html'
+import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {LazyImage} from '@/components/ui/media/LazyImage'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {type TestProps} from '@/components/ui/types'
@@ -22,6 +31,7 @@ import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {useDynamicImageAspectRatio} from '@/hooks/useDynamicImageAspectRatio'
 import {Theme} from '@/themes/themes'
 import {TextTokens} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -37,6 +47,8 @@ export type HtmlTransformRule = {
   replace: string
 }
 
+const CAPTION_TAGS = new Set(['figcaption', 'cite', 'sub', 'sup'])
+
 /**
  * Applies all transform rules to the content.
  */
@@ -50,6 +62,57 @@ const transformContent = (
   )
 
 /**
+ * Convert a parent <p> tag into a <figure> tag if its children contains an <img> tag.
+ * Converts all non <img> children into <figcaption>
+ * @param element
+ * @returns
+ */
+const convertParagraphToFigure = (element: Element) => {
+  if (
+    element.tagName === 'p' &&
+    element.children.some(
+      child => 'tagName' in child && child.tagName === 'img',
+    )
+  ) {
+    element.tagName = 'figure'
+
+    element.children.forEach(child => {
+      if (
+        'tagName' in child &&
+        CAPTION_TAGS.has((child.tagName as string) || '')
+      )
+        child.tagName = 'figcaption'
+    })
+  }
+
+  return element
+}
+
+/**
+ * Returns all parent tag names as an array
+ * @param tnode
+ * @returns
+ */
+const getParentTags = (tnode: TNode) => {
+  const tags: string[] = []
+  let parent = tnode.parent
+
+  while (parent && 'tagName' in parent && typeof parent.tagName === 'string') {
+    tags.push(parent.tagName)
+
+    parent = parent.parent
+  }
+
+  return tags
+}
+
+const classesStyles: TRenderEngineConfig['classesStyles'] = {
+  'css-text-align-right': {
+    textAlign: 'right',
+  },
+}
+
+/**
  * Renders HTML content, applying the typographic design.
  */
 export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
@@ -58,6 +121,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const styles = useThemable(createStyles(isIntro))
   const systemFonts = useThemable(createFontList)
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const openUrl = useOpenUrl()
 
   const onLayoutChange = useCallback((event: LayoutChangeEvent) => {
     setContentWidth(event.nativeEvent.layout.width)
@@ -78,6 +142,11 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const tagsStyles: Record<string, MixedStyleDeclaration> = useMemo(
     () => ({
       b: styles.boldText,
+      blockquote: {
+        ...styles.boldText,
+        ...styles.titleLevel4,
+        ...styles.spaceAround,
+      },
       h1: {...styles.boldText, ...styles.titleLevel1, ...styles.titleMargins},
       h2: {...styles.boldText, ...styles.titleLevel2, ...styles.titleMargins},
       h3: {...styles.boldText, ...styles.titleLevel3, ...styles.titleMargins},
@@ -90,6 +159,8 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
       p: {...styles.paragraph, ...styles.margins},
       strong: styles.boldText,
       ul: styles.margins,
+      figcaption: {...styles.small, ...styles.captionMargins},
+      sup: {...styles.small, ...styles.supMargins},
     }),
     [styles],
   )
@@ -102,8 +173,14 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
     <View onLayout={onLayoutChange}>
       <RenderHTML
         baseStyle={baseStyle}
+        classesStyles={classesStyles}
         contentWidth={contentWidth}
+        domVisitors={{onElement: convertParagraphToFigure}}
         renderers={renderers}
+        renderersProps={{
+          img: {enableExperimentalPercentWidth: true},
+          anchor: {isScreenReaderEnabled, openUrl},
+        }}
         source={{html}}
         systemFonts={systemFonts}
         tagsStyles={tagsStyles}
@@ -129,7 +206,7 @@ const createStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
-  ({text}: Theme) => {
+  ({size, text, color}: Theme) => {
     const lineHeight = getLineHeight(text, isIntro)
 
     // By default, Android sets this to `bold` – which breaks the font family.
@@ -141,6 +218,11 @@ const createStyles: (
         marginTop: 0,
         marginBottom: lineHeight,
       },
+      small: {
+        fontSize: text.fontSize.small,
+        lineHeight: text.lineHeight.small,
+        color: color.text.secondary,
+      },
       paragraph: {
         fontSize: getFontSize(text, isIntro),
         lineHeight,
@@ -148,6 +230,9 @@ const createStyles: (
       boldText: {
         fontFamily: text.fontFamily.bold,
         fontWeight: platformDependentFontWeight,
+      },
+      spaceAround: {
+        margin: size.spacing.md,
       },
       titleLevel1: {
         fontSize: text.fontSize.h1,
@@ -177,6 +262,15 @@ const createStyles: (
         marginTop: 0,
         marginBottom: lineHeight / 2,
       },
+      captionMargins: {
+        marginBottom: lineHeight,
+      },
+      supMargins: {
+        marginTop: -size.spacing.md,
+      },
+      imgWithCaptionMargins: {
+        marginBottom: size.spacing.sm,
+      },
     }
   }
 
@@ -187,7 +281,9 @@ const createFontList = ({text}: Theme): string[] => [
 
 // An unordered list only renders its children, without the bullet point and any spacing.
 const UlRenderer: CustomBlockRenderer = ({TNodeChildrenRenderer, ...props}) => (
-  <TNodeChildrenRenderer {...props} />
+  <Box insetBottom="lg">
+    <TNodeChildrenRenderer {...props} />
+  </Box>
 )
 
 const createLiMarkerStyles = (fontScale: ScaledSize['fontScale']) =>
@@ -231,22 +327,80 @@ const LiRenderer: CustomBlockRenderer = props => {
 
 const ARenderer: CustomMixedRenderer = props => {
   const {href} = props.tnode.attributes
-  const openUrl = useOpenUrl()
+  const {openUrl, isScreenReaderEnabled} = useRendererProps('anchor') as {
+    isScreenReaderEnabled: boolean
+    openUrl: ReturnType<typeof useOpenUrl>
+  }
+
+  const parentTags = getParentTags(props.tnode)
+  const isInCaption = parentTags.some(tag => CAPTION_TAGS.has(tag))
 
   const {TNodeChildrenRenderer} = props
 
+  const Wrapper = isScreenReaderEnabled ? SingleSelectable : Fragment
+
   return (
-    <InlineLink
-      isExternal
-      onPress={() => openUrl(href)}
-      testID="HtmlRendererAInlineLink">
-      <TNodeChildrenRenderer {...props} />
-    </InlineLink>
+    <Wrapper
+      {...(isScreenReaderEnabled && {
+        accessibilityRole: 'link',
+        accessibilityActions: [
+          {
+            name: 'open',
+            label: 'Open de link',
+          },
+        ],
+        onAccessibilityAction: event => {
+          if (event.nativeEvent.actionName === 'open') {
+            openUrl(href)
+          }
+        },
+      })}>
+      <InlineLink
+        isExternal
+        onPress={() => openUrl(href)}
+        screenReaderFocusable={false}
+        testID="HtmlRendererAInlineLink"
+        variant={isInCaption ? 'small' : 'body'}>
+        <TNodeChildrenRenderer {...props} />
+      </InlineLink>
+    </Wrapper>
+  )
+}
+
+const ImgRenderer: CustomMixedRenderer = props => {
+  const {rendererProps} = useInternalRenderer('img', props)
+  const captionNode =
+    props.tnode.children.find(child =>
+      CAPTION_TAGS.has(child?.tagName || ''),
+    ) ??
+    props.tnode.parent?.children.find(child =>
+      CAPTION_TAGS.has(child?.tagName || ''),
+    )
+
+  const styles = useThemable(createStyles(false))
+  const {alt, source, style} = rendererProps
+  const aspectRatio = useDynamicImageAspectRatio(source.uri)
+
+  const combinedStyle = captionNode
+    ? ([style, styles.imgWithCaptionMargins] as ViewProps['style'])
+    : style
+
+  return (
+    <View style={combinedStyle}>
+      <LazyImage
+        accessibilityLabel={alt}
+        aspectRatio={aspectRatio}
+        openInImageViewer
+        source={source}
+        testID="HtmlRendererImage"
+      />
+    </View>
   )
 }
 
 const renderers: CustomTagRendererRecord = {
-  ul: UlRenderer,
-  li: LiRenderer,
   a: ARenderer,
+  li: LiRenderer,
+  ul: UlRenderer,
+  img: ImgRenderer,
 }

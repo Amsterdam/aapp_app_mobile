@@ -1,3 +1,4 @@
+import {useMemo, type Ref} from 'react'
 import {
   // eslint-disable-next-line no-restricted-imports
   Pressable as PressableRN,
@@ -6,10 +7,10 @@ import {
   View,
   type GestureResponderEvent,
 } from 'react-native'
-import type {Ref} from 'react'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {type LogProps, PiwikAction} from '@/processes/piwik/types'
+import {getAccessibleLabel} from '@/utils/accessibility/getAccessibleLabel'
 
 export type PressableBaseProps = {
   'logging-label'?: string
@@ -28,15 +29,27 @@ export const PressableBase = ({
   onPress = () => null,
   logAction = PiwikAction.buttonPress,
   onAccessibilityAction,
+  accessibilityLabel: explicitAccessibilityLabel,
   ...pressableProps
 }: PressableBaseProps) => {
   const onEvent = usePiwikTrackCustomEventFromProps<unknown>({
     ...pressableProps,
     logAction,
   })
+  const accessibilityChildren =
+    typeof children === 'function' ? undefined : children
+  const accessibilityLabel = useMemo(
+    () =>
+      getAccessibleLabel({
+        accessibilityLabel: explicitAccessibilityLabel,
+        children: accessibilityChildren,
+      }),
+    [accessibilityChildren, explicitAccessibilityLabel],
+  )
 
   return (
     <PressableRN
+      accessibilityLabel={accessibilityLabel}
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       onAccessibilityAction={event => {

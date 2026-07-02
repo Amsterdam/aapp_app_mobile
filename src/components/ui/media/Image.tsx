@@ -9,6 +9,7 @@ import {
   StyleSheet,
   useWindowDimensions,
 } from 'react-native'
+import {NavigateToImageViewer} from '@/components/ui/media/NavigateToImageViewer'
 import {Theme} from '@/themes/themes'
 import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
@@ -30,6 +31,7 @@ type SupportedImageRNProps = Omit<
 
 export type ImageProps = {
   aspectRatio?: ImageAspectRatio
+  openInImageViewer?: boolean
 } & SupportedImageRNProps
 
 export const Image = ({
@@ -37,6 +39,7 @@ export const Image = ({
   onLayout,
   source,
   style,
+  openInImageViewer = false,
   ...imageProps
 }: ImageProps) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
@@ -62,14 +65,18 @@ export const Image = ({
   )
 
   return (
-    <ImageRN
-      accessibilityIgnoresInvertColors
-      accessibilityLanguage="nl-NL"
-      onLayout={onLayoutChange}
-      source={source}
-      style={[styles.image, style]}
-      {...imageProps}
-    />
+    <NavigateToImageViewer
+      imageProps={{...imageProps, source, aspectRatio}}
+      shouldNavigate={openInImageViewer}>
+      <ImageRN
+        accessibilityIgnoresInvertColors
+        accessibilityLanguage="nl-NL"
+        onLayout={onLayoutChange}
+        source={source}
+        style={[styles.image, style]}
+        {...imageProps}
+      />
+    </NavigateToImageViewer>
   )
 }
 

@@ -1,37 +1,48 @@
 import {type ReduxDispatch} from '@/hooks/redux/types'
-import {boatChargingApi} from '@/modules/boat-charging/service'
-import {boatChargingSlice} from '@/modules/boat-charging/slice'
-import {BoatChargingEndpointName} from '@/modules/boat-charging/types'
+import {
+  boatChargingSlice,
+  selectBoatChargingOpenIdConnectConfig,
+} from '@/modules/boat-charging/slice'
+import {refreshOpenIdConnectAccessToken} from '@/modules/boat-charging/utils/openIdConnect'
 import {devLog, devError} from '@/processes/development'
 import {type RootState} from '@/store/types/rootState'
 
+const TOKEN_REFRESH_FAILED_MESSAGE = 'Token refresh failed'
+
 export const refreshAccessToken = (
   dispatch: ReduxDispatch,
-  _state: RootState,
+  state: RootState,
   failRetry: (e?: unknown) => void,
 ): Promise<string> =>
   new Promise((resolve, reject) => {
-    dispatch(
-      boatChargingApi.endpoints[BoatChargingEndpointName.guestLogin].initiate(),
-    )
-      .unwrap()
-      .then(
-        ({access_token, expires_in}) => {
-          dispatch(
-            boatChargingSlice.actions.setAccessToken({
-              accessToken: access_token,
-              accessTokenExpiration: expires_in,
-            }),
-          )
-          devLog('Token boatCharging account successful refreshed')
-          failRetry('New token, so old request should fail')
-          resolve(access_token)
-        },
-        ({data, status}: {data?: {code?: string}; status?: number}) => {
-          devError(status, 'Token refresh failed', data)
+    const openIdConnectConfig = selectBoatChargingOpenIdConnectConfig(state)
 
-          failRetry('Refresh failed')
-          reject(new Error('Token refresh failed'))
-        },
-      )
+    if (!openIdConnectConfig) {
+      devError(undefined, TOKEN_REFRESH_FAILED_MESSAGE, {
+        code: 'MISSING_OPENID_CONNECT_CONFIG',
+      })
+      failRetry('Refresh failed')
+      reject(new Error(TOKEN_REFRESH_FAILED_MESSAGE))
+
+      return
+    }
+
+    void refreshOpenIdConnectAccessToken(openIdConnectConfig).then(
+      ({accessToken, accessTokenExpirationInSeconds}) => {
+        dispatch(
+          boatChargingSlice.actions.setAccessToken({
+            accessToken,
+            accessTokenExpiration: accessTokenExpirationInSeconds,
+          }),
+        )
+        devLog('Token boatCharging account successful refreshed')
+        resolve(accessToken)
+      },
+      error => {
+        devError(undefined, TOKEN_REFRESH_FAILED_MESSAGE, error)
+
+        failRetry('Refresh failed')
+        reject(new Error(TOKEN_REFRESH_FAILED_MESSAGE))
+      },
+    )
   })

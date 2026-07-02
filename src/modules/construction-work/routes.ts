@@ -13,7 +13,7 @@ export enum ConstructionWorkRouteName {
   search = 'ConstructionWorkSearch',
 }
 
-export type ConstructionWorkStackParams = {
+export type ModuleStackParams = {
   [ConstructionWorkRouteName.constructionWork]: undefined
   [ConstructionWorkRouteName.search]: undefined
   [ConstructionWorkRouteName.project]: {id: number}
@@ -28,7 +28,3 @@ export type ConstructionWorkStackParams = {
     projectId?: number
   }
 }
-
-export enum ConstructionWorkModalName {}
-
-export type ConstructionWorkModalParams = Record<string, never>

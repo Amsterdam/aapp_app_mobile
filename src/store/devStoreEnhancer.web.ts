@@ -1,4 +1,3 @@
-import type {ConfigureStoreOptions} from '@reduxjs/toolkit'
+import type {StoreEnhancer} from '@reduxjs/toolkit'
 
-export const devStoreEnhancer: ConfigureStoreOptions['enhancers'] = enhancers =>
-  enhancers
+export const getDevStoreEnhancer = (): StoreEnhancer | undefined => undefined

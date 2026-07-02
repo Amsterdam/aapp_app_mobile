@@ -3,7 +3,6 @@ import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -48,9 +47,8 @@ export const PassOwners = ({logout}: Props) => {
         insetBottom="xl"
         insetHorizontal="md"
         insetTop="md">
-        <Column gutter="md">
+        <Column gutter="lg">
           <ShowCityPassButtonSkeleton isLoading />
-          <Gutter height="sm" />
           <CityPassCardSkeleton isLoading />
         </Column>
       </Box>

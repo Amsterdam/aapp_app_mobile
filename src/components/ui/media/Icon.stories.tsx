@@ -5,7 +5,6 @@ import {Phrase} from '../text/Phrase'
 import {Icon} from './Icon'
 import {
   DesignSystemSvgIcons,
-  DesignSystemSvgIconsDeprecated,
   SvgIconName,
   SvgIconsConfig,
   SystemSvgIcons,
@@ -13,6 +12,7 @@ import {
 } from './svgIcons'
 import type {FractionCode} from '@/modules/waste-guide/types'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {mapSvgIcons} from '@/components/features/map/constants/icons'
 import {electionsSvgIcons} from '@/modules/elections/constants/icons'
 import {kingsdaySvgIcons} from '@/modules/kingsday/constants/icons'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
@@ -21,10 +21,10 @@ import {Theme} from '@/themes/themes'
 import {lightColorTokens} from '@/themes/tokens/color-light'
 
 enum IconCategory {
-  deprecated = 'deprecated',
   designSystem = 'designSystem',
   elections = 'elections',
   kingsday = 'kingsday',
+  map = 'map',
   system = 'system',
   wasteGuide = 'wasteGuide',
 }
@@ -35,7 +35,7 @@ const ICONS_PER_CATEGORY: Record<IconCategory, SvgIconVariantConfig> = {
   [IconCategory.wasteGuide]: fractionIconConfig,
   [IconCategory.system]: SystemSvgIcons,
   [IconCategory.designSystem]: DesignSystemSvgIcons,
-  [IconCategory.deprecated]: DesignSystemSvgIconsDeprecated,
+  [IconCategory.map]: mapSvgIcons,
 }
 
 type Props = {
@@ -172,10 +172,10 @@ export const SystemIcons: StoryObj<typeof MultipleIconsTemplate> = {
   },
 }
 
-export const DeprecatedIcons: StoryObj<typeof MultipleIconsTemplate> = {
+export const MapIcons: StoryObj<typeof MultipleIconsTemplate> = {
   render: MultipleIconsTemplate,
   args: {
     color: 'default',
-    category: IconCategory.deprecated,
+    category: IconCategory.map,
   },
 }

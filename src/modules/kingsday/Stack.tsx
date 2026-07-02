@@ -6,7 +6,7 @@ import {screenConfig} from '@/modules/kingsday/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const KingsdayStack = () => {
+export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
 
   return (

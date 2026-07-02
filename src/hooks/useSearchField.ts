@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {use} from 'react'
 import {SearchFieldContext} from '@/providers/searchField.context'
 
-export const useSearchField = () => useContext(SearchFieldContext)
+export const useSearchField = () => use(SearchFieldContext)

@@ -8,7 +8,6 @@ import {Icon, IconProps} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const DEFAULT_MIN_HEIGHT = 49
 
@@ -56,10 +55,6 @@ export const TopTaskButton = ({
   return (
     <Pressable
       accessibilityHint={isExternalLink ? 'Opent in webbrowser' : undefined}
-      accessibilityLabel={accessibleText(
-        title,
-        typeof text === 'string' ? text : '',
-      )}
       accessibilityLanguage="nl-NL"
       accessibilityRole={isExternalLink ? 'link' : accessibilityRole}
       onPress={onPress}

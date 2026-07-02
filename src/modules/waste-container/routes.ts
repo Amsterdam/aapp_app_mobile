@@ -4,7 +4,7 @@ export enum WasteContainerRouteName {
   wasteCardHelp = 'WasteCardHelp',
 }
 
-export type WasteContainerStackParams = {
+export type ModuleStackParams = {
   [WasteContainerRouteName.addWasteCard]: undefined
   [WasteContainerRouteName.wasteCard]: undefined
   [WasteContainerRouteName.wasteCardHelp]: undefined
@@ -14,6 +14,6 @@ export enum WasteContainerModalName {
   addWasteCardSuccess = 'AddWasteCardSuccess',
 }
 
-export type WasteContainerModalParams = {
+export type ModuleModalParams = {
   [WasteContainerModalName.addWasteCardSuccess]: undefined
 }

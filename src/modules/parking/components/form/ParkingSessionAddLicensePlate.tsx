@@ -43,8 +43,8 @@ export const ParkingSessionAddLicensePlate = () => {
         testID="ParkingSessionAddLicensePlateSaveSwitch"
         value={isVisitorNameVisible}
       />
-      {isVisitorNameVisible ? (
-        (licensePlates?.length ?? 0) >= maxLicensePlates ? (
+      {!!isVisitorNameVisible &&
+        ((licensePlates?.length ?? 0) >= maxLicensePlates ? (
           <>
             <Gutter />
             <AlertBase
@@ -60,8 +60,7 @@ export const ParkingSessionAddLicensePlate = () => {
             rules={{required: 'Vul een naam in'}}
             testID="ParkingAddLicensePlateFormNameInputField"
           />
-        )
-      ) : null}
+        ))}
     </Column>
   )
 }

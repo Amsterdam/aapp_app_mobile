@@ -8,7 +8,6 @@ import {HideFromAccessibility} from '@/components/features/accessibility/HideFro
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Delay} from '@/components/ui/layout/Delay'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -20,10 +19,10 @@ import {CityPassPass} from '@/modules/city-pass/types'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
 const PASS_BORDER_RADIUS = 10
+const BARCODE_WIDTH_PERCENTAGE = 85
 
 type Props = {
   cityPass: CityPassPass
@@ -54,7 +53,7 @@ export const CityPass = ({
 
   const accessibilityLabel =
     actief === false
-      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel ${accessibleText('020 252 6000')} om te deblokkeren.`
+      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel 0202526000 om te deblokkeren.`
       : `De stadspas van ${firstname} ${infix ?? ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`
 
   return (
@@ -65,9 +64,10 @@ export const CityPass = ({
         <ScrollView
           accessibilityLabel={accessibilityLabel}
           accessible
+          contentContainerStyle={styles.contentContainer}
           ref={accessibilityAutoFocusRef}
           style={styles.pass}>
-          <HideFromAccessibility>
+          <HideFromAccessibility style={styles.contentContainer}>
             <Column
               grow={1}
               gutter="md">
@@ -78,43 +78,40 @@ export const CityPass = ({
               </View>
               <View style={styles.passInner}>
                 <Column
+                  align="evenly"
                   grow={1}
-                  gutter="md"
                   halign="center">
                   <Phrase
                     emphasis="strong"
-                    testID="CityPassCityPassNamePhrase">
+                    testID="CityPassCityPassNamePhrase"
+                    textAlign="center">
                     {firstname} {infix} {lastname}
                   </Phrase>
-                  <Column halign="center">
-                    {actief === false ? (
-                      <>
-                        <Gutter height="md" />
-                        <Phrase
-                          color="warning"
-                          emphasis="strong"
-                          testID="CityPassCityPassBlockedPhrase">
-                          Geblokkeerd
-                        </Phrase>
-                        <Gutter height="xl" />
-                      </>
-                    ) : (
-                      <Delay>
-                        <BarCode
-                          format="CODE128"
-                          value={passNumberComplete}
-                          width={passWidth}
-                        />
-                      </Delay>
-                    )}
-                    <View style={styles.passNumber}>
-                      <Phrase
-                        emphasis="strong"
-                        testID="CityPassCityPassPassNumber">
-                        {stringGroupInto(passNumberComplete, 4)}
-                      </Phrase>
-                    </View>
-                  </Column>
+
+                  {actief === false ? (
+                    <Phrase
+                      color="warning"
+                      emphasis="strong"
+                      testID="CityPassCityPassBlockedPhrase"
+                      textAlign="center">
+                      Geblokkeerd
+                    </Phrase>
+                  ) : (
+                    <Delay>
+                      <BarCode
+                        format="CODE128"
+                        value={passNumberComplete}
+                        width={(passWidth / 100) * BARCODE_WIDTH_PERCENTAGE}
+                      />
+                    </Delay>
+                  )}
+                  <Phrase
+                    emphasis="strong"
+                    testID="CityPassCityPassPassNumber"
+                    textAlign="center">
+                    {stringGroupInto(passNumberComplete, 4)}
+                  </Phrase>
+
                   {actief !== false && (
                     <>
                       <Delay>
@@ -144,6 +141,9 @@ const createStyles = ({color, size}: Theme, passWidth: number) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
+    contentContainer: {
+      flexGrow: 1,
+    },
     containerInner: {
       overflow: 'hidden', // to make sure the border radius is visible in all cases
       borderRadius: PASS_BORDER_RADIUS,
@@ -162,10 +162,7 @@ const createStyles = ({color, size}: Theme, passWidth: number) =>
     passInner: {
       backgroundColor: color.cityPass.passInner,
       borderRadius: PASS_BORDER_RADIUS,
-      paddingTop: size.spacing.md,
+      flexGrow: 1,
       paddingBottom: size.spacing.md,
-    },
-    passNumber: {
-      marginTop: -size.spacing.md,
     },
   })

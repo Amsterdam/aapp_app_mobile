@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {use} from 'react'
 import {useController} from 'react-hook-form'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {BottomSheetContext} from '@/components/features/bottom-sheet/providers/bottomSheet.context'
@@ -68,7 +68,7 @@ export const ManageVisitorTimeAddOnBottomSheet = ({isNegative}: Props) => {
   } = useController<{time?: number}>({
     name: 'time',
   })
-  const {close} = useContext(BottomSheetContext)
+  const {close} = use(BottomSheetContext)
 
   if (!currentPermit.visitor_account) {
     return null

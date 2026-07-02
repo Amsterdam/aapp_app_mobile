@@ -7,7 +7,7 @@ import {
 } from '@env'
 import {ReactNativePlugin} from '@microsoft/applicationinsights-react-native'
 import {ApplicationInsights, Snippet} from '@microsoft/applicationinsights-web'
-import {createContext, ReactNode, useContext} from 'react'
+import {createContext, ReactNode, use} from 'react'
 import {Platform} from 'react-native'
 import {getStartupTimeSync} from 'react-native-device-info'
 import {Environment, EnvUrlMap} from '@/environment'
@@ -92,9 +92,7 @@ type Props = {
 }
 
 export const AppInsightsProvider = ({children}: Props) => (
-  <AppInsightsContext.Provider value={appInsights}>
-    {children}
-  </AppInsightsContext.Provider>
+  <AppInsightsContext value={appInsights}>{children}</AppInsightsContext>
 )
 
-export const useAppInsights = () => useContext(AppInsightsContext)
+export const useAppInsights = () => use(AppInsightsContext)

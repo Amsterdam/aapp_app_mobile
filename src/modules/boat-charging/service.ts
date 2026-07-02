@@ -1,9 +1,15 @@
-import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
+import type {
+  QueryReturnValue,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+} from '@reduxjs/toolkit/query'
+import {setBoatChargingOpenIdConnectConfig} from '@/modules/boat-charging/slice'
 import {
   BoatChargingEndpointName,
   type BoatChargingGeoJSON,
-  type BoatChargingGuestLoginEndpointResponse,
   type BoatChargingLocationDetailsResponse,
+  type BoatChargingOIDCConfigResponse,
+  type BoatChargingSession,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
@@ -17,7 +23,6 @@ export const boatChargingApi = baseApi.injectEndpoints({
       void
     >({
       query: () => ({
-        prepareHeaders,
         method: 'GET',
         slug: ModuleSlug['boat-charging'],
         url: '/locations',
@@ -28,7 +33,6 @@ export const boatChargingApi = baseApi.injectEndpoints({
       string
     >({
       query: chargingPointId => ({
-        prepareHeaders,
         method: 'GET',
         slug: ModuleSlug['boat-charging'],
         url: `/locations/${chargingPointId}`,
@@ -36,25 +40,41 @@ export const boatChargingApi = baseApi.injectEndpoints({
       providesTags: ['BoatChargingLocationDetails'],
       keepUnusedDataFor: CacheLifetime.minute,
     }),
-    [BoatChargingEndpointName.guestLogin]: builder.mutation<
-      BoatChargingGuestLoginEndpointResponse,
+    [BoatChargingEndpointName.boatChargingOpenIdConnectConfig]: builder.query<
+      BoatChargingOIDCConfigResponse,
       void
     >({
-      query: body => ({
-        body,
-        method: 'POST',
+      query: () => ({
+        method: 'GET',
         slug: ModuleSlug['boat-charging'],
-        url: '/login/guest',
-        afterError: (result, _api, failRetry) => {
-          if (
-            (
-              [401, 403] as Array<FetchBaseQueryError['status'] | undefined>
-            ).includes(result.error?.status)
-          ) {
-            failRetry(result.error)
+        url: '/oidc-settings',
+        afterSuccess: (
+          response: QueryReturnValue<
+            BoatChargingOIDCConfigResponse,
+            FetchBaseQueryError,
+            FetchBaseQueryMeta
+          >,
+          {dispatch},
+        ) => {
+          if (response.data) {
+            dispatch(setBoatChargingOpenIdConnectConfig(response.data))
           }
         },
       }),
+      keepUnusedDataFor: CacheLifetime.minute,
+    }),
+    [BoatChargingEndpointName.boatChargingSessions]: builder.query<
+      BoatChargingSession[],
+      void
+    >({
+      query: () => ({
+        prepareHeaders,
+        method: 'GET',
+        slug: ModuleSlug['boat-charging'],
+        url: '/sessions',
+      }),
+      providesTags: ['BoatChargingSessions'],
+      keepUnusedDataFor: CacheLifetime.minute,
     }),
   }),
   overrideExisting: false,
@@ -63,5 +83,6 @@ export const boatChargingApi = baseApi.injectEndpoints({
 export const {
   useBoatChargingLocationsQuery,
   useBoatChargingLocationDetailsQuery,
-  useGuestLoginMutation,
+  useBoatChargingOpenIdConnectConfigQuery,
+  useBoatChargingSessionsQuery,
 } = boatChargingApi

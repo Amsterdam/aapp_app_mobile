@@ -98,6 +98,7 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 More documentation can be found in the `.docs` folder:
 
 - [Build documentation](./.docs/build.md)
+- [Dependency security updates](./.docs/dependency-security-updates.md)
 - [Certificate pinning (security)](./.docs/certificate-pinning.md)
 - [Cache durations](./.docs/cache-durations.md)
 - [Troubleshooting](./.docs/frequently-solved-problems.md)

@@ -1,9 +1,8 @@
 import {useMemo} from 'react'
-import {Geojson} from 'react-native-maps'
 import {MapBase} from '@/components/features/map/MapBase'
+import {Polygons} from '@/components/features/map/polygon/Polygons'
 import {ControlVariant} from '@/components/features/map/types'
 import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
-import {getFillColor} from '@/components/features/map/utils/getFillColor'
 import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFromCoords'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -12,6 +11,7 @@ import {ParkingPermitZoneMapMarkers} from '@/modules/parking/components/permit-z
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {usePermitZonesQuery} from '@/modules/parking/service'
+import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
 import {ModuleSlug} from '@/modules/slugs'
 import {debounce} from '@/utils/debounce'
 
@@ -54,21 +54,21 @@ export const ParkingPermitZoneMap = () => {
     )
   }
 
-  const properties = permitZoneData?.geojson.features[0]?.properties
-
   return (
     <MapBase
-      controls={[ControlVariant.location]}
+      controls={[ControlVariant.location, ControlVariant.legend]}
       focusOnUser={false}
       initialRegion={initialRegion}
       moduleSlug={ModuleSlug.parking}
       onRegionChange={debounce(setRegion, DEBOUNCE_DELAY)}>
-      <Geojson
-        fillColor={getFillColor(
-          String(properties?.fill ?? 'blue'),
-          Number(properties?.['fill-opacity'] ?? 0.5),
-        )}
-        geojson={permitZoneData.geojson}
+      <Polygons
+        data={permitZoneData.geojson.features.map(feature => ({
+          ...feature,
+          properties: {
+            ...feature.properties,
+            ...getPermitZoneFeatureProperties(feature.properties.fill),
+          },
+        }))}
       />
       {!!can_select_zone && <ParkingPermitZoneMapMarkers />}
     </MapBase>

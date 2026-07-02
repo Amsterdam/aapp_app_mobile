@@ -1,4 +1,4 @@
-import {HeaderComponent as headerComponents0} from '@/modules/notification-history/HeaderComponent.tsx'
+import {HeaderComponent as headerComponents0} from '@/modules/notification-history/components/HeaderComponent.tsx'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const headerComponents = {

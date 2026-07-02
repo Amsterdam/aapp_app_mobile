@@ -38,7 +38,7 @@ export const ParkingLogout = ({routeReportCode}: Props) => {
           altijd weer inloggen.
         </Paragraph>
       </Column>
-      {account?.permits?.length ? (
+      {!!account?.permits?.length && (
         <Column gutter="sm">
           <Paragraph testID="ParkingLogoutScreenLogoutParagraph">
             Deze vergunningen worden uitgelogd:
@@ -48,7 +48,7 @@ export const ParkingLogout = ({routeReportCode}: Props) => {
             testID="ParkingLogoutScreenPermitList"
           />
         </Column>
-      ) : null}
+      )}
       <Column gutter="md">
         <ParkingLogoutButton
           accountReportCode={account?.reportCode}

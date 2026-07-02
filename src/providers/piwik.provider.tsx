@@ -47,9 +47,5 @@ export const PiwikProvider = ({children}: Props) => {
     }
   }, [piwikInstance, trackException])
 
-  return (
-    <PiwikContext.Provider value={piwikInstance}>
-      {children}
-    </PiwikContext.Provider>
-  )
+  return <PiwikContext value={piwikInstance}>{children}</PiwikContext>
 }

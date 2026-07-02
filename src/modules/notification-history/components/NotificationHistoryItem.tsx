@@ -57,10 +57,17 @@ export const NotificationHistoryItem = ({
                 source={image.sources[0]}
                 testID={`NotificationHistoryItem${id}Image`}
               />
+            ) : module?.iconPath ? (
+              <Icon
+                color="inverse"
+                path={module.iconPath}
+                size="lg"
+                testID={`NotificationHistoryItem${id}Icon`}
+              />
             ) : (
               <Icon
                 color="inverse"
-                name={module?.icon ?? 'saint-andrews-crosses'}
+                name={'saint-andrews-crosses'}
                 size="lg"
                 testID={`NotificationHistoryItem${id}Icon`}
               />

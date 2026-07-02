@@ -4,13 +4,8 @@ import type {Feature, Point} from 'geojson'
 export enum BoatChargingEndpointName {
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
-  guestLogin = 'guestLogin',
-}
-
-export type BoatChargingGuestLoginEndpointResponse = {
-  access_token: string
-  expires_in: number
-  token_type: string
+  boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
+  boatChargingSessions = 'boatChargingSessions',
 }
 
 export type BoatChargingPointFeature = Feature<Point, BoatChargingLocation>
@@ -35,6 +30,7 @@ export type BoatChargingLocationDetailsResponse = BoatChargingLocation & {
 export type BoatChargingLocation = {
   address: Address
   id: string
+  max_kw: number | null
   name: string
   opening_times: {
     exceptional_closings: unknown[] //TODO: add typing
@@ -54,7 +50,7 @@ export type EVSE = {
   status: ChargingPointStatus
 }
 
-type ChargingStation = {
+export type ChargingStation = {
   evses: EVSE[]
   id: string
   location_id: string
@@ -73,4 +69,28 @@ export enum BoatChargingPointState {
   free = 'free',
   malfunction = 'malfunction',
   occupied = 'occupied',
+}
+
+export type BoatChargingOIDCConfigResponse = {
+  client_id: string
+  issuer: string
+  pkce_required?: string
+  redirect_uri?: string
+  response_type?: string
+  scopes?: string[]
+  user_pool_id: string
+}
+
+export type BoatChargingSession = {
+  created_date_time: string
+  currency: 'EUR'
+  end_date_time: string
+  id: string
+  kwh: number
+  location: BoatChargingLocation
+  nrg_status: number
+  socket_number: string
+  start_date_time: string
+  station_id: string
+  total_cost: number
 }

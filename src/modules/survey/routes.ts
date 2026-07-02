@@ -2,6 +2,6 @@ export enum SurveyRouteName {
   survey = 'Survey',
 }
 
-export type SurveyStackParams = {
+export type ModuleStackParams = {
   [SurveyRouteName.survey]: undefined
 }

@@ -3,9 +3,9 @@ import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchC
 import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
 import {Screen} from '@/components/features/screen/Screen'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
-import {ParkingMachineBottomSheetContent} from '@/modules/parking/components/permit-zone/ParkingMachineBottomSheetContent'
 import {ParkingPermitZone} from '@/modules/parking/components/permit-zone/ParkingPermitZone'
 import {ParkingPermitZoneHeaderButton} from '@/modules/parking/components/permit-zone/ParkingPermitZoneHeaderButton'
+import {bottomsheetVariants} from '@/modules/parking/components/permit-zone/bottomsheet/bottomsheetVariants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {PermitMapProvider} from '@/modules/parking/providers/PermitMapProvider'
@@ -28,9 +28,9 @@ const ParkingPermitZonesScreenInner = () => {
             <BottomSheet
               scroll
               testID="ParkingPermitZonesBottomSheet"
-              withCloseButton>
-              <ParkingMachineBottomSheetContent />
-            </BottomSheet>
+              variants={bottomsheetVariants}
+              withCloseButton
+            />
           }
           headerOptions={{
             headerTitle:
