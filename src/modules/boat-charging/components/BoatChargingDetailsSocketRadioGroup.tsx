@@ -14,24 +14,26 @@ import {sizeTokens} from '@/themes/tokens/size'
 const EMPTY_RADIO_PLACEHOLDER_SIZE = sizeTokens.spacing.sm + 24 // Radio SVG width is 24, plus sm gutter added by Row in Radio component.
 
 export const BoatChargingDetailsSocketRadioGroup = ({
+  hasActiveSession,
   chargingStations = [],
 }: {
   chargingStations: ChargingStation[]
+  hasActiveSession: boolean
 }) => {
   const form = useFormContext<{socketId: string}>()
 
   const [availableSockets, otherSockets] = useMemo(
-    () =>
-      //TODO: Should not return any available socket if user has an active session.
-      [
-        chargingStations.filter(
-          station => station.status === ChargingPointStatus.OPERATIVE,
-        ),
-        chargingStations.filter(
-          station => station.status !== ChargingPointStatus.OPERATIVE,
-        ),
-      ],
-    [chargingStations],
+    () => [
+      hasActiveSession
+        ? [] // Should not return any available socket if user has an active session.
+        : chargingStations.filter(
+            station => station.status === ChargingPointStatus.OPERATIVE,
+          ),
+      chargingStations.filter(
+        station => station.status !== ChargingPointStatus.OPERATIVE,
+      ),
+    ],
+    [chargingStations, hasActiveSession],
   )
 
   const extraPadding = otherSockets.some(

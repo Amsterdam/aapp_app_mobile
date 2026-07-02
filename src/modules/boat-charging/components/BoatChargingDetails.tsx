@@ -15,6 +15,7 @@ import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {BoatChargingDetailsInfoRows} from '@/modules/boat-charging/components/BoatChargingDetailsInfoRows'
 import {BoatChargingDetailsSocketRadioGroup} from '@/modules/boat-charging/components/BoatChargingDetailsSocketRadioGroup'
 import {BoatChargingDetailsSocketSubmitButton} from '@/modules/boat-charging/components/BoatChargingDetailsSocketSubmitButton'
+import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {
@@ -30,16 +31,22 @@ const REFETCH_INTERVAL = 1000 * 15
 export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
   const {
     data: location,
-    isLoading,
-    isError,
-    refetch,
+    isLoading: isLoadingLocation,
+    isError: isErrorLocation,
+    refetch: refetchLocationDetails,
     fulfilledTimeStamp,
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
+
+  const {
+    sessions,
+    isLoading: isLoadingSessions,
+    isError: isErrorSessions,
+  } = useBoatChargingSessions()
 
   const {navigate} = useNavigation()
 
   useInterval(() => {
-    void refetch()
+    void refetchLocationDetails()
   }, REFETCH_INTERVAL)
 
   const form = useForm<{socketId: string}>()
@@ -58,11 +65,20 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
     [location],
   )
 
-  if (isLoading) {
+  const showSubmitButton = useMemo(
+    () =>
+      !sessions.length &&
+      location?.charging_stations.some(
+        socket => socket.status === ChargingPointStatus.OPERATIVE,
+      ),
+    [sessions, location],
+  )
+
+  if (isLoadingLocation || isLoadingSessions) {
     return <PleaseWait testID="BoatChargingDetailsPleaseWait" />
   }
 
-  if (isError || !location) {
+  if (isErrorLocation || isErrorSessions || !location) {
     return <SomethingWentWrong testID="BoatChargingDetailsSomethingWentWrong" />
   }
 
@@ -95,6 +111,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
 
             <BoatChargingDetailsSocketRadioGroup
               chargingStations={location.charging_stations}
+              hasActiveSession={sessions.length > 0}
             />
             {!!form.formState.errors.root?.message && (
               <ErrorMessage
@@ -123,10 +140,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
           />
         </Column>
 
-        {location.charging_stations.some(
-          socket => socket.status === ChargingPointStatus.OPERATIVE,
-        ) && <BoatChargingDetailsSocketSubmitButton />}
-        {/*TODO: Also hide button if user has an active session */}
+        {!!showSubmitButton && <BoatChargingDetailsSocketSubmitButton />}
       </FormProvider>
     </Column>
   )
