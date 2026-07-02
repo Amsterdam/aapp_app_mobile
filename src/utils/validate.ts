@@ -9,7 +9,7 @@ type ValidationPatternKey = keyof typeof validationPatterns
  * To be used in form input validation.
  * @param value value to validate
  * @param pattern pattern to use for validation
- * @param invalidText Optional text to show when validation fails
+ * @param invalidText Text to show when validation fails
  * @returns
  */
 const validate = (
