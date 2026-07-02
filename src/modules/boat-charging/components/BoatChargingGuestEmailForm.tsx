@@ -1,6 +1,5 @@
 import {useCallback, useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
-import type {ChargingStation} from '@/modules/boat-charging/types'
 import type {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
@@ -10,26 +9,23 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {useGuestSessionFormValues} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
 
-export const BoatChargingGuestEmailForm = ({
-  socketId,
-}: {
-  socketId: ChargingStation['id']
-}) => {
-  const form = useForm<{email: string}>()
+export const BoatChargingGuestEmailForm = () => {
   const emailRef = useRef<TextInputRN>(null)
+  const {setGuestEmail, email: guestEmail} = useGuestSessionFormValues()
+  const form = useForm<{email: string}>({defaultValues: {email: guestEmail}})
 
   const {navigate} = useNavigation()
 
   const onSubmit = useCallback(
     ({email}: {email: string}) => {
-      navigate(BoatChargingRouteName.boatChargingGuestEmailConfirm, {
-        email,
-        socketId,
-      })
+      setGuestEmail(email)
+
+      navigate(BoatChargingRouteName.boatChargingGuestEmailConfirm)
     },
-    [socketId, navigate],
+    [navigate, setGuestEmail],
   )
 
   useFocusAndForegroundEffect(() => emailRef.current?.focus(), [])

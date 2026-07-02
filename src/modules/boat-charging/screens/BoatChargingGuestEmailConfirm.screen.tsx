@@ -1,19 +1,24 @@
-import type {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {useGuestSessionFormValues} from '@/modules/boat-charging/slice'
 
-type Props =
-  NavigationProps<BoatChargingRouteName.boatChargingGuestEmailConfirm>
-
-export const BoatChargingGuestEmailConfirmScreen = ({route}: Props) => {
+export const BoatChargingGuestEmailConfirmScreen = () => {
   const navigation = useNavigation()
+  const {email} = useGuestSessionFormValues()
+
+  if (!email) {
+    return (
+      <SomethingWentWrong testID="BoatChargingGuestEmailConfirmScreenSomethingWentWrong" />
+    )
+  }
 
   return (
     <Screen testID="BoatChargingGuestEmailConfirmScreen">
@@ -25,7 +30,7 @@ export const BoatChargingGuestEmailConfirmScreen = ({route}: Props) => {
           <Column>
             <Title
               level="h4"
-              text={route.params.email}
+              text={email}
               textAlign="center"
             />
             <NavigationButton
@@ -45,7 +50,6 @@ export const BoatChargingGuestEmailConfirmScreen = ({route}: Props) => {
           onPress={() =>
             navigation.navigate(
               BoatChargingRouteName.boatChargingTermsAndConditions,
-              {...route.params},
             )
           }
           testID="BoatChargingGuestEmailConfirmSubmitButton"

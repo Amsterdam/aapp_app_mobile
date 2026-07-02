@@ -3,6 +3,7 @@ import {useCallback} from 'react'
 import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
+  ChargingStation,
 } from '@/modules/boat-charging/types'
 import type {RootState} from '@/store/types/rootState'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -12,6 +13,7 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 export type BoatChargingState = {
   accessToken?: {accessToken: string; accessTokenExpiration: string}
+  guestSessionFormValues?: {email?: string; socketId?: ChargingStation['id']}
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
@@ -27,6 +29,7 @@ export const boatChargingSlice = createSlice({
       state,
       {payload: id}: PayloadAction<BoatChargingLocation['id']>,
     ) => {
+      state.guestSessionFormValues = undefined
       state.selectedBoatChargingPointId = id
     },
     resetSelectedBoatChargingPointId: state => {
@@ -65,6 +68,24 @@ export const boatChargingSlice = createSlice({
       {payload}: PayloadAction<BoatChargingOIDCConfigResponse>,
     ) => {
       state.openIdConnectConfig = payload
+    },
+    setGuestSessionEmail: (state, {payload: email}: PayloadAction<string>) => {
+      state.guestSessionFormValues = {
+        ...state.guestSessionFormValues,
+        email,
+      }
+    },
+    setGuestSessionSocketId: (
+      state,
+      {payload: socketId}: PayloadAction<ChargingStation['id']>,
+    ) => {
+      state.guestSessionFormValues = {
+        ...state.guestSessionFormValues,
+        socketId,
+      }
+    },
+    resetGuestSessionFormValues: state => {
+      state.guestSessionFormValues = undefined
     },
   },
 })
@@ -113,4 +134,31 @@ export const useSetBoatChargingAccessToken = () => {
       ),
     [dispatch],
   )
+}
+
+export const selectGuestSessionFormValues = (state: RootState) =>
+  state[ReduxKey.boatCharging].guestSessionFormValues
+
+export const useGuestSessionFormValues = () => {
+  const {
+    setGuestSessionEmail,
+    setGuestSessionSocketId,
+    resetGuestSessionFormValues,
+  } = boatChargingSlice.actions
+
+  const dispatch = useDispatch()
+
+  const guestSessionFormValues = useSelector(selectGuestSessionFormValues) || {}
+
+  const setGuestEmail = (email: string) => dispatch(setGuestSessionEmail(email))
+  const setSocketId = (socketId: ChargingStation['id']) =>
+    dispatch(setGuestSessionSocketId(socketId))
+  const resetForm = () => dispatch(resetGuestSessionFormValues())
+
+  return {
+    ...guestSessionFormValues,
+    setGuestEmail,
+    setSocketId,
+    resetForm,
+  }
 }

@@ -1,7 +1,4 @@
-import type {
-  BoatChargingLocation,
-  ChargingStation,
-} from '@/modules/boat-charging/types'
+import type {BoatChargingLocation} from '@/modules/boat-charging/types'
 
 export enum BoatChargingRouteName {
   boatCharging = 'BoatCharging',
@@ -16,17 +13,9 @@ export enum BoatChargingRouteName {
 export type ModuleStackParams = {
   [BoatChargingRouteName.boatCharging]: undefined
   [BoatChargingRouteName.boatChargingDetails]: {id: BoatChargingLocation['id']}
-  [BoatChargingRouteName.boatChargingGuestEmail]: {
-    socketId: ChargingStation['id']
-  }
-  [BoatChargingRouteName.boatChargingGuestEmailConfirm]: {
-    email: string
-    socketId: ChargingStation['id']
-  }
+  [BoatChargingRouteName.boatChargingGuestEmail]: undefined
+  [BoatChargingRouteName.boatChargingGuestEmailConfirm]: undefined
   [BoatChargingRouteName.boatChargingHelp]: undefined
   [BoatChargingRouteName.boatChargingLogin]: undefined
-  [BoatChargingRouteName.boatChargingTermsAndConditions]: {
-    email: string
-    socketId: ChargingStation['id']
-  }
+  [BoatChargingRouteName.boatChargingTermsAndConditions]: undefined
 }
