@@ -7,6 +7,7 @@ import {
 import {Switch as SwitchRN} from 'react-native-gesture-handler'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
+import {Column} from '@/components/ui/layout/Column'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
@@ -66,22 +67,24 @@ export const Switch = ({
         <FormField
           label={label}
           labelPosition={labelPosition}>
-          <SwitchRN
-            accessibilityElementsHidden
-            accessibilityState={{checked: value}}
-            importantForAccessibility="no-hide-descendants"
-            ios_backgroundColor={color.switch.track.off.background}
-            onChange={onPress}
-            thumbColor={
-              color.switch.thumb[disabled ? 'disabled' : 'enabled'].background
-            }
-            trackColor={{
-              false: color.switch.track.off.background,
-              true: color.switch.track.on.background,
-            }}
-            value={value}
-            {...switchProps}
-          />
+          <Column>
+            <SwitchRN
+              accessibilityElementsHidden
+              accessibilityState={{checked: value}}
+              importantForAccessibility="no-hide-descendants"
+              ios_backgroundColor={color.switch.track.off.background}
+              onChange={onPress}
+              thumbColor={
+                color.switch.thumb[disabled ? 'disabled' : 'enabled'].background
+              }
+              trackColor={{
+                false: color.switch.track.off.background,
+                true: color.switch.track.on.background,
+              }}
+              value={value}
+              {...switchProps}
+            />
+          </Column>
         </FormField>
       </Wrapper>
     </PressableBase>

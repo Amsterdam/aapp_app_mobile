@@ -6,12 +6,11 @@ import {useBoatChargingOpenIdConnectConfigQuery} from '@/modules/boat-charging/s
 import {
   selectBoatChargingAccessToken,
   selectBoatChargingAccessTokenExpiration,
-  resetAccessToken,
   setAccessToken,
   selectBoatChargingOpenIdConnectConfig,
   selectBoatChargingLoggedInUsername,
   setBoatChargingLoggedInUsername,
-  resetLoggedInUsername,
+  removeAccount,
 } from '@/modules/boat-charging/slice'
 import {
   getStoredOpenIdConnectSession,
@@ -71,8 +70,7 @@ export const useOpenIdConnectAuth = () => {
           }),
         )
       } catch {
-        dispatch(resetAccessToken())
-        dispatch(resetLoggedInUsername())
+        dispatch(removeAccount())
       }
     }
   }, [dispatch, openIdConnectConfig])
@@ -110,8 +108,7 @@ export const useOpenIdConnectAuth = () => {
       await signOutFromOpenIdConnect(openIdConnectConfig)
     }
 
-    dispatch(resetAccessToken())
-    dispatch(resetLoggedInUsername())
+    dispatch(removeAccount())
   }, [dispatch, openIdConnectConfig])
 
   return {

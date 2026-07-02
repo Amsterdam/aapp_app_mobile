@@ -14,6 +14,7 @@ import {dayjs} from '@/utils/datetime/dayjs'
 export type BoatChargingState = {
   accessToken?: {accessToken: string; accessTokenExpiration: string}
   guestSessionFormValues?: {email?: string; socketId?: ChargingStation['id']}
+  lastApprovedTermsVersionWhileLoggedIn?: number
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
@@ -51,11 +52,10 @@ export const boatChargingSlice = createSlice({
           .toISOString(),
       }
     },
-    resetAccessToken: state => {
+    removeAccount: state => {
       state.accessToken = undefined
-    },
-    resetLoggedInUsername: state => {
       state.loggedInUsername = undefined
+      state.lastApprovedTermsVersionWhileLoggedIn = undefined
     },
     setBoatChargingLoggedInUsername: (
       state,
@@ -87,6 +87,12 @@ export const boatChargingSlice = createSlice({
     resetGuestSessionFormValues: state => {
       state.guestSessionFormValues = undefined
     },
+    setLastApprovedTermsVersionWhileLoggedIn: (
+      state,
+      {payload: version}: PayloadAction<number>,
+    ) => {
+      state.lastApprovedTermsVersionWhileLoggedIn = version
+    },
   },
 })
 
@@ -94,10 +100,10 @@ export const {
   setSelectedBoatChargingPointId,
   resetSelectedBoatChargingPointId,
   setAccessToken,
-  resetAccessToken,
-  resetLoggedInUsername,
+  removeAccount,
   setBoatChargingOpenIdConnectConfig,
   setBoatChargingLoggedInUsername,
+  setLastApprovedTermsVersionWhileLoggedIn,
 } = boatChargingSlice.actions
 
 export const selectSelectedBoatChargingPointId = (state: RootState) =>
@@ -138,6 +144,9 @@ export const useSetBoatChargingAccessToken = () => {
 
 export const selectGuestSessionFormValues = (state: RootState) =>
   state[ReduxKey.boatCharging].guestSessionFormValues
+
+export const selectLastApprovedTermsVersionWhileLoggedIn = (state: RootState) =>
+  state[ReduxKey.boatCharging].lastApprovedTermsVersionWhileLoggedIn
 
 export const useGuestSessionFormValues = () => {
   const {
