@@ -16,7 +16,7 @@ const validate = (
   value: string,
   pattern: ValidationPatternKey,
   invalidText: string,
-) => (validationPatterns[pattern].test(value) ? undefined : invalidText)
+) => validationPatterns[pattern].test(value) || invalidText
 
 /**
  * Factory function to create validators
