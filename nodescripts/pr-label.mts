@@ -358,13 +358,16 @@ const main = async () => {
 
   if (isReviewedByTeam) {
     core.info('PR has been approved by a team member.')
-    await addLabels(
-      pullNumber,
-      [APPROVED_LABEL],
-      GENERAL_LABEL_COLOR,
-      'PR has been approved by a team member.',
-    )
-  } else {
+
+    if (!alreadyOnPr.has(APPROVED_LABEL)) {
+      await addLabels(
+        pullNumber,
+        [APPROVED_LABEL],
+        GENERAL_LABEL_COLOR,
+        'PR has been approved by a team member.',
+      )
+    }
+  } else if (alreadyOnPr.has(APPROVED_LABEL)) {
     await octokit.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
