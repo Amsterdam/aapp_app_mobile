@@ -1,6 +1,6 @@
 {
   "name": "AmsterdamApp",
   "experiments": {
-    "reactCompiler": true
+    "reactCompiler": false
   }
 }
