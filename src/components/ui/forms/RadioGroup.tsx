@@ -8,16 +8,16 @@ import {LayoutOrientation, type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
-export type RadioGroupOption<T, Node extends ReactNode = string> = {
-  label: Node
+export type RadioGroupOption<T, LabelNode extends ReactNode = string> = {
+  label: LabelNode
   value: T
 }
 
-type RadioGroupProps<T, Node extends ReactNode = string> = {
+type RadioGroupProps<T, LabelNode extends ReactNode = string> = {
   errorMessage?: string
   label?: string
   onChange: (value: T) => void
-  options: RadioGroupOption<T, Node>[]
+  options: RadioGroupOption<T, LabelNode>[]
   orientation?: LayoutOrientation
   required?: boolean
   /**
@@ -32,7 +32,7 @@ type RadioValue = string | number | boolean
 
 export const RadioGroup = <
   T extends RadioValue,
-  Node extends ReactNode = string,
+  LabelNode extends ReactNode = string,
 >({
   errorMessage,
   label,
@@ -46,7 +46,7 @@ export const RadioGroup = <
   useOptionValuesForLogging = false,
   logDimensions = {},
   ...props
-}: RadioGroupProps<T, Node>) => {
+}: RadioGroupProps<T, LabelNode>) => {
   const onPress = usePiwikTrackCustomEventFromProps({
     ...props,
     logAction,

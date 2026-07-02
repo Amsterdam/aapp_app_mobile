@@ -47,9 +47,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
   const {navigate} = useNavigation()
   const {socketId} = useGuestSessionFormValues()
 
-  useInterval(() => {
-    void refetchLocationDetails()
-  }, REFETCH_INTERVAL)
+  useInterval(refetchLocationDetails, REFETCH_INTERVAL)
 
   const form = useForm<{socketId: string}>({defaultValues: {socketId}})
 
