@@ -4,7 +4,6 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   account: ParkingAccount
@@ -28,10 +27,7 @@ export const ParkingAccountLink = ({account}: Props) => {
 
   return (
     <NavigationButton
-      accessibilityLabel={accessibleText(
-        `Meldcode ${account.reportCode}`,
-        secureAccount?.name ?? 'Naam toevoegen',
-      )}
+      accessibilityLabel={`Meldcode ${account.reportCode}, ${secureAccount?.name ?? 'Naam toevoegen'}`}
       chevronSize="ml"
       description={secureAccount?.name ? account.reportCode : 'Naam toevoegen'}
       emphasis="default"

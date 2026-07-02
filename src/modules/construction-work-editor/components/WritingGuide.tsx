@@ -7,7 +7,6 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useTheme} from '@/themes/useTheme'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const tips = [
   'Behandel één onderwerp per bericht. Splits anders op in meerdere berichten.',
@@ -32,7 +31,7 @@ export const WritingGuide = () => {
 
           return (
             <SingleSelectable
-              accessibilityLabel={accessibleText(step, tip)}
+              accessibilityLabel={`${step}, ${tip}`}
               key={tip}>
               <Row gutter="md">
                 <Size height={text.lineHeight.body}>

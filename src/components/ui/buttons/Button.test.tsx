@@ -191,4 +191,32 @@ describe('Button', () => {
     expect(getByTestId('Button').props.accessibilityRole).toBe('button')
     expect(getByTestId('Button').props.accessibilityLanguage).toBe('nl-NL')
   })
+
+  it('derives an accessibility label from its visible label', () => {
+    const {getByTestId} = render(
+      <StoreProvider>
+        <Button
+          label="12345"
+          testID="Button"
+        />
+      </StoreProvider>,
+    )
+
+    expect(getByTestId('Button').props.accessibilityLabel).toBe('1, 2, 3, 4, 5')
+  })
+
+  it('normalizes an explicit accessibility label', () => {
+    const {getByTestId} = render(
+      <StoreProvider>
+        <Button
+          accessibilityLabel="t/m 12345"
+          testID="Button"
+        />
+      </StoreProvider>,
+    )
+
+    expect(getByTestId('Button').props.accessibilityLabel).toBe(
+      'tot en met 1, 2, 3, 4, 5',
+    )
+  })
 })

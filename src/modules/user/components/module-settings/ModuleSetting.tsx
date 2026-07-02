@@ -18,7 +18,6 @@ import {
   selectDisabledModules,
   toggleModuleDisabled,
 } from '@/store/slices/modules'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   module: Module
@@ -78,7 +77,7 @@ export const ModuleSetting = ({
 
   return (
     <Switch
-      accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
+      accessibilityLabel={`Onderwerp ${title} ${description} staat ${isDisabled ? 'uit' : 'aan'}`}
       label={
         <ModuleSettingInfo
           description={description}

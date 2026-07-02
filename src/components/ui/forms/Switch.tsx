@@ -68,6 +68,7 @@ export const Switch = ({
           labelPosition={labelPosition}>
           <SwitchRN
             accessibilityElementsHidden
+            accessibilityState={{checked: value}}
             importantForAccessibility="no-hide-descendants"
             ios_backgroundColor={color.switch.track.off.background}
             onChange={onPress}

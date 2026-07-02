@@ -11,7 +11,6 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const ParkingPermitSwitcher = () => {
   const {toggle} = useBottomSheet()
@@ -39,13 +38,7 @@ export const ParkingPermitSwitcher = () => {
         gutter="md"
         halign="start">
         <AccessibilityGroup
-          accessibilityLabel={accessibleText(
-            title,
-            secureAccount?.name,
-            parkingAccount
-              ? `Meldcode ${parkingAccount.reportCode}`
-              : undefined,
-          )}>
+          accessibilityLabel={`${title} ${secureAccount?.name ?? ''}, ${parkingAccount ? 'Meldcode ' + parkingAccount.reportCode : ''}`}>
           <Column gutter="xs">
             <Title
               level="h4"

@@ -7,7 +7,6 @@ import {getAccessibleFollowingText} from '@/modules/construction-work/components
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type ListItemProps = {
   onPress: (id: number, isDummyItem?: boolean) => void
@@ -37,10 +36,7 @@ export const Project = memo(
       )
 
       return [
-        accessibleText(
-          getAccessibleFollowingText(!!followed, unreadLength ?? 0),
-          getAccessibleDistanceText(meter),
-        ),
+        `${getAccessibleFollowingText(!!followed, unreadLength ?? 0)}, ${getAccessibleDistanceText(meter)}`,
         unreadLength,
       ]
     }, [followed, meter, readArticles, recent_articles, showTraits])

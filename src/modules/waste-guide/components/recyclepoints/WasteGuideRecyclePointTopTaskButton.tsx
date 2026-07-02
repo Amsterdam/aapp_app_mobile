@@ -7,7 +7,6 @@ import {
   getAddressLine1,
   getAddressLine2,
 } from '@/modules/address/utils/addDerivedAddressFields'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   recyclePoint: WasteGuideRecyclePoint
@@ -20,9 +19,7 @@ export const WasteGuideRecyclePointTopTaskButton = ({recyclePoint}: Props) => {
   return (
     <TopTaskButton
       accessibilityHint="Tik om een ander recyclepunt te selecteren."
-      accessibilityLabel={accessibleText(
-        `${address.cityDistrict ?? ''}${commercialWaste ? '' : ', geen bedrijfsafval'}, ${getAddressLine1(address)} ${getAddressLine2(address)}`,
-      )}
+      accessibilityLabel={`${address.cityDistrict ?? ''}${commercialWaste ? '' : ', geen bedrijfsafval'}, ${getAddressLine1(address)} ${getAddressLine2(address)}`}
       icon={{name: 'recycle'}}
       insetHorizontal="no"
       onPress={() => openBottomSheet()}

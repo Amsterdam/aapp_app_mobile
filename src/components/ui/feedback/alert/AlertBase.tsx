@@ -16,7 +16,6 @@ import {Theme} from '@/themes/themes'
 import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 import {Duration} from '@/types/duration'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export type AlertBaseProps = {
   accessibilityLabel?: string
@@ -87,12 +86,7 @@ export const AlertBase = ({
               align="between"
               valign="start">
               <SingleSelectable
-                accessibilityLabel={
-                  accessibilityLabel ??
-                  (typeof text === 'string'
-                    ? accessibleText(title, text)
-                    : undefined)
-                }
+                accessibilityLabel={accessibilityLabel}
                 accessibilityLanguage="nl-NL"
                 accessibilityRole="alert">
                 <Column

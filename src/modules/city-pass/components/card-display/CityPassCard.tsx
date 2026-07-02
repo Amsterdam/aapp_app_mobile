@@ -10,7 +10,6 @@ import {Title} from '@/components/ui/text/Title'
 import {CityPass, CityPassPass} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   cityPass: CityPass | CityPassPass
@@ -34,10 +33,7 @@ export const CityPassCard = ({
 
   return (
     <Pressable
-      accessibilityLabel={accessibleText(
-        `Stadspas details van ${firstname}.`,
-        budgetsBalanceSentence,
-      )}
+      accessibilityLabel={`Stadspas details van ${firstname}. ${budgetsBalanceSentence}`}
       accessibilityLanguage="nl-NL"
       accessibilityRole={accessibilityRole}
       onPress={onPress}

@@ -12,7 +12,6 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {useThemable} from '@/themes/useThemable'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   additionalAccessibilityLabel?: string
@@ -45,11 +44,9 @@ export const ProjectCard = memo(
     return (
       <>
         <PressableBase
-          accessibilityLabel={accessibleText(
-            title,
-            subtitle,
-            additionalAccessibilityLabel,
-          )}
+          accessibilityLabel={[title, subtitle, additionalAccessibilityLabel]
+            .filter(Boolean)
+            .join(', ')}
           accessibilityRole="button"
           onPress={onPress}
           style={({pressed}) => [styles.pressable, pressed && styles.pressed]}

@@ -36,14 +36,24 @@ const threeDigitAreaCodes = [
   '079',
 ]
 
+export const replaceCountryCode = (phoneNumber: string): string => {
+  if (phoneNumber.startsWith('+31')) {
+    return phoneNumber.replace('+31', '0')
+  }
+
+  return phoneNumber
+}
+
 /**
  * Formats phone numbers according to the City’s editorial style.
  * https://www.amsterdam.nl/schrijfwijzer/tekstonderdelen-heldere-taal/telefoonnummers/
  */
-export const formatPhoneNumber = (phoneNumber: string): string | undefined => {
-  if (phoneNumber.startsWith('+31')) {
-    phoneNumber = phoneNumber.replace('+31', '0')
+export const formatPhoneNumber = (phoneNumber?: string): string | undefined => {
+  if (!phoneNumber) {
+    return undefined
   }
+
+  phoneNumber = replaceCountryCode(phoneNumber)
 
   if (phoneNumber === '14020') {
     return '14 020'

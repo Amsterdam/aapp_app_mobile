@@ -9,7 +9,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ChatOption} from '@/modules/contact/components/contact-options/ChatOption'
 import {contactOptions} from '@/modules/contact/data/contact'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const ContactOptions = () => {
   const {navigate} = useNavigation()
@@ -58,10 +57,7 @@ export const ContactOptions = () => {
                 <TopTaskButton
                   key={key}
                   {...props}
-                  accessibilityLabel={accessibleText(
-                    props.accessibilityLabel ?? props.title,
-                    props.text,
-                  )}
+                  accessibilityLabel={`${props.accessibilityLabel ?? props.title}, ${props.text}`}
                   accessibilityRole="link"
                   icon={redirectsKey && isLoading ? {name: 'spinner'} : icon}
                   isExternalLink={/^https:/.test(resultUrl ?? '')}
