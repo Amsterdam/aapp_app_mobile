@@ -8,7 +8,7 @@ const MODULE_LABEL_PREFIX = 'module:'
 const MODULE_LABEL_COLOR = '0366d6'
 const GENERAL_LABEL_COLOR = '036d66'
 const COPILOT_READY_LABEL = 'Copilot ready'
-const APPROVED_LABEL = 'Approved'
+const REVIEWED_LABEL = 'Reviewed'
 const HTTP_STATUS_UNPROCESSABLE_ENTITY = 422
 
 const COPILOT_LOGINS = new Set(['github-copilot[bot]'])
@@ -172,26 +172,13 @@ const addLabels = async (
   }
 }
 
-const getIsReviewedByCopilotAndTeam = async (
-  pullNumber: number,
-): Promise<{copilot: boolean; team: boolean}> => {
-  const reviews = await octokit.paginate(octokit.rest.pulls.listReviews, {
+const getReviews = async (pullNumber: number) =>
+  octokit.paginate(octokit.rest.pulls.listReviews, {
     owner: context.repo.owner,
     repo: context.repo.repo,
     pull_number: pullNumber,
     per_page: 100,
   })
-
-  return {
-    copilot: reviews.some(r => isCopilotLogin(r.user?.login)),
-    team: reviews.some(
-      r =>
-        (r.author_association === 'OWNER' ||
-          r.author_association === 'MEMBER') &&
-        r.state === 'COMMENTED',
-    ),
-  }
-}
 
 type ReviewThreadCommentNode = {
   author: {login: string | null} | null
@@ -333,8 +320,14 @@ const main = async () => {
 
   const openCopilotReviewComments =
     await getOpenCopilotReviewComments(pullNumber)
-  const {copilot: isReviewedByCopilot, team: isReviewedByTeam} =
-    await getIsReviewedByCopilotAndTeam(pullNumber)
+
+  const reviews = await getReviews(pullNumber)
+  const isReviewedByCopilot = reviews.some(r => isCopilotLogin(r.user?.login))
+  const isReviewedByTeam = reviews.some(
+    r =>
+      (r.author_association === 'OWNER' || r.author_association === 'MEMBER') &&
+      (r.state === 'APPROVED' || r.state === 'CHANGES_REQUESTED'),
+  )
 
   if (isReviewedByCopilot && openCopilotReviewComments === 0) {
     if (!alreadyOnPr.has(COPILOT_READY_LABEL)) {
@@ -357,22 +350,22 @@ const main = async () => {
   }
 
   if (isReviewedByTeam) {
-    core.info('PR has been approved by a team member.')
+    core.info('PR has been reviewed by a team member.')
 
-    if (!alreadyOnPr.has(APPROVED_LABEL)) {
+    if (!alreadyOnPr.has(REVIEWED_LABEL)) {
       await addLabels(
         pullNumber,
-        [APPROVED_LABEL],
+        [REVIEWED_LABEL],
         GENERAL_LABEL_COLOR,
-        'PR has been approved by a team member.',
+        'PR has been reviewed by a team member.',
       )
     }
-  } else if (alreadyOnPr.has(APPROVED_LABEL)) {
+  } else if (alreadyOnPr.has(REVIEWED_LABEL)) {
     await octokit.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: pullNumber,
-      name: APPROVED_LABEL,
+      name: REVIEWED_LABEL,
     })
   }
 }
