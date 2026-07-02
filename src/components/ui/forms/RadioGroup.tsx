@@ -73,7 +73,11 @@ export const RadioGroup = <
           return (
             <Radio
               isSelected={value === optionValue}
-              key={typeof optionLabel === 'string' ? optionLabel : index}
+              key={
+                typeof optionLabel === 'string'
+                  ? optionLabel
+                  : `option ${index + 1}/${options.length} - value: ${optionValue}`
+              }
               label={optionLabel}
               logging-label={logName}
               logName={logName}
