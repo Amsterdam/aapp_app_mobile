@@ -4,6 +4,7 @@ import type {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
+import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputField'
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
@@ -48,17 +49,12 @@ export const BoatChargingLoginForm = () => {
       <Box>
         <Column gutter="xl">
           <Column gutter="lg">
-            <TextInputField
-              autoCapitalize="none"
-              autoCorrect={false}
-              autoFocus
-              keyboardType="email-address"
+            <EmailTextInputField<'username'>
               label="Gebruikersnaam"
               name="username"
               onSubmitEditing={() => passwordInputReference.current?.focus()}
               required
-              returnKeyType="next"
-              testID="BoatChargingLoginFormUsernameInputField"
+              testID="BoatChargingLoginFormEmailTextInputField"
             />
             <TextInputField
               autoCapitalize="none"

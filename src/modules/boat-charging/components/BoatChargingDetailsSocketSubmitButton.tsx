@@ -4,7 +4,6 @@ import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {devLog} from '@/processes/development'
 
 export const BoatChargingDetailsSocketSubmitButton = () => {
   const form = useFormContext<{socketId: string}>()
@@ -18,8 +17,6 @@ export const BoatChargingDetailsSocketSubmitButton = () => {
 
         return
       }
-
-      devLog(socketId)
 
       if (isLoggedIn) {
         navigate(BoatChargingRouteName.boatCharging) // TODO: initiate payment flow

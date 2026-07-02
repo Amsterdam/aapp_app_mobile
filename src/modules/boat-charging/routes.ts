@@ -7,9 +7,10 @@ export enum BoatChargingRouteName {
   boatCharging = 'BoatCharging',
   boatChargingDetails = 'BoatChargingDetails',
   boatChargingGuestEmail = 'BoatChargingGuestEmail',
+  boatChargingGuestEmailConfirm = 'BoatChargingGuestEmailConfirm',
   boatChargingHelp = 'BoatChargingHelp',
-
   boatChargingLogin = 'BoatChargingLogin',
+  boatChargingTermsAndConditions = 'BoatChargingTermsAndConditions',
 }
 
 export type ModuleStackParams = {
@@ -18,6 +19,14 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.boatChargingGuestEmail]: {
     socketId: ChargingStation['id']
   }
+  [BoatChargingRouteName.boatChargingGuestEmailConfirm]: {
+    email: string
+    socketId: ChargingStation['id']
+  }
   [BoatChargingRouteName.boatChargingHelp]: undefined
   [BoatChargingRouteName.boatChargingLogin]: undefined
+  [BoatChargingRouteName.boatChargingTermsAndConditions]: {
+    email: string
+    socketId: ChargingStation['id']
+  }
 }
