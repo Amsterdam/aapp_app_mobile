@@ -7,6 +7,8 @@ const BASE = {
   'stroke-width': 2,
   fillOpacity: 0.3,
   'fill-opacity': 0.3,
+  strokeOpacity: 1,
+  'stroke-opacity': 1,
 }
 
 describe('getPermitZoneFeatureProperties', () => {
