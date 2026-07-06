@@ -10,7 +10,7 @@ type ValidationPatternKey = keyof typeof validationPatterns
  * @param value value to validate
  * @param pattern pattern to use for validation
  * @param invalidText Text to show when validation fails
- * @returns
+ * @returns True if the value matches the pattern; otherwise the provided invalidText message.
  */
 const validate = (
   value: string,
