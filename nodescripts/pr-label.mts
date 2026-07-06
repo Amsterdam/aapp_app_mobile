@@ -8,6 +8,7 @@ const MODULE_LABEL_PREFIX = 'module:'
 const MODULE_LABEL_COLOR = '0366d6'
 const GENERAL_LABEL_COLOR = '036d66'
 const COPILOT_READY_LABEL = 'Copilot ready'
+const REVIEWED_LABEL = 'Reviewed'
 const HTTP_STATUS_UNPROCESSABLE_ENTITY = 422
 
 const COPILOT_LOGINS = new Set(['github-copilot[bot]'])
@@ -171,16 +172,13 @@ const addLabels = async (
   }
 }
 
-const getIsReviewedByCopilot = async (pullNumber: number): Promise<boolean> => {
-  const reviews = await octokit.paginate(octokit.rest.pulls.listReviews, {
+const getReviews = async (pullNumber: number) =>
+  octokit.paginate(octokit.rest.pulls.listReviews, {
     owner: context.repo.owner,
     repo: context.repo.repo,
     pull_number: pullNumber,
     per_page: 100,
   })
-
-  return reviews.some(r => isCopilotLogin(r.user?.login))
-}
 
 type ReviewThreadCommentNode = {
   author: {login: string | null} | null
@@ -322,7 +320,14 @@ const main = async () => {
 
   const openCopilotReviewComments =
     await getOpenCopilotReviewComments(pullNumber)
-  const isReviewedByCopilot = await getIsReviewedByCopilot(pullNumber)
+
+  const reviews = await getReviews(pullNumber)
+  const isReviewedByCopilot = reviews.some(r => isCopilotLogin(r.user?.login))
+  const isReviewedByTeam = reviews.some(
+    r =>
+      (r.author_association === 'OWNER' || r.author_association === 'MEMBER') &&
+      (r.state === 'APPROVED' || r.state === 'CHANGES_REQUESTED'),
+  )
 
   if (isReviewedByCopilot && openCopilotReviewComments === 0) {
     if (!alreadyOnPr.has(COPILOT_READY_LABEL)) {
@@ -341,6 +346,26 @@ const main = async () => {
       repo: context.repo.repo,
       issue_number: pullNumber,
       name: COPILOT_READY_LABEL,
+    })
+  }
+
+  if (isReviewedByTeam) {
+    core.info('PR has been reviewed by a team member.')
+
+    if (!alreadyOnPr.has(REVIEWED_LABEL)) {
+      await addLabels(
+        pullNumber,
+        [REVIEWED_LABEL],
+        GENERAL_LABEL_COLOR,
+        'PR has been reviewed by a team member.',
+      )
+    }
+  } else if (alreadyOnPr.has(REVIEWED_LABEL)) {
+    await octokit.rest.issues.removeLabel({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: pullNumber,
+      name: REVIEWED_LABEL,
     })
   }
 }
