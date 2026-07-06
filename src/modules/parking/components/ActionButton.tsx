@@ -10,6 +10,7 @@ import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useGetCachedServerModule} from '@/store/slices/modules'
+import {isBeforeNow} from '@/utils/datetime/isBeforeNow'
 
 const ALLOWED_PERMIT_TYPES = new Set([
   PermitType.kraskaartvergunning,
@@ -28,7 +29,8 @@ export const ActionButton = () => {
   const isAllowedPermit =
     parkingAccount?.permits?.length === 1 &&
     ALLOWED_PERMIT_TYPES.has(parkingAccount.permits[0].permit_type) &&
-    parkingAccount.scope === ParkingPermitScope.permitHolder
+    parkingAccount.scope === ParkingPermitScope.permitHolder &&
+    isBeforeNow(parkingAccount.permits[0].started_at)
 
   if (!accessCode || isLoginStepsActive || !isAllowedPermit) {
     return null
