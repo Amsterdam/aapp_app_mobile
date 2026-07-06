@@ -15,6 +15,8 @@ export type UseScreenPropertiesProps = Omit<ScreenProps, 'children' | 'testID'>
  *
  * @param props Screen properties to merge into the parent `Screen`.
  * Use {@link UseScreenPropertiesProps} to type memoized config objects.
+ * @param cleanUpAfterUnmount If to restore props to original props after component unmounts.
+ *
  *
  * @example
  * // Override the sticky footer from a nested component
@@ -51,15 +53,24 @@ export type UseScreenPropertiesProps = Omit<ScreenProps, 'children' | 'testID'>
  *   [],
  * )
  *
- * useScreenProperties(screenProperties)
+ * useScreenProperties(screenProperties, false)
  */
-export const useScreenProperties = (props: UseScreenPropertiesProps) => {
-  const {overrideProps} = use(ScreenContext)
+export const useScreenProperties = (
+  props: UseScreenPropertiesProps,
+  cleanUpAfterUnmount: boolean = true,
+) => {
+  const {overrideProps, restoreOriginalProps} = use(ScreenContext)
 
   useLayoutEffect(() => {
     overrideProps(previousProps => ({
       ...previousProps,
       ...props,
     }))
-  }, [overrideProps, props])
+
+    return () => {
+      if (cleanUpAfterUnmount) {
+        restoreOriginalProps()
+      }
+    }
+  }, [overrideProps, props, restoreOriginalProps, cleanUpAfterUnmount])
 }

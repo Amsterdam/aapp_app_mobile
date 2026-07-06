@@ -1,4 +1,4 @@
-import {type ReactNode, useMemo, useState} from 'react'
+import {type ReactNode, useCallback, useMemo, useState} from 'react'
 import {ScreenContext, type ScreenContextType} from '@/providers/screen.context'
 
 type Props = {
@@ -14,14 +14,26 @@ export const ScreenProvider = ({
 }: Props) => {
   const [scrollDisabled, setScrollDisabled] = useState<boolean>(false)
 
+  const restoreOriginalProps = useCallback(
+    () => overrideProps({}),
+    [overrideProps],
+  )
+
   const value = useMemo(
     () => ({
       scrollDisabled,
       setScrollDisabled,
       nativeScreenHeader,
       overrideProps,
+      restoreOriginalProps,
     }),
-    [scrollDisabled, setScrollDisabled, nativeScreenHeader, overrideProps],
+    [
+      scrollDisabled,
+      setScrollDisabled,
+      nativeScreenHeader,
+      overrideProps,
+      restoreOriginalProps,
+    ],
   )
 
   return (
