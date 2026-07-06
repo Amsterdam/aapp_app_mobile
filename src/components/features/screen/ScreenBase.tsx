@@ -1,4 +1,4 @@
-import {useMemo} from 'react'
+import {useMemo, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
@@ -15,22 +15,26 @@ import {HomeRouteName} from '@/modules/home/routes'
 import {ScreenProvider} from '@/providers/screen.provider'
 import {useScreen} from '@/store/slices/screen'
 
-export const ScreenBase = ({
-  bottomSheet,
-  children,
-  hasStickyAlert,
-  headerOptions,
-  isOutsideNavigation = false,
-  stickyFooter,
-  stickyHeader,
-  withBottomInset = true,
-  withLeftInset = true,
-  withRightInset = true,
-  withTopInset = false,
-  testID,
-  trackScroll,
-  ...wrapperProps
-}: ScreenProps) => {
+export const ScreenBase = (props: ScreenProps) => {
+  const [screenProps, setScreenProps] = useState<Partial<ScreenProps>>(props)
+
+  const {
+    bottomSheet,
+    children,
+    hasStickyAlert,
+    headerOptions,
+    isOutsideNavigation = false,
+    stickyFooter,
+    stickyHeader,
+    withBottomInset = true,
+    withLeftInset = true,
+    withRightInset = true,
+    withTopInset = false,
+    testID,
+    trackScroll,
+    ...wrapperProps
+  } = screenProps
+
   const insets = useSafeAreaInsets()
   const route = useRoute()
   const {
@@ -76,7 +80,9 @@ export const ScreenBase = ({
     (!isOutsideNavigation && !!bottomSheet) || !!headerOptions
 
   return (
-    <ScreenProvider nativeScreenHeader={!customScreenHeader}>
+    <ScreenProvider
+      nativeScreenHeader={!customScreenHeader}
+      overrideProps={setScreenProps}>
       <ExtendAccessCodeValidityOnTap>
         <HideFromAccessibility
           hide={isHiddenFromAccessibility}
