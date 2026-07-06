@@ -54,16 +54,12 @@ export type UseScreenPropertiesProps = Omit<ScreenProps, 'children' | 'testID'>
  * useScreenProperties(screenProperties)
  */
 export const useScreenProperties = (props: UseScreenPropertiesProps) => {
-  const screenContext = use(ScreenContext)
-
-  if (!screenContext) {
-    throw new Error('useScreenProperties has to be used inside a Screen.')
-  }
+  const {overrideProps} = use(ScreenContext)
 
   useLayoutEffect(() => {
-    screenContext.overrideProps(previousProps => ({
+    overrideProps(previousProps => ({
       ...previousProps,
       ...props,
     }))
-  }, [screenContext, props])
+  }, [overrideProps, props])
 }
