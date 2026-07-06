@@ -1,4 +1,4 @@
-import {useEffect, useState, type ReactNode} from 'react'
+import {useEffect, useState} from 'react'
 import type {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -8,7 +8,6 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Row} from '@/components/ui/layout/Row'
 import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -27,14 +26,6 @@ import {RedirectKey} from '@/modules/redirects/types'
 
 type Props =
   NavigationProps<BoatChargingRouteName.boatChargingTermsAndConditions>
-
-const SwitchWrapper = ({children}: {children: ReactNode}) => (
-  <Box
-    insetHorizontal="lg"
-    insetVertical="sm">
-    <Row valign="end">{children}</Row>
-  </Box>
-)
 
 export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
   const {resetForm} = useGuestSessionFormValues()
@@ -99,7 +90,9 @@ export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
         {isLoading ? (
           <PleaseWait testID="BoatChargingTermsAndConditionsPleaseWait" />
         ) : isError ? (
-          <SomethingWentWrong testID="BoatChargingTermsAndConditionsSomethingWentWrong" />
+          <Box insetVertical="md">
+            <SomethingWentWrong testID="BoatChargingTermsAndConditionsSomethingWentWrong" />
+          </Box>
         ) : (
           !!terms && (
             <HtmlContent
@@ -122,14 +115,13 @@ export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
           onChange={onChange}
           testID="BoatChargingTermsAndConditionsSwitch"
           value={value}
-          wrapper={SwitchWrapper}
         />
         {!!error && (
           <>
             <Gutter height="sm" />
             <ErrorMessage
               testID="BoatChargingTermsAndConditionsErrorMessage"
-              text="U moet akkoord gaan met de voorwaarden om verder te gaan."
+              text="Ga akkoord gaan met de voorwaarden om verder te gaan."
             />
           </>
         )}
