@@ -1,11 +1,11 @@
-import {createContext, type Dispatch} from 'react'
+import {createContext, type Dispatch, type SetStateAction} from 'react'
 import type {ScreenProps} from '@/components/features/screen/Screen'
 
 export type ScreenContextType = {
   nativeScreenHeader: boolean
-  overrideProps: Dispatch<React.SetStateAction<Partial<ScreenProps>>>
+  overrideProps: Dispatch<SetStateAction<Partial<ScreenProps>>>
   scrollDisabled: boolean
-  setScrollDisabled: Dispatch<React.SetStateAction<boolean>>
+  setScrollDisabled: Dispatch<SetStateAction<boolean>>
 }
 
 export const ScreenContext = createContext<ScreenContextType>({
