@@ -89,7 +89,7 @@ export const ScreenBase = (props: ScreenProps) => {
   return (
     <ScreenProvider
       nativeScreenHeader={!customScreenHeader}
-      overrideProps={setScreenProps}>
+      overrideProps={setOverriddenProps}>
       <ExtendAccessCodeValidityOnTap>
         <HideFromAccessibility
           hide={isHiddenFromAccessibility}
