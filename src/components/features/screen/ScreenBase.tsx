@@ -16,7 +16,14 @@ import {ScreenProvider} from '@/providers/screen.provider'
 import {useScreen} from '@/store/slices/screen'
 
 export const ScreenBase = (props: ScreenProps) => {
-  const [screenProps, setScreenProps] = useState<Partial<ScreenProps>>(props)
+  const [overriddenProps, setOverriddenProps] = useState<Partial<ScreenProps>>(
+    {},
+  )
+
+  const screenProps = useMemo(
+    () => ({...props, ...overriddenProps}),
+    [props, overriddenProps],
+  )
 
   const {
     bottomSheet,
