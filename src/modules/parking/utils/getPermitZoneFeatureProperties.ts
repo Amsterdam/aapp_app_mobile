@@ -15,11 +15,13 @@ const PERMIT_ZONE_PROPERTIES: Record<
      */
     fillOpacity: 0.3,
     strokeWidth: 2,
+    strokeOpacity: 1,
     /**
      * Used for the Polygon on the Map
      */
     'fill-opacity': 0.3,
     'stroke-width': 2,
+    'stroke-opacity': 1,
   },
   [PermitZoneColorValue.blue]: {
     label: 'Uw vergunningsgebied',
