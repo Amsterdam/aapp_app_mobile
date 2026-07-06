@@ -1,0 +1,11 @@
+import type {Service} from '@/modules/service/types'
+
+export enum PrideRouteName {
+  details = 'PrideDetails',
+  overview = 'PrideOverview',
+}
+
+export type ModuleStackParams = {
+  [PrideRouteName.overview]: undefined
+  [PrideRouteName.details]: {id: Service['id']; title: Service['title']}
+}

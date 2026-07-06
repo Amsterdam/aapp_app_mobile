@@ -10,8 +10,12 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useThemable} from '@/themes/useThemable'
 
+export type ServicesGridItemColors = {
+  background: keyof Theme['color']['backgroundArea'] | `#${string}`
+  label: keyof Theme['color']['text']
+}
 type Props = Service & {
-  background?: keyof Theme['color']['backgroundArea']
+  colors?: ServicesGridItemColors
   detailsRouteName: RoutesAcceptingParams<Pick<Service, 'id' | 'title'>>
 }
 
@@ -20,11 +24,10 @@ export const ServicesGridItem = ({
   title,
   id,
   detailsRouteName,
-  background = 'primary',
+  colors = {background: 'primary', label: 'inverse'},
 }: Props) => {
-  const styles = useThemable(createStyles(background))
+  const styles = useThemable(createStyles(colors.background))
   const {navigate} = useNavigation()
-  const labelColor = background === 'primary' ? 'inverse' : 'default'
 
   return (
     <Pressable
@@ -35,12 +38,12 @@ export const ServicesGridItem = ({
           gutter="sm"
           halign="center">
           <Icon
-            color={labelColor}
+            color={colors.label}
             path={icon}
             size="xll"
           />
           <Phrase
-            color={labelColor}
+            color={colors.label}
             textAlign="center"
             variant="body">
             {title}
@@ -52,7 +55,7 @@ export const ServicesGridItem = ({
 }
 
 const createStyles =
-  (background: keyof Theme['color']['backgroundArea']) => (theme: Theme) =>
+  (backgroundColor: ServicesGridItemColors['background']) => (theme: Theme) =>
     StyleSheet.create({
       item: {
         aspectRatio: 1,
@@ -60,6 +63,11 @@ const createStyles =
         padding: theme.size.spacing.sm,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.color.backgroundArea[background],
+        backgroundColor:
+          backgroundColor in theme.color.backgroundArea
+            ? theme.color.backgroundArea[
+                backgroundColor as keyof Theme['color']['backgroundArea']
+              ]
+            : backgroundColor,
       },
     })

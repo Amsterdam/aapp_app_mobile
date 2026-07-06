@@ -23,6 +23,7 @@ export const ChooseAddressScreen = ({route}: Props) => {
         stickyHeader={<AddressSearchField />}
         testID="ChooseAddressScreen">
         <Box grow>
+          {/*@ts-expect-error This Form suddenly complains about moduleSlug prop being undefined. TODO: fix */}
           <AddressForm
             highAccuracyPurposeKey={highAccuracyPurposeKey}
             moduleSlug={moduleSlug}

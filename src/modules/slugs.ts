@@ -16,6 +16,7 @@ export enum ModuleSlug {
   'notification-history' = 'notification-history',
   onboarding = 'onboarding',
   parking = 'parking',
+  pride = 'pride',
   redirects = 'redirects',
   'report-problem' = 'report-problem',
   service = 'service',
