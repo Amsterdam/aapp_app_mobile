@@ -60,6 +60,7 @@ export const NewsDashboardHighlightedArticle = () => {
             source={images}
           />
           <Title
+            accessible={false}
             level="h3"
             text={title}
           />

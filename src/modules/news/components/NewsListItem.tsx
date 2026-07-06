@@ -62,12 +62,14 @@ export const NewsListItem = ({
             shrink={1}>
             {!!is_active_liveblog && <LiveblogTag variant="transparent" />}
             <Phrase
+              accessible={false}
               numberOfLines={2}
               variant="small">
               {title}
             </Phrase>
             {!!includeDate && !is_active_liveblog && (
               <Phrase
+                accessible={false}
                 color="secondary"
                 variant="small">
                 {formatDateToDisplay(publication_datetime, false, false)}

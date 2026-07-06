@@ -22,6 +22,7 @@ export const PopUpMenuItem = ({
       insetHorizontal="md"
       insetVertical="sm">
       <Phrase
+        accessible={false}
         color={color}
         testID={`${testID}Phrase`}>
         {label}

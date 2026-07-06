@@ -15,8 +15,9 @@ export const WasteGuideCalendarDayEvents = ({dayEvents}: Props) => {
 
   return (
     <Column gutter="sm">
-      {dayEvents?.map(({code}, idx) => (
+      {dayEvents?.map(({code, label}, idx) => (
         <IconButton
+          accessibilityLabel={`Bekijk ${label} afvalinformatie`}
           icon={<WasteFractionIcon fractionCode={code} />}
           key={idx}
           onPress={() =>

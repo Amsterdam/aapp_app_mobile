@@ -5,7 +5,7 @@ const injectCommas = (...fragments: (string | undefined | null)[]) =>
   fragments.filter(fragment => fragment).join(', ')
 
 export const accessibleText = (...fragments: (string | undefined | null)[]) =>
-  abbreviationsPronounce(injectCommas(...fragments)).replace(/\d{4,}/g, match =>
+  abbreviationsPronounce(injectCommas(...fragments)).replace(/\d{5,}/g, match =>
     match.split('').join(', '),
   )
 

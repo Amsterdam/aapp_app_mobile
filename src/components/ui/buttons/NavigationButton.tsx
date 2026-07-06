@@ -99,6 +99,7 @@ export const NavigationButton = ({
             <Column shrink={1}>
               {emphasis === 'strong' ? (
                 <Title
+                  accessible={false}
                   color={color}
                   level={titleLevel}
                   testID="NavigationButtonTitle"
@@ -106,13 +107,16 @@ export const NavigationButton = ({
                 />
               ) : (
                 <Phrase
+                  accessible={false}
                   color={color}
                   testID="NavigationButtonTitle">
                   {title}
                 </Phrase>
               )}
               {!!description && !isDescriptionBelowIcon && (
-                <Phrase testID="NavigationButtonDescription">
+                <Phrase
+                  accessible={false}
+                  testID="NavigationButtonDescription">
                   {description}
                 </Phrase>
               )}

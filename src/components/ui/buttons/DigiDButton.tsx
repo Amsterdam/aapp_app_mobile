@@ -1,6 +1,7 @@
 import type {TestProps} from '@/components/ui/types'
 import type {GestureResponderEvent} from 'react-native'
 import DigiD from '@/assets/icons/digid.svg'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Button} from '@/components/ui/buttons/Button'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
@@ -17,12 +18,14 @@ export const DigiDButton = ({onPress, isLoading, testID}: Props) => (
     gutter="md"
     halign="stretch">
     <Row gutter="sm">
-      <Pressable
-        accessible={false}
-        onPress={onPress}
-        testID={`${testID}IconButton`}>
-        <DigiD />
-      </Pressable>
+      <HideFromAccessibility>
+        <Pressable
+          accessible={false}
+          onPress={onPress}
+          testID={`${testID}IconButton`}>
+          <DigiD />
+        </Pressable>
+      </HideFromAccessibility>
       <Button
         flex={1}
         isLoading={isLoading}

@@ -81,6 +81,7 @@ export const TopTaskButton = ({
             <Row gutter="sm">
               {!!title && (
                 <Title
+                  accessible={false}
                   color={colorTitleAndIconLeft}
                   level="h5"
                   testID={`${testID}Title`}
@@ -98,6 +99,7 @@ export const TopTaskButton = ({
             </Row>
             {typeof text === 'string' ? (
               <Paragraph
+                accessible={false}
                 color={
                   variant === 'transparentInverse'
                     ? 'inverse'
@@ -114,6 +116,7 @@ export const TopTaskButton = ({
             )}
             {!!textAdditional && (
               <Paragraph
+                accessible={false}
                 color={colorDescriptionAndIconRight}
                 testID={`${testID}AdditionalText`}
                 variant="small">

@@ -1,4 +1,3 @@
-import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import {Box} from '@/components/ui/containers/Box'
@@ -22,19 +21,6 @@ export type AlertBaseProps = {
   inset?: keyof SpacingTokens
 } & AlertProps
 
-type WrapperProps = {
-  children: ReactNode
-  inset: AlertBaseProps['inset']
-}
-
-const Wrapper = ({children, inset}: WrapperProps) => {
-  if (inset !== undefined) {
-    return <Box inset={inset}>{children}</Box>
-  }
-
-  return <>{children}</>
-}
-
 /**
  * Display alert messages to the user without being able to dismiss.
  */
@@ -42,7 +28,7 @@ export const AlertBase = ({
   accessibilityLabel,
   children,
   hasCloseIcon = false,
-  inset,
+  inset = 'no',
   testID,
   hasIcon = false,
   text,
@@ -61,11 +47,8 @@ export const AlertBase = ({
   }
 
   return (
-    <Wrapper inset={inset}>
+    <Box inset={inset}>
       <View
-        accessibilityLanguage="nl-NL"
-        accessibilityRole="alert"
-        accessible
         ref={setAccessibilityFocus}
         style={styles.outerContainer}
         testID={testID}>
@@ -88,18 +71,20 @@ export const AlertBase = ({
               <SingleSelectable
                 accessibilityLabel={accessibilityLabel}
                 accessibilityLanguage="nl-NL"
-                accessibilityRole="alert">
+                accessibilityRole="alert"
+                accessible>
                 <Column
                   gutter="sm"
                   shrink={1}>
                   {!!title && (
                     <Title
+                      accessible={false}
                       level="h5"
                       text={title}
                     />
                   )}
                   {!!text && typeof text === 'string' ? (
-                    <Paragraph>{text}</Paragraph>
+                    <Paragraph accessible={false}>{text}</Paragraph>
                   ) : (
                     text
                   )}
@@ -129,7 +114,7 @@ export const AlertBase = ({
           </View>
         )}
       </View>
-    </Wrapper>
+    </Box>
   )
 }
 

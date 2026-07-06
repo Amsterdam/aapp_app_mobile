@@ -10,7 +10,7 @@ export const SingleSelectable = ({
   style,
   accessibilityLabel: explicitAccessibilityLabel,
   ...viewProps
-}: ViewProps) => {
+}: ViewProps & React.RefAttributes<View>) => {
   const accessibilityLabel = useMemo(
     () =>
       getAccessibleLabel({

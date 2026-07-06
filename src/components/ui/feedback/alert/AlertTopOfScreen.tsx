@@ -7,6 +7,7 @@ import {
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useAlert} from '@/store/slices/alert'
+import {getAccessibleLabel} from '@/utils/accessibility/getAccessibleLabel'
 import {isEmptyObject} from '@/utils/object'
 
 export const AlertTopOfScreen = ({
@@ -33,6 +34,15 @@ export const AlertTopOfScreen = ({
 
   return (
     <Pressable
+      accessibilityHint="Tik om deze melding te sluiten."
+      accessibilityLabel={getAccessibleLabel({
+        children: alert.children ?? (
+          <>
+            {alert.title}
+            {alert.text}
+          </>
+        ),
+      })}
       onPress={onPress}
       testID={alert.testID}
       variant="transparent">

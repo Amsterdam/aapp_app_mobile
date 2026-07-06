@@ -49,6 +49,7 @@ const ModuleButtonContent = ({
           />
         )}
         <Title
+          accessible={false}
           color={color}
           level="h5"
           text={label}
