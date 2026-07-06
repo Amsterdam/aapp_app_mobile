@@ -6,7 +6,14 @@ import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 export const ParkingPermitNotYetActiveNotice = () => {
   const {started_at} = useCurrentParkingPermit()
 
-  if (!started_at || dayjs(started_at).isBefore(dayjs())) {
+  if (!started_at) {
+    return null
+  }
+
+  const startedAt = dayjs(started_at)
+  const now = dayjs()
+
+  if (!startedAt.isValid() || !startedAt.isAfter(now)) {
     return null
   }
 
