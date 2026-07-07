@@ -8,6 +8,7 @@ import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {HomeRouteName} from '@/modules/home/routes'
+import {PrideModuleIcon} from '@/modules/pride/components/PrideModuleIcon'
 import {ModuleSlug} from '@/modules/slugs'
 import {useTheme} from '@/themes/useTheme'
 
@@ -40,17 +41,22 @@ const ModuleButtonContent = ({
   return (
     <Row gutter="sm">
       <Row gutter="md">
-        {!!iconPath && (
-          <Icon
-            color={color}
-            path={iconPath}
-            size="lgx"
-            testID={`${testID}Icon`}
-          />
+        {label === 'Pride' ? (
+          <PrideModuleIcon /> // TODO: remove after pride
+        ) : (
+          !!iconPath && (
+            <Icon
+              color={color}
+              path={iconPath}
+              size="lgx"
+              testID={`${testID}Icon`}
+            />
+          )
         )}
+
         <Title
           accessible={false}
-          color={color}
+          color={label === 'Pride' ? 'cityPass' : color} // TODO: revert after pride
           level="h5"
           text={label}
         />
