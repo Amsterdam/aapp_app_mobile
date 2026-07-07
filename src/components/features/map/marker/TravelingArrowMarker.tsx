@@ -107,11 +107,11 @@ export const TravelingArrowMarker = ({
       anchor={{x: 0.5, y: 0.5}}
       coordinate={position.coordinate}
       flat
-      rotation={position.rotation - 90}
+      rotation={position.rotation + 180}
       tracksViewChanges
       zIndex={0}>
       <Animated.View style={animatedStyle}>
-        <Icon name="play" />
+        <Icon name="chevron-bold-down" />
       </Animated.View>
     </Marker>
   )
