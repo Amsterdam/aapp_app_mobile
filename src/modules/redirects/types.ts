@@ -43,4 +43,6 @@ export enum RedirectKey {
   sailingAndMooring = 'sailingAndMooring',
   waste = 'waste',
   waste_extra_info = 'waste_extra_info',
+  worldPrideEvents = 'worldPrideEvents',
+  worldPridePracticalInfo = 'worldPridePracticalInfo',
 }

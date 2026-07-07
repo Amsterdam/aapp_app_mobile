@@ -12,7 +12,7 @@ import {AddressSearchField} from '@/modules/address/components/form/AddressSearc
 type Props = NavigationProps<AddressRouteName.chooseAddress>
 
 export const ChooseAddressScreen = ({route}: Props) => {
-  const {highAccuracyPurposeKey, moduleSlug} = route.params ?? {}
+  const {highAccuracyPurposeKey, moduleSlug} = route.params
   const addressForm = useForm<AddressSearchFields>()
 
   return (

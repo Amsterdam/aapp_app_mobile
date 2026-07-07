@@ -10,9 +10,20 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useThemable} from '@/themes/useThemable'
 
+export type ServicesGridItemColorScheme = keyof Theme['color']['serviceGrid']
+
 type Props = Service & {
-  background?: keyof Theme['color']['backgroundArea']
+  colorScheme?: ServicesGridItemColorScheme
   detailsRouteName: RoutesAcceptingParams<Pick<Service, 'id' | 'title'>>
+}
+
+const CONTENT_COLOR_MAP: Record<
+  ServicesGridItemColorScheme,
+  keyof Theme['color']['text']
+> = {
+  default: 'inverse',
+  kingsday: 'default',
+  pride: 'inverse',
 }
 
 export const ServicesGridItem = ({
@@ -20,11 +31,10 @@ export const ServicesGridItem = ({
   title,
   id,
   detailsRouteName,
-  background = 'primary',
+  colorScheme = 'default',
 }: Props) => {
-  const styles = useThemable(createStyles(background))
+  const styles = useThemable(createStyles(colorScheme))
   const {navigate} = useNavigation()
-  const labelColor = background === 'primary' ? 'inverse' : 'default'
 
   return (
     <Pressable
@@ -35,12 +45,12 @@ export const ServicesGridItem = ({
           gutter="sm"
           halign="center">
           <Icon
-            color={labelColor}
+            color={CONTENT_COLOR_MAP[colorScheme]}
             path={icon}
             size="xll"
           />
           <Phrase
-            color={labelColor}
+            color={CONTENT_COLOR_MAP[colorScheme]}
             textAlign="center"
             variant="body">
             {title}
@@ -52,7 +62,7 @@ export const ServicesGridItem = ({
 }
 
 const createStyles =
-  (background: keyof Theme['color']['backgroundArea']) => (theme: Theme) =>
+  (colorScheme: keyof Theme['color']['serviceGrid']) => (theme: Theme) =>
     StyleSheet.create({
       item: {
         aspectRatio: 1,
@@ -60,6 +70,6 @@ const createStyles =
         padding: theme.size.spacing.sm,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.color.backgroundArea[background],
+        backgroundColor: theme.color.serviceGrid[colorScheme].background,
       },
     })

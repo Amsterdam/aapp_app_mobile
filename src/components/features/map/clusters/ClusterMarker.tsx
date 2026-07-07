@@ -50,14 +50,12 @@ const createStyles = ({color}: Theme, count: number, isPie: boolean) => {
       zIndex: 2,
     },
     clusterOuter: {
-      backgroundColor: `${color.backgroundArea.primary}30`,
+      backgroundColor: `${color.mapCluster.default}30`,
       width: outerClusterSize,
       height: outerClusterSize,
     },
     clusterInner: {
-      backgroundColor: isPie
-        ? color.box.background.distinct
-        : color.backgroundArea.primary,
+      backgroundColor: color.mapCluster[isPie ? 'distinct' : 'default'],
       width: innerClusterSize,
       height: innerClusterSize,
     },

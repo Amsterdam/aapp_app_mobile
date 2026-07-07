@@ -56,7 +56,6 @@ export const lightColorTokens = {
   },
   backgroundArea: {
     primary: baseColor.primary.blue,
-    kingsday: baseColor.secondary.orange,
   },
   badge: {
     background: {
@@ -226,6 +225,10 @@ export const lightColorTokens = {
     },
   },
   logo: baseColor.primary.red,
+  mapCluster: {
+    default: baseColor.primary.blue,
+    distinct: baseColor.primary.white,
+  },
   module: {
     highlight: {
       kingsday: baseColor.secondary.orange,
@@ -351,6 +354,17 @@ export const lightColorTokens = {
     background: {
       default: baseColor.primary.white,
       settings: baseColor.custom.grey0,
+    },
+  },
+  serviceGrid: {
+    default: {
+      background: baseColor.primary.blue,
+    },
+    kingsday: {
+      background: baseColor.secondary.orange,
+    },
+    pride: {
+      background: baseColor.secondary.magenta,
     },
   },
   shadow: {

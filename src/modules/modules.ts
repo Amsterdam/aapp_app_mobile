@@ -16,6 +16,7 @@ import {newsModule} from '@/modules/news'
 import {notificationHistoryModule} from '@/modules/notification-history'
 import {onboardingModule} from '@/modules/onboarding'
 import {parkingModule} from '@/modules/parking'
+import {prideModule} from '@/modules/pride'
 import {redirectsModule} from '@/modules/redirects'
 import {reportProblemModule} from '@/modules/report-problem'
 import {serviceModule} from '@/modules/service'
@@ -48,6 +49,7 @@ export const clientModules = [
   contactModule,
   electionsModule,
   kingsdayModule,
+  prideModule,
   mijnAmsterdamModule,
   newsModule,
   notificationHistoryModule,
