@@ -359,15 +359,12 @@ export const lightColorTokens = {
   serviceGrid: {
     default: {
       background: baseColor.primary.blue,
-      content: baseColor.primary.white,
     },
     kingsday: {
       background: baseColor.secondary.orange,
-      content: baseColor.primary.black,
     },
     pride: {
       background: baseColor.secondary.magenta,
-      content: baseColor.primary.white,
     },
   },
   shadow: {

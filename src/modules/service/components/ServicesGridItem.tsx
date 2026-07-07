@@ -62,7 +62,7 @@ export const ServicesGridItem = ({
 }
 
 const createStyles =
-  (color: keyof Theme['color']['serviceGrid']) => (theme: Theme) =>
+  (colorScheme: keyof Theme['color']['serviceGrid']) => (theme: Theme) =>
     StyleSheet.create({
       item: {
         aspectRatio: 1,
@@ -70,6 +70,6 @@ const createStyles =
         padding: theme.size.spacing.sm,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.color.serviceGrid[color].background,
+        backgroundColor: theme.color.serviceGrid[colorScheme].background,
       },
     })
