@@ -5,7 +5,7 @@ import {
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 
-export const serviceApi = baseApi.injectEndpoints({
+export const prideApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [PrideEndpointName.events]: builder.query<PrideEventsResponse, void>({
       query: () => ({
@@ -18,4 +18,4 @@ export const serviceApi = baseApi.injectEndpoints({
   overrideExisting: false,
 })
 
-export const {usePrideEventsQuery} = serviceApi
+export const {usePrideEventsQuery} = prideApi
