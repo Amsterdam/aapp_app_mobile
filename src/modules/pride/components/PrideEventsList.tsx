@@ -26,7 +26,7 @@ import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
 export const PrideEventsList = () => {
   const {watch} = useFormContext<PrideEventFormValues>()
-  const {data, isLoading} = usePrideEventsQuery()
+  const {data, isLoading, isError} = usePrideEventsQuery()
   const selectedType = watch('type')
   const selectedDate = watch('date')
   const customDate = watch('customDate')
@@ -83,9 +83,9 @@ export const PrideEventsList = () => {
         ListEmptyComponent={
           isLoading ? (
             <PleaseWait testID="PrideEventsListPleaseWait" />
-          ) : (
+          ) : isError ? (
             <SomethingWentWrong testID="PrideEventsListSomethingWentWrong" />
-          )
+          ) : undefined
         }
         renderItem={({item}) => (
           <ContentButton

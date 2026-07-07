@@ -31,12 +31,11 @@ const options = [
 
 export const PrideEventDateBottomSheet = () => {
   const {data, isLoading} = usePrideEventsQuery()
-  const dates =
-    Array.from(
-      new Set(data?.flatMap(event => [event.date_start, event.date_end]) ?? []),
-    )
-      .filter(Boolean)
-      .map(date => dayjs(date).unix()) ?? []
+  const dates = Array.from(
+    new Set(data?.flatMap(event => [event.date_start, event.date_end]) ?? []),
+  )
+    .filter(Boolean)
+    .map(date => dayjs(date).unix()) ?? [dayjs().unix()]
   const firstDate = dayjsFromUnix(Math.min(...dates))
   const lastDate = dayjsFromUnix(Math.max(...dates))
   const {watch, setValue} = useFormContext<PrideEventFormValues>()
