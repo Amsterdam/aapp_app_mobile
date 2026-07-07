@@ -15,7 +15,7 @@ export type PrideEventsResponse = Array<PrideEvent>
 
 export type PrideEvent = {
   address: Address
-  date_end: string
+  date_end: string | null
   date_start: string
   description: string
   id: string
