@@ -10,6 +10,7 @@ import {
   type BoatChargingLocationDetailsResponse,
   type BoatChargingOIDCConfigResponse,
   type BoatChargingSession,
+  type BoatChargingTerms,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
@@ -63,6 +64,17 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.minute,
     }),
+    [BoatChargingEndpointName.boatChargingTerms]: builder.query<
+      BoatChargingTerms,
+      void
+    >({
+      query: () => ({
+        method: 'GET',
+        slug: ModuleSlug['boat-charging'],
+        url: '/terms',
+      }),
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
     [BoatChargingEndpointName.boatChargingSessions]: builder.query<
       BoatChargingSession[],
       void
@@ -84,5 +96,6 @@ export const {
   useBoatChargingLocationsQuery,
   useBoatChargingLocationDetailsQuery,
   useBoatChargingOpenIdConnectConfigQuery,
+  useBoatChargingTermsQuery,
   useBoatChargingSessionsQuery,
 } = boatChargingApi

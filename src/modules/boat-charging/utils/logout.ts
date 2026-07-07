@@ -1,8 +1,7 @@
 import type {ReduxDispatch} from '@/hooks/redux/types'
 import type {RootState} from '@/store/types/rootState'
 import {
-  resetAccessToken,
-  resetLoggedInUsername,
+  removeAccount,
   selectBoatChargingOpenIdConnectConfig,
 } from '@/modules/boat-charging/slice'
 import {signOutFromOpenIdConnect} from '@/modules/boat-charging/utils/openIdConnect'
@@ -10,8 +9,7 @@ import {signOutFromOpenIdConnect} from '@/modules/boat-charging/utils/openIdConn
 export const logout = (dispatch: ReduxDispatch, state: RootState) => {
   const config = selectBoatChargingOpenIdConnectConfig(state)
 
-  dispatch(resetAccessToken())
-  dispatch(resetLoggedInUsername())
+  dispatch(removeAccount())
 
   if (config) {
     return signOutFromOpenIdConnect(config)

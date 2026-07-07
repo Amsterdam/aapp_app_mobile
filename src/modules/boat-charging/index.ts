@@ -12,6 +12,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 const persistWhitelist: (keyof BoatChargingState)[] = [
   'selectedBoatChargingPointId',
   'openIdConnectConfig',
+  'lastApprovedTermsVersionWhileLoggedIn',
 ]
 
 export const boatChargingModule = createClientModule({

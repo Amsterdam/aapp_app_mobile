@@ -6,6 +6,7 @@ export enum BoatChargingEndpointName {
   boatChargingLocations = 'boatChargingLocations',
   boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
   boatChargingSessions = 'boatChargingSessions',
+  boatChargingTerms = 'boatChargingTerms',
 }
 
 export type BoatChargingPointFeature = Feature<Point, BoatChargingLocation>
@@ -93,4 +94,9 @@ export type BoatChargingSession = {
   start_date_time: string
   station_id: string
   total_cost: number
+}
+
+export type BoatChargingTerms = {
+  content: string
+  version: number
 }

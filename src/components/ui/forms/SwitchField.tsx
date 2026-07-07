@@ -5,9 +5,9 @@ import {
   type UseControllerProps,
 } from 'react-hook-form'
 import {type SwitchProps as SwitchRNProps} from 'react-native'
+import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Switch, type SwitchProps} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {type TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 
@@ -53,12 +53,11 @@ export const SwitchField = <FormFields extends FieldValues>({
         onChange={() => onChange(!field.value)}
       />
 
-      {!!error && (
-        <Paragraph
-          color="warning"
-          testID={`${testID}ErrorText`}>
-          {error.message}
-        </Paragraph>
+      {!!error?.message && (
+        <ErrorMessage
+          testID={`${testID}ErrorText`}
+          text={error.message}
+        />
       )}
     </Column>
   )
