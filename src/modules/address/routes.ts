@@ -10,7 +10,7 @@ export type ModuleStackParams = {
   [AddressRouteName.address]: undefined
   [AddressRouteName.chooseAddress]: {
     highAccuracyPurposeKey?: HighAccuracyPurposeKey
-    moduleSlug?: ModuleSlug
+    moduleSlug: ModuleSlug
   }
 }
 
