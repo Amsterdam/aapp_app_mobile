@@ -9,7 +9,7 @@ import {TestProps} from '@/components/ui/types'
 
 type Props = {
   error?: FieldError
-  icon: IconProps
+  icon?: IconProps
   iconRightName?: Extract<SvgIconName, 'chevron-down' | 'chevron-right'>
   onPress: () => void
   text?: string

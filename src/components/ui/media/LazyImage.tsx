@@ -89,7 +89,7 @@ export const LazyImage = ({
     <Skeleton isLoading={isLoading}>
       <View
         style={styles.wrapper}
-        testID={testID}>
+        testID={`${testID}Container`}>
         {failed ? (
           <ImageFallback aspectRatio={aspectRatio} />
         ) : (

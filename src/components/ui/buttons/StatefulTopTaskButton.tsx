@@ -6,7 +6,8 @@ import {
 type StatefulTopTaskButtonProps = {
   isError?: boolean
   isLoading?: boolean
-} & TopTaskButtonProps
+} & TopTaskButtonProps &
+  Required<Pick<TopTaskButtonProps, 'icon'>>
 
 export const StatefulTopTaskButton = ({
   isError = false,

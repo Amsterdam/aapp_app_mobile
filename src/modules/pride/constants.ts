@@ -1,0 +1,6 @@
+export const ALL_TYPES_LABEL = 'Alle types'
+export const ALL_DATES_LABEL = 'Alle dagen'
+export const TODAY_LABEL = 'Vandaag'
+export const TOMORROW_LABEL = 'Morgen'
+export const THIS_WEEKEND_LABEL = 'Dit weekend'
+export const CHOOSE_DATE_LABEL = 'Kies een datum'

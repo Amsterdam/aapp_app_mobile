@@ -51,3 +51,21 @@ declare module '@env' {
 }
 
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
+/**
+ * This type is used to create a union of two types, A and B, where only one of the two types can be present at a time. It ensures that if one type is present, the other type's properties are not allowed.
+ *
+ * @template A - The first type in the union.
+ * @template B - The second type in the union.
+ * @example Or<
+  {
+    images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
+  },
+  {
+    icon: IconProps
+  }
+>
+ */
+type Or<A, B> =
+  | (A & Partial<Record<Exclude<keyof B, keyof A>, never>>)
+  | (B & Partial<Record<Exclude<keyof A, keyof B>, never>>)
