@@ -1,13 +1,11 @@
-import {View, StyleSheet} from 'react-native'
-import type {LogProps} from '@/processes/piwik/types'
+import {StyleSheet} from 'react-native'
 import type {Theme} from '@/themes/themes'
-import type {ReactNode, Ref} from 'react'
+import type {ReactNode} from 'react'
 import {
   PressableBase,
   type PressableBaseProps,
 } from '@/components/ui/buttons/PressableBase'
 import {Box, type BoxProps} from '@/components/ui/containers/Box'
-import {type TestProps} from '@/components/ui/types'
 import {useThemable} from '@/themes/useThemable'
 
 type PressableVariant =
@@ -24,13 +22,9 @@ export type PressableProps = {
   border?: boolean
   children: ReactNode
   flex?: number
-  'logging-label'?: string
-  ref?: Ref<View>
   variant?: PressableVariant
 } & PressableBaseProps &
-  Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'> &
-  LogProps &
-  TestProps
+  Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'>
 
 /**
  * Used to build other interactive components, do not use on its own.

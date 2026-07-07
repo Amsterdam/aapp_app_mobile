@@ -15,7 +15,7 @@ export type TopTaskButtonProps = {
   border?: boolean
   flex?: number
   gutter?: ColumnProps['gutter']
-  icon: IconProps
+  icon?: IconProps
   iconRight?: IconProps
   isError?: boolean
   isExternalLink?: boolean
@@ -65,14 +65,16 @@ export const TopTaskButton = ({
       variant={variant}>
       <View style={[styles.container, {minHeight}]}>
         <Row gutter="md">
-          <HideFromAccessibility>
-            <Icon
-              size="xl"
-              {...icon}
-              color={colorTitleAndIconLeft}
-              testID={`${testID}Icon`}
-            />
-          </HideFromAccessibility>
+          {!!icon && (
+            <HideFromAccessibility>
+              <Icon
+                size="xl"
+                {...icon}
+                color={colorTitleAndIconLeft}
+                testID={`${testID}Icon`}
+              />
+            </HideFromAccessibility>
+          )}
           <Column
             align="center"
             grow={1}

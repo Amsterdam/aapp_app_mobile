@@ -26,7 +26,7 @@ type Props<
   accessibilityHint?: ValueFunctionOrString<TFieldValues, TName>
   accessibilityLabel?: ValueFunctionOrString<TFieldValues, TName>
   bottomSheetVariant?: string
-  icon: IconProps
+  icon?: IconProps
   routeName?: keyof RootStackParams
   text?: ValueFunctionOrString<TFieldValues, TName>
   textAdditional?: ValueFunctionOrString<TFieldValues, TName>

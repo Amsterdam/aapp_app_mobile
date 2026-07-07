@@ -46,6 +46,12 @@ type Props = {
    */
   colorScheme?: ServicesGridItemColorScheme | Array<ServicesGridItemColorScheme>
   detailsRouteName: RoutesAcceptingParams<Pick<Service, 'id' | 'title'>>
+  extraItems?: Array<
+    Service & {
+      colorScheme?: keyof Theme['color']['serviceGrid']
+      detailsRouteName?: RoutesAcceptingParams<Pick<Service, 'id' | 'title'>>
+    }
+  >
   source: ServiceModuleSource
 }
 
@@ -53,6 +59,7 @@ export const ServicesGrid = ({
   detailsRouteName,
   source,
   colorScheme,
+  extraItems,
 }: Props) => {
   const {
     data: serviceMaps,
@@ -64,8 +71,12 @@ export const ServicesGrid = ({
     | undefined
     | Array<Service & {colorScheme?: keyof Theme['color']['serviceGrid']}>
   >(
-    () => getServiceGridItemColors(serviceMaps, colorScheme),
-    [serviceMaps, colorScheme],
+    () =>
+      getServiceGridItemColors(
+        [...(serviceMaps ?? []), ...(extraItems ?? [])],
+        colorScheme,
+      ),
+    [serviceMaps, colorScheme, extraItems],
   )
 
   if (isLoading) {
@@ -84,8 +95,8 @@ export const ServicesGrid = ({
       listKey="serviceMaps"
       renderItem={({item}) => (
         <ServicesGridItem
-          {...item}
           detailsRouteName={detailsRouteName}
+          {...item}
         />
       )}
     />
