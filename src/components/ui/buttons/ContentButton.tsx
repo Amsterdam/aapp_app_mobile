@@ -87,7 +87,7 @@ export const ContentButton = ({
             variant="small">
             {title}
           </Phrase>
-          {!!includeDate && !tag && (
+          {!!includeDate && !!meta && !tag && (
             <Phrase
               accessible={false}
               color="secondary"
