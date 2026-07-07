@@ -27,13 +27,13 @@ export const WasteGuideRecyclePointTopTaskButton = ({recyclePoint}: Props) => {
       text={
         <Column gutter="no">
           {!!address.cityDistrict && (
-            <Phrase>
+            <Phrase accessible={false}>
               {address.cityDistrict}
               {commercialWaste ? '' : ' (geen bedrijfsafval)'}
             </Phrase>
           )}
-          <Phrase>{getAddressLine1(address)}</Phrase>
-          <Phrase>{getAddressLine2(address)}</Phrase>
+          <Phrase accessible={false}>{getAddressLine1(address)}</Phrase>
+          <Phrase accessible={false}>{getAddressLine2(address)}</Phrase>
         </Column>
       }
       title={name}

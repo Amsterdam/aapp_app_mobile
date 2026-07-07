@@ -71,7 +71,7 @@ export const WasteGuideCalendarListView = ({calendar}: Props) => {
           <Title
             accessibilityLabel={`Ophaaldagen voor ${title}`}
             level="h2"
-            text={title.charAt(0).toUpperCase() + title.slice(1)}
+            text={capitalizeString(title)}
           />
         </Box>
       )}

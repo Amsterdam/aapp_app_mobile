@@ -32,6 +32,7 @@ export const ModuleTitle = ({moduleSlug, noNavigate, testID}: Props) => {
       testID={testID}>
       <Row gutter="xs">
         <Title
+          accessible={false}
           level="h2"
           text={title}
         />

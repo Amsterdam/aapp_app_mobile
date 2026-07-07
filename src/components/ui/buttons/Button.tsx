@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react'
-import {FlexStyle, GestureResponderEvent, StyleSheet} from 'react-native'
+import {FlexStyle, GestureResponderEvent, StyleSheet, Text} from 'react-native'
 import type {SpacingTokens} from '@/themes/tokens/size'
 import {ButtonIcon} from '@/components/ui/buttons/ButtonIcon'
 import {
@@ -9,7 +9,6 @@ import {
 import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
 import {type IconProps} from '@/components/ui/media/Icon'
-import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
@@ -118,13 +117,14 @@ export const Button = ({
           />
         )}
         {!!label && (
-          <AccessibleText
+          <Text
+            accessible={false}
             ellipsizeMode={ellipsizeMode}
             numberOfLines={numberOfLines}
             style={styles.label}
             testID={`${testID}Label`}>
             {label}
-          </AccessibleText>
+          </Text>
         )}
       </Row>
     </PressableBase>

@@ -58,6 +58,7 @@ export const Tabs = ({children, grow = 0, testID}: TabsProps) => {
               style={[styles.tab, activeTab === index && styles.tabActive]}
               testID={`${testID}Tab${child.props.label}Button`}>
               <Phrase
+                accessible={false}
                 color="link"
                 emphasis={activeTab === index ? 'strong' : 'default'}
                 textAlign="center">
