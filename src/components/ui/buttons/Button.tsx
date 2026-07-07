@@ -118,6 +118,7 @@ export const Button = ({
         )}
         {!!label && (
           <Text
+            accessible={false}
             ellipsizeMode={ellipsizeMode}
             numberOfLines={numberOfLines}
             style={styles.label}
