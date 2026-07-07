@@ -2,6 +2,7 @@ import {Screen} from '@/components/features/screen/Screen'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {DesignSystemSvgIcons} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {PrideRouteName} from '@/modules/pride/routes'
@@ -9,6 +10,15 @@ import {RedirectKey} from '@/modules/redirects/types'
 import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
 import {ServiceModuleSource} from '@/modules/service/types'
 import {Survey} from '@/modules/survey/exports/Survey'
+
+const extraItems = [
+  {
+    icon: DesignSystemSvgIcons.calendar.default.path,
+    id: 'pride-events',
+    title: 'Evenementen',
+    detailsRouteName: PrideRouteName.events,
+  } as const,
+]
 
 export const PrideOverviewScreen = () => (
   <Screen
@@ -21,6 +31,7 @@ export const PrideOverviewScreen = () => (
         <ServicesGrid
           colorScheme={['pride', 'default']}
           detailsRouteName={PrideRouteName.details}
+          extraItems={extraItems}
           source={ServiceModuleSource.pride}
         />
         <Box

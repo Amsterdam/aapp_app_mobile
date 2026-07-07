@@ -1,7 +1,6 @@
 import {useMemo} from 'react'
 import {SimpleGrid} from 'react-native-super-grid'
 import type {RoutesAcceptingParams} from '@/app/navigation/types'
-import type {Service, ServiceModuleSource} from '@/modules/service/types'
 import type {Theme} from '@/themes/themes'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -10,6 +9,7 @@ import {
   type ServicesGridItemColorScheme,
 } from '@/modules/service/components/ServicesGridItem'
 import {useServiceOverviewQuery} from '@/modules/service/service'
+import {Service, ServiceModuleSource} from '@/modules/service/types'
 import {getServiceGridItemColors} from '@/modules/service/utils/getServiceGridItemColors'
 
 const MIN_WIDTH = 150
@@ -46,6 +46,7 @@ type Props = {
    */
   colorScheme?: ServicesGridItemColorScheme | Array<ServicesGridItemColorScheme>
   detailsRouteName: RoutesAcceptingParams<Pick<Service, 'id' | 'title'>>
+  extraItems?: Array<Service & Pick<Props, 'detailsRouteName'>>
   source: ServiceModuleSource
 }
 
@@ -53,6 +54,7 @@ export const ServicesGrid = ({
   detailsRouteName,
   source,
   colorScheme,
+  extraItems,
 }: Props) => {
   const {
     data: serviceMaps,
@@ -60,32 +62,36 @@ export const ServicesGrid = ({
     isError,
   } = useServiceOverviewQuery(source)
 
-  const coloredServiceMaps = useMemo<
+  const coloredGridItems = useMemo<
     | undefined
     | Array<Service & {colorScheme?: keyof Theme['color']['serviceGrid']}>
   >(
-    () => getServiceGridItemColors(serviceMaps, colorScheme),
-    [serviceMaps, colorScheme],
+    () =>
+      getServiceGridItemColors(
+        [...(serviceMaps ?? []), ...(extraItems ?? [])],
+        colorScheme,
+      ),
+    [serviceMaps, colorScheme, extraItems],
   )
 
   if (isLoading) {
     return <PleaseWait testID="ServiceListPleaseWait" />
   }
 
-  if (!coloredServiceMaps || isError) {
+  if (!coloredGridItems?.length || isError) {
     return <SomethingWentWrong testID="ServiceListSomethingWentWrong" />
   }
 
   return (
     <SimpleGrid
-      data={coloredServiceMaps}
+      data={coloredGridItems}
       itemDimension={MIN_WIDTH}
       keyExtractor={item => item.id}
-      listKey="serviceMaps"
+      listKey="servicesGrid"
       renderItem={({item}) => (
         <ServicesGridItem
-          {...item}
           detailsRouteName={detailsRouteName}
+          {...item}
         />
       )}
     />

@@ -1,6 +1,7 @@
 import type {StackNavigationRoutes} from '@/app/navigation/types'
 import {type ModuleStackParams, PrideRouteName} from '@/modules/pride/routes'
 import {PrideDetailsScreen} from '@/modules/pride/screens/PrideDetails.screen'
+import {PrideEventsScreen} from '@/modules/pride/screens/PrideEvents.screen'
 import {PrideOverviewScreen} from '@/modules/pride/screens/PrideOverview.screen'
 
 export const screenConfig: StackNavigationRoutes<
@@ -19,6 +20,13 @@ export const screenConfig: StackNavigationRoutes<
     name: PrideRouteName.details,
     options: {
       headerShown: false,
+    },
+  },
+  [PrideRouteName.events]: {
+    component: PrideEventsScreen,
+    name: PrideRouteName.events,
+    options: {
+      headerTitle: 'Pride evenementen',
     },
   },
 }
