@@ -2,7 +2,6 @@ import {useFormContext} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import type {PrideEventFormValues} from '@/modules/pride/types'
-import {BottomSheetCloseButton} from '@/components/features/bottom-sheet/BottomSheetCloseButton'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -35,9 +34,13 @@ export const PrideEventDateBottomSheet = () => {
     new Set(data?.flatMap(event => [event.date_start, event.date_end]) ?? []),
   )
     .filter(Boolean)
-    .map(date => dayjs(date).unix()) ?? [dayjs().unix()]
-  const firstDate = dayjsFromUnix(Math.min(...dates))
-  const lastDate = dayjsFromUnix(Math.max(...dates))
+    .map(date => dayjs(date).unix())
+  const firstDate = dayjsFromUnix(
+    dates.length ? Math.min(...dates) : dayjs().unix(),
+  )
+  const lastDate = dayjsFromUnix(
+    dates.length ? Math.max(...dates) : dayjs().unix(),
+  )
   const {watch, setValue} = useFormContext<PrideEventFormValues>()
   const selectedDate = watch('date')
   const customDate = watch('customDate')
@@ -53,7 +56,6 @@ export const PrideEventDateBottomSheet = () => {
             text="Kies een datum"
             textAlign="center"
           />
-          <BottomSheetCloseButton testID="PrideEventDateBottomSheetCloseButton" />
         </Row>
         <RadioGroupControlled
           name="date"

@@ -1,5 +1,4 @@
 import {useMemo} from 'react'
-import {BottomSheetCloseButton} from '@/components/features/bottom-sheet/BottomSheetCloseButton'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -17,9 +16,9 @@ export const PrideEventTypeBottomSheet = () => {
   const options: RadioGroupOption<string, string>[] = useMemo(
     () => [
       {label: ALL_TYPES_LABEL, value: ALL_TYPES_LABEL},
-      ...(Array.from(new Set(data?.map(event => event.type) ?? [])).map(
+      ...Array.from(new Set(data?.map(event => event.type) ?? [])).map(
         type => ({label: type, value: type}),
-      ) as {label: string; value: string}[]),
+      ),
     ],
     [data],
   )
@@ -34,7 +33,6 @@ export const PrideEventTypeBottomSheet = () => {
             text="Kies een type"
             textAlign="center"
           />
-          <BottomSheetCloseButton testID="PrideEventTypeBottomSheetCloseButton" />
         </Row>
         <RadioGroupControlled
           name="type"

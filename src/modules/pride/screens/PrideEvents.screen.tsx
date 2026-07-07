@@ -20,7 +20,8 @@ export const PrideEventsScreen = () => {
       <Screen
         bottomSheet={<PrideEventsBottomSheet />}
         scroll={false}
-        testID="PrideEventsScreen">
+        testID="PrideEventsScreen"
+        withBottomInset={false}>
         <PrideEventsList />
       </Screen>
     </FormProvider>

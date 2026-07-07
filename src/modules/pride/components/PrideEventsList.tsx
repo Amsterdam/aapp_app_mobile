@@ -87,6 +87,7 @@ export const PrideEventsList = () => {
             <SomethingWentWrong testID="PrideEventsListSomethingWentWrong" />
           ) : undefined
         }
+        ListFooterComponent={<Gutter height="xl" />}
         renderItem={({item}) => (
           <ContentButton
             icon={{name: 'calendar'}}
