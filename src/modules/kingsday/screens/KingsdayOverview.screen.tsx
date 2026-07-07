@@ -26,7 +26,7 @@ export const KingsdayOverviewScreen = () => (
           </Column>
         </Box>
         <ServicesGrid
-          colors={{background: 'kingsday', label: 'default'}}
+          colorScheme="kingsday"
           detailsRouteName={KingsdayRouteName.details}
           source={ServiceModuleSource.kingsday}
         />

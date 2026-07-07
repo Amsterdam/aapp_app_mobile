@@ -1,4 +1,3 @@
-import type {ComponentProps} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -11,11 +10,6 @@ import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
 import {ServiceModuleSource} from '@/modules/service/types'
 import {Survey} from '@/modules/survey/exports/Survey'
 
-const GRID_ITEM_COLORS = [
-  {background: '#E50082', label: 'inverse'},
-  {background: 'primary', label: 'inverse'},
-] satisfies ComponentProps<typeof ServicesGrid>['colors']
-
 export const PrideOverviewScreen = () => (
   <Screen
     keyboardAware
@@ -25,7 +19,7 @@ export const PrideOverviewScreen = () => (
       insetVertical="md">
       <Column gutter="lg">
         <ServicesGrid
-          colors={GRID_ITEM_COLORS}
+          colorScheme={['pride', 'default']}
           detailsRouteName={PrideRouteName.details}
           source={ServiceModuleSource.pride}
         />

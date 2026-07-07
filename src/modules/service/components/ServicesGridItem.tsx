@@ -10,13 +10,20 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useThemable} from '@/themes/useThemable'
 
-export type ServicesGridItemColors = {
-  background: keyof Theme['color']['backgroundArea'] | `#${string}`
-  label: keyof Theme['color']['text']
-}
+export type ServicesGridItemColorScheme = keyof Theme['color']['serviceGrid']
+
 type Props = Service & {
-  colors?: ServicesGridItemColors
+  colorScheme?: ServicesGridItemColorScheme
   detailsRouteName: RoutesAcceptingParams<Pick<Service, 'id' | 'title'>>
+}
+
+const CONTENT_COLOR_MAP: Record<
+  ServicesGridItemColorScheme,
+  keyof Theme['color']['text']
+> = {
+  default: 'inverse',
+  kingsday: 'default',
+  pride: 'inverse',
 }
 
 export const ServicesGridItem = ({
@@ -24,9 +31,9 @@ export const ServicesGridItem = ({
   title,
   id,
   detailsRouteName,
-  colors = {background: 'primary', label: 'inverse'},
+  colorScheme = 'default',
 }: Props) => {
-  const styles = useThemable(createStyles(colors.background))
+  const styles = useThemable(createStyles(colorScheme))
   const {navigate} = useNavigation()
 
   return (
@@ -38,12 +45,12 @@ export const ServicesGridItem = ({
           gutter="sm"
           halign="center">
           <Icon
-            color={colors.label}
+            color={CONTENT_COLOR_MAP[colorScheme]}
             path={icon}
             size="xll"
           />
           <Phrase
-            color={colors.label}
+            color={CONTENT_COLOR_MAP[colorScheme]}
             textAlign="center"
             variant="body">
             {title}
@@ -55,7 +62,7 @@ export const ServicesGridItem = ({
 }
 
 const createStyles =
-  (backgroundColor: ServicesGridItemColors['background']) => (theme: Theme) =>
+  (color: keyof Theme['color']['serviceGrid']) => (theme: Theme) =>
     StyleSheet.create({
       item: {
         aspectRatio: 1,
@@ -63,11 +70,6 @@ const createStyles =
         padding: theme.size.spacing.sm,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:
-          backgroundColor in theme.color.backgroundArea
-            ? theme.color.backgroundArea[
-                backgroundColor as keyof Theme['color']['backgroundArea']
-              ]
-            : backgroundColor,
+        backgroundColor: theme.color.serviceGrid[color].background,
       },
     })
