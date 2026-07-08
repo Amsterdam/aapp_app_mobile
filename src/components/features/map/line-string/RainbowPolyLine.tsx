@@ -20,22 +20,18 @@ export const RainbowPolyLine = ({
       <Polyline
         coordinates={calculateOffsetLineString(
           latLngCoordinates,
-          2 * offsetSize,
+          1.5 * offsetSize,
         )}
-        onPress={onPress}
-        strokeColor={'#6F00E6'}
-        strokeWidth={strokeWidth}
-        tappable
-      />
-      <Polyline
-        coordinates={calculateOffsetLineString(latLngCoordinates, offsetSize)}
         onPress={onPress}
         strokeColor={'#ff0000'}
         strokeWidth={strokeWidth}
         tappable
       />
       <Polyline
-        coordinates={latLngCoordinates}
+        coordinates={calculateOffsetLineString(
+          latLngCoordinates,
+          0.5 * offsetSize,
+        )}
         onPress={onPress}
         strokeColor={'#ffc400'}
         strokeWidth={strokeWidth}
@@ -44,7 +40,7 @@ export const RainbowPolyLine = ({
       <Polyline
         coordinates={calculateOffsetLineString(
           latLngCoordinates,
-          -1 * offsetSize,
+          -0.5 * offsetSize,
         )}
         onPress={onPress}
         strokeColor={'#00bf07'}
@@ -54,7 +50,7 @@ export const RainbowPolyLine = ({
       <Polyline
         coordinates={calculateOffsetLineString(
           latLngCoordinates,
-          -2 * offsetSize,
+          -1.5 * offsetSize,
         )}
         onPress={onPress}
         strokeColor={'#004ffb'}
