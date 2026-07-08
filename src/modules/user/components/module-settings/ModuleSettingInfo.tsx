@@ -1,4 +1,6 @@
 import type {TestProps} from '@/components/ui/types'
+import type {Theme} from '@/themes/themes'
+import type {ReactNode} from 'react'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -6,33 +8,37 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {InactiveModuleMessage} from '@/modules/user/components/module-settings/InactiveModuleMessage'
 
-type ModuleSettingInfoProps = {
+export type ModuleSettingInfoProps = {
   description: string
-  iconPath: string
   isInactive?: boolean
   title: string
-} & TestProps
+  titleColor?: keyof Theme['color']['text']
+} & Or<{iconPath?: string}, {Icon?: ReactNode}> &
+  TestProps
 
 export const ModuleSettingInfo = ({
   description,
   iconPath,
   isInactive = false,
+  titleColor,
+  Icon: CustomIcon,
   testID,
   title,
 }: ModuleSettingInfoProps) => {
-  const color = isInactive ? 'secondary' : undefined
+  const color = isInactive ? 'secondary' : titleColor
 
   return (
     <Column gutter="sm">
       <Row gutter="sm">
-        {!!iconPath && (
-          <Icon
-            color={color}
-            path={iconPath}
-            size="lg"
-            testID={`${testID}Icon`}
-          />
-        )}
+        {CustomIcon ||
+          (!!iconPath && (
+            <Icon
+              color={color}
+              path={iconPath}
+              size="lgx"
+              testID={`${testID}Icon`}
+            />
+          ))}
         <Title
           color={color}
           level="h5"
