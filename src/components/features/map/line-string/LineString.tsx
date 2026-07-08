@@ -47,7 +47,6 @@ export const LineString = ({
           latLngCoordinates={latLngCoordinates}
           onPress={() => onPress(id)}
           region={region}
-          strokeWidth={strokeWidth}
         />
       ) : (
         <Polyline
