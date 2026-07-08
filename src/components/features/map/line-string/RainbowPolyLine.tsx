@@ -5,7 +5,6 @@ type Props = {
   latLngCoordinates: LatLng[]
   onPress: () => void
   region: Region | undefined
-  strokeWidth?: number
 }
 const strokeWidth = 3
 

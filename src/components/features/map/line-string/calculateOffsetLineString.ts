@@ -12,44 +12,46 @@ export const calculateOffsetLineString = (
   }
 
   const result: LatLng[] = []
-  const [startCoord, startNextCoord] = coordinates
+  const [startCoordinate, startNextCoordinate] = coordinates
 
-  if (!startCoord || !startNextCoord) {
+  if (!startCoordinate || !startNextCoordinate) {
     return coordinates
   }
 
-  const startAngle = calculateAngle(startNextCoord, startCoord)
+  const startAngle = calculateAngle(startNextCoordinate, startCoordinate)
 
-  result.push(getOffsetCoordinate(startCoord, startAngle, offset))
+  result.push(getOffsetCoordinate(startCoordinate, startAngle, offset))
 
   for (let i = 1; i < coordinates.length; i++) {
-    const previous = coordinates[i - 1]
-    const coord = coordinates[i]
-    const nextCoord = coordinates[i + 1]
+    const previousCoordinate = coordinates[i - 1]
+    const coordinate = coordinates[i]
+    const nextCoordinate = coordinates[i + 1]
 
-    if (nextCoord) {
-      const previousAngle = calculateAngle(coord, previous)
-      const angle = calculateAngle(nextCoord, coord)
+    if (nextCoordinate) {
+      const previousAngle = calculateAngle(coordinate, previousCoordinate)
+      const angle = calculateAngle(nextCoordinate, coordinate)
 
-      const previousCoordinate = getOffsetCoordinate(
-        coord,
+      const previousEndCoordinate = getOffsetCoordinate(
+        coordinate,
         previousAngle,
         offset,
       )
-      const nextCoordinate = getOffsetCoordinate(coord, angle, offset)
+      const nextStartCoordinate = getOffsetCoordinate(coordinate, angle, offset)
 
       const intersectionCoordinate = getLineIntersection(
-        previousCoordinate,
+        previousEndCoordinate,
         previousAngle,
-        nextCoordinate,
+        nextStartCoordinate,
         angle,
       )
 
       result.push(
         intersectionCoordinate || {
-          latitude: (previousCoordinate.latitude + nextCoordinate.latitude) / 2,
+          latitude:
+            (previousEndCoordinate.latitude + nextStartCoordinate.latitude) / 2,
           longitude:
-            (previousCoordinate.longitude + nextCoordinate.longitude) / 2,
+            (previousEndCoordinate.longitude + nextStartCoordinate.longitude) /
+            2,
         },
       )
     }
