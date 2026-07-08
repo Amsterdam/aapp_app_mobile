@@ -33,6 +33,7 @@ export const Modules = ({modules}: Props) => {
           status,
           title,
           moduleHighlightColor,
+          moduleTitleColor,
         }) => (
           <ModuleButton
             background={moduleHighlightColor}
@@ -42,6 +43,7 @@ export const Modules = ({modules}: Props) => {
             label={title}
             slug={slug}
             testID={`Home${pascalCase(slug)}Module`}
+            titleColor={moduleTitleColor}
             variant={requiresAuthorization ? 'primary' : 'tertiary'}
           />
         ),

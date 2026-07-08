@@ -1,4 +1,4 @@
-import {useMemo} from 'react'
+import {useMemo, type ReactNode} from 'react'
 import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Badge} from '@/components/ui/feedback/Badge'
@@ -7,6 +7,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {moduleIcons} from '@/modules/generated/moduleIcons.generated'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {useTheme} from '@/themes/useTheme'
@@ -15,12 +16,16 @@ type ModuleButtonContentProps = {
   disabled: boolean | undefined
   iconPath?: string
   label: string
+  titleColor?: keyof Theme['color']['text']
   variant: ButtonVariants
-} & TestProps
+} & Or<{iconPath?: string}, {Icon?: ReactNode}> &
+  TestProps
 
 const ModuleButtonContent = ({
   disabled,
   iconPath,
+  Icon: CustomIcon,
+  titleColor,
   label,
   testID,
   variant,
@@ -34,20 +39,25 @@ const ModuleButtonContent = ({
       return 'inverse'
     }
 
+    if (titleColor) {
+      return titleColor
+    }
+
     return 'default'
-  }, [disabled, variant])
+  }, [disabled, variant, titleColor])
 
   return (
     <Row gutter="sm">
       <Row gutter="md">
-        {!!iconPath && (
-          <Icon
-            color={color}
-            path={iconPath}
-            size="lgx"
-            testID={`${testID}Icon`}
-          />
-        )}
+        {CustomIcon ||
+          (!!iconPath && (
+            <Icon
+              color={color}
+              path={iconPath}
+              size="lgx"
+              testID={`${testID}Icon`}
+            />
+          ))}
         <Title
           accessible={false}
           color={color}
@@ -76,11 +86,13 @@ type ModuleButtonProps = {
   iconPath?: string
   label: string
   slug: ModuleSlug
+  titleColor?: keyof Theme['color']['text']
   variant?: ButtonVariants
 } & TestProps
 
 export const ModuleButton = ({
   background,
+  titleColor,
   disabled,
   iconPath,
   label,
@@ -89,8 +101,13 @@ export const ModuleButton = ({
   variant = 'tertiary',
 }: ModuleButtonProps) => {
   const navigation = useNavigation<HomeRouteName>()
+  const CustomIcon = moduleIcons[slug as keyof typeof moduleIcons]
 
   const {color} = useTheme()
+
+  const iconProps = CustomIcon
+    ? {Icon: <CustomIcon />}
+    : ({iconPath} satisfies Partial<ModuleButtonContentProps>)
 
   return (
     <Pressable
@@ -105,10 +122,11 @@ export const ModuleButton = ({
       variant={variant}>
       <ModuleButtonContent
         disabled={disabled}
-        iconPath={iconPath}
         label={label}
         testID={testID}
+        titleColor={titleColor}
         variant={variant}
+        {...iconProps}
       />
     </Pressable>
   )

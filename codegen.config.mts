@@ -153,4 +153,19 @@ export const config: CodeGenConfig = [
       },
     ],
   },
+  {
+    inputDir,
+    match: 'components/ModuleIcon.tsx',
+    output: 'src/modules/generated/moduleIcons.generated.ts',
+    imports: [
+      {
+        import: 'ModuleIcon',
+        exportName: 'moduleIcons',
+        optional: true,
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies: defaultSatisfies,
+      },
+    ],
+  },
 ]

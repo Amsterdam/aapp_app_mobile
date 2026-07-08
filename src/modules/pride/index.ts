@@ -7,4 +7,5 @@ export const prideModule = createClientModule({
     [ModuleSlug.pride]: ModuleSlug.pride,
   },
   slug: ModuleSlug.pride,
+  moduleTitleColor: 'cityPass',
 })
