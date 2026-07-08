@@ -3,12 +3,16 @@ import {Switch} from '@/components/ui/forms/Switch'
 import {type TestProps} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {moduleIcons} from '@/modules/generated/moduleIcons.generated'
 import {Module, ModuleStatus} from '@/modules/types'
 import {
   ModuleSettingBox,
   type ModuleSettingBoxProps,
 } from '@/modules/user/components/module-settings/ModuleSettingBox'
-import {ModuleSettingInfo} from '@/modules/user/components/module-settings/ModuleSettingInfo'
+import {
+  ModuleSettingInfo,
+  type ModuleSettingInfoProps,
+} from '@/modules/user/components/module-settings/ModuleSettingInfo'
 import {useLogoutWithAlert} from '@/modules/user/hooks/module-settings/useLogoutWithAlert'
 import {
   useAddDisabledPushModuleMutation,
@@ -24,7 +28,7 @@ type Props = {
 } & TestProps
 
 export const ModuleSetting = ({
-  module: {description, iconPath, slug, status, title},
+  module: {description, iconPath, slug, status, title, moduleTitleColor},
   testID,
 }: Props) => {
   const dispatch = useDispatch()
@@ -32,6 +36,11 @@ export const ModuleSetting = ({
   const logoutWithAlert = useLogoutWithAlert(slug, title)
 
   const isModuleActive = status === ModuleStatus.active
+  const CustomIcon = moduleIcons[slug as keyof typeof moduleIcons]
+
+  const iconProps = CustomIcon
+    ? {Icon: <CustomIcon />}
+    : ({iconPath} satisfies Partial<ModuleSettingInfoProps>)
 
   const isDisabled = disabledModules?.includes(slug)
 
@@ -66,10 +75,10 @@ export const ModuleSetting = ({
       <ModuleSettingBox slug={slug}>
         <ModuleSettingInfo
           description={description}
-          iconPath={iconPath}
           isInactive
           testID={`${testID}Content`}
           title={title}
+          {...iconProps}
         />
       </ModuleSettingBox>
     )
@@ -81,9 +90,10 @@ export const ModuleSetting = ({
       label={
         <ModuleSettingInfo
           description={description}
-          iconPath={iconPath}
           testID={`${testID}Content`}
           title={title}
+          titleColor={moduleTitleColor}
+          {...iconProps}
         />
       }
       onChange={onChange}
