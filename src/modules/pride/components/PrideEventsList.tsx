@@ -9,6 +9,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {
   ALL_TYPES_LABEL,
   ALL_DATES_LABEL,
@@ -17,6 +18,7 @@ import {
   CHOOSE_DATE_LABEL,
   THIS_WEEKEND_LABEL,
 } from '@/modules/pride/constants'
+import {PrideRouteName} from '@/modules/pride/routes'
 import {usePrideEventsQuery} from '@/modules/pride/service'
 import {eventIsOnDay} from '@/modules/pride/utils/eventIsOnDay'
 import {eventIsThisWeekend} from '@/modules/pride/utils/eventIsThisWeekend'
@@ -25,6 +27,7 @@ import {dayjs} from '@/utils/datetime/dayjs'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
 export const PrideEventsList = () => {
+  const {navigate} = useNavigation()
   const {watch} = useFormContext<PrideEventFormValues>()
   const {data, isLoading, isError} = usePrideEventsQuery()
   const selectedType = watch('type')
@@ -92,7 +95,7 @@ export const PrideEventsList = () => {
           <ContentButton
             icon={{name: 'calendar'}}
             meta={formatMeta(item)}
-            onPress={() => null}
+            onPress={() => navigate(PrideRouteName.eventDetails, {id: item.id})}
             testID={`PrideEvent${item.id}Button`}
             title={item.title}
           />
