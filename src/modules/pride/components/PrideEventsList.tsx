@@ -18,8 +18,8 @@ import {
   CHOOSE_DATE_LABEL,
   THIS_WEEKEND_LABEL,
 } from '@/modules/pride/constants'
+import {usePrideEvents} from '@/modules/pride/hooks/usePrideEvents'
 import {PrideRouteName} from '@/modules/pride/routes'
-import {usePrideEventsQuery} from '@/modules/pride/service'
 import {eventIsOnDay} from '@/modules/pride/utils/eventIsOnDay'
 import {eventIsThisWeekend} from '@/modules/pride/utils/eventIsThisWeekend'
 import {formatMeta} from '@/modules/pride/utils/formatMeta'
@@ -29,18 +29,18 @@ import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 export const PrideEventsList = () => {
   const {navigate} = useNavigation()
   const {watch} = useFormContext<PrideEventFormValues>()
-  const {data, isLoading, isError} = usePrideEventsQuery()
+  const {events, isLoading, isError} = usePrideEvents()
   const selectedType = watch('type')
   const selectedDate = watch('date')
   const customDate = watch('customDate')
   const filteredData = useMemo(() => {
-    if (!data) {
+    if (!events) {
       return []
     }
 
     const today = dayjs().set('hour', 5)
 
-    return data.filter(event => {
+    return events.filter(event => {
       const matchesType =
         selectedType === ALL_TYPES_LABEL || event.type === selectedType
       const matchesDate =
@@ -54,7 +54,7 @@ export const PrideEventsList = () => {
 
       return matchesType && matchesDate
     })
-  }, [data, selectedType, selectedDate, customDate])
+  }, [events, selectedType, selectedDate, customDate])
 
   return (
     <>
