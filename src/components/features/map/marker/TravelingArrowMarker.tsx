@@ -9,6 +9,7 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated'
 import {runOnJS} from 'react-native-worklets'
+import type {IconSize} from '@/components/ui/types'
 import {getPositionAlongPolyline} from '@/components/features/map/utils/getPositionAlongPolyline'
 import {Icon} from '@/components/ui/media/Icon'
 
@@ -17,6 +18,7 @@ type Props = {
   enableAnimation?: boolean
   fadeDuration: number
   phase: number
+  size?: keyof typeof IconSize
   totalLength: number
   travelDuration: number
 }
@@ -28,6 +30,7 @@ export const TravelingArrowMarker = ({
   phase,
   totalLength,
   enableAnimation = true,
+  size,
 }: Props) => {
   const progress = useSharedValue(phase)
   const opacity = useSharedValue(1)
@@ -111,7 +114,10 @@ export const TravelingArrowMarker = ({
       tracksViewChanges
       zIndex={0}>
       <Animated.View style={animatedStyle}>
-        <Icon name="chevron-bold-down" />
+        <Icon
+          name="chevron-bold-down"
+          size={size}
+        />
       </Animated.View>
     </Marker>
   )

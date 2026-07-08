@@ -80,11 +80,17 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
             id={feature.id ?? `feature-${index}`}
             key={feature.id ?? `feature-${index}`}
             onPress={onMapElementPress}
+            region={region}
             strokeColor={feature.properties.stroke as string | null}
             strokeWidth={
               feature.properties['stroke-width']
                 ? Number(feature.properties['stroke-width'])
                 : null
+            }
+            type={
+              feature.properties.aapp_icon_type === 'canal_parade'
+                ? 'rainbow'
+                : 'default'
             }
           />
         ))}

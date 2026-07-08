@@ -1,10 +1,12 @@
 import {useMemo} from 'react'
 import {type LatLng} from 'react-native-maps'
+import type {IconSize} from '@/components/ui/types'
 import {TravelingArrowMarker} from '@/components/features/map/marker/TravelingArrowMarker'
 import {distanceBetween} from '@/components/features/map/utils/getArrowsAlongPolyLine'
 
 type Props = {
   coordinates: LatLng[]
+  size?: keyof typeof IconSize
 }
 
 const ARROW_SPACING_METERS = 400 // distance between arrows
@@ -22,7 +24,7 @@ const getTotalLength = (coords: LatLng[]): number =>
     return total + distanceBetween(coord, next)
   }, 0)
 
-export const ArrowMarkers = ({coordinates}: Props) => {
+export const ArrowMarkers = ({coordinates, size}: Props) => {
   const totalLength = useMemo(() => getTotalLength(coordinates), [coordinates])
   const arrowCount = Math.max(1, Math.round(totalLength / ARROW_SPACING_METERS))
   const duration = (totalLength / METERS_PER_SECOND) * 1000 // ms
@@ -38,6 +40,7 @@ export const ArrowMarkers = ({coordinates}: Props) => {
       fadeDuration={FADE_DURATION}
       key={i}
       phase={(i + 0.5) / arrowCount}
+      size={size}
       totalLength={totalLength}
       travelDuration={duration}
     />
