@@ -9,18 +9,18 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {ALL_TYPES_LABEL} from '@/modules/pride/constants'
-import {usePrideEventsQuery} from '@/modules/pride/service'
+import {usePrideEvents} from '@/modules/pride/hooks/usePrideEvents'
 
 export const PrideEventTypeBottomSheet = () => {
-  const {data, isLoading} = usePrideEventsQuery()
+  const {events, isLoading} = usePrideEvents()
   const options: RadioGroupOption<string, string>[] = useMemo(
     () => [
       {label: ALL_TYPES_LABEL, value: ALL_TYPES_LABEL},
-      ...Array.from(new Set(data?.map(event => event.type) ?? [])).map(
+      ...Array.from(new Set(events?.map(event => event.type) ?? [])).map(
         type => ({label: type, value: type}),
       ),
     ],
-    [data],
+    [events],
   )
   const {close} = useBottomSheet()
 

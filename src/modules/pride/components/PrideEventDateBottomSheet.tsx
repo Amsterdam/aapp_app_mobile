@@ -17,7 +17,7 @@ import {
   TODAY_LABEL,
   TOMORROW_LABEL,
 } from '@/modules/pride/constants'
-import {usePrideEventsQuery} from '@/modules/pride/service'
+import {usePrideEvents} from '@/modules/pride/hooks/usePrideEvents'
 import {dayjs, dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 const options = [
@@ -29,9 +29,9 @@ const options = [
 ]
 
 export const PrideEventDateBottomSheet = () => {
-  const {data, isLoading} = usePrideEventsQuery()
+  const {events, isLoading} = usePrideEvents()
   const dates = Array.from(
-    new Set(data?.flatMap(event => [event.date_start, event.date_end]) ?? []),
+    new Set(events?.flatMap(event => [event.date_start, event.date_end]) ?? []),
   )
     .filter(Boolean)
     .map(date => dayjs(date).unix())
