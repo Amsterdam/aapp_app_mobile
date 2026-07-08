@@ -1,6 +1,6 @@
 import Svg, {Path} from 'react-native-svg'
 
-export const PrideModuleIcon = () => (
+export const ModuleIcon = () => (
   <Svg
     fill="none"
     height="28"

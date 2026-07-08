@@ -35,6 +35,10 @@ export type CoreModuleConfig<Slug extends ModuleSlug = ModuleSlug> = {
    */
   moduleHighlightColor?: keyof Theme['color']['module']['highlight']
   /**
+   * The title color for the module.
+   */
+  moduleTitleColor?: keyof Theme['color']['text']
+  /**
    * The module’s route name.
    * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
    */
