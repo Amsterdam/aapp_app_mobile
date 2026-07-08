@@ -1,4 +1,11 @@
-import Svg, {Circle, G, Path} from 'react-native-svg'
+import Svg, {
+  Circle,
+  Defs,
+  G,
+  LinearGradient,
+  Path,
+  Stop,
+} from 'react-native-svg'
 import type {TestProps} from '@/components/ui/types'
 import type {ComponentType, PropsWithChildren} from 'react'
 import {themes} from '@/themes/themes'
@@ -46,16 +53,52 @@ export const CustomMarkerIcon = ({
   offset = DEFAULT_OFFSET,
 }: Props) => {
   const center = size / ((size / PATH_SIZE) * 2)
+  const isRainbowCircle = circleColor === 'rainbow'
 
   return (
     <Wrapper
       size={size}
       testID={testID}>
+      <Defs>
+        <LinearGradient
+          id="markerCircleRainbowGradient"
+          x1="0%"
+          x2="100%"
+          y1="0%"
+          y2="100%">
+          <Stop
+            offset="0%"
+            stopColor="#ff0000"
+          />
+          <Stop
+            offset="20%"
+            stopColor="#ff0000"
+          />
+          <Stop
+            offset="40%"
+            stopColor="#ffc400"
+          />
+          <Stop
+            offset="60%"
+            stopColor="#00bf07"
+          />
+          <Stop
+            offset="80%"
+            stopColor="#004ffb"
+          />
+          <Stop
+            offset="100%"
+            stopColor="#004ffb"
+          />
+        </LinearGradient>
+      </Defs>
       <G transform={`translate(${offset.x}, ${offset.y})`}>
         <Circle
           cx={center}
           cy={center}
-          fill={circleColor}
+          fill={
+            isRainbowCircle ? 'url(#markerCircleRainbowGradient)' : circleColor
+          }
           r={center}
         />
         <Path

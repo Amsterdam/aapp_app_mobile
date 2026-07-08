@@ -1,6 +1,7 @@
 import type {
   ServiceMapResponse,
   ServiceMapResponseFilter,
+  ServiceMapResponseIcon,
 } from '@/modules/service/types'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Row} from '@/components/ui/layout/Row'
@@ -21,7 +22,14 @@ export const ServiceMapLayerSwitch = ({
   isActive,
 }: Props) => {
   const {icon_label, label} = layer
-  const icon = icon_label ? icons?.[icon_label] : undefined
+  const icon = icon_label
+    ? icon_label === 'canal_parade'
+      ? ({
+          ...icons?.[icon_label],
+          circle_color: 'rainbow',
+        } as ServiceMapResponseIcon)
+      : icons?.[icon_label]
+    : undefined
 
   return (
     <Switch
