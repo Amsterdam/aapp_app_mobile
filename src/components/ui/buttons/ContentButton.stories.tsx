@@ -58,3 +58,20 @@ export const WithIcon: Story = {
     },
   },
 }
+
+export const WithColors: Story = {
+  args: {
+    images: undefined,
+    icon: {
+      name: 'calendar',
+      color: 'cityPass',
+    },
+    imageBackgroundColor: 'pride',
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/HUuOrfCRCitJNEJh6bf9Ai/Amsterdam-app---productie?node-id=3138-7007&t=RDRVTfOzgsLOoBY3-4',
+    },
+  },
+}

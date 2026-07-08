@@ -23,7 +23,8 @@ const CONTENT_COLOR_MAP: Record<
 > = {
   default: 'inverse',
   kingsday: 'default',
-  pride: 'inverse',
+  prideMagenta: 'inverse',
+  pridePurple: 'inverse',
 }
 
 export const ServicesGridItem = ({

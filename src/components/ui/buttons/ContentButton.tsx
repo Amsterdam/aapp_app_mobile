@@ -1,7 +1,7 @@
 import {Fragment, type ReactNode} from 'react'
 import type {ImageURISource} from 'react-native'
 import {Pressable, type PressableProps} from '@/components/ui/buttons/Pressable'
-import {Box} from '@/components/ui/containers/Box'
+import {Box, type BoxProps} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -12,6 +12,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 
 type Props = {
   dummy?: boolean
+  imageBackgroundColor?: BoxProps['variant']
   includeDate?: boolean
   meta?: string
   onPress: () => void
@@ -33,6 +34,7 @@ type Props = {
 export const ContentButton = ({
   images,
   icon,
+  imageBackgroundColor = 'tinted',
   title,
   includeDate = true,
   tag,
@@ -52,7 +54,7 @@ export const ContentButton = ({
       <Row gutter="smd">
         <Box
           inset="no"
-          variant="tinted">
+          variant={imageBackgroundColor}>
           <Size
             height={80}
             width={100}>
@@ -82,6 +84,7 @@ export const ContentButton = ({
           {tag}
           <Phrase
             accessible={false}
+            color={icon?.color ?? 'default'}
             numberOfLines={2}
             testID={`${testID}Title`}
             variant="small">

@@ -90,6 +90,7 @@ export const lightColorTokens = {
       primary: baseColor.primary.blue,
       default: baseColor.transparent.full,
       tinted: baseColor.neutral.grey1,
+      pride: baseColor.custom.pink,
     },
     border: {
       default: baseColor.neutral.grey1,
@@ -364,8 +365,11 @@ export const lightColorTokens = {
     kingsday: {
       background: baseColor.secondary.orange,
     },
-    pride: {
+    prideMagenta: {
       background: baseColor.secondary.magenta,
+    },
+    pridePurple: {
+      background: baseColor.secondary.purple,
     },
   },
   shadow: {

@@ -29,7 +29,7 @@ export const PrideOverviewScreen = () => (
       insetVertical="md">
       <Column gutter="lg">
         <ServicesGrid
-          colorScheme={['pride', 'default']}
+          colorScheme={['prideMagenta', 'pridePurple']}
           detailsRouteName={PrideRouteName.details}
           extraItems={extraItems}
           source={ServiceModuleSource.pride}
