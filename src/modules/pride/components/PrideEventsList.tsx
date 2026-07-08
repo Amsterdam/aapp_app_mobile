@@ -90,11 +90,13 @@ export const PrideEventsList = () => {
         ListFooterComponent={<Gutter height="xl" />}
         renderItem={({item}) => (
           <ContentButton
-            icon={{name: 'calendar'}}
+            icon={{name: 'calendar', color: 'cityPass'}}
+            imageBackgroundColor="pride"
             meta={formatMeta(item)}
             onPress={() => null}
             testID={`PrideEvent${item.id}Button`}
             title={item.title}
+            titleColor="cityPass"
           />
         )}
       />

@@ -22,20 +22,18 @@ type Props = {
    * - Pass an array of color schemes to cycle through them for each tile in order.
    * - Omit this prop to use the default styling from the service data.
    *
-   * Supported values currently include: 'default', 'kingsday', and 'pride'.
-   *
    * @example
    * <ServicesGrid
    *   detailsRouteName="ServiceDetails"
    *   source="home"
-   *   colorScheme="pride"
+   *   colorScheme="prideMagenta"
    * />
    *
    * @example
    * <ServicesGrid
    *   detailsRouteName="ServiceDetails"
    *   source="home"
-   *   colorScheme={['default', 'kingsday', 'pride']}
+   *   colorScheme={['default', 'kingsday', 'prideMagenta']}
    * />
    *
    * @example

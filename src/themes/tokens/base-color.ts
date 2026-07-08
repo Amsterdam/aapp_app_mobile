@@ -30,6 +30,7 @@ export const baseColor = {
   // Colors which are not part of the design system
   custom: {
     grey0: '#ebeff5',
+    pink: '#FCE5F2',
   },
   transparent: {
     full: 'transparent',

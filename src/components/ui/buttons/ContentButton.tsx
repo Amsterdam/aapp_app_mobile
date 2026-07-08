@@ -1,22 +1,24 @@
 import {Fragment, type ReactNode} from 'react'
 import type {ImageURISource} from 'react-native'
 import {Pressable, type PressableProps} from '@/components/ui/buttons/Pressable'
-import {Box} from '@/components/ui/containers/Box'
+import {Box, type BoxProps} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Size} from '@/components/ui/layout/Size'
 import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {LazyImage} from '@/components/ui/media/LazyImage'
-import {Phrase} from '@/components/ui/text/Phrase'
+import {Phrase, type PhraseProps} from '@/components/ui/text/Phrase'
 
 type Props = {
   dummy?: boolean
+  imageBackgroundColor?: BoxProps['variant']
   includeDate?: boolean
   meta?: string
   onPress: () => void
   tag?: ReactNode
   title: string
+  titleColor?: PhraseProps['color']
 } & Or<
   {
     images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
@@ -33,6 +35,8 @@ type Props = {
 export const ContentButton = ({
   images,
   icon,
+  imageBackgroundColor = 'tinted',
+  titleColor = 'default',
   title,
   includeDate = true,
   tag,
@@ -52,7 +56,7 @@ export const ContentButton = ({
       <Row gutter="smd">
         <Box
           inset="no"
-          variant="tinted">
+          variant={imageBackgroundColor}>
           <Size
             height={80}
             width={100}>
@@ -82,6 +86,7 @@ export const ContentButton = ({
           {tag}
           <Phrase
             accessible={false}
+            color={titleColor}
             numberOfLines={2}
             testID={`${testID}Title`}
             variant="small">

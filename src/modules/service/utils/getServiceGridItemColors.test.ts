@@ -1,3 +1,4 @@
+import type {ServicesGridItemColorScheme} from '@/modules/service/components/ServicesGridItem'
 import type {Service} from '@/modules/service/types'
 import {getServiceGridItemColors} from '@/modules/service/utils/getServiceGridItemColors'
 
@@ -11,7 +12,11 @@ describe('getServiceGridItemColors', () => {
     expect(getServiceGridItemColors(undefined)).toBeUndefined()
     expect(getServiceGridItemColors(undefined, 'kingsday')).toBeUndefined()
     expect(
-      getServiceGridItemColors(undefined, ['kingsday', 'default', 'pride']),
+      getServiceGridItemColors(undefined, [
+        'kingsday',
+        'default',
+        'prideMagenta',
+      ]),
     ).toBeUndefined()
   })
 
@@ -23,19 +28,20 @@ describe('getServiceGridItemColors', () => {
   })
 
   it('should return the same colorScheme for all items if a single colorScheme is provided', () => {
-    const colors: Parameters<typeof getServiceGridItemColors>['1'] = 'pride'
+    const colors: Parameters<typeof getServiceGridItemColors>['1'] =
+      'prideMagenta'
 
     getServiceGridItemColors(serviceGridItems, colors)?.forEach(item => {
       expect(item.colorScheme).toBeDefined()
-      expect(item.colorScheme).toEqual('pride')
+      expect(item.colorScheme).toEqual('prideMagenta')
     })
   })
 
   it('should return a different colorScheme for each item cyclically if an array of colorSchemes is provided.', () => {
-    const colors: Parameters<typeof getServiceGridItemColors>['1'] = [
-      'pride',
+    const colors: Array<ServicesGridItemColorScheme> = [
+      'prideMagenta',
       'kingsday',
-      'pride',
+      'pridePurple',
     ]
 
     const coloredServiceGridItems = getServiceGridItemColors(
