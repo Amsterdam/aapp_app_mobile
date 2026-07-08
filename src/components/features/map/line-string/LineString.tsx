@@ -1,5 +1,6 @@
 import {useMemo} from 'react'
-import {Polyline} from 'react-native-maps'
+import {Polyline, type Region} from 'react-native-maps'
+import {RainbowPolyLine} from '@/components/features/map/line-string/RainbowPolyLine'
 import {ArrowMarkers} from '@/components/features/map/marker/ArrowMarkers'
 import {
   coordinatesToLatLng,
@@ -10,8 +11,10 @@ type Props = {
   coordinates: Position | Position[] | Position[][] | Position[][][]
   id: string | number
   onPress: (id: string | number) => void
+  region: Region | undefined
   strokeColor?: number | string | null
   strokeWidth?: number | null
+  type: 'rainbow' | 'default'
 }
 
 export const LineString = ({
@@ -20,6 +23,8 @@ export const LineString = ({
   onPress,
   strokeColor,
   strokeWidth,
+  region,
+  type,
 }: Props) => {
   const latLngCoordinates = useMemo(
     () => coordinatesToLatLng(coordinates),
@@ -37,14 +42,25 @@ export const LineString = ({
 
   return (
     <>
-      <Polyline
+      {type === 'rainbow' ? (
+        <RainbowPolyLine
+          latLngCoordinates={latLngCoordinates}
+          onPress={() => onPress(id)}
+          region={region}
+        />
+      ) : (
+        <Polyline
+          coordinates={latLngCoordinates}
+          onPress={() => onPress(id)}
+          strokeColor={strokeColor?.toString()}
+          strokeWidth={strokeWidth}
+          tappable
+        />
+      )}
+      <ArrowMarkers
         coordinates={latLngCoordinates}
-        onPress={() => onPress(id)}
-        strokeColor={strokeColor?.toString()}
-        strokeWidth={strokeWidth}
-        tappable
+        size={type === 'rainbow' ? 'ml' : 'md'}
       />
-      <ArrowMarkers coordinates={latLngCoordinates} />
     </>
   )
 }
