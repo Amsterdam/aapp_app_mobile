@@ -6,14 +6,19 @@ type Props = {
   onPress: () => void
   region: Region | undefined
 }
-const strokeWidth = 3
+const STROKE_WIDTH = 3
+
+const OFFSET_SCALE_FACTOR = 0.003
+
+const DEFAULT_LATITUDE_DELTA = 0.01
 
 export const RainbowPolyLine = ({
   latLngCoordinates,
   region,
   onPress,
 }: Props) => {
-  const offsetSize = 0.003 * (region?.latitudeDelta || 0.01)
+  const offsetSize =
+    OFFSET_SCALE_FACTOR * (region?.latitudeDelta || DEFAULT_LATITUDE_DELTA)
 
   return (
     <>
@@ -24,7 +29,7 @@ export const RainbowPolyLine = ({
         )}
         onPress={onPress}
         strokeColor={'#ff0000'}
-        strokeWidth={strokeWidth}
+        strokeWidth={STROKE_WIDTH}
         tappable
       />
       <Polyline
@@ -34,7 +39,7 @@ export const RainbowPolyLine = ({
         )}
         onPress={onPress}
         strokeColor={'#ffc400'}
-        strokeWidth={strokeWidth}
+        strokeWidth={STROKE_WIDTH}
         tappable
       />
       <Polyline
@@ -44,7 +49,7 @@ export const RainbowPolyLine = ({
         )}
         onPress={onPress}
         strokeColor={'#00bf07'}
-        strokeWidth={strokeWidth}
+        strokeWidth={STROKE_WIDTH}
         tappable
       />
       <Polyline
@@ -54,7 +59,7 @@ export const RainbowPolyLine = ({
         )}
         onPress={onPress}
         strokeColor={'#004ffb'}
-        strokeWidth={strokeWidth}
+        strokeWidth={STROKE_WIDTH}
         tappable
       />
     </>
