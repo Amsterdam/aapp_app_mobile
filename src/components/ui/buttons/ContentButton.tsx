@@ -8,7 +8,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Size} from '@/components/ui/layout/Size'
 import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {LazyImage} from '@/components/ui/media/LazyImage'
-import {Phrase} from '@/components/ui/text/Phrase'
+import {Phrase, type PhraseProps} from '@/components/ui/text/Phrase'
 
 type Props = {
   dummy?: boolean
@@ -18,6 +18,7 @@ type Props = {
   onPress: () => void
   tag?: ReactNode
   title: string
+  titleColor?: PhraseProps['color']
 } & Or<
   {
     images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
@@ -35,6 +36,7 @@ export const ContentButton = ({
   images,
   icon,
   imageBackgroundColor = 'tinted',
+  titleColor = 'default',
   title,
   includeDate = true,
   tag,
@@ -84,7 +86,7 @@ export const ContentButton = ({
           {tag}
           <Phrase
             accessible={false}
-            color={icon?.color ?? 'default'}
+            color={titleColor}
             numberOfLines={2}
             testID={`${testID}Title`}
             variant="small">

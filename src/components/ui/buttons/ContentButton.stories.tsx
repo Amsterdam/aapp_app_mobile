@@ -67,6 +67,7 @@ export const WithColors: Story = {
       color: 'cityPass',
     },
     imageBackgroundColor: 'pride',
+    titleColor: 'cityPass',
   },
   parameters: {
     design: {

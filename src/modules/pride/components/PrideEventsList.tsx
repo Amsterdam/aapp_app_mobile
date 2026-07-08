@@ -96,6 +96,7 @@ export const PrideEventsList = () => {
             onPress={() => null}
             testID={`PrideEvent${item.id}Button`}
             title={item.title}
+            titleColor="cityPass"
           />
         )}
       />
