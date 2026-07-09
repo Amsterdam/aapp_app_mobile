@@ -8,11 +8,6 @@ import {
   weekdayToNumber,
 } from '@/utils/datetime/weekdayToNumber'
 
-export const getPaymentZone = (
-  paymentZones: PaymentZone[],
-  paymentZoneId: string,
-) => paymentZones.find(zone => zone.id === paymentZoneId)
-
 export const getPaymentZoneDay = (
   paymentZone: PaymentZone,
   dayOfWeek: WeekdayNumber,

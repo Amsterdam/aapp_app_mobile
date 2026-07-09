@@ -223,7 +223,6 @@ export type VisitorParkingSession = {
   end_date_time: string
   no_endtime: boolean
   parking_machine?: string
-  payment_zone_id?: string
   ps_right_id: number
   remaining_time: number
   report_code: string
@@ -316,7 +315,6 @@ export type ParkingSessionReceiptEndpointResponse = {
 export type ParkingSessionReceiptEndpointRequestParams = {
   end_date_time: string
   parking_machine?: string
-  payment_zone_id?: string
   ps_right_id?: number
   report_code: string
   start_date_time: string
@@ -332,7 +330,6 @@ export type ParkingStartSessionEndpointRequestParams = {
     end_date_time?: string
     parking_machine?: string
     parking_machine_favorite?: boolean
-    payment_zone_id?: string
     report_code: string
     start_date_time: string
     vehicle_id: string
