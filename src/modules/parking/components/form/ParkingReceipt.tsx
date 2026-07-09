@@ -100,7 +100,6 @@ export const ParkingReceipt = () => {
     endTime,
     originalEndTime,
     parking_machine,
-    paymentZoneId,
     isEndTimeBeforeOriginal && data?.costs?.value
       ? -data?.costs?.value
       : data?.costs?.value,

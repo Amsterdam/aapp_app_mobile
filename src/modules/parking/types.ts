@@ -182,7 +182,6 @@ export type ParkingPermit = {
     currency: string
     value: number
   }
-  payment_zones: PaymentZone[]
   permit_name: string
   permit_type: PermitType
   permit_zone: {

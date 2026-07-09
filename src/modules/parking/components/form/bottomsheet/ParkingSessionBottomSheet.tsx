@@ -4,7 +4,6 @@ import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottom
 import {ParkingSessionAmountBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionAmountBottomSheetContent'
 import {ParkingSessionEndTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionEndTimeBottomSheetContent'
 import {ParkingSessionLicensePlateBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionLicensePlateBottomSheetContent'
-import {ParkingSessionPaymentZoneBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionPaymentZoneBottomSheetContent'
 import {ParkingSessionStartTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionStartTimeBottomSheetContent'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 
@@ -15,8 +14,6 @@ const variantMap: Record<ParkingSessionBottomSheetVariant, FC> = {
     ParkingSessionStartTimeBottomSheetContent,
   [ParkingSessionBottomSheetVariant.endTime]:
     ParkingSessionEndTimeBottomSheetContent,
-  [ParkingSessionBottomSheetVariant.paymentZone]:
-    ParkingSessionPaymentZoneBottomSheetContent,
   [ParkingSessionBottomSheetVariant.amount]:
     ParkingSessionAmountBottomSheetContent,
 }
