@@ -96,6 +96,7 @@ export const ContentButton = ({
             <Phrase
               accessible={false}
               color="secondary"
+              numberOfLines={3}
               testID={`${testID}MetaPhrase`}
               variant="small">
               {meta}
