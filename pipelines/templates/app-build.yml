@@ -98,7 +98,7 @@ steps:
   - task: Cache@2
     inputs:
       key: 'gradle_modules2 | "$(Agent.OS)$(Agent.OSArchitecture)" | "$(REACT_NATIVE_VERSION)" | **/package-lock.json | android/**/*.gradle* | android/gradle/wrapper/gradle-wrapper.properties'
-      path: $(HOME)/.gradle/caches/modules-2
+      path: $(GRADLE_USER_HOME)/.gradle/caches/modules-2
       cacheHitVar: GRADLE_MODULES2_CACHE_RESTORED
       restoreKeys: |
         gradle_modules2 | "$(Agent.OS)$(Agent.OSArchitecture)" | "$(REACT_NATIVE_VERSION)"
@@ -108,7 +108,7 @@ steps:
   - task: Cache@2
     inputs:
       key: 'gradle_transforms3 | "$(Agent.OS)$(Agent.OSArchitecture)" | "$(REACT_NATIVE_VERSION)" | **/package-lock.json | android/**/*.gradle* | android/gradle/wrapper/gradle-wrapper.properties'
-      path: $(HOME)/.gradle/caches/transforms-3
+      path: $(GRADLE_USER_HOME)/.gradle/caches/transforms-3
       cacheHitVar: GRADLE_TRANSFORMS3_CACHE_RESTORED
       restoreKeys: |
         gradle_transforms3 | "$(Agent.OS)$(Agent.OSArchitecture)" | "$(REACT_NATIVE_VERSION)"
@@ -118,7 +118,7 @@ steps:
   - task: Cache@2
     inputs:
       key: 'gradle_wrapper | "$(Agent.OS)$(Agent.OSArchitecture)" | **/package-lock.json | android/gradle/wrapper/gradle-wrapper.properties'
-      path: $(HOME)/.gradle/wrapper
+      path: $(GRADLE_USER_HOME)/.gradle/wrapper
       cacheHitVar: GRADLE_WRAPPER_CACHE_RESTORED
       restoreKeys: |
         gradle_wrapper | "$(Agent.OS)$(Agent.OSArchitecture)"
