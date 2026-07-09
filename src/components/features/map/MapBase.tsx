@@ -1,6 +1,17 @@
-import {useMemo, useRef, type PropsWithChildren, type ReactNode} from 'react'
+import {
+  useCallback,
+  useMemo,
+  useRef,
+  type PropsWithChildren,
+  type ReactNode,
+} from 'react'
 import {StyleSheet, View} from 'react-native'
-import MapView, {type MapViewProps, type Region} from 'react-native-maps'
+import MapView, {
+  type BoundingBox,
+  type Details,
+  type MapViewProps,
+  type Region,
+} from 'react-native-maps'
 import type {ControlVariant} from '@/components/features/map/types'
 import type {ModuleSlug} from '@/modules/slugs'
 import type {Theme} from '@/themes/themes'
@@ -9,6 +20,7 @@ import {MapControls} from '@/components/features/map/MapControls'
 import {AMSTERDAM_REGION} from '@/components/features/map/constants'
 import {customMapStyle} from '@/components/features/map/customMapStyle'
 import {useInitializeMap} from '@/components/features/map/hooks/useInitializeMap'
+import {convertBoundingBoxToRegion} from '@/components/features/map/utils/convertBoundingBoxToRegion'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
 import {Column} from '@/components/ui/layout/Column'
@@ -46,6 +58,13 @@ export const MapBase = ({
       getCurrentRegion: () => regionRef.current,
     }),
     [],
+  )
+  const onRegionChange = useCallback(
+    (regionData: Region, details: Details) => {
+      regionRef.current = regionData
+      onRegionChangeComplete?.(regionData, details)
+    },
+    [onRegionChangeComplete],
   )
 
   return (
@@ -95,9 +114,18 @@ export const MapBase = ({
           customMapStyle={customMapStyle}
           initialRegion={AMSTERDAM_REGION}
           moveOnMarkerPress={false}
-          onRegionChangeComplete={(regionData, details) => {
-            regionRef.current = regionData
-            onRegionChangeComplete?.(regionData, details)
+          onRegionChangeComplete={onRegionChange}
+          onTouchEnd={() => {
+            // Workaround for Android to make sure region is updated after a zoom gesture.
+            if (isMapReady) {
+              void mapRef.current
+                ?.getMapBoundaries()
+                .then((boundaries: BoundingBox) => {
+                  onRegionChange(convertBoundingBoxToRegion(boundaries), {
+                    isGesture: true,
+                  })
+                })
+            }
           }}
           provider="google"
           ref={mapRef}
