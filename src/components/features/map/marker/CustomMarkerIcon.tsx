@@ -74,7 +74,7 @@ export const CustomMarkerIcon = ({
           y2="100%">
           {gradientColors.map((color, index) => (
             <Stop
-              key={color}
+              key={`${color}-${index}`}
               //intentionally using index + 1 to avoid having a stop at 0% and 100% which would make the gradient not visible
               offset={`${((index + 1) / (gradientColors.length + 1)) * 100}%`}
               stopColor={color}
