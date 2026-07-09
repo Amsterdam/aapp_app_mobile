@@ -36,7 +36,7 @@ export const PrideEventDetailsScreen = ({route}: Props) => {
     )
   }
 
-  const {title, type, address, website} = event
+  const {title, type, address, website, date_start, date_end, time} = event
 
   return (
     <Screen testID="PrideEventDetailsScreen">
@@ -65,7 +65,7 @@ export const PrideEventDetailsScreen = ({route}: Props) => {
                 grow={1}
                 shrink={1}>
                 <Phrase emphasis="strong">Wanneer</Phrase>
-                <Phrase>{formatMeta(event)}</Phrase>
+                <Phrase>{formatMeta({date_start, date_end, time})}</Phrase>
               </Column>
             </Row>
           )}
