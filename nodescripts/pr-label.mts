@@ -322,6 +322,8 @@ const main = async () => {
     await getOpenCopilotReviewComments(pullNumber)
 
   const reviews = await getReviews(pullNumber)
+
+  core.info('reviews:' + JSON.stringify(reviews))
   const isReviewedByCopilot = reviews.some(r => isCopilotLogin(r.user?.login))
   const isReviewedByTeam = reviews.some(
     r =>
