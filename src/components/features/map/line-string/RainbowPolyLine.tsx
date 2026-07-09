@@ -34,11 +34,7 @@ export const RainbowPolyLine = ({
           key={index}
           onPress={onPress}
           strokeColor={color}
-          strokeWidth={
-            index <= colors.length
-              ? strokeWidth
-              : strokeWidth + 1 / colors.length
-          }
+          strokeWidth={strokeWidth}
           tappable
         />
       ))}
