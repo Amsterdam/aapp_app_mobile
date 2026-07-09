@@ -1,4 +1,5 @@
 import {useCallback, type ComponentProps} from 'react'
+import type {MapFocus} from '@/components/features/map/types'
 import type {Service} from '@/modules/service/types'
 import type {Feature} from 'geojson'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
@@ -9,7 +10,10 @@ import {ServicePointMap} from '@/modules/service/components/ServicePointMap'
 import {ServiceMapBottomSheetVariant} from '@/modules/service/components/bottomsheet/bottomsheetVariants'
 import {setSelectedServicePointId} from '@/modules/service/slice'
 
-export const ServicePointView = (props: {id: Service['id']}) => {
+export const ServicePointView = (props: {
+  focusType?: MapFocus
+  id: Service['id']
+}) => {
   const dispatch = useDispatch()
   const {open} = useBottomSheet()
 

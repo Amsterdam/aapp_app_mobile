@@ -10,6 +10,12 @@ export enum ControlVariant {
   location = 'location',
 }
 
+export enum MapFocus {
+  amsterdam = 'amsterdam',
+  specific = 'specific',
+  user = 'user',
+}
+
 export type MapControlOption = {
   accessibilityLabel: string
   icon: IconProps

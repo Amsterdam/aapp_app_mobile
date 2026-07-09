@@ -1,8 +1,7 @@
 import {Feature, type Geometry, Point} from 'geojson'
-import type {EmptyObject} from '@/types/utils'
 import {getFirstPosition} from '@/components/features/map/utils/getFirstPosition'
 
-export const convertGeometryToPoint = <Properties extends object = EmptyObject>(
+export const convertGeometryToPoint = <Properties extends object | null>(
   features: Feature<Geometry, Properties>[],
 ): Feature<Point, Properties>[] =>
   features

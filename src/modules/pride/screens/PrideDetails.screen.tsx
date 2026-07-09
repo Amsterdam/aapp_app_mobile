@@ -2,6 +2,7 @@ import type {NavigationProps} from '@/app/navigation/types'
 import type {PrideRouteName} from '@/modules/pride/routes'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
+import {MapFocus} from '@/components/features/map/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {ServiceHeaderButton} from '@/modules/service/components/ServiceHeaderButton'
 import {ServicePointView} from '@/modules/service/components/ServicePointView'
@@ -30,7 +31,10 @@ export const PrideDetailsScreen = ({route}: Props) => (
         scroll={false}
         testID="PrideDetailsScreen"
         withBottomInset={false}>
-        <ServicePointView id={route.params.id} />
+        <ServicePointView
+          focusType={MapFocus.amsterdam}
+          id={route.params.id}
+        />
       </Screen>
     </ServiceMapFiltersProvider>
   </MapViewSwitchProvider>

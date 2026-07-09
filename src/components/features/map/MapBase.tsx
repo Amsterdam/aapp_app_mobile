@@ -12,7 +12,6 @@ import MapView, {
   type MapViewProps,
   type Region,
 } from 'react-native-maps'
-import type {ControlVariant} from '@/components/features/map/types'
 import type {ModuleSlug} from '@/modules/slugs'
 import type {Theme} from '@/themes/themes'
 import {MapContext} from '@/components/features/map/MapContext'
@@ -20,6 +19,7 @@ import {MapControls} from '@/components/features/map/MapControls'
 import {AMSTERDAM_REGION} from '@/components/features/map/constants'
 import {customMapStyle} from '@/components/features/map/customMapStyle'
 import {useInitializeMap} from '@/components/features/map/hooks/useInitializeMap'
+import {MapFocus, type ControlVariant} from '@/components/features/map/types'
 import {convertBoundingBoxToRegion} from '@/components/features/map/utils/convertBoundingBoxToRegion'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
@@ -30,7 +30,7 @@ import {useThemable} from '@/themes/useThemable'
 type Props = PropsWithChildren<{
   FilterComponent?: ReactNode
   controls?: ControlVariant[]
-  focusOnUser?: boolean
+  focusType?: MapFocus
   isError?: boolean
   moduleSlug: ModuleSlug
 }> &
@@ -42,15 +42,16 @@ export const MapBase = ({
   FilterComponent,
   isError,
   moduleSlug,
-  focusOnUser = true,
+  focusType = MapFocus.amsterdam,
   onRegionChangeComplete,
+  initialRegion = AMSTERDAM_REGION,
   ...mapViewProps
 }: Props) => {
   const mapRef = useRef<MapView>(null)
   const regionRef = useRef<Region>(null)
   const styles = useThemable(createStyles)
 
-  const {isMapReady, ...initialize} = useInitializeMap(focusOnUser, mapRef)
+  const {isMapReady, ...initialize} = useInitializeMap(focusType, mapRef)
 
   const context = useMemo(
     () => ({
@@ -112,7 +113,9 @@ export const MapBase = ({
         <MapView
           collapsable={false}
           customMapStyle={customMapStyle}
-          initialRegion={AMSTERDAM_REGION}
+          initialRegion={
+            focusType === MapFocus.amsterdam ? AMSTERDAM_REGION : initialRegion
+          }
           moveOnMarkerPress={false}
           onRegionChangeComplete={onRegionChange}
           onTouchEnd={() => {
