@@ -59,7 +59,7 @@ export const CustomMarkerIcon = ({
   offset = DEFAULT_OFFSET,
 }: Props) => {
   const center = size / ((size / PATH_SIZE) * 2)
-  const gradientColors = colors?.length ? colors : ['#ffffff']
+  const gradientColors = colors?.length ? colors : []
 
   return (
     <Wrapper
@@ -86,7 +86,9 @@ export const CustomMarkerIcon = ({
         <Circle
           cx={center}
           cy={center}
-          fill={colors?.length ? 'url(#markerCircleRainbowGradient)' : circleColor}
+          fill={
+            colors?.length ? 'url(#markerCircleRainbowGradient)' : circleColor
+          }
           r={center}
         />
         <Path
