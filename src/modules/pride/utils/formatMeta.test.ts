@@ -10,7 +10,7 @@ describe('formatMeta', () => {
     id: 'event-1',
     time: '12:00 - 13:00',
     title: 'Pride event',
-    type: null as unknown as string,
+    type: '',
     website: 'https://example.com',
   }
 
@@ -105,9 +105,9 @@ describe('formatMeta', () => {
     const event = {
       ...baseEvent,
       date_end: undefined,
-      date_start: null,
-      time: null,
-    } as unknown as PrideEvent
+      date_start: undefined,
+      time: undefined,
+    }
 
     expect(formatMeta(event)).toBeUndefined()
   })
@@ -126,9 +126,9 @@ describe('formatMeta', () => {
       formatMeta({
         ...baseEvent,
         type: 'Sport',
-        date_start: null as unknown as string,
-        date_end: null,
-        time: null,
+        date_start: undefined,
+        date_end: undefined,
+        time: undefined,
       }),
     ).toBe('Sport')
   })
