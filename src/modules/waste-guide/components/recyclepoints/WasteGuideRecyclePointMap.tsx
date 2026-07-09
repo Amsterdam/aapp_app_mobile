@@ -7,7 +7,7 @@ import {
   MapMarkerVariants,
 } from '@/components/features/map/marker/MapMarkerVariants'
 import {Marker} from '@/components/features/map/marker/Marker'
-import {ControlVariant} from '@/components/features/map/types'
+import {ControlVariant, MapFocus} from '@/components/features/map/types'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -55,7 +55,7 @@ export const WasteGuideRecyclePointMap = () => {
     <View style={styles.container}>
       <MapBase
         controls={[ControlVariant.location]}
-        focusOnUser={false}
+        focusType={MapFocus.specific}
         initialRegion={{
           latitude,
           longitude,

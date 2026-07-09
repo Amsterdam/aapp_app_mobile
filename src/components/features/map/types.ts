@@ -10,6 +10,21 @@ export enum ControlVariant {
   location = 'location',
 }
 
+export enum MapFocus {
+  /**
+   * Focus on general overview of Amsterdam city centre.
+   */
+  amsterdam = 'amsterdam',
+  /**
+   * Focus on a custom region. Use in combination with `initialRegion`.
+   */
+  specific = 'specific',
+  /**
+   * Focus on the user's location
+   */
+  user = 'user',
+}
+
 export type MapControlOption = {
   accessibilityLabel: string
   icon: IconProps

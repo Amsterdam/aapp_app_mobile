@@ -1,7 +1,7 @@
 import {useMemo} from 'react'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Polygons} from '@/components/features/map/polygon/Polygons'
-import {ControlVariant} from '@/components/features/map/types'
+import {ControlVariant, MapFocus} from '@/components/features/map/types'
 import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
 import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFromCoords'
 import {Box} from '@/components/ui/containers/Box'
@@ -17,7 +17,7 @@ import {debounce} from '@/utils/debounce'
 
 const DEBOUNCE_DELAY = 100
 
-export const ParkingPermitZoneMap = () => {
+export const ParkingPermitZoneMap = ({focusType}: {focusType: MapFocus}) => {
   const {report_code, can_select_zone} = useCurrentParkingPermit()
   const {setRegion} = usePermitMapContext()
 
@@ -57,7 +57,7 @@ export const ParkingPermitZoneMap = () => {
   return (
     <MapBase
       controls={[ControlVariant.location, ControlVariant.legend]}
-      focusOnUser={false}
+      focusType={focusType}
       initialRegion={initialRegion}
       moduleSlug={ModuleSlug.parking}
       onRegionChange={debounce(setRegion, DEBOUNCE_DELAY)}>

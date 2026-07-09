@@ -4,11 +4,12 @@ import {
   ANIMATION_DURATION,
   USER_LOCATION_DELTA,
 } from '@/components/features/map/constants'
+import {MapFocus} from '@/components/features/map/types'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {Permissions} from '@/types/permissions'
 
 export const useInitializeMap = (
-  focusOnUser: boolean,
+  focusType: MapFocus,
   map: RefObject<MapView | null>,
 ) => {
   const [isMapReady, setIsMapReady] = useState(false)
@@ -21,14 +22,18 @@ export const useInitializeMap = (
   const handleOnMapReady = useCallback(() => {
     setIsMapReady(true)
 
-    if (focusOnUser) {
+    if (focusType === MapFocus.user) {
       void requestLocationPermission()
     }
-  }, [focusOnUser, requestLocationPermission])
+  }, [focusType, requestLocationPermission])
 
   const handleInitialUserLocation = useCallback(
     (e: UserLocationChangeEvent) => {
-      if (!focusOnUser || !e.nativeEvent.coordinate || hasFocused.current) {
+      if (
+        focusType !== MapFocus.user ||
+        !e.nativeEvent.coordinate ||
+        hasFocused.current
+      ) {
         return
       }
 
@@ -43,7 +48,7 @@ export const useInitializeMap = (
 
       hasFocused.current = true
     },
-    [focusOnUser, map],
+    [focusType, map],
   )
 
   return {

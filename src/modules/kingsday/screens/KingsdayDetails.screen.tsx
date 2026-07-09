@@ -2,6 +2,7 @@ import type {NavigationProps} from '@/app/navigation/types'
 import type {KingsdayRouteName} from '@/modules/kingsday/routes'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
+import {MapFocus} from '@/components/features/map/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {ServiceHeaderButton} from '@/modules/service/components/ServiceHeaderButton'
 import {ServicePointView} from '@/modules/service/components/ServicePointView'
@@ -30,7 +31,10 @@ export const KingsdayDetailsScreen = ({route}: Props) => (
         scroll={false}
         testID="KingsdayDetailsScreen"
         withBottomInset={false}>
-        <ServicePointView id={route.params.id} />
+        <ServicePointView
+          focusType={MapFocus.specific}
+          id={route.params.id}
+        />
       </Screen>
     </ServiceMapFiltersProvider>
   </MapViewSwitchProvider>

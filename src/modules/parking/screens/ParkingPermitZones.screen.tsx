@@ -1,6 +1,7 @@
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitchContext'
 import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
+import {MapFocus} from '@/components/features/map/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {ParkingPermitZone} from '@/modules/parking/components/permit-zone/ParkingPermitZone'
@@ -42,7 +43,13 @@ const ParkingPermitZonesScreenInner = () => {
           scroll={false}
           testID="ParkingPermitZonesScreen"
           withBottomInset={false}>
-          <ParkingPermitZone />
+          <ParkingPermitZone
+            focusType={
+              previousRouteName === ParkingRouteName.startSession
+                ? MapFocus.user
+                : MapFocus.specific
+            }
+          />
         </Screen>
       </MapViewSwitchProvider>
     </PermitMapProvider>

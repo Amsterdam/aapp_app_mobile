@@ -10,21 +10,27 @@ import {
   HIGH_DATA_COUNT_CLUSTER_OPTIONS,
 } from '@/components/features/map/constants'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
+import {useInitialRegion} from '@/components/features/map/hooks/useInitialRegion'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {LineString} from '@/components/features/map/line-string/LineString'
 import {Polygons} from '@/components/features/map/polygon/Polygons'
-import {ControlVariant} from '@/components/features/map/types'
+import {ControlVariant, MapFocus} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
+  focusType?: MapFocus
   id: Service['id']
   onMapElementPress: (id: Feature['id']) => void
 }
 
-export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
+export const ServicePointMap = ({
+  id: serviceId,
+  onMapElementPress,
+  focusType = MapFocus.user,
+}: Props) => {
   const [region, setRegion] = useState<Region | undefined>()
 
   const {
@@ -36,7 +42,9 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
     data: {lineStrings, polygons, points},
   } = useGetMapData(service, onMapElementPress)
 
-  const {icons_to_include} = service || {}
+  const {icons_to_include, data} = service || {}
+
+  const initialRegion = useInitialRegion(data, focusType !== MapFocus.specific)
 
   const {layers} = useMapFilters()
 
@@ -60,6 +68,8 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
     <MapBase
       controls={controls}
       FilterComponent={<MapFilters testID="ServiceMapFilters" />}
+      focusType={focusType}
+      initialRegion={initialRegion}
       isError={isError}
       moduleSlug={ModuleSlug.service}
       onRegionChangeComplete={setRegion}>
