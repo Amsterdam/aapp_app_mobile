@@ -72,6 +72,11 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
       {!!lineStrings?.length &&
         lineStrings.map((feature, index) => (
           <LineString
+            colors={
+              feature.properties.aapp_icon_type
+                ? icons_to_include?.[feature.properties.aapp_icon_type]?.colors
+                : undefined
+            }
             coordinates={
               'coordinates' in feature.geometry
                 ? feature.geometry.coordinates
@@ -86,11 +91,6 @@ export const ServicePointMap = ({id: serviceId, onMapElementPress}: Props) => {
               feature.properties['stroke-width']
                 ? Number(feature.properties['stroke-width'])
                 : null
-            }
-            type={
-              feature.properties.aapp_icon_type === 'canal_parade'
-                ? 'rainbow'
-                : 'default'
             }
           />
         ))}

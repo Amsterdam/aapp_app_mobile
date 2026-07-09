@@ -1,12 +1,13 @@
 import {Polyline, type LatLng, type Region} from 'react-native-maps'
+import {calculateOffsetFactor} from '@/components/features/map/line-string/calculateOffsetFactor'
 import {calculateOffsetLineString} from '@/components/features/map/line-string/calculateOffsetLineString'
 
 type Props = {
+  colors?: string[]
   latLngCoordinates: LatLng[]
   onPress: () => void
   region: Region | undefined
 }
-const STROKE_WIDTH = 3
 
 const OFFSET_SCALE_FACTOR = 0.003
 
@@ -16,52 +17,27 @@ export const RainbowPolyLine = ({
   latLngCoordinates,
   region,
   onPress,
+  colors,
 }: Props) => {
+  const strokeWidth = 12 / (colors?.length || 1)
   const offsetSize =
     OFFSET_SCALE_FACTOR * (region?.latitudeDelta || DEFAULT_LATITUDE_DELTA)
 
   return (
     <>
-      <Polyline
-        coordinates={calculateOffsetLineString(
-          latLngCoordinates,
-          1.5 * offsetSize,
-        )}
-        onPress={onPress}
-        strokeColor={'#ff0000'}
-        strokeWidth={STROKE_WIDTH}
-        tappable
-      />
-      <Polyline
-        coordinates={calculateOffsetLineString(
-          latLngCoordinates,
-          0.5 * offsetSize,
-        )}
-        onPress={onPress}
-        strokeColor={'#ffc400'}
-        strokeWidth={STROKE_WIDTH}
-        tappable
-      />
-      <Polyline
-        coordinates={calculateOffsetLineString(
-          latLngCoordinates,
-          -0.5 * offsetSize,
-        )}
-        onPress={onPress}
-        strokeColor={'#00bf07'}
-        strokeWidth={STROKE_WIDTH}
-        tappable
-      />
-      <Polyline
-        coordinates={calculateOffsetLineString(
-          latLngCoordinates,
-          -1.5 * offsetSize,
-        )}
-        onPress={onPress}
-        strokeColor={'#004ffb'}
-        strokeWidth={STROKE_WIDTH - 1}
-        tappable
-      />
+      {colors?.map((color, index) => (
+        <Polyline
+          coordinates={calculateOffsetLineString(
+            latLngCoordinates,
+            calculateOffsetFactor(index, colors.length) * offsetSize,
+          )}
+          key={index}
+          onPress={onPress}
+          strokeColor={color}
+          strokeWidth={strokeWidth}
+          tappable
+        />
+      ))}
     </>
   )
 }

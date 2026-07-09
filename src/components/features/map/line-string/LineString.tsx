@@ -8,13 +8,13 @@ import {
 } from '@/utils/transform/coordinatesToLatLng'
 
 type Props = {
+  colors?: string[]
   coordinates: Position | Position[] | Position[][] | Position[][][]
   id: string | number
   onPress: (id: string | number) => void
   region: Region | undefined
   strokeColor?: number | string | null
   strokeWidth?: number | null
-  type: 'rainbow' | 'default'
 }
 
 export const LineString = ({
@@ -24,7 +24,7 @@ export const LineString = ({
   strokeColor,
   strokeWidth,
   region,
-  type,
+  colors,
 }: Props) => {
   const latLngCoordinates = useMemo(
     () => coordinatesToLatLng(coordinates),
@@ -42,8 +42,9 @@ export const LineString = ({
 
   return (
     <>
-      {type === 'rainbow' ? (
+      {colors?.length ? (
         <RainbowPolyLine
+          colors={colors}
           latLngCoordinates={latLngCoordinates}
           onPress={() => onPress(id)}
           region={region}
@@ -59,7 +60,7 @@ export const LineString = ({
       )}
       <ArrowMarkers
         coordinates={latLngCoordinates}
-        size={type === 'rainbow' ? 'ml' : 'md'}
+        size={colors?.length ? 'ml' : 'md'}
       />
     </>
   )

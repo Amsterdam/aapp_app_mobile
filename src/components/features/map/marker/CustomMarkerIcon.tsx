@@ -26,7 +26,12 @@ type WrapperProps = PropsWithChildren<TestProps & {size?: number}>
 
 type Props = {
   Wrapper?: ComponentType<WrapperProps>
-  icon: {circleColor?: string; path: string; pathColor?: string}
+  icon: {
+    circleColor?: string
+    colors?: string[]
+    path: string
+    pathColor?: string
+  }
   offset?: {x: number; y: number}
   size?: number
 } & TestProps
@@ -47,13 +52,14 @@ export const CustomMarkerIcon = ({
     pathColor = themes.light.color.text.default,
     path,
     circleColor = 'transparent',
+    colors,
   },
   testID,
   size = DEFAULT_SIZE,
   offset = DEFAULT_OFFSET,
 }: Props) => {
   const center = size / ((size / PATH_SIZE) * 2)
-  const isRainbowCircle = circleColor === 'rainbow'
+  const gradientColors = colors?.length ? colors : []
 
   return (
     <Wrapper
@@ -66,30 +72,14 @@ export const CustomMarkerIcon = ({
           x2="100%"
           y1="0%"
           y2="100%">
-          <Stop
-            offset="0%"
-            stopColor="#ff0000"
-          />
-          <Stop
-            offset="20%"
-            stopColor="#ff0000"
-          />
-          <Stop
-            offset="40%"
-            stopColor="#ffc400"
-          />
-          <Stop
-            offset="60%"
-            stopColor="#00bf07"
-          />
-          <Stop
-            offset="80%"
-            stopColor="#004ffb"
-          />
-          <Stop
-            offset="100%"
-            stopColor="#004ffb"
-          />
+          {gradientColors.map((color, index) => (
+            <Stop
+              key={`${color}-${index}`}
+              //intentionally using index + 1 to avoid having a stop at 0% and 100% which would make the gradient not visible
+              offset={`${((index + 1) / (gradientColors.length + 1)) * 100}%`}
+              stopColor={color}
+            />
+          ))}
         </LinearGradient>
       </Defs>
       <G transform={`translate(${offset.x}, ${offset.y})`}>
@@ -97,7 +87,7 @@ export const CustomMarkerIcon = ({
           cx={center}
           cy={center}
           fill={
-            isRainbowCircle ? 'url(#markerCircleRainbowGradient)' : circleColor
+            colors?.length ? 'url(#markerCircleRainbowGradient)' : circleColor
           }
           r={center}
         />

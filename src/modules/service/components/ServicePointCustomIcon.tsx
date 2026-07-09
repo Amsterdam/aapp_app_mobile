@@ -7,7 +7,7 @@ type Props = {
 } & TestProps
 
 export const ServicePointCustomIcon = ({
-  icon: {path_color, path, circle_color},
+  icon: {path_color, path, circle_color, colors},
   testID,
 }: Props) => (
   <CustomMarkerIcon
@@ -15,6 +15,7 @@ export const ServicePointCustomIcon = ({
       path,
       pathColor: path_color,
       circleColor: circle_color,
+      colors,
     }}
     testID={testID}
   />
