@@ -10,7 +10,7 @@ describe('formatMeta', () => {
     id: 'event-1',
     time: '12:00 - 13:00',
     title: 'Pride event',
-    type: 'party',
+    type: null as unknown as string,
     website: 'https://example.com',
   }
 
@@ -110,5 +110,26 @@ describe('formatMeta', () => {
     } as unknown as PrideEvent
 
     expect(formatMeta(event)).toBeUndefined()
+  })
+
+  it('returns type with new line if type value is present in data', () => {
+    expect(formatMeta({...baseEvent, type: 'Evenement'})).toBe(
+      'Evenement\n1 augustus 2026, 12:00 - 13:00',
+    )
+    expect(formatMeta({...baseEvent, type: 'Sport'})).toBe(
+      'Sport\n1 augustus 2026, 12:00 - 13:00',
+    )
+  })
+
+  it('returns only type if type value is present in data but date data is not', () => {
+    expect(
+      formatMeta({
+        ...baseEvent,
+        type: 'Sport',
+        date_start: null as unknown as string,
+        date_end: null,
+        time: null,
+      }),
+    ).toBe('Sport')
   })
 })
