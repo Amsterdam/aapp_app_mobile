@@ -323,12 +323,18 @@ const main = async () => {
 
   const reviews = await getReviews(pullNumber)
 
-  core.info('reviews:' + JSON.stringify(reviews))
   const isReviewedByCopilot = reviews.some(r => isCopilotLogin(r.user?.login))
   const isReviewedByTeam = reviews.some(
     r =>
       (r.author_association === 'OWNER' || r.author_association === 'MEMBER') &&
       (r.state === 'APPROVED' || r.state === 'CHANGES_REQUESTED'),
+  )
+
+  core.info(
+    'reviews:' +
+      reviews
+        .map(r => r.user?.login + ' ' + r.author_association + ' ' + r.state)
+        .join(', '),
   )
 
   if (isReviewedByCopilot && openCopilotReviewComments === 0) {
