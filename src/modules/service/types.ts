@@ -77,6 +77,7 @@ export type ServiceMapResponseFilter<
 }
 export type ServiceMapResponseIcon = {
   circle_color: string
+  colors?: string[]
   path: string
   path_color: string
 }
