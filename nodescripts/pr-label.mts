@@ -333,7 +333,16 @@ const main = async () => {
   core.info(
     'reviews:' +
       reviews
-        .map(r => r.user?.login + ' ' + r.author_association + ' ' + r.state)
+        .map(
+          r =>
+            r.user?.login +
+            ' ' +
+            r.author_association +
+            ' ' +
+            r.state +
+            ' ' +
+            JSON.stringify(r.user),
+        )
         .join(', '),
   )
 
