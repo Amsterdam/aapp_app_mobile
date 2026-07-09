@@ -86,7 +86,7 @@ export const CustomMarkerIcon = ({
         <Circle
           cx={center}
           cy={center}
-          fill={colors ? 'url(#markerCircleRainbowGradient)' : circleColor}
+          fill={colors?.length ? 'url(#markerCircleRainbowGradient)' : circleColor}
           r={center}
         />
         <Path
