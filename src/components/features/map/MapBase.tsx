@@ -30,6 +30,9 @@ import {useThemable} from '@/themes/useThemable'
 type Props = PropsWithChildren<{
   FilterComponent?: ReactNode
   controls?: ControlVariant[]
+  /**
+   * Determines the initial focus of the map
+   */
   focusType?: MapFocus
   isError?: boolean
   moduleSlug: ModuleSlug
