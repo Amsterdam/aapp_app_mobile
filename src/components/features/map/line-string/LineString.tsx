@@ -60,7 +60,7 @@ export const LineString = ({
       )}
       <ArrowMarkers
         coordinates={latLngCoordinates}
-        size={colors ? 'ml' : 'md'}
+        size={colors?.length ? 'ml' : 'md'}
       />
     </>
   )
