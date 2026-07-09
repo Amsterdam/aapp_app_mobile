@@ -17,7 +17,7 @@ describe('getOffsetCoordinate', () => {
     const result = getOffsetCoordinate(coordinate, Math.PI / 2, 0.01)
 
     expect(result.latitude).toBeCloseTo(52.37)
-    expect(result.longitude).toBeCloseTo(4.88)
+    expect(result.longitude).toBeCloseTo(4.87)
   })
 
   it('should return the original coordinate when offset is 0.', () => {

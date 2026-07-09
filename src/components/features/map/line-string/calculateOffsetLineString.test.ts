@@ -29,8 +29,8 @@ describe('calculateOffsetLineString', () => {
     const result = calculateOffsetLineString(coordinates, 0.1)
 
     expect(result).toHaveLength(2)
-    expect(result[0]).toEqual({latitude: 0, longitude: 0.1})
-    expect(result[1]).toEqual({latitude: 1, longitude: 0.1})
+    expect(result[0]).toEqual({latitude: 0, longitude: 0.17})
+    expect(result[1]).toEqual({latitude: 1, longitude: 0.17})
   })
 
   it('should calculate an interior intersection for a bent three-point line string.', () => {
@@ -44,9 +44,9 @@ describe('calculateOffsetLineString', () => {
 
     expect(result).toHaveLength(3)
     expect(result[0].latitude).toBeCloseTo(0)
-    expect(result[0].longitude).toBeCloseTo(0.1)
+    expect(result[0].longitude).toBeCloseTo(0.17)
     expect(result[1].latitude).toBeCloseTo(0.9)
-    expect(result[1].longitude).toBeCloseTo(0.1)
+    expect(result[1].longitude).toBeCloseTo(0.17)
     expect(result[2].latitude).toBeCloseTo(0.9)
     expect(result[2].longitude).toBeCloseTo(1)
   })

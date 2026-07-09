@@ -59,7 +59,7 @@ export const RainbowPolyLine = ({
         )}
         onPress={onPress}
         strokeColor={'#004ffb'}
-        strokeWidth={STROKE_WIDTH}
+        strokeWidth={STROKE_WIDTH - 1}
         tappable
       />
     </>
