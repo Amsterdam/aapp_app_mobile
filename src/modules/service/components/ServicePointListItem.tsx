@@ -40,7 +40,9 @@ export const ServicePointListItem = ({
                 testID="ServicePointListItemServicePointCustomIcon"
               />
             )}
-            <Column>
+            <Column
+              grow={1}
+              shrink={1}>
               <Title
                 accessible={false}
                 color="link"
