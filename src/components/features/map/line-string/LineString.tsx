@@ -42,7 +42,7 @@ export const LineString = ({
 
   return (
     <>
-      {Array.isArray(colors) ? (
+      {colors?.length ? (
         <RainbowPolyLine
           colors={colors}
           latLngCoordinates={latLngCoordinates}
