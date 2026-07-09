@@ -94,6 +94,37 @@ steps:
     displayName: 'Cache android build directory'
     condition: eq('${{ parameters.platform }}', 'android')
 
+  # Cache Gradle user home dependency artifacts to speed up first-run builds.
+  - task: Cache@2
+    inputs:
+      key: 'gradle_modules2 | "$(Agent.OS)$(Agent.OSArchitecture)" | "$(REACT_NATIVE_VERSION)" | **/package-lock.json | android/**/*.gradle* | android/gradle/wrapper/gradle-wrapper.properties'
+      path: $(HOME)/.gradle/caches/modules-2
+      cacheHitVar: GRADLE_MODULES2_CACHE_RESTORED
+      restoreKeys: |
+        gradle_modules2 | "$(Agent.OS)$(Agent.OSArchitecture)" | "$(REACT_NATIVE_VERSION)"
+    displayName: 'Cache Gradle modules-2 directory'
+    condition: eq('${{ parameters.platform }}', 'android')
+
+  - task: Cache@2
+    inputs:
+      key: 'gradle_transforms3 | "$(Agent.OS)$(Agent.OSArchitecture)" | "$(REACT_NATIVE_VERSION)" | **/package-lock.json | android/**/*.gradle* | android/gradle/wrapper/gradle-wrapper.properties'
+      path: $(HOME)/.gradle/caches/transforms-3
+      cacheHitVar: GRADLE_TRANSFORMS3_CACHE_RESTORED
+      restoreKeys: |
+        gradle_transforms3 | "$(Agent.OS)$(Agent.OSArchitecture)" | "$(REACT_NATIVE_VERSION)"
+    displayName: 'Cache Gradle transforms-3 directory'
+    condition: eq('${{ parameters.platform }}', 'android')
+
+  - task: Cache@2
+    inputs:
+      key: 'gradle_wrapper | "$(Agent.OS)$(Agent.OSArchitecture)" | **/package-lock.json | android/gradle/wrapper/gradle-wrapper.properties'
+      path: $(HOME)/.gradle/wrapper
+      cacheHitVar: GRADLE_WRAPPER_CACHE_RESTORED
+      restoreKeys: |
+        gradle_wrapper | "$(Agent.OS)$(Agent.OSArchitecture)"
+    displayName: 'Cache Gradle wrapper directory'
+    condition: eq('${{ parameters.platform }}', 'android')
+
   # Cache the Gradle configuration-cache directory for Android builds
   - task: Cache@2
     inputs:
