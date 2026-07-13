@@ -122,3 +122,13 @@ export type ServiceFeatureProperty = {
   type: ServiceDetailPropertyType
   value: string | number | boolean | null
 }
+
+export type MapLayer<
+  K extends keyof FeatureProperties = keyof FeatureProperties,
+> = {
+  filter_key: K
+  filter_value: FeatureProperties[K]
+  icon: ServiceMapResponseIcon | undefined
+  icon_label: string
+  label: string
+}
