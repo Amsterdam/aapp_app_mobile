@@ -125,12 +125,14 @@ export const ParkingActiveSessionsSummary = () => {
       testID="ParkingPermitSessionsActiveBadgeButton">
       <Row gutter="sm">
         <Title
+          accessible={false}
           color="link"
           level="h5"
           testID="ParkingPermitSessionsActiveTitle"
           text="Actief"
         />
         <Badge
+          accessible={false}
           color="info"
           testID="ParkingPermitSessionsActiveBadge"
           value={activeParkingSessions.length}

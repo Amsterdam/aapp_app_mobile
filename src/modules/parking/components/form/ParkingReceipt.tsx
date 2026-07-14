@@ -206,24 +206,44 @@ export const ParkingReceipt = () => {
         <Column gutter="xs">
           {!!currentPermit.time_balance_applicable && (
             <ParkingReceiptItem>
-              <Phrase emphasis="strong">Parkeertijd</Phrase>
-              <Phrase emphasis="strong">{parkingTimeText}</Phrase>
+              <Phrase
+                accessible={false}
+                emphasis="strong">
+                Parkeertijd
+              </Phrase>
+              <Phrase
+                accessible={false}
+                emphasis="strong">
+                {parkingTimeText}
+              </Phrase>
             </ParkingReceiptItem>
           )}
           {!!currentPermit.money_balance_applicable && (
             <ParkingReceiptItem>
-              <Phrase emphasis="strong">Parkeerkosten</Phrase>
-              <Phrase emphasis="strong">{parkingCostText}</Phrase>
+              <Phrase
+                accessible={false}
+                emphasis="strong">
+                Parkeerkosten
+              </Phrase>
+              <Phrase
+                accessible={false}
+                emphasis="strong">
+                {parkingCostText}
+              </Phrase>
             </ParkingReceiptItem>
           )}
         </Column>
         <Column gutter="xs">
           {!!currentPermit.time_balance_applicable && (
             <ParkingReceiptItem>
-              <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
+              <Phrase
+                accessible={false}
+                color={remainingTimeBalanceError ? 'warning' : undefined}>
                 Resterend tijdsaldo
               </Phrase>
-              <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
+              <Phrase
+                accessible={false}
+                color={remainingTimeBalanceError ? 'warning' : undefined}>
                 {remainingTimeBalanceText}
               </Phrase>
             </ParkingReceiptItem>
@@ -232,10 +252,12 @@ export const ParkingReceipt = () => {
           {!!currentPermit.money_balance_applicable && !!isPermitHolder && (
             <ParkingReceiptItem>
               <Phrase
+                accessible={false}
                 color={remainingWalletBalanceError ? 'warning' : undefined}>
                 Resterend geldsaldo
               </Phrase>
               <Phrase
+                accessible={false}
                 color={remainingWalletBalanceError ? 'warning' : undefined}>
                 {remainingWalletBalanceText}
               </Phrase>

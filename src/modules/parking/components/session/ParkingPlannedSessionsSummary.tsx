@@ -98,12 +98,14 @@ export const ParkingPlannedSessionsSummary = () => {
       testID="ParkingPermitSessionsPlannedBadgeButton">
       <Row gutter="sm">
         <Title
+          accessible={false}
           color="link"
           level="h5"
           testID="ParkingPermitSessionsPlannedTitle"
           text="Gepland"
         />
         <Badge
+          accessible={false}
           color="info"
           testID="ParkingPermitSessionsPlannedBadge"
           value={plannedParkingSessions.length}
