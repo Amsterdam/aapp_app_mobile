@@ -5,7 +5,7 @@ import {
   getAddressLine1,
   getAddressLine2,
 } from '@/modules/address/utils/addDerivedAddressFields'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 const WASTE_GUIDE_BASE_URL = 'https://www.amsterdam.nl/afval/afvalinformatie/'
 

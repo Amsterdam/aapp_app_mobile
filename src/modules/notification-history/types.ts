@@ -1,4 +1,4 @@
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {type PushNotificationDataDefault} from '@/types/notification'
 
 export type GetNotificationsResult = Notification[]

@@ -1,6 +1,6 @@
 import {useLinkTo} from '@react-navigation/native'
 import {useCallback, type ReactNode} from 'react'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {resolveModuleOnNotificationEvent} from '@/app/navigation/utils/resolveModuleOnNotificationEvent'
 import {resolveModulePathFromNotification} from '@/app/navigation/utils/resolveModulePathFromNotification'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'

@@ -5,7 +5,7 @@ import {
   type BoatChargingState,
 } from '@/modules/boat-charging/slice'
 import {logout} from '@/modules/boat-charging/utils/logout'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 

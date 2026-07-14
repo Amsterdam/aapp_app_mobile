@@ -6,7 +6,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useIsLoggedIn} from '@/modules/city-pass/hooks/useIsLoggedIn'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {UserRouteName} from '@/modules/user/routes'
 
 export const Account = () => {

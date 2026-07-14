@@ -11,7 +11,7 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
 import {PollingStation} from '@/modules/elections/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {getDistance} from '@/utils/getDistance'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 

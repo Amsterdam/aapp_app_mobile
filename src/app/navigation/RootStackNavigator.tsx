@@ -4,9 +4,9 @@ import {InactiveModuleGuard} from '@/app/navigation/InactiveModuleGuard'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {allModules} from '@/modules/modules'
 import {useShouldShowOnboarding} from '@/modules/onboarding/slice'
-import {ModuleSlug} from '@/modules/slugs'
 import {getModuleStack, modals} from '@/modules/stacks'
 
 const Stack = createStackNavigator<RootStackParams>()

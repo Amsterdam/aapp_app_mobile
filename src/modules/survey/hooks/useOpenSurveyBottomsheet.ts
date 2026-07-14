@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {useIsModuleActive} from '@/hooks/useIsModuleActive'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useShouldShowBottomsheetSurvey} from '@/modules/survey/hooks/useShouldShowBottomsheetSurvey'
 import {useBottomSheetSurveyEntryPoint} from '@/modules/survey/slice'
 

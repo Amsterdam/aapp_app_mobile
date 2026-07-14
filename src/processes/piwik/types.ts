@@ -3,7 +3,7 @@ import {
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {AccessibilityChangeEventName} from 'react-native'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export type Piwik = {
   ready: boolean

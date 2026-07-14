@@ -11,7 +11,7 @@ import {
   type SvgIconVariantConfig,
 } from '@/components/ui/media/svgIcons'
 import {type ReduxDispatch} from '@/hooks/redux/types'
-import {type ModuleSlug} from '@/modules/slugs'
+import {type ModuleSlug} from '@/modules/generated/slugs.generated'
 import {type CustomDimensionKeys} from '@/processes/piwik/types'
 import {type ReduxConfig} from '@/store/types/reduxConfig'
 import {type RootState} from '@/store/types/rootState'

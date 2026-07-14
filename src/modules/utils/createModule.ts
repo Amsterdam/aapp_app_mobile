@@ -1,4 +1,4 @@
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {CoreModuleConfig, ModuleClientConfig} from '@/modules/types'
 import {type SvgIconVariantConfig} from '@/components/ui/media/svgIcons'
 

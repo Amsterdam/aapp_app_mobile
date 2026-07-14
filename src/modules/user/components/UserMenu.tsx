@@ -9,7 +9,7 @@ import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCode
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AddressRouteName} from '@/modules/address/routes'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {AppInfoCopyButtons} from '@/modules/user/components/AppInfoCopyButtons'
 import {aboutSections} from '@/modules/user/constants'
 import {UserRouteName} from '@/modules/user/routes'

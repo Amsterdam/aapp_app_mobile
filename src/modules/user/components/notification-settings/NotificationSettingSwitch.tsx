@@ -1,5 +1,5 @@
 import {useCallback, type ReactNode} from 'react'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {NotificationType} from '@/modules/user/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Switch} from '@/components/ui/forms/Switch'

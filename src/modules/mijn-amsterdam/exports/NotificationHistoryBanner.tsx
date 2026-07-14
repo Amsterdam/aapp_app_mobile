@@ -11,11 +11,11 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   selectShouldShowBanner,
   setShouldShowBanner,
 } from '@/modules/mijn-amsterdam/slice'
-import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
 
 export const NotificationHistoryBanner = () => {

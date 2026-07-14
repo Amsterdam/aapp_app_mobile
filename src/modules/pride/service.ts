@@ -1,8 +1,8 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   PrideEndpointName,
   type PrideEventsResponse,
 } from '@/modules/pride/types'
-import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 
 export const prideApi = baseApi.injectEndpoints({

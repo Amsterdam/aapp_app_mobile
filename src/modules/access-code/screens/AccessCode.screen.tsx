@@ -12,7 +12,7 @@ import {EnterAccessCode} from '@/modules/access-code/components/EnterAccessCode'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = NavigationProps<AccessCodeRouteName.accessCode>
 

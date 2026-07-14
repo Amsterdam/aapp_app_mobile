@@ -1,6 +1,6 @@
 import {getStateFromPath} from '@react-navigation/native'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {resolvePathFromNotification} from '@/modules/mijn-amsterdam/notifications/resolvePathFromNotification'
-import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
 import {moduleLinkings} from '@/modules/utils/moduleLinkings'
 

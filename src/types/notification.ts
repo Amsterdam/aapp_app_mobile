@@ -1,4 +1,4 @@
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {Notification} from '@notifee/react-native'
 
 export type NotificationQueryArg = {

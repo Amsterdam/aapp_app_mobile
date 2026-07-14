@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {MAX_RECENT_ADDRESSES} from '@/modules/address/constants'
 import {

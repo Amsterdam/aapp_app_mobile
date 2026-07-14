@@ -3,8 +3,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {ModuleSlug} from '@/modules/slugs'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 export const WasteGuideMoreOptions = () => {

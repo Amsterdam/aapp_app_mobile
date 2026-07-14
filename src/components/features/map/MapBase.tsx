@@ -12,7 +12,7 @@ import MapView, {
   type MapViewProps,
   type Region,
 } from 'react-native-maps'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {Theme} from '@/themes/themes'
 import {MapContext} from '@/components/features/map/MapContext'
 import {MapControls} from '@/components/features/map/MapControls'

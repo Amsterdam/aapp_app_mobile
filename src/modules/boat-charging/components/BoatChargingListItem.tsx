@@ -10,8 +10,8 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {type BoatChargingPointFeature} from '@/modules/boat-charging/types'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {getFormattedDistanceToPoint} from '@/modules/service/utils/getFormattedDistanceToPoint'
-import {ModuleSlug} from '@/modules/slugs'
 import {useTheme} from '@/themes/useTheme'
 
 export const BoatChargingListItem = ({

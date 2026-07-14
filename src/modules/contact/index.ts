@@ -1,6 +1,6 @@
 import {ContactRouteName} from '@/modules/contact/routes'
 import {contactSlice} from '@/modules/contact/slice'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'

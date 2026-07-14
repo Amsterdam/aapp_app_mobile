@@ -2,9 +2,9 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon, IconProps} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ModuleHeaderComponents} from '@/modules/home/components/ModuleHeaderComponents'
 import {HomeRouteName} from '@/modules/home/routes'
-import {ModuleSlug} from '@/modules/slugs'
 import {isDevApp} from '@/processes/development'
 
 export const HeaderNavigation = () => {

@@ -20,7 +20,7 @@ import {
   type ProjectsQueryArgs,
   ConstructionWorkEndpointName,
 } from '@/modules/construction-work/types/api'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
 
 const emptyProjectsItem: ProjectsListItem = {

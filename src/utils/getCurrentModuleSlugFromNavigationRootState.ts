@@ -1,5 +1,5 @@
 import {navigationRef} from '@/app/navigation/navigationRef'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const getCurrentModuleSlugFromNavigationRootState = ():
   | ModuleSlug

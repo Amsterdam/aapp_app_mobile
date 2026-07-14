@@ -1,8 +1,8 @@
 import type {IconProps} from '@/components/ui/media/Icon'
 import type {AccessCodeRouteName} from '@/modules/access-code/routes'
 import type {AddressRouteName} from '@/modules/address/routes'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {OnboardingRouteName} from '@/modules/onboarding/routes'
-import type {ModuleSlug} from '@/modules/slugs'
 import type {UserRouteName} from '@/modules/user/routes'
 
 export type UserMenuSection = {

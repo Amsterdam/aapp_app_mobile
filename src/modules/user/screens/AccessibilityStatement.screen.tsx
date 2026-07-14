@@ -8,7 +8,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {UserRouteName} from '@/modules/user/routes'
 
 type Props = NavigationProps<UserRouteName.accessibilityStatement>

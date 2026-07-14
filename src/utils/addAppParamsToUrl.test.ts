@@ -1,4 +1,4 @@
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {isAmsterdamNlUrl, addAppParamsToUrl} from '@/utils/addAppParamsToUrl'
 
 describe('isAmsterdamNlUrl', () => {

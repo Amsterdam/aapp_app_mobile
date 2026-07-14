@@ -2,7 +2,7 @@ import type {
   SurveyConfigByLocationResponse,
   SurveyVersionEntryParams,
 } from '@/modules/survey/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 
 export const surveyService = baseApi.injectEndpoints({

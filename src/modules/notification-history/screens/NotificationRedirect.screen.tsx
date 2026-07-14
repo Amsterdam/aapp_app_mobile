@@ -9,8 +9,8 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {HomeRouteName} from '@/modules/home/routes'
-import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<NotificationHistoryRouteName.NotificationRedirect>
 

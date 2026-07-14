@@ -1,5 +1,5 @@
 import {CityOffice, ContactEndpointName} from '@/modules/contact/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
 

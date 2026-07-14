@@ -1,6 +1,6 @@
 import {onNotificationEvent} from '@/modules/chat/onNotificationEvent'
 import {chatSlice, ChatState} from '@/modules/chat/slice'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 

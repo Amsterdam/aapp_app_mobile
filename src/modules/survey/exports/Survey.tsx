@@ -1,6 +1,6 @@
 import {type ReactNode} from 'react'
 import {RenderIfModuleActive} from '@/components/features/RenderIfModuleActive'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {DynamicForm} from '@/modules/survey/components/DynamicForm'
 import {useBottomSheetSurveyEntryPoint} from '@/modules/survey/slice'
 

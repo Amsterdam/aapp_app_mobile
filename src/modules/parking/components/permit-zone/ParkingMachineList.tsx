@@ -9,10 +9,10 @@ import {Title} from '@/components/ui/text/Title'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
-import {ModuleSlug} from '@/modules/slugs'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 export const ParkingMachineList = () => {
