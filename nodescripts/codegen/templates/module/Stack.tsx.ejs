@@ -1,0 +1,24 @@
+import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
+import {useScreenOptions} from '@/app/navigation/useScreenOptions'
+import {<%= moduleSlugPascalCase %>RouteName} from '@/modules/<%= moduleSlug %>/routes'
+import {screenConfig} from '@/modules/<%= moduleSlug %>/screenConfig'
+
+const Stack = createStackNavigator<RootStackParams>()
+
+export const ModuleStack = () => {
+  const screenOptions = useScreenOptions()
+
+  return (
+    <Stack.Navigator
+      initialRouteName={<%= moduleSlugPascalCase %>RouteName.index}
+      screenOptions={screenOptions}>
+      {Object.entries(screenConfig).map(([key, route]) => (
+        <Stack.Screen
+          key={key}
+          {...route}
+        />
+      ))}
+    </Stack.Navigator>
+  )
+}

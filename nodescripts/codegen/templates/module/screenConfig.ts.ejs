@@ -1,0 +1,16 @@
+import type {StackNavigationRoutes} from '@/app/navigation/types'
+import {type ModuleStackParams, <%= moduleSlugPascalCase %>RouteName} from '@/modules/<%= moduleSlug %>/routes'
+import {<%= moduleSlugPascalCase %>IndexScreen} from '@/modules/<%= moduleSlug %>/screens/<%= moduleSlugPascalCase %>Index.screen'
+
+export const screenConfig: StackNavigationRoutes<
+  ModuleStackParams,
+  <%= moduleSlugPascalCase %>RouteName
+> = {
+  [<%= moduleSlugPascalCase %>RouteName.index]: {
+    component: <%= moduleSlugPascalCase %>IndexScreen,
+    name: <%= moduleSlugPascalCase %>RouteName.index,
+    options: {
+      headerTitle: '<%= moduleName %>',
+    },
+  },
+}

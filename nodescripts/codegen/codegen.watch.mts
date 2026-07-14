@@ -2,6 +2,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {config} from '../../codegen.config.mts'
 import {runCodeGen} from './utils/runCodegen.mts'
+import {sleep} from '@/utils/sleep'
+
+const IGNORE_DIRS = ['generated', 'utils']
 
 const watchDir = (dir: string, files: string[]) => {
   fs.watch(dir, (eventType, filename) => {
@@ -43,6 +46,33 @@ const setupWatchers = () => {
     )
     setupDirWatchers(fullPath, Array.from(matchesSet))
   }
+
+  fs.watch('src/modules', async eventType => {
+    if (eventType !== 'rename') {
+      return
+    }
+
+    await sleep(1000) // Wait for the filesystem to settle
+
+    const modules = await fs.promises.readdir('src/modules', {
+      withFileTypes: true,
+    })
+    const moduleDirs = modules
+      .filter(
+        dirent => dirent.isDirectory() && !IGNORE_DIRS.includes(dirent.name),
+      )
+      .map(dirent => dirent.name)
+
+    await fs.promises.writeFile(
+      path.join('src/modules', 'generated', 'slugs.generated.ts'),
+      `// This file is auto-generated. Do not edit manually.
+
+      export enum ModuleSlug {
+      ${moduleDirs.map(dir => `'${dir}' = '${dir}'`).join(',\n  ')}
+    }
+    `,
+    )
+  })
 }
 
 setupWatchers()

@@ -1,0 +1,18 @@
+import {Screen} from '@/components/features/screen/Screen'
+import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+
+export const <%= moduleSlugPascalCase %>IndexScreen = () => (
+  <Screen
+    scroll={false}
+    testID=" <%= moduleSlugPascalCase %>IndexScreen">
+    <Box>
+      <Column gutter="md">
+        <Title text="Dit een een opzet voor de module <%= moduleName %>."/>
+        <Paragraph>Beschrijving: <%= moduleDescription %></Paragraph>
+      </Column>
+    </Box>
+  </Screen>
+)

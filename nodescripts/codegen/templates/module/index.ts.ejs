@@ -1,0 +1,10 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {createClientModule} from '@/modules/utils/createModule'
+
+export const module = createClientModule({
+  name: '<%= moduleSlugPascalCase %>Module',
+  linking: {
+    [ModuleSlug['<%= moduleSlug %>']]: ModuleSlug['<%= moduleSlug %>'],
+  },
+  slug: ModuleSlug['<%= moduleSlug %>'],
+})
