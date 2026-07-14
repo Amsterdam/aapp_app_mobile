@@ -168,4 +168,17 @@ export const config: CodeGenConfig = [
       },
     ],
   },
+  {
+    inputDir,
+    match: 'index.ts',
+    output: 'src/modules/generated/clientModules.generated.ts',
+    imports: [
+      {
+        import: 'module',
+        exportName: 'clientModules',
+        optional: true,
+        result: 'array',
+      },
+    ],
+  },
 ]

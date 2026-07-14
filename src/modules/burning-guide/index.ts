@@ -2,7 +2,7 @@ import {onNotificationEvent} from '@/modules/burning-guide/onNotificationEvent'
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 
-export const burningGuideModule = createClientModule({
+export const module = createClientModule({
   name: 'BurningGuideModule',
   slug: ModuleSlug['burning-guide'],
   linking: {
