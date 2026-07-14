@@ -1,6 +1,7 @@
 import {useMemo} from 'react'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useAppState} from '@/hooks/useAppState'
+import {selectCachedThemes} from '@/modules/mijn-amsterdam/slice'
 import {clientModules} from '@/modules/modules'
 import {postProcessModules} from '@/modules/utils/modules'
 import {useGetReleaseQuery} from '@/services/modules.service'
@@ -29,6 +30,7 @@ export const useModules = () => {
       a.length === b.length &&
       a.every((value: string, index) => value === b[index]),
   )
+  const cachedMijnAmsterdamThemes = useSelector(selectCachedThemes)
   const cachedServerModules = useSelector(selectCachedServerModules)
   const postProcessedModules = useMemo(() => {
     if (!serverModules) {
@@ -37,7 +39,10 @@ export const useModules = () => {
           clientModules,
           userDisabledModulesBySlug,
           authorizedModulesBySlug,
-          cachedServerModules,
+          [
+            ...(cachedServerModules ?? []),
+            ...(cachedMijnAmsterdamThemes ?? []),
+          ],
         )
       }
 
@@ -48,13 +53,14 @@ export const useModules = () => {
       clientModules,
       userDisabledModulesBySlug,
       authorizedModulesBySlug,
-      serverModules,
+      [...serverModules, ...(cachedMijnAmsterdamThemes ?? [])],
     )
   }, [
     serverModules,
     userDisabledModulesBySlug,
     authorizedModulesBySlug,
     cachedServerModules,
+    cachedMijnAmsterdamThemes,
   ])
 
   useAppState({

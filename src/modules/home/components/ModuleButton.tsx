@@ -1,6 +1,7 @@
 import {useMemo, type ReactNode} from 'react'
 import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
+import {Box} from '@/components/ui/containers/Box'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -24,6 +25,7 @@ const ModuleButtonContent = ({
   disabled,
   iconPath,
   Icon: CustomIcon,
+  isMams,
   titleColor,
   label,
   testID,
@@ -46,32 +48,45 @@ const ModuleButtonContent = ({
   }, [disabled, variant, titleColor])
 
   return (
-    <Row gutter="sm">
-      <Row gutter="md">
-        {CustomIcon ||
-          (!!iconPath && (
-            <Icon
-              color={color}
-              path={iconPath}
-              size="lgx"
-              testID={`${testID}Icon`}
-            />
-          ))}
-        <Title
-          accessible={false}
-          color={color}
-          level="h5"
-          text={label}
-        />
+    <Row
+      align="between"
+      gutter="sm">
+      <Row gutter="sm">
+        <Row gutter="md">
+          {CustomIcon ||
+            (!!iconPath && (
+              <Icon
+                color={color}
+                path={iconPath}
+                size="lgx"
+                testID={`${testID}Icon`}
+              />
+            ))}
+          <Title
+            accessible={false}
+            color={color}
+            level="h5"
+            text={label}
+          />
+        </Row>
+        {!!disabled && (
+          <Badge
+            accessibilityLabel="Dit onderdeel werkt nu niet."
+            color="disabled"
+            testID={`${testID}Badge`}
+            value="!"
+            variant="small"
+          />
+        )}
       </Row>
-      {!!disabled && (
-        <Badge
-          accessibilityLabel="Dit onderdeel werkt nu niet."
-          color="disabled"
-          testID={`${testID}Badge`}
-          value="!"
-          variant="small"
-        />
+      {!!isMams && (
+        <Box>
+          <Icon
+            name="lock-open"
+            size="ml"
+            testID={`${testID}MijnAmsterdamIcon`}
+          />
+        </Box>
       )}
     </Row>
   )
@@ -83,6 +98,7 @@ type ModuleButtonProps = {
   background?: keyof Theme['color']['module']['highlight']
   disabled?: boolean
   iconPath?: string
+  isMams?: boolean
   label: string
   slug: ModuleSlug
   titleColor?: keyof Theme['color']['text']
@@ -94,6 +110,7 @@ export const ModuleButton = ({
   titleColor,
   disabled,
   iconPath,
+  isMams,
   label,
   slug,
   testID,
@@ -121,6 +138,7 @@ export const ModuleButton = ({
       variant={variant}>
       <ModuleButtonContent
         disabled={disabled}
+        isMams={isMams}
         label={label}
         testID={testID}
         titleColor={titleColor}

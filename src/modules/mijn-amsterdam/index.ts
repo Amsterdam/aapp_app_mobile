@@ -10,6 +10,7 @@ import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 const persistWhitelist: (keyof MijnAmsterdamState)[] = [
+  'cachedThemes',
   'isLoggedIn',
   'shouldShowBanner',
 ]

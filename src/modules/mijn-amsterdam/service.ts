@@ -1,6 +1,7 @@
+import type {ModuleServerConfig} from '@/modules/types'
 import type {QueryReturnValue} from '@/services/types'
-import {DeviatingApiSlug} from '@/environment'
-import {setIsLoggedIn} from '@/modules/mijn-amsterdam/slice'
+import {DeviatingApiSlug, GlobalApiSlug} from '@/environment'
+import {setCachedThemes, setIsLoggedIn} from '@/modules/mijn-amsterdam/slice'
 import {
   GetMijnAmsterdamLogin,
   MijnAmsterdamLoginStatus,
@@ -9,6 +10,7 @@ import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
+import {VERSION_NUMBER} from '@/utils/version'
 
 export const mijnAmsterdamApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -35,6 +37,20 @@ export const mijnAmsterdamApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.minute,
     }),
+    getMijnAmsterdamThemes: builder.query<{themes: ModuleServerConfig[]}, void>(
+      {
+        providesTags: ['MijnAmsterdam'],
+        query: () => ({
+          slug: GlobalApiSlug.modules,
+          url: `/themes/${VERSION_NUMBER}`,
+          afterSuccess: ({data}, {dispatch}) => {
+            dispatch(
+              setCachedThemes((data as {themes: ModuleServerConfig[]}).themes),
+            )
+          },
+        }),
+      },
+    ),
     mijnAmsterdamLogout: builder.mutation<void, void>({
       invalidatesTags: ['MijnAmsterdam'],
       query: () => ({
@@ -54,4 +70,5 @@ export const mijnAmsterdamApi = baseApi.injectEndpoints({
 export const {
   useGetMijnAmsterdamLoginStatusQuery,
   useMijnAmsterdamLogoutMutation,
+  useGetMijnAmsterdamThemesQuery,
 } = mijnAmsterdamApi

@@ -5,6 +5,7 @@ import {ModulesFigure} from '@/components/ui/media/errors/ModulesFigure'
 import {useModules} from '@/hooks/useModules'
 import {ActionButtons} from '@/modules/home/components/ActionButtons'
 import {Modules} from '@/modules/home/components/Modules'
+import {MijnAmsterdamDigidLoginButton} from '@/modules/mijn-amsterdam/exports/MijnAmsterdamDigidLoginButton'
 
 export const Home = () => {
   const {enabledModules, modulesError, modulesLoading, refetchModules} =
@@ -33,6 +34,7 @@ export const Home = () => {
     <Box>
       <ActionButtons />
       <Modules modules={enabledModules} />
+      <MijnAmsterdamDigidLoginButton />
     </Box>
   )
 }

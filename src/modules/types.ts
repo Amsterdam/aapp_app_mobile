@@ -149,6 +149,10 @@ export type ModuleServerConfig = {
   icon: SvgIconName
   iconPath: string
   /**
+   * If true, the module is a Mijn Amsterdam module. This means that the module is only available to users who are logged in to their Mijn Amsterdam account.
+   */
+  isMams?: boolean
+  /**
    * The reason why the module is not available in all app versions.
    */
   moduleAppReason: string | null

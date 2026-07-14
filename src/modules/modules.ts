@@ -12,6 +12,7 @@ import {electionsModule} from '@/modules/elections'
 import {homeModule} from '@/modules/home'
 import {kingsdayModule} from '@/modules/kingsday'
 import {mijnAmsterdamModule} from '@/modules/mijn-amsterdam'
+import {mijnAmsterdamModules} from '@/modules/mijn-amsterdam/exports/modules'
 import {newsModule} from '@/modules/news'
 import {notificationHistoryModule} from '@/modules/notification-history'
 import {onboardingModule} from '@/modules/onboarding'
@@ -60,6 +61,7 @@ export const clientModules = [
   surveyModule,
   wasteContainerModule,
   wasteGuideModule,
+  ...mijnAmsterdamModules,
 ]
 
 export const allModules: Array<ModuleClientConfig | CoreModuleConfig> = [

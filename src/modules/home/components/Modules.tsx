@@ -28,6 +28,7 @@ export const Modules = ({modules}: Props) => {
       {availableModules?.map(
         ({
           iconPath,
+          isMams,
           requiresAuthorization,
           slug,
           status,
@@ -39,6 +40,7 @@ export const Modules = ({modules}: Props) => {
             background={moduleHighlightColor}
             disabled={status === ModuleStatus.inactive}
             iconPath={iconPath}
+            isMams={isMams}
             key={slug}
             label={title}
             slug={slug}

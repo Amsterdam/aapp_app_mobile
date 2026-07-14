@@ -1,14 +1,19 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import type {ModuleSlug} from '@/modules/slugs'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {ModuleStatus, type ModuleServerConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
 export type MijnAmsterdamState = {
+  cachedThemes?: ModuleServerConfig[]
   isLoggedIn: boolean
   profileName?: string
   shouldShowBanner: boolean
 }
 
 const initialState: MijnAmsterdamState = {
+  cachedThemes: undefined,
   isLoggedIn: false,
   profileName: undefined,
   shouldShowBanner: true,
@@ -18,6 +23,15 @@ export const mijnAmsterdamSlice = createSlice({
   name: ReduxKey.mijnAmsterdam,
   initialState,
   reducers: {
+    setCachedThemes: (
+      state,
+      {payload: newCachedThemes}: PayloadAction<ModuleServerConfig[]>,
+    ) => {
+      state.cachedThemes = newCachedThemes.map(theme => ({
+        ...theme,
+        isMams: true,
+      }))
+    },
     setIsLoggedIn: (
       state,
       {
@@ -47,7 +61,8 @@ export const mijnAmsterdamSlice = createSlice({
   },
 })
 
-export const {setIsLoggedIn, setShouldShowBanner} = mijnAmsterdamSlice.actions
+export const {setCachedThemes, setIsLoggedIn, setShouldShowBanner} =
+  mijnAmsterdamSlice.actions
 
 export const selectIsLoggedIn = (state: RootState) =>
   state[ReduxKey.mijnAmsterdam].isLoggedIn
@@ -57,3 +72,16 @@ export const selectProfileName = (state: RootState) =>
 
 export const selectShouldShowBanner = (state: RootState) =>
   state[ReduxKey.mijnAmsterdam].shouldShowBanner
+
+export const selectCachedThemes = (state: RootState) =>
+  state[ReduxKey.mijnAmsterdam].cachedThemes
+
+export const useGetCachedTheme = (slug: ModuleSlug) => {
+  const cachedThemes = useSelector(selectCachedThemes)
+
+  const cachedTheme = cachedThemes?.find(theme => theme.moduleSlug === slug)
+
+  const isInactive = cachedTheme?.status === ModuleStatus.inactive
+
+  return {cachedTheme, isInactive}
+}
