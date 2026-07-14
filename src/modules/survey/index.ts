@@ -3,7 +3,7 @@ import {surveySlice} from '@/modules/survey/slice'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const surveyModule = createClientModule({
+export const module = createClientModule({
   alwaysEnabled: true,
   excludeFromHome: true,
   name: 'SurveyModule',

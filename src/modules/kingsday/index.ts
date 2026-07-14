@@ -2,7 +2,7 @@ import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {kingsdaySvgIcons} from '@/modules/kingsday/constants/icons'
 import {createClientModule} from '@/modules/utils/createModule'
 
-export const kingsdayModule = createClientModule({
+export const module = createClientModule({
   name: 'KingsdayModule',
   linking: {
     [ModuleSlug.kingsday]: ModuleSlug.kingsday,

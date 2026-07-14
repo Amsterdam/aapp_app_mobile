@@ -4,7 +4,7 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {notificationHistoryModule} from '@/modules/notification-history'
+import {module as notificationHistoryModule} from '@/modules/notification-history'
 import {useGetNotificationsQuery} from '@/modules/notification-history/service'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 

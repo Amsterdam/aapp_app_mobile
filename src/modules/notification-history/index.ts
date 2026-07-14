@@ -2,7 +2,7 @@ import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {NotificationHistoryRouteName} from '@/modules/notification-history/routes'
 import {createClientModule} from '@/modules/utils/createModule'
 
-export const notificationHistoryModule = createClientModule({
+export const module = createClientModule({
   excludeFromHome: true,
   name: 'NotificationHistoryModule',
   slug: ModuleSlug['notification-history'],

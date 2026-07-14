@@ -1,29 +1,10 @@
 import type {ModuleClientConfig, CoreModuleConfig} from '@/modules/types'
 import {accessCodeModule} from '@/modules/access-code'
 import {addressModule} from '@/modules/address'
-import {boatChargingModule} from '@/modules/boat-charging'
-import {burningGuideModule} from '@/modules/burning-guide'
-import {chatModule} from '@/modules/chat'
-import {cityPassModule} from '@/modules/city-pass'
-import {constructionWorkModule} from '@/modules/construction-work'
-import {constructionWorkEditorModule} from '@/modules/construction-work-editor'
-import {contactModule} from '@/modules/contact'
-import {electionsModule} from '@/modules/elections'
+import {clientModules as clientModulesGenerated} from '@/modules/generated/clientModules.generated'
 import {homeModule} from '@/modules/home'
-import {kingsdayModule} from '@/modules/kingsday'
-import {mijnAmsterdamModule} from '@/modules/mijn-amsterdam'
-import {newsModule} from '@/modules/news'
-import {notificationHistoryModule} from '@/modules/notification-history'
 import {onboardingModule} from '@/modules/onboarding'
-import {parkingModule} from '@/modules/parking'
-import {prideModule} from '@/modules/pride'
-import {redirectsModule} from '@/modules/redirects'
-import {reportProblemModule} from '@/modules/report-problem'
-import {serviceModule} from '@/modules/service'
-import {surveyModule} from '@/modules/survey'
 import {userModule} from '@/modules/user'
-import {wasteContainerModule} from '@/modules/waste-container'
-import {wasteGuideModule} from '@/modules/waste-guide'
 
 /**
  * Core Modules don't have a server part and are always loaded.
@@ -39,28 +20,7 @@ export const coreModules = [
 /**
  * Client Modules have a server part and can be turned on/off per release.
  */
-export const clientModules = [
-  boatChargingModule,
-  burningGuideModule,
-  chatModule,
-  cityPassModule,
-  constructionWorkEditorModule,
-  constructionWorkModule,
-  contactModule,
-  electionsModule,
-  kingsdayModule,
-  prideModule,
-  mijnAmsterdamModule,
-  newsModule,
-  notificationHistoryModule,
-  parkingModule,
-  redirectsModule,
-  reportProblemModule,
-  serviceModule,
-  surveyModule,
-  wasteContainerModule,
-  wasteGuideModule,
-]
+export const clientModules = clientModulesGenerated
 
 export const allModules: Array<ModuleClientConfig | CoreModuleConfig> = [
   ...coreModules,
