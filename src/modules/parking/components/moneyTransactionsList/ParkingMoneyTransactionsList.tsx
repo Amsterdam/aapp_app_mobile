@@ -134,7 +134,7 @@ export const ParkingMoneyTransactionsList = () => {
           item.dummy ? (
             <Box>
               <Skeleton isLoading>
-                <Phrase>Laden...</Phrase>
+                <Phrase accessible={false}>Laden...</Phrase>
               </Skeleton>
             </Box>
           ) : (
@@ -144,12 +144,15 @@ export const ParkingMoneyTransactionsList = () => {
                 insetHorizontal="md"
                 insetTop="md">
                 <Row align="between">
-                  <Phrase emphasis="strong">
+                  <Phrase
+                    accessible={false}
+                    emphasis="strong">
                     {item.order_type === ParkingOrderType.recharge
                       ? 'Geldsaldo opwaarderen'
                       : 'Geldsaldo teruggevorderd'}
                   </Phrase>
                   <Phrase
+                    accessible={false}
                     emphasis="strong"
                     flexShrink={0}>
                     {item.amount.value > 0 ? '+' : '-'}{' '}

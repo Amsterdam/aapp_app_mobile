@@ -63,7 +63,11 @@ export const ParkingMachineDetails = ({
             </Phrase>
           )}
           {!!machineDetailsLabel && (
-            <Phrase accessible={false}>{machineDetailsLabel}</Phrase>
+            <Phrase
+              accessibilityLabel={`Adres: test`}
+              accessible={false}>
+              {machineDetailsLabel}
+            </Phrase>
           )}
           {!!directionsUrl && (
             <ExternalLinkButton

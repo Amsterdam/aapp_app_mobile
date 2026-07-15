@@ -32,19 +32,28 @@ export const LicensePlateListItem = ({
         testID="LicensePlateListItem">
         <Row gutter="md">
           <Phrase
+            accessible={false}
             emphasis="strong"
             flexShrink={0}>
             {is_future ? '-' : number + '.'}
           </Phrase>
           {is_future && activated_at ? (
             <Column>
-              <Phrase emphasis="strong">{licensePlate}</Phrase>
-              <Phrase>
+              <Phrase
+                accessible={false}
+                emphasis="strong">
+                {licensePlate}
+              </Phrase>
+              <Phrase accessible={false}>
                 Actief vanaf {dayjs(activated_at).format('D MMMM YYYY')}
               </Phrase>
             </Column>
           ) : (
-            <Phrase emphasis="strong">{licensePlate}</Phrase>
+            <Phrase
+              accessible={false}
+              emphasis="strong">
+              {licensePlate}
+            </Phrase>
           )}
         </Row>
       </SingleSelectable>

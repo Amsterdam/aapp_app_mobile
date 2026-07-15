@@ -64,7 +64,11 @@ export const Radio = ({
     <Row gutter="sm">
       <RadioIndicator checked={isSelected} />
       {typeof label === 'string' ? (
-        <Phrase testID={`${testID}Phrase`}>{label}</Phrase>
+        <Phrase
+          accessible={false}
+          testID={`${testID}Phrase`}>
+          {label}
+        </Phrase>
       ) : (
         label
       )}

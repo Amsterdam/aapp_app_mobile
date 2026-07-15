@@ -106,11 +106,15 @@ export const ParkingSessionDetails = ({
                   parkingSession.end_date_time,
                 )}`
           }>
-          <Phrase accessible={false}>
+          <Phrase
+            accessibilityLabel={`${isActiveWithoutEndTime ? '' : 'Starttijd:'} ${formatDateTimeToDisplay(parkingSession.start_date_time, false)}`}
+            accessible={false}>
             {formatDateTimeToDisplay(parkingSession.start_date_time, false)}
           </Phrase>
           {!!parkingSession.end_date_time && !isActiveWithoutEndTime && (
-            <Phrase accessible={false}>
+            <Phrase
+              accessibilityLabel={`Eindtijd: ${formatDateTimeToDisplay(parkingSession.end_date_time, false)}`}
+              accessible={false}>
               {formatDateTimeToDisplay(parkingSession.end_date_time, false)}
             </Phrase>
           )}

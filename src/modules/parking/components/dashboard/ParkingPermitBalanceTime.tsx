@@ -23,16 +23,20 @@ export const ParkingPermitBalanceTime = () => {
         <Row align="between">
           {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
             <Title
+              accessible={false}
               level="h5"
               testID="ParkingPermitBalanceTimeTitlePhrase"
               text="Tijdsaldo"
             />
           ) : (
-            <Phrase testID="ParkingPermitBalanceTimeTitlePhrase">
+            <Phrase
+              accessible={false}
+              testID="ParkingPermitBalanceTimeTitlePhrase">
               Tijdsaldo
             </Phrase>
           )}
           <Title
+            accessible={false}
             level="h5"
             testID="ParkingPermitBalanceTimeTitlePhrase"
             text={formatTimeDurationToDisplay(
@@ -43,7 +47,9 @@ export const ParkingPermitBalanceTime = () => {
           />
         </Row>
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
-          <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
+          <Phrase
+            accessible={false}
+            testID="ParkingPermitBalanceTimeValidUntilPhrase">
             {`Geldig tot ${formatDate(currentPermit.time_valid_until)}`}
           </Phrase>
         )}
