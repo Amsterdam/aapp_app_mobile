@@ -173,7 +173,8 @@
     "storybook": "10.4.6",
     "ts-node": "^10.9.2",
     "tsc-files": "^1.1.4",
-    "typescript": "~5.9.3",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
     "vite-plugin-svgr": "^5.2.0"
   },
   "optionalDependencies": {
@@ -208,6 +209,11 @@
       "expo-sharing",
       "expo-secure-store"
     ]
+  },
+  "overrides": {
+    "eslint-plugin-typescript-sort-keys": {
+      "typescript": "npm:@typescript/typescript6@^6.0.2"
+    }
   },
   "volta": {
     "node": "24.17.0"
