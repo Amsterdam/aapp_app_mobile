@@ -16,7 +16,9 @@ const MODULE_LABEL_PREFIX = 'module:'
 const MODULE_LABEL_COLOR = '0366d6'
 const GENERAL_LABEL_COLOR = '036d66'
 const COPILOT_READY_LABEL = 'Copilot ready'
-const REVIEWED_LABEL = 'Reviewed'
+const COPILOT_READY_LABEL_COLOR = '05b103'
+const REVIEWED_LABEL = 'Code reviewed'
+const REVIEWED_LABEL_COLOR = '05b103'
 const HTTP_STATUS_UNPROCESSABLE_ENTITY = 422
 
 const COPILOT_LOGINS = new Set(['github-copilot[bot]'])
@@ -188,9 +190,9 @@ const getReviews = async (pullNumber: number) =>
     per_page: 100,
   })
 
-const hasTeamReview = async (
+const hasTeamReview = (
   reviews: Awaited<ReturnType<typeof getReviews>>,
-): Promise<boolean> =>
+): boolean =>
   reviews.some(
     r =>
       REVIEWER_USERNAMES.has(r.user?.login ?? '') &&
@@ -341,7 +343,7 @@ const main = async () => {
   const reviews = await getReviews(pullNumber)
 
   const isReviewedByCopilot = reviews.some(r => isCopilotLogin(r.user?.login))
-  const isReviewedByTeam = await hasTeamReview(reviews)
+  const isReviewedByTeam = hasTeamReview(reviews)
 
   if (isReviewedByCopilot && openCopilotReviewComments === 0) {
     if (!alreadyOnPr.has(COPILOT_READY_LABEL)) {
@@ -349,7 +351,7 @@ const main = async () => {
       await addLabels(
         pullNumber,
         [COPILOT_READY_LABEL],
-        GENERAL_LABEL_COLOR,
+        COPILOT_READY_LABEL_COLOR,
         'Copilot review completed with no open comments.',
       )
     }
@@ -370,7 +372,7 @@ const main = async () => {
       await addLabels(
         pullNumber,
         [REVIEWED_LABEL],
-        GENERAL_LABEL_COLOR,
+        REVIEWED_LABEL_COLOR,
         'PR has been reviewed by a team member.',
       )
     }
