@@ -343,22 +343,6 @@ const main = async () => {
   const isReviewedByCopilot = reviews.some(r => isCopilotLogin(r.user?.login))
   const isReviewedByTeam = await hasTeamReview(reviews)
 
-  core.info(
-    'reviews:' +
-      reviews
-        .map(
-          r =>
-            r.user?.login +
-            ' ' +
-            r.author_association +
-            ' ' +
-            r.state +
-            ' ' +
-            JSON.stringify(r.user),
-        )
-        .join(', '),
-  )
-
   if (isReviewedByCopilot && openCopilotReviewComments === 0) {
     if (!alreadyOnPr.has(COPILOT_READY_LABEL)) {
       core.info(`Adding labels to PR: ${COPILOT_READY_LABEL}`)
