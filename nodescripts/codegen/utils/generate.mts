@@ -4,21 +4,46 @@ import {buildImport} from './buildImport.mts'
 import {generateOutputData} from './generateOutputData.mts'
 import {getAvailableImports} from './getAvailableImports.mts'
 import {toImportPath} from './toImportPath.mts'
-import type {CodeGenConfigItem, EntriesWithImports} from '../types.mts'
+import type {
+  CodeGenConfigItem,
+  EntriesWithImports,
+  ImportsCodeGenConfigItem,
+} from '../types.mts'
 
-export const generate = ({
+const getRootDirectories = (inputDir: string) =>
+  fs
+    .readdirSync(path.resolve(inputDir), {withFileTypes: true})
+    .filter(directory => directory.isDirectory())
+
+const generateDirectoriesOutput = ({
+  inputDir,
+  output,
+  excludeDirectories = [],
+  result,
+}: Extract<CodeGenConfigItem, {type: 'directories'}>) => {
+  const directories = getRootDirectories(inputDir)
+    .filter(directory => !excludeDirectories.includes(directory.name))
+    .sort((left, right) => left.name.localeCompare(right.name))
+
+  const outputPath = path.resolve(output)
+  const outputDir = path.dirname(outputPath)
+
+  fs.mkdirSync(outputDir, {recursive: true})
+  fs.writeFileSync(outputPath, result(directories))
+}
+
+const generateImportsOutput = ({
   inputDir,
   match,
   output,
   imports,
-}: CodeGenConfigItem) => {
+}: ImportsCodeGenConfigItem) => {
   const base = path.resolve(inputDir)
   const outputPath = path.resolve(output)
   const outputDir = path.dirname(outputPath)
-  const entries = fs
-    .readdirSync(base, {withFileTypes: true})
-    .filter(directory => directory.isDirectory())
-    .filter(directory => fs.existsSync(path.join(base, directory.name, match)))
+  const entries = getRootDirectories(inputDir).filter(directory =>
+    fs.existsSync(path.join(base, directory.name, match)),
+  )
 
   const entriesWithImports: EntriesWithImports = entries
     .map(directory => ({
@@ -44,4 +69,13 @@ export const generate = ({
 
   fs.mkdirSync(outputDir, {recursive: true})
   fs.writeFileSync(output, outputData)
+}
+
+export const generate = (configItem: CodeGenConfigItem) => {
+  if (configItem.type === 'directories') {
+    generateDirectoriesOutput(configItem)
+    return
+  }
+
+  generateImportsOutput(configItem)
 }
