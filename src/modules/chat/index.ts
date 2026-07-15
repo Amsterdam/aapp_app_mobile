@@ -6,7 +6,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 
 const persistWhitelist: (keyof ChatState)[] = ['conversationId']
 
-export const module = createClientModule({
+export const clientModule = createClientModule({
   excludeFromHome: true,
   onNotificationEvent,
   name: 'ChatModule',

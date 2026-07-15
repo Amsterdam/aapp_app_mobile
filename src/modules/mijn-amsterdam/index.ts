@@ -14,7 +14,7 @@ const persistWhitelist: (keyof MijnAmsterdamState)[] = [
   'shouldShowBanner',
 ]
 
-export const module = createClientModule({
+export const clientModule = createClientModule({
   excludeFromHome: true,
   loginRoute: [ModuleSlug.user, {screen: UserRouteName.accounts}],
   logout,

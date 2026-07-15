@@ -8,7 +8,7 @@ const persistWhitelist: (keyof AccessCodeState)[] = [
   'useBiometrics',
 ]
 
-export const accessCodeModule = createCoreModule({
+export const coreModule = createCoreModule({
   name: 'AccessCodeModule',
   reduxConfigs: [
     {

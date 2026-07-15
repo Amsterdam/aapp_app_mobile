@@ -3,7 +3,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const module = createClientModule({
+export const clientModule = createClientModule({
   name: 'ServiceModule',
   slug: ModuleSlug.service,
   linking: {

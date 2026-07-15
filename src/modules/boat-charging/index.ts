@@ -15,7 +15,7 @@ const persistWhitelist: (keyof BoatChargingState)[] = [
   'lastApprovedTermsVersionWhileLoggedIn',
 ]
 
-export const module = createClientModule({
+export const clientModule = createClientModule({
   logout,
   name: 'BoatChargingModule',
   slug: ModuleSlug['boat-charging'],

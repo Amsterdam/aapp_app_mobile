@@ -5,7 +5,7 @@ import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const module = createClientModule({
+export const clientModule = createClientModule({
   name: 'ContactModule',
   linking: {
     [ContactRouteName.contact]: ModuleSlug.contact,

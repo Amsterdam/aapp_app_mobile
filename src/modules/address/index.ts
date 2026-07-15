@@ -12,7 +12,7 @@ const persistWhitelist: (keyof AddressState)[] = [
   'moduleLocationType',
 ]
 
-export const addressModule = createCoreModule({
+export const coreModule = createCoreModule({
   name: 'AddressModule',
   slug: ModuleSlug.address,
   reduxConfigs: [

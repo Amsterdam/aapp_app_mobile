@@ -1,22 +1,23 @@
-import {module as clientModules0} from '@/modules/boat-charging/index'
-import {module as clientModules1} from '@/modules/burning-guide/index'
-import {module as clientModules2} from '@/modules/chat/index'
-import {module as clientModules3} from '@/modules/city-pass/index'
-import {module as clientModules4} from '@/modules/construction-work/index'
-import {module as clientModules5} from '@/modules/construction-work-editor/index'
-import {module as clientModules6} from '@/modules/contact/index'
-import {module as clientModules7} from '@/modules/elections/index'
-import {module as clientModules8} from '@/modules/kingsday/index'
-import {module as clientModules9} from '@/modules/mijn-amsterdam/index'
-import {module as clientModules10} from '@/modules/news/index'
-import {module as clientModules11} from '@/modules/notification-history/index'
-import {module as clientModules12} from '@/modules/parking/index'
-import {module as clientModules13} from '@/modules/pride/index'
-import {module as clientModules14} from '@/modules/redirects/index'
-import {module as clientModules15} from '@/modules/report-problem/index'
-import {module as clientModules16} from '@/modules/service/index'
-import {module as clientModules17} from '@/modules/survey/index'
-import {module as clientModules18} from '@/modules/waste-guide/index'
+import {clientModule as clientModules0} from '@/modules/boat-charging/index'
+import {clientModule as clientModules1} from '@/modules/burning-guide/index'
+import {clientModule as clientModules2} from '@/modules/chat/index'
+import {clientModule as clientModules3} from '@/modules/city-pass/index'
+import {clientModule as clientModules4} from '@/modules/construction-work/index'
+import {clientModule as clientModules5} from '@/modules/construction-work-editor/index'
+import {clientModule as clientModules6} from '@/modules/contact/index'
+import {clientModule as clientModules7} from '@/modules/elections/index'
+import {clientModule as clientModules8} from '@/modules/kingsday/index'
+import {clientModule as clientModules9} from '@/modules/mijn-amsterdam/index'
+import {clientModule as clientModules10} from '@/modules/news/index'
+import {clientModule as clientModules11} from '@/modules/notification-history/index'
+import {clientModule as clientModules12} from '@/modules/parking/index'
+import {clientModule as clientModules13} from '@/modules/pride/index'
+import {clientModule as clientModules14} from '@/modules/redirects/index'
+import {clientModule as clientModules15} from '@/modules/report-problem/index'
+import {clientModule as clientModules16} from '@/modules/service/index'
+import {clientModule as clientModules17} from '@/modules/survey/index'
+import {clientModule as clientModules18} from '@/modules/waste-container/index'
+import {clientModule as clientModules19} from '@/modules/waste-guide/index'
 
 export const clientModules = [
   clientModules0,
@@ -38,4 +39,5 @@ export const clientModules = [
   clientModules16,
   clientModules17,
   clientModules18,
+  clientModules19,
 ]

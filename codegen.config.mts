@@ -174,8 +174,21 @@ export const config: CodeGenConfig = [
     output: 'src/modules/generated/clientModules.generated.ts',
     imports: [
       {
-        import: 'module',
+        import: 'clientModule',
         exportName: 'clientModules',
+        optional: true,
+        result: 'array',
+      },
+    ],
+  },
+  {
+    inputDir,
+    match: 'index.ts',
+    output: 'src/modules/generated/coreModules.generated.ts',
+    imports: [
+      {
+        import: 'coreModule',
+        exportName: 'coreModules',
         optional: true,
         result: 'array',
       },

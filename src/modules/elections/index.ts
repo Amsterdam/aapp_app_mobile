@@ -4,7 +4,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const module = createClientModule({
+export const clientModule = createClientModule({
   name: 'ElectionsModule',
   linking: {
     [ModuleSlug.elections]: ModuleSlug.elections,
