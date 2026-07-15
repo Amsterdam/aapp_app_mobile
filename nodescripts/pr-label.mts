@@ -4,14 +4,20 @@ import * as github from '@actions/github'
 // eslint-disable-next-line no-process-env
 const GITHUB_TOKEN = process.env.GH_TOKEN as string
 
-const REVIEW_TEAM_SLUG = 'amsterdam-app'
+const REVIEWER_USERNAMES = new Set([
+  'frankfe-amsterdam',
+  'RikSchefferAmsterdam',
+  'WouterAms',
+  'fhaver-amsterdam',
+  'jjbeekman',
+])
+const REVIEWED_STATES = new Set(['APPROVED', 'CHANGES_REQUESTED', 'DISMISSED'])
 const MODULE_LABEL_PREFIX = 'module:'
 const MODULE_LABEL_COLOR = '0366d6'
 const GENERAL_LABEL_COLOR = '036d66'
 const COPILOT_READY_LABEL = 'Copilot ready'
 const REVIEWED_LABEL = 'Reviewed'
 const HTTP_STATUS_UNPROCESSABLE_ENTITY = 422
-const HTTP_STATUS_NOT_FOUND = 404
 
 const COPILOT_LOGINS = new Set(['github-copilot[bot]'])
 
@@ -182,78 +188,14 @@ const getReviews = async (pullNumber: number) =>
     per_page: 100,
   })
 
-const reviewAuthorTeamMembershipCache = new Map<string, Promise<boolean>>()
-
-const isActiveMemberOfConfiguredTeam = async (
-  login: string | null | undefined,
-): Promise<boolean> => {
-  if (!login) {
-    return false
-  }
-
-  const normalizedLogin = login.toLowerCase()
-  const existingLookup = reviewAuthorTeamMembershipCache.get(normalizedLogin)
-
-  if (existingLookup) {
-    return existingLookup
-  }
-
-  const membershipLookup = (async () => {
-    try {
-      const response = await octokit.rest.teams.getMembershipForUserInOrg({
-        org: context.repo.owner,
-        team_slug: REVIEW_TEAM_SLUG,
-        username: login,
-      })
-
-      core.info(
-        `Membership lookup for user ${login} in team ${REVIEW_TEAM_SLUG}: ${response.data.state}`,
-      )
-
-      return response.data.state === 'active'
-    } catch (e: unknown) {
-      const status = (e as {status?: number})?.status
-
-      if (status === HTTP_STATUS_NOT_FOUND) {
-        return false
-      }
-
-      throw e
-    }
-  })()
-
-  reviewAuthorTeamMembershipCache.set(normalizedLogin, membershipLookup)
-
-  return membershipLookup
-}
-
 const hasTeamReview = async (
   reviews: Awaited<ReturnType<typeof getReviews>>,
-): Promise<boolean> => {
-  for (const review of reviews) {
-    core.info(
-      `Review state ${review.state}, review user: ${review.user?.login}, in team: ${await isActiveMemberOfConfiguredTeam(review.user?.login)}`,
-    )
-
-    if (
-      review.state !== 'APPROVED' &&
-      review.state !== 'CHANGES_REQUESTED' &&
-      review.state !== 'DISMISSED'
-    ) {
-      core.info(
-        `Skipping review by ${review.user?.login} with state ${review.state}`,
-      )
-
-      continue
-    }
-
-    if (await isActiveMemberOfConfiguredTeam(review.user?.login)) {
-      return true
-    }
-  }
-
-  return false
-}
+): Promise<boolean> =>
+  reviews.some(
+    r =>
+      REVIEWER_USERNAMES.has(r.user?.login ?? '') &&
+      REVIEWED_STATES.has(r.state),
+  )
 
 type ReviewThreadCommentNode = {
   author: {login: string | null} | null
