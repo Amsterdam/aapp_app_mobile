@@ -15,6 +15,7 @@ import {useTheme} from '@/themes/useTheme'
 
 type ModuleButtonContentProps = {
   disabled: boolean | undefined
+  isMams?: boolean
   label: string
   titleColor?: keyof Theme['color']['text']
   variant: ButtonVariants

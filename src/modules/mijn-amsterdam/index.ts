@@ -16,7 +16,7 @@ const persistWhitelist: (keyof MijnAmsterdamState)[] = [
 ]
 
 export const mijnAmsterdamModule = createClientModule({
-  excludeFromHome: true,
+  // excludeFromHome: true,
   loginRoute: [ModuleSlug.user, {screen: UserRouteName.accounts}],
   logout,
   name: 'MijnAmsterdamModule',

@@ -1,7 +1,7 @@
 import {EnvUrlMap, Environment} from '@/environment'
 
 const getLoginUrlMijnAmsterdam = (env: string) =>
-  `https://${env}mijn.amsterdam.nl/api/v1/services/amsapp/notifications/login/`
+  `https://${env}mijn.amsterdam.nl/api/v1/services/amsapp/auth/login/`
 
 const loginUrlMijnAmsterdam = {
   acc: getLoginUrlMijnAmsterdam('az-acc.'),
@@ -12,7 +12,7 @@ const loginUrlMijnAmsterdam = {
 export const loginMijnAmsterdamExternalLinks: EnvUrlMap = {
   [Environment.production]: loginUrlMijnAmsterdam.prod,
   [Environment.acceptance]: loginUrlMijnAmsterdam.acc,
-  [Environment.test]: loginUrlMijnAmsterdam.test,
+  [Environment.test]: loginUrlMijnAmsterdam.acc,
   [Environment.development]: loginUrlMijnAmsterdam.test,
   [Environment.custom]: loginUrlMijnAmsterdam.test,
 }

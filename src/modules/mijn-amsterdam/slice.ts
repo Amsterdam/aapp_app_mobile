@@ -7,6 +7,7 @@ import {type RootState} from '@/store/types/rootState'
 
 export type MijnAmsterdamState = {
   cachedThemes?: ModuleServerConfig[]
+  codeVerifier?: string
   isLoggedIn: boolean
   profileName?: string
   shouldShowBanner: boolean
@@ -17,6 +18,7 @@ const initialState: MijnAmsterdamState = {
   isLoggedIn: false,
   profileName: undefined,
   shouldShowBanner: true,
+  codeVerifier: undefined,
 }
 
 export const mijnAmsterdamSlice = createSlice({
@@ -58,11 +60,21 @@ export const mijnAmsterdamSlice = createSlice({
     ) => {
       state.shouldShowBanner = shouldShowBanner
     },
+    setCodeVerifier: (
+      state,
+      {payload: codeVerifier}: PayloadAction<string | undefined>,
+    ) => {
+      state.codeVerifier = codeVerifier
+    },
   },
 })
 
-export const {setCachedThemes, setIsLoggedIn, setShouldShowBanner} =
-  mijnAmsterdamSlice.actions
+export const {
+  setCachedThemes,
+  setIsLoggedIn,
+  setShouldShowBanner,
+  setCodeVerifier,
+} = mijnAmsterdamSlice.actions
 
 export const selectIsLoggedIn = (state: RootState) =>
   state[ReduxKey.mijnAmsterdam].isLoggedIn
@@ -85,3 +97,6 @@ export const useGetCachedTheme = (slug: ModuleSlug) => {
 
   return {cachedTheme, isInactive}
 }
+
+export const selectCodeVerifier = (state: RootState) =>
+  state[ReduxKey.mijnAmsterdam].codeVerifier

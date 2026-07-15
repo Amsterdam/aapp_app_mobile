@@ -22,6 +22,7 @@ export type ModuleStackParams = {
   [UserRouteName.accounts]:
     | {
         'amp;errorCode'?: string
+        authorizationCode?: string
         errorCode?: RedirectErrorCodes
         errorMessage?: string
         loginResult?: LoginResult

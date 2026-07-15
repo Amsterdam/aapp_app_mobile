@@ -23,11 +23,14 @@ import {Permissions} from '@/types/permissions'
 
 export const Account = () => {
   const {navigate} = useNavigation()
-  const {loginResult} = useRoute<UserRouteName.accounts>().params || {}
+  const {loginResult, authorizationCode} =
+    useRoute<UserRouteName.accounts>().params || {}
+
   const login = useLoginMijnAmsterdam()
+
   const {isLoggedIn, isLoading, profileName, refetch} = useIsLoggedIn()
 
-  useHandleLoginDeeplink(loginResult)
+  useHandleLoginDeeplink(loginResult, authorizationCode)
 
   const {hasPermission} = usePermission(Permissions.notifications)
 
