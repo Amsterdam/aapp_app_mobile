@@ -2,7 +2,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
 import {createCoreModule} from '@/modules/utils/createModule'
 
-export const userModule = createCoreModule({
+export const coreModule = createCoreModule({
   name: 'UserModule',
   slug: ModuleSlug.user,
   linking: {

@@ -13,7 +13,7 @@ const persistWhitelist: (keyof CityPassState)[] = [
   'isAutomaticLogoutAlertDismissed',
 ]
 
-export const cityPassModule = createClientModule({
+export const clientModule = createClientModule({
   linking: {
     [ModuleSlug['city-pass']]: ModuleSlug['city-pass'],
     [CityPassRouteName.loginSteps]:

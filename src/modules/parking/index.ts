@@ -15,7 +15,7 @@ const persistWhitelist: (keyof ParkingState)[] = [
   'visitorVehicleId',
 ] as const
 
-export const parkingModule = createClientModule({
+export const clientModule = createClientModule({
   logout: (dispatch, state) => logout(dispatch, state),
   name: 'ParkingModule',
   linking: {

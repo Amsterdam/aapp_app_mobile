@@ -11,7 +11,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 
 const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 
-export const constructionWorkModule = createClientModule({
+export const clientModule = createClientModule({
   linking: {
     [ModuleSlug['construction-work']]: ModuleSlug['construction-work'],
     [ConstructionWorkRouteName.projectNews]:

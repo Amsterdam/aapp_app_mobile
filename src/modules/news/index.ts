@@ -10,7 +10,7 @@ const persistWhitelist: (keyof NewsState)[] = [
   'highlightedArticles',
 ]
 
-export const newsModule = createClientModule({
+export const clientModule = createClientModule({
   name: 'NewsModule',
   slug: ModuleSlug.news,
   linking: {

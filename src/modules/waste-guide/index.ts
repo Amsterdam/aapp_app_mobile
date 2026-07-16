@@ -8,7 +8,7 @@ import {wasteGuideSlice} from '@/modules/waste-guide/slice'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const wasteGuideModule = createClientModule({
+export const clientModule = createClientModule({
   logDimension: PiwikSessionDimension.wasteGuideModule,
   name: 'WasteGuideModule',
   reduxConfigs: [

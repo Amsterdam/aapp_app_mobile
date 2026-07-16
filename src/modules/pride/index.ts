@@ -1,7 +1,7 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 
-export const prideModule = createClientModule({
+export const clientModule = createClientModule({
   name: 'PrideModule',
   linking: {
     [ModuleSlug.pride]: ModuleSlug.pride,

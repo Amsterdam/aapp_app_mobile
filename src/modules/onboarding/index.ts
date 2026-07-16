@@ -3,7 +3,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {createCoreModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const onboardingModule = createCoreModule({
+export const coreModule = createCoreModule({
   name: 'OnboardingModule',
   reduxConfigs: [
     {
