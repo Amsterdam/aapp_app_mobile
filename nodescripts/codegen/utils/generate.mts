@@ -74,6 +74,7 @@ const generateImportsOutput = ({
 export const generate = (configItem: CodeGenConfigItem) => {
   if (configItem.type === 'directories') {
     generateDirectoriesOutput(configItem)
+
     return
   }
 

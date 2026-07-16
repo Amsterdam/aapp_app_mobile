@@ -7,7 +7,9 @@ const defaultSatisfies = 'Partial<Record<ModuleSlug, React.ComponentType>>'
 const moduleBasedResult = (path: Dirent<string>, name: string): string =>
   `[ModuleSlug["${path.name}"]]: ${name}`
 const excludedModuleDirectories = ['generated', 'utils']
-const generateModuleSlugs = (directories: Dirent<string>[]) => `export enum ModuleSlug {
+const generateModuleSlugs = (
+  directories: Dirent<string>[],
+) => `export enum ModuleSlug {
 ${directories
   .map(directory => `  '${directory.name}' = '${directory.name}',`)
   .join('\n')}
