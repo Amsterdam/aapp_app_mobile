@@ -68,7 +68,7 @@ const generateImportsOutput = ({
   )
 
   fs.mkdirSync(outputDir, {recursive: true})
-  fs.writeFileSync(output, outputData)
+  fs.writeFileSync(outputPath, outputData)
 }
 
 export const generate = (configItem: CodeGenConfigItem) => {

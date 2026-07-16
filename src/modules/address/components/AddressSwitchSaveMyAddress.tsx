@@ -1,4 +1,5 @@
 import {useCallback, useState} from 'react'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {AlertInline} from '@/components/ui/feedback/alert/AlertInline'
@@ -13,7 +14,6 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {usePostNotificationAddressMutation} from '@/modules/address/service'
 import {addAddress, setShowSaveAsMyAddress} from '@/modules/address/slice'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {
   moduleSlug: ModuleSlug

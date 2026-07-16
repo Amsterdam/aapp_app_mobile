@@ -1,9 +1,9 @@
 import type {LocationType} from '@/modules/address/types'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {usePiwikTrackLocationType} from '@/modules/address/hooks/usePiwikTrackLocationType'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {addressSlice} from '@/modules/address/slice'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const useSetLocationType = (moduleSlug: ModuleSlug) => {
   const dispatch = useDispatch()

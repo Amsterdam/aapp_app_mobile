@@ -1,8 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useGetPostalAreaQuery} from '@/modules/address/service'
 import {addressHasCoordinates} from '@/modules/address/utils/addressHasCoordinates'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const useSelectedPostalArea = (moduleSlug: ModuleSlug) => {
   const {address, isFetching: isFetchingAddress} =

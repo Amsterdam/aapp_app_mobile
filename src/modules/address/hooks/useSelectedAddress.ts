@@ -1,3 +1,4 @@
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {
   selectMyAddress,
@@ -6,7 +7,6 @@ import {
   selectLocationType,
   selectCustomAddress,
 } from '@/modules/address/slice'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 /**
  * Return either the user profile address or the address for their last known location, depending on the location type that is set for the module that matches the slug.

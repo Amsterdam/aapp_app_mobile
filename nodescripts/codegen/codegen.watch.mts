@@ -4,11 +4,7 @@ import {config} from '../../codegen.config.mts'
 import {runCodeGen} from './utils/runCodegen.mts'
 
 const watchDir = (dir: string, files: string[], watchAllEvents = false) => {
-  fs.watch(dir, (eventType, filename) => {
-    if (!filename) {
-      return
-    }
-
+  fs.watch(dir, (_eventType, filename) => {
     if (watchAllEvents || files.some(file => filename === file)) {
       runCodeGen()
     }

@@ -1,6 +1,6 @@
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {ReactNode} from 'react'
 import {useIsModuleActive} from '@/hooks/useIsModuleActive'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {
   FallbackComponent?: ReactNode

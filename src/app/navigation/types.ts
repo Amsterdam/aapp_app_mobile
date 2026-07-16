@@ -11,8 +11,8 @@ import {
   StackNavigationProp as StackNavigationPropOriginal,
 } from '@react-navigation/stack'
 import {type ComponentType} from 'react'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {ModuleStackParams, ModalParams} from '@/modules/stacks'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 /** We use these param names exclusively to set a screen's titles: the header title and the title for analytics */
 export type TitleParams = {

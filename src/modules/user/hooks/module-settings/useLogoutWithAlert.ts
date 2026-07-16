@@ -1,6 +1,6 @@
 import {Alert} from 'react-native'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useStore} from '@/hooks/redux/useStore'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useIsLoggedIn} from '@/modules/generated/useIsLoggedIn.generated'
 import {clientModules} from '@/modules/modules'
 

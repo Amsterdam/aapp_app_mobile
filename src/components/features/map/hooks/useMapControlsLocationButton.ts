@@ -1,12 +1,12 @@
 import {useCallback} from 'react'
 import type {IconProps} from '@/components/ui/media/Icon'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useMap} from '@/components/features/map/hooks/useMap'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {Permissions} from '@/types/permissions'
 
 const getIconLocation = (

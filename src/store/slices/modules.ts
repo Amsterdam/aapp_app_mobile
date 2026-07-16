@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   ModuleStatus,
   type Module,

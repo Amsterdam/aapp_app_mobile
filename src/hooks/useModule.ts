@@ -1,5 +1,5 @@
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useModules} from '@/hooks/useModules'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const useModule = (moduleSlug: ModuleSlug) => {
   const {enabledModules} = useModules()

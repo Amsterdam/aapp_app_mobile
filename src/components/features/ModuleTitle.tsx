@@ -1,11 +1,11 @@
 import type {TestProps} from '@/components/ui/types'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useModule} from '@/hooks/useModule'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {
   moduleSlug: ModuleSlug

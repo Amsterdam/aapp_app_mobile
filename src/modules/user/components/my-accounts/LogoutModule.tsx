@@ -1,4 +1,5 @@
 import {useCallback, useState} from 'react'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {Button} from '@/components/ui/buttons/Button'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -6,7 +7,6 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useStore} from '@/hooks/redux/useStore'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {clientModules} from '@/modules/modules'
 
 type Props = {

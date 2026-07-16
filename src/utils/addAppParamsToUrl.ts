@@ -1,5 +1,5 @@
 import {stringify} from 'picoquery'
-import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const isAmsterdamNlUrl = (url: string) =>
   /^https?:\/\/([\w-.]+.)?amsterdam\.nl/.test(url)
