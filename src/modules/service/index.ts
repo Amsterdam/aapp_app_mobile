@@ -1,5 +1,5 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {serviceSlice} from '@/modules/service/slice'
-import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 

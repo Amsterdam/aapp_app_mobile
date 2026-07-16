@@ -16,7 +16,7 @@ import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {BoatChargingEmptyList} from '@/modules/boat-charging/components/BoatChargingEmptyList'
 import {BoatChargingListItem} from '@/modules/boat-charging/components/BoatChargingListItem'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 

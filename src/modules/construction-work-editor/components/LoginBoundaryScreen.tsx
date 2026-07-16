@@ -14,7 +14,7 @@ import {
   selectConstructionWorkEditorAccessToken,
 } from '@/modules/construction-work-editor/slice'
 import {isTokenValid as checkIsTokenValid} from '@/modules/construction-work-editor/utils/token'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {selectApi} from '@/store/slices/environment'
 import {addAuthorizedModule} from '@/store/slices/modules'
 

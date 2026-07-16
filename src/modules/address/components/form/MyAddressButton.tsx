@@ -9,7 +9,7 @@ import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
 import {useMyAddress} from '@/modules/address/slice'
 import {type Address} from '@/modules/address/types'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {
   moduleSlug: ModuleSlug

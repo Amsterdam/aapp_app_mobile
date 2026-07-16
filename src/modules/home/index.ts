@@ -1,4 +1,4 @@
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createCoreModule} from '@/modules/utils/createModule'
 
 export const coreModule = createCoreModule({

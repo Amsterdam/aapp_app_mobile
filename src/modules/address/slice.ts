@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import type {ModuleSlug} from '@/modules/slugs'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {MAX_RECENT_ADDRESSES} from '@/modules/address/constants'
 import {
@@ -8,6 +7,7 @@ import {
   HighAccuracyPurposeKey,
   LocationType,
 } from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {selectIsPermissionGranted} from '@/store/slices/permissions'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'

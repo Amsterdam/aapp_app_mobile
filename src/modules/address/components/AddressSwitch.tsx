@@ -19,7 +19,7 @@ import {
   getAddressSwitchIcon,
   getAddressSwitchLabel,
 } from '@/modules/address/utils/getAddressSwitchProps'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type AddressSwitcherProps = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey

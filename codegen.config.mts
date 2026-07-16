@@ -2,7 +2,9 @@ import type {CodeGenConfig} from './nodescripts/codegen/types.mts'
 import type {Dirent} from 'node:fs'
 
 const inputDir = 'src/modules'
-const defaultResultImports = ['import { ModuleSlug } from "@/modules/slugs";']
+const defaultResultImports = [
+  'import { ModuleSlug } from "@/modules/generated/slugs.generated";',
+]
 const defaultSatisfies = 'Partial<Record<ModuleSlug, React.ComponentType>>'
 const moduleBasedResult = (path: Dirent<string>, name: string): string =>
   `[ModuleSlug["${path.name}"]]: ${name}`
@@ -20,7 +22,7 @@ export const config: CodeGenConfig = [
   {
     type: 'directories',
     inputDir,
-    output: 'src/modules/slugs.ts',
+    output: 'src/modules/generated/slugs.generated.ts',
     excludeDirectories: excludedModuleDirectories,
     result: generateModuleSlugs,
   },

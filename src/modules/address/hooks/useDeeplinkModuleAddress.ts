@@ -9,7 +9,7 @@ import {
   setModuleCustomAddress,
   useMyAddress,
 } from '@/modules/address/slice'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const useDeeplinkModuleAddress = (
   params?: {

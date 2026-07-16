@@ -8,7 +8,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 type Props = NavigationProps<AccessCodeRouteName.accessCodeInvalid>

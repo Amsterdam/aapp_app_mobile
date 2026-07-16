@@ -17,7 +17,7 @@ import {ProjectFollow} from '@/modules/construction-work/components/project/Proj
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {
   id: number

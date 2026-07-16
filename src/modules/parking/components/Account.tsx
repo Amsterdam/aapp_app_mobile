@@ -5,10 +5,10 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useIsLoggedIn} from '@/modules/parking/hooks/useIsLoggedIn'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccounts} from '@/modules/parking/slice'
-import {ModuleSlug} from '@/modules/slugs'
 
 export const Account = () => {
   const {isLoggedIn} = useIsLoggedIn()

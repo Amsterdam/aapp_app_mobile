@@ -1,6 +1,6 @@
-import type {ModuleSlug} from '@/modules/slugs'
 import type {ComponentType} from 'react'
 import {preRenderComponents} from '@/modules/generated/preRenderComponents.generated'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {Module} from '@/modules/types'
 import {mergeComponentsWithEnabledModules} from '@/utils/mergeComponentsWithEnabledModules'
 

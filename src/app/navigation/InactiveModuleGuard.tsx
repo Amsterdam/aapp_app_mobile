@@ -8,7 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {UnderConstructionFigure} from '@/components/ui/media/errors/UnderConstructionFigure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ModuleStatus} from '@/modules/types'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 

@@ -9,7 +9,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useUnsetCodeOnBlur} from '@/modules/access-code/hooks/useUnsetCodeOnBlur'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = NavigationProps<AccessCodeRouteName.validAccessCode>
 

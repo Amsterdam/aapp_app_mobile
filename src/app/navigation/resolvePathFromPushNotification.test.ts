@@ -1,5 +1,5 @@
 import {resolvePathFromPushNotification} from '@/app/navigation/resolvePathFromPushNotification'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 describe('resolvePathFromPushNotification', () => {
   it('should return an in-app module based route when no external url is provided', () => {

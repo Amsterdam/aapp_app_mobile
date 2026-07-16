@@ -1,5 +1,5 @@
-import type {ModuleSlug} from '@/modules/slugs'
 import type {ComponentType} from 'react'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {Module} from '@/modules/types'
 
 export type FilterFunction<T extends ComponentType> = (

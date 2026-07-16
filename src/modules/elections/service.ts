@@ -3,7 +3,7 @@ import {
   PollingStationsResponse,
   ElectionsEndpointName,
 } from '@/modules/elections/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 
 export const electionsApi = baseApi.injectEndpoints({

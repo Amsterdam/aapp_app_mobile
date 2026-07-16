@@ -9,9 +9,9 @@ import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {RedirectKey} from '@/modules/redirects/types'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<BoatChargingRouteName.boatChargingHelp>
 

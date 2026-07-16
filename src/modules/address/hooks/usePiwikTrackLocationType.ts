@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
-import type {ModuleSlug} from '@/modules/slugs'
 import {LocationType} from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 

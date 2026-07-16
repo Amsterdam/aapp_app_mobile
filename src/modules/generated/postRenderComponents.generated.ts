@@ -1,5 +1,5 @@
 import {PostRenderComponent as postRenderComponents0} from '@/modules/chat/components/PostRenderComponent.tsx'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const postRenderComponents = {
   [ModuleSlug.chat]: postRenderComponents0,

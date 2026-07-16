@@ -1,4 +1,5 @@
 import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {setCurrentApiVersion} from '@/modules/parking/slice'
 import {
   type ParkingAccountDetails,
@@ -40,7 +41,6 @@ import {
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {prepareHeaders} from '@/modules/parking/utils/prepareHeaders'
-import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'

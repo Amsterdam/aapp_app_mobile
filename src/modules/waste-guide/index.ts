@@ -1,4 +1,4 @@
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createClientModule} from '@/modules/utils/createModule'
 import {fractionIconConfig} from '@/modules/waste-guide/constants'
 import {onNotificationEvent} from '@/modules/waste-guide/notifications/onNotificationEvent'

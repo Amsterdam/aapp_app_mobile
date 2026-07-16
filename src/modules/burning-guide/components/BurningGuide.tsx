@@ -8,7 +8,7 @@ import {BurningGuideForecastList} from '@/modules/burning-guide/components/Burni
 import {BurningGuideRecommendation} from '@/modules/burning-guide/components/BurningGuideRecommendation'
 import {useGetForecast} from '@/modules/burning-guide/hooks/useGetForecast'
 import {getIsPostalCodeError} from '@/modules/burning-guide/utils/getIsPostalCodeError'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const BurningGuide = () => {
   const {

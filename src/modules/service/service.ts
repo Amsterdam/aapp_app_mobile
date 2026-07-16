@@ -1,3 +1,4 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   ServiceEndpointName,
   type Service,
@@ -5,7 +6,6 @@ import {
   type ServiceModuleSource,
   type ServiceOverviewResponse,
 } from '@/modules/service/types'
-import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 
 export const serviceApi = baseApi.injectEndpoints({

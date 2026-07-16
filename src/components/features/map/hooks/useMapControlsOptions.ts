@@ -1,11 +1,11 @@
 import {useMemo} from 'react'
-import type {ModuleSlug} from '@/modules/slugs'
 import {useMapControlsLocationButton} from '@/components/features/map/hooks/useMapControlsLocationButton'
 import {
   MapControlBottomSheetKey,
   useMapControlsToggleBottomSheetButton,
 } from '@/components/features/map/hooks/useMapControlsToggleBottomSheetButton'
 import {ControlVariant, MapControlOption} from '@/components/features/map/types'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {Permissions} from '@/types/permissions'
 
 export const useMapControlsOptions = (

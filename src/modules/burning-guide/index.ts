@@ -1,5 +1,5 @@
 import {onNotificationEvent} from '@/modules/burning-guide/onNotificationEvent'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createClientModule} from '@/modules/utils/createModule'
 
 export const clientModule = createClientModule({

@@ -1,6 +1,6 @@
-import type {ModuleSlug} from '@/modules/slugs'
 import type {RedirectErrorCodes} from '@/types/mijnAmsterdam'
 import type {LoginResult} from '@/types/navigation'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export enum UserRouteName {
   aboutEnglish = 'AboutEnglish',

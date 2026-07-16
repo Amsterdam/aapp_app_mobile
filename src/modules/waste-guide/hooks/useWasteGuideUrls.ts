@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   BULKY_WASTE_APPOINTMENT,
   SCHEDULE_WASTE_PICKUP,

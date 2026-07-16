@@ -8,8 +8,8 @@ import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {moduleIcons} from '@/modules/generated/moduleIcons.generated'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {HomeRouteName} from '@/modules/home/routes'
-import {ModuleSlug} from '@/modules/slugs'
 import {useTheme} from '@/themes/useTheme'
 
 type ModuleButtonContentProps = {

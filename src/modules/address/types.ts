@@ -1,5 +1,5 @@
-import type {ModuleSlug} from '@/modules/slugs'
 import type {Coordinates} from '@/types/location'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export enum AddressCity {
   Amsterdam = 'Amsterdam',

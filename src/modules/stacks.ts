@@ -1,8 +1,8 @@
 import {ComponentType} from 'react'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {modals as modalsGenerated} from '@/modules/generated/modals.generated'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {stacks as stacksGenerated} from '@/modules/generated/stacks.generated'
-import {ModuleSlug} from '@/modules/slugs'
 import {devError} from '@/processes/development'
 
 export type {ModuleStackParams} from '@/modules/generated/moduleStackParams.generated'

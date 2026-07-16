@@ -7,12 +7,12 @@ import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFrom
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ParkingPermitZoneMapMarkers} from '@/modules/parking/components/permit-zone/ParkingPermitZoneMapMarkers'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {usePermitZonesQuery} from '@/modules/parking/service'
 import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
-import {ModuleSlug} from '@/modules/slugs'
 import {debounce} from '@/utils/debounce'
 
 const DEBOUNCE_DELAY = 100

@@ -1,6 +1,6 @@
 import type {IconProps} from '@/components/ui/media/Icon'
 import type {TestProps} from '@/components/ui/types'
-import type {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export type CarouselItemButton = {
   digid?: boolean
