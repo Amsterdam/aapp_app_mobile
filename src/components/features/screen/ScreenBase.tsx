@@ -7,7 +7,6 @@ import {ScreenHeader} from '@/components/features/screen/ScreenHeader'
 import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrapper'
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
 import {HeaderForHome} from '@/modules/home/components/HeaderForHome'
@@ -100,7 +99,6 @@ export const ScreenBase = ({
           </HideFromAccessibility>
           {(!!stickyFooter || !!bottomSheet) && (
             <>
-              <Gutter height="sm" />
               {stickyFooter}
               {bottomSheet}
             </>
