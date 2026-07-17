@@ -11,30 +11,20 @@ export const getEventsSeparatedByLocation = (events?: PrideEventsResponse) =>
       }
     >
   >((locations, event) => {
-    if (!event.address.coordinates?.lat) {
+    const coordinates = event.address.coordinates
+
+    if (coordinates?.lat == null || coordinates?.lon == null) {
       return locations
     }
 
-    const coordsKey =
-      event.address.coordinates.lat.toString() +
-      event.address.coordinates.lon.toString()
+    const coordsKey = `${coordinates.lat},${coordinates.lon}`
 
-    const locationIsAlreadyIncluded = locations[coordsKey]
+    const location = (locations[coordsKey] ??= {
+      coordinates,
+      events: [],
+    })
 
-    if (locationIsAlreadyIncluded) {
-      return {
-        ...locations,
-        [coordsKey]: {
-          coordinates: event.address.coordinates,
-          events: [...locations[coordsKey].events, event],
-        },
-      }
-    }
-
-    locations[coordsKey] = {
-      coordinates: event.address.coordinates,
-      events: [event],
-    }
+    location.events.push(event)
 
     return locations
   }, {})

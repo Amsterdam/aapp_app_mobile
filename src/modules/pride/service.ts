@@ -3,6 +3,7 @@ import {
   EVENT_MAP_LAYER,
   EVENT_PROPERTIES_TO_INCLUDE,
   EVENT_ICONS_TO_INCLUDE,
+  EVENTS_ICON_LABEL,
 } from '@/modules/pride/constants'
 import {
   PrideEndpointName,
@@ -18,6 +19,7 @@ import {
 } from '@/modules/service/types'
 import {devError} from '@/processes/development'
 import {baseApi} from '@/services/baseApi'
+import {hasEqualValues} from '@/utils/object'
 
 export const prideApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -54,20 +56,45 @@ export const prideApi = baseApi.injectEndpoints({
               ServiceEndpointName.service,
               arg.serviceId,
               (draft: ServiceMapResponse) => {
-                // Add extra map layer for events, in order to switch visibility
-                draft.layers.push(EVENT_MAP_LAYER)
-                // Add extra properties for events to display in detail bottomsheet
-                draft.properties_to_include.push(EVENT_PROPERTIES_TO_INCLUDE)
-                // Add extra icon for events to display on map/list and layers
-                draft.icons_to_include = {
-                  ...draft.icons_to_include,
-                  ...EVENT_ICONS_TO_INCLUDE,
+                if (
+                  !draft.layers.some(layer =>
+                    hasEqualValues(layer, EVENT_MAP_LAYER),
+                  )
+                ) {
+                  // Add extra map layer for events, in order to switch visibility
+                  draft.layers.push(EVENT_MAP_LAYER)
+                }
+
+                if (
+                  !draft.properties_to_include.some(property =>
+                    hasEqualValues(property, EVENT_PROPERTIES_TO_INCLUDE),
+                  )
+                ) {
+                  // Add extra properties for events to display in detail bottomsheet
+                  draft.properties_to_include.push(EVENT_PROPERTIES_TO_INCLUDE)
+                }
+
+                if (
+                  !Object.keys(draft.icons_to_include || {}).includes(
+                    EVENTS_ICON_LABEL,
+                  )
+                ) {
+                  // Add extra icon for events to display on map/list and layers
+                  draft.icons_to_include = {
+                    ...draft.icons_to_include,
+                    ...EVENT_ICONS_TO_INCLUDE,
+                  }
                 }
 
                 if ('type' in draft.data) {
                   // Add events separated by location to map points
                   const eventFeatures = getEventFeatures(
                     getEventsSeparatedByLocation(data),
+                  )
+
+                  draft.data.features = draft.data.features.filter(
+                    feature =>
+                      !String(feature.id).startsWith('event-location-'),
                   )
 
                   draft.data.features.push(...eventFeatures)

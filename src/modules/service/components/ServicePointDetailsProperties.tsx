@@ -83,10 +83,7 @@ export const ServicePointDetailsProperties = ({
                       key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}>
                       {type ===
                         ServiceDetailPropertyType.keyValueTableDivided &&
-                        rowIndex > 0 &&
-                        rowIndex < value.length && (
-                          <View style={styles.divider} />
-                        )}
+                        rowIndex > 0 && <View style={styles.divider} />}
                       <Row
                         flex={1}
                         gutter="sm">

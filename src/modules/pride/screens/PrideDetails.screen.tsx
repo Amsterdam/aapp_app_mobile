@@ -13,7 +13,7 @@ import {ServiceMapFiltersProvider} from '@/modules/service/providers/ServiceMapF
 type Props = NavigationProps<PrideRouteName.details>
 
 export const PrideDetailsScreen = ({route}: Props) => {
-  usePrideEvents(route.params.id)
+  usePrideEvents() // To render the events on the map
 
   return (
     <MapViewSwitchProvider>
