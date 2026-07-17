@@ -1,59 +1,23 @@
 import {useCallback, useMemo} from 'react'
 import type {PrideEvent} from '@/modules/pride/types'
-import type {ServicePointFeature} from '@/modules/service/types'
-import type {Coordinates} from '@/types/location'
+import type {Service, ServicePointFeature} from '@/modules/service/types'
 import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 // import {PRIDE_EVENT_ICON_CONFIG} from '@/modules/pride/constants'
 import {usePrideEventsQuery} from '@/modules/pride/service'
+import {getEventsSeparatedByLocation} from '@/modules/pride/utils/getEventsSeparatedByLocation'
 
-export const usePrideEvents = () => {
-  const {data: events, ...rest} = usePrideEventsQuery()
+export const usePrideEvents = (serviceId?: Service['id']) => {
+  const {data: events, ...rest} = usePrideEventsQuery({serviceId})
 
   const getEvent = useCallback(
     (eventId: PrideEvent['id']) => events?.find(event => event.id === eventId),
     [events],
   )
 
-  const eventsByLocation = useMemo(() => {
-    if (!events) return
-
-    return events.reduce<
-      Record<
-        string,
-        {
-          coordinates: Coordinates
-          events: PrideEvent[]
-        }
-      >
-    >((locations, event) => {
-      if (!event.address.coordinates?.lat) {
-        return locations
-      }
-
-      const coordsKey =
-        event.address.coordinates.lat.toString() +
-        event.address.coordinates.lon.toString()
-
-      const locationIsAlreadyIncluded = locations[coordsKey]
-
-      if (locationIsAlreadyIncluded) {
-        return {
-          ...locations,
-          [coordsKey]: {
-            coordinates: event.address.coordinates,
-            events: [...locations[coordsKey].events, event],
-          },
-        }
-      }
-
-      locations[coordsKey] = {
-        coordinates: event.address.coordinates,
-        events: [event],
-      }
-
-      return locations
-    }, {})
-  }, [events])
+  const eventsByLocation = useMemo(
+    () => getEventsSeparatedByLocation(events),
+    [events],
+  )
 
   const extraPoints = useMemo(() => {
     if (!eventsByLocation) {

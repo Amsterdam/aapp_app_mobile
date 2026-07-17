@@ -1,5 +1,4 @@
 import type {
-  MapLayer,
   ServiceMapResponse,
   ServiceMapResponseFilter,
 } from '@/modules/service/types'
@@ -11,7 +10,7 @@ import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointC
 type Props = {
   icons: ServiceMapResponse['icons_to_include']
   isActive: boolean
-  layer: MapLayer
+  layer: ServiceMapResponse['layers'][number]
   onPress: (filter: ServiceMapResponseFilter) => void
 }
 
@@ -21,9 +20,8 @@ export const ServiceMapLayerSwitch = ({
   onPress,
   isActive,
 }: Props) => {
-  const {icon_label, label, icon: iconFromLayer} = layer
-  const icon =
-    icon_label && icons?.[icon_label] ? icons?.[icon_label] : iconFromLayer
+  const {icon_label, label} = layer
+  const icon = icon_label ? icons?.[icon_label] : undefined
 
   return (
     <Switch

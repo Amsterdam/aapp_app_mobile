@@ -15,7 +15,6 @@ import {selectSelectedServicePointId} from '@/modules/service/slice'
 export const useGetMapData = (
   service: ServiceMapResponse | undefined,
   onMapElementPress: (id: Feature['id']) => void,
-  extraPoints: ServicePointFeature[] = [],
 ) => {
   const {data: geojson, icons_to_include: icons} = service || {}
 
@@ -47,7 +46,7 @@ export const useGetMapData = (
   const polygonData = useGetMapPolygonData(polygonFeatures)
   const lineStringData = useGetMapPolygonData(lineStringFeatures)
   const pointsData = useGetMapMarkerData(
-    [...pointFeatures, ...extraPoints],
+    pointFeatures,
     icons,
     onMapElementPress,
   )

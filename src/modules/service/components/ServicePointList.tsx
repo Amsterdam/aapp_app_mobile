@@ -30,16 +30,11 @@ import {layoutStyles} from '@/styles/layoutStyles'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 type Props = {
-  extraPoints?: ServicePointFeature[]
   id: Service['id']
   onMapElementPress: (id: ServicePointFeature['id']) => void
 }
 
-export const ServicePointList = ({
-  id: serviceId,
-  onMapElementPress,
-  extraPoints = [],
-}: Props) => {
+export const ServicePointList = ({id: serviceId, onMapElementPress}: Props) => {
   const {
     data: service,
     isLoading,
@@ -54,11 +49,10 @@ export const ServicePointList = ({
 
   const pointFeatures = useMemo(
     () =>
-      (geojson && 'features' in geojson
+      geojson && 'features' in geojson
         ? convertGeometryToPoint(geojson.features)
-        : []
-      ).concat(extraPoints),
-    [geojson, extraPoints],
+        : [],
+    [geojson],
   )
 
   const filteredFeatures = useGetFilteredFeatures({
@@ -145,8 +139,7 @@ export const ServicePointList = ({
               icon={
                 servicePoint.properties.aapp_icon_type
                   ? icons?.[servicePoint.properties.aapp_icon_type]
-                  : // : servicePoint.properties.icon
-                    undefined
+                  : undefined
               }
               listProperty={service.list_property}
               onPress={onMapElementPress}
