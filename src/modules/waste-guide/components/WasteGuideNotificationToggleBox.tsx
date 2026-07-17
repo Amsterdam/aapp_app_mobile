@@ -33,7 +33,7 @@ export const WasteGuideNotificationToggleBox = () => {
   )
 
   const isNonResidentialWithContract =
-    !wasteGuide?.is_residential && contract?.hasContract
+    wasteGuide?.is_residential === false && contract?.hasContract === true
 
   if (!address || locationType !== 'address' || isNonResidentialWithContract) {
     return null
