@@ -1,4 +1,4 @@
-import type {getEventsSeparatedByLocation} from '@/modules/pride/utils/getEventsSeparatedByLocation'
+import {getEventsSeparatedByLocation} from '@/modules/pride/utils/getEventsSeparatedByLocation'
 import type {ServicePointFeature} from '@/modules/service/types'
 import {
   EVENTS_FILTER_KEY,
