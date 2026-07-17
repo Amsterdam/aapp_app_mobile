@@ -1,17 +1,21 @@
 import {useCallback} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
-import {useLocationType, useMyAddress} from '@/modules/address/slice'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {useLocationType} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {
   useDeleteWasteGuideNotificationMutation,
   useGetWasteGuideNotificationQuery,
   usePostWasteGuideNotificationMutation,
 } from '@/modules/waste-guide/service'
+import {selectContract} from '@/modules/waste-guide/slice'
 
 export const WasteGuideNotificationToggleBox = () => {
   const locationType = useLocationType(ModuleSlug['waste-guide'])
-  const address = useMyAddress()
   const {isLoading, isSuccess, data} = useGetWasteGuideNotificationQuery()
+  const {address, wasteGuide} = useGetWasteGuide()
+  const contract = useSelector(selectContract(address?.bagId))
 
   const [postWasteGuideNotification] = usePostWasteGuideNotificationMutation()
   const [deleteWasteGuideNotification] =
@@ -28,7 +32,10 @@ export const WasteGuideNotificationToggleBox = () => {
     [address?.bagId, deleteWasteGuideNotification, postWasteGuideNotification],
   )
 
-  if (!address || locationType !== 'address') {
+  const isNonResidentialWithContract =
+    !wasteGuide?.is_residential && contract?.hasContract
+
+  if (!address || locationType !== 'address' || isNonResidentialWithContract) {
     return null
   }
 
