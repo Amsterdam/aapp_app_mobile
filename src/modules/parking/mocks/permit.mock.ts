@@ -17,50 +17,6 @@ export const permitMock: ParkingPermit = {
     currency: 'EUR',
     value: 1.5,
   },
-  payment_zones: [
-    {
-      city: 'Amsterdam',
-      days: [
-        {
-          day_of_week: 'Maandag',
-          end_time: '17:00',
-          start_time: '08:00',
-        },
-        {
-          day_of_week: 'Dinsdag',
-          end_time: '17:00',
-          start_time: '08:00',
-        },
-        {
-          day_of_week: 'Woensdag',
-          end_time: '17:00',
-          start_time: '08:00',
-        },
-        {
-          day_of_week: 'Donderdag',
-          end_time: '17:00',
-          start_time: '08:00',
-        },
-        {
-          day_of_week: 'Vrijdag',
-          end_time: '17:00',
-          start_time: '08:00',
-        },
-        {
-          day_of_week: 'Zaterdag',
-          end_time: '17:00',
-          start_time: '08:00',
-        },
-        {
-          day_of_week: 'Vrijpark',
-          end_time: '17:00',
-          start_time: '08:00',
-        },
-      ],
-      description: '8-17 uur',
-      id: '',
-    },
-  ],
   permit_name: '',
   permit_type: PermitType.bezoekersvergunning,
   permit_zone: {

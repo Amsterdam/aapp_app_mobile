@@ -1,6 +1,5 @@
 import {PaymentZone, PaymentZoneDay} from '@/modules/parking/types'
 import {
-  getPaymentZone,
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,
   areAllPaymentZonesEqualOnDayOfWeek,
@@ -25,13 +24,6 @@ describe('paymentZone utils', () => {
     city: 'TestCity',
     description: 'Test zone 2',
   }
-  const paymentZones = [paymentZone, paymentZone2]
-
-  it('getPaymentZone returns the correct zone', () => {
-    expect(getPaymentZone(paymentZones, 'zone1')).toBe(paymentZone)
-    expect(getPaymentZone(paymentZones, 'zone2')).toBe(paymentZone2)
-    expect(getPaymentZone(paymentZones, 'zone3')).toBeUndefined()
-  })
 
   it('getPaymentZoneDay returns the correct day', () => {
     expect(getPaymentZoneDay(paymentZone, 1)).toEqual(paymentZoneDay)

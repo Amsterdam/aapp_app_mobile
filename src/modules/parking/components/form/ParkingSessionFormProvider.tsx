@@ -29,7 +29,6 @@ const getDefaultValues = ({
       endTime: dayjs(parkingSession.end_date_time),
       originalEndTime: dayjs(parkingSession.end_date_time),
       parking_machine: parkingSession.parking_machine,
-      paymentZoneId: parkingSession.payment_zone_id,
       ps_right_id: parkingSession.ps_right_id,
       report_code: parkingSession.report_code,
     }
@@ -46,7 +45,6 @@ const getDefaultValues = ({
       endTime: dayjs(parkingSession.end_date_time),
       originalEndTime: dayjs(parkingSession.end_date_time),
       parking_machine: parkingSession.parking_machine,
-      paymentZoneId: parkingSession.payment_zone_id,
       ps_right_id: parkingSession.ps_right_id,
       report_code: parkingSession.report_code,
     }

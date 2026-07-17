@@ -21,7 +21,6 @@ export type SessionFieldValues = {
   licensePlate?: {vehicle_id: string; visitor_name: string}
   parking_machine?: string
   parking_machine_favorite?: boolean
-  paymentZoneId?: string
   startTime: Dayjs
   vehicle_id?: string
 }
@@ -60,7 +59,6 @@ export const ParkingStartSessionButton = () => {
       licensePlate,
       parking_machine,
       parking_machine_favorite,
-      paymentZoneId,
       vehicle_id: visitorVehicleId,
     }: SessionFieldValues) => {
       clearErrors('root.serverError')
@@ -74,7 +72,6 @@ export const ParkingStartSessionButton = () => {
             end_date_time: endTime?.toJSON(),
             parking_machine,
             parking_machine_favorite: !!parking_machine_favorite,
-            payment_zone_id: paymentZoneId,
             report_code: report_code.toString(),
             start_date_time: startTime.toJSON(),
             vehicle_id: vehicleId,

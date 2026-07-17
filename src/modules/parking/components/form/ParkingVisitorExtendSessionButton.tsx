@@ -16,7 +16,6 @@ type FieldValues = {
     visitor_name?: string
   }
   parking_machine?: string
-  payment_zone_id?: string
   ps_right_id: number
   report_code: string
   startTime: Dayjs
@@ -38,7 +37,6 @@ export const ParkingVisitorExtendSessionButton = () => {
       ps_right_id,
       amount,
       licensePlate: {vehicle_id},
-      payment_zone_id,
       parking_machine,
     }: FieldValues) => {
       if (endTime && startTime.isBefore(endTime)) {
@@ -48,7 +46,6 @@ export const ParkingVisitorExtendSessionButton = () => {
             vehicle_id,
             end_date_time: endTime.toJSON(),
             start_date_time: startTime.toJSON(),
-            payment_zone_id,
             parking_machine,
           },
           remove_notifications_ps_right_id: ps_right_id,

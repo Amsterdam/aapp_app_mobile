@@ -39,7 +39,6 @@ export const ParkingReceipt = () => {
     licensePlate?: ParkingLicensePlate
     originalEndTime?: Dayjs
     parking_machine?: string
-    paymentZoneId?: string
     ps_right_id?: number
     startTime: Dayjs
     visitorVehicleId?: string
@@ -49,7 +48,6 @@ export const ParkingReceipt = () => {
     originalEndTime,
     licensePlate,
     parking_machine,
-    paymentZoneId,
     ps_right_id,
     visitorVehicleId,
     startTime,
@@ -83,7 +81,6 @@ export const ParkingReceipt = () => {
           report_code: currentPermit.report_code.toString(),
           end_date_time: calculatedEndTime?.toJSON(),
           parking_machine,
-          payment_zone_id: paymentZoneId,
           start_date_time: calculatedStartTime?.toJSON(),
           vehicle_id: vehicleId,
           ps_right_id,
@@ -100,7 +97,6 @@ export const ParkingReceipt = () => {
     endTime,
     originalEndTime,
     parking_machine,
-    paymentZoneId,
     isEndTimeBeforeOriginal && data?.costs?.value
       ? -data?.costs?.value
       : data?.costs?.value,

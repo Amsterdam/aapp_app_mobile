@@ -11,7 +11,6 @@ describe('filterPermits', () => {
     parking_machine_favorite: undefined,
     parking_rate: {currency: 'EUR', value: 0},
     parking_rate_original: {currency: 'EUR', value: 0},
-    payment_zones: [],
     permit_name: '',
     permit_type: 'GA-parkeervergunning voor bewoners (passagiers)',
     permit_zone: {name: '', permit_zone_id: '', show_permit_zone_url: false},
