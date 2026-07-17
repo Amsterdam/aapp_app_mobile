@@ -1,5 +1,5 @@
 import {accessCodeSlice, AccessCodeState} from '@/modules/access-code/slice'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createCoreModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 

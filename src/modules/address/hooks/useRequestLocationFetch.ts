@@ -1,5 +1,5 @@
 import {useCallback, useEffect} from 'react'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {requestLocationFetch, useLocationType} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'

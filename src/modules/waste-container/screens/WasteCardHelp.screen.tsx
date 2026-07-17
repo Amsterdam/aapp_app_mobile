@@ -7,8 +7,8 @@ import {Track} from '@/components/ui/layout/Track'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {ModuleSlug} from '@/modules/slugs'
 import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 
 type Props = NavigationProps<WasteContainerRouteName.wasteCardHelp>

@@ -1,5 +1,5 @@
 import {resolvePathFromNotification} from '@/modules/construction-work/notifications/resolvePathFromNotification'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 describe('createRoute', () => {
   const mockNotification = {

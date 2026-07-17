@@ -1,6 +1,6 @@
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 
 export const ShowWasteCardButton = () => {

@@ -7,7 +7,7 @@ import {
   usePostBurningGuideNotificationMutation,
   useDeleteBurningGuideNotificationMutation,
 } from '@/modules/burning-guide/service'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const BurningGuideNotificationToggleBox = () => {
   const locationType = useLocationType(ModuleSlug['burning-guide'])

@@ -1,7 +1,7 @@
 import {Column} from '@/components/ui/layout/Column'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const BurningGuideAddress = () => (
   <Column gutter="lg">

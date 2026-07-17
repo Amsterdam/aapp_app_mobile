@@ -16,9 +16,9 @@ import {LineString} from '@/components/features/map/line-string/LineString'
 import {Polygons} from '@/components/features/map/polygon/Polygons'
 import {ControlVariant, MapFocus} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
-import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
   focusType?: MapFocus

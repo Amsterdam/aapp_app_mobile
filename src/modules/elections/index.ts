@@ -1,6 +1,6 @@
 import {electionsSvgIcons} from '@/modules/elections/constants/icons'
 import {electionsSlice} from '@/modules/elections/slice'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 

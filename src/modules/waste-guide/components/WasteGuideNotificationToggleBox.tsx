@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
 import {useLocationType, useMyAddress} from '@/modules/address/slice'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   useDeleteWasteGuideNotificationMutation,
   useGetWasteGuideNotificationQuery,

@@ -3,9 +3,9 @@ import path from 'node:path'
 import {config} from '../../codegen.config.mts'
 import {runCodeGen} from './utils/runCodegen.mts'
 
-const watchDir = (dir: string, files: string[]) => {
-  fs.watch(dir, (eventType, filename) => {
-    if (files.some(file => filename === file)) {
+const watchDir = (dir: string, files: string[], watchAllEvents = false) => {
+  fs.watch(dir, (_eventType, filename) => {
+    if (watchAllEvents || files.some(file => filename === file)) {
       runCodeGen()
     }
   })
@@ -24,17 +24,23 @@ const setupDirWatchers = (dir: string, files: string[]) => {
 }
 
 const setupWatchers = () => {
-  // Group all match properties by inputDir
   const dirToMatches = new Map<string, Set<string>>()
+  const rootDirectoriesToWatch = new Set<string>()
 
-  config.forEach(({inputDir, match}) => {
-    const fullPath = path.resolve(inputDir)
+  config.forEach(configItem => {
+    const fullPath = path.resolve(configItem.inputDir)
+
+    if (configItem.type === 'directories') {
+      rootDirectoriesToWatch.add(fullPath)
+
+      return
+    }
 
     if (!dirToMatches.has(fullPath)) {
       dirToMatches.set(fullPath, new Set())
     }
 
-    dirToMatches.get(fullPath)!.add(match)
+    dirToMatches.get(fullPath)!.add(configItem.match)
   })
 
   for (const [fullPath, matchesSet] of dirToMatches.entries()) {
@@ -42,6 +48,11 @@ const setupWatchers = () => {
       `Watching directory: ${fullPath} for changes in: ${Array.from(matchesSet).join(', ')}`,
     )
     setupDirWatchers(fullPath, Array.from(matchesSet))
+  }
+
+  for (const fullPath of rootDirectoriesToWatch) {
+    console.log(`Watching root directory entries: ${fullPath}`)
+    watchDir(fullPath, [], true)
   }
 }
 

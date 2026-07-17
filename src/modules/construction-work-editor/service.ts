@@ -10,7 +10,7 @@ import {
   ConstructionWorkEditorResponse,
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 import {AfterBaseQueryErrorFn, PrepareHeaders} from '@/services/types'
 import {type RootState} from '@/store/types/rootState'

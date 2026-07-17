@@ -9,7 +9,7 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useSelectedPollingStationId} from '@/modules/elections/slice'
 import {ElectionsState, PollingStation} from '@/modules/elections/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {
   isError: boolean

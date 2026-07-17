@@ -13,7 +13,7 @@ import {
   type BoatChargingTerms,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
 

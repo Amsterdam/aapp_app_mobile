@@ -24,7 +24,7 @@ import {
   setModuleCustomAddress,
   useMyAddress,
 } from '@/modules/address/slice'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useAlert} from '@/store/slices/alert'
 
 export type AddressSearchFields = {

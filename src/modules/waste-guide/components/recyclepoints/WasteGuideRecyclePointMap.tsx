@@ -13,7 +13,7 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetActiveRecyclePoint} from '@/modules/waste-guide/hooks/useGetActiveRecyclePoint'
 import {useThemable} from '@/themes/useThemable'
 

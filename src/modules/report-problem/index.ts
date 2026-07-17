@@ -1,6 +1,6 @@
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 

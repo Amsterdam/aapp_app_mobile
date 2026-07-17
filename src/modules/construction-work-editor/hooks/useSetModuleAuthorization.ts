@@ -2,7 +2,7 @@ import {SerializedError} from '@reduxjs/toolkit'
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   removeAuthorizedModule,
   addAuthorizedModule,

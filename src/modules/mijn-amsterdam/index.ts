@@ -1,10 +1,10 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {resolvePathFromNotification} from '@/modules/mijn-amsterdam/notifications/resolvePathFromNotification'
 import {
   mijnAmsterdamSlice,
   type MijnAmsterdamState,
 } from '@/modules/mijn-amsterdam/slice'
 import {logout} from '@/modules/mijn-amsterdam/utils/logout'
-import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'

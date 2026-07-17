@@ -1,4 +1,4 @@
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {
   selectMyAddress,

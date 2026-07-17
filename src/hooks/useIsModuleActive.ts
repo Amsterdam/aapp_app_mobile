@@ -1,4 +1,4 @@
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 
 export const useIsModuleActive = (module: ModuleSlug) => {

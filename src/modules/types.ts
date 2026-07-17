@@ -4,6 +4,7 @@ import {
   type PathConfigMap,
 } from '@react-navigation/native'
 import {type StackNavigationOptions} from '@react-navigation/stack'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {Theme} from '@/themes/themes'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {
@@ -11,7 +12,6 @@ import {
   type SvgIconVariantConfig,
 } from '@/components/ui/media/svgIcons'
 import {type ReduxDispatch} from '@/hooks/redux/types'
-import {type ModuleSlug} from '@/modules/slugs'
 import {type CustomDimensionKeys} from '@/processes/piwik/types'
 import {type ReduxConfig} from '@/store/types/reduxConfig'
 import {type RootState} from '@/store/types/rootState'

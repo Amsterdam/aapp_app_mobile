@@ -1,3 +1,4 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   NewsEndpointName,
   type NewsArticlesResponse,
@@ -7,7 +8,6 @@ import {
   type NewsLiveblogNotificationsResponse,
   type LiveblogResponse,
 } from '@/modules/news/types'
-import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 

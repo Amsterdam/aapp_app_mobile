@@ -1,4 +1,4 @@
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {UserRouteName} from '@/modules/user/routes'
 import {createCoreModule} from '@/modules/utils/createModule'
 

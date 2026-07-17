@@ -1,4 +1,4 @@
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {useMapControlsOptions} from '@/components/features/map/hooks/useMapControlsOptions'
 import {type ControlVariant} from '@/components/features/map/types'

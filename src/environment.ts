@@ -1,6 +1,6 @@
 /* eslint-disable typescript-sort-keys/string-enum */
 import {API_KEY_ACC, API_KEY_DEV, API_KEY_PROD, API_KEY_TEST} from '@env'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export enum Environment {
   development = 'Development',

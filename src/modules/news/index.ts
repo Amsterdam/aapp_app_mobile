@@ -1,7 +1,7 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {NewsRouteName} from '@/modules/news/routes'
 import {NewsSlice, type NewsState} from '@/modules/news/slice'
 import {resolvePathFromNotification} from '@/modules/news/utils/resolvePathFromNotification'
-import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 

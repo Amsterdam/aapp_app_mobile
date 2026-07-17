@@ -1,5 +1,5 @@
 import type {HighAccuracyPurposeKey} from '@/modules/address/types'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export enum AddressRouteName {
   address = 'Address',

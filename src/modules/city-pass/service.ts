@@ -10,7 +10,7 @@ import {
 } from '@/modules/city-pass/types'
 import {afterError} from '@/modules/city-pass/utils/afterError'
 import {prepareHeaders} from '@/modules/city-pass/utils/prepareHeaders'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 

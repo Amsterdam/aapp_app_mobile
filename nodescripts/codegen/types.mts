@@ -2,12 +2,25 @@ import fs from 'node:fs'
 
 export type CodeGenConfig = CodeGenConfigItem[]
 
-export type CodeGenConfigItem = {
+export type ImportsCodeGenConfigItem = {
   imports: ImportConfig[]
   inputDir: string
   match: string
   output: string
+  type?: 'imports'
 }
+
+export type DirectoriesCodeGenConfigItem = {
+  excludeDirectories?: string[]
+  inputDir: string
+  output: string
+  result: (directories: fs.Dirent<string>[]) => string
+  type: 'directories'
+}
+
+export type CodeGenConfigItem =
+  | ImportsCodeGenConfigItem
+  | DirectoriesCodeGenConfigItem
 
 export type ImportConfig = {
   exportName?: string

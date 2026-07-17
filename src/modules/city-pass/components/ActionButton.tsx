@@ -8,7 +8,7 @@ import {clientModule as cityPassModule} from '@/modules/city-pass'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 
 export const ActionButton = () => {

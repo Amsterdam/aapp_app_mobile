@@ -5,7 +5,7 @@ import {
   type Address,
   type PostalArea,
 } from '@/modules/address/types'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'

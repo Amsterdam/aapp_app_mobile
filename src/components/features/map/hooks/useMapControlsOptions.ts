@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useMapControlsLocationButton} from '@/components/features/map/hooks/useMapControlsLocationButton'
 import {
   MapControlBottomSheetKey,

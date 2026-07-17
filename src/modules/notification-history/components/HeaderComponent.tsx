@@ -3,9 +3,9 @@ import simplur from 'simplur'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {clientModule as notificationHistoryModule} from '@/modules/notification-history'
 import {useGetNotificationsQuery} from '@/modules/notification-history/service'
-import {ModuleSlug} from '@/modules/slugs'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 
 export const HeaderComponent = () => {

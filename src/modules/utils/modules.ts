@@ -1,4 +1,4 @@
-import {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {Module, ModuleClientConfig, ModuleServerConfig} from '@/modules/types'
 
 export const mergeModulesConfig = (

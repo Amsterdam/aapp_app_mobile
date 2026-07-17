@@ -1,4 +1,5 @@
 import {useMemo, type ReactNode} from 'react'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Badge} from '@/components/ui/feedback/Badge'
@@ -9,7 +10,6 @@ import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {moduleIcons} from '@/modules/generated/moduleIcons.generated'
 import {HomeRouteName} from '@/modules/home/routes'
-import {ModuleSlug} from '@/modules/slugs'
 import {useTheme} from '@/themes/useTheme'
 
 type ModuleButtonContentProps = {

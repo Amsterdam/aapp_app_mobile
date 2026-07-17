@@ -1,8 +1,8 @@
 import {useCallback} from 'react'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {setShouldShowOnboarding} from '@/modules/onboarding/slice'
-import {ModuleSlug} from '@/modules/slugs'
 
 const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
 

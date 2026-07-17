@@ -1,5 +1,5 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {onboardingSlice} from '@/modules/onboarding/slice'
-import {ModuleSlug} from '@/modules/slugs'
 import {createCoreModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 

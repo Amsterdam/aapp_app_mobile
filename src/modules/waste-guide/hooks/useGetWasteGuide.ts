@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useIsFocusedAndroid} from '@/hooks/useIsFocusedAndroid'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetWasteGuideQuery} from '@/modules/waste-guide/service'
 
 export const useGetWasteGuide = () => {

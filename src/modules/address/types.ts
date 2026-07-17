@@ -1,4 +1,4 @@
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import type {Coordinates} from '@/types/location'
 
 export enum AddressCity {

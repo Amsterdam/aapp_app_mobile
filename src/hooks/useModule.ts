@@ -1,4 +1,4 @@
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useModules} from '@/hooks/useModules'
 
 export const useModule = (moduleSlug: ModuleSlug) => {

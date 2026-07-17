@@ -16,7 +16,7 @@ import {
 } from '@/modules/construction-work/types/api'
 import {processSearchQueryArgs} from '@/modules/construction-work/utils/processSearchQueryArgs'
 import {tempPostProcessProjectDetails} from '@/modules/construction-work/utils/tempPostProcessProjectDetails'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'

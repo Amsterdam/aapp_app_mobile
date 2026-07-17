@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import type {IconProps} from '@/components/ui/media/Icon'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useMap} from '@/components/features/map/hooks/useMap'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'

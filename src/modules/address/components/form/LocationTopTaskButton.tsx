@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import type {ModuleSlug} from '@/modules/slugs'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {StatefulTopTaskButton} from '@/components/ui/buttons/StatefulTopTaskButton'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'

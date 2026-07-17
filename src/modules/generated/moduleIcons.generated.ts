@@ -1,5 +1,5 @@
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ModuleIcon as moduleIcons0} from '@/modules/pride/components/ModuleIcon.tsx'
-import {ModuleSlug} from '@/modules/slugs'
 
 export const moduleIcons = {
   [ModuleSlug.pride]: moduleIcons0,

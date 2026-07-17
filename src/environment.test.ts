@@ -4,7 +4,7 @@ import {
   GlobalApiSlug,
   customDefaultUrls,
 } from '@/environment'
-import {ModuleSlug} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 describe('getApi', () => {
   test('returns correct api url for development environment', () => {
