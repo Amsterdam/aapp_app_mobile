@@ -3,7 +3,7 @@ import type {BottomSheetState} from '@/components/features/bottom-sheet/provider
 
 type BottomSheetContextValue = BottomSheetState & {
   close: () => void
-  open: (newVariant?: string, params?: Record<string, unknown>) => void
+  open: (newVariant?: string) => void
   toggle: (newVariant?: string) => void
 }
 

@@ -12,19 +12,17 @@ import {Title} from '@/components/ui/text/Title'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
 import {useServicePointListItemData} from '@/modules/service/hooks/useServicePointListItemData'
 
-type Props = {
-  icon?: ServiceMapResponseIcon
-  listProperty: ServiceMapResponse['list_property']
-  onPress: (servicePointId: ServicePointFeature['id']) => void
-  servicePoint: ServicePointFeature
-}
-
 export const ServicePointListItem = ({
   listProperty,
   servicePoint,
   onPress,
   icon,
-}: Props) => {
+}: {
+  icon?: ServiceMapResponseIcon
+  listProperty: ServiceMapResponse['list_property']
+  onPress: (servicePointId: ServicePointFeature['id']) => void
+  servicePoint: ServicePointFeature
+}) => {
   const {accessibilityLabel, listPropertyValue, distanceToPoint} =
     useServicePointListItemData(servicePoint, listProperty)
 

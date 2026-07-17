@@ -29,12 +29,13 @@ import {useServiceQuery} from '@/modules/service/service'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
-type Props = {
+export const ServicePointList = ({
+  id: serviceId,
+  onMapElementPress,
+}: {
   id: Service['id']
   onMapElementPress: (id: ServicePointFeature['id']) => void
-}
-
-export const ServicePointList = ({id: serviceId, onMapElementPress}: Props) => {
+}) => {
   const {
     data: service,
     isLoading,
