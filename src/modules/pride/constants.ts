@@ -30,7 +30,7 @@ export const EVENT_PROPERTIES_TO_INCLUDE = {
   icon: PRIDE_EVENT_ICON_CONFIG.path,
   label: EVENTS_LABEL,
   property_key: EVENTS_PROPERTY_KEY,
-  property_type: ServiceDetailPropertyType.keyValueTable,
+  property_type: ServiceDetailPropertyType.keyValueTableDivided,
 }
 export const EVENT_ICONS_TO_INCLUDE = {
   [EVENTS_ICON_LABEL]: PRIDE_EVENT_ICON_CONFIG,
