@@ -1,9 +1,9 @@
 import {useCallback, useMemo} from 'react'
-import type {MarkerProperties} from '@/components/features/map/types'
 import type {PrideEvent} from '@/modules/pride/types'
+import type {ServicePointFeature} from '@/modules/service/types'
 import type {Coordinates} from '@/types/location'
-import type {Supercluster} from 'react-native-clusterer'
-import {PrideEventMarker} from '@/modules/pride/components/PrideEventMarker'
+import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
+// import {PRIDE_EVENT_ICON_CONFIG} from '@/modules/pride/constants'
 import {usePrideEventsQuery} from '@/modules/pride/service'
 
 export const usePrideEvents = () => {
@@ -60,21 +60,27 @@ export const usePrideEvents = () => {
       return []
     }
 
-    return Object.values(eventsByLocation).map<
-      Supercluster.PointFeature<MarkerProperties>
-    >((location, index) => ({
-      type: 'Feature' as const,
-      id: index,
-      geometry: {
-        type: 'Point' as const,
-        coordinates: [location.coordinates.lon, location.coordinates.lat],
-      },
-      properties: {
-        id: `feature-locations-properties-${index}`,
-        Icon: <PrideEventMarker />,
-        aapp_subtitle: 'Evenementen',
-      },
-    }))
+    return Object.values(eventsByLocation).map<ServicePointFeature>(
+      (location, index) => ({
+        type: 'Feature' as const,
+        id: index,
+        geometry: {
+          type: 'Point' as const,
+          coordinates: [location.coordinates.lon, location.coordinates.lat],
+        },
+        properties: {
+          id: `feature-locations-properties-${index}`,
+          aapp_title:
+            'Evenementen op ' + getAddressLine1(location.events[0].address),
+          // icon: {
+          //   path: PRIDE_EVENT_ICON_CONFIG.path,
+          //   path_color: PRIDE_EVENT_ICON_CONFIG.pathColor,
+          //   circle_color: PRIDE_EVENT_ICON_CONFIG.circleColor,
+          // },
+          aapp_subtitle: 'Evenementen',
+        },
+      }),
+    )
   }, [eventsByLocation])
 
   const getEventsOnLocation = useCallback(

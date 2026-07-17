@@ -31,7 +31,9 @@ export const useGetMapMarkerData = (
         const iconProps =
           aapp_icon_type && icons
             ? {Icon: <ServicePointCustomMarker icon={icons[aapp_icon_type]} />}
-            : {variant: MapMarkerVariant.pin}
+            : // : restProperties.icon
+              //   ? {Icon: <ServicePointCustomMarker icon={restProperties.icon} />}
+              {variant: MapMarkerVariant.pin}
 
         return {
           ...feature,
