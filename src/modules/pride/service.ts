@@ -4,6 +4,7 @@ import {
   EVENT_PROPERTIES_TO_INCLUDE,
   EVENT_ICONS_TO_INCLUDE,
   EVENTS_ICON_LABEL,
+  EVENTS_ID_PREFIX,
 } from '@/modules/pride/constants'
 import {
   PrideEndpointName,
@@ -93,8 +94,7 @@ export const prideApi = baseApi.injectEndpoints({
                   )
 
                   draft.data.features = draft.data.features.filter(
-                    feature =>
-                      !String(feature.id).startsWith('event-location-'),
+                    feature => !String(feature.id).startsWith(EVENTS_ID_PREFIX),
                   )
 
                   draft.data.features.push(...eventFeatures)

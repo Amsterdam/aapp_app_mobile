@@ -1,12 +1,13 @@
-import {getEventsSeparatedByLocation} from '@/modules/pride/utils/getEventsSeparatedByLocation'
 import type {ServicePointFeature} from '@/modules/service/types'
 import {
   EVENTS_FILTER_KEY,
   EVENTS_FILTER_VALUE,
   EVENTS_ICON_LABEL,
+  EVENTS_ID_PREFIX,
   EVENTS_PROPERTY_KEY,
 } from '@/modules/pride/constants'
 import {formatMeta} from '@/modules/pride/utils/formatMeta'
+import {getEventsSeparatedByLocation} from '@/modules/pride/utils/getEventsSeparatedByLocation'
 
 export const getEventFeatures = (
   eventsSeparatedByLocation: ReturnType<typeof getEventsSeparatedByLocation>,
@@ -14,7 +15,7 @@ export const getEventFeatures = (
   Object.values(eventsSeparatedByLocation).map<ServicePointFeature>(
     (location, index) => ({
       type: 'Feature' as const,
-      id: `event-location-${index}`,
+      id: `${EVENTS_ID_PREFIX}${index}`,
       geometry: {
         type: 'Point' as const,
         coordinates: [location.coordinates.lon, location.coordinates.lat],
