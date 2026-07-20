@@ -1025,7 +1025,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
             }
             val byteArray = byteArrayOutputStream.toByteArray()
             val base64String = Base64.encodeToString(byteArray, Base64.DEFAULT)
-            val timestamp = System.currentTimeMillis().toDouble()
+            val timestamp = (System.currentTimeMillis() / 1000).toDouble()
             val entryId = UUID.randomUUID().toString()
 
             emitOnNewMessage(Arguments.createMap().apply {
