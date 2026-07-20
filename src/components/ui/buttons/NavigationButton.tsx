@@ -123,7 +123,11 @@ export const NavigationButton = ({
             </Column>
           </Row>
           {!!description && !!isDescriptionBelowIcon && (
-            <Phrase testID="NavigationButtonDescription">{description}</Phrase>
+            <Phrase
+              accessible={false}
+              testID="NavigationButtonDescription">
+              {description}
+            </Phrase>
           )}
         </Column>
         {direction === 'forward' && (

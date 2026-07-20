@@ -30,8 +30,9 @@ export const ManageVisitorTimeBalanceOverview = () => {
           <Row
             align="between"
             flex={1}>
-            <Phrase>Tijdsaldo</Phrase>
+            <Phrase accessible={false}>Tijdsaldo</Phrase>
             <Phrase
+              accessible={false}
               emphasis="strong"
               testID="ManageVisitorTimeBalanceOverviewAmountPhrase">
               {formatTimeDurationToDisplay(
@@ -41,7 +42,7 @@ export const ManageVisitorTimeBalanceOverview = () => {
               )}
             </Phrase>
           </Row>
-          <Phrase>
+          <Phrase accessible={false}>
             Tot {formatDateToDisplay(currentPermit.time_valid_until, false)}
           </Phrase>
         </Column>

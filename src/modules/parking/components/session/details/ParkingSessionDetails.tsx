@@ -68,7 +68,7 @@ export const ParkingSessionDetails = ({
           iconName="car"
           testID="ParkingSessionDetailsLicensePlateRow"
           title="Kenteken">
-          <Phrase>{licensePlateString}</Phrase>
+          <Phrase accessible={false}>{licensePlateString}</Phrase>
         </ParkingSessionDetailsRow>
 
         {!!parkingSession.parking_machine && (
@@ -106,11 +106,15 @@ export const ParkingSessionDetails = ({
                   parkingSession.end_date_time,
                 )}`
           }>
-          <Phrase>
+          <Phrase
+            accessibilityLabel={`${isActiveWithoutEndTime ? '' : 'Starttijd:'} ${formatDateTimeToDisplay(parkingSession.start_date_time, false)}`}
+            accessible={false}>
             {formatDateTimeToDisplay(parkingSession.start_date_time, false)}
           </Phrase>
           {!!parkingSession.end_date_time && !isActiveWithoutEndTime && (
-            <Phrase>
+            <Phrase
+              accessibilityLabel={`Eindtijd: ${formatDateTimeToDisplay(parkingSession.end_date_time, false)}`}
+              accessible={false}>
               {formatDateTimeToDisplay(parkingSession.end_date_time, false)}
             </Phrase>
           )}
@@ -121,7 +125,7 @@ export const ParkingSessionDetails = ({
             iconName="euro-coins"
             testID="ParkingSessionDetailsParkingCostRow"
             title="Kosten">
-            <Phrase>
+            <Phrase accessible={false}>
               {formatNumber(
                 parkingSession.parking_cost.value,
                 parkingSession.parking_cost.currency,

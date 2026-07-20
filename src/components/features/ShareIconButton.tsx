@@ -37,6 +37,7 @@ export const ShareIconButton = ({
 
   return (
     <IconButton
+      accessibilityLabel={`Delen`}
       icon={
         <Icon
           color="link"

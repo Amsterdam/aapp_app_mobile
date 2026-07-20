@@ -33,6 +33,7 @@ export const ParkingSessionDetailsRow = ({
         halign="start"
         shrink={1}>
         <Title
+          accessible={false}
           level="h5"
           text={title}
         />

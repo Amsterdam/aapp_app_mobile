@@ -67,6 +67,7 @@ export const CopyButton = ({
           testID={`${testID}Icon`}
         />
         <Phrase
+          accessible={false}
           color={isCopied ? 'confirm' : getTextColor(variant)}
           ellipsizeMode={ellipsizeMode}
           emphasis={variant === 'primary' || isCopied ? 'strong' : 'default'}

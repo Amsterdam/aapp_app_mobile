@@ -23,14 +23,34 @@ const getTextFragments = (children: ReactNode): string[] => {
   }
 
   if (isValidElement(children)) {
-    const props = children.props as {children?: ReactNode; text?: unknown}
+    const props = children.props as {
+      accessibilityLabel?: string
+      children?: ReactNode
+      label?: unknown
+      text?: unknown
+      title?: unknown
+    }
     const fragments: string[] = []
 
-    if (typeof props.text === 'string' || typeof props.text === 'number') {
-      fragments.push(String(props.text))
-    }
+    if (typeof props.accessibilityLabel === 'string') {
+      fragments.push(String(props.accessibilityLabel))
+    } else {
+      if (typeof props.text === 'string' || typeof props.text === 'number') {
+        fragments.push(String(props.text))
+      } else if (
+        typeof props.label === 'string' ||
+        typeof props.label === 'number'
+      ) {
+        fragments.push(String(props.label))
+      } else if (
+        typeof props.title === 'string' ||
+        typeof props.title === 'number'
+      ) {
+        fragments.push(String(props.title))
+      }
 
-    fragments.push(...getTextFragments(props.children))
+      fragments.push(...getTextFragments(props.children))
+    }
 
     return fragments
   }

@@ -1,5 +1,6 @@
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -54,48 +55,66 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
   return (
     <Column gutter="md">
       <Column gutter="xs">
-        <Row align="between">
-          <Phrase testID="ManageVisitorTimeBalanceTitle">
-            Huidig tijdsaldo
-          </Phrase>
-          <Phrase testID="ManageVisitorTimeBalanceAmountTitle">
-            {formatTimeDurationToDisplay(
-              currentPermit.visitor_account.seconds_remaining,
-              'seconds',
-              {short: true},
-            )}
-          </Phrase>
-        </Row>
-        <Row align="between">
-          <Phrase testID="ManageVisitorTimeBalanceMutationTitle">
-            Tijd toevoegen
-          </Phrase>
-          <Phrase testID="ManageVisitorTimeBalanceMutationAmountTitle">
-            {time
-              ? `${operator} ${formatTimeDurationToDisplay(time, 'seconds', {short: true})}`
-              : '-'}
-          </Phrase>
-        </Row>
+        <SingleSelectable>
+          <Row align="between">
+            <Phrase
+              accessible={false}
+              testID="ManageVisitorTimeBalanceTitle">
+              Huidig tijdsaldo
+            </Phrase>
+            <Phrase
+              accessible={false}
+              testID="ManageVisitorTimeBalanceAmountTitle">
+              {formatTimeDurationToDisplay(
+                currentPermit.visitor_account.seconds_remaining,
+                'seconds',
+                {short: true},
+              )}
+            </Phrase>
+          </Row>
+        </SingleSelectable>
+        <SingleSelectable>
+          <Row align="between">
+            <Phrase
+              accessible={false}
+              testID="ManageVisitorTimeBalanceMutationTitle">
+              Tijd toevoegen
+            </Phrase>
+            <Phrase
+              accessible={false}
+              testID="ManageVisitorTimeBalanceMutationAmountTitle">
+              {time
+                ? `${operator} ${formatTimeDurationToDisplay(time, 'seconds', {short: true})}`
+                : '-'}
+            </Phrase>
+          </Row>
+        </SingleSelectable>
       </Column>
       <Column gutter="lg">
-        <Row align="between">
-          <Title
-            level="h4"
-            testID="ManageVisitorTimeBalanceMutationTitle"
-            text="Nieuw tijdsaldo"
-          />
-          <Title
-            level="h4"
-            testID="ManageVisitorTimeBalanceMutationAmountTitle"
-            text={formatTimeDurationToDisplay(
-              isNegative
-                ? currentPermit.visitor_account.seconds_remaining - (time ?? 0)
-                : currentPermit.visitor_account.seconds_remaining + (time ?? 0),
-              'seconds',
-              {short: true},
-            )}
-          />
-        </Row>
+        <SingleSelectable>
+          <Row align="between">
+            <Title
+              accessible={false}
+              level="h4"
+              testID="ManageVisitorTimeBalanceMutationTitle"
+              text="Nieuw tijdsaldo"
+            />
+            <Title
+              accessible={false}
+              level="h4"
+              testID="ManageVisitorTimeBalanceMutationAmountTitle"
+              text={formatTimeDurationToDisplay(
+                isNegative
+                  ? currentPermit.visitor_account.seconds_remaining -
+                      (time ?? 0)
+                  : currentPermit.visitor_account.seconds_remaining +
+                      (time ?? 0),
+                'seconds',
+                {short: true},
+              )}
+            />
+          </Row>
+        </SingleSelectable>
         <Button
           label="Tijdsaldo aanpassen"
           onPress={onSubmit}

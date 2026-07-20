@@ -71,11 +71,13 @@ export const ParkingPermitBalanceMoney = () => {
         <Column gutter="xs">
           <Row align="between">
             <Title
+              accessible={false}
               level="h5"
               testID="ParkingPermitBalanceMoneyTitlePhrase"
               text="Geldsaldo"
             />
             <Title
+              accessible={false}
               level="h5"
               testID="ParkingPermitBalanceMoneyTitlePhrase"
               text={balance ? formatNumber(balance, currency) : 'Onbekend'}

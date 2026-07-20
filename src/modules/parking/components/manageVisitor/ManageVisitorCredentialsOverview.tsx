@@ -22,8 +22,9 @@ export const ManageVisitorCredentialsOverview = () => {
           <Row
             align="between"
             flex={1}>
-            <Phrase>Meldcode</Phrase>
+            <Phrase accessible={false}>Meldcode</Phrase>
             <Phrase
+              accessible={false}
               emphasis="strong"
               testID="ManageVisitorCredentialsOverviewReportCodePhrase">
               {currentPermit.visitor_account.report_code}
@@ -34,8 +35,9 @@ export const ManageVisitorCredentialsOverview = () => {
           <Row
             align="between"
             flex={1}>
-            <Phrase>Pincode</Phrase>
+            <Phrase accessible={false}>Pincode</Phrase>
             <Phrase
+              accessible={false}
               emphasis="strong"
               testID="ManageVisitorCredentialsOverviewPinPhrase">
               {currentPermit.visitor_account.pin}
