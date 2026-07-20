@@ -107,5 +107,7 @@ const createStyles =
       container: {
         position: isAbsolute ? 'absolute' : undefined,
         zIndex: z.tooltip,
+        height: '100%',
+        width: '100%',
       },
     })
