@@ -49,7 +49,11 @@ export const MapFiltersProvider = ({
     [activeFilters, onPressFilter, filters, layers],
   )
 
-  return <MapFiltersContext value={value}>{children}</MapFiltersContext>
+  return (
+    <MapFiltersContext.Provider value={value}>
+      {children}
+    </MapFiltersContext.Provider>
+  )
 }
 
 const getFilterIsEqual = (filterA: Filter, filterB: Filter) =>

@@ -111,6 +111,7 @@ export enum ServiceDetailPropertyType {
   address = 'address',
   image = 'image',
   keyValueTable = 'key_value_table',
+  keyValueTableDivided = 'key_value_table_divided',
   malfunction = 'malfunction',
   price = 'price',
   string = 'string',
