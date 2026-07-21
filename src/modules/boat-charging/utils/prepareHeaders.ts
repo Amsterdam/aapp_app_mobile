@@ -3,13 +3,20 @@ import {
   selectBoatChargingAccessToken,
   selectBoatChargingAccessTokenExpiration,
 } from '@/modules/boat-charging/slice'
+import {BoatChargingEndpointName} from '@/modules/boat-charging/types'
 import {refreshAccessToken} from '@/modules/boat-charging/utils/refreshAccessToken'
 import {PrepareHeaders} from '@/services/types'
 import {dayjs} from '@/utils/datetime/dayjs'
+import {SHA256EncryptedDeviceId} from '@/utils/encryption'
+
+const deviceIdRequestingEndpoints = [
+  BoatChargingEndpointName.boatChargingStartSession,
+  BoatChargingEndpointName.boatChargingStopSession,
+] as const
 
 export const prepareHeaders: PrepareHeaders = async (
   headers,
-  {dispatch, getState},
+  {dispatch, endpoint, getState},
 ) => {
   const state = getState() as RootState
 
@@ -33,6 +40,14 @@ export const prepareHeaders: PrepareHeaders = async (
 
   if (accessToken) {
     headers.set('Access-Token', accessToken)
+  }
+
+  if (
+    deviceIdRequestingEndpoints.includes(
+      endpoint as (typeof deviceIdRequestingEndpoints)[number],
+    )
+  ) {
+    headers.set('DeviceId', SHA256EncryptedDeviceId)
   }
 
   return headers

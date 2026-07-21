@@ -10,6 +10,9 @@ import {
   type BoatChargingLocationDetailsResponse,
   type BoatChargingOIDCConfigResponse,
   type BoatChargingSession,
+  type BoatChargingSessionInitRequest,
+  type BoatChargingSessionInitResponse,
+  type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
@@ -88,6 +91,52 @@ export const boatChargingApi = baseApi.injectEndpoints({
       providesTags: ['BoatChargingSessions'],
       keepUnusedDataFor: CacheLifetime.minute,
     }),
+    [BoatChargingEndpointName.boatChargingInitSession]: builder.mutation<
+      BoatChargingSessionInitResponse,
+      BoatChargingSessionInitRequest
+    >({
+      query: (body: BoatChargingSessionInitRequest) => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/sessions/init',
+        method: 'POST',
+        body,
+      }),
+    }),
+    [BoatChargingEndpointName.boatChargingSocketStatus]: builder.query<
+      BoatChargingSocketStatusResponse,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/socket-status`,
+      }),
+    }),
+    [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
+      void,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/start`,
+        method: 'POST',
+        timeout: 180000, // 3 minutes
+      }),
+    }),
+    [BoatChargingEndpointName.boatChargingStopSession]: builder.mutation<
+      void,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/stop`,
+        method: 'POST',
+        timeout: 60000, // 1 minute
+      }),
+    }),
   }),
   overrideExisting: false,
 })
@@ -98,4 +147,8 @@ export const {
   useBoatChargingOpenIdConnectConfigQuery,
   useBoatChargingTermsQuery,
   useBoatChargingSessionsQuery,
+  useBoatChargingInitSessionMutation,
+  useBoatChargingSocketStatusQuery,
+  useBoatChargingStartSessionMutation,
+  useBoatChargingStopSessionMutation,
 } = boatChargingApi
