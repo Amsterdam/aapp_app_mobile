@@ -47,7 +47,7 @@ export const prepareHeaders: PrepareHeaders = async (
       endpoint as (typeof deviceIdRequestingEndpoints)[number],
     )
   ) {
-    headers.set('DeviceId', SHA256EncryptedDeviceId)
+    headers.set('deviceid', SHA256EncryptedDeviceId)
   }
 
   return headers

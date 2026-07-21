@@ -2,28 +2,25 @@ import {StyleSheet, View} from 'react-native'
 import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-enum Size {
-  lg = '25%',
+enum PositionFromTop {
+  lg = '75%',
   md = '50%',
-  sm = '75%',
+  sm = '25%',
 }
 
 export type ScreenBackgroundOverlayProps = {
-  /**
-   * The color of the overlay. If not provided, the default color will be used.
-   */
   color?: keyof Theme['color']['screen']['background']
   /**
-   * The top position of the overlay. If not provided, the overlay will cover the entire screen.
+   * The position from the top of the screen where the overlay should start. The overlay will cover the rest of the screen from that point downwards. Defaults to 'md' (50% of the screen height).
    */
-  size?: keyof typeof Size
+  positionFromTop?: keyof typeof PositionFromTop
 }
 
 export const ScreenBackgroundOverlay = ({
   color = 'default',
-  size = 'md',
+  positionFromTop = 'md',
 }: ScreenBackgroundOverlayProps) => {
-  const styles = useThemable(createStyles(color, size))
+  const styles = useThemable(createStyles(color, positionFromTop))
 
   return <View style={styles.container} />
 }
@@ -31,13 +28,13 @@ export const ScreenBackgroundOverlay = ({
 const createStyles =
   (
     color: keyof Theme['color']['screen']['background'],
-    size?: keyof typeof Size,
+    positionFromTop: keyof typeof PositionFromTop,
   ) =>
   ({color: themeColor}: Theme) =>
     StyleSheet.create({
       container: {
         position: 'absolute',
-        top: Size[size ?? 'sm'],
+        top: PositionFromTop[positionFromTop],
         left: 0,
         right: 0,
         bottom: 0,

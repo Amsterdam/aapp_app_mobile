@@ -4,6 +4,7 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Column} from '@/components/ui/layout/Column'
+import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {BoatChargingMapNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingMapNavigationButton'
 import {BoatChargingSessionInfoContainer} from '@/modules/boat-charging/components/session/BoatChargingSessionInfoContainer'
 import {BoatChargingSessionSocket} from '@/modules/boat-charging/components/session/BoatChargingSessionSocket'
@@ -11,12 +12,15 @@ import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChar
 
 export const BoatChargingSession = () => {
   const {
+    activeSession,
     activeSessions,
     isNotPluggedInErrorVisible,
     isError,
     isLoading,
     isPluggedIn,
   } = useBoatChargingSessions()
+
+  useSetScreenTitle(activeSession?.location.name)
 
   if (isLoading) {
     return <PleaseWait testID="BoatChargingSessionPleaseWait" />
@@ -41,7 +45,9 @@ export const BoatChargingSession = () => {
               text="Steek de stekker in het stopcontact om verder te gaan."
             />
           )}
-          <BoatChargingSessionSocket />
+          <BoatChargingSessionSocket
+            socketNumber={activeSession?.socket_number}
+          />
           <Divider />
         </Column>
         <BoatChargingMapNavigationButton />

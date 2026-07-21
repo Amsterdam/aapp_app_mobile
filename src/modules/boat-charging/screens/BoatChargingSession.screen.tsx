@@ -6,7 +6,7 @@ import {BoatChargingSessionsProvider} from '@/modules/boat-charging/providers/Bo
 export const BoatChargingSessionScreen = () => (
   <BoatChargingSessionsProvider shouldPollSocketStatus={true}>
     <Screen
-      backgroundOverlay={{size: 'lg'}}
+      backgroundOverlay={{positionFromTop: 'sm'}}
       hasStickyAlert
       scroll
       stickyFooter={<BoatChargingSessionButtons />}

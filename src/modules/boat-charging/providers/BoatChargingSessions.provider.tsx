@@ -1,6 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState, type ReactNode} from 'react'
-import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useInterval} from '@/hooks/useInterval'
 import {BoatChargingSessionsContext} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
@@ -9,7 +8,7 @@ import {
   useBoatChargingSocketStatusQuery,
 } from '@/modules/boat-charging/service'
 import {SocketStatus} from '@/modules/boat-charging/types'
-import {getActiveSessions} from '@/modules/boat-charging/utils/getIsActiveSession'
+import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
 
 type Props = {
   children: ReactNode
@@ -38,13 +37,14 @@ export const BoatChargingSessionsProvider = ({
     socketStatus?.substatus === SocketStatus.PREPARING ||
     socketStatus?.substatus === SocketStatus.CHARGING
 
-  useInterval(() => {
-    if (shouldPollSocketStatus) {
-      void refetchSocketStatus()
-    }
-  }, 5000)
-
-  useSetScreenTitle(activeSession?.location.name)
+  useInterval(
+    () => {
+      if (shouldPollSocketStatus && activeSession?.id) {
+        void refetchSocketStatus()
+      }
+    },
+    shouldPollSocketStatus && !!activeSession?.id ? 5000 : 0,
+  )
 
   const onPressStartButtonNotPluggedIn = useCallback(() => {
     setIsNotPluggedInErrorVisible(true)
