@@ -45,7 +45,7 @@ export const ModuleStack = () => {
   const {isRecentlyLoggedOut} = useIsRecentlyLoggedOut()
   const {isLoginStepsActive} = useLoginSteps()
 
-  const accessCodeGate = useAccessCodeGate(Stack, {
+  const {accessCodeGateRoot} = useAccessCodeGate(Stack, {
     loginSteps: {
       [ParkingRouteName.loginSteps]: {
         component: LoginStepsScreen,
@@ -70,7 +70,7 @@ export const ModuleStack = () => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       {isLoggedIn || isLoggingOut ? (
-        accessCodeGate(
+        accessCodeGateRoot(
           <Stack.Group>
             {!!isLoggingIn && (
               <Stack.Screen
