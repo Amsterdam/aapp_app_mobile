@@ -8,6 +8,9 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
+  const screenOptionsSettings = useScreenOptions({
+    screenType: 'settings',
+  })
 
   return (
     <Stack.Navigator
@@ -17,6 +20,10 @@ export const ModuleStack = () => {
         <Stack.Screen
           key={key}
           {...route}
+          options={{
+            ...(route.screenType === 'settings' && screenOptionsSettings),
+            ...route.options,
+          }}
         />
       ))}
     </Stack.Navigator>
