@@ -18,6 +18,7 @@ import {
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
+import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 
 export const boatChargingApi = baseApi.injectEndpoints({
@@ -123,6 +124,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         url: `/sessions/${sessionId}/start`,
         method: 'POST',
         timeout: 180000, // 3 minutes
+        headers: deviceIdHeader,
       }),
     }),
     [BoatChargingEndpointName.boatChargingStopSession]: builder.mutation<
@@ -135,6 +137,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         url: `/sessions/${sessionId}/stop`,
         method: 'POST',
         timeout: 60000, // 1 minute
+        headers: deviceIdHeader,
       }),
     }),
   }),
