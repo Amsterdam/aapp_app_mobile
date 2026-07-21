@@ -26,7 +26,7 @@ export const BoatChargingSessionButtons = () => {
   }
 
   return (
-    <Box>
+    <Box variant="distinct">
       {isCharging ? (
         <Button
           isError={isErrorStopSession}

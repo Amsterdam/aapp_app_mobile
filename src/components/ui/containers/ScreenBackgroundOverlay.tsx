@@ -35,6 +35,7 @@ const createStyles =
       container: {
         position: 'absolute',
         top: PositionFromTop[positionFromTop],
+        height: '100%',
         left: 0,
         right: 0,
         bottom: 0,

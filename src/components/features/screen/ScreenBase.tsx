@@ -110,6 +110,9 @@ export const ScreenBase = (props: ScreenProps) => {
               <ScreenInnerWrapper style={styles.content}>
                 {children}
               </ScreenInnerWrapper>
+              {!!backgroundOverlay && (
+                <ScreenBackgroundOverlay {...backgroundOverlay} />
+              )}
             </ScreenWrapper>
           </HideFromAccessibility>
           {(!!stickyFooter || !!bottomSheet) && (
@@ -119,9 +122,6 @@ export const ScreenBase = (props: ScreenProps) => {
             </>
           )}
           {!!spaceBottom && <View style={{height: spaceBottom}} />}
-          {!!backgroundOverlay && (
-            <ScreenBackgroundOverlay {...backgroundOverlay} />
-          )}
         </HideFromAccessibility>
       </ExtendAccessCodeValidityOnTap>
     </ScreenProvider>
