@@ -1,12 +1,17 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
 import {
+  useBoatChargingInitSessionMutation,
+  useBoatChargingTermsQuery,
+} from '@/modules/boat-charging/service'
+import {
+  selectBoatChargingLoggedInUsername,
   selectLastApprovedTermsVersionWhileLoggedIn,
   useGuestSessionFormValues,
 } from '@/modules/boat-charging/slice'
@@ -14,12 +19,15 @@ import {
 export const BoatChargingDetailsSocketSubmitButton = () => {
   const form = useFormContext<{socketId: string}>()
   const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
+  const [initSession] = useBoatChargingInitSessionMutation()
   const lastApprovedTermsVersion = useSelector(
     selectLastApprovedTermsVersionWhileLoggedIn,
   )
   const {isLoggedIn} = useIsLoggedIn()
   const {navigate} = useNavigation()
   const {setSocketId} = useGuestSessionFormValues()
+  const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
+  const openWebUrl = useOpenWebUrl()
 
   const onSubmit = useCallback(
     ({socketId}: {socketId?: string}) => {
@@ -32,18 +40,42 @@ export const BoatChargingDetailsSocketSubmitButton = () => {
       setSocketId(socketId)
 
       if (isLoggedIn) {
+        if (!loggedInUsername) {
+          return
+        }
+
         if (terms?.version !== lastApprovedTermsVersion) {
           navigate(BoatChargingRouteName.boatChargingTermsAndConditions)
 
           return
         } else {
-          navigate(BoatChargingRouteName.boatCharging) // TODO: initiate payment flow
+          return initSession({
+            station_id: socketId,
+            socket_number: 1,
+            email: loggedInUsername,
+            name: loggedInUsername,
+            return_url: 'amsterdam://boat-charging',
+          })
+            .unwrap()
+            .then(({checkout_url}) => {
+              openWebUrl(checkout_url)
+            })
         }
       } else {
         navigate(BoatChargingRouteName.boatChargingGuestEmail)
       }
     },
-    [form, isLoggedIn, navigate, setSocketId, terms, lastApprovedTermsVersion],
+    [
+      setSocketId,
+      isLoggedIn,
+      loggedInUsername,
+      form,
+      terms?.version,
+      lastApprovedTermsVersion,
+      navigate,
+      initSession,
+      openWebUrl,
+    ],
   )
 
   if (isLoggedIn && terms?.version === lastApprovedTermsVersion) {
