@@ -35,7 +35,13 @@ export const MapControlsButton = ({
             {...icon}
             size="lg"
           />
-          {!!text && <Phrase color="link">{text}</Phrase>}
+          {!!text && (
+            <Phrase
+              accessible={false}
+              color="link">
+              {text}
+            </Phrase>
+          )}
         </Row>
       </Box>
     </Pressable>

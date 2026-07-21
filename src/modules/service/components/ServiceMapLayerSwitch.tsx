@@ -25,6 +25,7 @@ export const ServiceMapLayerSwitch = ({
 
   return (
     <Switch
+      accessibilityLabel={`Kaartlaag ${label} staat ${isActive ? 'aan' : 'uit'}`}
       key={label}
       label={
         <Row gutter="md">

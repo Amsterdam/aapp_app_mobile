@@ -98,7 +98,7 @@ export const LazyImage = ({
             accessibilityLabel={
               rest.alt || rest.accessibilityLabel
                 ? `Afbeelding, ${rest.alt || rest.accessibilityLabel}`
-                : undefined
+                : 'Afbeelding'
             }
             aspectRatio={aspectRatio}
             onError={handleError}

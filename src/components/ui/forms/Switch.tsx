@@ -54,7 +54,7 @@ export const Switch = ({
 
   return (
     <PressableBase
-      accessibilityHint="Dubbel tik om dit aan of uit te zetten"
+      accessibilityHint={`Dubbel tik om dit ${value ? 'uit' : 'aan'} te zetten`}
       accessibilityLabel={
         accessibilityLabel || `Dit onderdeel staat ${value ? 'aan' : 'uit'}`
       }
