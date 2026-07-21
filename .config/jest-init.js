@@ -104,7 +104,21 @@ jest.mock('react-native-maps', () => ({}))
 jest.mock('react-native-restart-newarch', () => ({}))
 jest.mock('aws-amplify', () => ({}))
 jest.mock('aws-amplify/auth', () => ({}))
-jest.mock('@native-html/render', () => ({}))
+jest.mock('@native-html/render', () => ({
+  __esModule: true,
+  default: () => null,
+  useInternalRenderer: () => ({
+    rendererProps: {
+      alt: '',
+      source: {uri: ''},
+      style: undefined,
+    },
+  }),
+  useRendererProps: () => ({
+    isScreenReaderEnabled: false,
+    openUrl: jest.fn(),
+  }),
+}))
 jest.mock('react-native-geolocation-service', () => ({
   __esModule: true,
   default: jest.fn(() => ({})),
