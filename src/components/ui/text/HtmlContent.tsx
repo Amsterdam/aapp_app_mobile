@@ -1,9 +1,9 @@
 import RenderHTML, {
-  CustomBlockRenderer,
-  CustomMixedRenderer,
-  CustomTagRendererRecord,
+  type CustomBlockRenderer,
+  type CustomMixedRenderer,
+  type CustomTagRendererRecord,
   type Element,
-  MixedStyleDeclaration,
+  type MixedStyleDeclaration,
   type TNode,
   type TRenderEngineConfig,
   useInternalRenderer,
