@@ -236,6 +236,11 @@ export const lightColorTokens = {
       kingsday: baseColor.secondary.orange,
     },
   },
+  boatCharging: {
+    sessionBar: {
+      background: baseColor.secondary.darkgreen,
+    },
+  },
   noInternet: {
     background: baseColor.primary.red,
   },
