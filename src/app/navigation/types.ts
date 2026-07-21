@@ -75,7 +75,13 @@ export type StackNavigationRouteConfig<R> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: ComponentType<any>
   name: keyof R
-  options?: StackNavigationOptions & HeaderContentOptions
+  options?: StackNavigationOptions &
+    HeaderContentOptions & {
+      /**
+       * Indicates whether the screen should be protected by the access-code gate, on a per-screen basis.
+       */
+      accessCodeGate?: boolean
+    }
   screenType?: 'default' | 'settings'
   title?: string
 }
