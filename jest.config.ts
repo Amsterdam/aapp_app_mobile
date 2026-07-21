@@ -1,7 +1,15 @@
 import {Config} from 'jest'
+import alias from './.config/alias.js'
 
 // eslint-disable-next-line no-process-env
 process.env.TZ = 'UTC+1'
+
+const aliasJest = Object.fromEntries(
+  Object.entries(alias as Record<string, string>).map(([find, replacement]) => [
+    `^${find}/(.*)$`,
+    `<rootDir>/${replacement}/$1`,
+  ]),
+)
 
 const config: Config = {
   preset: '@react-native/jest-preset',
@@ -20,6 +28,7 @@ const config: Config = {
     '^.+\\.(js|jsx|ts|tsx|mts|mtsx)$': 'babel-jest',
   },
   moduleNameMapper: {
+    ...aliasJest,
     '@microsoft/applicationinsights-react-native':
       '<rootDir>/.storybook/mocks/application-insights-react-native',
     '@microsoft/applicationinsights-web':
