@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
-import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
@@ -9,14 +8,13 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useInterval} from '@/hooks/useInterval'
 import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {BoatChargingDetailsInfoRows} from '@/modules/boat-charging/components/BoatChargingDetailsInfoRows'
 import {BoatChargingDetailsSocketRadioGroup} from '@/modules/boat-charging/components/BoatChargingDetailsSocketRadioGroup'
 import {BoatChargingDetailsSocketSubmitButton} from '@/modules/boat-charging/components/BoatChargingDetailsSocketSubmitButton'
+import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
-import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {useGuestSessionFormValues} from '@/modules/boat-charging/slice'
 import {
@@ -39,12 +37,11 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
 
   const {
-    sessions,
+    activeSessions,
     isLoading: isLoadingSessions,
     isError: isErrorSessions,
   } = useBoatChargingSessions()
 
-  const {navigate} = useNavigation()
   const {socketId} = useGuestSessionFormValues()
 
   useInterval(refetchLocationDetails, REFETCH_INTERVAL)
@@ -67,11 +64,11 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
 
   const showSubmitButton = useMemo(
     () =>
-      !sessions.length &&
+      !activeSessions?.length &&
       location?.charging_stations.some(
         socket => socket.status === ChargingPointStatus.OPERATIVE,
       ),
-    [sessions, location],
+    [activeSessions, location],
   )
 
   if (isLoadingLocation || isLoadingSessions) {
@@ -111,7 +108,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
 
             <BoatChargingDetailsSocketRadioGroup
               chargingStations={location.charging_stations}
-              hasActiveSession={sessions.length > 0}
+              hasActiveSession={!!activeSessions?.length}
             />
             {!!form.formState.errors.root?.message && (
               <ErrorMessage
@@ -129,15 +126,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
               </Phrase>
             )}
           </Column>
-          <NavigationButton
-            chevronSize="md"
-            emphasis="default"
-            horizontallyAlign="start"
-            insetHorizontal="no"
-            onPress={() => navigate(BoatChargingRouteName.boatChargingHelp)}
-            testID="BoatChargingDetailsHelpNavigationButton"
-            title="Hulp bij laden"
-          />
+          <BoatChargingHelpNavigationButton />
         </Column>
 
         {!!showSubmitButton && <BoatChargingDetailsSocketSubmitButton />}

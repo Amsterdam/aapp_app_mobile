@@ -25,13 +25,15 @@ export const BoatChargingDetailsSocketRadioGroup = ({
   const [availableSockets, otherSockets] = useMemo(
     () => [
       hasActiveSession
-        ? [] // Should not return any available socket if user has an active session.
+        ? []
         : chargingStations.filter(
             station => station.status === ChargingPointStatus.OPERATIVE,
           ),
-      chargingStations.filter(
-        station => station.status !== ChargingPointStatus.OPERATIVE,
-      ),
+      hasActiveSession
+        ? chargingStations
+        : chargingStations.filter(
+            station => station.status !== ChargingPointStatus.OPERATIVE,
+          ),
     ],
     [chargingStations, hasActiveSession],
   )
