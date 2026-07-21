@@ -2,10 +2,14 @@ import type {Address} from '@/modules/address/types'
 import type {Feature, Point} from 'geojson'
 
 export enum BoatChargingEndpointName {
+  boatChargingInitSession = 'boatChargingInitSession',
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
   boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
   boatChargingSessions = 'boatChargingSessions',
+  boatChargingSocketStatus = 'boatChargingSocketStatus',
+  boatChargingStartSession = 'boatChargingStartSession',
+  boatChargingStopSession = 'boatChargingStopSession',
   boatChargingTerms = 'boatChargingTerms',
 }
 
@@ -72,6 +76,27 @@ export enum BoatChargingPointState {
   occupied = 'occupied',
 }
 
+export enum NRGStatus {
+  Created = 1,
+  CheckedOut = 2,
+  Charging = 3,
+  Completed = 4,
+  Cancelled = 5,
+}
+
+export enum SessionStatus {
+  ACTIVE = 'ACTIVE',
+  COMPLETED = 'COMPLETED',
+}
+
+export enum SocketStatus {
+  CHARGING = 'CHARGING',
+  FINISHING = 'FINISHING',
+  PREPARING = 'PREPARING', // important: cable is plugged in, without that session can not be started
+  SUSPENDED_EV = 'SUSPENDED_EV', // boat refusing to charge (e.g. battery full)
+  SUSPENDED_EVSE = 'SUSPENDED_EVSE', // EVSE (charging station) refusing to charge
+}
+
 export type BoatChargingOIDCConfigResponse = {
   client_id: string
   issuer: string
@@ -89,14 +114,32 @@ export type BoatChargingSession = {
   id: string
   kwh: number
   location: BoatChargingLocation
-  nrg_status: number
+  nrg_status: NRGStatus
   socket_number: string
   start_date_time: string
   station_id: string
+  status: SessionStatus
   total_cost: number
 }
 
 export type BoatChargingTerms = {
   content: string
   version: number
+}
+
+export type BoatChargingSessionInitRequest = {
+  email: string
+  name: string
+  return_url: string
+  socket_number: number
+  station_id: string
+}
+
+export type BoatChargingSessionInitResponse = {
+  checkout_url: string
+}
+
+export type BoatChargingSocketStatusResponse = {
+  status: ChargingPointStatus
+  substatus: SocketStatus
 }

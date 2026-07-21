@@ -10,11 +10,15 @@ import {
   type BoatChargingLocationDetailsResponse,
   type BoatChargingOIDCConfigResponse,
   type BoatChargingSession,
+  type BoatChargingSessionInitRequest,
+  type BoatChargingSessionInitResponse,
+  type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
+import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 
 export const boatChargingApi = baseApi.injectEndpoints({
@@ -88,6 +92,54 @@ export const boatChargingApi = baseApi.injectEndpoints({
       providesTags: ['BoatChargingSessions'],
       keepUnusedDataFor: CacheLifetime.minute,
     }),
+    [BoatChargingEndpointName.boatChargingInitSession]: builder.mutation<
+      BoatChargingSessionInitResponse,
+      BoatChargingSessionInitRequest
+    >({
+      query: (body: BoatChargingSessionInitRequest) => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/sessions/init',
+        method: 'POST',
+        body,
+      }),
+    }),
+    [BoatChargingEndpointName.boatChargingSocketStatus]: builder.query<
+      BoatChargingSocketStatusResponse,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/socket-status`,
+      }),
+    }),
+    [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
+      void,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/start`,
+        method: 'POST',
+        timeout: 180000, // 3 minutes
+        headers: deviceIdHeader,
+      }),
+    }),
+    [BoatChargingEndpointName.boatChargingStopSession]: builder.mutation<
+      void,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/stop`,
+        method: 'POST',
+        timeout: 60000, // 1 minute
+        headers: deviceIdHeader,
+      }),
+    }),
   }),
   overrideExisting: false,
 })
@@ -98,4 +150,8 @@ export const {
   useBoatChargingOpenIdConnectConfigQuery,
   useBoatChargingTermsQuery,
   useBoatChargingSessionsQuery,
+  useBoatChargingInitSessionMutation,
+  useBoatChargingSocketStatusQuery,
+  useBoatChargingStartSessionMutation,
+  useBoatChargingStopSessionMutation,
 } = boatChargingApi

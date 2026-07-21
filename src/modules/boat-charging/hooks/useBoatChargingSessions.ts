@@ -1,12 +1,24 @@
-import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {useBoatChargingSessionsQuery} from '@/modules/boat-charging/service'
+import {createContext, useContext} from 'react'
+import type {BoatChargingSession} from '@/modules/boat-charging/types'
+
+export const BoatChargingSessionsContext = createContext<{
+  activeSession?: BoatChargingSession
+  activeSessions?: BoatChargingSession[]
+  isError: boolean
+  isLoading: boolean
+  isNotPluggedInErrorVisible: boolean
+  isPluggedIn: boolean
+  onPressStartButtonNotPluggedIn: () => void
+  sessions?: BoatChargingSession[]
+} | null>(null)
 
 export const useBoatChargingSessions = () => {
-  const {isLoggedIn} = useIsLoggedIn()
+  const context = useContext(BoatChargingSessionsContext)
 
-  const {data, isLoading, isError} = useBoatChargingSessionsQuery(undefined, {
-    skip: !isLoggedIn,
-  })
+  if (!context)
+    throw new Error(
+      'useBoatChargingSessions must be used within BoatChargingSessionsProvider',
+    )
 
-  return {sessions: data || [], isLoading, isError}
+  return context
 }

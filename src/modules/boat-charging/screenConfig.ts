@@ -9,6 +9,7 @@ import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/Boat
 import {BoatChargingGuestEmailConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmailConfirm.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
+import {BoatChargingSessionScreen} from '@/modules/boat-charging/screens/BoatChargingSession.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
 
 export const screenConfig: StackNavigationRoutes<
@@ -56,6 +57,11 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Hulp bij laden',
     },
+  },
+  [BoatChargingRouteName.boatChargingSession]: {
+    component: BoatChargingSessionScreen,
+    name: BoatChargingRouteName.boatChargingSession,
+    screenType: 'settings',
   },
   [BoatChargingRouteName.boatChargingTermsAndConditions]: {
     component: BoatChargingTermsAndConditionsScreen,

@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import type {ScreenBackgroundOverlayProps} from '@/components/ui/containers/ScreenBackgroundOverlay'
 import {HeaderProps} from '@/components/features/header/types'
 import {type Tip} from '@/components/features/product-tour/types'
 import {ScreenBase} from '@/components/features/screen/ScreenBase'
@@ -12,6 +13,10 @@ export type WithInsetProps = {
 }
 
 export type ScreenProps = {
+  /**
+   * A background overlay of the screen. Starts from the top and depending on the size, covers part of the screen.
+   */
+  backgroundOverlay?: ScreenBackgroundOverlayProps
   bottomSheet?: ReactNode
   children: ReactNode
   hasStickyAlert?: boolean

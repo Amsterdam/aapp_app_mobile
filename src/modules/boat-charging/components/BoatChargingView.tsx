@@ -1,29 +1,16 @@
-import {useCallback, type ComponentProps} from 'react'
-import type {BoatChargingLocation} from '@/modules/boat-charging/types'
-import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
+import {type ComponentProps} from 'react'
 import {MapViewSwitchView} from '@/components/features/map/MapViewSwitchView'
 import {MapFiltersProvider} from '@/components/features/map/providers/MapFiltersProvider'
-import {useDispatch} from '@/hooks/redux/useDispatch'
 import {BoatChargingList} from '@/modules/boat-charging/components/BoatChargingList'
 import {BoatChargingMap} from '@/modules/boat-charging/components/BoatChargingMap'
-import {BoatChargingBottomSheetVariant} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
 import {mapFilters} from '@/modules/boat-charging/constants/filters'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
+import {useSelectChargingPoint} from '@/modules/boat-charging/hooks/useSelectChargingPoint'
 import {useBoatChargingLocationsQuery} from '@/modules/boat-charging/service'
-import {setSelectedBoatChargingPointId} from '@/modules/boat-charging/slice'
 
 export const BoatChargingView = () => {
   useOpenIdConnectAuth()
-  const dispatch = useDispatch()
-  const {open} = useBottomSheet()
-
-  const onSelectBoatChargingPoint = useCallback(
-    (id: BoatChargingLocation['id']) => {
-      dispatch(setSelectedBoatChargingPointId(id))
-      open(BoatChargingBottomSheetVariant.boatChargingPointDetails)
-    },
-    [dispatch, open],
-  )
+  const selectChargingPoint = useSelectChargingPoint()
 
   const {
     data,
@@ -41,7 +28,7 @@ export const BoatChargingView = () => {
         geojson={data}
         isError={isErrorLocations}
         isLoading={isLoadingLocations}
-        onChargingPointPress={onSelectBoatChargingPoint}
+        onChargingPointPress={selectChargingPoint}
       />
     </MapFiltersProvider>
   )

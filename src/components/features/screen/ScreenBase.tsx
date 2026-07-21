@@ -6,6 +6,7 @@ import {ScreenProps, WithInsetProps} from '@/components/features/screen/Screen'
 import {ScreenHeader} from '@/components/features/screen/ScreenHeader'
 import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrapper'
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
+import {ScreenBackgroundOverlay} from '@/components/ui/containers/ScreenBackgroundOverlay'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
@@ -25,6 +26,7 @@ export const ScreenBase = (props: ScreenProps) => {
   )
 
   const {
+    backgroundOverlay,
     bottomSheet,
     children,
     hasStickyAlert,
@@ -108,6 +110,9 @@ export const ScreenBase = (props: ScreenProps) => {
               <ScreenInnerWrapper style={styles.content}>
                 {children}
               </ScreenInnerWrapper>
+              {!!backgroundOverlay && (
+                <ScreenBackgroundOverlay {...backgroundOverlay} />
+              )}
             </ScreenWrapper>
           </HideFromAccessibility>
           {(!!stickyFooter || !!bottomSheet) && (
