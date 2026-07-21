@@ -71,6 +71,7 @@ export const Image = ({
       <ImageRN
         accessibilityIgnoresInvertColors
         accessibilityLanguage="nl-NL"
+        accessible={false}
         onLayout={onLayoutChange}
         source={source}
         style={[styles.image, style]}
