@@ -1,13 +1,3 @@
-import {Fragment, useCallback, useMemo, useState} from 'react'
-import {
-  LayoutChangeEvent,
-  Platform,
-  ScaledSize,
-  StyleSheet,
-  TextStyle,
-  View,
-  type ViewProps,
-} from 'react-native'
 import RenderHTML, {
   CustomBlockRenderer,
   CustomMixedRenderer,
@@ -18,7 +8,17 @@ import RenderHTML, {
   type TRenderEngineConfig,
   useInternalRenderer,
   useRendererProps,
-} from 'react-native-render-html'
+} from '@native-html/render'
+import {Fragment, useCallback, useMemo, useState} from 'react'
+import {
+  LayoutChangeEvent,
+  Platform,
+  ScaledSize,
+  StyleSheet,
+  TextStyle,
+  View,
+  type ViewProps,
+} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
@@ -77,10 +77,7 @@ const convertParagraphToFigure = (element: Element) => {
     element.tagName = 'figure'
 
     element.children.forEach(child => {
-      if (
-        'tagName' in child &&
-        CAPTION_TAGS.has((child.tagName as string) || '')
-      )
+      if ('tagName' in child && CAPTION_TAGS.has(child.tagName || ''))
         child.tagName = 'figcaption'
     })
   }

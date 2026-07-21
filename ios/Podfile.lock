@@ -1947,8 +1947,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - react-native-render-html (6.3.4):
-    - React-Core
   - react-native-safe-area-context (5.7.0):
     - hermes-engine
     - RCTRequired
@@ -2934,7 +2932,6 @@ DEPENDENCIES:
   - react-native-maps/Google (from `../node_modules/react-native-maps`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - "react-native-piwik-pro-sdk (from `../node_modules/@piwikpro/react-native-piwik-pro-sdk`)"
-  - react-native-render-html (from `../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-salesforce-messaging-in-app (from `../react-native-salesforce-messaging-in-app`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -3154,8 +3151,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-piwik-pro-sdk:
     :path: "../node_modules/@piwikpro/react-native-piwik-pro-sdk"
-  react-native-render-html:
-    :path: "../node_modules/react-native-render-html"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-salesforce-messaging-in-app:
@@ -3297,7 +3292,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleMaps: 0608099d4870cac8754bdba9b6953db543432438
   GoogleUtilities: 4f2618a4a1e762a1ee134a1e2323bba9843e06da
-  hermes-engine: a9252ff827cfcaf75e540b56e51acbf41bbf6fbc
+  hermes-engine: 887a4ed7b01908dede158d69feb79352fa0383ef
   Messaging-InApp-Core: 0fce52f6c73ed4359ddefd537bd63f302094e08d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   NitroModules: 36c5d6bb6a3e21e38b1a3f47f5049d0d4a6d04b9
@@ -3311,7 +3306,7 @@ SPEC CHECKSUMS:
   React: e2dc35338068bbd299c66f043ae0d7f25de8499e
   React-callinvoker: 28b25d21b124c26cebaea713ba7d801b9351dc48
   React-Core: 02ed7d2ffb70437bdf2aba074a13078a7b0b9ff0
-  React-Core-prebuilt: d5679040a1eb49f090f02a0418ca7c8a4a02a3e7
+  React-Core-prebuilt: 82ab984411c6ea066c621b1e207b0f66cdaddbff
   React-CoreModules: b3a5a42dadcde3b5d47b325bd912eb2ced89e146
   React-cxxreact: fe8f88dda044e5905e99a00f41b7a874c3908716
   React-debug: 92944dc4d89f56d640e75498266cbde557a48189
@@ -3350,7 +3345,6 @@ SPEC CHECKSUMS:
   react-native-maps: cb32168a32e30f83beb08198325ff96b70dd5c9f
   react-native-netinfo: 2f906d5d9a639090ed1c079135d6485a95f749f1
   react-native-piwik-pro-sdk: 5edf0c62e6158e7a6ef590142c2dfa126a384c1b
-  react-native-render-html: 5afc4751f1a98621b3009432ef84c47019dcb2bd
   react-native-safe-area-context: 6b4966397ada0f7dd481e4486a2ef936834861a1
   react-native-salesforce-messaging-in-app: 971e8a9471b74bf7ac9073c21e461dc376b06c59
   react-native-webview: 2da09bdea1aeb6c46e27dd94632e21059cade6c1
@@ -3387,7 +3381,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 25c9c516839be2c5e3d3344f95dc7da5f7e63fc2
   ReactCodegen: c8f81e6c6f762dcf442a6203a1fb58f7dafc8014
   ReactCommon: 7dfc3250793bf36cf221096ff59e1179e13eef7f
-  ReactNativeDependencies: 99d6d3962d4f5a5476c12fb661f11a15deb33cf2
+  ReactNativeDependencies: fb648244bc61e8a0c3c945a610b132f871c0cf41
   RestartNewArch: 229b04862634bfcf903b0988d336e6559b2fe7e3
   RNBootSplash: 65ee0b8120092c12ef024d082016a0ab6bcf035e
   RNCAsyncStorage: 2ad919e88b8bc2cd80e8697ce66d04d006743283
