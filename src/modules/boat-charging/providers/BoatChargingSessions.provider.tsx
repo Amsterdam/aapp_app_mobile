@@ -7,7 +7,7 @@ import {
   useBoatChargingSessionsQuery,
   useBoatChargingSocketStatusQuery,
 } from '@/modules/boat-charging/service'
-import {SocketStatus} from '@/modules/boat-charging/types'
+import {SessionStatus, SocketStatus} from '@/modules/boat-charging/types'
 import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
@@ -58,7 +58,9 @@ export const BoatChargingSessionsProvider = ({
       activeSession
         ? formatTimeRangeToDisplay(
             activeSession.start_date_time,
-            activeSession.end_date_time ?? dayjs(),
+            activeSession.status === SessionStatus.ACTIVE
+              ? dayjs()
+              : activeSession.end_date_time,
             {
               short: true,
             },
