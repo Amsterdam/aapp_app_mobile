@@ -16,7 +16,7 @@ export const BoatChargingHistoryLogin = () => {
         <Title
           level="h2"
           testID="BoatChargingHistoryLoginTitle"
-          text="Log in voor uw laadgeschiedenis "
+          text="Log in voor uw laadgeschiedenis"
         />
         <Paragraph>Overzicht van uw laadsessies en kosten.</Paragraph>
       </Column>
