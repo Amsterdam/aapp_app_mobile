@@ -6,7 +6,7 @@ type Props = {
 }
 
 export const BoatChargingHistoryItem = ({session}: Props) => {
-  const description = `${session.total_cost ? '€ ' + session.total_cost + ' - ' : ''}${session.kwh} kWh`
+  const description = `${typeof session.total_cost === 'number' ? '€ ' + session.total_cost + ' - ' : ''}${session.kwh} kWh`
 
   return (
     <NavigationButton
