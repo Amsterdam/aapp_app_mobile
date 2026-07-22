@@ -45,6 +45,7 @@ export const BoatChargingHistory = () => {
   return (
     <SectionList
       contentContainerStyle={layoutStyles.grow}
+      keyExtractor={({id}) => id}
       ListEmptyComponent={isLoading ? null : <BoatChargingHistoryEmpty />}
       renderItem={({item}) => <BoatChargingHistoryItem session={item} />}
       renderSectionFooter={() => <Gutter height="md" />}
