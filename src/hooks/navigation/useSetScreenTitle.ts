@@ -1,4 +1,4 @@
-import {useLayoutEffect} from 'react'
+import {useLayoutEffect, useMemo} from 'react'
 import {RootStackParams, TitleParams} from '@/app/navigation/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
@@ -19,11 +19,16 @@ export const useSetScreenTitle = <RouteName extends keyof RootStackParams>(
     ? decodeURIComponent(screenHeaderTitle)
     : defaultTitle
 
-  useScreenProperties({
-    headerOptions: {
-      title: headerTitle,
-    },
-  })
+  useScreenProperties(
+    useMemo(
+      () => ({
+        headerOptions: {
+          title: headerTitle,
+        },
+      }),
+      [headerTitle],
+    ),
+  )
 
   useLayoutEffect(() => {
     navigation.setOptions({

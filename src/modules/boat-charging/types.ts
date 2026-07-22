@@ -155,5 +155,5 @@ export type BoatChargingSettings = {
   session_cleanup_enabled: boolean
   session_expiry_hours: number
   session_expiry_warning_hours: number
-  standardFine: number
+  standard_fine: number
 }

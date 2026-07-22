@@ -102,7 +102,7 @@ export const BoatChargingSessionsProvider = ({
       session_cleanup_enabled: false,
       session_expiry_hours: 24,
       session_expiry_warning_hours: 20,
-      standardFine: 1,
+      standard_fine: 1,
     }),
     [],
   )

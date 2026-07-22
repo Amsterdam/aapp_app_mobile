@@ -3,7 +3,6 @@ import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 
 export type Options = {
   format?: 'default' | 'short' | 'veryShort'
-  veryShort?: boolean
 }
 
 const formatHours = (hours: number, format: NonNullable<Options['format']>) => {
