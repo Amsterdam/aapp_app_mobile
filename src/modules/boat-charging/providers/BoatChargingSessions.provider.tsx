@@ -24,8 +24,8 @@ type Props = {
 
 export const BoatChargingSessionsProvider = ({
   children,
-  shouldPollSocketStatus = false,
-  shouldPollSessions = false,
+  shouldPollSocketStatus = true,
+  shouldPollSessions = true,
 }: Props) => {
   const [isNotPluggedInErrorVisible, setIsNotPluggedInErrorVisible] =
     useState(false)
