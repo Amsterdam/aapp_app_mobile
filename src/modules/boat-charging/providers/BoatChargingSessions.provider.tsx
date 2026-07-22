@@ -53,11 +53,11 @@ export const BoatChargingSessionsProvider = ({
 
   useInterval(
     () => {
-      if (shouldPollSessions) {
+      if (shouldPollSessions && isLoggedIn) {
         void refetchSessions()
       }
     },
-    shouldPollSessions ? 30000 : 0,
+    shouldPollSessions && isLoggedIn ? 30000 : 0,
   )
 
   useInterval(
