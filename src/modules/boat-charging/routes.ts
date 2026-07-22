@@ -6,6 +6,7 @@ export enum BoatChargingRouteName {
   boatChargingGuestEmail = 'BoatChargingGuestEmail',
   boatChargingGuestEmailConfirm = 'BoatChargingGuestEmailConfirm',
   boatChargingHelp = 'BoatChargingHelp',
+  boatChargingHistory = 'BoatChargingHistory',
   boatChargingLogin = 'BoatChargingLogin',
   boatChargingSession = 'BoatChargingSession',
   boatChargingTermsAndConditions = 'BoatChargingTermsAndConditions',
@@ -17,6 +18,7 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.boatChargingGuestEmail]: undefined
   [BoatChargingRouteName.boatChargingGuestEmailConfirm]: undefined
   [BoatChargingRouteName.boatChargingHelp]: undefined
+  [BoatChargingRouteName.boatChargingHistory]: undefined
   [BoatChargingRouteName.boatChargingLogin]: undefined
   [BoatChargingRouteName.boatChargingSession]: undefined
   [BoatChargingRouteName.boatChargingTermsAndConditions]: undefined

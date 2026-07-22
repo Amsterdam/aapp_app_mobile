@@ -1,9 +1,9 @@
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
 import {Screen} from '@/components/features/screen/Screen'
-import {BoatChargingHeaderButton} from '@/modules/boat-charging/components/BoatChargingHeaderButton'
 import {BoatChargingView} from '@/modules/boat-charging/components/BoatChargingView'
 import {bottomsheetVariants} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
+import {BoatChargingHeaderButtons} from '@/modules/boat-charging/components/header/BoatChargingHeaderButtons'
 import {BoatChargingSessionBar} from '@/modules/boat-charging/components/session/BoatChargingSessionBar'
 import {BoatChargingSessionsProvider} from '@/modules/boat-charging/providers/BoatChargingSessions.provider'
 
@@ -21,7 +21,7 @@ export const BoatChargingScreen = () => (
         }
         headerOptions={{
           headerTitle: 'Boot laden',
-          SideComponent: BoatChargingHeaderButton,
+          SideComponent: BoatChargingHeaderButtons,
         }}
         scroll={false}
         stickyHeader={<BoatChargingSessionBar />}
