@@ -1,5 +1,3 @@
-const alias = require('./.config/alias.js')
-
 module.exports = {
   presets: ['babel-preset-expo'],
   overrides: [
@@ -81,15 +79,6 @@ module.exports = {
     //     ],
     //   },
     // ],
-    [
-      'module-resolver',
-      {
-        // note: setting the root to ./src does not work; for now we prepend src to all paths
-        root: ['.'],
-        extensions: ['.tsx', '.ts', '.html'],
-        alias,
-      },
-    ],
     ['@babel/plugin-transform-flow-strip-types', {allowDeclareFields: true}],
     'react-native-worklets/plugin',
   ],
