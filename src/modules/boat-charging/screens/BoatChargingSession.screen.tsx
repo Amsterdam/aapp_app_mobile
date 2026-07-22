@@ -4,7 +4,7 @@ import {BoatChargingSessionButtons} from '@/modules/boat-charging/components/ses
 import {BoatChargingSessionsProvider} from '@/modules/boat-charging/providers/BoatChargingSessions.provider'
 
 export const BoatChargingSessionScreen = () => (
-  <BoatChargingSessionsProvider shouldPollSocketStatus={true}>
+  <BoatChargingSessionsProvider>
     <Screen
       backgroundOverlay={{positionFromTop: 'sm'}}
       hasStickyAlert
