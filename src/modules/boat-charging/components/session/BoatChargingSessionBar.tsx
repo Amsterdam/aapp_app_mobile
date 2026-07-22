@@ -17,7 +17,7 @@ export const BoatChargingSessionBar = () => {
   const {activeSession, isPluggedIn, chargingTimeString} =
     useBoatChargingSessions()
 
-  if (activeSession?.nrg_status !== NRGStatus.Charging && isPluggedIn) {
+  if (!activeSession) {
     return null
   }
 
