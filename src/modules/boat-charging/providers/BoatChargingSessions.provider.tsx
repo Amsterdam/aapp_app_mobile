@@ -86,7 +86,7 @@ export const BoatChargingSessionsProvider = ({
               ? dayjs()
               : activeSession.end_date_time,
             {
-              short: true,
+              format: 'veryShort',
             },
           )
         : undefined,

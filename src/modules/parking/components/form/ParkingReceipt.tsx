@@ -108,7 +108,7 @@ export const ParkingReceipt = () => {
     ? `${possiblyNegativePrefix}${formatSecondsTimeRangeToDisplay(
         parking_time,
         {
-          short: true,
+          format: 'short',
         },
       )}`
     : '-'
@@ -119,7 +119,7 @@ export const ParkingReceipt = () => {
   const remainingTimeBalanceText = formatSecondsTimeRangeToDisplay(
     remainingTimeBalance,
     {
-      short: true,
+      format: 'short',
     },
   )
 

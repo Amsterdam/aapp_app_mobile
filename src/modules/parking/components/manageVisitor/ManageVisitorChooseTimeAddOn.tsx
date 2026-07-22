@@ -19,7 +19,7 @@ export const ManageVisitorChooseTimeAddOn = ({isNegative}: Props) => {
       text={time =>
         time
           ? `${operator} ` +
-            formatTimeDurationToDisplay(time, 'seconds', {short: true})
+            formatTimeDurationToDisplay(time, 'seconds', {format: 'short'})
           : undefined
       }
       title={time => (time ? 'Tijdsduur' : 'Kies tijdsduur')}

@@ -68,7 +68,7 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
               {formatTimeDurationToDisplay(
                 currentPermit.visitor_account.seconds_remaining,
                 'seconds',
-                {short: true},
+                {format: 'short'},
               )}
             </Phrase>
           </Row>
@@ -84,7 +84,7 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
               accessible={false}
               testID="ManageVisitorTimeBalanceMutationAmountTitle">
               {time
-                ? `${operator} ${formatTimeDurationToDisplay(time, 'seconds', {short: true})}`
+                ? `${operator} ${formatTimeDurationToDisplay(time, 'seconds', {format: 'short'})}`
                 : '-'}
             </Phrase>
           </Row>
@@ -110,7 +110,7 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
                   : currentPermit.visitor_account.seconds_remaining +
                       (time ?? 0),
                 'seconds',
-                {short: true},
+                {format: 'short'},
               )}
             />
           </Row>

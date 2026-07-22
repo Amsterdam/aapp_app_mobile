@@ -42,7 +42,7 @@ export const ParkingPermitBalanceTime = () => {
             text={formatTimeDurationToDisplay(
               currentPermit.time_balance,
               'seconds',
-              {short: true},
+              {format: 'short'},
             )}
           />
         </Row>
