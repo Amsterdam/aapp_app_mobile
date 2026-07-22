@@ -70,6 +70,9 @@ export const screenConfig: StackNavigationRoutes<
     component: BoatChargingSessionScreen,
     name: BoatChargingRouteName.boatChargingSession,
     screenType: 'settings',
+    options: {
+      headerShown: false,
+    },
   },
   [BoatChargingRouteName.boatChargingTermsAndConditions]: {
     component: BoatChargingTermsAndConditionsScreen,

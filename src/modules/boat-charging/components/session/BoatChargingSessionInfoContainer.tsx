@@ -1,17 +1,31 @@
 import {StyleSheet, View} from 'react-native'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
+import {LoadingBar} from '@/components/ui/feedback/LoadingBar'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
-import {NRGStatus} from '@/modules/boat-charging/types'
+import {NRGStatus, SessionLengthStatus} from '@/modules/boat-charging/types'
+import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
+import {formatNumber} from '@/utils/formatNumber'
 
 const MIN_CONTAINER_HEIGHT = 258
 
 export const BoatChargingSessionInfoContainer = () => {
-  const {activeSession, isPluggedIn} = useBoatChargingSessions()
+  const {
+    activeSession,
+    isPluggedIn,
+    lastUpdated,
+    chargingTimeString,
+    sessionLengthStatus,
+  } = useBoatChargingSessions()
   const styles = createStyles()
+  const {toggle} = useBottomSheet()
 
   return (
     <View style={styles.container}>
@@ -22,14 +36,108 @@ export const BoatChargingSessionInfoContainer = () => {
         grow
         variant="distinct">
         <Column
-          align="center"
+          align="around"
           grow={1}
-          gutter="md">
+          gutter="md"
+          halign="center">
           {activeSession?.nrg_status === NRGStatus.Charging ? (
-            <Title
-              level="h5"
-              text="De boot wordt momenteel opgeladen."
-            />
+            <>
+              <Row gutter="xs">
+                <Icon
+                  color="secondary"
+                  isFilled
+                  name="lightning"
+                />
+                <Phrase
+                  color="secondary"
+                  variant="small">
+                  Geladen
+                </Phrase>
+              </Row>
+              <Title
+                level="h1"
+                text={`${formatNumber(activeSession?.kwh ?? 0)} kWh`}
+              />
+              <Row
+                flex={1}
+                valign="start">
+                <Column
+                  basis={1}
+                  flex={1}
+                  halign="center">
+                  <PressableBase
+                    hitSlop={16}
+                    onPress={() => toggle()}
+                    testID="BoatChargingSessionEstimatedCostButton">
+                    <Row gutter="xs">
+                      <Phrase
+                        color="secondary"
+                        variant="small">
+                        Geschatte kosten
+                      </Phrase>
+                      <Icon
+                        color="secondary"
+                        name="chevron-down"
+                        size="sm"
+                      />
+                    </Row>
+                  </PressableBase>
+                  <Title
+                    level="h3"
+                    text={formatNumber(
+                      activeSession?.total_cost ?? 0,
+                      activeSession?.currency ?? 'EUR',
+                    )}
+                  />
+                </Column>
+                <Column
+                  basis={1}
+                  flex={1}
+                  halign="center">
+                  <Phrase
+                    color="secondary"
+                    variant="small">
+                    Laadtijd
+                  </Phrase>
+                  <Row
+                    gutter="sm"
+                    valign="center">
+                    {sessionLengthStatus === SessionLengthStatus.expiry && (
+                      <Icon
+                        color="warning"
+                        isFilled
+                        name="warning"
+                        size="lg"
+                      />
+                    )}
+                    <Title
+                      color={
+                        sessionLengthStatus === SessionLengthStatus.expiry
+                          ? 'warning'
+                          : 'default'
+                      }
+                      level="h3"
+                      text={chargingTimeString ?? ''}
+                      textAlign="center"
+                    />
+                  </Row>
+                </Column>
+              </Row>
+              <Row flex={1}>
+                <Column
+                  flex={1}
+                  gutter="sm">
+                  <LoadingBar />
+                  <Phrase
+                    color="secondary"
+                    variant="small">
+                    {activeSession?.kwh > 0 && lastUpdated
+                      ? `Laatste update om ${formatTimeToDisplay(lastUpdated, {includeHoursLabel: true})}`
+                      : 'Laden start automatisch ...'}
+                  </Phrase>
+                </Column>
+              </Row>
+            </>
           ) : (
             <Column
               gutter="md"
