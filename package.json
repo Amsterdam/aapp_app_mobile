@@ -75,7 +75,7 @@
     "react-native-applifecycle": "^1.0.0",
     "react-native-barcode-creator": "^0.2.0",
     "react-native-block-screenshot": "file:./react-native-block-screenshot",
-    "react-native-bootsplash": "^7.3.1",
+    "react-native-bootsplash": "^7.3.2",
     "react-native-build-config": "^0.3.2",
     "react-native-clusterer": "^5.0.2",
     "react-native-date-picker": "5.0.13",
