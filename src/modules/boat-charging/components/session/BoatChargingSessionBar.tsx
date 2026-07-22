@@ -40,9 +40,11 @@ export const BoatChargingSessionBar = () => {
             <Phrase
               color="inverse"
               emphasis="strong">
-              {activeSession?.nrg_status === NRGStatus.Charging
+              {activeSession.nrg_status === NRGStatus.Charging
                 ? 'Laden'
-                : 'Stekker aansluiten'}
+                : isPluggedIn
+                  ? 'Start laden'
+                  : 'Stekker aansluiten'}
             </Phrase>
             {activeSession?.nrg_status === NRGStatus.Charging && (
               <Phrase
