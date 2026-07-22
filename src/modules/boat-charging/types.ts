@@ -143,3 +143,17 @@ export type BoatChargingSocketStatusResponse = {
   status: ChargingPointStatus
   substatus: SocketStatus
 }
+
+export enum SessionLengthStatus {
+  expiry = 'expiry',
+  expiryWarning = 'expiryWarning',
+  normal = 'normal',
+}
+
+export type BoatChargingSettings = {
+  pre_authorization_amount: number
+  session_cleanup_enabled: boolean
+  session_expiry_hours: number
+  session_expiry_warning_hours: number
+  standardFine: number
+}

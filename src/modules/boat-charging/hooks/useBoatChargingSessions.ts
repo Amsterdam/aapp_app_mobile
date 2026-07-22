@@ -1,5 +1,9 @@
 import {createContext, useContext} from 'react'
-import type {BoatChargingSession} from '@/modules/boat-charging/types'
+import type {
+  BoatChargingSession,
+  BoatChargingSettings,
+  SessionLengthStatus,
+} from '@/modules/boat-charging/types'
 import type {Dayjs} from '@/utils/datetime/dayjs'
 
 export const BoatChargingSessionsContext = createContext<{
@@ -12,7 +16,9 @@ export const BoatChargingSessionsContext = createContext<{
   isPluggedIn: boolean
   lastUpdated?: Dayjs
   onPressStartButtonNotPluggedIn: () => void
+  sessionLengthStatus: SessionLengthStatus
   sessions?: BoatChargingSession[]
+  settings: BoatChargingSettings
 } | null>(null)
 
 export const useBoatChargingSessions = () => {

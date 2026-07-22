@@ -9,8 +9,10 @@ import {
 } from '@/modules/boat-charging/service'
 import {
   NRGStatus,
+  SessionLengthStatus,
   SessionStatus,
   SocketStatus,
+  type BoatChargingSettings,
 } from '@/modules/boat-charging/types'
 import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -93,6 +95,31 @@ export const BoatChargingSessionsProvider = ({
     [activeSession],
   )
 
+  // TODO: fetch from settings endpoint
+  const settings: BoatChargingSettings = useMemo(
+    () => ({
+      pre_authorization_amount: 45,
+      session_cleanup_enabled: false,
+      session_expiry_hours: 24,
+      session_expiry_warning_hours: 20,
+      standardFine: 1,
+    }),
+    [],
+  )
+
+  const chargingTimeHours = (
+    activeSession?.status === SessionStatus.ACTIVE
+      ? dayjs()
+      : dayjs(activeSession?.end_date_time)
+  ).diff(dayjs(activeSession?.start_date_time), 'hours')
+
+  const sessionLengthStatus =
+    chargingTimeHours >= settings.session_expiry_hours
+      ? SessionLengthStatus.expiry
+      : chargingTimeHours >= settings.session_expiry_warning_hours
+        ? SessionLengthStatus.expiryWarning
+        : SessionLengthStatus.normal
+
   const value = useMemo(
     () => ({
       activeSession,
@@ -105,6 +132,8 @@ export const BoatChargingSessionsProvider = ({
       sessions: data?.result || [],
       lastUpdated: fulfilledTimeStamp ? dayjs(fulfilledTimeStamp) : undefined,
       chargingTimeString,
+      sessionLengthStatus,
+      settings,
     }),
     [
       activeSession,
@@ -117,6 +146,8 @@ export const BoatChargingSessionsProvider = ({
       data,
       fulfilledTimeStamp,
       chargingTimeString,
+      sessionLengthStatus,
+      settings,
     ],
   )
 
