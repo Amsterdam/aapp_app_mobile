@@ -56,9 +56,13 @@ export const BoatChargingSessionsProvider = ({
   const chargingTimeString = useMemo(
     () =>
       activeSession
-        ? formatTimeRangeToDisplay(activeSession?.start_date_time, dayjs(), {
-            short: true,
-          })
+        ? formatTimeRangeToDisplay(
+            activeSession.start_date_time,
+            activeSession.end_date_time ?? dayjs(),
+            {
+              short: true,
+            },
+          )
         : undefined,
     [activeSession],
   )
