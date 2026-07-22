@@ -14,21 +14,28 @@ import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDispla
 
 type Props = {
   children: ReactNode
+  shouldPollSessions?: boolean
   shouldPollSocketStatus?: boolean
 }
 
 export const BoatChargingSessionsProvider = ({
   children,
   shouldPollSocketStatus = false,
+  shouldPollSessions = false,
 }: Props) => {
   const [isNotPluggedInErrorVisible, setIsNotPluggedInErrorVisible] =
     useState(false)
   const {isLoggedIn} = useIsLoggedIn()
 
-  const {data, isLoading, isError, fulfilledTimeStamp} =
-    useBoatChargingSessionsQuery(undefined, {
-      skip: !isLoggedIn,
-    })
+  const {
+    data,
+    isLoading,
+    isError,
+    fulfilledTimeStamp,
+    refetch: refetchSessions,
+  } = useBoatChargingSessionsQuery(undefined, {
+    skip: !isLoggedIn,
+  })
 
   const activeSessions = getActiveSessions(data)
   const activeSession = activeSessions?.[0]
@@ -39,6 +46,15 @@ export const BoatChargingSessionsProvider = ({
   const isPluggedIn =
     socketStatus?.substatus === SocketStatus.PREPARING ||
     socketStatus?.substatus === SocketStatus.CHARGING
+
+  useInterval(
+    () => {
+      if (shouldPollSessions) {
+        void refetchSessions()
+      }
+    },
+    shouldPollSessions ? 30000 : 0,
+  )
 
   useInterval(
     () => {
