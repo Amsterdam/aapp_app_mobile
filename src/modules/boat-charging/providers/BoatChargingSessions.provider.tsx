@@ -9,6 +9,8 @@ import {
 } from '@/modules/boat-charging/service'
 import {SocketStatus} from '@/modules/boat-charging/types'
 import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
+import {dayjs} from '@/utils/datetime/dayjs'
+import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 
 type Props = {
   children: ReactNode
@@ -23,9 +25,10 @@ export const BoatChargingSessionsProvider = ({
     useState(false)
   const {isLoggedIn} = useIsLoggedIn()
 
-  const {data, isLoading, isError} = useBoatChargingSessionsQuery(undefined, {
-    skip: !isLoggedIn,
-  })
+  const {data, isLoading, isError, fulfilledTimeStamp} =
+    useBoatChargingSessionsQuery(undefined, {
+      skip: !isLoggedIn,
+    })
 
   const activeSessions = getActiveSessions(data)
   const activeSession = activeSessions?.[0]
@@ -50,6 +53,16 @@ export const BoatChargingSessionsProvider = ({
     setIsNotPluggedInErrorVisible(true)
   }, [])
 
+  const chargingTimeString = useMemo(
+    () =>
+      activeSession
+        ? formatTimeRangeToDisplay(activeSession?.start_date_time, dayjs(), {
+            short: true,
+          })
+        : undefined,
+    [activeSession],
+  )
+
   const value = useMemo(
     () => ({
       activeSession,
@@ -60,6 +73,8 @@ export const BoatChargingSessionsProvider = ({
       isNotPluggedInErrorVisible,
       onPressStartButtonNotPluggedIn,
       sessions: data || [],
+      lastUpdated: fulfilledTimeStamp ? dayjs(fulfilledTimeStamp) : undefined,
+      chargingTimeString,
     }),
     [
       activeSession,
@@ -70,6 +85,8 @@ export const BoatChargingSessionsProvider = ({
       isNotPluggedInErrorVisible,
       onPressStartButtonNotPluggedIn,
       data,
+      fulfilledTimeStamp,
+      chargingTimeString,
     ],
   )
 
