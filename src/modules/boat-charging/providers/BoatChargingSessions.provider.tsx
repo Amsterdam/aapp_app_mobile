@@ -7,28 +7,39 @@ import {
   useBoatChargingSessionsQuery,
   useBoatChargingSocketStatusQuery,
 } from '@/modules/boat-charging/service'
-import {SessionStatus, SocketStatus} from '@/modules/boat-charging/types'
+import {
+  NRGStatus,
+  SessionStatus,
+  SocketStatus,
+} from '@/modules/boat-charging/types'
 import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 
 type Props = {
   children: ReactNode
+  shouldPollSessions?: boolean
   shouldPollSocketStatus?: boolean
 }
 
 export const BoatChargingSessionsProvider = ({
   children,
   shouldPollSocketStatus = false,
+  shouldPollSessions = false,
 }: Props) => {
   const [isNotPluggedInErrorVisible, setIsNotPluggedInErrorVisible] =
     useState(false)
   const {isLoggedIn} = useIsLoggedIn()
 
-  const {data, isLoading, isError, fulfilledTimeStamp} =
-    useBoatChargingSessionsQuery(undefined, {
-      skip: !isLoggedIn,
-    })
+  const {
+    data,
+    isLoading,
+    isError,
+    fulfilledTimeStamp,
+    refetch: refetchSessions,
+  } = useBoatChargingSessionsQuery(undefined, {
+    skip: !isLoggedIn,
+  })
 
   const activeSessions = getActiveSessions(data)
   const activeSession = activeSessions?.[0]
@@ -42,7 +53,20 @@ export const BoatChargingSessionsProvider = ({
 
   useInterval(
     () => {
-      if (shouldPollSocketStatus && activeSession?.id) {
+      if (shouldPollSessions && isLoggedIn) {
+        void refetchSessions()
+      }
+    },
+    shouldPollSessions && isLoggedIn ? 30000 : 0,
+  )
+
+  useInterval(
+    () => {
+      if (
+        shouldPollSocketStatus &&
+        activeSession?.id &&
+        activeSession.nrg_status === NRGStatus.CheckedOut
+      ) {
         void refetchSocketStatus()
       }
     },
