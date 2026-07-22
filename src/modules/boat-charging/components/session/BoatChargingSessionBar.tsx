@@ -8,14 +8,16 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {NRGStatus} from '@/modules/boat-charging/types'
 import {useThemable} from '@/themes/useThemable'
 
 export const BoatChargingSessionBar = () => {
   const {navigate} = useNavigation()
   const styles = useThemable(createStyles)
-  const {activeSessions} = useBoatChargingSessions()
+  const {activeSession, isPluggedIn, chargingTimeString} =
+    useBoatChargingSessions()
 
-  if (!activeSessions?.length) {
+  if (activeSession?.nrg_status !== NRGStatus.Charging && isPluggedIn) {
     return null
   }
 
@@ -38,8 +40,17 @@ export const BoatChargingSessionBar = () => {
             <Phrase
               color="inverse"
               emphasis="strong">
-              Laden
+              {activeSession?.nrg_status === NRGStatus.Charging
+                ? 'Laden'
+                : 'Stekker aansluiten'}
             </Phrase>
+            {activeSession?.nrg_status === NRGStatus.Charging && (
+              <Phrase
+                color="inverse"
+                emphasis="strong">
+                {`- ${chargingTimeString}`}
+              </Phrase>
+            )}
           </Row>
           <Icon
             color="inverse"
