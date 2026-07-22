@@ -7,7 +7,11 @@ import {
   useBoatChargingSessionsQuery,
   useBoatChargingSocketStatusQuery,
 } from '@/modules/boat-charging/service'
-import {SessionStatus, SocketStatus} from '@/modules/boat-charging/types'
+import {
+  NRGStatus,
+  SessionStatus,
+  SocketStatus,
+} from '@/modules/boat-charging/types'
 import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
@@ -58,7 +62,11 @@ export const BoatChargingSessionsProvider = ({
 
   useInterval(
     () => {
-      if (shouldPollSocketStatus && activeSession?.id) {
+      if (
+        shouldPollSocketStatus &&
+        activeSession?.id &&
+        activeSession.nrg_status === NRGStatus.CheckedOut
+      ) {
         void refetchSocketStatus()
       }
     },
