@@ -28,7 +28,7 @@ enum IconCategory {
   kingsday = 'kingsday',
   map = 'map',
   system = 'system',
-  wasteGuide = 'wasteGuide'
+  wasteGuide = 'wasteGuide',
 }
 
 const ICONS_PER_CATEGORY: Record<IconCategory, SvgIconVariantConfig> = {
