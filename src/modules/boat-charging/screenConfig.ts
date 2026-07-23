@@ -8,6 +8,7 @@ import {BoatChargingDetailsScreen} from '@/modules/boat-charging/screens/BoatCha
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingGuestEmailConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmailConfirm.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
+import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatChargingHistory.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
 import {BoatChargingSessionScreen} from '@/modules/boat-charging/screens/BoatChargingSession.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
@@ -44,18 +45,25 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Controleer uw e-mailadres',
     },
   },
-  [BoatChargingRouteName.boatChargingLogin]: {
-    component: BoatChargingLoginScreen,
-    name: BoatChargingRouteName.boatChargingLogin,
-    options: {
-      headerTitle: 'Inloggen',
-    },
-  },
   [BoatChargingRouteName.boatChargingHelp]: {
     component: BoatChargingHelpScreen,
     name: BoatChargingRouteName.boatChargingHelp,
     options: {
       headerTitle: 'Hulp bij laden',
+    },
+  },
+  [BoatChargingRouteName.boatChargingHistory]: {
+    component: BoatChargingHistoryScreen,
+    name: BoatChargingRouteName.boatChargingHistory,
+    options: {
+      headerTitle: 'Laadgeschiedenis',
+    },
+  },
+  [BoatChargingRouteName.boatChargingLogin]: {
+    component: BoatChargingLoginScreen,
+    name: BoatChargingRouteName.boatChargingLogin,
+    options: {
+      headerTitle: 'Inloggen',
     },
   },
   [BoatChargingRouteName.boatChargingSession]: {

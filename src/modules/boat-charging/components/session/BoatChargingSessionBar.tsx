@@ -34,6 +34,7 @@ export const BoatChargingSessionBar = () => {
           <Row gutter="sm">
             <Icon
               color="inverse"
+              isFilled
               name="boat-charging-charging"
               size="lg"
             />
