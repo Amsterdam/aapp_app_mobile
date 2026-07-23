@@ -230,7 +230,6 @@ export const rule = createRule<Options, MessageIds>({
         }
       },
       JSXOpeningElement: markTypeOnlyComponentUsage,
-      JSXSelfClosingElement: markTypeOnlyComponentUsage,
       'Program:exit': () => {
         const offendingImportsByDeclaration = new Map<
           TSESTree.ImportDeclaration,

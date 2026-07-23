@@ -13,34 +13,27 @@ const ruleTester = new RuleTester({
   },
 })
 
-const filename = 'react.tsx'
-
 ruleTester.run('jsx-prefer-coerced-and-over-null-ternary', rule, {
   valid: [
     {
       code: `const errorMessage = "Error";
 <App>{!!errorMessage && <Paragraph>{errorMessage}</Paragraph>}</App>`,
-      filename,
     },
     {
       code: `const count = 0;
 <App>{count ? <Paragraph>{count}</Paragraph> : <Paragraph>Empty</Paragraph>}</App>`,
-      filename,
     },
     {
       code: `const hasError = true;
 <App>{hasError ? <Paragraph>Error</Paragraph> : false}</App>`,
-      filename,
     },
     {
       code: `const errorMessage = "Error";
 <App helperText={errorMessage ? <Paragraph>{errorMessage}</Paragraph> : null} />`,
-      filename,
     },
     {
       code: `const errorMessage = "Error";
 <App helperText={<Paragraph>{errorMessage ? "Error" : null}</Paragraph>} />`,
-      filename,
     },
   ],
   invalid: [
@@ -50,7 +43,6 @@ ruleTester.run('jsx-prefer-coerced-and-over-null-ternary', rule, {
       errors: [{messageId: 'preferCoercedAnd'}],
       output: `const errorMessage = "Error";
 <App>{!!errorMessage && <Paragraph>{errorMessage}</Paragraph>}</App>`,
-      filename,
     },
     {
       code: `const count = 1;
@@ -58,7 +50,6 @@ ruleTester.run('jsx-prefer-coerced-and-over-null-ternary', rule, {
       errors: [{messageId: 'preferCoercedAnd'}],
       output: `const count = 1;
 <App>{!!(count > 0) && <Paragraph>{count}</Paragraph>}</App>`,
-      filename,
     },
     {
       code: `const list = [1, 2, 3];
@@ -66,7 +57,6 @@ ruleTester.run('jsx-prefer-coerced-and-over-null-ternary', rule, {
       errors: [{messageId: 'preferCoercedAnd'}],
       output: `const list = [1, 2, 3];
 <App>{!!list.length && <Paragraph>{list.length}</Paragraph>}</App>`,
-      filename,
     },
     {
       code: `const list = [1, 2, 3];
@@ -76,7 +66,6 @@ const icon = 'hi';
       output: `const list = [1, 2, 3];
 const icon = 'hi';
 <App>{!!list.length && !icon && list.length}</App>`,
-      filename,
     },
     {
       code: `const list = [1, 2, 3];
@@ -114,7 +103,6 @@ const isValid = true;
             rules={{required: 'Vul een naam in'}}
           />
         ))}</App>`,
-      filename,
     },
   ],
 })

@@ -32,14 +32,14 @@ ruleTester.run('no-relative-file-import', rule, {
   ],
   invalid: [
     {
-      code: "import {Button} from '../../components/Button'",
-      output: "import {Button} from '@/modules/components/Button'",
+      code: "import {Button} from '../../otherModule/components/Button'",
+      output: "import {Button} from '@/modules/otherModule/components/Button'",
       filename,
       errors: [{messageId: 'noRelativeFileImport'}],
     },
     {
-      code: "const Button = require('../../components/Button')",
-      output: "const Button = require('@/modules/components/Button')",
+      code: "const Button = require('../components/Button')",
+      output: "const Button = require('@/modules/example/components/Button')",
       filename,
       errors: [{messageId: 'noRelativeFileImport'}],
     },
