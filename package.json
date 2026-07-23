@@ -135,9 +135,10 @@
     "@types/react": "^19.2.14",
     "@types/react-native-dotenv": "^0.2.2",
     "@types/react-test-renderer": "^19.1.0",
-    "@typescript-eslint/eslint-plugin": "^8.59.3",
-    "@typescript-eslint/parser": "^8.59.3",
-    "@typescript-eslint/utils": "^8.59.3",
+    "@typescript-eslint/eslint-plugin": "^8.65.0",
+    "@typescript-eslint/parser": "^8.65.0",
+    "@typescript-eslint/rule-tester": "^8.65.0",
+    "@typescript-eslint/utils": "^8.65.0",
     "@typescript/native": "npm:typescript@^7.0.2",
     "babel-jest": "^30.4.1",
     "eslint": "^8.57.1",
@@ -211,6 +212,9 @@
   },
   "overrides": {
     "eslint-plugin-typescript-sort-keys": {
+      "typescript": "npm:@typescript/typescript6@^6.0.2"
+    },
+    "tsconfck": {
       "typescript": "npm:@typescript/typescript6@^6.0.2"
     }
   },

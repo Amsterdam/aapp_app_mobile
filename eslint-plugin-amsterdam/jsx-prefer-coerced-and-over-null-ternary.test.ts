@@ -1,85 +1,85 @@
-import {RuleTester} from 'eslint'
-import jsxPreferCoercedAndOverNullTernary from './jsx-prefer-coerced-and-over-null-ternary'
+import {RuleTester} from '@typescript-eslint/rule-tester'
+import {rule} from './jsx-prefer-coerced-and-over-null-ternary.mts'
 
 const ruleTester = new RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
+  languageOptions: {
+    parserOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'module',
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 })
 
-ruleTester.run(
-  'jsx-prefer-coerced-and-over-null-ternary',
-  jsxPreferCoercedAndOverNullTernary,
-  {
-    valid: [
-      {
-        code: `const errorMessage = "Error";
+const filename = 'react.tsx'
+
+ruleTester.run('jsx-prefer-coerced-and-over-null-ternary', rule, {
+  valid: [
+    {
+      code: `const errorMessage = "Error";
 <App>{!!errorMessage && <Paragraph>{errorMessage}</Paragraph>}</App>`,
-        filename: 'react.tsx',
-      },
-      {
-        code: `const count = 0;
+      filename,
+    },
+    {
+      code: `const count = 0;
 <App>{count ? <Paragraph>{count}</Paragraph> : <Paragraph>Empty</Paragraph>}</App>`,
-        filename: 'react.tsx',
-      },
-      {
-        code: `const hasError = true;
+      filename,
+    },
+    {
+      code: `const hasError = true;
 <App>{hasError ? <Paragraph>Error</Paragraph> : false}</App>`,
-        filename: 'react.tsx',
-      },
-      {
-        code: `const errorMessage = "Error";
+      filename,
+    },
+    {
+      code: `const errorMessage = "Error";
 <App helperText={errorMessage ? <Paragraph>{errorMessage}</Paragraph> : null} />`,
-        filename: 'react.tsx',
-      },
-      {
-        code: `const errorMessage = "Error";
+      filename,
+    },
+    {
+      code: `const errorMessage = "Error";
 <App helperText={<Paragraph>{errorMessage ? "Error" : null}</Paragraph>} />`,
-        filename: 'react.tsx',
-      },
-    ],
-    invalid: [
-      {
-        code: `const errorMessage = "Error";
+      filename,
+    },
+  ],
+  invalid: [
+    {
+      code: `const errorMessage = "Error";
 <App>{errorMessage ? <Paragraph>{errorMessage}</Paragraph> : null}</App>`,
-        errors: [{messageId: 'preferCoercedAnd'}],
-        output: `const errorMessage = "Error";
+      errors: [{messageId: 'preferCoercedAnd'}],
+      output: `const errorMessage = "Error";
 <App>{!!errorMessage && <Paragraph>{errorMessage}</Paragraph>}</App>`,
-        filename: 'react.tsx',
-      },
-      {
-        code: `const count = 1;
+      filename,
+    },
+    {
+      code: `const count = 1;
 <App>{count > 0 ? <Paragraph>{count}</Paragraph> : null}</App>`,
-        errors: [{messageId: 'preferCoercedAnd'}],
-        output: `const count = 1;
+      errors: [{messageId: 'preferCoercedAnd'}],
+      output: `const count = 1;
 <App>{!!(count > 0) && <Paragraph>{count}</Paragraph>}</App>`,
-        filename: 'react.tsx',
-      },
-      {
-        code: `const list = [1, 2, 3];
+      filename,
+    },
+    {
+      code: `const list = [1, 2, 3];
 <App>{list.length ? <Paragraph>{list.length}</Paragraph> : null}</App>`,
-        errors: [{messageId: 'preferCoercedAnd'}],
-        output: `const list = [1, 2, 3];
+      errors: [{messageId: 'preferCoercedAnd'}],
+      output: `const list = [1, 2, 3];
 <App>{!!list.length && <Paragraph>{list.length}</Paragraph>}</App>`,
-        filename: 'react.tsx',
-      },
-      {
-        code: `const list = [1, 2, 3];
+      filename,
+    },
+    {
+      code: `const list = [1, 2, 3];
 const icon = 'hi';
 <App>{!!list.length && !icon ? list.length : null}</App>`,
-        errors: [{messageId: 'preferCoercedAnd'}],
-        output: `const list = [1, 2, 3];
+      errors: [{messageId: 'preferCoercedAnd'}],
+      output: `const list = [1, 2, 3];
 const icon = 'hi';
 <App>{!!list.length && !icon && list.length}</App>`,
-        filename: 'react.tsx',
-      },
-      {
-        code: `const list = [1, 2, 3];
+      filename,
+    },
+    {
+      code: `const list = [1, 2, 3];
 const maxLicensePlates = 3;
 const isValid = true;
 <App>{isValid ? (
@@ -97,8 +97,8 @@ const isValid = true;
           />
         )
       ) : null}</App>`,
-        errors: [{messageId: 'preferCoercedAnd'}],
-        output: `const list = [1, 2, 3];
+      errors: [{messageId: 'preferCoercedAnd'}],
+      output: `const list = [1, 2, 3];
 const maxLicensePlates = 3;
 const isValid = true;
 <App>{!!isValid && ((list.length ?? 0) >= maxLicensePlates ? (
@@ -114,8 +114,7 @@ const isValid = true;
             rules={{required: 'Vul een naam in'}}
           />
         ))}</App>`,
-        filename: 'react.tsx',
-      },
-    ],
-  },
-)
+      filename,
+    },
+  ],
+})

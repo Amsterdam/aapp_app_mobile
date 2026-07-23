@@ -1,20 +1,21 @@
-import {RuleTester} from 'eslint'
-import noExplicitSpread from './jsx-no-explicit-spread'
+import {RuleTester} from '@typescript-eslint/rule-tester'
+import {rule} from './jsx-no-explicit-spread.mts'
 
 const ruleTester = new RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
+  languageOptions: {
+    parserOptions: {
+      ecmaVersion: 2018,
+      sourceType: 'module',
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 })
 
-const errors = [{message: 'Explicit spreading is forbidden'}]
+const errors = [{messageId: 'noSpreading'}] as const
 
-ruleTester.run('jsx-no-explicit-spread', noExplicitSpread, {
+ruleTester.run('jsx-no-explicit-spread', rule, {
   valid: [
     {
       code: `

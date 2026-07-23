@@ -1,14 +1,16 @@
-const {TSESTree} = require('@typescript-eslint/utils')
+import {ESLintUtils, TSESTree} from '@typescript-eslint/utils'
+
+const createRule = ESLintUtils.RuleCreator(name => name)
 
 const messages = {
   preferCoercedAnd:
     'Prefer a coerced logical AND expression over a ternary that returns null in JSX.',
 }
 
-/**
- * @param {import('@typescript-eslint/types').TSESTree.Expression} node
- */
-const requiresParenthesesAfterDoubleBang = node =>
+type Options = []
+type MessageIds = keyof typeof messages
+
+const requiresParenthesesAfterDoubleBang = (node: TSESTree.Expression) =>
   ![
     TSESTree.AST_NODE_TYPES.Identifier,
     TSESTree.AST_NODE_TYPES.MemberExpression,
@@ -18,41 +20,31 @@ const requiresParenthesesAfterDoubleBang = node =>
     TSESTree.AST_NODE_TYPES.Literal,
   ].includes(node.type)
 
-/**
- * @param {import('@typescript-eslint/types').TSESTree.Expression} node
- */
-const requiresParenthesesAsAndRightOperand = node =>
+const requiresParenthesesAsAndRightOperand = (node: TSESTree.Expression) =>
   node.type === TSESTree.AST_NODE_TYPES.ConditionalExpression
 
-// @ts-check
-/** @type {import('eslint').Rule.RuleModule} */
-module.exports = {
+export const rule = createRule<Options, MessageIds>({
   name: 'jsx-prefer-coerced-and-over-null-ternary',
   meta: {
+    type: 'suggestion',
     docs: {
       description:
         'Prefer coerced logical AND in JSX over a ternary expression returning null',
-      recommended: 'error',
     },
     fixable: 'code',
-    type: 'suggestion',
     messages,
+    schema: [],
   },
+  defaultOptions: [],
 
   create: context => {
     const {sourceCode} = context
 
-    /**
-     * @param {import('@typescript-eslint/types').TSESTree.Expression} expression
-     */
-    const isNullLiteral = expression =>
+    const isNullLiteral = (expression: TSESTree.Expression) =>
       expression.type === TSESTree.AST_NODE_TYPES.Literal &&
       expression.value === null
 
-    /**
-     * @param {string} sourceText
-     */
-    const isWrappedInParentheses = sourceText => {
+    const isWrappedInParentheses = (sourceText: string) => {
       const trimmedSourceText = sourceText.trim()
 
       if (
@@ -73,7 +65,10 @@ module.exports = {
 
         if (character === '(') {
           parenthesesDepth += 1
-        } else if (character === ')') {
+          continue
+        }
+
+        if (character === ')') {
           parenthesesDepth -= 1
 
           // The outer opening parenthesis must only close at the final character.
@@ -93,10 +88,7 @@ module.exports = {
       return parenthesesDepth === 0
     }
 
-    /**
-     * @param {import('@typescript-eslint/types').TSESTree.Node | undefined} node
-     */
-    const isInsideJsxAttribute = node => {
+    const isInsideJsxAttribute = (node: TSESTree.Node | undefined) => {
       let currentNode = node
 
       while (currentNode) {
@@ -110,43 +102,38 @@ module.exports = {
       return false
     }
 
-    /**
-     * @param {import('@typescript-eslint/types').TSESTree.JSXExpressionContainer} node
-     */
-    const checkJSXExpression = node => {
+    const checkJSXExpression = (node: TSESTree.JSXExpressionContainer) => {
       if (isInsideJsxAttribute(node.parent)) {
         return
       }
 
-      if (
-        node.expression.type !== TSESTree.AST_NODE_TYPES.ConditionalExpression
-      ) {
+      const expression = node.expression
+
+      if (expression.type !== TSESTree.AST_NODE_TYPES.ConditionalExpression) {
         return
       }
 
-      if (!isNullLiteral(node.expression.alternate)) {
+      if (!isNullLiteral(expression.alternate)) {
         return
       }
 
       context.report({
-        node: node.expression,
+        node: expression,
         messageId: 'preferCoercedAnd',
         fix: fixer => {
-          const testSourceText = sourceCode.getText(node.expression.test)
-          const consequentSourceText = sourceCode.getText(
-            node.expression.consequent,
-          )
+          const testSourceText = sourceCode.getText(expression.test)
+          const consequentSourceText = sourceCode.getText(expression.consequent)
           const shouldPreserveLogicalAndTest =
-            node.expression.test.type ===
+            expression.test.type ===
               TSESTree.AST_NODE_TYPES.LogicalExpression &&
-            node.expression.test.operator === '&&'
+            expression.test.operator === '&&'
           const coercedCondition = shouldPreserveLogicalAndTest
             ? testSourceText
-            : requiresParenthesesAfterDoubleBang(node.expression.test)
+            : requiresParenthesesAfterDoubleBang(expression.test)
               ? `!!(${testSourceText})`
               : `!!${testSourceText}`
           const andRightOperand = requiresParenthesesAsAndRightOperand(
-            node.expression.consequent,
+            expression.consequent,
           )
             ? isWrappedInParentheses(consequentSourceText)
               ? consequentSourceText
@@ -154,7 +141,7 @@ module.exports = {
             : consequentSourceText
 
           return fixer.replaceText(
-            node.expression,
+            expression,
             `${coercedCondition} && ${andRightOperand}`,
           )
         },
@@ -165,4 +152,4 @@ module.exports = {
       JSXExpressionContainer: checkJSXExpression,
     }
   },
-}
+})

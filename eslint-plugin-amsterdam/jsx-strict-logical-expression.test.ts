@@ -1,22 +1,23 @@
-import {RuleTester} from 'eslint'
-import jsxStrictLogicalExpression from './jsx-strict-logical-expression'
+import {RuleTester} from '@typescript-eslint/rule-tester'
+import {rule} from './jsx-strict-logical-expression.mts'
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
+  languageOptions: {
+    parserOptions: {
+      ecmaVersion: 2018,
+      sourceType: 'module',
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 })
 
-ruleTester.run('jsx-strict-logical-expression', jsxStrictLogicalExpression, {
+ruleTester.run('jsx-strict-logical-expression', rule, {
   valid: [
     {
       code: `const str = "Foo";
