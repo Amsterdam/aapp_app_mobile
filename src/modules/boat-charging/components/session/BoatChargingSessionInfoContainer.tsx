@@ -11,6 +11,7 @@ import {Title} from '@/components/ui/text/Title'
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {NRGStatus, SessionLengthStatus} from '@/modules/boat-charging/types'
+import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -56,7 +57,7 @@ export const BoatChargingSessionInfoContainer = () => {
               </Row>
               <Title
                 level="h1"
-                text={`${formatNumber(activeSession?.kwh ?? 0)} kWh`}
+                text={formatKWH(activeSession?.kwh ?? 0)}
               />
               <Row
                 flex={1}

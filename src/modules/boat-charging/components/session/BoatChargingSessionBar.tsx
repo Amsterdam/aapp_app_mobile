@@ -35,7 +35,7 @@ export const BoatChargingSessionBar = () => {
             <Icon
               color="inverse"
               isFilled
-              name="boat-charging-charging"
+              name="lightning"
               size="lg"
             />
             <Phrase

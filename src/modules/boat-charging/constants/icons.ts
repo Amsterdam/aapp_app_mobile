@@ -2,14 +2,6 @@ import {type SvgIconVariantConfig} from '@/components/ui/media/svgIcons'
 import {SvgIconVariant} from '@/components/ui/types'
 
 export const boatChargingSvgIcons = {
-  'boat-charging-charging': {
-    [SvgIconVariant.default]: {
-      path: 'M9.55558 14.8519L9.55558 23L19.3333 9.14815H14.4444L14.4444 1L4.66666 14.8519H9.55558ZM8.5265 12.8519H11.5556L11.5556 16.6986L15.4735 11.1481H12.4444L12.4444 7.30144L8.5265 12.8519Z',
-    },
-    [SvgIconVariant.filled]: {
-      path: 'M9.5556 14.8518L9.5556 22.9999L19.3333 9.1481H14.4444L14.4444 0.9999L4.6667 14.8518H9.5556Z',
-    },
-  },
   'boat-charging-free': {
     [SvgIconVariant.default]: {
       path: 'M13.6299 10.0986H16.8887L10.3701 19.333V13.9014H7.11133L13.6299 4.66699V10.0986Z',
