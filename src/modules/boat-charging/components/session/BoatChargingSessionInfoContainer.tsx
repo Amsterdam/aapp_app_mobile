@@ -144,8 +144,8 @@ export const BoatChargingSessionInfoContainer = () => {
               gutter="md"
               halign="center">
               <Icon
-                name="boat-charging-plug"
-                size="xl"
+                name="power-plug"
+                size="xll"
               />
               <Title
                 level="h4"
