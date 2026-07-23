@@ -1,3 +1,4 @@
+import type {Paginated} from '@/types/api'
 import type {
   QueryReturnValue,
   FetchBaseQueryError,
@@ -80,7 +81,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
       keepUnusedDataFor: CacheLifetime.hour,
     }),
     [BoatChargingEndpointName.boatChargingSessions]: builder.query<
-      BoatChargingSession[],
+      Paginated<BoatChargingSession>,
       void
     >({
       query: () => ({

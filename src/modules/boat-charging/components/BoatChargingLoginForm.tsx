@@ -9,6 +9,7 @@ import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
 import {RedirectKey} from '@/modules/redirects/types'
 
@@ -22,6 +23,7 @@ export const BoatChargingLoginForm = () => {
   const form = useForm<FormValues>()
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const passwordInputReference = useRef<TextInputRN>(null)
+  const {canGoBack, goBack} = useNavigation()
 
   const handleSignIn: SubmitHandler<FormValues> = useCallback(
     async ({username, password}) => {
@@ -35,13 +37,17 @@ export const BoatChargingLoginForm = () => {
 
       try {
         await signIn(username, password)
+
+        if (canGoBack()) {
+          goBack()
+        }
       } catch (error) {
         setErrorMessage(
           error instanceof Error ? error.message : 'Inloggen is mislukt',
         )
       }
     },
-    [signIn],
+    [canGoBack, goBack, signIn],
   )
 
   return (

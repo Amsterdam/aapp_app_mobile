@@ -41,7 +41,7 @@ export const BoatChargingSessionsProvider = ({
     skip: !isLoggedIn,
   })
 
-  const activeSessions = getActiveSessions(data)
+  const activeSessions = getActiveSessions(data?.result)
   const activeSession = activeSessions?.[0]
   const {data: socketStatus, refetch: refetchSocketStatus} =
     useBoatChargingSocketStatusQuery(
@@ -102,7 +102,7 @@ export const BoatChargingSessionsProvider = ({
       isPluggedIn,
       isNotPluggedInErrorVisible,
       onPressStartButtonNotPluggedIn,
-      sessions: data || [],
+      sessions: data?.result || [],
       lastUpdated: fulfilledTimeStamp ? dayjs(fulfilledTimeStamp) : undefined,
       chargingTimeString,
     }),

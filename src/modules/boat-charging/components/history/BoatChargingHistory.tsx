@@ -21,7 +21,7 @@ export const BoatChargingHistory = () => {
     skip: !isLoggedIn,
   })
 
-  const history = data?.filter(
+  const history = data?.result.filter(
     session => session.status === SessionStatus.COMPLETED,
   )
 
