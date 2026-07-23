@@ -1,7 +1,7 @@
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
+import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {
   useBoatChargingStartSessionMutation,
   useBoatChargingStopSessionMutation,
@@ -9,9 +9,9 @@ import {
 import {NRGStatus} from '@/modules/boat-charging/types'
 
 export const BoatChargingSessionButtons = () => {
-  const {activeSession, isPluggedIn, onPressStartButtonNotPluggedIn} =
-    useBoatChargingSessions()
-  const isCharging = activeSession?.nrg_status === NRGStatus.Charging
+  const {session, isPluggedIn, onPressStartButtonNotPluggedIn} =
+    useBoatChargingSession()
+  const isCharging = session?.nrg_status === NRGStatus.Charging
   const [
     startSession,
     {isLoading: isLoadingStartSession, isError: isErrorStartSession},
@@ -21,7 +21,7 @@ export const BoatChargingSessionButtons = () => {
     {isLoading: isLoadingStopSession, isError: isErrorStopSession},
   ] = useBoatChargingStopSessionMutation()
 
-  if (!activeSession) {
+  if (!session) {
     return null
   }
 
@@ -33,7 +33,7 @@ export const BoatChargingSessionButtons = () => {
           isLoading={isLoadingStopSession}
           label="Stop laden"
           onPress={() => {
-            void stopSession(activeSession.id)
+            void stopSession(session.id)
           }}
           testID="BoatChargingSessionButtonsStopButton"
           variant="secondary"
@@ -46,7 +46,7 @@ export const BoatChargingSessionButtons = () => {
             label="Start laden"
             onPress={() => {
               if (isPluggedIn) {
-                void startSession(activeSession.id)
+                void startSession(session.id)
               } else {
                 onPressStartButtonNotPluggedIn()
               }

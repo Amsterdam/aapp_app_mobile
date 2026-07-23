@@ -1,0 +1,65 @@
+import {MetaDataCard} from '@/components/ui/MetaDataCard'
+import {Column} from '@/components/ui/layout/Column'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
+import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
+import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
+import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
+import {formatNumber} from '@/utils/formatNumber'
+
+export const BoatChargingHistorySessionDetails = () => {
+  //   console.log('BoatChargingHistorySessionDetails', id)
+  const {session, chargingTimeString} = useBoatChargingSession()
+
+  if (!session) {
+    return <Phrase>Geen sessie gevonden</Phrase>
+  }
+
+  return (
+    <Column gutter="xl">
+      <Column gutter="lg">
+        <Title text={session.location.name} />
+        <MetaDataCard
+          iconName="power-plug"
+          testID="BoatChargingHistorySessionDetailsSocketCard"
+          title="Stopcontact">
+          <Phrase>{session.socket_number}</Phrase>
+        </MetaDataCard>
+        <MetaDataCard
+          iconName="euro-coins"
+          testID="BoatChargingHistorySessionDetailsTotalCostCard"
+          title="Totale kosten">
+          <Phrase>
+            {formatNumber(session.total_cost, session.currency)} inclusief btw
+          </Phrase>
+        </MetaDataCard>
+        <MetaDataCard
+          iconName="lightning"
+          testID="BoatChargingHistorySessionDetailsChargedCard"
+          title="Geladen">
+          <Phrase>{formatKWH(session.kwh)}</Phrase>
+        </MetaDataCard>
+        <MetaDataCard
+          iconName="clock"
+          testID="BoatChargingHistorySessionDetailsChargingTimeCard"
+          title="Laadtijd">
+          <Phrase>{chargingTimeString}</Phrase>
+          <Phrase>
+            Start: {formatDateTimeToDisplay(session.start_date_time, true)}
+          </Phrase>
+          <Phrase>
+            Einde: {formatDateTimeToDisplay(session.end_date_time, true)}
+          </Phrase>
+        </MetaDataCard>
+        <Column>
+          {/* <Phrase>Betaalbewijs verzonden naar</Phrase> */}
+          <Phrase
+            color="secondary"
+            variant="small">
+            Sessienummer {session.id}
+          </Phrase>
+        </Column>
+      </Column>
+    </Column>
+  )
+}

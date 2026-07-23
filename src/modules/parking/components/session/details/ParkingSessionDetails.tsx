@@ -1,3 +1,4 @@
+import {MetaDataCard} from '@/components/ui/MetaDataCard'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
@@ -8,7 +9,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingMachineDetails} from '@/modules/parking/components/session/details/ParkingMachineDetails'
 import {ParkingSessionDetailsAdjustEndTimeButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsAdjustEndTimeButton'
 import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsDeleteButton'
-import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -64,12 +64,12 @@ export const ParkingSessionDetails = ({
   return (
     <Box>
       <Column gutter="lg">
-        <ParkingSessionDetailsRow
+        <MetaDataCard
           iconName="car"
           testID="ParkingSessionDetailsLicensePlateRow"
           title="Kenteken">
           <Phrase accessible={false}>{licensePlateString}</Phrase>
-        </ParkingSessionDetailsRow>
+        </MetaDataCard>
 
         {!!parkingSession.parking_machine && (
           <ParkingMachineDetails
@@ -79,7 +79,7 @@ export const ParkingSessionDetails = ({
         )}
 
         {!parkingSession.parking_machine && (
-          <ParkingSessionDetailsRow
+          <MetaDataCard
             iconName="map-marker"
             testID="ParkingSessionDetailsPermitZoneRow"
             title={getPermitZoneLabel(currentPermit.permit_zone)}>
@@ -92,10 +92,10 @@ export const ParkingSessionDetails = ({
               testID="ParkingParkingPermitZonesButton"
               title="Kaart bekijken"
             />
-          </ParkingSessionDetailsRow>
+          </MetaDataCard>
         )}
 
-        <ParkingSessionDetailsRow
+        <MetaDataCard
           iconName="clock"
           testID="ParkingSessionDetailsParkingTimeRow"
           title={
@@ -118,10 +118,10 @@ export const ParkingSessionDetails = ({
               {formatDateTimeToDisplay(parkingSession.end_date_time, false)}
             </Phrase>
           )}
-        </ParkingSessionDetailsRow>
+        </MetaDataCard>
 
         {!!shouldShowCosts && (
-          <ParkingSessionDetailsRow
+          <MetaDataCard
             iconName="euro-coins"
             testID="ParkingSessionDetailsParkingCostRow"
             title="Kosten">
@@ -131,7 +131,7 @@ export const ParkingSessionDetails = ({
                 parkingSession.parking_cost.currency,
               )}
             </Phrase>
-          </ParkingSessionDetailsRow>
+          </MetaDataCard>
         )}
 
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (

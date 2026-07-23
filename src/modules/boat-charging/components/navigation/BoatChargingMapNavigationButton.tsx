@@ -1,19 +1,19 @@
 import {useCallback} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
+import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {useSelectChargingPoint} from '@/modules/boat-charging/hooks/useSelectChargingPoint'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 
 export const BoatChargingMapNavigationButton = () => {
-  const {activeSession} = useBoatChargingSessions()
+  const {session} = useBoatChargingSession()
   const {navigate} = useNavigation()
   const selectChargingPoint = useSelectChargingPoint()
 
   const onPress = useCallback(() => {
-    selectChargingPoint(activeSession?.location.id ?? '')
+    selectChargingPoint(session?.location.id ?? '')
     navigate(BoatChargingRouteName.boatCharging)
-  }, [activeSession?.location.id, navigate, selectChargingPoint])
+  }, [session?.location.id, navigate, selectChargingPoint])
 
   return (
     <NavigationButton

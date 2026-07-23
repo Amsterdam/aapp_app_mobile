@@ -1,11 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import type {ParkingSessionProps} from '@/modules/parking/components/session/details/ParkingSessionDetails'
+import {MetaDataCard} from '@/components/ui/MetaDataCard'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
-import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
 import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,
@@ -47,7 +47,7 @@ export const ParkingMachineDetails = ({
   )
 
   return (
-    <ParkingSessionDetailsRow
+    <MetaDataCard
       iconName="map-marker"
       testID="ParkingSessionDetailsParkingMachineRow"
       title={`Parkeerautomaat ${parkingSession.parking_machine}`}>
@@ -80,6 +80,6 @@ export const ParkingMachineDetails = ({
           )}
         </>
       )}
-    </ParkingSessionDetailsRow>
+    </MetaDataCard>
   )
 }

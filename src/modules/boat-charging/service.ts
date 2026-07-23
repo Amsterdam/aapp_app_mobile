@@ -80,6 +80,19 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),
+    [BoatChargingEndpointName.boatChargingSession]: builder.query<
+      BoatChargingSession,
+      BoatChargingSession['id']
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        method: 'GET',
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}`,
+      }),
+      providesTags: ['BoatChargingSessions'],
+      keepUnusedDataFor: CacheLifetime.minute,
+    }),
     [BoatChargingEndpointName.boatChargingSessions]: builder.query<
       Paginated<BoatChargingSession>,
       void
@@ -150,6 +163,7 @@ export const {
   useBoatChargingLocationDetailsQuery,
   useBoatChargingOpenIdConnectConfigQuery,
   useBoatChargingTermsQuery,
+  useBoatChargingSessionQuery,
   useBoatChargingSessionsQuery,
   useBoatChargingInitSessionMutation,
   useBoatChargingSocketStatusQuery,

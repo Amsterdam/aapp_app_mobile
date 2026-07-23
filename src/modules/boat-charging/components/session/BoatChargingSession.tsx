@@ -9,29 +9,28 @@ import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {BoatChargingMapNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingMapNavigationButton'
 import {BoatChargingSessionInfoContainer} from '@/modules/boat-charging/components/session/BoatChargingSessionInfoContainer'
 import {BoatChargingSessionSocket} from '@/modules/boat-charging/components/session/BoatChargingSessionSocket'
-import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
+import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {SessionLengthStatus} from '@/modules/boat-charging/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingSession = () => {
   const {
-    activeSession,
-    activeSessions,
+    session,
     isNotPluggedInErrorVisible,
     isError,
     isLoading,
     isPluggedIn,
     sessionLengthStatus,
     settings,
-  } = useBoatChargingSessions()
+  } = useBoatChargingSession()
 
-  useSetScreenTitle(activeSession?.location.name)
+  useSetScreenTitle(session?.location.name)
 
   if (isLoading) {
     return <PleaseWait testID="BoatChargingSessionPleaseWait" />
   }
 
-  if (isError || !activeSessions?.length) {
+  if (isError || !session) {
     return (
       <Box>
         <SomethingWentWrong testID="BoatChargingSessionSomethingWentWrong" />
@@ -62,9 +61,7 @@ export const BoatChargingSession = () => {
               variant="negative"
             />
           )}
-          <BoatChargingSessionSocket
-            socketNumber={activeSession?.socket_number}
-          />
+          <BoatChargingSessionSocket socketNumber={session?.socket_number} />
           <Divider />
         </Column>
         <BoatChargingMapNavigationButton />

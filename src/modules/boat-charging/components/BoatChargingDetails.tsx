@@ -108,7 +108,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
 
             <BoatChargingDetailsSocketRadioGroup
               chargingStations={location.charging_stations}
-              hasActiveSession={!!activeSessions?.length}
+              hasActiveSession={!activeSessions?.length}
             />
             {!!form.formState.errors.root?.message && (
               <ErrorMessage

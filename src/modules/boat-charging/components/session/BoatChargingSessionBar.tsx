@@ -6,24 +6,29 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
+import {BoatChargingSessionProvider} from '@/modules/boat-charging/providers/BoatChargingSession.provider'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {NRGStatus} from '@/modules/boat-charging/types'
 import {useThemable} from '@/themes/useThemable'
 
-export const BoatChargingSessionBar = () => {
+const BoatChargingSessionBarContent = () => {
   const {navigate} = useNavigation()
   const styles = useThemable(createStyles)
-  const {activeSession, isPluggedIn, chargingTimeString} =
-    useBoatChargingSessions()
+  const {session, isPluggedIn, chargingTimeString} = useBoatChargingSession()
 
-  if (!activeSession) {
+  if (!session) {
     return null
   }
 
   return (
     <Pressable
-      onPress={() => navigate(BoatChargingRouteName.boatChargingSession)}
+      onPress={() =>
+        navigate(BoatChargingRouteName.boatChargingActiveSessionDetails, {
+          id: session.id,
+        })
+      }
       style={styles.container}>
       <Box
         insetHorizontal="md"
@@ -41,13 +46,13 @@ export const BoatChargingSessionBar = () => {
             <Phrase
               color="inverse"
               emphasis="strong">
-              {activeSession.nrg_status === NRGStatus.Charging
+              {session.nrg_status === NRGStatus.Charging
                 ? 'Laden'
                 : isPluggedIn
                   ? 'Start laden'
                   : 'Stekker aansluiten'}
             </Phrase>
-            {activeSession?.nrg_status === NRGStatus.Charging && (
+            {session?.nrg_status === NRGStatus.Charging && (
               <Phrase
                 color="inverse"
                 emphasis="strong">
@@ -62,6 +67,21 @@ export const BoatChargingSessionBar = () => {
         </Row>
       </Box>
     </Pressable>
+  )
+}
+
+export const BoatChargingSessionBar = () => {
+  const {activeSessions} = useBoatChargingSessions()
+  const id = activeSessions?.[0]?.id ?? ''
+
+  if (!id) {
+    return null
+  }
+
+  return (
+    <BoatChargingSessionProvider id={id}>
+      <BoatChargingSessionBarContent />
+    </BoatChargingSessionProvider>
   )
 }
 

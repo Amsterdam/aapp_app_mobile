@@ -1,5 +1,6 @@
 import type {BoatChargingSession} from '@/modules/boat-charging/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -15,6 +16,7 @@ export const BoatChargingHistoryItem = ({session}: Props) => {
     typeof session.kwh === 'number' ? formatKWH(session.kwh) : null,
   ].filter(Boolean)
   const description = elements.join(' - ')
+  const {navigate} = useNavigation()
 
   return (
     <NavigationButton
@@ -22,9 +24,9 @@ export const BoatChargingHistoryItem = ({session}: Props) => {
       chevronSize="md"
       description={description}
       icon={{color: 'link', name: 'lightning', size: 'lg'}}
-      // TODO: implement navigation to session details when merged
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onPress={() => {}}
+      onPress={() =>
+        navigate('BoatChargingHistorySessionDetails', {id: session.id})
+      }
       testID="BoatChargingHistoryNavigationButton"
       title={session.location.name}
     />

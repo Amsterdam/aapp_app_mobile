@@ -1,25 +1,36 @@
-import type {BoatChargingLocation} from '@/modules/boat-charging/types'
+import type {
+  BoatChargingLocation,
+  BoatChargingSession,
+} from '@/modules/boat-charging/types'
 
 export enum BoatChargingRouteName {
   boatCharging = 'BoatCharging',
-  boatChargingDetails = 'BoatChargingDetails',
+  boatChargingActiveSessionDetails = 'BoatChargingActiveSessionDetails',
   boatChargingGuestEmail = 'BoatChargingGuestEmail',
   boatChargingGuestEmailConfirm = 'BoatChargingGuestEmailConfirm',
   boatChargingHelp = 'BoatChargingHelp',
   boatChargingHistory = 'BoatChargingHistory',
+  boatChargingHistorySessionDetails = 'BoatChargingHistorySessionDetails',
+  boatChargingLocationDetails = 'BoatChargingLocationDetails',
   boatChargingLogin = 'BoatChargingLogin',
-  boatChargingSession = 'BoatChargingSession',
   boatChargingTermsAndConditions = 'BoatChargingTermsAndConditions',
 }
 
 export type ModuleStackParams = {
   [BoatChargingRouteName.boatCharging]: undefined
-  [BoatChargingRouteName.boatChargingDetails]: {id: BoatChargingLocation['id']}
+  [BoatChargingRouteName.boatChargingLocationDetails]: {
+    id: BoatChargingLocation['id']
+  }
   [BoatChargingRouteName.boatChargingGuestEmail]: undefined
   [BoatChargingRouteName.boatChargingGuestEmailConfirm]: undefined
   [BoatChargingRouteName.boatChargingHelp]: undefined
   [BoatChargingRouteName.boatChargingHistory]: undefined
   [BoatChargingRouteName.boatChargingLogin]: undefined
-  [BoatChargingRouteName.boatChargingSession]: undefined
+  [BoatChargingRouteName.boatChargingActiveSessionDetails]: {
+    id: BoatChargingSession['id']
+  }
+  [BoatChargingRouteName.boatChargingHistorySessionDetails]: {
+    id: BoatChargingSession['id']
+  }
   [BoatChargingRouteName.boatChargingTermsAndConditions]: undefined
 }

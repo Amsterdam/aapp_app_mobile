@@ -9,7 +9,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
-import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
+import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {NRGStatus, SessionLengthStatus} from '@/modules/boat-charging/types'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
@@ -19,12 +19,12 @@ const MIN_CONTAINER_HEIGHT = 258
 
 export const BoatChargingSessionInfoContainer = () => {
   const {
-    activeSession,
+    session,
     isPluggedIn,
     lastUpdated,
     chargingTimeString,
     sessionLengthStatus,
-  } = useBoatChargingSessions()
+  } = useBoatChargingSession()
   const styles = createStyles()
   const {toggle} = useBottomSheet()
 
@@ -41,7 +41,7 @@ export const BoatChargingSessionInfoContainer = () => {
           grow={1}
           gutter="md"
           halign="center">
-          {activeSession?.nrg_status === NRGStatus.Charging ? (
+          {session?.nrg_status === NRGStatus.Charging ? (
             <>
               <Row gutter="xs">
                 <Icon
@@ -57,7 +57,7 @@ export const BoatChargingSessionInfoContainer = () => {
               </Row>
               <Title
                 level="h1"
-                text={formatKWH(activeSession?.kwh ?? 0)}
+                text={formatKWH(session?.kwh ?? 0)}
               />
               <Row
                 flex={1}
@@ -86,8 +86,8 @@ export const BoatChargingSessionInfoContainer = () => {
                   <Title
                     level="h3"
                     text={formatNumber(
-                      activeSession?.total_cost ?? 0,
-                      activeSession?.currency ?? 'EUR',
+                      session?.total_cost ?? 0,
+                      session?.currency ?? 'EUR',
                     )}
                   />
                 </Column>
@@ -132,7 +132,7 @@ export const BoatChargingSessionInfoContainer = () => {
                   <Phrase
                     color="secondary"
                     variant="small">
-                    {activeSession?.kwh > 0 && lastUpdated
+                    {session?.kwh > 0 && lastUpdated
                       ? `Laatste update om ${formatTimeToDisplay(lastUpdated, {includeHoursLabel: true})}`
                       : 'Laden start automatisch ...'}
                   </Phrase>

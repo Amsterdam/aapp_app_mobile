@@ -6,6 +6,7 @@ export enum BoatChargingEndpointName {
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
   boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
+  boatChargingSession = 'boatChargingSession',
   boatChargingSessions = 'boatChargingSessions',
   boatChargingSocketStatus = 'boatChargingSocketStatus',
   boatChargingStartSession = 'boatChargingStartSession',
