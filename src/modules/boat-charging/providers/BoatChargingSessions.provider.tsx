@@ -46,8 +46,8 @@ export const BoatChargingSessionsProvider = ({
   )
 
   return (
-    <BoatChargingSessionsContext.Provider value={value}>
+    <BoatChargingSessionsContext value={value}>
       {children}
-    </BoatChargingSessionsContext.Provider>
+    </BoatChargingSessionsContext>
   )
 }

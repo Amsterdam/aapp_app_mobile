@@ -22,7 +22,7 @@ export const BoatChargingSessionInfoContainer = () => {
     session,
     isPluggedIn,
     lastUpdated,
-    chargingTimeString,
+    chargingTimeVeryShortString,
     sessionLengthStatus,
     settings,
   } = useBoatChargingSession()
@@ -126,7 +126,7 @@ export const BoatChargingSessionInfoContainer = () => {
                           : 'default'
                       }
                       level="h3"
-                      text={chargingTimeString ?? ''}
+                      text={chargingTimeVeryShortString ?? ''}
                       textAlign="center"
                     />
                   </Row>

@@ -8,6 +8,7 @@ import type {Dayjs} from '@/utils/datetime/dayjs'
 
 export const BoatChargingSessionContext = createContext<{
   chargingTimeString?: string
+  chargingTimeVeryShortString?: string
   isError: boolean
   isLoading: boolean
   isNotPluggedInErrorVisible: boolean

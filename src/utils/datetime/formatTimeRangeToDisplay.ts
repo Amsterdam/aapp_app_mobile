@@ -7,9 +7,8 @@ export type Options = {
 
 const formatHours = (hours: number, format: NonNullable<Options['format']>) => {
   if (format === 'veryShort') return `${hours} u`
-  if (format === 'short') return `${hours} uur`
 
-  return simplur`${hours} u[ur|ren]`
+  return `${hours} uur`
 }
 
 const formatMinutes = (

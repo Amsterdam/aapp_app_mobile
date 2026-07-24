@@ -56,7 +56,8 @@ export const BoatChargingHistorySessionDetails = () => {
           </Phrase>
         </MetaDataCard>
         <Column>
-          {/* <Phrase>Betaalbewijs verzonden naar</Phrase> */}
+          {/* we do not get the associated emailaddress from the backend, so we cannot display it here. Using the last saved e-mail might result in showing the wrong e-mail address, so better not show it than possibly wrong.
+          <Phrase>Betaalbewijs verzonden naar</Phrase> */}
           <Phrase
             color="secondary"
             variant="small">

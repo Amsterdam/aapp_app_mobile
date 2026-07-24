@@ -6,11 +6,11 @@ describe('formatTimeRangeToDisplay', () => {
     const endTime = '2023-10-01T14:30:00'
 
     expect(formatTimeRangeToDisplay(startTime, endTime)).toBe(
-      '2 uren en 30 minuten',
+      '2 uur en 30 minuten',
     )
     expect(
       formatTimeRangeToDisplay(startTime, endTime, {format: 'default'}),
-    ).toBe('2 uren en 30 minuten')
+    ).toBe('2 uur en 30 minuten')
     expect(
       formatTimeRangeToDisplay(startTime, endTime, {format: 'short'}),
     ).toBe('2 uur en 30 min')
@@ -37,10 +37,10 @@ describe('formatTimeRangeToDisplay', () => {
     const startTime = '2023-10-01T12:00:00'
     const endTime = '2023-10-01T15:00:00'
 
-    expect(formatTimeRangeToDisplay(startTime, endTime)).toBe('3 uren')
+    expect(formatTimeRangeToDisplay(startTime, endTime)).toBe('3 uur')
     expect(
       formatTimeRangeToDisplay(startTime, endTime, {format: 'default'}),
-    ).toBe('3 uren')
+    ).toBe('3 uur')
     expect(
       formatTimeRangeToDisplay(startTime, endTime, {format: 'short'}),
     ).toBe('3 uur')
@@ -76,7 +76,7 @@ describe('formatTimeRangeToDisplay', () => {
     const endTime = '2023-10-01T12:00:00'
 
     expect(formatTimeRangeToDisplay(startTime, endTime)).toBe(
-      '- 2 uren en 30 minuten',
+      '- 2 uur en 30 minuten',
     )
   })
   it('should format negative minutes only time difference correctly', () => {

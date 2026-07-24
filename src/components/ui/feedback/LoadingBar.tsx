@@ -17,16 +17,15 @@ const ANIMATION_DURATION = 2000
 const AnimatedRect = Animated.createAnimatedComponent(Rect)
 
 export const LoadingBar = () => {
-  const translateX = useSharedValue(0)
+  const translateX = useSharedValue(-1)
 
   useEffect(() => {
     translateX.value = withRepeat(
-      withTiming(1, {
+      withTiming(2, {
         duration: ANIMATION_DURATION,
-        easing: Easing.out(Easing.linear),
+        easing: Easing.out(Easing.quad),
       }),
       -1,
-      false,
     )
 
     return () => {
@@ -36,7 +35,7 @@ export const LoadingBar = () => {
 
   const animatedProps = useAnimatedProps(
     () => ({
-      x: (translateX.value * 3 - 1) * BAR_WIDTH,
+      x: translateX.value * BAR_WIDTH,
     }),
     [translateX],
   )

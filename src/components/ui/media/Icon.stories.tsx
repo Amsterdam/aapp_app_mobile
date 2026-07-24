@@ -22,7 +22,7 @@ import {Theme} from '@/themes/themes'
 import {lightColorTokens} from '@/themes/tokens/color-light'
 
 enum IconCategory {
-  boatCharging = 'boat-charging',
+  boatCharging = 'boatCharging',
   designSystem = 'designSystem',
   elections = 'elections',
   kingsday = 'kingsday',
@@ -127,7 +127,7 @@ const meta: Meta<typeof MultipleIconsTemplate> = {
       },
     },
     category: {
-      options: Object.keys(IconCategory),
+      options: Object.values(IconCategory),
       control: 'select',
     },
   },

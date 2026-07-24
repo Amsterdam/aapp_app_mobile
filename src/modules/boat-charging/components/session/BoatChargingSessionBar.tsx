@@ -16,7 +16,8 @@ import {useThemable} from '@/themes/useThemable'
 const BoatChargingSessionBarContent = () => {
   const {navigate} = useNavigation()
   const styles = useThemable(createStyles)
-  const {session, isPluggedIn, chargingTimeString} = useBoatChargingSession()
+  const {session, isPluggedIn, chargingTimeVeryShortString} =
+    useBoatChargingSession()
 
   if (!session) {
     return null
@@ -56,7 +57,7 @@ const BoatChargingSessionBarContent = () => {
               <Phrase
                 color="inverse"
                 emphasis="strong">
-                {`- ${chargingTimeString}`}
+                {`- ${chargingTimeVeryShortString}`}
               </Phrase>
             )}
           </Row>

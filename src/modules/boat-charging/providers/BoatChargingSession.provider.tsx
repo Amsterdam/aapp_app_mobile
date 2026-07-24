@@ -41,7 +41,7 @@ export const BoatChargingSessionProvider = ({
     isLoading,
     isError,
     fulfilledTimeStamp,
-    refetch: refetchSessions,
+    refetch: refetchSession,
   } = useBoatChargingSessionQuery(id, {
     skip: !isLoggedIn || !id,
   })
@@ -60,7 +60,7 @@ export const BoatChargingSessionProvider = ({
   useInterval(
     () => {
       if (shouldPollSessions && isLoggedIn) {
-        void refetchSessions()
+        void refetchSession()
       }
     },
     shouldPollSessions && isLoggedIn ? 30000 : 0,
@@ -167,8 +167,8 @@ export const BoatChargingSessionProvider = ({
   )
 
   return (
-    <BoatChargingSessionContext.Provider value={value}>
+    <BoatChargingSessionContext value={value}>
       {children}
-    </BoatChargingSessionContext.Provider>
+    </BoatChargingSessionContext>
   )
 }
