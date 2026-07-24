@@ -8,7 +8,6 @@ import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingHistorySessionDetails = () => {
-  //   console.log('BoatChargingHistorySessionDetails', id)
   const {session, chargingTimeString, settings} = useBoatChargingSession()
 
   if (!session) {

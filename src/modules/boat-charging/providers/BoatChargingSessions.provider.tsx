@@ -41,9 +41,8 @@ export const BoatChargingSessionsProvider = ({
       activeSessions,
       isLoading,
       isError,
-      sessions: data?.result || [],
     }),
-    [activeSessions, isLoading, isError, data],
+    [activeSessions, isLoading, isError],
   )
 
   return (

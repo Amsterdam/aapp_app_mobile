@@ -1,6 +1,7 @@
 import type {BoatChargingSession} from '@/modules/boat-charging/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -25,7 +26,9 @@ export const BoatChargingHistoryItem = ({session}: Props) => {
       description={description}
       icon={{color: 'link', name: 'lightning', size: 'lg'}}
       onPress={() =>
-        navigate('BoatChargingHistorySessionDetails', {id: session.id})
+        navigate(BoatChargingRouteName.boatChargingHistorySessionDetails, {
+          id: session.id,
+        })
       }
       testID="BoatChargingHistoryNavigationButton"
       title={session.location.name}
