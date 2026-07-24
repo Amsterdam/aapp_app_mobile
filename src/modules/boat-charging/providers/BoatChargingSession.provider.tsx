@@ -5,6 +5,7 @@ import {BoatChargingSessionContext} from '@/modules/boat-charging/hooks/useBoatC
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {
   useBoatChargingSessionQuery,
+  useBoatChargingSettingsQuery,
   useBoatChargingSocketStatusQuery,
 } from '@/modules/boat-charging/service'
 import {
@@ -98,16 +99,17 @@ export const BoatChargingSessionProvider = ({
     [session],
   )
 
-  // TODO: fetch from settings endpoint
+  const {data: settingsServerData} = useBoatChargingSettingsQuery()
   const settings: BoatChargingSettings = useMemo(
-    () => ({
-      pre_authorization_amount: 45,
-      session_cleanup_enabled: false,
-      session_expiry_hours: 24,
-      session_expiry_warning_hours: 20,
-      standard_fine: 1,
-    }),
-    [],
+    () =>
+      settingsServerData ?? {
+        pre_authorization_amount: null,
+        session_cleanup_enabled: null,
+        session_expiry_hours: 24,
+        session_expiry_warning_hours: 20,
+        standard_fine: null,
+      },
+    [settingsServerData],
   )
 
   const chargingTimeHours = (
@@ -116,12 +118,19 @@ export const BoatChargingSessionProvider = ({
       : dayjs(session?.end_date_time)
   ).diff(dayjs(session?.start_date_time), 'hours')
 
-  const sessionLengthStatus =
+  const isSessionExpired =
+    settings.session_expiry_hours &&
     chargingTimeHours >= settings.session_expiry_hours
-      ? SessionLengthStatus.expiry
-      : chargingTimeHours >= settings.session_expiry_warning_hours
-        ? SessionLengthStatus.expiryWarning
-        : SessionLengthStatus.normal
+
+  const isSessionExpiring =
+    settings.session_expiry_warning_hours &&
+    chargingTimeHours >= settings.session_expiry_warning_hours
+
+  const sessionLengthStatus = isSessionExpired
+    ? SessionLengthStatus.expiry
+    : isSessionExpiring
+      ? SessionLengthStatus.expiryWarning
+      : SessionLengthStatus.normal
 
   const value = useMemo(
     () => ({

@@ -16,7 +16,7 @@ export const BoatChargingSessionContext = createContext<{
   onPressStartButtonNotPluggedIn: () => void
   session?: BoatChargingSession
   sessionLengthStatus: SessionLengthStatus
-  settings: BoatChargingSettings
+  settings?: BoatChargingSettings
 } | null>(null)
 
 export const useBoatChargingSession = () => {

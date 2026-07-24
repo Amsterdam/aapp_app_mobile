@@ -13,6 +13,7 @@ import {
   type BoatChargingSession,
   type BoatChargingSessionInitRequest,
   type BoatChargingSessionInitResponse,
+  type BoatChargingSettings,
   type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
 } from '@/modules/boat-charging/types'
@@ -128,6 +129,16 @@ export const boatChargingApi = baseApi.injectEndpoints({
         url: `/sessions/${sessionId}/socket-status`,
       }),
     }),
+    [BoatChargingEndpointName.boatChargingSettings]: builder.query<
+      BoatChargingSettings,
+      void
+    >({
+      query: () => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/settings',
+      }),
+    }),
     [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
       void,
       string
@@ -165,6 +176,7 @@ export const {
   useBoatChargingTermsQuery,
   useBoatChargingSessionQuery,
   useBoatChargingSessionsQuery,
+  useBoatChargingSettingsQuery,
   useBoatChargingInitSessionMutation,
   useBoatChargingSocketStatusQuery,
   useBoatChargingStartSessionMutation,

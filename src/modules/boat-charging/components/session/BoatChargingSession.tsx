@@ -51,13 +51,13 @@ export const BoatChargingSession = () => {
           )}
           {sessionLengthStatus === SessionLengthStatus.expiryWarning && (
             <Notice
-              text={`Uw boot mag maximaal ${settings.session_expiry_hours} uur laden. Daarna betaalt u ${formatNumber(settings.standard_fine, 'EUR')} per uur. Ook als u maar een deel van een uur gebruikt, betaalt u voor het hele uur.`}
+              text={`Uw boot mag maximaal ${settings?.session_expiry_hours} uur laden. Daarna betaalt u ${settings?.standard_fine ? formatNumber(settings.standard_fine, 'EUR') : 'een vast bedrag'} per uur. Ook als u maar een deel van een uur gebruikt, betaalt u voor het hele uur.`}
               variant="information"
             />
           )}
           {sessionLengthStatus === SessionLengthStatus.expiry && (
             <Notice
-              text={`Uw boot ligt langer dan ${settings.session_expiry_hours} uur bij het laadpunt. U betaalt nu ${formatNumber(settings.standard_fine, 'EUR')} per uur. Ook als u maar een deel van een uur gebruikt, betaalt u voor het hele uur.`}
+              text={`Uw boot ligt langer dan ${settings?.session_expiry_hours} uur bij het laadpunt. U betaalt nu ${settings?.standard_fine ? formatNumber(settings.standard_fine, 'EUR') : 'een vast bedrag'} per uur. Ook als u maar een deel van een uur gebruikt, betaalt u voor het hele uur.`}
               variant="negative"
             />
           )}
