@@ -1,17 +1,5 @@
-import {RuleTester} from '@typescript-eslint/rule-tester'
 import {rule} from './no-type-import-for-function-component.mts'
-
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
-  },
-})
+import {ruleTester} from './utils/ruleTester'
 
 ruleTester.run('no-type-import-for-function-component', rule, {
   valid: [

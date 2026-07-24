@@ -1,18 +1,6 @@
 import path from 'node:path'
-import {RuleTester} from '@typescript-eslint/rule-tester'
 import {rule} from './no-relative-file-import.mts'
-
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
-  },
-})
+import {ruleTester} from './utils/ruleTester'
 
 const filename = path.resolve(
   __dirname,

@@ -1,10 +1,9 @@
 import path from 'node:path'
-import {ESLintUtils, TSESLint, TSESTree} from '@typescript-eslint/utils'
+import {TSESLint, TSESTree} from '@typescript-eslint/utils'
 import moduleVisitorImport from 'eslint-module-utils/moduleVisitor'
 import pkgUpImport from 'eslint-module-utils/pkgUp'
+import {createRule} from './utils/createRule.mts'
 import type {Literal, Node} from 'estree'
-
-const createRule = ESLintUtils.RuleCreator(name => name)
 
 type ModuleVisitor = (
   visitor: (source: Node, importer: unknown) => unknown,

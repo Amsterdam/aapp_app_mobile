@@ -1,6 +1,5 @@
-import {ESLintUtils, TSESTree} from '@typescript-eslint/utils'
-
-const createRule = ESLintUtils.RuleCreator(name => name)
+import {TSESTree} from '@typescript-eslint/utils'
+import {createRule} from './utils/createRule.mts'
 
 const messages = {
   noSpreading: 'Explicit spreading is forbidden',

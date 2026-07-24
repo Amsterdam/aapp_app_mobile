@@ -1,17 +1,5 @@
-import {RuleTester} from '@typescript-eslint/rule-tester'
 import {rule} from './jsx-no-explicit-spread.mts'
-
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
-  },
-})
+import {ruleTester} from './utils/ruleTester'
 
 const errors = [{messageId: 'noSpreading'}] as const
 

@@ -1,6 +1,5 @@
-import {ESLintUtils, TSESLint, TSESTree} from '@typescript-eslint/utils'
-
-const createRule = ESLintUtils.RuleCreator(name => name)
+import {TSESLint, TSESTree} from '@typescript-eslint/utils'
+import {createRule} from './utils/createRule.mts'
 
 const messages = {
   noTypeImportForFunctionComponent:

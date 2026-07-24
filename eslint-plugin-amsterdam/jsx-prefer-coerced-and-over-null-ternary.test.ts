@@ -1,17 +1,5 @@
-import {RuleTester} from '@typescript-eslint/rule-tester'
 import {rule} from './jsx-prefer-coerced-and-over-null-ternary.mts'
-
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
-  },
-})
+import {ruleTester} from './utils/ruleTester'
 
 ruleTester.run('jsx-prefer-coerced-and-over-null-ternary', rule, {
   valid: [
