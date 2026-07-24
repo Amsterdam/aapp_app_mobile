@@ -1,5 +1,0 @@
-module.exports = {
-  rules: {
-    'sonarjs/no-empty-test-file': 'off',
-  },
-}

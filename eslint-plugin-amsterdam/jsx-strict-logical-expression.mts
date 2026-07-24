@@ -1,31 +1,32 @@
-const {TSESTree} = require('@typescript-eslint/utils')
+import {TSESTree} from '@typescript-eslint/utils'
+import {createRule} from './utils/createRule.mts'
+import type {NoOptions} from './utils/noOptions'
 
 const messages = {
   conditionErrorFalsey:
     'Potentially falsey value in logical AND expression. Please use boolean cast (!!).',
 }
 
-// @ts-check
-/** @type {import('eslint').Rule.RuleModule} */
-module.exports = {
+type MessageIds = keyof typeof messages
+
+export const rule = createRule<NoOptions, MessageIds>({
   name: 'jsx-strict-logical-expression',
   meta: {
+    type: 'problem',
     docs: {
       description: 'Forbid non-boolean falsey values in inline expressions',
-      recommended: 'error',
     },
     fixable: 'code',
-    type: 'problem',
     messages,
+    schema: [],
   },
+  defaultOptions: [],
 
   create: context => {
-    /**
-     *
-     * @param {TSESTree.Identifier} node
-     * @param {TSESTree.Expression} fixNode
-     */
-    const reportIdentifier = (node, fixNode) => {
+    const reportIdentifier = (
+      node: TSESTree.Identifier,
+      fixNode: TSESTree.Expression,
+    ) => {
       context.report({
         node,
         messageId: 'conditionErrorFalsey',
@@ -33,12 +34,10 @@ module.exports = {
       })
     }
 
-    /**
-     *
-     * @param {TSESTree.LogicalExpression} expressionNode
-     * @param {boolean} checkRightNode
-     */
-    const checkLogicalExpression = (expressionNode, checkRightNode) => {
+    const checkLogicalExpression = (
+      expressionNode: TSESTree.LogicalExpression,
+      checkRightNode: boolean,
+    ) => {
       let leftNode = expressionNode.left
 
       if (
@@ -50,7 +49,11 @@ module.exports = {
 
       if (leftNode.type === TSESTree.AST_NODE_TYPES.LogicalExpression) {
         checkLogicalExpression(leftNode, true)
-      } else if (leftNode.type === TSESTree.AST_NODE_TYPES.Identifier) {
+
+        return
+      }
+
+      if (leftNode.type === TSESTree.AST_NODE_TYPES.Identifier) {
         reportIdentifier(leftNode, expressionNode.left)
       }
 
@@ -70,11 +73,7 @@ module.exports = {
       }
     }
 
-    /**
-     *
-     * @param {TSESTree.JSXExpressionContainer} node
-     */
-    const checkJSXExpression = node => {
+    const checkJSXExpression = (node: TSESTree.JSXExpressionContainer) => {
       if (
         node.expression.type === TSESTree.AST_NODE_TYPES.LogicalExpression &&
         node.expression.operator === '&&'
@@ -87,4 +86,4 @@ module.exports = {
       JSXExpressionContainer: checkJSXExpression,
     }
   },
-}
+})

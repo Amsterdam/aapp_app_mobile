@@ -1,5 +1,5 @@
 {
-  "main": "index.js",
+  "main": "index.mts",
   "peerDependencies": {
     "eslint-module-utils": "*"
   }

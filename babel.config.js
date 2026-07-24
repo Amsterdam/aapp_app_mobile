@@ -2,6 +2,13 @@ module.exports = {
   presets: ['babel-preset-expo'],
   overrides: [
     {
+      test: filename =>
+        typeof filename === 'string' && /\.mtsx?$/.test(filename),
+      presets: [
+        ['@babel/preset-typescript', {allExtensions: true, isTSX: true}],
+      ],
+    },
+    {
       exclude: filename =>
         typeof filename === 'string' && /node_modules/.test(filename),
       plugins: [
