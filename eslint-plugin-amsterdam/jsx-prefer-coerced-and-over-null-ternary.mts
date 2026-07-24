@@ -1,12 +1,12 @@
 import {TSESTree} from '@typescript-eslint/utils'
 import {createRule} from './utils/createRule.mts'
+import type {NoOptions} from './utils/noOptions'
 
 const messages = {
   preferCoercedAnd:
     'Prefer a coerced logical AND expression over a ternary that returns null in JSX.',
 }
 
-type Options = []
 type MessageIds = keyof typeof messages
 
 const requiresParenthesesAfterDoubleBang = (node: TSESTree.Expression) =>
@@ -22,7 +22,7 @@ const requiresParenthesesAfterDoubleBang = (node: TSESTree.Expression) =>
 const requiresParenthesesAsAndRightOperand = (node: TSESTree.Expression) =>
   node.type === TSESTree.AST_NODE_TYPES.ConditionalExpression
 
-export const rule = createRule<Options, MessageIds>({
+export const rule = createRule<NoOptions, MessageIds>({
   name: 'jsx-prefer-coerced-and-over-null-ternary',
   meta: {
     type: 'suggestion',

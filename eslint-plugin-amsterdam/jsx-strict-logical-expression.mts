@@ -1,15 +1,15 @@
 import {TSESTree} from '@typescript-eslint/utils'
 import {createRule} from './utils/createRule.mts'
+import type {NoOptions} from './utils/noOptions'
 
 const messages = {
   conditionErrorFalsey:
     'Potentially falsey value in logical AND expression. Please use boolean cast (!!).',
 }
 
-type Options = []
 type MessageIds = keyof typeof messages
 
-export const rule = createRule<Options, MessageIds>({
+export const rule = createRule<NoOptions, MessageIds>({
   name: 'jsx-strict-logical-expression',
   meta: {
     type: 'problem',

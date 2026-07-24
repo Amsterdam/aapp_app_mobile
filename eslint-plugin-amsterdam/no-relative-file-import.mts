@@ -3,6 +3,7 @@ import {TSESLint, TSESTree} from '@typescript-eslint/utils'
 import moduleVisitorImport from 'eslint-module-utils/moduleVisitor'
 import pkgUpImport from 'eslint-module-utils/pkgUp'
 import {createRule} from './utils/createRule.mts'
+import type {NoOptions} from './utils/noOptions'
 import type {Literal, Node} from 'estree'
 
 type ModuleVisitor = (
@@ -18,8 +19,6 @@ type ModuleVisitor = (
 type PackageJsonPathLookup = (options?: {cwd?: string}) => string | null
 
 type DefaultExport<TValue> = TValue | {default: TValue}
-
-type Options = []
 
 const messages = {
   noRelativeFileImport: 'No relative file import',
@@ -49,7 +48,7 @@ const isStringLiteral = (
   typeof source.value === 'string' &&
   typeof source.raw === 'string'
 
-export const rule = createRule<Options, MessageIds>({
+export const rule = createRule<NoOptions, MessageIds>({
   name: 'no-relative-file-import',
   meta: {
     type: 'suggestion',

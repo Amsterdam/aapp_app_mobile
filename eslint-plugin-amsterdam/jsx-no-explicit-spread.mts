@@ -1,11 +1,11 @@
 import {TSESTree} from '@typescript-eslint/utils'
 import {createRule} from './utils/createRule.mts'
+import type {NoOptions} from './utils/noOptions'
 
 const messages = {
   noSpreading: 'Explicit spreading is forbidden',
 }
 
-type Options = []
 type MessageIds = keyof typeof messages
 type SpreadableProperty = TSESTree.Property & {
   computed: false
@@ -21,7 +21,7 @@ const isSpreadableProperty = (
   property.key.type === TSESTree.AST_NODE_TYPES.Identifier &&
   property.value.type === TSESTree.AST_NODE_TYPES.Identifier
 
-export const rule = createRule<Options, MessageIds>({
+export const rule = createRule<NoOptions, MessageIds>({
   name: 'jsx-no-explicit-spread',
   meta: {
     type: 'suggestion',
