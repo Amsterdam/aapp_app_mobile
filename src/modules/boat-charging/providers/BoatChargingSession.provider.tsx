@@ -102,13 +102,20 @@ export const BoatChargingSessionProvider = ({
   const {data: settingsServerData} = useBoatChargingSettingsQuery()
   const settings: BoatChargingSettings = useMemo(
     () =>
-      settingsServerData ?? {
-        pre_authorization_amount: null,
-        session_cleanup_enabled: null,
-        session_expiry_hours: 24,
-        session_expiry_warning_hours: 20,
-        standard_fine: null,
-      },
+      settingsServerData
+        ? {
+            // TODO: remove this vat_fraction when the backend also returns these values
+            vat_fraction: 1.21,
+            ...settingsServerData,
+          }
+        : {
+            pre_authorization_amount: null,
+            session_cleanup_enabled: null,
+            session_expiry_hours: 24,
+            session_expiry_warning_hours: 20,
+            standard_fine: null,
+            vat_fraction: 1.21,
+          },
     [settingsServerData],
   )
 

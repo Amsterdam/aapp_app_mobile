@@ -9,7 +9,7 @@ import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingHistorySessionDetails = () => {
   //   console.log('BoatChargingHistorySessionDetails', id)
-  const {session, chargingTimeString} = useBoatChargingSession()
+  const {session, chargingTimeString, settings} = useBoatChargingSession()
 
   if (!session) {
     return <Phrase>Geen sessie gevonden</Phrase>
@@ -30,7 +30,12 @@ export const BoatChargingHistorySessionDetails = () => {
           testID="BoatChargingHistorySessionDetailsTotalCostCard"
           title="Totale kosten">
           <Phrase>
-            {formatNumber(session.total_cost, session.currency)} inclusief btw
+            {settings?.vat_fraction
+              ? `${formatNumber(
+                  session.total_cost * settings.vat_fraction,
+                  session.currency,
+                )} inclusief btw`
+              : `${formatNumber(session.total_cost, session.currency)} exclusief btw`}
           </Phrase>
         </MetaDataCard>
         <MetaDataCard

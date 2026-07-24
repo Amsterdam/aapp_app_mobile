@@ -161,4 +161,5 @@ export type BoatChargingSettings = {
   session_expiry_hours: number | null
   session_expiry_warning_hours: number | null
   standard_fine: number | null
+  vat_fraction?: number | null
 }

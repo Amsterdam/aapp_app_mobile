@@ -24,6 +24,7 @@ export const BoatChargingSessionInfoContainer = () => {
     lastUpdated,
     chargingTimeString,
     sessionLengthStatus,
+    settings,
   } = useBoatChargingSession()
   const styles = createStyles()
   const {toggle} = useBottomSheet()
@@ -85,10 +86,17 @@ export const BoatChargingSessionInfoContainer = () => {
                   </PressableBase>
                   <Title
                     level="h3"
-                    text={formatNumber(
-                      session?.total_cost ?? 0,
-                      session?.currency ?? 'EUR',
-                    )}
+                    text={
+                      settings?.vat_fraction
+                        ? formatNumber(
+                            (session?.total_cost ?? 0) * settings.vat_fraction,
+                            session?.currency ?? 'EUR',
+                          )
+                        : `${formatNumber(
+                            session?.total_cost ?? 0,
+                            session?.currency ?? 'EUR',
+                          )} ex btw`
+                    }
                   />
                 </Column>
                 <Column
