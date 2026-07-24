@@ -58,5 +58,10 @@
     "recyclepunten",
     "Sourceid"
   ],
-  "js/ts.preferences.preferTypeOnlyAutoImports": true
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "chat.tools.terminal.autoApprove": {
+    "npx jest": true,
+    "npx tsc": true,
+    "npx eslint": true
+  }
 }
