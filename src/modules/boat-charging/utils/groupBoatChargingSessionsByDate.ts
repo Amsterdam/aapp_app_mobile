@@ -14,12 +14,18 @@ export const groupBoatChargingSessionsByDate = (
     .sort((a, b) =>
       a.start_date_time === b.start_date_time
         ? 0
-        : dayjs(a.start_date_time).isBefore(dayjs(b.start_date_time))
+        : dayjs(a.start_date_time ?? a.created_date_time).isBefore(
+              dayjs(b.start_date_time ?? b.created_date_time),
+            )
           ? 1
           : -1,
     )
     .reduce<Section[]>((result, session) => {
-      const date = formatDateToDisplay(session.start_date_time, false, false)
+      const date = formatDateToDisplay(
+        session.start_date_time ?? session.created_date_time,
+        false,
+        false,
+      )
       const section = result.find(s => s.title === date)
 
       if (section) {

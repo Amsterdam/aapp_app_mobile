@@ -38,7 +38,7 @@ export const ManageVisitorTimeBalanceOverview = () => {
               {formatTimeDurationToDisplay(
                 currentPermit.visitor_account?.seconds_remaining,
                 'seconds',
-                {short: true},
+                {format: 'short'},
               )}
             </Phrase>
           </Row>

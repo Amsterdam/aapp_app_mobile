@@ -2,44 +2,58 @@ import simplur from 'simplur'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 
 export type Options = {
-  /**
-   * shows text in short form (e.g. "1 uur en 30 min" instead of "1 uur en 30 minuten")
-   */
-  short?: boolean
+  format?: 'default' | 'short' | 'veryShort'
+}
+
+const formatHours = (hours: number, format: NonNullable<Options['format']>) => {
+  if (format === 'veryShort') return `${hours} u`
+
+  return `${hours} uur`
+}
+
+const formatMinutes = (
+  minutes: number,
+  format: NonNullable<Options['format']>,
+) => {
+  if (format !== 'default') return `${minutes} min`
+
+  return simplur`${minutes} minu[ut|ten]`
+}
+
+const getDurationParts = (start: Dayjs, end: Dayjs) => {
+  const isNegative = end.isBefore(start)
+  const earlier = isNegative ? end : start
+  const later = isNegative ? start : end
+
+  const hours = later.diff(earlier, 'hour')
+  const minutes = later.diff(earlier.add(hours, 'hour'), 'minute')
+
+  return {isNegative, hours, minutes}
 }
 
 export const formatTimeRangeToDisplay = (
   startTime: string | Dayjs,
   endTime: string | Dayjs,
-  {short = false}: Options = {},
+  {format = 'default'}: Options = {},
 ) => {
   const start = dayjs(startTime)
   const end = dayjs(endTime)
-  const isNegative = end.isBefore(start)
+  const {isNegative, hours, minutes} = getDurationParts(start, end)
   const sign = isNegative ? '- ' : ''
-  const hours = Math.abs(dayjs(endTime).diff(start, 'hour'))
-  const minutes = Math.abs(
-    dayjs(endTime)
-      .subtract(isNegative ? -hours : hours, 'hour')
-      .diff(start, 'minute'),
-  )
-  const minutesText = short
-    ? `${minutes} min`
-    : simplur`${minutes} minu[ut|ten]`
 
-  if (hours < 0 || minutes < 0) {
-    return ''
-  }
+  const minutesText = formatMinutes(minutes, format)
 
-  if (hours > 0) {
-    const hoursText = short ? `${hours} uur` : simplur`${hours} u[ur|ren]`
-
-    if (minutes > 0) {
-      return `${sign}${hoursText} en ${minutesText}`
-    }
-
-    return `${sign}${hoursText}`
-  } else {
+  if (hours === 0) {
     return `${sign}${minutesText}`
   }
+
+  const hoursText = formatHours(hours, format)
+
+  if (minutes === 0) {
+    return `${sign}${hoursText}`
+  }
+
+  const separator = format === 'veryShort' ? ' ' : ' en '
+
+  return `${sign}${hoursText}${separator}${minutesText}`
 }

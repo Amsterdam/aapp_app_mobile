@@ -13,6 +13,7 @@ import {
 import type {FractionCode} from '@/modules/waste-guide/types'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {mapSvgIcons} from '@/components/features/map/constants/icons'
+import {boatChargingSvgIcons} from '@/modules/boat-charging/constants/icons'
 import {electionsSvgIcons} from '@/modules/elections/constants/icons'
 import {kingsdaySvgIcons} from '@/modules/kingsday/constants/icons'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
@@ -21,6 +22,7 @@ import {Theme} from '@/themes/themes'
 import {lightColorTokens} from '@/themes/tokens/color-light'
 
 enum IconCategory {
+  boatCharging = 'boatCharging',
   designSystem = 'designSystem',
   elections = 'elections',
   kingsday = 'kingsday',
@@ -36,6 +38,7 @@ const ICONS_PER_CATEGORY: Record<IconCategory, SvgIconVariantConfig> = {
   [IconCategory.system]: SystemSvgIcons,
   [IconCategory.designSystem]: DesignSystemSvgIcons,
   [IconCategory.map]: mapSvgIcons,
+  [IconCategory.boatCharging]: boatChargingSvgIcons,
 }
 
 type Props = {
@@ -124,7 +127,7 @@ const meta: Meta<typeof MultipleIconsTemplate> = {
       },
     },
     category: {
-      options: Object.keys(IconCategory),
+      options: Object.values(IconCategory),
       control: 'select',
     },
   },
@@ -137,6 +140,14 @@ export const DesignSystemIcons: StoryObj<typeof MultipleIconsTemplate> = {
   args: {
     color: 'default',
     category: IconCategory.designSystem,
+  },
+}
+
+export const BoatChargingIcons: StoryObj<typeof MultipleIconsTemplate> = {
+  render: MultipleIconsTemplate,
+  args: {
+    color: 'default',
+    category: IconCategory.boatCharging,
   },
 }
 

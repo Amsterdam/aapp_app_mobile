@@ -4,13 +4,14 @@ import {
   type ModuleStackParams,
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
-import {BoatChargingDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingDetails.screen'
+import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingGuestEmailConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmailConfirm.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatChargingHistory.screen'
+import {BoatChargingHistorySessionDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingHistorySessionDetails.screen'
+import {BoatChargingLocationDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingLocationDetails.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
-import {BoatChargingSessionScreen} from '@/modules/boat-charging/screens/BoatChargingSession.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
 
 export const screenConfig: StackNavigationRoutes<
@@ -24,9 +25,9 @@ export const screenConfig: StackNavigationRoutes<
       headerShown: false,
     },
   },
-  [BoatChargingRouteName.boatChargingDetails]: {
-    component: BoatChargingDetailsScreen,
-    name: BoatChargingRouteName.boatChargingDetails,
+  [BoatChargingRouteName.boatChargingLocationDetails]: {
+    component: BoatChargingLocationDetailsScreen,
+    name: BoatChargingRouteName.boatChargingLocationDetails,
     options: {
       headerTitle: 'Laadpunt',
     },
@@ -66,10 +67,21 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Inloggen',
     },
   },
-  [BoatChargingRouteName.boatChargingSession]: {
-    component: BoatChargingSessionScreen,
-    name: BoatChargingRouteName.boatChargingSession,
+  [BoatChargingRouteName.boatChargingActiveSessionDetails]: {
+    component: BoatChargingActiveSessionScreen,
+    name: BoatChargingRouteName.boatChargingActiveSessionDetails,
     screenType: 'settings',
+    options: {
+      headerShown: false,
+    },
+  },
+  [BoatChargingRouteName.boatChargingHistorySessionDetails]: {
+    component: BoatChargingHistorySessionDetailsScreen,
+    name: BoatChargingRouteName.boatChargingHistorySessionDetails,
+    options: {
+      headerShown: false,
+      headerTitle: 'Laadsessie',
+    },
   },
   [BoatChargingRouteName.boatChargingTermsAndConditions]: {
     component: BoatChargingTermsAndConditionsScreen,

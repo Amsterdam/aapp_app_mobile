@@ -8,7 +8,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
-export const ParkingSessionDetailsRow = ({
+export const MetaDataCard = ({
   children,
   iconName,
   testID,

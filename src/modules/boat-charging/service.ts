@@ -13,6 +13,7 @@ import {
   type BoatChargingSession,
   type BoatChargingSessionInitRequest,
   type BoatChargingSessionInitResponse,
+  type BoatChargingSettings,
   type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
 } from '@/modules/boat-charging/types'
@@ -80,6 +81,19 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),
+    [BoatChargingEndpointName.boatChargingSession]: builder.query<
+      BoatChargingSession,
+      BoatChargingSession['id']
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        method: 'GET',
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}`,
+      }),
+      providesTags: ['BoatChargingSessions'],
+      keepUnusedDataFor: CacheLifetime.minute,
+    }),
     [BoatChargingEndpointName.boatChargingSessions]: builder.query<
       Paginated<BoatChargingSession>,
       void
@@ -113,6 +127,16 @@ export const boatChargingApi = baseApi.injectEndpoints({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
         url: `/sessions/${sessionId}/socket-status`,
+      }),
+    }),
+    [BoatChargingEndpointName.boatChargingSettings]: builder.query<
+      BoatChargingSettings,
+      void
+    >({
+      query: () => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/settings',
       }),
     }),
     [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
@@ -150,7 +174,9 @@ export const {
   useBoatChargingLocationDetailsQuery,
   useBoatChargingOpenIdConnectConfigQuery,
   useBoatChargingTermsQuery,
+  useBoatChargingSessionQuery,
   useBoatChargingSessionsQuery,
+  useBoatChargingSettingsQuery,
   useBoatChargingInitSessionMutation,
   useBoatChargingSocketStatusQuery,
   useBoatChargingStartSessionMutation,

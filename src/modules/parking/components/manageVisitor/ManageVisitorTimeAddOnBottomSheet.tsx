@@ -37,7 +37,9 @@ const getOptions = (
     options.push({
       label:
         '- ' +
-        formatTimeDurationToDisplay(secondsRemaining, 'seconds', {short: true}),
+        formatTimeDurationToDisplay(secondsRemaining, 'seconds', {
+          format: 'short',
+        }),
       value: secondsRemaining,
     })
   } else {
@@ -53,7 +55,7 @@ const getOptions = (
     options.push({
       label:
         '+ ' +
-        formatTimeDurationToDisplay(timeBalance, 'seconds', {short: true}),
+        formatTimeDurationToDisplay(timeBalance, 'seconds', {format: 'short'}),
       value: timeBalance,
     })
   }
@@ -85,7 +87,7 @@ export const ManageVisitorTimeAddOnBottomSheet = ({isNegative}: Props) => {
                 ? currentPermit.visitor_account.seconds_remaining
                 : currentPermit.time_balance,
               'seconds',
-              {short: true},
+              {format: 'short'},
             )}
           </Phrase>
           <RadioGroup

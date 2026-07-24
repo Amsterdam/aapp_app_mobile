@@ -6,7 +6,9 @@ export enum BoatChargingEndpointName {
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',
   boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
+  boatChargingSession = 'boatChargingSession',
   boatChargingSessions = 'boatChargingSessions',
+  boatChargingSettings = 'boatChargingSettings',
   boatChargingSocketStatus = 'boatChargingSocketStatus',
   boatChargingStartSession = 'boatChargingStartSession',
   boatChargingStopSession = 'boatChargingStopSession',
@@ -142,4 +144,22 @@ export type BoatChargingSessionInitResponse = {
 export type BoatChargingSocketStatusResponse = {
   status: ChargingPointStatus
   substatus: SocketStatus
+}
+
+export enum SessionLengthStatus {
+  expiry = 'expiry',
+  expiryWarning = 'expiryWarning',
+  normal = 'normal',
+}
+
+/**
+ * Boat charging settings response type. All fields are nullable, as the backend may not have set them yet.
+ */
+export type BoatChargingSettings = {
+  pre_authorization_amount: number | null
+  session_cleanup_enabled: boolean | null
+  session_expiry_hours: number | null
+  session_expiry_warning_hours: number | null
+  standard_fine: number | null
+  vat_fraction?: number | null
 }

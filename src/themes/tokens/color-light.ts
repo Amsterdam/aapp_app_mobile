@@ -226,6 +226,10 @@ export const lightColorTokens = {
       background: baseColor.primary.black,
     },
   },
+  loadingBar: {
+    background: baseColor.secondary.darkgreen,
+    indicator: baseColor.secondary.yellow,
+  },
   logo: baseColor.primary.red,
   mapCluster: {
     default: baseColor.primary.blue,

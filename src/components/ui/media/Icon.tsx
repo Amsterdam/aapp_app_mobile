@@ -39,6 +39,15 @@ export type IconProps = {
   path?: never
   /**
    * The size of the icon.
+   * sm = 12,
+   * smd = 14,
+   * md = 16,
+   * ml = 20,
+   * lg = 24,
+   * lgx = 28,
+   * xl = 32,
+   * xll = 48,
+   * xxl = 60,
    */
   size?: keyof typeof IconSize
 } & Partial<TestProps>

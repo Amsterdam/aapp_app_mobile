@@ -6,15 +6,15 @@ import {BoatChargingDetails} from '@/modules/boat-charging/components/BoatChargi
 import {BoatChargingSessionBar} from '@/modules/boat-charging/components/session/BoatChargingSessionBar'
 import {BoatChargingSessionsProvider} from '@/modules/boat-charging/providers/BoatChargingSessions.provider'
 
-type Props = NavigationProps<BoatChargingRouteName.boatChargingDetails>
+type Props = NavigationProps<BoatChargingRouteName.boatChargingLocationDetails>
 
-export const BoatChargingDetailsScreen = ({route}: Props) => (
+export const BoatChargingLocationDetailsScreen = ({route}: Props) => (
   <BoatChargingSessionsProvider>
     <Screen
       hasStickyAlert
       scroll
       stickyHeader={<BoatChargingSessionBar />}
-      testID="BoatChargingDetailsScreen">
+      testID="BoatChargingLocationDetailsScreen">
       <Box grow>
         <BoatChargingDetails id={route.params.id} />
       </Box>

@@ -115,7 +115,7 @@ export const BoatChargingPointDetails = () => {
         {!!id && (
           <BoatChargingPointDetailsButton
             onPress={() =>
-              navigate(BoatChargingRouteName.boatChargingDetails, {id})
+              navigate(BoatChargingRouteName.boatChargingLocationDetails, {id})
             }
             status={status}
           />

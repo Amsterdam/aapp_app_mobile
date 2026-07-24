@@ -83,7 +83,6 @@ const getAccessibilityLabel = (
   const remainingTimeStringLong = formatTimeRangeToDisplay(
     start_date_time,
     end_date_time,
-    {short: false},
   )
   const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
   const startDateTimeString = `${dayjs(start_date_time).format(DATE_FORMAT)} uur`
