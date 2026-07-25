@@ -1,4 +1,3 @@
-import type {ModuleStackParams} from '@/modules/stacks'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
@@ -11,7 +10,9 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
-  const {accessCodeGateScreen} = useAccessCodeGate<ModuleStackParams>(Stack)
+  const accessCodeGate = useAccessCodeGate(Stack, {
+    screenOptions,
+  })
 
   useAdvanceHighlightedArticle()
 
@@ -19,18 +20,14 @@ export const ModuleStack = () => {
     <Stack.Navigator
       initialRouteName={NewsRouteName.dashboard}
       screenOptions={screenOptions}>
-      {Object.entries(screenConfig).map(([key, route]) => {
-        if (route.options?.accessCodeGate) {
-          return accessCodeGateScreen(route)
-        }
-
-        return (
+      {accessCodeGate(
+        Object.entries(screenConfig).map(([key, route]) => (
           <Stack.Screen
             key={key}
             {...route}
           />
-        )
-      })}
+        )),
+      )}
     </Stack.Navigator>
   )
 }

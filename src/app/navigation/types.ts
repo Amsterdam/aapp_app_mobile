@@ -71,17 +71,19 @@ export type HeaderContentOptions = {
   preventInitialFocus?: boolean
 }
 
+export type AppStackNavigationOptions = StackNavigationOptions &
+  HeaderContentOptions & {
+    /**
+     * Indicates whether the screen should be protected by the access-code gate, on a per-screen basis.
+     */
+    accessCodeGate?: boolean
+  }
+
 export type StackNavigationRouteConfig<R> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: ComponentType<any>
   name: keyof R
-  options?: StackNavigationOptions &
-    HeaderContentOptions & {
-      /**
-       * Indicates whether the screen should be protected by the access-code gate, on a per-screen basis.
-       */
-      accessCodeGate?: boolean
-    }
+  options?: AppStackNavigationOptions
   screenType?: 'default' | 'settings'
   title?: string
 }

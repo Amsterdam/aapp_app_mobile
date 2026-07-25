@@ -3,6 +3,7 @@ export enum AccessCodeRouteName {
   accessCodeInvalid = 'AccessCodeInvalid',
   biometricsPermission = 'BiometricsPermission',
   confirmAccessCode = 'ConfirmAccessCode',
+  forgotAccessCode = 'ForgotAccessCode',
   setAccessCode = 'SetAccessCode',
   validAccessCode = 'ValidAccessCode',
 }
@@ -14,4 +15,5 @@ export type ModuleStackParams = {
   [AccessCodeRouteName.setAccessCode]: undefined
   [AccessCodeRouteName.confirmAccessCode]: {showValidation: boolean} | undefined
   [AccessCodeRouteName.validAccessCode]: undefined
+  [AccessCodeRouteName.forgotAccessCode]: undefined
 }
