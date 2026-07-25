@@ -1,46 +1,50 @@
-import {type ComponentType} from 'react'
+import type {StackScreenElement} from '@/modules/access-code/types'
+import type {Route} from '@react-navigation/native'
 import type {StackNavigationOptions} from '@react-navigation/stack'
+import type {ComponentType} from 'react'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {
   type NavigationProps,
   type RootStackParams,
-  type StackNavigationRouteConfig,
   type StackNavigationRoutes,
 } from '@/app/navigation/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Center} from '@/components/ui/layout/Center'
+import {ACCESS_CODE_SCREEN_MAP} from '@/modules/access-code/constants/accessCodeScreenMap'
+import {FORGOT_CODE_SCREEN} from '@/modules/access-code/constants/forgotAccessCodeScreenConfig'
 import {
   AccessCodeGateStateName,
   type useAccessCodeGateState,
 } from '@/modules/access-code/hooks/useAccessCodeGateState'
-import {AccessCodeRouteName} from '@/modules/access-code/routes'
-import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
-import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
-import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
-import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
-import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 
 type AccessCodeGateProxyScreenProps<RouteName extends keyof RootStackParams> = {
-  ProtectedScreenComponent: ComponentType<object>
-  forgotCodeScreen?: StackNavigationRouteConfig<Record<string, unknown>>
-  gateStateName: ReturnType<typeof useAccessCodeGateState>
-  loginSteps?: StackNavigationRoutes<Record<string, unknown>>
+  ForgotCodeScreen: ComponentType
+  ProtectedScreenComponent:
+    | React.ComponentType<{
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        navigation: any
+        route: Route<Extract<RouteName, string>, RootStackParams[RouteName]>
+      }>
+    | React.ComponentType
+  loginSteps?: StackNavigationRoutes<RootStackParams>
   navigatorScreenOptions?: StackNavigationOptions
-} & NavigationProps<RouteName>
+  state: ReturnType<typeof useAccessCodeGateState>
+} & NavigationProps<RouteName> &
+  StackScreenElement<'Screen'>['props']
 
-const AccessCodeGateStack = createStackNavigator<Record<string, undefined>>()
+const AccessCodeGateStack = createStackNavigator<RootStackParams>()
 
 export const AccessCodeGateProxyScreen = <
   RouteName extends keyof RootStackParams,
 >({
   ProtectedScreenComponent,
-  forgotCodeScreen,
-  gateStateName,
+  ForgotCodeScreen,
+  state,
   loginSteps,
   navigatorScreenOptions,
   ...props
 }: AccessCodeGateProxyScreenProps<RouteName>) => {
-  if (gateStateName === AccessCodeGateStateName.loading) {
+  if (state === AccessCodeGateStateName.loading) {
     return (
       <Center grow>
         <PleaseWait testID="AccessCodeGateProxyScreenPleaseWait" />
@@ -48,57 +52,48 @@ export const AccessCodeGateProxyScreen = <
     )
   }
 
-  if (gateStateName === AccessCodeGateStateName.allowed) {
+  if (state === AccessCodeGateStateName.allowed) {
     return <ProtectedScreenComponent {...props} />
   }
 
-  if (gateStateName === AccessCodeGateStateName.biometricsPermission) {
-    return <BiometricsPermissionScreen />
-  }
-
-  if (
-    gateStateName === AccessCodeGateStateName.forgotCode &&
-    forgotCodeScreen?.component
-  ) {
-    const ForgotCodeScreenComponent = forgotCodeScreen?.component
-
-    return ForgotCodeScreenComponent ? <ForgotCodeScreenComponent /> : null
-  }
-
-  if (gateStateName === AccessCodeGateStateName.invalid) {
-    return <AccessCodeInvalidScreen />
-  }
-
-  if (gateStateName === AccessCodeGateStateName.accessCode) {
-    return (
-      <AccessCodeScreen
-        {...(props as NavigationProps<AccessCodeRouteName.accessCode>)}
-      />
-    )
-  }
-
-  if (gateStateName === AccessCodeGateStateName.setup) {
-    return (
-      <AccessCodeGateStack.Navigator screenOptions={navigatorScreenOptions}>
-        {!!loginSteps &&
-          Object.entries(loginSteps).map(([key, route]) => (
-            <AccessCodeGateStack.Screen
-              component={route.component}
-              key={key}
-              name={String(route.name)}
-            />
-          ))}
+  return (
+    <AccessCodeGateStack.Navigator
+      screenOptions={{...navigatorScreenOptions, headerShown: true}}>
+      {state === AccessCodeGateStateName.biometricsPermission && (
         <AccessCodeGateStack.Screen
-          component={SetAccessCodeScreen}
-          name={AccessCodeRouteName.setAccessCode}
+          {...ACCESS_CODE_SCREEN_MAP.biometricsPermission}
         />
-        <AccessCodeGateStack.Screen
-          component={ConfirmAccessCodeScreen}
-          name={AccessCodeRouteName.confirmAccessCode}
-        />
-      </AccessCodeGateStack.Navigator>
-    )
-  }
+      )}
 
-  return null
+      {state === AccessCodeGateStateName.forgotCode && (
+        <AccessCodeGateStack.Screen
+          {...FORGOT_CODE_SCREEN}
+          component={ForgotCodeScreen}
+        />
+      )}
+
+      {state === AccessCodeGateStateName.invalid && (
+        <AccessCodeGateStack.Screen {...ACCESS_CODE_SCREEN_MAP.invalid} />
+      )}
+
+      {state === AccessCodeGateStateName.accessCode && (
+        <AccessCodeGateStack.Screen {...ACCESS_CODE_SCREEN_MAP.accessCode} />
+      )}
+
+      {state === AccessCodeGateStateName.setup && (
+        <AccessCodeGateStack.Group screenOptions={navigatorScreenOptions}>
+          {!!loginSteps &&
+            Object.entries(loginSteps).map(([key, route]) => (
+              <AccessCodeGateStack.Screen
+                key={key}
+                {...route}
+              />
+            ))}
+
+          <AccessCodeGateStack.Screen {...ACCESS_CODE_SCREEN_MAP.setup} />
+          <AccessCodeGateStack.Screen {...ACCESS_CODE_SCREEN_MAP.confirm} />
+        </AccessCodeGateStack.Group>
+      )}
+    </AccessCodeGateStack.Navigator>
+  )
 }

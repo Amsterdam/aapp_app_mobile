@@ -6,6 +6,7 @@ export enum AccessCodeGateStateName {
   accessCode = 'accessCode',
   allowed = 'allowed',
   biometricsPermission = 'biometricsPermission',
+  confirm = 'confirm',
   fallback = 'fallback',
   forgotCode = 'forgotCode',
   invalid = 'invalid',
@@ -14,7 +15,6 @@ export enum AccessCodeGateStateName {
 }
 
 export const useAccessCodeGateState = (
-  hasForgotScreen: boolean | undefined,
   isLoginStepsActive: boolean | undefined,
 ): AccessCodeGateStateName => {
   const {accessCode, isLoading} = useGetSecureAccessCode()
@@ -33,7 +33,7 @@ export const useAccessCodeGateState = (
     return AccessCodeGateStateName.loading
   }
 
-  if (isForgotCode && hasForgotScreen) {
+  if (isForgotCode) {
     return AccessCodeGateStateName.forgotCode
   }
 
