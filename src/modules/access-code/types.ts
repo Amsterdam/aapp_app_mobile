@@ -1,4 +1,4 @@
-import type {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import type {
   AppStackNavigationOptions,
   RootStackParams,
