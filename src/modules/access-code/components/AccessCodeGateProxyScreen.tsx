@@ -20,12 +20,11 @@ import {
 type AccessCodeGateProxyScreenProps<RouteName extends keyof RootStackParams> = {
   ForgotCodeScreen: ComponentType
   ProtectedScreenComponent:
-    | React.ComponentType<{
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        navigation: any
+    | ComponentType<{
+        navigation: unknown
         route: Route<Extract<RouteName, string>, RootStackParams[RouteName]>
       }>
-    | React.ComponentType
+    | ComponentType
   loginSteps?: StackNavigationRoutes<RootStackParams>
   navigatorScreenOptions?: StackNavigationOptions
   state: ReturnType<typeof useAccessCodeGateState>
