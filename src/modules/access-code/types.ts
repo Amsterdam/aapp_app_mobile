@@ -15,11 +15,11 @@ export type StackFactory = ReturnType<
   typeof createStackNavigator<RootStackParams>
 >
 
-export type StackScreenElement<
+export type StackElement<
   T extends keyof Pick<StackFactory, 'Group' | 'Screen'>,
 > = ReactElement<
   Omit<ComponentProps<StackFactory[T]>, 'options'> & {
     options?: AppStackNavigationOptions
   },
-  StackFactory['Screen']
+  StackFactory[T]
 >

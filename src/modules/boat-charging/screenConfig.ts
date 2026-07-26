@@ -59,6 +59,7 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.history,
     options: {
       headerTitle: 'Laadgeschiedenis',
+      accessCodeGate: true,
     },
   },
   [BoatChargingRouteName.login]: {
@@ -82,6 +83,7 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerShown: false,
       headerTitle: 'Laadsessie',
+      accessCodeGate: true,
     },
   },
   [BoatChargingRouteName.termsAndConditions]: {
