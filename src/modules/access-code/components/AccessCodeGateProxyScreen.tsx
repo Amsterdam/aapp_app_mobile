@@ -1,4 +1,4 @@
-import type {StackScreenElement} from '@/modules/access-code/types'
+import type {StackElement} from '@/modules/access-code/types'
 import type {Route} from '@react-navigation/native'
 import type {StackNavigationOptions} from '@react-navigation/stack'
 import type {ComponentType} from 'react'
@@ -30,7 +30,7 @@ type AccessCodeGateProxyScreenProps<RouteName extends keyof RootStackParams> = {
   navigatorScreenOptions?: StackNavigationOptions
   state: ReturnType<typeof useAccessCodeGateState>
 } & NavigationProps<RouteName> &
-  StackScreenElement<'Screen'>['props']
+  StackElement<'Screen'>['props']
 
 const AccessCodeGateStack = createStackNavigator<RootStackParams>()
 

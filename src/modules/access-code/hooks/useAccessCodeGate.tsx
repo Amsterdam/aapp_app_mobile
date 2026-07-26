@@ -1,8 +1,5 @@
 import {useCallback, useMemo, type ReactNode} from 'react'
-import type {
-  StackScreenElement,
-  StackFactory,
-} from '@/modules/access-code/types'
+import type {StackElement, StackFactory} from '@/modules/access-code/types'
 import type {StackNavigationOptions} from '@react-navigation/stack'
 import {
   type StackNavigationRouteConfig,
@@ -33,8 +30,8 @@ type AccessCodeGateConfig = {
 }
 
 type AccessCodeGateFunction = {
-  (stack: StackScreenElement<'Group'>): ReactNode
-  (stackMap: Array<StackScreenElement<'Screen'>>): ReactNode
+  (stack: StackElement<'Group'>): ReactNode
+  (stackMap: Array<StackElement<'Screen'>>): ReactNode
 }
 
 /**
@@ -58,20 +55,19 @@ export const useAccessCodeGate = (
   )
 
   const addAccessGateProxyToStackScreens = useCallback(
-    (stack: Array<StackScreenElement<'Screen'>>) =>
+    (stack: Array<StackElement<'Screen'>>) =>
       stack.map(entry => {
         if (entry.props.options?.accessCodeGate) {
-          if (!entry.props.component) {
-            throw new Error(
-              'A component needs to be provided to the access code gate.',
-            )
-          }
-
           return (
             <Stack.Screen
               key={entry.props.name}
               name={entry.props.name}
-              options={entry.props.options}>
+              options={{
+                ...entry.props.options,
+                headerShown:
+                  entry.props.options.headerShown !== false &&
+                  accessCodeGateStateName === AccessCodeGateStateName.allowed,
+              }}>
               {stackProps =>
                 !!entry.props.component && (
                   <AccessCodeGateProxyScreen
@@ -95,7 +91,7 @@ export const useAccessCodeGate = (
   )
 
   const handleConditionalScreenGateKeeping = useCallback(
-    (stack: StackScreenElement<'Group'>) => {
+    (stack: StackElement<'Group'>) => {
       if (accessCodeGateStateName === AccessCodeGateStateName.allowed) {
         return stack
       }
@@ -132,9 +128,7 @@ export const useAccessCodeGate = (
   )
 
   return useCallback<AccessCodeGateFunction>(
-    (
-      stack: StackScreenElement<'Group'> | Array<StackScreenElement<'Screen'>>,
-    ) => {
+    (stack: StackElement<'Group'> | Array<StackElement<'Screen'>>) => {
       if (Array.isArray(stack)) {
         return addAccessGateProxyToStackScreens(stack)
       } else {
