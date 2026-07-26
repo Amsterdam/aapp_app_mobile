@@ -45,7 +45,7 @@ export const useAccessCodeGateState = (
     return AccessCodeGateStateName.accessCode
   }
 
-  if (attemptsLeft === 0) {
+  if (attemptsLeft <= 0) {
     return AccessCodeGateStateName.invalid
   }
 
