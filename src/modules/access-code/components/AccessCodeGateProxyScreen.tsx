@@ -14,7 +14,7 @@ import {ACCESS_CODE_SCREEN_MAP} from '@/modules/access-code/constants/accessCode
 import {FORGOT_CODE_SCREEN} from '@/modules/access-code/constants/forgotAccessCodeScreenConfig'
 import {
   AccessCodeGateStateName,
-  type useAccessCodeGateState,
+  useAccessCodeGateState,
 } from '@/modules/access-code/hooks/useAccessCodeGateState'
 
 type AccessCodeGateProxyScreenProps<RouteName extends keyof RootStackParams> = {
