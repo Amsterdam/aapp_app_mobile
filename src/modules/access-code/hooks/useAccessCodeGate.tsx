@@ -40,6 +40,41 @@ type AccessCodeGateFunction = {
  * Wrap the callback around the mapping of screenConfig inside the module/stack.ts, and pass `accessCodeGate: true` to the screenConfig.
  * @param Stack The `Stack` navigation object to add access-code Screens and Groups to if the gate returns access-code flow.
  * @param config An optional configuration object of type `AccessCodeGateConfig`
+ * @example
+ * ```tsx
+ * const Stack = createStackNavigator<RootStackParams>()
+ *
+ * export const ModuleStack = () => {
+ *   const screenOptions = useScreenOptions()
+ *   const accessCodeGate = useAccessCodeGate(Stack, {screenOptions})
+ *
+ *   return (
+ *     <Stack.Navigator screenOptions={screenOptions}>
+ *       {accessCodeGate(
+ *         Object.entries(screenConfig).map(([key, route]) => (
+ *           <Stack.Screen
+ *             key={key}
+ *             {...route}
+ *           />
+ *         )),
+ *       )}
+ *     </Stack.Navigator>
+ *   )
+ * }
+ * ```
+ *
+ * And in the `screenConfig.ts`:
+ * ```tsx
+ * [NewsRouteName.article]: {
+ *  component: NewsArticleScreen,
+ *  name: NewsRouteName.article,
+ *  options: {
+ *    headerShown: false,
+ *    headerTitle: 'Nieuws',
+ *    accessCodeGate: true,
+ *  },
+ * }
+ * ```
  */
 export const useAccessCodeGate = (
   Stack: StackFactory,

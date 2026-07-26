@@ -23,7 +23,6 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerShown: false,
       headerTitle: 'Nieuws',
-      accessCodeGate: true,
     },
   },
   [NewsRouteName.highlights]: {
