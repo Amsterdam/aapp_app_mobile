@@ -1,3 +1,5 @@
+import {useCallback} from 'react'
+import {Alert} from 'react-native'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -22,6 +24,27 @@ export const BoatChargingSessionButtons = () => {
     {isLoading: isLoadingStopSession, isError: isErrorStopSession},
   ] = useBoatChargingStopSessionMutation()
 
+  const stop = useCallback(() => {
+    if (!session) return
+
+    Alert.alert(
+      'Wilt u het laden stoppen?',
+      undefined,
+      [
+        {
+          text: 'Annuleren',
+          style: 'cancel',
+        },
+        {
+          isPreferred: true,
+          text: 'Laden stoppen',
+          onPress: () => stopSession(session.id),
+        },
+      ],
+      {cancelable: true},
+    )
+  }, [stopSession, session])
+
   if (!session) {
     return null
   }
@@ -34,9 +57,7 @@ export const BoatChargingSessionButtons = () => {
             isError={isErrorStopSession}
             isLoading={isLoadingStopSession}
             label="Stop laden"
-            onPress={() => {
-              void stopSession(session.id)
-            }}
+            onPress={stop}
             testID="BoatChargingSessionButtonsStopButton"
             variant="secondary"
           />
