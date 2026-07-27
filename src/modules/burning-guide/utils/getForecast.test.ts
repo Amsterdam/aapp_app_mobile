@@ -14,19 +14,19 @@ const validResponse: BurningGuideApiResponse = {
   definitive_12: true,
   definitive_18: false,
   definitive_6: false,
-  model_runtime: '2026-27-07T00:00:00Z',
+  model_runtime: '2026-07-27T00:00:00Z',
   postal_code: '1011AB',
 }
 
 describe('getForecast', () => {
   it('returns an empty array when data is undefined', () => {
-    expect(getForecast(dayjs('2026-27-07T05:00:00'))).toEqual([])
+    expect(getForecast(dayjs('2026-07-27T05:00:00'))).toEqual([])
   })
 
   it('returns an empty array when data is null', () => {
     expect(
       getForecast(
-        dayjs('2026-27-07T05:00:00'),
+        dayjs('2026-07-27T05:00:00'),
         null as unknown as BurningGuideApiResponse,
       ),
     ).toEqual([])
@@ -48,29 +48,29 @@ describe('getForecast', () => {
   })
 
   it('maps a valid response into forecast items', () => {
-    expect(getForecast(dayjs('2026-27-07T05:00:00'), validResponse)).toEqual([
+    expect(getForecast(dayjs('2026-07-27T05:00:00'), validResponse)).toEqual([
       {
         id: '0',
         isFixed: true,
-        timeWindow: 'Dinsdag 04.00 uur',
+        timeWindow: 'Maandag 04.00 uur',
         variant: BurningGuideCodeVariant.yellow,
       },
       {
         id: '6',
         isFixed: false,
-        timeWindow: 'Dinsdag 10.00 uur',
+        timeWindow: 'Maandag 10.00 uur',
         variant: BurningGuideCodeVariant.orange,
       },
       {
         id: '12',
         isFixed: true,
-        timeWindow: 'Dinsdag 16.00 uur',
+        timeWindow: 'Maandag 16.00 uur',
         variant: BurningGuideCodeVariant.red,
       },
       {
         id: '18',
         isFixed: false,
-        timeWindow: 'Dinsdag 22.00 uur',
+        timeWindow: 'Maandag 22.00 uur',
         variant: BurningGuideCodeVariant.yellow,
       },
     ])
@@ -90,7 +90,7 @@ describe('getForecast', () => {
       }
 
       expect(
-        getForecast(dayjs('2026-27-07T05:00:00'), response).find(
+        getForecast(dayjs('2026-07-27T05:00:00'), response).find(
           forecastItem => forecastItem.id === itemId,
         ),
       ).toMatchObject({variant: BurningGuideCodeVariant.yellow})
@@ -109,7 +109,7 @@ describe('getForecast', () => {
     }
 
     expect(
-      getForecast(dayjs('2026-27-07T05:00:00'), response).find(
+      getForecast(dayjs('2026-07-27T05:00:00'), response).find(
         forecastItem => forecastItem.id === itemId,
       ),
     ).toMatchObject({variant: BurningGuideCodeVariant.yellow})
@@ -129,10 +129,10 @@ describe('getForecast', () => {
       }
 
       expect(
-        getForecast(dayjs('2026-27-07T05:00:00'), response).find(
+        getForecast(dayjs('2026-07-27T05:00:00'), response).find(
           forecastItem => forecastItem.id === itemId,
         ),
-      ).toMatchObject({isFixed: undefined})
+      ).toHaveProperty('isFixed', undefined)
     },
   )
 
@@ -148,7 +148,7 @@ describe('getForecast', () => {
     }
 
     expect(
-      getForecast(dayjs('2026-27-07T05:00:00'), response).find(
+      getForecast(dayjs('2026-07-27T05:00:00'), response).find(
         forecastItem => forecastItem.id === itemId,
       ),
     ).toMatchObject({isFixed: null})
