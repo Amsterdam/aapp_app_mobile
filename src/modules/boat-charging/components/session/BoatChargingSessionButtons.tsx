@@ -1,3 +1,4 @@
+import {SafeAreaView} from 'react-native-safe-area-context'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -27,34 +28,36 @@ export const BoatChargingSessionButtons = () => {
 
   return (
     <Box variant="distinct">
-      {isCharging ? (
-        <Button
-          isError={isErrorStopSession}
-          isLoading={isLoadingStopSession}
-          label="Stop laden"
-          onPress={() => {
-            void stopSession(session.id)
-          }}
-          testID="BoatChargingSessionButtonsStopButton"
-          variant="secondary"
-        />
-      ) : (
-        <Column gutter="smd">
+      <SafeAreaView edges={['bottom']}>
+        {isCharging ? (
           <Button
-            isError={isErrorStartSession}
-            isLoading={isLoadingStartSession}
-            label="Start laden"
+            isError={isErrorStopSession}
+            isLoading={isLoadingStopSession}
+            label="Stop laden"
             onPress={() => {
-              if (isPluggedIn) {
-                void startSession(session.id)
-              } else {
-                onPressStartButtonNotPluggedIn()
-              }
+              void stopSession(session.id)
             }}
-            testID="BoatChargingSessionButtonsStartButton"
+            testID="BoatChargingSessionButtonsStopButton"
+            variant="secondary"
           />
-        </Column>
-      )}
+        ) : (
+          <Column gutter="smd">
+            <Button
+              isError={isErrorStartSession}
+              isLoading={isLoadingStartSession}
+              label="Start laden"
+              onPress={() => {
+                if (isPluggedIn) {
+                  void startSession(session.id)
+                } else {
+                  onPressStartButtonNotPluggedIn()
+                }
+              }}
+              testID="BoatChargingSessionButtonsStartButton"
+            />
+          </Column>
+        )}
+      </SafeAreaView>
     </Box>
   )
 }
