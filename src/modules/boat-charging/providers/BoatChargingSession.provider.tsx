@@ -83,19 +83,27 @@ export const BoatChargingSessionProvider = ({
     setIsNotPluggedInErrorVisible(true)
   }, [])
 
-  const chargingTimeString = useMemo(
+  const [chargingTimeString, chargingTimeVeryShortString] = useMemo(
     () =>
       session
-        ? formatTimeRangeToDisplay(
-            session.start_date_time,
-            session.status === SessionStatus.ACTIVE
-              ? dayjs()
-              : session.end_date_time,
-            {
-              format: 'veryShort',
-            },
-          )
-        : undefined,
+        ? [
+            formatTimeRangeToDisplay(
+              session.start_date_time,
+              session.status === SessionStatus.ACTIVE
+                ? dayjs()
+                : session.end_date_time,
+            ),
+            formatTimeRangeToDisplay(
+              session.start_date_time,
+              session.status === SessionStatus.ACTIVE
+                ? dayjs()
+                : session.end_date_time,
+              {
+                format: 'veryShort',
+              },
+            ),
+          ]
+        : [],
     [session],
   )
 
@@ -149,6 +157,7 @@ export const BoatChargingSessionProvider = ({
       onPressStartButtonNotPluggedIn,
       lastUpdated: fulfilledTimeStamp ? dayjs(fulfilledTimeStamp) : undefined,
       chargingTimeString,
+      chargingTimeVeryShortString,
       sessionLengthStatus,
       settings,
     }),
@@ -161,6 +170,7 @@ export const BoatChargingSessionProvider = ({
       onPressStartButtonNotPluggedIn,
       fulfilledTimeStamp,
       chargingTimeString,
+      chargingTimeVeryShortString,
       sessionLengthStatus,
       settings,
     ],
