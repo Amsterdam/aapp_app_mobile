@@ -54,7 +54,7 @@ export const BoatChargingDetailsSocketSubmitButton = () => {
         } else {
           return initSession({
             station_id: socketId,
-            socket_number: 1, //TODO: get the socket number from the selected socket, not hardcoded to 1
+            socket_number: '1', //TODO: get the socket number from the selected socket, not hardcoded to 1
             email: loggedInUsername,
             name: loggedInUsername,
             return_url: 'amsterdam://boat-charging',
