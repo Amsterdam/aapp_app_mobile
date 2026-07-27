@@ -49,7 +49,13 @@ export type BoatChargingLocation = {
   total_sockets: number
 }
 
+export type Connector = {
+  connector_id: number
+  format: string
+}
+
 export type EVSE = {
+  connectors: Connector[]
   display_name: string
   evse_id: string
   id: string
@@ -133,7 +139,7 @@ export type BoatChargingSessionInitRequest = {
   email: string
   name: string
   return_url: string
-  socket_number: number
+  socket_number: string
   station_id: string
 }
 
