@@ -2,6 +2,7 @@ import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {useAccessCodeGate} from '@/modules/access-code/hooks/useAccessCodeGate'
+import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {screenConfig} from '@/modules/boat-charging/screenConfig'
 
@@ -12,7 +13,11 @@ export const ModuleStack = () => {
   const screenOptionsSettings = useScreenOptions({
     screenType: 'settings',
   })
-  const accessCodeGate = useAccessCodeGate(Stack, {screenOptions})
+  const {isLoggedIn} = useIsLoggedIn()
+  const accessCodeGate = useAccessCodeGate(Stack, {
+    screenOptions,
+    additionalGateCondition: isLoggedIn,
+  })
 
   return (
     <Stack.Navigator
