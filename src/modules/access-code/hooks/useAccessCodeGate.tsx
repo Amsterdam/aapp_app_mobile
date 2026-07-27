@@ -15,6 +15,11 @@ import {
 
 type AccessCodeGateConfig = {
   /**
+   * If another condition needs to be met to render the accessCodeGate, it can be passed to this config option.
+   * @example ```additionalGateCondition: isLoggedIn === true```
+   */
+  additionalGateCondition?: boolean
+  /**
    * forgotCodeScreen - The module specific configuration for the screen that allows users to reset their access code.
    */
   forgotCodeScreen?: StackNavigationRouteConfig<Record<string, unknown>>
@@ -30,6 +35,9 @@ type AccessCodeGateConfig = {
 }
 
 type AccessCodeGateFunction = {
+  /**
+   * @deprecated Prefer the per Screen approach of access code gate keeping
+   */
   (stack: StackElement<'Group'>): ReactNode
   (stackMap: Array<StackElement<'Screen'>>): ReactNode
 }
@@ -80,7 +88,7 @@ export const useAccessCodeGate = (
   Stack: StackFactory,
   config?: AccessCodeGateConfig,
 ): AccessCodeGateFunction => {
-  const {loginSteps, isLoginStepsActive} = config || {}
+  const {loginSteps, isLoginStepsActive, additionalGateCondition} = config || {}
 
   const accessCodeGateStateName = useAccessCodeGateState(isLoginStepsActive)
 
@@ -92,7 +100,7 @@ export const useAccessCodeGate = (
   const addAccessGateProxyToStackScreens = useCallback(
     (stack: Array<StackElement<'Screen'>>) =>
       stack.map(entry => {
-        if (entry.props.options?.accessCodeGate) {
+        if (entry.props.options?.accessCodeGate && additionalGateCondition) {
           return (
             <Stack.Screen
               key={entry.props.name}
@@ -122,7 +130,13 @@ export const useAccessCodeGate = (
           return entry
         }
       }),
-    [Stack, accessCodeGateStateName, config, forgotCodeScreen],
+    [
+      Stack,
+      accessCodeGateStateName,
+      config,
+      forgotCodeScreen,
+      additionalGateCondition,
+    ],
   )
 
   const handleConditionalScreenGateKeeping = useCallback(
