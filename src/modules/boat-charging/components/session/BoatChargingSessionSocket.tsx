@@ -5,9 +5,10 @@ import {Title} from '@/components/ui/text/Title'
 
 type Props = {
   socketNumber?: BoatChargingSession['socket_number']
+  stationId: BoatChargingSession['station_id']
 }
 
-export const BoatChargingSessionSocket = ({socketNumber}: Props) => {
+export const BoatChargingSessionSocket = ({socketNumber, stationId}: Props) => {
   if (!socketNumber) {
     return null
   }
@@ -19,7 +20,9 @@ export const BoatChargingSessionSocket = ({socketNumber}: Props) => {
         testID="BoatChargingSessionSocketTitle"
         text="Stopcontact"
       />
-      <Phrase>{socketNumber}</Phrase>
+      <Phrase>
+        {stationId}-{socketNumber}
+      </Phrase>
     </Column>
   )
 }

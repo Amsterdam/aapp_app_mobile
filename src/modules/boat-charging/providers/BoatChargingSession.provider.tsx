@@ -22,7 +22,7 @@ import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDispla
 type Props = {
   children: ReactNode
   id: BoatChargingSession['id']
-  shouldPollSessions?: boolean
+  shouldPollSession?: boolean
   shouldPollSocketStatus?: boolean
 }
 
@@ -30,7 +30,7 @@ export const BoatChargingSessionProvider = ({
   id,
   children,
   shouldPollSocketStatus = true,
-  shouldPollSessions = true,
+  shouldPollSession = true,
 }: Props) => {
   const [isNotPluggedInErrorVisible, setIsNotPluggedInErrorVisible] =
     useState(false)
@@ -59,11 +59,11 @@ export const BoatChargingSessionProvider = ({
 
   useInterval(
     () => {
-      if (shouldPollSessions && isLoggedIn) {
+      if (shouldPollSession && isLoggedIn) {
         void refetchSession()
       }
     },
-    shouldPollSessions && isLoggedIn ? 30000 : 0,
+    shouldPollSession && isLoggedIn ? 30000 : 0,
   )
 
   useInterval(
