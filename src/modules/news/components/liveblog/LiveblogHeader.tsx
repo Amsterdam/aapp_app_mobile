@@ -27,7 +27,14 @@ export const LiveblogHeader = ({
     return null
   }
 
-  const {title, intro, is_active_liveblog, modification_datetime, id} = data
+  const {
+    title,
+    intro,
+    is_active_liveblog,
+    modification_datetime,
+    id,
+    publication_datetime,
+  } = data
 
   return (
     <>
@@ -37,8 +44,12 @@ export const LiveblogHeader = ({
             testID="LiveblogTitle"
             text={title}
           />
-
-          <Phrase color="secondary">{`Laatste update ${formatDateTimeToDisplay(modification_datetime, false).toLowerCase()}`}</Phrase>
+          <Column>
+            <Phrase color="secondary">
+              {formatDateTimeToDisplay(publication_datetime, false)}
+            </Phrase>
+            <Phrase color="secondary">{`Laatste update ${formatDateTimeToDisplay(modification_datetime, false).toLowerCase()}`}</Phrase>
+          </Column>
         </Column>
 
         {!!intro && (
