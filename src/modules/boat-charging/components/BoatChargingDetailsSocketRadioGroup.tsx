@@ -37,27 +37,27 @@ export const BoatChargingDetailsSocketRadioGroup = ({
         <RadioGroupControlled
           {...form}
           name="socketId"
-          options={selectableEvses.map(({station, evse_id}) => ({
+          options={selectableEvses.map(({station, evse_id, name}) => ({
             label: (
               <BoatChargingSocketRadioLabel
-                id={`${station.id}-${evse_id}`}
+                name={name}
                 status={ChargingPointStatus.OPERATIVE}
                 width={extraPadding ? 'wide' : 'default'}
               />
             ),
-            value: `${station.id}-${evse_id}`,
+            value: JSON.stringify({stationId: station.id, evseId: evse_id}),
           }))}
           testID="BoatChargingDetailsChooseSocketRadioGroup"
         />
       )}
       {!!notSelectableEvses.length &&
-        notSelectableEvses.map(({station, status, evse_id}) => (
-          <Row key={`${station.id}-${evse_id}`}>
+        notSelectableEvses.map(({station, status, name}) => (
+          <Row key={name}>
             {!!availableEvses.length && (
               <Size width={EMPTY_RADIO_PLACEHOLDER_SIZE} />
             )}
             <BoatChargingSocketRadioLabel
-              id={`${station.id}-${evse_id}`}
+              name={name}
               status={
                 status === ChargingPointStatus.OPERATIVE
                   ? station.status

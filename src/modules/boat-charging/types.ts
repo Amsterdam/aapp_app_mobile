@@ -169,3 +169,5 @@ export type BoatChargingSettings = {
   standard_fine: number | null
   vat_fraction?: number | null
 }
+
+export type EVSEWithStation = EVSE & {name: string; station: ChargingStation}

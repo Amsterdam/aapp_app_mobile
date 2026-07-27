@@ -35,6 +35,7 @@ describe('getAvailableAndOtherEvses', () => {
     const occupiedEvse = {
       ...baseEvse,
       id: 'evse-occupied',
+      evse_id: '2',
       status: ChargingPointStatus.OCCUPIED,
     }
     const offlineStationEvse = {
@@ -58,14 +59,40 @@ describe('getAvailableAndOtherEvses', () => {
       getAvailableAndOtherEvses([operativeStation, offlineStation]),
     ).toEqual({
       evses: [
-        {...operativeEvse, station: operativeStation},
-        {...occupiedEvse, station: operativeStation},
-        {...offlineStationEvse, station: offlineStation},
+        {
+          ...offlineStationEvse,
+          station: offlineStation,
+          name: 'station-offline-1',
+        },
+        {
+          ...operativeEvse,
+          station: operativeStation,
+          name: 'station-operative-1',
+        },
+        {
+          ...occupiedEvse,
+          station: operativeStation,
+          name: 'station-operative-2',
+        },
       ],
-      availableEvses: [{...operativeEvse, station: operativeStation}],
+      availableEvses: [
+        {
+          ...operativeEvse,
+          station: operativeStation,
+          name: 'station-operative-1',
+        },
+      ],
       otherEvses: [
-        {...occupiedEvse, station: operativeStation},
-        {...offlineStationEvse, station: offlineStation},
+        {
+          ...offlineStationEvse,
+          station: offlineStation,
+          name: 'station-offline-1',
+        },
+        {
+          ...occupiedEvse,
+          station: operativeStation,
+          name: 'station-operative-2',
+        },
       ],
     })
   })
@@ -77,9 +104,21 @@ describe('getAvailableAndOtherEvses', () => {
     }
 
     expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
-      evses: [{...chargingStation.evses[0], station: chargingStation}],
+      evses: [
+        {
+          ...chargingStation.evses[0],
+          station: chargingStation,
+          name: 'station-1-1',
+        },
+      ],
       availableEvses: [],
-      otherEvses: [{...chargingStation.evses[0], station: chargingStation}],
+      otherEvses: [
+        {
+          ...chargingStation.evses[0],
+          station: chargingStation,
+          name: 'station-1-1',
+        },
+      ],
     })
   })
 
@@ -90,9 +129,21 @@ describe('getAvailableAndOtherEvses', () => {
     }
 
     expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
-      evses: [{...chargingStation.evses[0], station: chargingStation}],
+      evses: [
+        {
+          ...chargingStation.evses[0],
+          station: chargingStation,
+          name: 'station-1-1',
+        },
+      ],
       availableEvses: [],
-      otherEvses: [{...chargingStation.evses[0], station: chargingStation}],
+      otherEvses: [
+        {
+          ...chargingStation.evses[0],
+          station: chargingStation,
+          name: 'station-1-1',
+        },
+      ],
     })
   })
 
@@ -103,9 +154,21 @@ describe('getAvailableAndOtherEvses', () => {
     }
 
     expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
-      evses: [{...chargingStation.evses[0], station: chargingStation}],
+      evses: [
+        {
+          ...chargingStation.evses[0],
+          station: chargingStation,
+          name: 'station-1-1',
+        },
+      ],
       availableEvses: [],
-      otherEvses: [{...chargingStation.evses[0], station: chargingStation}],
+      otherEvses: [
+        {
+          ...chargingStation.evses[0],
+          station: chargingStation,
+          name: 'station-1-1',
+        },
+      ],
     })
   })
 
@@ -118,9 +181,21 @@ describe('getAvailableAndOtherEvses', () => {
     }
 
     expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
-      evses: [{...chargingStation.evses[0], station: chargingStation}],
+      evses: [
+        {
+          ...chargingStation.evses[0],
+          station: chargingStation,
+          name: 'station-1-1',
+        },
+      ],
       availableEvses: [],
-      otherEvses: [{...chargingStation.evses[0], station: chargingStation}],
+      otherEvses: [
+        {
+          ...chargingStation.evses[0],
+          station: chargingStation,
+          name: 'station-1-1',
+        },
+      ],
     })
   })
 
