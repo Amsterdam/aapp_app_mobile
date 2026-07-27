@@ -1,8 +1,8 @@
 import {useCallback} from 'react'
 import {Alert} from 'react-native'
-import {SafeAreaView} from 'react-native-safe-area-context'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
+import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {
@@ -51,7 +51,7 @@ export const BoatChargingSessionButtons = () => {
 
   return (
     <Box variant="distinct">
-      <SafeAreaView edges={['bottom']}>
+      <SafeArea bottom>
         {isCharging ? (
           <Button
             isError={isErrorStopSession}
@@ -78,7 +78,7 @@ export const BoatChargingSessionButtons = () => {
             />
           </Column>
         )}
-      </SafeAreaView>
+      </SafeArea>
     </Box>
   )
 }
