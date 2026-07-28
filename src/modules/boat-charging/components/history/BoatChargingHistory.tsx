@@ -96,7 +96,7 @@ export const BoatChargingHistory = () => {
     BoatChargingHistoryInfiniteItem,
     PaginationQueryArgs
   >(
-    emptyBoatChargingHistoryItem,
+    dummyBoatChargingHistoryItem,
     boatChargingApi.endpoints[BoatChargingEndpointName.boatChargingSessions],
     'id',
     useBoatChargingSessionsQuery,
