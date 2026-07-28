@@ -23,12 +23,14 @@ type Props = {
   children: ReactNode
   id: BoatChargingSession['id']
   shouldPollSession?: boolean
+  shouldPollSocketStatus?: boolean
 }
 
 export const BoatChargingSessionProvider = ({
   id,
   children,
   shouldPollSession = true,
+  shouldPollSocketStatus = true,
 }: Props) => {
   const [isNotPluggedInErrorVisible, setIsNotPluggedInErrorVisible] =
     useState(false)
@@ -46,7 +48,7 @@ export const BoatChargingSessionProvider = ({
   })
 
   const {data: socketStatus} = useBoatChargingSocketStatusQuery(
-    id ?? skipToken,
+    shouldPollSocketStatus ? (id ?? skipToken) : skipToken,
     {
       pollingInterval:
         isFocused &&
