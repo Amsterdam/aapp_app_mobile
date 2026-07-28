@@ -1,15 +1,41 @@
+import {memo} from 'react'
 import type {BoatChargingSession} from '@/modules/boat-charging/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
+import {Box} from '@/components/ui/containers/Box'
+import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatNumber} from '@/utils/formatNumber'
 
+export type BoatChargingSessionOrDummy =
+  | (BoatChargingSession & {dummy?: never})
+  | {dummy: true; start_date_time: string}
+
 type Props = {
-  session: BoatChargingSession
+  session: BoatChargingSessionOrDummy
 }
 
-export const BoatChargingHistoryItem = ({session}: Props) => {
+export const BoatChargingHistoryItem = memo(({session}: Props) => {
+  const {navigate} = useNavigation()
+
+  if (('dummy' in session && session.dummy) || !session.location) {
+    return (
+      <Box insetTop="md">
+        <Skeleton isLoading>
+          <NavigationButton
+            chevronColor="secondary"
+            chevronSize="md"
+            icon={{color: 'link', name: 'lightning', size: 'lg'}}
+            onPress={() => null}
+            testID="BoatChargingHistoryDummyNavigationButton"
+            title="Laden"
+          />
+        </Skeleton>
+      </Box>
+    )
+  }
+
   const elements = [
     typeof session.total_cost === 'number'
       ? formatNumber(session.total_cost * 1.21, session.currency)
@@ -17,7 +43,6 @@ export const BoatChargingHistoryItem = ({session}: Props) => {
     typeof session.kwh === 'number' ? formatKWH(session.kwh) : null,
   ].filter(Boolean)
   const description = elements.join(' - ')
-  const {navigate} = useNavigation()
 
   return (
     <NavigationButton
@@ -34,4 +59,4 @@ export const BoatChargingHistoryItem = ({session}: Props) => {
       title={session.location.name}
     />
   )
-}
+})

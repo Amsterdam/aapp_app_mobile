@@ -1,4 +1,5 @@
 import type {Address} from '@/modules/address/types'
+import type {PaginationQueryArgs} from '@/types/api'
 import type {Feature, Point} from 'geojson'
 
 export enum BoatChargingEndpointName {
@@ -129,6 +130,8 @@ export type BoatChargingSession = {
   status: SessionStatus
   total_cost: number
 }
+
+export type BoatChargingSessionsEndpointRequest = PaginationQueryArgs
 
 export type BoatChargingTerms = {
   content: string

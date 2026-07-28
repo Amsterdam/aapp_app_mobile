@@ -21,9 +21,12 @@ export const BoatChargingSessionsProvider = ({
     isLoading,
     isError,
     refetch: refetchSessions,
-  } = useBoatChargingSessionsQuery(undefined, {
-    skip: !isLoggedIn,
-  })
+  } = useBoatChargingSessionsQuery(
+    {},
+    {
+      skip: !isLoggedIn,
+    },
+  )
 
   const activeSessions = getActiveSessions(data?.result)
 
