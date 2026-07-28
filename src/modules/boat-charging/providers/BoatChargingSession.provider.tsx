@@ -1,6 +1,6 @@
+import {useIsFocused} from '@react-navigation/native'
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState, type ReactNode} from 'react'
-import {useInterval} from '@/hooks/useInterval'
 import {BoatChargingSessionContext} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {
@@ -23,61 +23,42 @@ type Props = {
   children: ReactNode
   id: BoatChargingSession['id']
   shouldPollSession?: boolean
-  shouldPollSocketStatus?: boolean
 }
 
 export const BoatChargingSessionProvider = ({
   id,
   children,
-  shouldPollSocketStatus = true,
   shouldPollSession = true,
 }: Props) => {
   const [isNotPluggedInErrorVisible, setIsNotPluggedInErrorVisible] =
     useState(false)
   const {isLoggedIn} = useIsLoggedIn()
+  const isFocused = useIsFocused()
 
   const {
     data: session,
     isLoading,
     isError,
     fulfilledTimeStamp,
-    refetch: refetchSession,
   } = useBoatChargingSessionQuery(id, {
+    pollingInterval: isFocused && shouldPollSession && isLoggedIn ? 30000 : 0,
     skip: !isLoggedIn || !id,
   })
 
-  const {data: socketStatus, refetch: refetchSocketStatus} =
-    useBoatChargingSocketStatusQuery(
-      shouldPollSocketStatus ? (id ?? skipToken) : skipToken,
-      {
-        skip: !id,
-      },
-    )
+  const {data: socketStatus} = useBoatChargingSocketStatusQuery(
+    id ?? skipToken,
+    {
+      pollingInterval:
+        isFocused &&
+        session?.nrg_status === NRGStatus.CheckedOut &&
+        !!session?.id
+          ? 5000
+          : 0,
+    },
+  )
   const isPluggedIn =
     socketStatus?.substatus === SocketStatus.PREPARING ||
     socketStatus?.substatus === SocketStatus.CHARGING
-
-  useInterval(
-    () => {
-      if (shouldPollSession && isLoggedIn) {
-        void refetchSession()
-      }
-    },
-    shouldPollSession && isLoggedIn ? 30000 : 0,
-  )
-
-  useInterval(
-    () => {
-      if (
-        shouldPollSocketStatus &&
-        id &&
-        session?.nrg_status === NRGStatus.CheckedOut
-      ) {
-        void refetchSocketStatus()
-      }
-    },
-    shouldPollSocketStatus && !!session?.id ? 5000 : 0,
-  )
 
   const onPressStartButtonNotPluggedIn = useCallback(() => {
     setIsNotPluggedInErrorVisible(true)
