@@ -19,7 +19,7 @@ type Props = {
 export const BoatChargingHistoryItem = memo(({session}: Props) => {
   const {navigate} = useNavigation()
 
-  if (('dummy' in session && session.dummy) || !session.location) {
+  if ('dummy' in session && session.dummy === true) {
     return (
       <Box insetTop="md">
         <Skeleton isLoading>
