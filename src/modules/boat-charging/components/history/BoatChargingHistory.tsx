@@ -69,7 +69,7 @@ const isCompletedOrDummySession = (
 ): session is BoatChargingHistoryInfiniteItem =>
   hasDummyFlag(session) || session.status === SessionStatus.COMPLETED
 
-const emptyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
+const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
   created_date_time: '1970-01-01T00:00:00Z',
   currency: 'EUR',
   dummy: true,
