@@ -11,8 +11,8 @@ export const BoatChargingMapNavigationButton = () => {
   const selectChargingPoint = useSelectChargingPoint()
 
   const onPress = useCallback(() => {
-    selectChargingPoint(session?.location.id ?? '')
     navigate(BoatChargingRouteName.boatCharging)
+    setTimeout(() => selectChargingPoint(session?.location.id ?? ''), 500)
   }, [session?.location.id, navigate, selectChargingPoint])
 
   return (
