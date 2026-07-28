@@ -21,9 +21,10 @@ ruleTester.run('no-type-import-for-function-component', rule, {
   ],
   invalid: [
     {
-      code: "import type {Column} from '@/components/ui/layout/Column'\nexport const Test = () => <Column />",
-      output:
-        "import {Column} from '@/components/ui/layout/Column'\nexport const Test = () => <Column />",
+      code: `import type {Column} from '@/components/ui/layout/Column'
+export const Test = () => <Column />`,
+      output: `import {Column} from '@/components/ui/layout/Column'
+export const Test = () => <Column />`,
       errors: [
         {
           messageId: 'noTypeImportForFunctionComponent',
@@ -32,9 +33,10 @@ ruleTester.run('no-type-import-for-function-component', rule, {
       ],
     },
     {
-      code: "import {type Column, type ColumnProps} from '@/components/ui/layout/Column'\nexport const Test = () => <Column />",
-      output:
-        "import {Column, type ColumnProps} from '@/components/ui/layout/Column'\nexport const Test = () => <Column />",
+      code: `import {type Column, type ColumnProps} from '@/components/ui/layout/Column'
+export const Test = () => <Column />`,
+      output: `import {Column, type ColumnProps} from '@/components/ui/layout/Column'
+export const Test = () => <Column />`,
       errors: [
         {
           messageId: 'noTypeImportForFunctionComponent',
@@ -43,9 +45,10 @@ ruleTester.run('no-type-import-for-function-component', rule, {
       ],
     },
     {
-      code: "import type {Column as LayoutColumn} from '@/components/ui/layout/Column'\nexport const Test = () => <LayoutColumn />",
-      output:
-        "import {Column as LayoutColumn} from '@/components/ui/layout/Column'\nexport const Test = () => <LayoutColumn />",
+      code: `import type {Column as LayoutColumn} from '@/components/ui/layout/Column'
+export const Test = () => <LayoutColumn />`,
+      output: `import {Column as LayoutColumn} from '@/components/ui/layout/Column'
+export const Test = () => <LayoutColumn />`,
       errors: [
         {
           messageId: 'noTypeImportForFunctionComponent',
@@ -54,9 +57,10 @@ ruleTester.run('no-type-import-for-function-component', rule, {
       ],
     },
     {
-      code: "import type DefaultColumn from '@/components/ui/layout/Column'\nexport const Test = () => <DefaultColumn />",
-      output:
-        "import DefaultColumn from '@/components/ui/layout/Column'\nexport const Test = () => <DefaultColumn />",
+      code: `import type DefaultColumn from '@/components/ui/layout/Column'
+export const Test = () => <DefaultColumn />`,
+      output: `import DefaultColumn from '@/components/ui/layout/Column'
+export const Test = () => <DefaultColumn />`,
       errors: [
         {
           messageId: 'noTypeImportForFunctionComponent',
@@ -65,9 +69,10 @@ ruleTester.run('no-type-import-for-function-component', rule, {
       ],
     },
     {
-      code: "import type {Column, ColumnProps} from '@/components/ui/layout/Column'\nexport const Test = () => <Column />",
-      output:
-        "import {Column, type ColumnProps} from '@/components/ui/layout/Column'\nexport const Test = () => <Column />",
+      code: `import type {Column, ColumnProps} from '@/components/ui/layout/Column'
+export const Test = () => <Column />`,
+      output: `import {Column, type ColumnProps} from '@/components/ui/layout/Column'
+export const Test = () => <Column />`,
       errors: [
         {
           messageId: 'noTypeImportForFunctionComponent',
