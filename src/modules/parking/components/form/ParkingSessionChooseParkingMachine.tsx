@@ -79,10 +79,10 @@ export const ParkingSessionChooseParkingMachine = ({
         !!selectedParkingMachineId &&
         !errors.parking_machine && (
           <SwitchField
-            accessibilityLabel="Stel in als favoriet"
+            accessibilityLabel="Als favoriet instellen"
             control={control}
             defaultValue={false}
-            label={<Phrase>Opslaan als standaard</Phrase>}
+            label={<Phrase>Als favoriet instellen</Phrase>}
             name="parking_machine_favorite"
             testID="ParkingSessionChooseParkingMachineFavoriteSwitch"
           />
