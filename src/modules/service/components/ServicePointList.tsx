@@ -1,7 +1,9 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import {FlatList} from 'react-native'
+import {FlatList, StyleSheet} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import type {Service, ServicePointFeature} from '@/modules/service/types'
+import type {Theme} from '@/themes/themes'
 import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
@@ -15,7 +17,6 @@ import {
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {convertGeometryToPoint} from '@/components/features/map/utils/convertGeometryToPoint'
 import {Box} from '@/components/ui/containers/Box'
-import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -27,6 +28,7 @@ import {ServicePointEmptyList} from '@/modules/service/components/ServicePointEm
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
 import {useServiceQuery} from '@/modules/service/service'
 import {layoutStyles} from '@/styles/layoutStyles'
+import {useThemable} from '@/themes/useThemable'
 import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
 
 export const ServicePointList = ({
@@ -36,6 +38,8 @@ export const ServicePointList = ({
   id: Service['id']
   onMapElementPress: (id: ServicePointFeature['id']) => void
 }) => {
+  const insets = useSafeAreaInsets()
+  const styles = useThemable(createStyles(insets))
   const {
     data: service,
     isLoading,
@@ -87,68 +91,68 @@ export const ServicePointList = ({
   }
 
   return (
-    <SafeArea
-      bottom
-      flex={1}>
-      <Box
-        grow
-        insetBottom="md">
-        <FlatList
-          contentContainerStyle={layoutStyles.grow}
-          data={servicePointsByDistance}
-          keyExtractor={point => String(point.id)}
-          ListEmptyComponent={ServicePointEmptyList}
-          ListHeaderComponent={
-            <>
-              {!!filters?.length && (
-                <Box insetVertical="smd">
-                  <MapFilters testID="ServiceListFilters" />
-                </Box>
-              )}
-              {!!layers?.length && (
-                <Box
-                  insetRight="md"
-                  insetVertical="smd">
-                  <MapControlsButton
-                    accessibilityLabel="Kaartlagen weergeven"
-                    icon={{name: 'layers'}}
-                    onPress={onPressLayersButton}
-                    testID="ServicePointListLayersButton"
-                    text="Kaartlagen"
-                  />
-                </Box>
-              )}
-
-              <Box insetHorizontal="md">
-                <Column gutter="lg">
-                  <AddressSwitch
-                    moduleSlug={ModuleSlug.service}
-                    testID="ServicePointListAddressSwitch"
-                  />
-
-                  {!!address && (
-                    <Phrase color="secondary">
-                      Resultaten gesorteerd op afstand:
-                    </Phrase>
-                  )}
-                </Column>
-              </Box>
-            </>
-          }
-          renderItem={({item: servicePoint}) => (
-            <ServicePointListItem
-              icon={
-                servicePoint.properties.aapp_icon_type
-                  ? icons?.[servicePoint.properties.aapp_icon_type]
-                  : undefined
-              }
-              listProperty={service.list_property}
-              onPress={onMapElementPress}
-              servicePoint={servicePoint}
-            />
+    <FlatList
+      contentContainerStyle={[layoutStyles.grow, styles.contentContainer]}
+      data={servicePointsByDistance}
+      keyExtractor={point => String(point.id)}
+      ListEmptyComponent={ServicePointEmptyList}
+      ListHeaderComponent={
+        <>
+          {!!filters?.length && (
+            <Box insetVertical="smd">
+              <MapFilters testID="ServiceListFilters" />
+            </Box>
           )}
+          {!!layers?.length && (
+            <Box
+              insetRight="md"
+              insetVertical="smd">
+              <MapControlsButton
+                accessibilityLabel="Kaartlagen weergeven"
+                icon={{name: 'layers'}}
+                onPress={onPressLayersButton}
+                testID="ServicePointListLayersButton"
+                text="Kaartlagen"
+              />
+            </Box>
+          )}
+
+          <Box insetHorizontal="md">
+            <Column gutter="lg">
+              <AddressSwitch
+                moduleSlug={ModuleSlug.service}
+                testID="ServicePointListAddressSwitch"
+              />
+
+              {!!address && (
+                <Phrase color="secondary">
+                  Resultaten gesorteerd op afstand:
+                </Phrase>
+              )}
+            </Column>
+          </Box>
+        </>
+      }
+      renderItem={({item: servicePoint}) => (
+        <ServicePointListItem
+          icon={
+            servicePoint.properties.aapp_icon_type
+              ? icons?.[servicePoint.properties.aapp_icon_type]
+              : undefined
+          }
+          listProperty={service.list_property}
+          onPress={onMapElementPress}
+          servicePoint={servicePoint}
         />
-      </Box>
-    </SafeArea>
+      )}
+    />
   )
 }
+
+const createStyles =
+  (insets: ReturnType<typeof useSafeAreaInsets>) => (theme: Theme) =>
+    StyleSheet.create({
+      contentContainer: {
+        paddingBottom: theme.size.spacing.md + insets.bottom,
+      },
+    })
