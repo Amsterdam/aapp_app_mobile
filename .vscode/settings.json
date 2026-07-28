@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "*.yml": "azure-pipelines"
+    "**/pipelines/**/*.yml": "azure-pipelines",
+    "**/.github/**/*.yml": "github-actions-workflow"
   },
   "reduxdev.port": 8000,
   "reduxdev.hostname": "localhost",
