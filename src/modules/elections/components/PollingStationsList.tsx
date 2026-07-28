@@ -13,7 +13,7 @@ import {PollingStationsListItem} from '@/modules/elections/components/PollingSta
 import {PollingStation} from '@/modules/elections/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {getDistance} from '@/utils/getDistance'
-import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
+import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 
 type Props = {
   isError: boolean

@@ -2,7 +2,7 @@ import type {ParkingMachine} from '@/modules/parking/types'
 import type {ServicePointFeature} from '@/modules/service/types'
 import type {Coordinates} from '@/types/location'
 import {type Address, AddressCity} from '@/modules/address/types'
-import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
+import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 
 describe('sortByDistanceToAddress', () => {
   const parkingMachines: ParkingMachine[] = [

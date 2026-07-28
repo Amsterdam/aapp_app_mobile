@@ -17,12 +17,12 @@ import {
   ParkingOrderType,
   ParkingSessionsEndpointRequest,
 } from '@/modules/parking/types'
-import {
-  dummyTitle,
-  groupParkingSessionsByDate,
-} from '@/modules/parking/utils/groupParkingSessionsByDate'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
+import {
+  dummyTitle,
+  getSectionsSortedByDate,
+} from '@/utils/sort/getSectionsSortedByDate'
 
 type ParkingHistorySessionOrDummy =
   | (ParkingHistorySession & {dummy?: never})
@@ -109,7 +109,7 @@ export const ParkingSessionHistoryList = ({
         item.order_type === ParkingOrderType.session,
     )
 
-    return groupParkingSessionsByDate(sessionsOnly, sortAscending)
+    return getSectionsSortedByDate(sessionsOnly, sortAscending)
   }, [result, sortAscending])
 
   return (

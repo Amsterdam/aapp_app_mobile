@@ -15,13 +15,13 @@ import {
   ParkingSessionsEndpointRequest,
   ParkingSessionStatus,
 } from '@/modules/parking/types'
+import {layoutStyles} from '@/styles/layoutStyles'
+import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
 import {
   Section,
   dummyTitle,
-  groupParkingSessionsByDate,
-} from '@/modules/parking/utils/groupParkingSessionsByDate'
-import {layoutStyles} from '@/styles/layoutStyles'
-import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
+  getSectionsSortedByDate,
+} from '@/utils/sort/getSectionsSortedByDate'
 
 type Props = {
   ListEmptyComponent?: ComponentType
@@ -116,7 +116,7 @@ export const ParkingSessionsList = ({
 
   const sections = useMemo(
     () =>
-      groupParkingSessionsByDate<ParkingSessionOrDummy>(
+      getSectionsSortedByDate<ParkingSessionOrDummy>(
         result.data,
         sortAscending,
       ),
