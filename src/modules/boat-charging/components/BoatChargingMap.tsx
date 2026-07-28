@@ -12,6 +12,7 @@ import {
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {BoatChargingMapSelectionEffect} from '@/modules/boat-charging/components/BoatChargingMapSelectionEffect'
 import {BoatChargingMarker} from '@/modules/boat-charging/components/BoatChargingMarker'
 import {useSelectedBoatChargingPointId} from '@/modules/boat-charging/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -67,6 +68,7 @@ export const BoatChargingMap = ({
       FilterComponent={<MapFilters testID="BoatChargingMapFilters" />}
       moduleSlug={ModuleSlug['boat-charging']}
       onRegionChangeComplete={setRegion}>
+      <BoatChargingMapSelectionEffect geojson={geojson} />
       <Clusterer
         data={filteredFeatures}
         region={region}
