@@ -94,7 +94,7 @@ export const ParkingMachineBottomSheetContent = () => {
           <Title
             level="h4"
             ref={autoFocus}
-            text={`${selectedParkingMachineId} parkeerautomaat `}
+            text={`${selectedParkingMachineId} parkeerautomaat`}
           />
 
           {currentPermit?.parking_machine_favorite === parkingMachine.id && (
