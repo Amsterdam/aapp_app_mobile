@@ -5,7 +5,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
-import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {parkingApi, useParkingSessionsQuery} from '@/modules/parking/service'
@@ -22,6 +21,7 @@ import {
   groupParkingSessionsByDate,
 } from '@/modules/parking/utils/groupParkingSessionsByDate'
 import {layoutStyles} from '@/styles/layoutStyles'
+import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
 
 type Props = {
   ListEmptyComponent?: ComponentType
