@@ -53,7 +53,7 @@ export const BoatChargingDetailsSocketRadioGroup = ({
       {!!notSelectableEvses.length &&
         notSelectableEvses.map(({station, status, name}) => (
           <Row key={name}>
-            {!!availableEvses.length && (
+            {!!selectableEvses.length && (
               <Size width={EMPTY_RADIO_PLACEHOLDER_SIZE} />
             )}
             <BoatChargingSocketRadioLabel

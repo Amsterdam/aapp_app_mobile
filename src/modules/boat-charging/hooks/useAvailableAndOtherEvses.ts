@@ -28,11 +28,7 @@ export const getAvailableAndOtherEvses = (
       status === ChargingPointStatus.OPERATIVE,
   )
 
-  const otherEvses = evses.filter(
-    ({status, station}) =>
-      station.status !== ChargingPointStatus.OPERATIVE ||
-      status !== ChargingPointStatus.OPERATIVE,
-  )
+  const otherEvses = evses.filter(evse => !availableEvses.includes(evse))
 
   return {
     evses,
