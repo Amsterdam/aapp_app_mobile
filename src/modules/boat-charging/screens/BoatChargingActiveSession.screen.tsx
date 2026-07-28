@@ -17,7 +17,8 @@ export const BoatChargingActiveSessionScreen = ({route}: Props) => (
       hasStickyAlert
       scroll
       stickyFooter={<BoatChargingSessionButtons />}
-      testID="BoatChargingActiveSessionScreen">
+      testID="BoatChargingActiveSessionScreen"
+      withBottomInset={false}>
       <BoatChargingSession />
     </Screen>
   </BoatChargingSessionProvider>

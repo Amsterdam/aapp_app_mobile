@@ -1,5 +1,8 @@
+import {useCallback} from 'react'
+import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
+import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {
@@ -21,40 +24,61 @@ export const BoatChargingSessionButtons = () => {
     {isLoading: isLoadingStopSession, isError: isErrorStopSession},
   ] = useBoatChargingStopSessionMutation()
 
+  const stop = useCallback(() => {
+    if (!session) return
+
+    Alert.alert(
+      'Wilt u het laden stoppen?',
+      undefined,
+      [
+        {
+          text: 'Annuleren',
+          style: 'cancel',
+        },
+        {
+          isPreferred: true,
+          text: 'Laden stoppen',
+          onPress: () => stopSession(session.id),
+        },
+      ],
+      {cancelable: true},
+    )
+  }, [stopSession, session])
+
   if (!session) {
     return null
   }
 
   return (
     <Box variant="distinct">
-      {isCharging ? (
-        <Button
-          isError={isErrorStopSession}
-          isLoading={isLoadingStopSession}
-          label="Stop laden"
-          onPress={() => {
-            void stopSession(session.id)
-          }}
-          testID="BoatChargingSessionButtonsStopButton"
-          variant="secondary"
-        />
-      ) : (
-        <Column gutter="smd">
+      <SafeArea bottom>
+        {isCharging ? (
           <Button
-            isError={isErrorStartSession}
-            isLoading={isLoadingStartSession}
-            label="Start laden"
-            onPress={() => {
-              if (isPluggedIn) {
-                void startSession(session.id)
-              } else {
-                onPressStartButtonNotPluggedIn()
-              }
-            }}
-            testID="BoatChargingSessionButtonsStartButton"
+            isError={isErrorStopSession}
+            isLoading={isLoadingStopSession}
+            label="Stop laden"
+            onPress={stop}
+            testID="BoatChargingSessionButtonsStopButton"
+            variant="secondary"
           />
-        </Column>
-      )}
+        ) : (
+          <Column gutter="smd">
+            <Button
+              isError={isErrorStartSession}
+              isLoading={isLoadingStartSession}
+              label="Start laden"
+              onPress={() => {
+                if (isPluggedIn) {
+                  void startSession(session.id)
+                } else {
+                  onPressStartButtonNotPluggedIn()
+                }
+              }}
+              testID="BoatChargingSessionButtonsStartButton"
+            />
+          </Column>
+        )}
+      </SafeArea>
     </Box>
   )
 }
