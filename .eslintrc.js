@@ -249,6 +249,12 @@ module.exports = {
         'sonarjs/no-undefined-argument': 'off',
       },
     },
+    {
+      files: ['eslint-plugin-amsterdam/*.test.ts'],
+      rules: {
+        'amsterdam/prefer-multiline-eslint-test-strings': 'warn',
+      },
+    },
     // Storybook config folder and stories
     {
       files: ['.storybook/**/*', '*.stories.tsx'],
