@@ -12,9 +12,11 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components/bottomsheet/BoatChargingPointDetailsButton'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
+import {useAvailableAndOtherEvses} from '@/modules/boat-charging/hooks/useAvailableAndOtherEvses'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {
@@ -59,10 +61,8 @@ export const BoatChargingPointDetails = () => {
     return [maxKw, rate].filter(Boolean).join(' - ')
   }, [location])
 
-  const sockets =
-    location?.charging_stations.flatMap(station => station.evses) ?? []
-  const freeSockets = sockets.filter(
-    s => s.status === ChargingPointStatus.OPERATIVE,
+  const {availableEvses, evses} = useAvailableAndOtherEvses(
+    location?.charging_stations ?? [],
   )
 
   if (isLoading) {
@@ -79,9 +79,9 @@ export const BoatChargingPointDetails = () => {
 
   const {address, status} = location
 
-  const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[sockets.length]}`
-  const availableSocketsSentence = `${freeSockets.length} van ${sockets.length} ${pluralizedSockets} vrij`
-  const socketsSentenceMalfunction = `${sockets.length} ${pluralizedSockets}`
+  const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[evses.length]}`
+  const availableSocketsSentence = `${availableEvses.length} van ${evses.length} ${pluralizedSockets} vrij`
+  const socketsSentenceMalfunction = `${evses.length} ${pluralizedSockets}`
 
   return (
     <Box
@@ -91,7 +91,7 @@ export const BoatChargingPointDetails = () => {
         <Title
           level="h3"
           ref={autoFocus}
-          text={address.street + ' ' + address.number}
+          text={getAddressLine1(address)}
         />
         <Column gutter="xs">
           <Row gutter="sm">

@@ -10,7 +10,10 @@ type Props =
   NavigationProps<BoatChargingRouteName.boatChargingHistorySessionDetails>
 
 export const BoatChargingHistorySessionDetailsScreen = ({route}: Props) => (
-  <BoatChargingSessionProvider id={route.params.id}>
+  <BoatChargingSessionProvider
+    id={route.params.id}
+    shouldPollSession={false}
+    shouldPollSocketStatus={false}>
     <Screen
       bottomSheet={<BoatChargingHistorySessionCostDetailsBottomSheet />}
       hasStickyAlert

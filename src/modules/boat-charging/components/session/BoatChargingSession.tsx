@@ -61,7 +61,10 @@ export const BoatChargingSession = () => {
               variant="negative"
             />
           )}
-          <BoatChargingSessionSocket socketNumber={session?.socket_number} />
+          <BoatChargingSessionSocket
+            socketNumber={session?.socket_number}
+            stationId={session?.station_id}
+          />
           <Divider />
         </Column>
         <BoatChargingMapNavigationButton />

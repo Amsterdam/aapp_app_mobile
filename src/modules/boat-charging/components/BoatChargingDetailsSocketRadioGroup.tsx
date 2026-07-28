@@ -1,10 +1,10 @@
-import {useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {RadioGroupControlled} from '@/components/ui/forms/RadioGroupControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Size} from '@/components/ui/layout/Size'
 import {BoatChargingSocketRadioLabel} from '@/modules/boat-charging/components/BoatChargingSocketRadioLabel'
+import {useAvailableAndOtherEvses} from '@/modules/boat-charging/hooks/useAvailableAndOtherEvses'
 import {
   ChargingPointStatus,
   type ChargingStation,
@@ -22,53 +22,47 @@ export const BoatChargingDetailsSocketRadioGroup = ({
 }) => {
   const form = useFormContext<{socketId: string}>()
 
-  const [availableSockets, otherSockets] = useMemo(
-    () => [
-      hasActiveSession
-        ? []
-        : chargingStations.filter(
-            station => station.status === ChargingPointStatus.OPERATIVE,
-          ),
-      hasActiveSession
-        ? chargingStations
-        : chargingStations.filter(
-            station => station.status !== ChargingPointStatus.OPERATIVE,
-          ),
-    ],
-    [chargingStations, hasActiveSession],
-  )
-
-  const extraPadding = otherSockets.some(
+  const {availableEvses, otherEvses, evses} =
+    useAvailableAndOtherEvses(chargingStations)
+  const extraPadding = otherEvses.some(
     ({status}) => status === ChargingPointStatus.UNKNOWN,
   )
 
+  const selectableEvses = hasActiveSession ? [] : availableEvses
+  const notSelectableEvses = hasActiveSession ? evses : otherEvses
+
   return (
     <Column gutter="md">
-      {!!availableSockets.length && (
+      {!!selectableEvses.length && (
         <RadioGroupControlled
           {...form}
           name="socketId"
-          options={availableSockets.map(socket => ({
+          options={selectableEvses.map(({station, name}) => ({
             label: (
               <BoatChargingSocketRadioLabel
-                id={socket.id}
+                name={name}
                 status={ChargingPointStatus.OPERATIVE}
                 width={extraPadding ? 'wide' : 'default'}
               />
             ),
-            value: socket.id,
+            value: station.id,
           }))}
           testID="BoatChargingDetailsChooseSocketRadioGroup"
         />
       )}
-      {!!otherSockets.length &&
-        otherSockets.map(socket => (
-          <Row key={socket.id}>
-            {!!availableSockets.length && (
+      {!!notSelectableEvses.length &&
+        notSelectableEvses.map(({station, status, name}) => (
+          <Row key={name}>
+            {!!selectableEvses.length && (
               <Size width={EMPTY_RADIO_PLACEHOLDER_SIZE} />
             )}
             <BoatChargingSocketRadioLabel
-              {...socket}
+              name={name}
+              status={
+                status === ChargingPointStatus.OPERATIVE
+                  ? station.status
+                  : status
+              }
               width={extraPadding ? 'wide' : 'default'}
             />
           </Row>
