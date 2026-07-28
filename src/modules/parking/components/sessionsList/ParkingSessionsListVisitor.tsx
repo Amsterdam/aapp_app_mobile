@@ -10,11 +10,11 @@ import {
   ParkingSessionOrDummy,
   ParkingSessionStatus,
 } from '@/modules/parking/types'
+import {layoutStyles} from '@/styles/layoutStyles'
 import {
   dummyTitle,
-  groupParkingSessionsByDate,
-} from '@/modules/parking/utils/groupParkingSessionsByDate'
-import {layoutStyles} from '@/styles/layoutStyles'
+  getSectionsSortedByDate,
+} from '@/utils/sort/getSectionsSortedByDate'
 
 type Props = {
   ListEmptyComponent?: ComponentType
@@ -32,7 +32,7 @@ export const ParkingSessionsListVisitor = ({
   const {parkingSessions, isLoading} = useGetParkingSessions(status)
   const sections = useMemo(
     () =>
-      groupParkingSessionsByDate<ParkingSessionOrDummy>(
+      getSectionsSortedByDate<ParkingSessionOrDummy>(
         parkingSessions,
         sortAscending,
       ),

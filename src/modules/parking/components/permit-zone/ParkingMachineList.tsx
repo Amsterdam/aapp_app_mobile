@@ -13,7 +13,7 @@ import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
-import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
+import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 
 export const ParkingMachineList = () => {
   const {address} = useSelectedAddress(ModuleSlug.parking)

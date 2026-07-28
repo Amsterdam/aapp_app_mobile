@@ -13,6 +13,7 @@ import {
   type BoatChargingSession,
   type BoatChargingSessionInitRequest,
   type BoatChargingSessionInitResponse,
+  type BoatChargingSessionsEndpointRequest,
   type BoatChargingSettings,
   type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
@@ -96,11 +97,12 @@ export const boatChargingApi = baseApi.injectEndpoints({
     }),
     [BoatChargingEndpointName.boatChargingSessions]: builder.query<
       Paginated<BoatChargingSession>,
-      void
+      BoatChargingSessionsEndpointRequest
     >({
-      query: () => ({
+      query: params => ({
         prepareHeaders,
         method: 'GET',
+        params,
         slug: ModuleSlug['boat-charging'],
         url: '/sessions',
       }),

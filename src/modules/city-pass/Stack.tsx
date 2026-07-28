@@ -23,7 +23,7 @@ import {CityPassForgotAccessCodeScreen} from '@/modules/city-pass/screens/CityPa
 import {CityPassIntroScreen} from '@/modules/city-pass/screens/CityPassIntro.screen'
 import {LoginStepsScreen} from '@/modules/city-pass/screens/LoginSteps.screen'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
-import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
+import {sortEntriesByKeyFirst} from '@/utils/sort/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()
 

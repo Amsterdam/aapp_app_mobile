@@ -10,7 +10,6 @@ import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
 import {config} from '@/modules/construction-work/components/projects/config'
-import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {
   projectsApi,
   useProjectsQuery,
@@ -22,6 +21,7 @@ import {
 } from '@/modules/construction-work/types/api'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
+import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
 
 const emptyProjectsItem: ProjectsListItem = {
   followed: false,

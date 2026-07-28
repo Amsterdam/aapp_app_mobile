@@ -1,5 +1,5 @@
-import {compareParkingSessionsByStartDateTime} from '@/modules/parking/utils/compareParkingSessionsByStartDateTime'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
+import {compareSortableItemsByStartDateTime} from '@/utils/sort/compareSortableItemsByStartDateTime'
 
 export const dummyTitle = 'dummy'
 
@@ -8,20 +8,26 @@ export type Section<T> = {
   title: string
 }
 
-export const groupParkingSessionsByDate = <
+/**
+ * Groups an array of sortable items into sections based on their start date and time.
+ * @param sortableItems The array of sortable items to group
+ * @param sortAscending Whether to sort the items in ascending order (true) or descending order (false)
+ * @returns An array of sections, each containing a title and an array of sortable items
+ */
+export const getSectionsSortedByDate = <
   T extends {dummy?: boolean; start_date_time: string},
 >(
-  parkingSessions: Array<T> | undefined,
+  sortableItems: Array<T> | undefined,
   sortAscending: boolean,
 ): Section<T>[] =>
-  [...(parkingSessions ?? [])]
+  [...(sortableItems ?? [])]
     .sort((a, b) =>
       a.dummy || b.dummy
         ? 0
         : sortAscending
-          ? compareParkingSessionsByStartDateTime(a, b)
+          ? compareSortableItemsByStartDateTime(a, b)
           : // eslint-disable-next-line sonarjs/arguments-order
-            compareParkingSessionsByStartDateTime(b, a),
+            compareSortableItemsByStartDateTime(b, a),
     )
     .reduce<Section<T>[]>((result, session) => {
       const date = session.dummy

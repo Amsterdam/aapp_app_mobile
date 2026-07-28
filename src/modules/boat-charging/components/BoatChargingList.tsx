@@ -20,7 +20,7 @@ import {BoatChargingListItem} from '@/modules/boat-charging/components/BoatCharg
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {useThemable} from '@/themes/useThemable'
-import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
+import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 
 type Props = {
   geojson?: BoatChargingGeoJSON

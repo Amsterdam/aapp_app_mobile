@@ -5,7 +5,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
-import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
@@ -18,11 +17,12 @@ import {
   ParkingOrderType,
   ParkingSessionsEndpointRequest,
 } from '@/modules/parking/types'
+import {layoutStyles} from '@/styles/layoutStyles'
+import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
 import {
   dummyTitle,
-  groupParkingSessionsByDate,
-} from '@/modules/parking/utils/groupParkingSessionsByDate'
-import {layoutStyles} from '@/styles/layoutStyles'
+  getSectionsSortedByDate,
+} from '@/utils/sort/getSectionsSortedByDate'
 
 type ParkingHistorySessionOrDummy =
   | (ParkingHistorySession & {dummy?: never})
@@ -42,7 +42,6 @@ export const ParkingSessionHistoryList = ({
   sortAscending = false,
 }: Props) => {
   const currentPermit = useCurrentParkingPermit()
-
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
   const page = getCurrentPage(viewableItemIndex, 1, pageSize)
 
@@ -110,7 +109,7 @@ export const ParkingSessionHistoryList = ({
         item.order_type === ParkingOrderType.session,
     )
 
-    return groupParkingSessionsByDate(sessionsOnly, sortAscending)
+    return getSectionsSortedByDate(sessionsOnly, sortAscending)
   }, [result, sortAscending])
 
   return (

@@ -19,9 +19,9 @@ import {
   ParkingTransaction,
   ParkingTransactionsEndpointRequest,
 } from '@/modules/parking/types'
-import {groupParkingSessionsByDate} from '@/modules/parking/utils/groupParkingSessionsByDate'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {formatNumber} from '@/utils/formatNumber'
+import {getSectionsSortedByDate} from '@/utils/sort/getSectionsSortedByDate'
 
 const ListEmptyComponent = () => (
   <EmptyList
@@ -115,7 +115,7 @@ export const ParkingMoneyTransactionsList = () => {
       item => item.dummy || item.order_type === ParkingOrderType.recharge,
     )
 
-    return groupParkingSessionsByDate(transactionsOnly, false)
+    return getSectionsSortedByDate(transactionsOnly, false)
   }, [result])
 
   return (

@@ -23,7 +23,7 @@ import {
   useParkingAccountIsLoggingIn,
   useParkingAccountIsLoggingOut,
 } from '@/modules/parking/slice'
-import {sortEntriesByKeyFirst} from '@/utils/sortEntriesByKeyFirst'
+import {sortEntriesByKeyFirst} from '@/utils/sort/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()
 

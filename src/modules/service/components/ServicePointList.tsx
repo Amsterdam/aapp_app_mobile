@@ -29,7 +29,7 @@ import {ServicePointListItem} from '@/modules/service/components/ServicePointLis
 import {useServiceQuery} from '@/modules/service/service'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {useThemable} from '@/themes/useThemable'
-import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
+import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 
 export const ServicePointList = ({
   id: serviceId,

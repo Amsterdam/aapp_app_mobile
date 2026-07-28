@@ -8,7 +8,7 @@ import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/P
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {type ParkingMachine} from '@/modules/parking/types'
 import {layoutStyles} from '@/styles/layoutStyles'
-import {sortByDistanceToAddress} from '@/utils/sortByDistanceToAddress'
+import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 
 type Props = {
   isSearching: boolean
