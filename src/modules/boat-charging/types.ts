@@ -119,6 +119,7 @@ export type BoatChargingOIDCConfigResponse = {
 export type BoatChargingSession = {
   created_date_time: string
   currency: 'EUR'
+  email: string
   end_date_time: string
   id: string
   kwh: number

@@ -1,4 +1,5 @@
 import {MetaDataCard} from '@/components/ui/MetaDataCard'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
@@ -8,7 +9,25 @@ import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingHistorySessionDetails = () => {
-  const {session, chargingTimeString, settings} = useBoatChargingSession()
+  const {session, chargingTimeString, settings, isLoading} =
+    useBoatChargingSession()
+
+  const {
+    email,
+    station_id,
+    socket_number,
+    location,
+    start_date_time,
+    end_date_time,
+    id,
+    kwh,
+    total_cost,
+    currency,
+  } = session ?? {}
+
+  if (isLoading) {
+    return <PleaseWait testID="BoatChargingHistorySessionDetailsPleaseWait" />
+  }
 
   if (!session) {
     return <Phrase>Geen sessie gevonden</Phrase>
@@ -17,52 +36,69 @@ export const BoatChargingHistorySessionDetails = () => {
   return (
     <Column gutter="xl">
       <Column gutter="lg">
-        <Title text={session.location.name} />
+        {!!location && <Title text={location.name} />}
         <MetaDataCard
           iconName="power-plug"
           testID="BoatChargingHistorySessionDetailsSocketCard"
           title="Stopcontact">
-          <Phrase>{session.socket_number}</Phrase>
-        </MetaDataCard>
-        <MetaDataCard
-          iconName="euro-coins"
-          testID="BoatChargingHistorySessionDetailsTotalCostCard"
-          title="Totale kosten">
           <Phrase>
-            {settings?.vat_fraction
-              ? `${formatNumber(
-                  session.total_cost * settings.vat_fraction,
-                  session.currency,
-                )} inclusief btw`
-              : `${formatNumber(session.total_cost, session.currency)} exclusief btw`}
+            {station_id}-{socket_number}
           </Phrase>
         </MetaDataCard>
-        <MetaDataCard
-          iconName="lightning"
-          testID="BoatChargingHistorySessionDetailsChargedCard"
-          title="Geladen">
-          <Phrase>{formatKWH(session.kwh)}</Phrase>
-        </MetaDataCard>
+        {!!total_cost && !!currency && (
+          <MetaDataCard
+            iconName="euro-coins"
+            testID="BoatChargingHistorySessionDetailsTotalCostCard"
+            title="Totale kosten">
+            <Phrase>
+              {settings?.vat_fraction
+                ? `${formatNumber(
+                    total_cost * settings.vat_fraction,
+                    currency,
+                  )} inclusief btw`
+                : `${formatNumber(total_cost, currency)} exclusief btw`}
+            </Phrase>
+          </MetaDataCard>
+        )}
+        {!!kwh && (
+          <MetaDataCard
+            iconName="lightning"
+            testID="BoatChargingHistorySessionDetailsChargedCard"
+            title="Geladen">
+            <Phrase>{formatKWH(kwh)}</Phrase>
+          </MetaDataCard>
+        )}
         <MetaDataCard
           iconName="clock"
           testID="BoatChargingHistorySessionDetailsChargingTimeCard"
           title="Laadtijd">
-          <Phrase>{chargingTimeString}</Phrase>
-          <Phrase>
-            Start: {formatDateTimeToDisplay(session.start_date_time, true)}
-          </Phrase>
-          <Phrase>
-            Einde: {formatDateTimeToDisplay(session.end_date_time, true)}
-          </Phrase>
+          {!!chargingTimeString && <Phrase>{chargingTimeString}</Phrase>}
+          {!!start_date_time && (
+            <Phrase>
+              Start: {formatDateTimeToDisplay(start_date_time, true)}
+            </Phrase>
+          )}
+          {!!end_date_time && (
+            <Phrase>
+              Einde: {formatDateTimeToDisplay(end_date_time, true)}
+            </Phrase>
+          )}
         </MetaDataCard>
-        <Column>
-          {/* we do not get the associated emailaddress from the backend, so we cannot display it here. Using the last saved e-mail might result in showing the wrong e-mail address, so better not show it than possibly wrong.
-          <Phrase>Betaalbewijs verzonden naar</Phrase> */}
-          <Phrase
-            color="secondary"
-            variant="small">
-            Sessienummer {session.id}
-          </Phrase>
+        <Column gutter="smd">
+          {!!email && (
+            <Phrase
+              color="secondary"
+              variant="small">
+              Betaalbewijs verzonden naar {email}
+            </Phrase>
+          )}
+          {!!id && (
+            <Phrase
+              color="secondary"
+              variant="small">
+              Sessienummer {id}
+            </Phrase>
+          )}
         </Column>
       </Column>
     </Column>
