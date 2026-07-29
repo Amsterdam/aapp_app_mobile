@@ -9,12 +9,12 @@ import {List} from '@/components/ui/text/list/List'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {UserRouteName} from '@/modules/user/routes'
 
-export const AboutTheAppDutchScreen = () => {
+export const AboutScreen = () => {
   const navigation = useNavigation()
 
   return (
     <Screen
-      testID="AboutAboutTheAppDutchScreen"
+      testID="UserAboutScreen"
       withLeftInset={false}
       withRightInset={false}>
       <Column gutter="lg">
@@ -22,16 +22,16 @@ export const AboutTheAppDutchScreen = () => {
           <Box>
             <Column gutter="lg">
               <Title
-                testID="AboutAboutTheAppDutchTitle"
+                testID="UserAboutScreenTitle"
                 text="Eén app voor alle Amsterdammers"
               />
               <Paragraph
-                testID="AboutAboutTheAppDutchIntroParagraph"
+                testID="UserAboutScreenIntroParagraph"
                 variant="intro">
                 Met de Amsterdam App heeft u handige informatie bij de hand en
                 kunt u meteen iets regelen met de gemeente.
               </Paragraph>
-              <Paragraph testID="AboutAboutTheAppDutchSummaryParagraph">
+              <Paragraph testID="UserAboutScreenSummaryParagraph">
                 Dit kunt u zoal doen met de app:
               </Paragraph>
               <List
@@ -41,15 +41,15 @@ export const AboutTheAppDutchScreen = () => {
                   'Een melding doen van een volle afvalcontainer, afval op straat of iets dat stuk is',
                   'Uw Stadspas gebruiken en uw saldo bekijken',
                 ]}
-                testID="AboutTheAppDutchFeaturesList"
+                testID="UserAboutScreenFeaturesList"
               />
               <Column>
                 <Title
                   level="h2"
-                  testID="AboutAboutTheAppDutchLaterMoreTitle"
+                  testID="UserAboutScreenLaterMoreTitle"
                   text="Later meer"
                 />
-                <Paragraph testID="AboutAboutTheAppDutchFutureFeaturesParagraph">
+                <Paragraph testID="UserAboutScreenFutureFeaturesParagraph">
                   De Amsterdam App is in ontwikkeling. Uw mening is belangrijk
                   om de app te verbeteren. Laat het ons weten.
                 </Paragraph>
@@ -57,7 +57,7 @@ export const AboutTheAppDutchScreen = () => {
               <Button
                 label="Uw mening"
                 onPress={() => navigation.navigate(UserRouteName.feedback)}
-                testID="AboutAboutTheAppDutchFeedbackButton"
+                testID="UserAboutScreenFeedbackButton"
                 variant="secondary"
               />
             </Column>

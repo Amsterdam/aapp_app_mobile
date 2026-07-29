@@ -7,11 +7,7 @@ export const aboutSections: UserMenuSection[] = [
     navigationItems: [
       {
         label: 'Over deze app',
-        route: UserRouteName.appSummary,
-      },
-      {
-        label: 'About this app',
-        route: UserRouteName.aboutEnglish,
+        route: UserRouteName.about,
       },
       {
         label: 'Geef uw mening over de app',
