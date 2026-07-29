@@ -20,13 +20,21 @@ const OFFSET = {
   y: (MAP_MARKER_BASE_SIZE - ICON_SIZE) / 2 - Y_OFFSET,
 }
 
+type Props = {
+  /**
+   * Only decreases when the icon has a circleColor, otherwise the icon is already small enough to fit inside the base pin.
+   */
+  decreaseIconSize?: boolean
+  icon: ComponentProps<typeof CustomMarkerIcon>['icon']
+} & TestProps
+
 export const CustomMarker = ({
+  decreaseIconSize = true,
   icon,
   testID,
-}: {
-  icon: ComponentProps<typeof CustomMarkerIcon>['icon']
-} & TestProps) => (
+}: Props) => (
   <CustomMarkerIcon
+    decreaseIconSize={decreaseIconSize}
     icon={icon}
     offset={OFFSET}
     size={ICON_SIZE}
