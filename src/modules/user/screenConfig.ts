@@ -1,5 +1,6 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {UserRouteName, ModuleStackParams} from '@/modules/user/routes'
+import {AboutScreen} from '@/modules/user/screens/About.screen'
 import {AccessibilityStatementScreen} from '@/modules/user/screens/AccessibilityStatement.screen'
 import {FeedbackScreen} from '@/modules/user/screens/Feedback.screen'
 import {ModuleSettingsScreen} from '@/modules/user/screens/ModuleSettings.screen'
@@ -7,8 +8,6 @@ import {NotificationSettingsScreen} from '@/modules/user/screens/NotificationSet
 import {PrivacyStatementScreen} from '@/modules/user/screens/PrivacyStatement.screen'
 import {UserScreen} from '@/modules/user/screens/User.screen'
 import {UserBiometricsScreen} from '@/modules/user/screens/UserBiometrics.screen'
-import {AboutTheAppDutchScreen} from '@/modules/user/screens/about/AboutTheAppDutch.screen'
-import {AboutTheAppEnglishScreen} from '@/modules/user/screens/about/AboutTheAppEnglish.screen'
 import {AccountsScreen} from '@/modules/user/screens/my-accounts/Accounts.screen'
 import {LogoutModuleScreen} from '@/modules/user/screens/my-accounts/LogoutModule.screen'
 
@@ -52,20 +51,11 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Biometrische gegevens',
     },
   },
-  [UserRouteName.appSummary]: {
-    component: AboutTheAppDutchScreen,
-    name: UserRouteName.appSummary,
+  [UserRouteName.about]: {
+    component: AboutScreen,
+    name: UserRouteName.about,
     options: {
       headerTitle: 'Over deze app',
-    },
-    screenType: 'default',
-  },
-  [UserRouteName.aboutEnglish]: {
-    component: AboutTheAppEnglishScreen,
-    name: UserRouteName.aboutEnglish,
-    options: {
-      accessibilityLanguage: 'en-US',
-      headerTitle: 'About this app',
     },
     screenType: 'default',
   },
