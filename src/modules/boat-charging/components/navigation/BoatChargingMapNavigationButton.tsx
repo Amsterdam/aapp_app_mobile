@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import {InteractionManager} from 'react-native'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
@@ -11,8 +12,12 @@ export const BoatChargingMapNavigationButton = () => {
   const selectChargingPoint = useSelectChargingPoint()
 
   const onPress = useCallback(() => {
-    selectChargingPoint(session?.location.id ?? '')
     navigate(BoatChargingRouteName.boatCharging)
+    InteractionManager.runAfterInteractions(() => {
+      if (session?.location.id) {
+        selectChargingPoint(session.location.id)
+      }
+    })
   }, [session?.location.id, navigate, selectChargingPoint])
 
   return (
