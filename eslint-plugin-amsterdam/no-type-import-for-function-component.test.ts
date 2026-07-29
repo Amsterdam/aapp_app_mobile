@@ -13,10 +13,12 @@ ruleTester.run('no-type-import-for-function-component', rule, {
       code: "import {type ColumnProps, Column} from '@/components/ui/layout/Column'",
     },
     {
-      code: "import type {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'\ntype MarkerIcon = ComponentProps<typeof CustomMarkerIcon>['icon']",
+      code: `import type {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
+type MarkerIcon = ComponentProps<typeof CustomMarkerIcon>['icon']`,
     },
     {
-      code: "import type {Column as LayoutColumn} from '@/components/ui/layout/Column'\nconst label = 'Column'",
+      code: `import type {Column as LayoutColumn} from '@/components/ui/layout/Column'
+const label = 'Column'`,
     },
   ],
   invalid: [
