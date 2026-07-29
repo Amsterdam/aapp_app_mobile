@@ -219,7 +219,7 @@
     }
   },
   "volta": {
-    "node": "24.17.0"
+    "node": "24.18.0"
   },
   "packageManager": "npm@11.13.0"
 }
