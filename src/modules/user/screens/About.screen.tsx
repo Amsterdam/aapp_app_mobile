@@ -14,7 +14,7 @@ export const AboutScreen = () => {
 
   return (
     <Screen
-      testID="AboutScreen"
+      testID="UserAboutScreen"
       withLeftInset={false}
       withRightInset={false}>
       <Column gutter="lg">
@@ -22,16 +22,16 @@ export const AboutScreen = () => {
           <Box>
             <Column gutter="lg">
               <Title
-                testID="AboutScreenTitle"
+                testID="UserAboutScreenTitle"
                 text="Eén app voor alle Amsterdammers"
               />
               <Paragraph
-                testID="AboutScreenIntroParagraph"
+                testID="UserAboutScreenIntroParagraph"
                 variant="intro">
                 Met de Amsterdam App heeft u handige informatie bij de hand en
                 kunt u meteen iets regelen met de gemeente.
               </Paragraph>
-              <Paragraph testID="AboutScreenSummaryParagraph">
+              <Paragraph testID="UserAboutScreenSummaryParagraph">
                 Dit kunt u zoal doen met de app:
               </Paragraph>
               <List
@@ -41,15 +41,15 @@ export const AboutScreen = () => {
                   'Een melding doen van een volle afvalcontainer, afval op straat of iets dat stuk is',
                   'Uw Stadspas gebruiken en uw saldo bekijken',
                 ]}
-                testID="AboutScreenFeaturesList"
+                testID="UserAboutScreenFeaturesList"
               />
               <Column>
                 <Title
                   level="h2"
-                  testID="AboutScreenLaterMoreTitle"
+                  testID="UserAboutScreenLaterMoreTitle"
                   text="Later meer"
                 />
-                <Paragraph testID="AboutScreenFutureFeaturesParagraph">
+                <Paragraph testID="UserAboutScreenFutureFeaturesParagraph">
                   De Amsterdam App is in ontwikkeling. Uw mening is belangrijk
                   om de app te verbeteren. Laat het ons weten.
                 </Paragraph>
@@ -57,7 +57,7 @@ export const AboutScreen = () => {
               <Button
                 label="Uw mening"
                 onPress={() => navigation.navigate(UserRouteName.feedback)}
-                testID="AboutScreenFeedbackButton"
+                testID="UserAboutScreenFeedbackButton"
                 variant="secondary"
               />
             </Column>
