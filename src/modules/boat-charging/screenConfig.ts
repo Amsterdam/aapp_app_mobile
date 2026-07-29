@@ -17,7 +17,7 @@ import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/scre
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
-  BoatChargingRouteName
+  Exclude<BoatChargingRouteName, BoatChargingRouteName.loginSteps>
 > = {
   [BoatChargingRouteName.map]: {
     component: BoatChargingScreen,
@@ -67,6 +67,7 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.login,
     options: {
       headerTitle: 'Inloggen',
+      accessCodeGate: true,
     },
   },
   [BoatChargingRouteName.activeSessionDetails]: {

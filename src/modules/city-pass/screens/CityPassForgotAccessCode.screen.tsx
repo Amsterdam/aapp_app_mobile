@@ -1,4 +1,4 @@
-import {ForgotAccessCodeScreen} from '@/modules/access-code/screens/ForgotAccessCodeScreen'
+import {ForgotAccessCodeScreen} from '@/modules/access-code/screens/ForgotAccessCode.screen'
 import {useLogin} from '@/modules/city-pass/hooks/useLogin'
 
 export const CityPassForgotAccessCodeScreen = () => {

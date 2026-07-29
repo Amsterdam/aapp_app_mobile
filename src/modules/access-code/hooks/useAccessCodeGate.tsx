@@ -12,25 +12,28 @@ import {
   AccessCodeGateStateName,
   useAccessCodeGateState,
 } from '@/modules/access-code/hooks/useAccessCodeGateState'
+import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
+import {AccessCodeGateProvider} from '@/modules/access-code/providers/AccessCodeGate.provider'
 
 type AccessCodeGateConfig = {
   /**
    * If another condition needs to be met to render the accessCodeGate, it can be passed to this config option.
    * @example ```additionalGateCondition: isLoggedIn === true```
    */
-  additionalGateCondition?: boolean
+  additionalGateCondition?:
+    | boolean
+    | ((entry: StackElement<'Screen' | 'Group'>) => boolean)
   /**
    * forgotCodeScreen - The module specific configuration for the screen that allows users to reset their access code.
    */
   forgotCodeScreen?: StackNavigationRouteConfig<Record<string, unknown>>
   /**
-   * isLoginStepsActive - Indicates whether the login steps should show.
-   */
-  isLoginStepsActive?: boolean
-  /**
    * loginSteps - Defines the routes and screens that are part of the login process into the module, as part of the access-code flow.
    */
   loginSteps?: StackNavigationRoutes<Record<string, unknown>>
+  /**
+   * Navigator screen options
+   */
   screenOptions?: StackNavigationOptions
 }
 
@@ -88,8 +91,9 @@ export const useAccessCodeGate = (
   Stack: StackFactory,
   config?: AccessCodeGateConfig,
 ): AccessCodeGateFunction => {
-  const {loginSteps, isLoginStepsActive, additionalGateCondition} = config || {}
+  const {loginSteps, additionalGateCondition} = config || {}
 
+  const {isLoginStepsActive} = useLoginSteps()
   const accessCodeGateStateName = useAccessCodeGateState(isLoginStepsActive)
 
   const forgotCodeScreen = useMemo(
@@ -100,15 +104,21 @@ export const useAccessCodeGate = (
   const addAccessGateProxyToStackScreens = useCallback(
     (stack: Array<StackElement<'Screen'>>) =>
       stack.map(entry => {
-        if (entry.props.options?.accessCodeGate && additionalGateCondition) {
+        const meetsAdditionalConditions =
+          typeof additionalGateCondition === 'boolean'
+            ? additionalGateCondition
+            : additionalGateCondition?.(entry)
+
+        if (entry.props.options?.accessCodeGate && meetsAdditionalConditions) {
           return (
             <Stack.Screen
               key={entry.props.name}
+              layout={AccessCodeGateProvider}
               name={entry.props.name}
               options={{
                 ...entry.props.options,
                 headerShown:
-                  entry.props.options.headerShown !== false &&
+                  entry.props.options?.headerShown !== false &&
                   accessCodeGateStateName === AccessCodeGateStateName.allowed,
               }}>
               {stackProps =>
