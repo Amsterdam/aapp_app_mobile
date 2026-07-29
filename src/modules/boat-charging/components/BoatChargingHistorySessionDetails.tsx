@@ -60,7 +60,7 @@ export const BoatChargingHistorySessionDetails = () => {
             </Phrase>
           </MetaDataCard>
         )}
-        {!!kwh && (
+        {typeof kwh === 'number' && (
           <MetaDataCard
             iconName="lightning"
             testID="BoatChargingHistorySessionDetailsChargedCard"
