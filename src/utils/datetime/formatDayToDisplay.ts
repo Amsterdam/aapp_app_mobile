@@ -12,8 +12,11 @@ export const formatDayToDisplay = (
     return ''
   }
 
-  if (!showTodayOrYesterdayAsDate && (isToday(date) || isYesterday(date))) {
-    return isToday(date) ? 'Vandaag' : 'Gisteren'
+  const dateIsToday = isToday(date)
+  const dateIsYesterday = isYesterday(date)
+
+  if (!showTodayOrYesterdayAsDate && (dateIsToday || dateIsYesterday)) {
+    return dateIsToday ? 'Vandaag' : 'Gisteren'
   }
 
   return `${capitalizeString(dayjs(date).format('dddd'))}, ${formatDateToDisplay(date)}`

@@ -1,5 +1,5 @@
-import {useLayoutEffect, useMemo} from 'react'
-import {FlatList, StyleSheet} from 'react-native'
+import {useCallback, useLayoutEffect, useMemo} from 'react'
+import {FlatList, StyleSheet, type ListRenderItemInfo} from 'react-native'
 import type {
   LiveblogItem as LiveblogItemType,
   NewsArticleBase,
@@ -34,6 +34,16 @@ export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
     [data?.liveblog_items],
   )
 
+  const renderItem = useCallback(
+    (props: ListRenderItemInfo<LiveblogItemType>) => (
+      <LiveblogItem
+        {...props}
+        isLastEntryOfDay={liveblogLastEntriesPerDay.has(props.item)}
+      />
+    ),
+    [liveblogLastEntriesPerDay],
+  )
+
   if (isLoading) {
     return <PleaseWait testID="LiveblogPleaseWait" />
   }
@@ -54,12 +64,7 @@ export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
           {...rest}
         />
       }
-      renderItem={props => (
-        <LiveblogItem
-          {...props}
-          isLastEntryOfDay={liveblogLastEntriesPerDay.has(props.item)}
-        />
-      )}
+      renderItem={renderItem}
     />
   )
 }

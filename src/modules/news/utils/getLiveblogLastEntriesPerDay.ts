@@ -8,10 +8,13 @@ export const getLiveblogLastEntriesPerDay = (items: LiveblogItem[] = []) =>
         const itemDate = dayjs(item.creation_datetime)
         const key = itemDate.format('DD-MM-YYYY')
 
-        days[key] =
-          days[key] && dayjs(days[key].creation_datetime).isAfter(itemDate)
-            ? days[key]
-            : item
+        const existingItem = days[key]
+
+        const existingDate = existingItem
+          ? dayjs(existingItem.creation_datetime)
+          : null
+
+        days[key] = existingDate?.isAfter(itemDate) ? existingItem : item
 
         return days
       }, {}),
