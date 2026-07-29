@@ -51,7 +51,7 @@ export const BoatChargingHistoryItem = memo(({session}: Props) => {
       description={description}
       icon={{color: 'link', name: 'lightning', size: 'lg'}}
       onPress={() =>
-        navigate(BoatChargingRouteName.boatChargingHistorySessionDetails, {
+        navigate(BoatChargingRouteName.historySessionDetails, {
           id: session.id,
         })
       }

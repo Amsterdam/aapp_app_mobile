@@ -1,0 +1,39 @@
+import {useCallback} from 'react'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {alerts} from '@/modules/boat-charging/alerts'
+import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {setLastGuestSessionId} from '@/modules/boat-charging/slice'
+import {useAlert} from '@/store/slices/alert'
+
+export const useRedirectAfterPayment = (doReplace: boolean = false) => {
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const {isLoggedIn} = useIsLoggedIn()
+  const {setAlert} = useAlert()
+
+  return useCallback(
+    (paymentStatus: string, sessionId: string) => {
+      if (paymentStatus === 'paid') {
+        if (!isLoggedIn) {
+          dispatch(setLastGuestSessionId(sessionId))
+        }
+
+        if (doReplace) {
+          navigation.replace(BoatChargingRouteName.activeSessionDetails, {
+            id: sessionId,
+          })
+        } else {
+          navigation.navigate(BoatChargingRouteName.activeSessionDetails, {
+            id: sessionId,
+          })
+        }
+      } else {
+        navigation.goBack()
+        setAlert(alerts.paymentFailed)
+      }
+    },
+    [isLoggedIn, doReplace, dispatch, navigation, setAlert],
+  )
+}

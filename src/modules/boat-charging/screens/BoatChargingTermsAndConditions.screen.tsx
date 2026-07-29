@@ -14,17 +14,18 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
 import {
   selectLastApprovedTermsVersionWhileLoggedIn,
   setLastApprovedTermsVersionWhileLoggedIn,
+  useNewSessionFormValues,
 } from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
 
-type Props =
-  NavigationProps<BoatChargingRouteName.boatChargingTermsAndConditions>
+type Props = NavigationProps<BoatChargingRouteName.termsAndConditions>
 
 type FormValues = {
   agreedToTerms: boolean
@@ -33,7 +34,7 @@ type FormValues = {
 const AGREED_TO_TERMS_ERROR_MESSAGE =
   'Ga akkoord gaan met de voorwaarden om verder te gaan.'
 
-export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
+export const BoatChargingTermsAndConditionsScreen = ({}: Props) => {
   const form = useForm<FormValues>({
     defaultValues: {
       agreedToTerms: false,
@@ -58,6 +59,9 @@ export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
   }, [alreadyAgreedToTerms, form])
   const agreedToTerms = form.watch('agreedToTerms')
 
+  const {setApprovedTerms} = useNewSessionFormValues()
+  const {onPress} = useInitSession()
+
   const onSubmit = () => {
     if (!terms) {
       setError('agreedToTerms', {
@@ -72,7 +76,9 @@ export const BoatChargingTermsAndConditionsScreen = ({navigation}: Props) => {
       dispatch(setLastApprovedTermsVersionWhileLoggedIn(terms.version))
     }
 
-    navigation.popToTop()
+    setApprovedTerms(true)
+
+    return onPress()
   }
 
   return (

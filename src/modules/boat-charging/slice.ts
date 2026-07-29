@@ -3,19 +3,27 @@ import {useCallback} from 'react'
 import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
-  ChargingStation,
 } from '@/modules/boat-charging/types'
+import type {SelectedChargingSocket} from '@/modules/boat-charging/utils/selectedChargingSocket'
 import type {RootState} from '@/store/types/rootState'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {serializeSelectedChargingSocket} from '@/modules/boat-charging/utils/selectedChargingSocket'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export type BoatChargingState = {
   accessToken?: {accessToken: string; accessTokenExpiration: string}
-  guestSessionFormValues?: {email?: string; socketId?: ChargingStation['id']}
   lastApprovedTermsVersionWhileLoggedIn?: number
+  lastGuestSessionId?: string
   loggedInUsername?: string
+  newSessionFormValues?: {
+    approvedTerms?: boolean
+    didVerifyEmail?: boolean
+    email?: string
+    socketNumber?: string
+    stationId?: string
+  }
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
 }
@@ -30,7 +38,7 @@ export const boatChargingSlice = createSlice({
       state,
       {payload: id}: PayloadAction<BoatChargingLocation['id']>,
     ) => {
-      state.guestSessionFormValues = undefined
+      state.newSessionFormValues = undefined
       state.selectedBoatChargingPointId = id
     },
     resetSelectedBoatChargingPointId: state => {
@@ -69,29 +77,59 @@ export const boatChargingSlice = createSlice({
     ) => {
       state.openIdConnectConfig = payload
     },
-    setGuestSessionEmail: (state, {payload: email}: PayloadAction<string>) => {
-      state.guestSessionFormValues = {
-        ...state.guestSessionFormValues,
+    setNewSessionEmail: (state, {payload: email}: PayloadAction<string>) => {
+      state.newSessionFormValues = {
+        ...state.newSessionFormValues,
         email,
+        didVerifyEmail: false,
+        approvedTerms: false,
       }
     },
-    setGuestSessionSocketId: (
+    setNewSessionDidVerifyEmail: (
       state,
-      {payload: socketId}: PayloadAction<ChargingStation['id']>,
+      {payload: didVerifyEmail}: PayloadAction<boolean>,
     ) => {
-      state.guestSessionFormValues = {
-        ...state.guestSessionFormValues,
-        socketId,
+      state.newSessionFormValues = {
+        ...state.newSessionFormValues,
+        didVerifyEmail,
+        approvedTerms: false,
       }
     },
-    resetGuestSessionFormValues: state => {
-      state.guestSessionFormValues = undefined
+    setNewSessionApprovedTerms: (
+      state,
+      {payload: approvedTerms}: PayloadAction<boolean>,
+    ) => {
+      state.newSessionFormValues = {
+        ...state.newSessionFormValues,
+        approvedTerms,
+      }
+    },
+    setNewSessionSelectedChargingSocket: (
+      state,
+      {payload}: PayloadAction<SelectedChargingSocket>,
+    ) => {
+      state.newSessionFormValues = {
+        ...state.newSessionFormValues,
+        socketNumber: payload.socketNumber,
+        stationId: payload.stationId,
+        didVerifyEmail: false,
+        approvedTerms: false,
+      }
+    },
+    resetNewSessionFormValues: state => {
+      state.newSessionFormValues = undefined
     },
     setLastApprovedTermsVersionWhileLoggedIn: (
       state,
       {payload: version}: PayloadAction<number>,
     ) => {
       state.lastApprovedTermsVersionWhileLoggedIn = version
+    },
+    setLastGuestSessionId: (
+      state,
+      {payload: sessionId}: PayloadAction<string | undefined>,
+    ) => {
+      state.lastGuestSessionId = sessionId
     },
   },
 })
@@ -104,6 +142,7 @@ export const {
   setBoatChargingOpenIdConnectConfig,
   setBoatChargingLoggedInUsername,
   setLastApprovedTermsVersionWhileLoggedIn,
+  setLastGuestSessionId,
 } = boatChargingSlice.actions
 
 export const selectSelectedBoatChargingPointId = (state: RootState) =>
@@ -124,6 +163,10 @@ export const selectBoatChargingLoggedInUsername = (
   state: RootState,
 ): string | undefined => state[ReduxKey.boatCharging].loggedInUsername
 
+export const selectBoatChargingLastGuestSessionId = (
+  state: RootState,
+): string | undefined => state[ReduxKey.boatCharging].lastGuestSessionId
+
 export const useSelectedBoatChargingPointId = () =>
   useSelector(selectSelectedBoatChargingPointId)
 
@@ -143,31 +186,47 @@ export const useSetBoatChargingAccessToken = () => {
 }
 
 export const selectGuestSessionFormValues = (state: RootState) =>
-  state[ReduxKey.boatCharging].guestSessionFormValues
+  state[ReduxKey.boatCharging].newSessionFormValues
 
 export const selectLastApprovedTermsVersionWhileLoggedIn = (state: RootState) =>
   state[ReduxKey.boatCharging].lastApprovedTermsVersionWhileLoggedIn
 
-export const useGuestSessionFormValues = () => {
+export const useNewSessionFormValues = () => {
   const {
-    setGuestSessionEmail,
-    setGuestSessionSocketId,
-    resetGuestSessionFormValues,
+    setNewSessionEmail,
+    setNewSessionSelectedChargingSocket,
+    setNewSessionApprovedTerms,
+    setNewSessionDidVerifyEmail,
+    resetNewSessionFormValues,
   } = boatChargingSlice.actions
 
   const dispatch = useDispatch()
 
   const guestSessionFormValues = useSelector(selectGuestSessionFormValues) || {}
+  const selectedChargingSocket =
+    guestSessionFormValues.stationId && guestSessionFormValues.socketNumber
+      ? serializeSelectedChargingSocket({
+          stationId: guestSessionFormValues.stationId,
+          socketNumber: guestSessionFormValues.socketNumber,
+        })
+      : undefined
 
-  const setGuestEmail = (email: string) => dispatch(setGuestSessionEmail(email))
-  const setSocketId = (socketId: ChargingStation['id']) =>
-    dispatch(setGuestSessionSocketId(socketId))
-  const resetForm = () => dispatch(resetGuestSessionFormValues())
+  const setGuestEmail = (email: string) => dispatch(setNewSessionEmail(email))
+  const setSelectedChargingSocket = (payload: SelectedChargingSocket) =>
+    dispatch(setNewSessionSelectedChargingSocket(payload))
+  const setApprovedTerms = (approvedTerms: boolean) =>
+    dispatch(setNewSessionApprovedTerms(approvedTerms))
+  const setDidVerifyEmail = (didVerifyEmail: boolean) =>
+    dispatch(setNewSessionDidVerifyEmail(didVerifyEmail))
+  const resetForm = () => dispatch(resetNewSessionFormValues())
 
   return {
     ...guestSessionFormValues,
+    selectedChargingSocket,
     setGuestEmail,
-    setSocketId,
+    setSelectedChargingSocket,
     resetForm,
+    setApprovedTerms,
+    setDidVerifyEmail,
   }
 }

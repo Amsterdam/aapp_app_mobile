@@ -6,8 +6,7 @@ import {BoatChargingSessionBottomSheet} from '@/modules/boat-charging/components
 import {BoatChargingSessionButtons} from '@/modules/boat-charging/components/session/BoatChargingSessionButtons'
 import {BoatChargingSessionProvider} from '@/modules/boat-charging/providers/BoatChargingSession.provider'
 
-type Props =
-  NavigationProps<BoatChargingRouteName.boatChargingActiveSessionDetails>
+type Props = NavigationProps<BoatChargingRouteName.activeSessionDetails>
 
 export const BoatChargingActiveSessionScreen = ({route}: Props) => (
   <BoatChargingSessionProvider id={route.params.id}>

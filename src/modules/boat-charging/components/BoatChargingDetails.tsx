@@ -16,7 +16,7 @@ import {BoatChargingDetailsSocketSubmitButton} from '@/modules/boat-charging/com
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
-import {useGuestSessionFormValues} from '@/modules/boat-charging/slice'
+import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
 import {
   ChargingPointStatus,
   type BoatChargingLocation,
@@ -42,11 +42,13 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
     isError: isErrorSessions,
   } = useBoatChargingSessions()
 
-  const {socketId} = useGuestSessionFormValues()
+  const {selectedChargingSocket} = useNewSessionFormValues()
 
   useInterval(refetchLocationDetails, REFETCH_INTERVAL)
 
-  const form = useForm<{socketId: string}>({defaultValues: {socketId}})
+  const form = useForm<{selectedSocket: string}>({
+    defaultValues: {selectedSocket: selectedChargingSocket},
+  })
 
   const infoRows = useMemo(
     () =>

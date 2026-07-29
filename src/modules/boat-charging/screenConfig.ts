@@ -12,82 +12,90 @@ import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatCha
 import {BoatChargingHistorySessionDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingHistorySessionDetails.screen'
 import {BoatChargingLocationDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingLocationDetails.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
+import {BoatChargingPaymentResultScreen} from '@/modules/boat-charging/screens/BoatChargingPaymentResult.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
   BoatChargingRouteName
 > = {
-  [BoatChargingRouteName.boatCharging]: {
+  [BoatChargingRouteName.map]: {
     component: BoatChargingScreen,
-    name: BoatChargingRouteName.boatCharging,
+    name: BoatChargingRouteName.map,
     options: {
       headerShown: false,
     },
   },
-  [BoatChargingRouteName.boatChargingLocationDetails]: {
+  [BoatChargingRouteName.locationDetails]: {
     component: BoatChargingLocationDetailsScreen,
-    name: BoatChargingRouteName.boatChargingLocationDetails,
+    name: BoatChargingRouteName.locationDetails,
     options: {
       headerTitle: 'Laadpunt',
     },
   },
-  [BoatChargingRouteName.boatChargingGuestEmail]: {
+  [BoatChargingRouteName.guestEmail]: {
     component: BoatChargingGuestEmailScreen,
-    name: BoatChargingRouteName.boatChargingGuestEmail,
+    name: BoatChargingRouteName.guestEmail,
     options: {
       headerTitle: 'Laden zonder account',
     },
   },
-  [BoatChargingRouteName.boatChargingGuestEmailConfirm]: {
+  [BoatChargingRouteName.guestEmailConfirm]: {
     component: BoatChargingGuestEmailConfirmScreen,
-    name: BoatChargingRouteName.boatChargingGuestEmailConfirm,
+    name: BoatChargingRouteName.guestEmailConfirm,
     options: {
       headerTitle: 'Controleer uw e-mailadres',
     },
   },
-  [BoatChargingRouteName.boatChargingHelp]: {
+  [BoatChargingRouteName.help]: {
     component: BoatChargingHelpScreen,
-    name: BoatChargingRouteName.boatChargingHelp,
+    name: BoatChargingRouteName.help,
     options: {
       headerTitle: 'Hulp bij laden',
     },
   },
-  [BoatChargingRouteName.boatChargingHistory]: {
+  [BoatChargingRouteName.history]: {
     component: BoatChargingHistoryScreen,
-    name: BoatChargingRouteName.boatChargingHistory,
+    name: BoatChargingRouteName.history,
     options: {
       headerTitle: 'Laadgeschiedenis',
     },
   },
-  [BoatChargingRouteName.boatChargingLogin]: {
+  [BoatChargingRouteName.login]: {
     component: BoatChargingLoginScreen,
-    name: BoatChargingRouteName.boatChargingLogin,
+    name: BoatChargingRouteName.login,
     options: {
       headerTitle: 'Inloggen',
     },
   },
-  [BoatChargingRouteName.boatChargingActiveSessionDetails]: {
+  [BoatChargingRouteName.activeSessionDetails]: {
     component: BoatChargingActiveSessionScreen,
-    name: BoatChargingRouteName.boatChargingActiveSessionDetails,
+    name: BoatChargingRouteName.activeSessionDetails,
     screenType: 'settings',
     options: {
       headerShown: false,
     },
   },
-  [BoatChargingRouteName.boatChargingHistorySessionDetails]: {
+  [BoatChargingRouteName.historySessionDetails]: {
     component: BoatChargingHistorySessionDetailsScreen,
-    name: BoatChargingRouteName.boatChargingHistorySessionDetails,
+    name: BoatChargingRouteName.historySessionDetails,
     options: {
       headerShown: false,
       headerTitle: 'Laadsessie',
     },
   },
-  [BoatChargingRouteName.boatChargingTermsAndConditions]: {
+  [BoatChargingRouteName.termsAndConditions]: {
     component: BoatChargingTermsAndConditionsScreen,
-    name: BoatChargingRouteName.boatChargingTermsAndConditions,
+    name: BoatChargingRouteName.termsAndConditions,
     options: {
       headerTitle: 'Voorwaarden',
+    },
+  },
+  [BoatChargingRouteName.paymentResult]: {
+    component: BoatChargingPaymentResultScreen,
+    name: BoatChargingRouteName.paymentResult,
+    options: {
+      headerTitle: 'Laadsessie',
     },
   },
 }

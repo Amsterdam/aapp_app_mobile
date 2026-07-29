@@ -2,7 +2,6 @@ import {useIsFocused} from '@react-navigation/native'
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState, type ReactNode} from 'react'
 import {BoatChargingSessionContext} from '@/modules/boat-charging/hooks/useBoatChargingSession'
-import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {
   useBoatChargingSessionQuery,
   useBoatChargingSettingsQuery,
@@ -34,7 +33,6 @@ export const BoatChargingSessionProvider = ({
 }: Props) => {
   const [isNotPluggedInErrorVisible, setIsNotPluggedInErrorVisible] =
     useState(false)
-  const {isLoggedIn} = useIsLoggedIn()
   const isFocused = useIsFocused()
 
   const {
@@ -43,8 +41,8 @@ export const BoatChargingSessionProvider = ({
     isError,
     fulfilledTimeStamp,
   } = useBoatChargingSessionQuery(id, {
-    pollingInterval: isFocused && shouldPollSession && isLoggedIn ? 30000 : 0,
-    skip: !isLoggedIn || !id,
+    pollingInterval: isFocused && shouldPollSession ? 30000 : 0,
+    skip: !id,
   })
 
   const {data: socketStatus} = useBoatChargingSocketStatusQuery(

@@ -11,7 +11,7 @@ export const BoatChargingHelpNavigationButton = () => {
       emphasis="default"
       horizontallyAlign="start"
       insetHorizontal="no"
-      onPress={() => navigate(BoatChargingRouteName.boatChargingHelp)}
+      onPress={() => navigate(BoatChargingRouteName.help)}
       testID="BoatChargingHelpNavigationButton"
       title="Hulp bij laden"
     />
