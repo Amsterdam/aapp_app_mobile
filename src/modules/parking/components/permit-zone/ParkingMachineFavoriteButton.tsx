@@ -30,7 +30,7 @@ export const ParkingMachineFavoriteButton = ({onPress}: Props) => {
             name="star"
             size="lg"
           />
-          <Phrase>{`Mijn standaard ${currentParkingPermit.parking_machine_favorite}`}</Phrase>
+          <Phrase>{`${currentParkingPermit.parking_machine_favorite} - Ingesteld als favoriet`}</Phrase>
         </Row>
       </Box>
     </Pressable>

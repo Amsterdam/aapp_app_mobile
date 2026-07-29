@@ -92,9 +92,9 @@ export const ParkingMachineBottomSheetContent = () => {
       <Column gutter="lg">
         <Column gutter="xs">
           <Title
-            level="h3"
+            level="h4"
             ref={autoFocus}
-            text={`Parkeerautomaat ${selectedParkingMachineId}`}
+            text={`${selectedParkingMachineId} parkeerautomaat`}
           />
 
           {currentPermit?.parking_machine_favorite === parkingMachine.id && (
