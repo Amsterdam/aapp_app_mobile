@@ -20,7 +20,7 @@ export const useInitSession = () => {
     initSession,
     {isLoading: isInitSessionLoading, isError: isInitSessionError},
   ] = useBoatChargingInitSessionMutation()
-  const lastApprovedTermsVersion2 = useSelector(
+  const lastApprovedTermsVersion = useSelector(
     selectLastApprovedTermsVersionWhileLoggedIn,
   )
   const {isLoggedIn} = useIsLoggedIn()
@@ -35,7 +35,7 @@ export const useInitSession = () => {
     let {email} = state.boatCharging.newSessionFormValues || {}
     const {socketNumber, stationId, approvedTerms, didVerifyEmail} =
       state.boatCharging.newSessionFormValues || {}
-    const lastApprovedTermsVersion =
+    const lastApprovedTermsVersionFromState =
       selectLastApprovedTermsVersionWhileLoggedIn(state)
 
     if (!socketNumber || !stationId) {
@@ -51,7 +51,7 @@ export const useInitSession = () => {
 
       email = loggedInUsername
 
-      if (terms?.version !== lastApprovedTermsVersion) {
+      if (terms?.version !== lastApprovedTermsVersionFromState) {
         navigate(BoatChargingRouteName.termsAndConditions)
 
         return Promise.resolve()
@@ -101,7 +101,7 @@ export const useInitSession = () => {
   return {
     onPress,
     mustApproveTerms:
-      !isLoggedIn || terms?.version !== lastApprovedTermsVersion2,
+      !isLoggedIn || terms?.version !== lastApprovedTermsVersion,
     disabled: isLoading || isInitSessionLoading,
     isLoading: isLoading || isInitSessionLoading,
     isError: isError || isInitSessionError,

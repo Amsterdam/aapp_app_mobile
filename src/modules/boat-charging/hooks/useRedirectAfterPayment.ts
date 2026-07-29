@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import type {BoatChargingPaymentResultStatus} from '@/modules/boat-charging/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/boat-charging/alerts'
@@ -14,7 +15,7 @@ export const useRedirectAfterPayment = (doReplace: boolean = false) => {
   const {setAlert} = useAlert()
 
   return useCallback(
-    (paymentStatus: string, sessionId: string) => {
+    (paymentStatus: BoatChargingPaymentResultStatus, sessionId: string) => {
       if (paymentStatus === 'paid') {
         if (!isLoggedIn) {
           dispatch(setLastGuestSessionId(sessionId))

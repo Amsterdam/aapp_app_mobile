@@ -2,6 +2,7 @@ import type {
   BoatChargingLocation,
   BoatChargingSession,
 } from '@/modules/boat-charging/types'
+import type {BoatChargingPaymentResultStatus} from '@/modules/boat-charging/types'
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
@@ -35,7 +36,7 @@ export type ModuleStackParams = {
   }
   [BoatChargingRouteName.termsAndConditions]: undefined
   [BoatChargingRouteName.paymentResult]: {
-    paymentStatus: 'paid'
+    paymentStatus: BoatChargingPaymentResultStatus
     sessionId: BoatChargingSession['id']
   }
 }

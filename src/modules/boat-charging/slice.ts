@@ -185,7 +185,7 @@ export const useSetBoatChargingAccessToken = () => {
   )
 }
 
-export const selectGuestSessionFormValues = (state: RootState) =>
+export const selectNewSessionFormValues = (state: RootState) =>
   state[ReduxKey.boatCharging].newSessionFormValues
 
 export const selectLastApprovedTermsVersionWhileLoggedIn = (state: RootState) =>
@@ -202,7 +202,7 @@ export const useNewSessionFormValues = () => {
 
   const dispatch = useDispatch()
 
-  const guestSessionFormValues = useSelector(selectGuestSessionFormValues) || {}
+  const guestSessionFormValues = useSelector(selectNewSessionFormValues) || {}
   const selectedChargingSocket =
     guestSessionFormValues.stationId && guestSessionFormValues.socketNumber
       ? serializeSelectedChargingSocket({

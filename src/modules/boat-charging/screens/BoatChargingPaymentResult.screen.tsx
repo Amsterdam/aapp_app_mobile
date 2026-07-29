@@ -10,7 +10,7 @@ export const BoatChargingPaymentResultScreen = ({route}: Props) => {
   const redirect = useRedirectAfterPayment(true)
 
   useEffect(() => {
-    const {paymentStatus, sessionId} = params
+    const {paymentStatus, sessionId} = params ?? {}
 
     if (typeof paymentStatus !== 'string' || typeof sessionId !== 'string') {
       redirect('failed', '')
