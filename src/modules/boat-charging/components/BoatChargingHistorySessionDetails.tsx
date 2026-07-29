@@ -45,7 +45,7 @@ export const BoatChargingHistorySessionDetails = () => {
             {station_id}-{socket_number}
           </Phrase>
         </MetaDataCard>
-        {!!total_cost && !!currency && (
+        {typeof total_cost === 'number' && !!currency && (
           <MetaDataCard
             iconName="euro-coins"
             testID="BoatChargingHistorySessionDetailsTotalCostCard"
