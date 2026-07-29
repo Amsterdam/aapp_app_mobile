@@ -40,7 +40,7 @@ const DEFAULT_WRAPPER = ({children, testID, size}: WrapperProps) => (
   <Svg
     height={size}
     testID={testID}
-    viewBox="0 0 24 24"
+    viewBox="0 0 32 32"
     width={size}>
     {children}
   </Svg>
@@ -75,21 +75,20 @@ export const CustomMarkerIcon = ({
           {gradientColors.map((color, index) => (
             <Stop
               key={`${color}-${index}`}
-              //intentionally using index + 1 to avoid having a stop at 0% and 100% which would make the gradient not visible
               offset={`${((index + 1) / (gradientColors.length + 1)) * 100}%`}
               stopColor={color}
             />
           ))}
         </LinearGradient>
       </Defs>
-      <G transform={`translate(${offset.x}, ${offset.y})`}>
+      <G transform={`scale(0.8) translate(${offset.x + 4}, ${offset.y + 4})`}>
         <Circle
           cx={center}
           cy={center}
           fill={
             colors?.length ? 'url(#markerCircleRainbowGradient)' : circleColor
           }
-          r={center}
+          r={center + 4}
         />
         <Path
           d={path}
