@@ -14,6 +14,7 @@ export enum BoatChargingRouteName {
   historySessionDetails = 'BoatChargingHistorySessionDetails',
   locationDetails = 'BoatChargingLocationDetails',
   login = 'BoatChargingLogin',
+  loginSteps = 'BoatChargingLoginSteps',
   map = 'BoatChargingMap',
   paymentResult = 'BoatChargingPaymentResult',
   termsAndConditions = 'BoatChargingTermsAndConditions',
@@ -21,6 +22,7 @@ export enum BoatChargingRouteName {
 
 export type ModuleStackParams = {
   [BoatChargingRouteName.map]: undefined
+  [BoatChargingRouteName.loginSteps]: undefined
   [BoatChargingRouteName.locationDetails]: {
     id: BoatChargingLocation['id']
   }

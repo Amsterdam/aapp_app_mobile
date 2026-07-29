@@ -7,7 +7,6 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAccessCodeGate} from '@/modules/access-code/hooks/useAccessCodeGate'
 import {useIsLoggedIn} from '@/modules/parking/hooks/useIsLoggedIn'
 import {useIsRecentlyLoggedOut} from '@/modules/parking/hooks/useIsRecentlyLoggedOut'
-import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   parkingScreenConfig,
@@ -43,7 +42,6 @@ export const ModuleStack = () => {
   )
 
   const {isRecentlyLoggedOut} = useIsRecentlyLoggedOut()
-  const {isLoginStepsActive} = useLoginSteps()
 
   const accessCodeGate = useAccessCodeGate(Stack, {
     loginSteps: {
@@ -55,7 +53,6 @@ export const ModuleStack = () => {
         },
       },
     },
-    isLoginStepsActive,
     screenOptions,
     forgotCodeScreen: {
       component: ParkingForgotAccessCodeScreen,

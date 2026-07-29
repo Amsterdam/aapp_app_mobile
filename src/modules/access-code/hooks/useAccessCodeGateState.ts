@@ -17,9 +17,17 @@ export enum AccessCodeGateStateName {
 export const useAccessCodeGateState = (
   isLoginStepsActive: boolean | undefined,
 ): AccessCodeGateStateName => {
-  const {accessCode, isLoading} = useGetSecureAccessCode()
+  const {accessCode, isLoading: isLoadingAccessCode} = useGetSecureAccessCode()
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
-  const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
+  const {
+    isEnrolled,
+    useBiometrics,
+    isLoading: isLoadingBiometrics,
+  } = useAccessCodeBiometrics()
+
+  if (isLoadingAccessCode || isLoadingBiometrics) {
+    return AccessCodeGateStateName.loading
+  }
 
   if (useBiometrics === undefined && isEnrolled && isCodeValid) {
     return AccessCodeGateStateName.biometricsPermission
@@ -27,10 +35,6 @@ export const useAccessCodeGateState = (
 
   if (isCodeValid) {
     return AccessCodeGateStateName.allowed
-  }
-
-  if (isLoading) {
-    return AccessCodeGateStateName.loading
   }
 
   if (isForgotCode) {

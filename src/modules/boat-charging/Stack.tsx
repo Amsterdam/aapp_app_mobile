@@ -6,6 +6,7 @@ import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {NewSessionFormProvider} from '@/modules/boat-charging/providers/NewSessionForm.provider'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {screenConfig} from '@/modules/boat-charging/screenConfig'
+import {BoatChargingLoginStepsScreen} from '@/modules/boat-charging/screens/BoatChargingLoginSteps.screen'
 
 const Stack = createStackNavigator<RootStackParams>()
 
@@ -15,8 +16,18 @@ export const ModuleStack = () => {
     screenType: 'settings',
   })
   const {isLoggedIn} = useIsLoggedIn()
+
   const accessCodeGate = useAccessCodeGate(Stack, {
     screenOptions,
+    loginSteps: {
+      [BoatChargingRouteName.loginSteps]: {
+        component: BoatChargingLoginStepsScreen,
+        name: BoatChargingRouteName.loginSteps,
+        options: {
+          headerTitle: 'Inloggen',
+        },
+      },
+    },
     additionalGateCondition: isLoggedIn,
   })
 

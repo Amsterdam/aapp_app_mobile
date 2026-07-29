@@ -2,11 +2,11 @@ import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useUnsetCode} from '@/modules/access-code/hooks/useUnsetCode'
-import {AccessCodeType} from '@/modules/access-code/types'
 import {
   selectIsLoginStepsActive,
   setLoginStepsActive,
-} from '@/modules/parking/slice'
+} from '@/modules/access-code/slice'
+import {AccessCodeType} from '@/modules/access-code/types'
 
 export const useLoginSteps = () => {
   const dispatch = useDispatch()
