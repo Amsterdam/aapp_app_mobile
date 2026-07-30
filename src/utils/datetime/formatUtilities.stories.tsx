@@ -45,7 +45,7 @@ const DatetimeFormatUtilitiesDocs = () => {
       description: 'Converts a date-like value to a Dutch calendar date.',
       examples: [
         {
-          label: "formatDate('${currentYear}-01-01')",
+          label: `formatDate('${currentYear}-01-01')`,
           result: formatDate(`${currentYear}-01-01`),
         },
         {
@@ -68,16 +68,39 @@ const DatetimeFormatUtilitiesDocs = () => {
           result: formatDateToDisplay(`${currentYear}-01-01`),
         },
         {
+          label: `formatDateToDisplay('${currentYear}-01-01', {showDayOfWeek: true})`,
+          result: formatDateToDisplay(`${currentYear}-01-01`, {
+            showDayOfWeek: true,
+          }),
+        },
+        {
           label: `formatDateToDisplay('${previousYear}-01-01')`,
           result: formatDateToDisplay(`${previousYear}-01-01`),
         },
         {
-          label: `formatDateToDisplay('${todayIsoString}', false)`,
-          result: formatDateToDisplay(todayIsoString, false),
+          label: `formatDateToDisplay('${previousYear}-01-01', {showDayOfWeek: true})`,
+          result: formatDateToDisplay(`${previousYear}-01-01`, {
+            showDayOfWeek: true,
+          }),
         },
         {
-          label: `formatDateToDisplay('${yesterdayIsoString}', true, false)`,
-          result: formatDateToDisplay(yesterdayIsoString, true, false),
+          label: `formatDateToDisplay('${todayIsoString}')`,
+          result: formatDateToDisplay(todayIsoString),
+        },
+        {
+          label: `formatDateToDisplay('${todayIsoString}', {todayAsDate: false})`,
+          result: formatDateToDisplay(todayIsoString, {todayAsDate: false}),
+        },
+        {
+          label: `formatDateToDisplay('${yesterdayIsoString}')`,
+          result: formatDateToDisplay(yesterdayIsoString),
+        },
+        {
+          label: `formatDateToDisplay('${yesterdayIsoString}', {todayAsDate: true, yesterdayAsDate: false})`,
+          result: formatDateToDisplay(yesterdayIsoString, {
+            todayAsDate: true,
+            yesterdayAsDate: false,
+          }),
         },
       ],
     },
@@ -145,8 +168,7 @@ const DatetimeFormatUtilitiesDocs = () => {
         'Formats historic timestamps relative to now for activity-style UIs.',
       examples: [
         {
-          label:
-            "formatHistoryDateTime(dayjs().set('hour', 13).set('minute', 26))",
+          label: `formatHistoryDateTime(dayjs().set('hour', ${historyExampleHour}).set('minute', ${historyExampleMinute}))`,
           result: formatHistoryDateTime(
             dayjs()
               .set('hour', historyExampleHour)

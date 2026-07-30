@@ -43,7 +43,10 @@ export const ManageVisitorTimeBalanceOverview = () => {
             </Phrase>
           </Row>
           <Phrase accessible={false}>
-            Tot {formatDateToDisplay(currentPermit.time_valid_until, false)}
+            Tot{' '}
+            {formatDateToDisplay(currentPermit.time_valid_until, {
+              todayAsDate: false,
+            })}
           </Phrase>
         </Column>
       </SingleSelectable>
