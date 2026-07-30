@@ -3,6 +3,7 @@ import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
+import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useInvalidateAccessCode} from '@/modules/access-code/hooks/useInvalidateAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
@@ -14,19 +15,20 @@ import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.s
 const Stack = createStackNavigator<RootStackParams>()
 
 export const ModuleStack = () => {
-  const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
+  const {attemptsLeft, isCodeValid} = useEnterAccessCode()
   const {isCodeConfirmed} = useConfirmAccessCode()
   const screenOptions = useScreenOptions()
   const isCodeInvalidated = useInvalidateAccessCode()
+  const {accessCode, isLoading} = useGetSecureAccessCode()
 
-  if (!isCodeInvalidated) {
+  if (!isCodeInvalidated || isLoading) {
     return null
   }
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Group navigationKey={isForgotCode ? 'forgotten' : 'access-code'}>
-        {!isCodeValid ? (
+      <Stack.Group>
+        {!isCodeValid && accessCode && !isCodeConfirmed ? (
           <>
             {attemptsLeft > 0 ? (
               <Stack.Screen
