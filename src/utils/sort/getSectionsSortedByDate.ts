@@ -32,7 +32,7 @@ export const getSectionsSortedByDate = <
     .reduce<Section<T>[]>((result, session) => {
       const date = session.dummy
         ? dummyTitle
-        : formatDateToDisplay(session.start_date_time, false)
+        : formatDateToDisplay(session.start_date_time, {todayAsDate: false})
       const section = result.find(s => s.title === date)
 
       if (section) {

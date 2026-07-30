@@ -3,7 +3,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {formatDayToDisplay} from '@/utils/datetime/formatDayToDisplay'
+import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
 type Props = {
@@ -21,7 +21,7 @@ export const LiveblogItem = ({
         color="secondary"
         emphasis="strong"
         variant="small">
-        {formatDayToDisplay(creation_datetime)}
+        {formatDateToDisplay(creation_datetime, {showDayOfWeek: true})}
       </Phrase>
     )}
     <Phrase

@@ -23,8 +23,7 @@ export const groupBoatChargingSessionsByDate = (
     .reduce<Section[]>((result, session) => {
       const date = formatDateToDisplay(
         session.start_date_time ?? session.created_date_time,
-        false,
-        false,
+        {todayAsDate: false, yesterdayAsDate: false},
       )
       const section = result.find(s => s.title === date)
 

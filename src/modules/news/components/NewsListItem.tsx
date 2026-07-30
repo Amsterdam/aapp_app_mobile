@@ -40,7 +40,10 @@ export const NewsListItem = ({
       images={images}
       meta={
         includeDate && !is_active_liveblog
-          ? formatDateToDisplay(publication_datetime, false, false)
+          ? formatDateToDisplay(publication_datetime, {
+              todayAsDate: false,
+              yesterdayAsDate: false,
+            })
           : undefined
       }
       onPress={navigateTo}

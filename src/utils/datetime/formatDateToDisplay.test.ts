@@ -1,3 +1,4 @@
+import {dayjs} from '@/utils/datetime/dayjs'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
 describe('formatDateToDisplay', () => {
@@ -23,8 +24,12 @@ describe('formatDateToDisplay', () => {
   it('should return "vandaag" for a date that is today and todayAsDate is set accordingly', () => {
     jest.useFakeTimers()
     jest.setSystemTime(new Date('2025-10-01T12:00:00'))
-    expect(formatDateToDisplay('2025-10-01', false)).toBe('Vandaag')
-    expect(formatDateToDisplay('2025-10-01', true)).toBe('1 oktober')
+    expect(formatDateToDisplay('2025-10-01', {todayAsDate: false})).toBe(
+      'Vandaag',
+    )
+    expect(formatDateToDisplay('2025-10-01', {todayAsDate: true})).toBe(
+      '1 oktober',
+    )
     expect(formatDateToDisplay('2025-10-01')).toBe('1 oktober')
     jest.useRealTimers()
   })
@@ -45,13 +50,29 @@ describe('formatDateToDisplay', () => {
   it('should return "Vandaag" for a date today and with todayAsDate=false', () => {
     const today = new Date()
 
-    expect(formatDateToDisplay(today.toISOString(), false)).toBe('Vandaag')
+    expect(formatDateToDisplay(today.toISOString(), {todayAsDate: false})).toBe(
+      'Vandaag',
+    )
   })
 
   it('should return the date for a date today and with todayAsDate=true', () => {
     const today = new Date()
 
-    expect(formatDateToDisplay(today.toISOString(), true)).not.toBe('Vandaag')
+    expect(
+      formatDateToDisplay(today.toISOString(), {todayAsDate: true}),
+    ).not.toBe('Vandaag')
     expect(formatDateToDisplay(today.toISOString())).not.toBe('Vandaag')
+  })
+
+  it('formats a string date with weekday and display date', () => {
+    expect(formatDateToDisplay('2023-01-01', {showDayOfWeek: true})).toBe(
+      'Zondag, 1 januari 2023',
+    )
+  })
+
+  it('formats a Dayjs date with weekday and display date', () => {
+    expect(
+      formatDateToDisplay(dayjs('2023-01-02'), {showDayOfWeek: true}),
+    ).toBe('Maandag, 2 januari 2023')
   })
 })

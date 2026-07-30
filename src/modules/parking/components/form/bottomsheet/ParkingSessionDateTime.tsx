@@ -40,7 +40,7 @@ export const ParkingSessionDateTime = ({
             }}
           />
         </Tabs.Tab>
-        <Tabs.Tab label={formatDateToDisplay(dateTime, false)}>
+        <Tabs.Tab label={formatDateToDisplay(dateTime, {todayAsDate: false})}>
           <ParkingStartSessionDatePicker
             date={dateTime}
             maxDate={maxDateTime
