@@ -12,6 +12,14 @@ export const BoatChargingHistorySessionDetails = () => {
   const {session, chargingTimeString, settings, isLoading} =
     useBoatChargingSession()
 
+  if (isLoading) {
+    return <PleaseWait testID="BoatChargingHistorySessionDetailsPleaseWait" />
+  }
+
+  if (!session) {
+    return <Phrase>Geen sessie gevonden</Phrase>
+  }
+
   const {
     email,
     station_id,
@@ -23,20 +31,12 @@ export const BoatChargingHistorySessionDetails = () => {
     kwh,
     total_cost,
     currency,
-  } = session ?? {}
-
-  if (isLoading) {
-    return <PleaseWait testID="BoatChargingHistorySessionDetailsPleaseWait" />
-  }
-
-  if (!session) {
-    return <Phrase>Geen sessie gevonden</Phrase>
-  }
+  } = session
 
   return (
     <Column gutter="xl">
       <Column gutter="lg">
-        {!!location && <Title text={location.name} />}
+        <Title text={location.name} />
         <MetaDataCard
           iconName="power-plug"
           testID="BoatChargingHistorySessionDetailsSocketCard"
@@ -45,39 +45,33 @@ export const BoatChargingHistorySessionDetails = () => {
             {station_id}-{socket_number}
           </Phrase>
         </MetaDataCard>
-        {typeof total_cost === 'number' && !!currency && (
-          <MetaDataCard
-            iconName="euro-coins"
-            testID="BoatChargingHistorySessionDetailsTotalCostCard"
-            title="Totale kosten">
-            <Phrase>
-              {settings?.vat_fraction
-                ? `${formatNumber(
-                    total_cost * settings.vat_fraction,
-                    currency,
-                  )} inclusief btw`
-                : `${formatNumber(total_cost, currency)} exclusief btw`}
-            </Phrase>
-          </MetaDataCard>
-        )}
-        {typeof kwh === 'number' && (
-          <MetaDataCard
-            iconName="lightning"
-            testID="BoatChargingHistorySessionDetailsChargedCard"
-            title="Geladen">
-            <Phrase>{formatKWH(kwh)}</Phrase>
-          </MetaDataCard>
-        )}
+        <MetaDataCard
+          iconName="euro-coins"
+          testID="BoatChargingHistorySessionDetailsTotalCostCard"
+          title="Totale kosten">
+          <Phrase>
+            {settings?.vat_fraction
+              ? `${formatNumber(
+                  total_cost * settings.vat_fraction,
+                  currency,
+                )} inclusief btw`
+              : `${formatNumber(total_cost, currency)} exclusief btw`}
+          </Phrase>
+        </MetaDataCard>
+        <MetaDataCard
+          iconName="lightning"
+          testID="BoatChargingHistorySessionDetailsChargedCard"
+          title="Geladen">
+          <Phrase>{formatKWH(kwh)}</Phrase>
+        </MetaDataCard>
         <MetaDataCard
           iconName="clock"
           testID="BoatChargingHistorySessionDetailsChargingTimeCard"
           title="Laadtijd">
-          {!!chargingTimeString && <Phrase>{chargingTimeString}</Phrase>}
-          {!!start_date_time && (
-            <Phrase>
-              Start: {formatDateTimeToDisplay(start_date_time, true)}
-            </Phrase>
-          )}
+          <Phrase>{chargingTimeString}</Phrase>
+          <Phrase>
+            Start: {formatDateTimeToDisplay(start_date_time, true)}
+          </Phrase>
           {!!end_date_time && (
             <Phrase>
               Einde: {formatDateTimeToDisplay(end_date_time, true)}
@@ -85,20 +79,16 @@ export const BoatChargingHistorySessionDetails = () => {
           )}
         </MetaDataCard>
         <Column gutter="smd">
-          {!!email && (
-            <Phrase
-              color="secondary"
-              variant="small">
-              Betaalbewijs verzonden naar {email}
-            </Phrase>
-          )}
-          {!!id && (
-            <Phrase
-              color="secondary"
-              variant="small">
-              Sessienummer {id}
-            </Phrase>
-          )}
+          <Phrase
+            color="secondary"
+            variant="small">
+            Betaalbewijs verzonden naar {email}
+          </Phrase>
+          <Phrase
+            color="secondary"
+            variant="small">
+            Sessienummer {id}
+          </Phrase>
         </Column>
       </Column>
     </Column>
