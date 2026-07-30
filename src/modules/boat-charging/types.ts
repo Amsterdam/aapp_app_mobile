@@ -175,6 +175,13 @@ export type BoatChargingSettings = {
 
 export type EVSEWithStation = EVSE & {name: string; station: ChargingStation}
 
-// TODO: add other possible values for paymentStatus, so the string union can be removed
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-export type BoatChargingPaymentResultStatus = 'paid' | string
+export type BoatChargingPaymentResultStatus = 'paid' | 'unpaid'
+
+export type BoatChargingSelectSocketFormValues = {
+  selectedSocket: BoatChargingSelectSocketFormSelectedSocket
+}
+
+export type BoatChargingSelectSocketFormSelectedSocket = {
+  socketNumber: string
+  stationId: string
+}

@@ -13,7 +13,7 @@ export const BoatChargingPaymentResultScreen = ({route}: Props) => {
     const {paymentStatus, sessionId} = params ?? {}
 
     if (typeof paymentStatus !== 'string' || typeof sessionId !== 'string') {
-      redirect('failed', '')
+      redirect('unpaid', '')
 
       return
     }

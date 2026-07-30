@@ -7,9 +7,9 @@ import {BoatChargingSocketRadioLabel} from '@/modules/boat-charging/components/B
 import {useAvailableAndOtherEvses} from '@/modules/boat-charging/hooks/useAvailableAndOtherEvses'
 import {
   ChargingPointStatus,
+  type BoatChargingSelectSocketFormValues,
   type ChargingStation,
 } from '@/modules/boat-charging/types'
-import {serializeSelectedChargingSocket} from '@/modules/boat-charging/utils/selectedChargingSocket'
 import {sizeTokens} from '@/themes/tokens/size'
 
 const EMPTY_RADIO_PLACEHOLDER_SIZE = sizeTokens.spacing.sm + 24 // Radio SVG width is 24, plus sm gutter added by Row in Radio component.
@@ -21,7 +21,7 @@ export const BoatChargingDetailsSocketRadioGroup = ({
   chargingStations: ChargingStation[]
   hasActiveSession: boolean
 }) => {
-  const form = useFormContext<{selectedSocket: string}>()
+  const form = useFormContext<BoatChargingSelectSocketFormValues>()
 
   const {availableEvses, otherEvses, evses} =
     useAvailableAndOtherEvses(chargingStations)
@@ -46,10 +46,10 @@ export const BoatChargingDetailsSocketRadioGroup = ({
                 width={extraPadding ? 'wide' : 'default'}
               />
             ),
-            value: serializeSelectedChargingSocket({
+            value: {
               stationId: station.id,
               socketNumber: evse_id,
-            }),
+            },
           }))}
           testID="BoatChargingDetailsChooseSocketRadioGroup"
         />

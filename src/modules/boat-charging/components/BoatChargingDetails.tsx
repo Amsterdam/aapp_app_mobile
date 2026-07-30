@@ -20,6 +20,7 @@ import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
 import {
   ChargingPointStatus,
   type BoatChargingLocation,
+  type BoatChargingSelectSocketFormValues,
 } from '@/modules/boat-charging/types'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
@@ -46,8 +47,10 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
 
   useInterval(refetchLocationDetails, REFETCH_INTERVAL)
 
-  const form = useForm<{selectedSocket: string}>({
-    defaultValues: {selectedSocket: selectedChargingSocket},
+  const form = useForm<BoatChargingSelectSocketFormValues>({
+    defaultValues: {
+      selectedSocket: selectedChargingSocket,
+    },
   })
 
   const infoRows = useMemo(

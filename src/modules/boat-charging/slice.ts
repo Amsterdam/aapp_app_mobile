@@ -3,12 +3,11 @@ import {useCallback} from 'react'
 import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
+  BoatChargingSelectSocketFormSelectedSocket,
 } from '@/modules/boat-charging/types'
-import type {SelectedChargingSocket} from '@/modules/boat-charging/utils/selectedChargingSocket'
 import type {RootState} from '@/store/types/rootState'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {serializeSelectedChargingSocket} from '@/modules/boat-charging/utils/selectedChargingSocket'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {dayjs} from '@/utils/datetime/dayjs'
 
@@ -106,7 +105,7 @@ export const boatChargingSlice = createSlice({
     },
     setNewSessionSelectedChargingSocket: (
       state,
-      {payload}: PayloadAction<SelectedChargingSocket>,
+      {payload}: PayloadAction<BoatChargingSelectSocketFormSelectedSocket>,
     ) => {
       state.newSessionFormValues = {
         ...state.newSessionFormValues,
@@ -205,15 +204,16 @@ export const useNewSessionFormValues = () => {
   const guestSessionFormValues = useSelector(selectNewSessionFormValues) || {}
   const selectedChargingSocket =
     guestSessionFormValues.stationId && guestSessionFormValues.socketNumber
-      ? serializeSelectedChargingSocket({
+      ? {
           stationId: guestSessionFormValues.stationId,
           socketNumber: guestSessionFormValues.socketNumber,
-        })
+        }
       : undefined
 
   const setGuestEmail = (email: string) => dispatch(setNewSessionEmail(email))
-  const setSelectedChargingSocket = (payload: SelectedChargingSocket) =>
-    dispatch(setNewSessionSelectedChargingSocket(payload))
+  const setSelectedChargingSocket = (
+    payload: BoatChargingSelectSocketFormSelectedSocket,
+  ) => dispatch(setNewSessionSelectedChargingSocket(payload))
   const setApprovedTerms = (approvedTerms: boolean) =>
     dispatch(setNewSessionApprovedTerms(approvedTerms))
   const setDidVerifyEmail = (didVerifyEmail: boolean) =>
