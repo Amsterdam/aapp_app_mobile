@@ -82,7 +82,7 @@ type AccessCodeGateFunction = {
  *  options: {
  *    headerShown: false,
  *    headerTitle: 'Nieuws',
- *    accessCodeGate: true,
+ *    accessCodeGate: true, // <---
  *  },
  * }
  * ```
@@ -91,7 +91,7 @@ export const useAccessCodeGate = (
   Stack: StackFactory,
   config?: AccessCodeGateConfig,
 ): AccessCodeGateFunction => {
-  const {loginSteps, additionalGateCondition} = config || {}
+  const {loginSteps, additionalGateCondition = true} = config || {}
 
   const {isLoginStepsActive} = useLoginSteps()
   const accessCodeGateStateName = useAccessCodeGateState(isLoginStepsActive)
@@ -107,7 +107,7 @@ export const useAccessCodeGate = (
         const meetsAdditionalConditions =
           typeof additionalGateCondition === 'boolean'
             ? additionalGateCondition
-            : additionalGateCondition?.(entry)
+            : additionalGateCondition(entry)
 
         if (entry.props.options?.accessCodeGate && meetsAdditionalConditions) {
           return (
@@ -156,12 +156,17 @@ export const useAccessCodeGate = (
       }
 
       if (accessCodeGateStateName === AccessCodeGateStateName.forgotCode) {
-        return <Stack.Screen {...forgotCodeScreen} />
+        return (
+          <Stack.Screen
+            layout={AccessCodeGateProvider}
+            {...forgotCodeScreen}
+          />
+        )
       }
 
       if (accessCodeGateStateName === AccessCodeGateStateName.setup) {
         return (
-          <Stack.Group>
+          <Stack.Group screenLayout={AccessCodeGateProvider}>
             {!!loginSteps &&
               Object.entries(loginSteps).map(([key, route]) => (
                 <Stack.Screen
@@ -180,7 +185,10 @@ export const useAccessCodeGate = (
       }
 
       return (
-        <Stack.Screen {...ACCESS_CODE_SCREEN_MAP[accessCodeGateStateName]} />
+        <Stack.Screen
+          layout={AccessCodeGateProvider}
+          {...ACCESS_CODE_SCREEN_MAP[accessCodeGateStateName]}
+        />
       )
     },
     [Stack, accessCodeGateStateName, forgotCodeScreen, loginSteps],
