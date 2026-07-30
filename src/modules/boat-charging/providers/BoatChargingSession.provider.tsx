@@ -69,7 +69,7 @@ export const BoatChargingSessionProvider = ({
       session?.status === SessionStatus.ACTIVE
         ? dayjs()
         : session?.end_date_time
-          ? dayjs(session.end_date_time)
+          ? session.end_date_time
           : undefined
 
     return session && endDateTime
