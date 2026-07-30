@@ -9,7 +9,7 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 - Clone the repository
   - or from GitHub: `git clone git@github.com:Amsterdam/aapp_app_mobile.git` (please check if it is up to date)
 - Set Node version
-  - Install Volta (https://volta.sh/) and make sure it has set the correct Node version (see package.json)
+  - Install [Volta](https://volta.sh/) and make sure it has set the correct Node version (see package.json)
 - Install Node dependencies: `npm run ci`.
 - For iOS development, install other dependencies:
   - install rbenv: `brew install rbenv ruby-build` and execute `rbenv init`
@@ -54,10 +54,6 @@ You can find these files in the Keepass database. To access this database:
 - `android/app/src/dev/google-services.json` - Development Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev)).
 - `ios/GoogleService-Info-Prod.plist` - Production Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app)).
 - `ios/GoogleService-Info-Test.plist` - Development Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app.dev)).
-
-## Git collaboration
-
-Our workflow and approach is documented [here](https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_wiki/wikis/Amsterdam-App.wiki/11135/Samenwerken-aan-code)
 
 ## Deeplinks
 
@@ -106,4 +102,5 @@ More documentation can be found in the `.docs` folder:
 
 Modules:
 
+- [Boat-charging](./.docs/modules/boat-charging.md)
 - [City-Pass](./.docs/modules/city-pass.md)
