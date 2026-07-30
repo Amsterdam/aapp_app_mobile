@@ -11,23 +11,29 @@ The start-session flow is coordinated by `useInitSession` in `src/modules/boat-c
 
 ### Flow
 
-This diagram shows the primary user journey. Logged in users may skip the email steps, and logged in users who already accepted the latest terms may skip the terms step.
+This diagram shows the primary user journey. Users who are not logged in can choose between logging in and continuing as a guest. Logged in users who already accepted the latest terms may skip the terms step.
 
 ```mermaid
 flowchart TD
 A[User selects a location] --> B[User selects a socket]
 B --> C{Is the user logged in?}
-C -- No --> D[User enters an email address]
-D --> E[User confirms the email address]
-E --> F[User accepts the terms and conditions]
-C -- Yes --> G{Are the latest terms already approved?}
-G -- No --> F
-G -- Yes --> H[User starts payment]
-F --> H
-H --> I[Payment checkout opens in the browser]
-I --> J[User completes payment]
-J --> K[App returns to the payment result flow]
-K --> L[User starts charging]
+C -- No --> D{User chooses login or guest}
+D -- Login --> E[User logs in]
+D -- Guest --> F[User enters an email address]
+F --> G[User confirms the email address]
+G --> H[User accepts the terms and conditions]
+E --> I{Is an accesscode already set?}
+I -- No --> J[User sets accesscode]
+I -- Yes --> H
+J --> H
+C -- Yes --> K{Are the latest terms already approved?}
+K -- No --> H
+K -- Yes --> L[User starts payment]
+H --> L
+L --> M[Payment checkout opens in the browser]
+M --> N[User completes payment]
+N --> O[App returns to the payment result flow]
+O --> P[User starts charging]
 ```
 
 ### Practical implication
