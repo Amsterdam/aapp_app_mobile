@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
@@ -7,12 +8,20 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {useGuestSessionFormValues} from '@/modules/boat-charging/slice'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
+import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
 
 export const BoatChargingGuestEmailConfirmScreen = () => {
   const navigation = useNavigation()
-  const {email} = useGuestSessionFormValues()
+  const {email, setDidVerifyEmail} = useNewSessionFormValues()
+
+  const {onPress} = useInitSession()
+
+  const onButtonPress = useCallback(() => {
+    setDidVerifyEmail(true)
+
+    return onPress()
+  }, [onPress, setDidVerifyEmail])
 
   if (!email) {
     return (
@@ -37,7 +46,10 @@ export const BoatChargingGuestEmailConfirmScreen = () => {
               chevronSize="md"
               emphasis="default"
               horizontallyAlign="center"
-              onPress={() => navigation.goBack()}
+              onPress={() => {
+                setDidVerifyEmail(false)
+                navigation.goBack()
+              }}
               testID="BoatChargingGuestEmailConfirmScreenChangeEmailAddressButton"
               title="Wijzig e-mailadres"
             />
@@ -47,11 +59,7 @@ export const BoatChargingGuestEmailConfirmScreen = () => {
         <Button
           label="Ja, dit klopt"
           marginTop="auto"
-          onPress={() =>
-            navigation.navigate(
-              BoatChargingRouteName.boatChargingTermsAndConditions,
-            )
-          }
+          onPress={onButtonPress}
           testID="BoatChargingGuestEmailConfirmSubmitButton"
         />
       </Box>

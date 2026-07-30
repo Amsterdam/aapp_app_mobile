@@ -14,7 +14,7 @@ export const ModuleStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={BoatChargingRouteName.boatCharging}
+      initialRouteName={BoatChargingRouteName.map}
       screenOptions={screenOptions}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen

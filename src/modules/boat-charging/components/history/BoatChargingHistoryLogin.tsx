@@ -23,7 +23,7 @@ export const BoatChargingHistoryLogin = () => {
       <Column gutter="lg">
         <Button
           label="Inloggen"
-          onPress={() => navigate(BoatChargingRouteName.boatChargingLogin)}
+          onPress={() => navigate(BoatChargingRouteName.login)}
           testID="BoatChargingHistoryLoginButton"
         />
         <ExternalLinkButton

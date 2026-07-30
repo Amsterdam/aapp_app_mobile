@@ -1,4 +1,3 @@
-import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -12,25 +11,23 @@ export const BoatChargingLoginScreen = () => {
   const isLoggedIn = isAuthenticated && hasValidAccessToken
 
   return (
-    <MapViewSwitchProvider>
-      <Screen
-        keyboardAware
-        testID="BoatChargingLoginScreen">
-        {isLoggedIn ? (
-          <Box>
-            <Column>
-              <Phrase>Al ingelogd</Phrase>
-              <Button
-                label="Uitloggen"
-                onPress={signOut}
-                testID="BoatChargingLoginScreenSignOutButton"
-              />
-            </Column>
-          </Box>
-        ) : (
-          <BoatChargingLoginForm />
-        )}
-      </Screen>
-    </MapViewSwitchProvider>
+    <Screen
+      keyboardAware
+      testID="BoatChargingLoginScreen">
+      {isLoggedIn ? (
+        <Box>
+          <Column>
+            <Phrase>Al ingelogd</Phrase>
+            <Button
+              label="Uitloggen"
+              onPress={signOut}
+              testID="BoatChargingLoginScreenSignOutButton"
+            />
+          </Column>
+        </Box>
+      ) : (
+        <BoatChargingLoginForm />
+      )}
+    </Screen>
   )
 }

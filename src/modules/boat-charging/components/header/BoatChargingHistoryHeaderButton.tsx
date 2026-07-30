@@ -16,9 +16,7 @@ export const BoatChargingHistoryHeaderButton = () => {
           size="lg"
         />
       }
-      onPress={() =>
-        navigation.navigate(BoatChargingRouteName.boatChargingHistory)
-      }
+      onPress={() => navigation.navigate(BoatChargingRouteName.history)}
       testID="BoatChargingHistoryHeaderButton"
     />
   )

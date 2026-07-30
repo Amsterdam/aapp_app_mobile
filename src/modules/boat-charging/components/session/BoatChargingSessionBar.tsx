@@ -6,10 +6,13 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
+import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingSessionProvider} from '@/modules/boat-charging/providers/BoatChargingSession.provider'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {selectBoatChargingLastGuestSessionId} from '@/modules/boat-charging/slice'
 import {NRGStatus} from '@/modules/boat-charging/types'
 import {useThemable} from '@/themes/useThemable'
 
@@ -26,7 +29,7 @@ const BoatChargingSessionBarContent = () => {
   return (
     <Pressable
       onPress={() =>
-        navigate(BoatChargingRouteName.boatChargingActiveSessionDetails, {
+        navigate(BoatChargingRouteName.activeSessionDetails, {
           id: session.id,
         })
       }
@@ -72,8 +75,10 @@ const BoatChargingSessionBarContent = () => {
 }
 
 export const BoatChargingSessionBar = () => {
+  const {isLoggedIn} = useIsLoggedIn()
+  const lastGuestSessionId = useSelector(selectBoatChargingLastGuestSessionId)
   const {activeSessions} = useBoatChargingSessions()
-  const id = activeSessions?.[0]?.id ?? ''
+  const id = isLoggedIn ? activeSessions?.[0]?.id : lastGuestSessionId
 
   if (!id) {
     return null

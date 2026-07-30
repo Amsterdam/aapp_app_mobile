@@ -7,6 +7,7 @@ import {BoatChargingSocketRadioLabel} from '@/modules/boat-charging/components/B
 import {useAvailableAndOtherEvses} from '@/modules/boat-charging/hooks/useAvailableAndOtherEvses'
 import {
   ChargingPointStatus,
+  type BoatChargingSelectSocketFormValues,
   type ChargingStation,
 } from '@/modules/boat-charging/types'
 import {sizeTokens} from '@/themes/tokens/size'
@@ -20,7 +21,7 @@ export const BoatChargingDetailsSocketRadioGroup = ({
   chargingStations: ChargingStation[]
   hasActiveSession: boolean
 }) => {
-  const form = useFormContext<{socketId: string}>()
+  const form = useFormContext<BoatChargingSelectSocketFormValues>()
 
   const {availableEvses, otherEvses, evses} =
     useAvailableAndOtherEvses(chargingStations)
@@ -36,8 +37,8 @@ export const BoatChargingDetailsSocketRadioGroup = ({
       {!!selectableEvses.length && (
         <RadioGroupControlled
           {...form}
-          name="socketId"
-          options={selectableEvses.map(({station, name}) => ({
+          name="selectedSocket"
+          options={selectableEvses.map(({station, name, evse_id}) => ({
             label: (
               <BoatChargingSocketRadioLabel
                 name={name}
@@ -45,7 +46,10 @@ export const BoatChargingDetailsSocketRadioGroup = ({
                 width={extraPadding ? 'wide' : 'default'}
               />
             ),
-            value: station.id,
+            value: {
+              stationId: station.id,
+              socketNumber: evse_id,
+            },
           }))}
           testID="BoatChargingDetailsChooseSocketRadioGroup"
         />

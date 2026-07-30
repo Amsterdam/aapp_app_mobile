@@ -41,7 +41,7 @@ export const RadioGroup = <
   orientation = LayoutOrientation.vertical,
   required,
   testID,
-  value,
+  value: valueSerialized,
   logAction = PiwikAction.radioChange,
   useOptionValuesForLogging = false,
   logDimensions = {},
@@ -55,6 +55,19 @@ export const RadioGroup = <
     testID,
   })
 
+  let value: string | number | boolean | undefined
+
+  const shouldSerializeValues = options.some(
+    ({value: optionValue}) =>
+      typeof optionValue !== 'string' &&
+      typeof optionValue !== 'number' &&
+      typeof optionValue !== 'boolean',
+  )
+
+  if (shouldSerializeValues) {
+    value = JSON.stringify(valueSerialized)
+  }
+
   return (
     <Column gutter="md">
       {!!label && (
@@ -67,7 +80,15 @@ export const RadioGroup = <
         gutter="md"
         orientation={orientation}
         wrap>
-        {options.map(({label: optionLabel, value: optionValue}, index) => {
+        {options.map(({label: optionLabel, value: optionValueRaw}, index) => {
+          let optionValue: string | number | boolean = ''
+
+          if (shouldSerializeValues) {
+            optionValue = JSON.stringify(optionValueRaw)
+          } else {
+            optionValue = optionValueRaw
+          }
+
           const logName = `${testID}${useOptionValuesForLogging ? optionValue.toString() : index}RadioButton`
 
           return (
@@ -83,7 +104,7 @@ export const RadioGroup = <
               logName={logName}
               onPress={() =>
                 onPress(
-                  optionValue,
+                  optionValueRaw,
                   useOptionValuesForLogging
                     ? {
                         dimensions: {

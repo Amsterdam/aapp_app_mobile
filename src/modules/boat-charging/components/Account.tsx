@@ -46,7 +46,7 @@ export const Account = () => {
               label="Inloggen"
               onPress={() =>
                 navigate(ModuleSlug['boat-charging'], {
-                  screen: BoatChargingRouteName.boatChargingLogin,
+                  screen: BoatChargingRouteName.login,
                 })
               }
               testID="UserAccountBoatChargingLoginButton"

@@ -1,93 +1,48 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
+import type {BoatChargingSelectSocketFormValues} from '@/modules/boat-charging/types'
 import {Button} from '@/components/ui/buttons/Button'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {
-  useBoatChargingInitSessionMutation,
-  useBoatChargingTermsQuery,
-} from '@/modules/boat-charging/service'
-import {
-  selectBoatChargingLoggedInUsername,
-  selectLastApprovedTermsVersionWhileLoggedIn,
-  useGuestSessionFormValues,
-} from '@/modules/boat-charging/slice'
+import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
 
 export const BoatChargingDetailsSocketSubmitButton = () => {
-  const form = useFormContext<{socketId: string}>()
-  const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
-  const [
-    initSession,
-    {isLoading: isInitSessionLoading, isError: isInitSessionError},
-  ] = useBoatChargingInitSessionMutation()
-  const lastApprovedTermsVersion = useSelector(
-    selectLastApprovedTermsVersionWhileLoggedIn,
-  )
+  const form = useFormContext<BoatChargingSelectSocketFormValues>()
   const {isLoggedIn} = useIsLoggedIn()
-  const {navigate} = useNavigation()
-  const {setSocketId} = useGuestSessionFormValues()
-  const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
-  const openWebUrl = useOpenWebUrl()
+  const {setSelectedChargingSocket} = useNewSessionFormValues()
+
+  const {onPress, isLoading, isError, disabled, mustApproveTerms, refetch} =
+    useInitSession()
 
   const onSubmit = useCallback(
-    ({socketId}: {socketId?: string}) => {
-      if (!socketId) {
+    ({
+      selectedSocket,
+    }: {
+      selectedSocket?: {
+        socketNumber: string
+        stationId: string
+      }
+    }) => {
+      if (!selectedSocket) {
         form.setError('root', {message: 'Kies een stopcontact uit de lijst.'})
 
-        return
+        return Promise.resolve()
       }
 
-      setSocketId(socketId)
+      setSelectedChargingSocket(selectedSocket)
 
-      if (isLoggedIn) {
-        if (!loggedInUsername) {
-          return
-        }
-
-        if (terms?.version !== lastApprovedTermsVersion) {
-          navigate(BoatChargingRouteName.boatChargingTermsAndConditions)
-
-          return
-        } else {
-          return initSession({
-            station_id: socketId,
-            socket_number: '1', //TODO: get the socket number from the selected socket, not hardcoded to 1
-            email: loggedInUsername,
-            name: loggedInUsername,
-            return_url: 'amsterdam://boat-charging',
-          })
-            .unwrap()
-            .then(({checkout_url}) => {
-              openWebUrl(checkout_url)
-            })
-        }
-      } else {
-        navigate(BoatChargingRouteName.boatChargingGuestEmail)
-      }
+      return onPress()
     },
-    [
-      setSocketId,
-      isLoggedIn,
-      loggedInUsername,
-      form,
-      terms?.version,
-      lastApprovedTermsVersion,
-      navigate,
-      initSession,
-      openWebUrl,
-    ],
+    [setSelectedChargingSocket, onPress, form],
   )
 
-  if (isLoggedIn && terms?.version === lastApprovedTermsVersion) {
+  if (isLoggedIn && !mustApproveTerms) {
     return (
       <Button
-        disabled={isLoading || isInitSessionLoading}
+        disabled={disabled}
         icon={{name: 'boat-charging-free', color: 'inverse'}}
-        isError={isError || isInitSessionError}
-        isLoading={isLoading || isInitSessionLoading}
+        isError={isError}
+        isLoading={isLoading}
         label="Betalen en laden"
         marginTop="auto"
         onPress={isError ? refetch : form.handleSubmit(onSubmit)}
@@ -98,9 +53,9 @@ export const BoatChargingDetailsSocketSubmitButton = () => {
 
   return (
     <Button
-      disabled={!!isLoggedIn && (isLoading || isError)}
-      isError={!!isLoggedIn && (isError || isInitSessionError)}
-      isLoading={!!isLoggedIn && (isLoading || isInitSessionLoading)}
+      disabled={!!isLoggedIn && disabled}
+      isError={!!isLoggedIn && isError}
+      isLoading={!!isLoggedIn && isLoading}
       label="Verder met opladen"
       marginTop="auto"
       onPress={form.handleSubmit(onSubmit)}

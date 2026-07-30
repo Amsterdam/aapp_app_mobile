@@ -8,24 +8,27 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {useGuestSessionFormValues} from '@/modules/boat-charging/slice'
+import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingGuestEmailForm = () => {
   const emailRef = useRef<TextInputRN>(null)
-  const {setGuestEmail, email: guestEmail} = useGuestSessionFormValues()
+  const {setGuestEmail, email: guestEmail} = useNewSessionFormValues()
   const form = useForm<{email: string}>({defaultValues: {email: guestEmail}})
 
   const {navigate} = useNavigation()
+
+  const {onPress} = useInitSession()
 
   const onSubmit = useCallback(
     ({email}: {email: string}) => {
       setGuestEmail(email)
 
-      navigate(BoatChargingRouteName.boatChargingGuestEmailConfirm)
+      return onPress()
     },
-    [navigate, setGuestEmail],
+    [onPress, setGuestEmail],
   )
 
   useFocusAndForegroundEffect(() => emailRef.current?.focus(), [])
@@ -55,7 +58,7 @@ export const BoatChargingGuestEmailForm = () => {
           />
           <Button
             label="Inloggen"
-            onPress={() => navigate(BoatChargingRouteName.boatChargingLogin)}
+            onPress={() => navigate(BoatChargingRouteName.login)}
             testID="BoatChargingGuestEmailFormLoginButton"
             variant="secondary"
           />

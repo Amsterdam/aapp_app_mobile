@@ -6,7 +6,7 @@ import {BoatChargingDetails} from '@/modules/boat-charging/components/BoatChargi
 import {BoatChargingSessionBar} from '@/modules/boat-charging/components/session/BoatChargingSessionBar'
 import {BoatChargingSessionsProvider} from '@/modules/boat-charging/providers/BoatChargingSessions.provider'
 
-type Props = NavigationProps<BoatChargingRouteName.boatChargingLocationDetails>
+type Props = NavigationProps<BoatChargingRouteName.locationDetails>
 
 export const BoatChargingLocationDetailsScreen = ({route}: Props) => (
   <BoatChargingSessionsProvider>

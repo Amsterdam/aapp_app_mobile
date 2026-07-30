@@ -1,6 +1,7 @@
 import {
   type FieldPath,
   type FieldValues,
+  type PathValue,
   useController,
   UseControllerProps,
 } from 'react-hook-form'
@@ -17,7 +18,7 @@ type Props<
   LabelNode extends ReactNode = string,
 > = {
   label?: string
-  options?: RadioGroupOption<string, LabelNode>[]
+  options?: RadioGroupOption<PathValue<TFieldValues, TName>, LabelNode>[]
   orientation?: LayoutOrientation
 } & TestProps &
   UseControllerProps<TFieldValues, TName>
@@ -44,7 +45,7 @@ export const RadioGroupControlled = <
   }
 
   return (
-    <RadioGroup<string, LabelNode>
+    <RadioGroup<PathValue<TFieldValues, TName>, LabelNode>
       errorMessage={error?.message}
       label={label}
       onChange={onChange}

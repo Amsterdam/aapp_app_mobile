@@ -174,3 +174,14 @@ export type BoatChargingSettings = {
 }
 
 export type EVSEWithStation = EVSE & {name: string; station: ChargingStation}
+
+export type BoatChargingPaymentResultStatus = 'paid' | 'unpaid'
+
+export type BoatChargingSelectSocketFormValues = {
+  selectedSocket: BoatChargingSelectSocketFormSelectedSocket
+}
+
+export type BoatChargingSelectSocketFormSelectedSocket = {
+  socketNumber: string
+  stationId: string
+}

@@ -13,7 +13,7 @@ import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {RedirectKey} from '@/modules/redirects/types'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 
-type Props = NavigationProps<BoatChargingRouteName.boatChargingHelp>
+type Props = NavigationProps<BoatChargingRouteName.help>
 
 export const BoatChargingHelpScreen = ({navigation}: Props) => (
   <Screen testID="BoatChargingHelpScreen">

@@ -13,6 +13,7 @@ const persistWhitelist: (keyof BoatChargingState)[] = [
   'selectedBoatChargingPointId',
   'openIdConnectConfig',
   'lastApprovedTermsVersionWhileLoggedIn',
+  'lastGuestSessionId',
 ]
 
 export const clientModule = createClientModule({
@@ -21,6 +22,7 @@ export const clientModule = createClientModule({
   slug: ModuleSlug['boat-charging'],
   linking: {
     [ModuleSlug['boat-charging']]: ModuleSlug['boat-charging'],
+    [BoatChargingRouteName.paymentResult]: 'boat-charging/payment',
   },
   reduxConfigs: [
     {
@@ -31,5 +33,5 @@ export const clientModule = createClientModule({
     },
   ],
   icons: boatChargingSvgIcons,
-  loginRoute: {screen: BoatChargingRouteName.boatChargingLogin},
+  loginRoute: {screen: BoatChargingRouteName.login},
 })

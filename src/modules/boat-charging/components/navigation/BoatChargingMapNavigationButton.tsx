@@ -12,7 +12,7 @@ export const BoatChargingMapNavigationButton = () => {
   const selectChargingPoint = useSelectChargingPoint()
 
   const onPress = useCallback(() => {
-    navigate(BoatChargingRouteName.boatCharging)
+    navigate(BoatChargingRouteName.map)
     InteractionManager.runAfterInteractions(() => {
       if (session?.location.id) {
         selectChargingPoint(session.location.id)
