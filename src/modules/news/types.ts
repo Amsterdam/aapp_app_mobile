@@ -37,7 +37,7 @@ export type NewsArticleResponse = NewsArticleBase & {
   url: string
 }
 
-type LiveblogItem = {
+export type LiveblogItem = {
   body: string
   creation_datetime: string
   id: number

@@ -1,6 +1,9 @@
-import {useLayoutEffect} from 'react'
-import {FlatList, StyleSheet} from 'react-native'
-import type {NewsArticleBase} from '@/modules/news/types'
+import {useCallback, useLayoutEffect, useMemo} from 'react'
+import {FlatList, StyleSheet, type ListRenderItemInfo} from 'react-native'
+import type {
+  LiveblogItem as LiveblogItemType,
+  NewsArticleBase,
+} from '@/modules/news/types'
 import type {Theme} from '@/themes/themes'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -10,6 +13,7 @@ import {LiveblogHeader} from '@/modules/news/components/liveblog/LiveblogHeader'
 import {LiveblogItem} from '@/modules/news/components/liveblog/LiveblogItem'
 import {LiveblogItemSeparator} from '@/modules/news/components/liveblog/LiveblogItemSeparator'
 import {useLiveblog} from '@/modules/news/hooks/useLiveblog'
+import {getLiveblogLastEntriesPerDay} from '@/modules/news/utils/getLiveblogLastEntriesPerDay'
 import {useThemable} from '@/themes/useThemable'
 
 export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
@@ -24,6 +28,21 @@ export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
         : 'Liveblog',
     })
   }, [navigation, data?.is_active_liveblog])
+
+  const liveblogLastEntriesPerDay = useMemo<Set<LiveblogItemType>>(
+    () => getLiveblogLastEntriesPerDay(data?.liveblog_items),
+    [data?.liveblog_items],
+  )
+
+  const renderItem = useCallback(
+    (props: ListRenderItemInfo<LiveblogItemType>) => (
+      <LiveblogItem
+        {...props}
+        isLastEntryOfDay={liveblogLastEntriesPerDay.has(props.item)}
+      />
+    ),
+    [liveblogLastEntriesPerDay],
+  )
 
   if (isLoading) {
     return <PleaseWait testID="LiveblogPleaseWait" />
@@ -45,7 +64,7 @@ export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
           {...rest}
         />
       }
-      renderItem={LiveblogItem}
+      renderItem={renderItem}
     />
   )
 }
