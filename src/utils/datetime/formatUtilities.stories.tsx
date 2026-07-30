@@ -275,6 +275,10 @@ const DatetimeFormatUtilitiesDocs = () => {
           }),
         },
         {
+          label: "formatTimeToDisplay('00:00:00')",
+          result: formatTimeToDisplay('00:00:00'),
+        },
+        {
           label: "formatTimeToDisplay('00:00:00', {replaceMidnightBy24: true})",
           result: formatTimeToDisplay('00:00:00', {replaceMidnightBy24: true}),
         },
