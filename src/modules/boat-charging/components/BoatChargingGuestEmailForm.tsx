@@ -6,6 +6,7 @@ import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputFie
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
@@ -15,7 +16,10 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingGuestEmailForm = () => {
-  const {navigate} = useNavigation()
+  // const {setGuestEmail, email: guestEmail} = useNewSessionFormValues()
+  const {isLoggedIn} = useIsLoggedIn()
+
+  const {navigate, goBack} = useNavigation()
 
   const {
     onPress,
@@ -26,7 +30,12 @@ export const BoatChargingGuestEmailForm = () => {
     (params: NewSessionFormValues) => onPress(params),
     [onPress],
   )
-  const {isLoggedIn} = useIsLoggedIn()
+
+  useFocusAndForegroundEffect(() => {
+    if (isLoggedIn) {
+      goBack()
+    }
+  }, [isLoggedIn])
 
   return (
     <Column gutter="xl">
