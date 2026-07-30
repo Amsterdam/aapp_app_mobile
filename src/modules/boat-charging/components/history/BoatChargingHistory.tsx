@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, type SectionListProps} from 'react-native'
-import type {PaginationQueryArgs} from '@/types/api'
 import {Divider} from '@/components/ui/Divider'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -91,11 +90,7 @@ export const BoatChargingHistory = () => {
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
   const page = getCurrentPage(viewableItemIndex, 1, pageSize)
 
-  const result = useInfiniteScroller<
-    BoatChargingSession,
-    BoatChargingHistoryInfiniteItem,
-    PaginationQueryArgs
-  >(
+  const result = useInfiniteScroller(
     dummyBoatChargingHistoryItem,
     boatChargingApi.endpoints[BoatChargingEndpointName.boatChargingSessions],
     'id',
@@ -105,6 +100,7 @@ export const BoatChargingHistory = () => {
     isLoggedIn
       ? {
           page_size: pageSize,
+          status: SessionStatus.COMPLETED,
         }
       : skipToken,
   )
@@ -176,8 +172,12 @@ export const BoatChargingHistory = () => {
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
         <>
-          {section !== sections[0] && <Divider />}
-          <Gutter height="md" />
+          {section !== sections[0] && (
+            <>
+              <Divider />
+              <Gutter height="md" />
+            </>
+          )}
           <Phrase
             emphasis="strong"
             testID="BoatChargingHistorySessionDatePhrase">
