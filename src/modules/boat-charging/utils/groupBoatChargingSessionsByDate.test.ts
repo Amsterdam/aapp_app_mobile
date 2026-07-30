@@ -42,6 +42,7 @@ const createBoatChargingSession = (
   station_id: 'station-1',
   status: SessionStatus.COMPLETED,
   total_cost: 15.75,
+  email: 'app@amsterdam.nl',
 })
 
 describe('groupBoatChargingSessionsByDate', () => {

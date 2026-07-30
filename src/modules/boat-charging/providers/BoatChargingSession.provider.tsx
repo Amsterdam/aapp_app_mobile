@@ -66,7 +66,7 @@ export const BoatChargingSessionProvider = ({
 
   const [chargingTimeString, chargingTimeVeryShortString] = useMemo(
     () =>
-      session
+      session?.end_date_time
         ? [
             formatTimeRangeToDisplay(
               session.start_date_time,

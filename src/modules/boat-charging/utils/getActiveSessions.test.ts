@@ -17,6 +17,7 @@ const createSession = (
   station_id: 'station-1',
   status: SessionStatus.ACTIVE,
   total_cost: 1,
+  email: 'app@amsterdam.nl',
   ...overrides,
 })
 

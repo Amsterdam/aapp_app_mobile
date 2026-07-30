@@ -1,4 +1,5 @@
 import {MetaDataCard} from '@/components/ui/MetaDataCard'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
@@ -8,21 +9,41 @@ import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingHistorySessionDetails = () => {
-  const {session, chargingTimeString, settings} = useBoatChargingSession()
+  const {session, chargingTimeString, settings, isLoading} =
+    useBoatChargingSession()
+
+  if (isLoading) {
+    return <PleaseWait testID="BoatChargingHistorySessionDetailsPleaseWait" />
+  }
 
   if (!session) {
     return <Phrase>Geen sessie gevonden</Phrase>
   }
 
+  const {
+    email,
+    station_id,
+    socket_number,
+    location,
+    start_date_time,
+    end_date_time,
+    id,
+    kwh,
+    total_cost,
+    currency,
+  } = session
+
   return (
     <Column gutter="xl">
       <Column gutter="lg">
-        <Title text={session.location.name} />
+        <Title text={location.name} />
         <MetaDataCard
           iconName="power-plug"
           testID="BoatChargingHistorySessionDetailsSocketCard"
           title="Stopcontact">
-          <Phrase>{session.socket_number}</Phrase>
+          <Phrase>
+            {station_id}-{socket_number}
+          </Phrase>
         </MetaDataCard>
         <MetaDataCard
           iconName="euro-coins"
@@ -31,17 +52,17 @@ export const BoatChargingHistorySessionDetails = () => {
           <Phrase>
             {settings?.vat_fraction
               ? `${formatNumber(
-                  session.total_cost * settings.vat_fraction,
-                  session.currency,
+                  total_cost * settings.vat_fraction,
+                  currency,
                 )} inclusief btw`
-              : `${formatNumber(session.total_cost, session.currency)} exclusief btw`}
+              : `${formatNumber(total_cost, currency)} exclusief btw`}
           </Phrase>
         </MetaDataCard>
         <MetaDataCard
           iconName="lightning"
           testID="BoatChargingHistorySessionDetailsChargedCard"
           title="Geladen">
-          <Phrase>{formatKWH(session.kwh)}</Phrase>
+          <Phrase>{formatKWH(kwh)}</Phrase>
         </MetaDataCard>
         <MetaDataCard
           iconName="clock"
@@ -49,19 +70,24 @@ export const BoatChargingHistorySessionDetails = () => {
           title="Laadtijd">
           <Phrase>{chargingTimeString}</Phrase>
           <Phrase>
-            Start: {formatDateTimeToDisplay(session.start_date_time, true)}
+            Start: {formatDateTimeToDisplay(start_date_time, true)}
           </Phrase>
-          <Phrase>
-            Einde: {formatDateTimeToDisplay(session.end_date_time, true)}
-          </Phrase>
+          {!!end_date_time && (
+            <Phrase>
+              Einde: {formatDateTimeToDisplay(end_date_time, true)}
+            </Phrase>
+          )}
         </MetaDataCard>
-        <Column>
-          {/* we do not get the associated emailaddress from the backend, so we cannot display it here. Using the last saved e-mail might result in showing the wrong e-mail address, so better not show it than possibly wrong.
-          <Phrase>Betaalbewijs verzonden naar</Phrase> */}
+        <Column gutter="smd">
           <Phrase
             color="secondary"
             variant="small">
-            Sessienummer {session.id}
+            Betaalbewijs verzonden naar {email}
+          </Phrase>
+          <Phrase
+            color="secondary"
+            variant="small">
+            Sessienummer {id}
           </Phrase>
         </Column>
       </Column>
