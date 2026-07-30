@@ -67,7 +67,6 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.login,
     options: {
       headerTitle: 'Inloggen',
-      accessCodeGate: true,
     },
   },
   [BoatChargingRouteName.activeSessionDetails]: {
