@@ -29,7 +29,7 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.guestEmailConfirm]: undefined
   [BoatChargingRouteName.help]: undefined
   [BoatChargingRouteName.history]: undefined
-  [BoatChargingRouteName.login]: undefined
+  [BoatChargingRouteName.login]: {shouldNavigateBack?: boolean}
   [BoatChargingRouteName.activeSessionDetails]: {
     id: BoatChargingSession['id']
   }

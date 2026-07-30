@@ -18,7 +18,11 @@ type FormValues = {
   username: string
 }
 
-export const BoatChargingLoginForm = () => {
+export const BoatChargingLoginForm = ({
+  shouldNavigateBack = true,
+}: {
+  shouldNavigateBack?: boolean
+}) => {
   const {signIn} = useOpenIdConnectAuth()
   const form = useForm<FormValues>()
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -38,7 +42,7 @@ export const BoatChargingLoginForm = () => {
       try {
         await signIn(username, password)
 
-        if (canGoBack()) {
+        if (canGoBack() && shouldNavigateBack) {
           goBack()
         }
       } catch (error) {
@@ -47,7 +51,7 @@ export const BoatChargingLoginForm = () => {
         )
       }
     },
-    [canGoBack, goBack, signIn],
+    [canGoBack, goBack, signIn, shouldNavigateBack],
   )
 
   return (

@@ -9,6 +9,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
+import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
@@ -17,8 +18,9 @@ export const BoatChargingGuestEmailForm = () => {
   const emailRef = useRef<TextInputRN>(null)
   const {setGuestEmail, email: guestEmail} = useNewSessionFormValues()
   const form = useForm<{email: string}>({defaultValues: {email: guestEmail}})
+  const {isLoggedIn} = useIsLoggedIn()
 
-  const {navigate} = useNavigation()
+  const {navigate, goBack} = useNavigation()
 
   const {onPress} = useInitSession()
 
@@ -30,6 +32,12 @@ export const BoatChargingGuestEmailForm = () => {
     },
     [onPress, setGuestEmail],
   )
+
+  useFocusAndForegroundEffect(() => {
+    if (isLoggedIn) {
+      goBack()
+    }
+  }, [isLoggedIn])
 
   useFocusAndForegroundEffect(() => emailRef.current?.focus(), [])
 
@@ -58,7 +66,9 @@ export const BoatChargingGuestEmailForm = () => {
           />
           <Button
             label="Inloggen"
-            onPress={() => navigate(BoatChargingRouteName.login)}
+            onPress={() =>
+              navigate(BoatChargingRouteName.login, {shouldNavigateBack: true})
+            }
             testID="BoatChargingGuestEmailFormLoginButton"
             variant="secondary"
           />

@@ -23,7 +23,9 @@ export const BoatChargingHistoryLogin = () => {
       <Column gutter="lg">
         <Button
           label="Inloggen"
-          onPress={() => navigate(BoatChargingRouteName.login)}
+          onPress={() =>
+            navigate(BoatChargingRouteName.login, {shouldNavigateBack: true})
+          }
           testID="BoatChargingHistoryLoginButton"
         />
         <ExternalLinkButton
