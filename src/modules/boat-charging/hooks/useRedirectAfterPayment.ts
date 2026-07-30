@@ -8,7 +8,7 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {setLastGuestSessionId} from '@/modules/boat-charging/slice'
 import {useAlert} from '@/store/slices/alert'
 
-export const useRedirectAfterPayment = (doReplace: boolean = false) => {
+export const useRedirectAfterPayment = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const {isLoggedIn} = useIsLoggedIn()
@@ -21,20 +21,14 @@ export const useRedirectAfterPayment = (doReplace: boolean = false) => {
           dispatch(setLastGuestSessionId(sessionId))
         }
 
-        if (doReplace) {
-          navigation.replace(BoatChargingRouteName.activeSessionDetails, {
-            id: sessionId,
-          })
-        } else {
-          navigation.navigate(BoatChargingRouteName.activeSessionDetails, {
-            id: sessionId,
-          })
-        }
+        navigation.replace(BoatChargingRouteName.activeSessionDetails, {
+          id: sessionId,
+        })
       } else {
         navigation.goBack()
         setAlert(alerts.paymentFailed)
       }
     },
-    [isLoggedIn, doReplace, dispatch, navigation, setAlert],
+    [isLoggedIn, dispatch, navigation, setAlert],
   )
 }

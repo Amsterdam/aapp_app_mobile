@@ -7,7 +7,7 @@ type Props = NavigationProps<BoatChargingRouteName.paymentResult>
 
 export const BoatChargingPaymentResultScreen = ({route}: Props) => {
   const {params} = route
-  const redirect = useRedirectAfterPayment(true)
+  const redirect = useRedirectAfterPayment()
 
   useEffect(() => {
     const {paymentStatus, sessionId} = params ?? {}
