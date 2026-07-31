@@ -64,29 +64,23 @@ export const BoatChargingSessionProvider = ({
     setIsNotPluggedInErrorVisible(true)
   }, [])
 
-  const [chargingTimeString, chargingTimeVeryShortString] = useMemo(
-    () =>
-      session?.end_date_time
-        ? [
-            formatTimeRangeToDisplay(
-              session.start_date_time,
-              session.status === SessionStatus.ACTIVE
-                ? dayjs()
-                : session.end_date_time,
-            ),
-            formatTimeRangeToDisplay(
-              session.start_date_time,
-              session.status === SessionStatus.ACTIVE
-                ? dayjs()
-                : session.end_date_time,
-              {
-                format: 'veryShort',
-              },
-            ),
-          ]
-        : [],
-    [session],
-  )
+  const [chargingTimeString, chargingTimeVeryShortString] = useMemo(() => {
+    const endDateTime =
+      session?.status === SessionStatus.ACTIVE
+        ? dayjs()
+        : session?.end_date_time
+          ? session.end_date_time
+          : undefined
+
+    return session && endDateTime
+      ? [
+          formatTimeRangeToDisplay(session.start_date_time, endDateTime),
+          formatTimeRangeToDisplay(session.start_date_time, endDateTime, {
+            format: 'veryShort',
+          }),
+        ]
+      : []
+  }, [session])
 
   const {data: settingsServerData} = useBoatChargingSettingsQuery()
   const settings: BoatChargingSettings = useMemo(
