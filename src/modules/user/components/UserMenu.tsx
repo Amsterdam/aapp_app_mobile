@@ -60,7 +60,7 @@ const generalSection = [
 ] satisfies UserMenuSection[]
 
 const MenuSection = ({title, navigationItems}: UserMenuSection) => {
-  const {biometricsLabel} = useAccessCodeBiometrics()
+  const {biometricsLabel, isBiometricsSupported} = useAccessCodeBiometrics()
   const {navigate} = useNavigation()
 
   return (
@@ -76,7 +76,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
       <Column gutter="xxs">
         {navigationItems.map(({icon, ...item}) =>
           item.route === UserRouteName.userBiometrics &&
-          !biometricsLabel ? null : (
+          (!biometricsLabel || !isBiometricsSupported) ? null : (
             <NavigationButton
               chevronSize="md"
               emphasis="default"

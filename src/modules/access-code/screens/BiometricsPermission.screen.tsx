@@ -22,7 +22,7 @@ const SwitchWrapper = ({children}: PropsWithChildren) => (
 )
 
 export const BiometricsPermissionScreen = () => {
-  const {biometricsLabel, isLoading, setUseBiometrics} =
+  const {biometricsLabel, isLoading, updateUseBiometrics} =
     useAccessCodeBiometrics()
 
   const {isLandscape} = useDeviceContext()
@@ -31,9 +31,9 @@ export const BiometricsPermissionScreen = () => {
 
   const onSubmit = useCallback(
     ({enableBiometrics}: BiometricsPermissionForm) => {
-      setUseBiometrics(enableBiometrics)
+      void updateUseBiometrics(enableBiometrics)
     },
-    [setUseBiometrics],
+    [updateUseBiometrics],
   )
 
   if (isLoading) {
