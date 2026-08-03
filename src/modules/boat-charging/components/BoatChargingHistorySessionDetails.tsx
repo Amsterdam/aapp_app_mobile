@@ -48,8 +48,10 @@ export const BoatChargingHistorySessionDetails = () => {
         setAlert(alerts.chargingStoppedSuccess)
       } else if (session.stop_reason === BoatChargingStopReason.UNPLUGGED) {
         setAlert(alerts.chargingStoppedUnpluggedWarning)
-      } else if (session.stop_reason === BoatChargingStopReason.NO_BALANCE) {
-        setAlert(alerts.chargingStoppedNoBalanceWarning)
+      } else if (
+        session.stop_reason === BoatChargingStopReason.OUT_OF_BALANCE
+      ) {
+        setAlert(alerts.chargingStoppedOutOfBalanceWarning)
       } else {
         setAlert(alerts.chargingStoppedSomethingWentWrongWarning)
       }

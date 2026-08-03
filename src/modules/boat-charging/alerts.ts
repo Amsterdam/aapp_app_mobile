@@ -21,11 +21,11 @@ export const alerts = {
     text: 'Stekker zit niet meer in stopcontact.',
     testID: 'BoatChargingChargingStoppedUnpluggedWarningAlert',
   },
-  chargingStoppedNoBalanceWarning: {
+  chargingStoppedOutOfBalanceWarning: {
     title: 'Saldo te laag',
     variant: AlertVariant.warning,
     text: 'Er is te weinig saldo om verder te laden.',
-    testID: 'BoatChargingChargingStoppedNoBalanceWarningAlert',
+    testID: 'BoatChargingChargingStoppedOutOfBalanceWarningAlert',
   },
   chargingStoppedSomethingWentWrongWarning: {
     title: 'Het laden is gestopt.',
