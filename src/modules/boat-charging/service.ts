@@ -141,19 +141,6 @@ export const boatChargingApi = baseApi.injectEndpoints({
         url: '/settings',
       }),
     }),
-    [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
-      void,
-      string
-    >({
-      query: sessionId => ({
-        prepareHeaders,
-        slug: ModuleSlug['boat-charging'],
-        url: `/sessions/${sessionId}/start`,
-        method: 'POST',
-        timeout: 180000, // 3 minutes
-        headers: deviceIdHeader,
-      }),
-    }),
     [BoatChargingEndpointName.boatChargingStopSession]: builder.mutation<
       void,
       string
@@ -167,11 +154,38 @@ export const boatChargingApi = baseApi.injectEndpoints({
         headers: deviceIdHeader,
       }),
     }),
+    [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
+      void,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/start`,
+        method: 'POST',
+        timeout: 180000, // 3 minutes
+        headers: deviceIdHeader,
+      }),
+    }),
+    [BoatChargingEndpointName.boatChargingCancelSession]: builder.mutation<
+      void,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/cancel`,
+        method: 'POST',
+        timeout: 60000, // 1 minute
+        headers: deviceIdHeader,
+      }),
+    }),
   }),
   overrideExisting: false,
 })
 
 export const {
+  useBoatChargingCancelSessionMutation,
   useBoatChargingLocationsQuery,
   useBoatChargingLocationDetailsQuery,
   useBoatChargingOpenIdConnectConfigQuery,
