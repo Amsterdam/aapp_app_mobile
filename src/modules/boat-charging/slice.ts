@@ -13,6 +13,7 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 export type BoatChargingState = {
   accessToken?: {accessToken: string; accessTokenExpiration: string}
+  completedSessionSeenIds?: string[]
   lastApprovedTermsVersionWhileLoggedIn?: number
   lastGuestSessionId?: string
   loggedInUsername?: string
@@ -130,6 +131,15 @@ export const boatChargingSlice = createSlice({
     ) => {
       state.lastGuestSessionId = sessionId
     },
+    addCompletedSessionSeenId: (
+      state,
+      {payload: sessionId}: PayloadAction<string>,
+    ) => {
+      state.completedSessionSeenIds = [
+        ...(state.completedSessionSeenIds ?? []),
+        sessionId,
+      ]
+    },
   },
 })
 
@@ -142,6 +152,7 @@ export const {
   setBoatChargingLoggedInUsername,
   setLastApprovedTermsVersionWhileLoggedIn,
   setLastGuestSessionId,
+  addCompletedSessionSeenId,
 } = boatChargingSlice.actions
 
 export const selectSelectedBoatChargingPointId = (state: RootState) =>
@@ -189,6 +200,9 @@ export const selectNewSessionFormValues = (state: RootState) =>
 
 export const selectLastApprovedTermsVersionWhileLoggedIn = (state: RootState) =>
   state[ReduxKey.boatCharging].lastApprovedTermsVersionWhileLoggedIn
+
+export const selectCompletedSessionSeenIds = (state: RootState) =>
+  state[ReduxKey.boatCharging].completedSessionSeenIds ?? []
 
 export const useNewSessionFormValues = () => {
   const {

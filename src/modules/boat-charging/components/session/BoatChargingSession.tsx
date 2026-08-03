@@ -32,7 +32,6 @@ export const BoatChargingSession = () => {
 
   useEffect(() => {
     if (session?.status === SessionStatus.COMPLETED) {
-      // TODO: add alert to inform user why the session has ended
       navigation.replace(BoatChargingRouteName.historySessionDetails, {
         id: session.id,
       })

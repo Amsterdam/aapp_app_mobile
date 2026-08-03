@@ -10,6 +10,29 @@ export const alerts = {
     text: 'De betaling is niet gelukt. Probeer het opnieuw.',
     testID: 'BoatChargingPaymentFailedAlert',
   },
+  chargingStoppedSuccess: {
+    title: 'Het laden is gestopt.',
+    variant: AlertVariant.positive,
+    testID: 'BoatChargingChargingStoppedSuccessAlert',
+  },
+  chargingStoppedUnpluggedWarning: {
+    title: 'Het laden is gestopt.',
+    variant: AlertVariant.warning,
+    text: 'Stekker zit niet meer in het stopcontact.',
+    testID: 'BoatChargingChargingStoppedUnpluggedWarningAlert',
+  },
+  chargingStoppedOutOfBalanceWarning: {
+    title: 'Saldo te laag',
+    variant: AlertVariant.warning,
+    text: 'Er is te weinig saldo om verder te laden.',
+    testID: 'BoatChargingChargingStoppedOutOfBalanceWarningAlert',
+  },
+  chargingStoppedSomethingWentWrongWarning: {
+    title: 'Het laden is gestopt.',
+    variant: AlertVariant.warning,
+    text: 'Er ging iets mis tijdens het laden.',
+    testID: 'BoatChargingChargingStoppedSomethingWentWrongWarningAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts

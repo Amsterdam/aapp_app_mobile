@@ -130,6 +130,7 @@ export type BoatChargingSession = {
   start_date_time: string
   station_id: string
   status: SessionStatus
+  stop_reason?: BoatChargingStopReason
   total_cost: number
 }
 
@@ -188,4 +189,31 @@ export type BoatChargingSelectSocketFormValues = {
 export type BoatChargingSelectSocketFormSelectedSocket = {
   socketNumber: string
   stationId: string
+}
+
+export enum BoatChargingStopReason {
+  /**
+   * User cancelled a paid session before charging started; pre-auth refunded.
+   */
+  CANCELLED = 'cancelled',
+  /**
+   * A session that never started charging lapsed (stale or expired); any payment refunded.
+   */
+  EXPIRED = 'expired',
+  /**
+   * User stopped charging via the stop endpoint.
+   */
+  MANUAL = 'manual',
+  /**
+   * Cleanup stopped charging because the estimated cost neared the pre-auth budget.
+   */
+  OUT_OF_BALANCE = 'outOfBalance',
+  /**
+   * Cleanup force-stopped a charging session that exceeded the session time limit.
+   */
+  TIME_LIMIT = 'timeLimit',
+  /**
+   * The CPMS transaction was stopped externally (e.g. cable unplugged).
+   */
+  UNPLUGGED = 'unplugged',
 }

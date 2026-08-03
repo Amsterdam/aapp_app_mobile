@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import {MetaDataCard} from '@/components/ui/MetaDataCard'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
@@ -5,10 +6,20 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useBeforeRemove} from '@/hooks/navigation/useBeforeRemove'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {alerts} from '@/modules/boat-charging/alerts'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
-import {setLastGuestSessionId} from '@/modules/boat-charging/slice'
-import {SessionStatus} from '@/modules/boat-charging/types'
+import {
+  addCompletedSessionSeenId,
+  selectCompletedSessionSeenIds,
+  setLastGuestSessionId,
+} from '@/modules/boat-charging/slice'
+import {
+  BoatChargingStopReason,
+  SessionStatus,
+} from '@/modules/boat-charging/types'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
+import {useAlert} from '@/store/slices/alert'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -23,6 +34,31 @@ export const BoatChargingHistorySessionDetails = () => {
       dispatch(setLastGuestSessionId(undefined))
     }
   })
+
+  const {setAlert} = useAlert()
+
+  const completedSessionSeenIds = useSelector(selectCompletedSessionSeenIds)
+
+  useEffect(() => {
+    if (session && !completedSessionSeenIds.includes(session?.id)) {
+      if (
+        session.stop_reason === BoatChargingStopReason.MANUAL ||
+        session.stop_reason === BoatChargingStopReason.CANCELLED
+      ) {
+        setAlert(alerts.chargingStoppedSuccess)
+      } else if (session.stop_reason === BoatChargingStopReason.UNPLUGGED) {
+        setAlert(alerts.chargingStoppedUnpluggedWarning)
+      } else if (
+        session.stop_reason === BoatChargingStopReason.OUT_OF_BALANCE
+      ) {
+        setAlert(alerts.chargingStoppedOutOfBalanceWarning)
+      } else {
+        setAlert(alerts.chargingStoppedSomethingWentWrongWarning)
+      }
+
+      dispatch(addCompletedSessionSeenId(session.id))
+    }
+  }, [completedSessionSeenIds, dispatch, session, setAlert])
 
   if (isLoading) {
     return <PleaseWait testID="BoatChargingHistorySessionDetailsPleaseWait" />
