@@ -141,6 +141,19 @@ export const boatChargingApi = baseApi.injectEndpoints({
         url: '/settings',
       }),
     }),
+    [BoatChargingEndpointName.boatChargingStopSession]: builder.mutation<
+      void,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/stop`,
+        method: 'POST',
+        timeout: 180000, // 3 minutes
+        headers: deviceIdHeader,
+      }),
+    }),
     [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
       void,
       string
@@ -154,16 +167,16 @@ export const boatChargingApi = baseApi.injectEndpoints({
         headers: deviceIdHeader,
       }),
     }),
-    [BoatChargingEndpointName.boatChargingStopSession]: builder.mutation<
+    [BoatChargingEndpointName.boatChargingCancelSession]: builder.mutation<
       void,
       string
     >({
       query: sessionId => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
-        url: `/sessions/${sessionId}/stop`,
+        url: `/sessions/${sessionId}/cancel`,
         method: 'POST',
-        timeout: 60000, // 1 minute
+        timeout: 180000, // 3 minutes
         headers: deviceIdHeader,
       }),
     }),
@@ -172,6 +185,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useBoatChargingCancelSessionMutation,
   useBoatChargingLocationsQuery,
   useBoatChargingLocationDetailsQuery,
   useBoatChargingOpenIdConnectConfigQuery,

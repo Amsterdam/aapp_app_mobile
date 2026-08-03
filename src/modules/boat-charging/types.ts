@@ -3,6 +3,7 @@ import type {PaginationQueryArgs} from '@/types/api'
 import type {Feature, Point} from 'geojson'
 
 export enum BoatChargingEndpointName {
+  boatChargingCancelSession = 'boatChargingCancelSession',
   boatChargingInitSession = 'boatChargingInitSession',
   boatChargingLocationDetails = 'boatChargingLocationDetails',
   boatChargingLocations = 'boatChargingLocations',

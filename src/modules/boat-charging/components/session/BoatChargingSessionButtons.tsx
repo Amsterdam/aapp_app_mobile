@@ -6,6 +6,7 @@ import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {
+  useBoatChargingCancelSessionMutation,
   useBoatChargingStartSessionMutation,
   useBoatChargingStopSessionMutation,
 } from '@/modules/boat-charging/service'
@@ -19,6 +20,10 @@ export const BoatChargingSessionButtons = () => {
     startSession,
     {isLoading: isLoadingStartSession, isError: isErrorStartSession},
   ] = useBoatChargingStartSessionMutation()
+  const [
+    cancelSession,
+    {isLoading: isLoadingCancelSession, isError: isErrorCancelSession},
+  ] = useBoatChargingCancelSessionMutation()
   const [
     stopSession,
     {isLoading: isLoadingStopSession, isError: isErrorStopSession},
@@ -38,12 +43,15 @@ export const BoatChargingSessionButtons = () => {
         {
           isPreferred: true,
           text: 'Laden stoppen',
-          onPress: () => stopSession(session.id),
+          onPress: () =>
+            session.nrg_status === NRGStatus.CheckedOut
+              ? cancelSession(session.id)
+              : stopSession(session.id),
         },
       ],
       {cancelable: true},
     )
-  }, [stopSession, session])
+  }, [stopSession, cancelSession, session])
 
   if (!session) {
     return null
@@ -76,6 +84,16 @@ export const BoatChargingSessionButtons = () => {
               }}
               testID="BoatChargingSessionButtonsStartButton"
             />
+            {session.nrg_status === NRGStatus.CheckedOut && (
+              <Button
+                isError={isErrorCancelSession}
+                isLoading={isLoadingCancelSession}
+                label="Annuleren"
+                onPress={stop}
+                testID="BoatChargingSessionButtonsCancelButton"
+                variant="secondary"
+              />
+            )}
           </Column>
         )}
       </SafeArea>
