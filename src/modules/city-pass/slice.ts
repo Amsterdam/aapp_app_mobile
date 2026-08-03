@@ -12,12 +12,7 @@ export type CityPassState = {
    * Whether the user is been logged in and registered in the city-pass backend.
    */
   isCityPassOwnerRegistered: boolean
-  /**
-   * Whether the user is still completing the login steps
-   */
-  isLoginStepsActive: boolean
   refreshTokenExpiration?: string
-
   /**
    * The index of the city-passes to start displaying
    */
@@ -26,7 +21,6 @@ export type CityPassState = {
 
 const initialState: CityPassState = {
   isCityPassOwnerRegistered: false,
-  isLoginStepsActive: false,
   startIndex: 0,
   accessTokenExpiration: undefined,
   refreshTokenExpiration: undefined,
@@ -42,9 +36,6 @@ export const cityPassSlice = createSlice({
       {payload}: PayloadAction<boolean>,
     ) => {
       state.isCityPassOwnerRegistered = payload
-    },
-    setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
-      state.isLoginStepsActive = payload
     },
     setStartIndex: (state, {payload}: PayloadAction<number | undefined>) => {
       state.startIndex = payload ?? 0
@@ -79,7 +70,6 @@ export const cityPassSlice = createSlice({
 
 export const {
   setIsCityPassOwnerRegistered,
-  setLoginStepsActive,
   setStartIndex,
   setTokenExpiration,
   setIsAutomaticLogoutAlertDismissed,
@@ -87,9 +77,6 @@ export const {
 
 export const selectIsCityPassOwnerRegistered = (state: RootState) =>
   state[ReduxKey.cityPass].isCityPassOwnerRegistered
-
-export const selectIsLoginStepsActive = (state: RootState) =>
-  state[ReduxKey.cityPass].isLoginStepsActive
 
 export const selectStartIndex = (state: RootState) =>
   state[ReduxKey.cityPass].startIndex

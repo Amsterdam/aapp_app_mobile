@@ -1,8 +1,8 @@
 import type {
   BoatChargingLocation,
   BoatChargingSession,
+  BoatChargingPaymentResultStatus,
 } from '@/modules/boat-charging/types'
-import type {BoatChargingPaymentResultStatus} from '@/modules/boat-charging/types'
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
@@ -13,6 +13,7 @@ export enum BoatChargingRouteName {
   historySessionDetails = 'BoatChargingHistorySessionDetails',
   locationDetails = 'BoatChargingLocationDetails',
   login = 'BoatChargingLogin',
+  loginSteps = 'BoatChargingLoginSteps',
   map = 'BoatChargingMap',
   paymentResult = 'BoatChargingPaymentResult',
   termsAndConditions = 'BoatChargingTermsAndConditions',
@@ -20,6 +21,7 @@ export enum BoatChargingRouteName {
 
 export type ModuleStackParams = {
   [BoatChargingRouteName.map]: undefined
+  [BoatChargingRouteName.loginSteps]: undefined
   [BoatChargingRouteName.locationDetails]: {
     id: BoatChargingLocation['id']
   }
@@ -27,7 +29,7 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.guestEmailConfirm]: undefined
   [BoatChargingRouteName.help]: undefined
   [BoatChargingRouteName.history]: undefined
-  [BoatChargingRouteName.login]: undefined
+  [BoatChargingRouteName.login]: {shouldNavigateBack?: boolean}
   [BoatChargingRouteName.activeSessionDetails]: {
     id: BoatChargingSession['id']
   }

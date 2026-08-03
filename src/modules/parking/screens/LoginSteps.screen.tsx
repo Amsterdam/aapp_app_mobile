@@ -9,9 +9,9 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
-import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const LoginStepsScreen = () => {

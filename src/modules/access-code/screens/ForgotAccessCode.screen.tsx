@@ -12,9 +12,12 @@ import {useRestartLogin} from '@/modules/access-code/hooks/useRestartLogin'
 
 type Props = {
   onAfterRestart?: () => void
-} & TestProps
+} & Partial<TestProps>
 
-export const ForgotAccessCodeScreen = ({onAfterRestart, testID}: Props) => {
+export const ForgotAccessCodeScreen = ({
+  onAfterRestart,
+  testID = 'ForgotAccessCodeScreen',
+}: Props) => {
   const {setIsForgotCode} = useEnterAccessCode()
   const {isError, onRestartLogin} = useRestartLogin()
 

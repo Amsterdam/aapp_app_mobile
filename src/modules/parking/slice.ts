@@ -23,10 +23,6 @@ export type ParkingState = {
   deeplinkAccount?: ParkingAccountLogin
   isLoggingIn: boolean
   isLoggingOut: boolean
-  /**
-   * Whether the user is still completing the login steps
-   */
-  isLoginStepsActive: boolean
   isRecentlyLoggedOut: boolean
   visitorVehicleId?: string
   walletBalanceIncreaseStartBalance?: number
@@ -42,7 +38,6 @@ const initialState: ParkingState = {
   deeplinkAccount: undefined,
   isLoggingIn: false,
   isLoggingOut: false,
-  isLoginStepsActive: false,
   isRecentlyLoggedOut: false,
   visitorVehicleId: undefined,
   walletBalanceIncreaseStartBalance: undefined,
@@ -136,9 +131,6 @@ export const parkingSlice = createSlice({
     setIsLoggingOut: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoggingOut = payload
     },
-    setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
-      state.isLoginStepsActive = payload
-    },
     setIsRecentlyLoggedOut: (state, {payload}: PayloadAction<boolean>) => {
       state.isRecentlyLoggedOut = payload
     },
@@ -183,7 +175,6 @@ export const {
   setDeeplinkAccount,
   setIsLoggingIn,
   setIsLoggingOut,
-  setLoginStepsActive,
   setIsRecentlyLoggedOut: setIsRecentlyLoggedOutAction,
   setWalletBalanceIncreaseStartBalance,
   setWalletBalanceIncreaseStartedAt,
@@ -211,9 +202,6 @@ export const selectCurrentPermitReportCode = (state: RootState) =>
 
 export const selectDeeplinkAccount = (state: RootState) =>
   state[ReduxKey.parking].deeplinkAccount
-
-export const selectIsLoginStepsActive = (state: RootState) =>
-  state[ReduxKey.parking].isLoginStepsActive
 
 export const selectIsLoggingIn = (state: RootState) =>
   state[ReduxKey.parking].isLoggingIn

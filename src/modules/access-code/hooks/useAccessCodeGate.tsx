@@ -1,144 +1,207 @@
-import {TransitionPresets} from '@react-navigation/stack'
-import type {ReactNode} from 'react'
-import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {useCallback, useMemo, type ReactNode} from 'react'
+import type {StackElement, StackFactory} from '@/modules/access-code/types'
+import type {StackNavigationOptions} from '@react-navigation/stack'
 import {
-  type RootStackParams,
   type StackNavigationRouteConfig,
   type StackNavigationRoutes,
 } from '@/app/navigation/types'
-import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
-import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
-import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
-import {AccessCodeRouteName} from '@/modules/access-code/routes'
-import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
-import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
-import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
-import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
-import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
-
-enum AccessCodeGateRouteName {
-  fallback = 'AccessCodeGateFallback',
-  loading = 'AccessCodeGateLoading',
-}
+import {AccessCodeGateProxyScreen} from '@/modules/access-code/components/AccessCodeGateProxyScreen'
+import {ACCESS_CODE_SCREEN_MAP} from '@/modules/access-code/constants/accessCodeScreenMap'
+import {FORGOT_CODE_SCREEN} from '@/modules/access-code/constants/forgotAccessCodeScreenConfig'
+import {
+  AccessCodeGateStateName,
+  useAccessCodeGateState,
+} from '@/modules/access-code/hooks/useAccessCodeGateState'
+import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
+import {AccessCodeGateProvider} from '@/modules/access-code/providers/AccessCodeGate.provider'
 
 type AccessCodeGateConfig = {
+  /**
+   * If another condition needs to be met to render the accessCodeGate, it can be passed to this config option.
+   * @example ```additionalGateCondition: isLoggedIn === true```
+   */
+  additionalGateCondition?:
+    | boolean
+    | ((entry: StackElement<'Screen' | 'Group'>) => boolean)
   /**
    * forgotCodeScreen - The module specific configuration for the screen that allows users to reset their access code.
    */
   forgotCodeScreen?: StackNavigationRouteConfig<Record<string, unknown>>
   /**
-   * isLoginStepsActive - Indicates whether the login steps should show.
-   */
-  isLoginStepsActive?: boolean
-  /**
    * loginSteps - Defines the routes and screens that are part of the login process into the module, as part of the access-code flow.
    */
   loginSteps?: StackNavigationRoutes<Record<string, unknown>>
+  /**
+   * Navigator screen options
+   */
+  screenOptions?: StackNavigationOptions
+}
+
+type AccessCodeGateFunction = {
+  /**
+   * @deprecated Prefer the per Screen approach of access code gate keeping
+   */
+  (stack: StackElement<'Group'>): ReactNode
+  (stackMap: Array<StackElement<'Screen'>>): ReactNode
 }
 
 /**
  * `useAccessCodeGate` is responsible for managing access-code gate-keeping and providing the access-code flow
- * within module navigation Stacks. It internally determines the state of the access code flow.
+ * within module navigation Stacks. It internally determines the accessCodeGateStateName of the access code flow.
+ * Wrap the callback around the mapping of screenConfig inside the module/stack.ts, and pass `accessCodeGate: true` to the screenConfig.
  * @param Stack The `Stack` navigation object to add access-code Screens and Groups to if the gate returns access-code flow.
  * @param config An optional configuration object of type `AccessCodeGateConfig`
+ * @example
+ * ```tsx
+ * const Stack = createStackNavigator<RootStackParams>()
+ *
+ * export const ModuleStack = () => {
+ *   const screenOptions = useScreenOptions()
+ *   const accessCodeGate = useAccessCodeGate(Stack, {screenOptions})
+ *
+ *   return (
+ *     <Stack.Navigator screenOptions={screenOptions}>
+ *       {accessCodeGate(
+ *         Object.entries(screenConfig).map(([key, route]) => (
+ *           <Stack.Screen
+ *             key={key}
+ *             {...route}
+ *           />
+ *         )),
+ *       )}
+ *     </Stack.Navigator>
+ *   )
+ * }
+ * ```
+ *
+ * And in the `screenConfig.ts`:
+ * ```tsx
+ * [NewsRouteName.article]: {
+ *  component: NewsArticleScreen,
+ *  name: NewsRouteName.article,
+ *  options: {
+ *    headerShown: false,
+ *    headerTitle: 'Nieuws',
+ *    accessCodeGate: true, // <---
+ *  },
+ * }
+ * ```
  */
 export const useAccessCodeGate = (
-  Stack: ReturnType<typeof createStackNavigator<RootStackParams>>,
+  Stack: StackFactory,
   config?: AccessCodeGateConfig,
-) => {
-  const {accessCode, isLoading} = useGetSecureAccessCode()
-  const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
-  const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
+): AccessCodeGateFunction => {
+  const {loginSteps, additionalGateCondition = true} = config || {}
 
-  const {loginSteps, isLoginStepsActive, forgotCodeScreen} = config || {}
+  const {isLoginStepsActive} = useLoginSteps()
+  const accessCodeGateStateName = useAccessCodeGateState(isLoginStepsActive)
 
-  return (stack: ReactNode): ReactNode => {
-    if (useBiometrics === undefined && isEnrolled && isCodeValid) {
-      return (
-        <Stack.Screen
-          component={BiometricsPermissionScreen}
-          name={AccessCodeRouteName.biometricsPermission}
-          options={{
-            headerTitle: 'Sneller toegang',
-          }}
-        />
-      )
-    }
+  const forgotCodeScreen = useMemo(
+    () => config?.forgotCodeScreen ?? FORGOT_CODE_SCREEN,
+    [config],
+  )
 
-    if (isCodeValid) {
-      return stack
-    }
+  const addAccessGateProxyToStackScreens = useCallback(
+    (stack: Array<StackElement<'Screen'>>) =>
+      stack.map(entry => {
+        const meetsAdditionalConditions =
+          typeof additionalGateCondition === 'boolean'
+            ? additionalGateCondition
+            : additionalGateCondition(entry)
 
-    if (isLoading) {
-      return (
-        <Stack.Screen
-          name={AccessCodeGateRouteName.loading}
-          options={{
-            ...TransitionPresets.ModalFadeTransition,
-          }}>
-          {() => null}
-        </Stack.Screen>
-      )
-    }
+        if (entry.props.options?.accessCodeGate && meetsAdditionalConditions) {
+          return (
+            <Stack.Screen
+              key={entry.props.name}
+              layout={AccessCodeGateProvider}
+              name={entry.props.name}
+              options={{
+                ...entry.props.options,
+                headerShown:
+                  entry.props.options?.headerShown !== false &&
+                  accessCodeGateStateName === AccessCodeGateStateName.allowed,
+              }}>
+              {stackProps =>
+                !!entry.props.component && (
+                  <AccessCodeGateProxyScreen
+                    {...stackProps}
+                    {...config}
+                    {...entry.props}
+                    ForgotCodeScreen={forgotCodeScreen.component}
+                    navigatorScreenOptions={config?.screenOptions}
+                    ProtectedScreenComponent={entry.props.component}
+                    state={accessCodeGateStateName}
+                  />
+                )
+              }
+            </Stack.Screen>
+          )
+        } else {
+          return entry
+        }
+      }),
+    [
+      Stack,
+      accessCodeGateStateName,
+      config,
+      forgotCodeScreen,
+      additionalGateCondition,
+    ],
+  )
 
-    if (isForgotCode && forgotCodeScreen) {
-      return <Stack.Screen {...forgotCodeScreen} />
-    }
+  const handleConditionalScreenGateKeeping = useCallback(
+    (stack: StackElement<'Group'>) => {
+      if (accessCodeGateStateName === AccessCodeGateStateName.allowed) {
+        return stack
+      }
 
-    if (!accessCode || isLoginStepsActive) {
-      return (
-        <Stack.Group>
-          {!!loginSteps &&
-            Object.entries(loginSteps).map(([key, route]) => (
-              <Stack.Screen
-                key={key}
-                {...route}
-              />
-            ))}
+      if (accessCodeGateStateName === AccessCodeGateStateName.forgotCode) {
+        return (
           <Stack.Screen
-            component={SetAccessCodeScreen}
-            name={AccessCodeRouteName.setAccessCode}
-            options={{headerTitle: 'Toegangscode kiezen'}}
+            layout={AccessCodeGateProvider}
+            {...forgotCodeScreen}
           />
-          <Stack.Screen
-            component={ConfirmAccessCodeScreen}
-            name={AccessCodeRouteName.confirmAccessCode}
-            options={{headerTitle: 'Toegangscode herhalen'}}
-          />
-        </Stack.Group>
-      )
-    }
+        )
+      }
 
-    if (attemptsLeft > 0) {
+      if (accessCodeGateStateName === AccessCodeGateStateName.setup) {
+        return (
+          <Stack.Group screenLayout={AccessCodeGateProvider}>
+            {!!loginSteps &&
+              Object.entries(loginSteps).map(([key, route]) => (
+                <Stack.Screen
+                  key={key}
+                  {...route}
+                />
+              ))}
+            <Stack.Screen
+              {...ACCESS_CODE_SCREEN_MAP[AccessCodeGateStateName.setup]}
+            />
+            <Stack.Screen
+              {...ACCESS_CODE_SCREEN_MAP[AccessCodeGateStateName.confirm]}
+            />
+          </Stack.Group>
+        )
+      }
+
       return (
         <Stack.Screen
-          component={AccessCodeScreen}
-          name={AccessCodeRouteName.accessCode}
-          options={{
-            headerTitle: 'Toegangscode invoeren',
-            ...TransitionPresets.ModalFadeTransition,
-          }}
+          layout={AccessCodeGateProvider}
+          {...ACCESS_CODE_SCREEN_MAP[accessCodeGateStateName]}
         />
       )
-    }
+    },
+    [Stack, accessCodeGateStateName, forgotCodeScreen, loginSteps],
+  )
 
-    if (attemptsLeft === 0) {
-      return (
-        <Stack.Screen
-          component={AccessCodeInvalidScreen}
-          name={AccessCodeRouteName.accessCodeInvalid}
-        />
-      )
-    }
-
-    return (
-      <Stack.Screen
-        name={AccessCodeGateRouteName.fallback}
-        options={{
-          ...TransitionPresets.ModalFadeTransition,
-        }}>
-        {() => null}
-      </Stack.Screen>
-    )
-  }
+  return useCallback<AccessCodeGateFunction>(
+    (stack: StackElement<'Group'> | Array<StackElement<'Screen'>>) => {
+      if (Array.isArray(stack)) {
+        return addAccessGateProxyToStackScreens(stack)
+      } else {
+        return handleConditionalScreenGateKeeping(stack)
+      }
+    },
+    [addAccessGateProxyToStackScreens, handleConditionalScreenGateKeeping],
+  )
 }
