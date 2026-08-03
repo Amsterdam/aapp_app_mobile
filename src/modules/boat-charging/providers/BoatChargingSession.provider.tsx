@@ -87,8 +87,6 @@ export const BoatChargingSessionProvider = ({
     () =>
       settingsServerData
         ? {
-            // TODO: remove this vat_fraction when the backend also returns these values
-            vat_fraction: 1.21,
             ...settingsServerData,
           }
         : {
