@@ -28,7 +28,7 @@ import {
   getSectionsSortedByDate,
 } from '@/utils/sort/getSectionsSortedByDate'
 
-const pageSize = 20
+const PAGE_SIZE = 20
 
 type BoatChargingHistoryInfiniteSession = BoatChargingSession & {page: number}
 
@@ -88,7 +88,7 @@ const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
 export const BoatChargingHistory = () => {
   const {isLoggedIn} = useIsLoggedIn()
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
-  const page = getCurrentPage(viewableItemIndex, 1, pageSize)
+  const page = getCurrentPage(viewableItemIndex, 1, PAGE_SIZE)
 
   const result = useInfiniteScroller(
     dummyBoatChargingHistoryItem,
@@ -96,10 +96,10 @@ export const BoatChargingHistory = () => {
     'id',
     useBoatChargingSessionsQuery,
     page,
-    pageSize,
+    PAGE_SIZE,
     isLoggedIn
       ? {
-          page_size: pageSize,
+          page_size: PAGE_SIZE,
           status: SessionStatus.COMPLETED,
         }
       : skipToken,
