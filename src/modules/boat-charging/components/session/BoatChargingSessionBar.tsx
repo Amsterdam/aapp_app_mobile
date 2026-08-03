@@ -16,6 +16,31 @@ import {selectBoatChargingLastGuestSessionId} from '@/modules/boat-charging/slic
 import {NRGStatus} from '@/modules/boat-charging/types'
 import {useThemable} from '@/themes/useThemable'
 
+const getStatusText = (
+  session: ReturnType<typeof useBoatChargingSession>['session'],
+  isPluggedIn: boolean,
+  chargingTimeVeryShortString: string | undefined,
+) => {
+  if (!session) {
+    return ''
+  }
+
+  switch (session.nrg_status) {
+    case NRGStatus.Charging:
+      if (chargingTimeVeryShortString) {
+        return `Laden - ${chargingTimeVeryShortString}`
+      } else {
+        return 'Laden'
+      }
+
+    case NRGStatus.Completed:
+    case NRGStatus.Cancelled:
+      return 'Het laden is gestopt'
+    default:
+      return isPluggedIn ? 'Start laden' : 'Stekker aansluiten'
+  }
+}
+
 const BoatChargingSessionBarContent = () => {
   const {navigate} = useNavigation()
   const styles = useThemable(createStyles)
@@ -25,6 +50,12 @@ const BoatChargingSessionBarContent = () => {
   if (!session) {
     return null
   }
+
+  const statusText = getStatusText(
+    session,
+    isPluggedIn,
+    chargingTimeVeryShortString,
+  )
 
   return (
     <Pressable
@@ -50,19 +81,8 @@ const BoatChargingSessionBarContent = () => {
             <Phrase
               color="inverse"
               emphasis="strong">
-              {session.nrg_status === NRGStatus.Charging
-                ? 'Laden'
-                : isPluggedIn
-                  ? 'Start laden'
-                  : 'Stekker aansluiten'}
+              {statusText}
             </Phrase>
-            {session?.nrg_status === NRGStatus.Charging && (
-              <Phrase
-                color="inverse"
-                emphasis="strong">
-                {`- ${chargingTimeVeryShortString}`}
-              </Phrase>
-            )}
           </Row>
           <Icon
             color="inverse"

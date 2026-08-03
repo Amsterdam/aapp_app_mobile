@@ -3,7 +3,11 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useBeforeRemove} from '@/hooks/navigation/useBeforeRemove'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
+import {setLastGuestSessionId} from '@/modules/boat-charging/slice'
+import {SessionStatus} from '@/modules/boat-charging/types'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
@@ -11,6 +15,14 @@ import {formatNumber} from '@/utils/formatNumber'
 export const BoatChargingHistorySessionDetails = () => {
   const {session, chargingTimeString, settings, isLoading} =
     useBoatChargingSession()
+
+  const dispatch = useDispatch()
+
+  useBeforeRemove(() => {
+    if (session?.status === SessionStatus.COMPLETED) {
+      dispatch(setLastGuestSessionId(undefined))
+    }
+  })
 
   if (isLoading) {
     return <PleaseWait testID="BoatChargingHistorySessionDetailsPleaseWait" />
