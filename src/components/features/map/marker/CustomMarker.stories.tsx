@@ -25,14 +25,17 @@ export const Default: Story = {
       <Row gutter="md">
         <CustomMarker
           {...args}
+          decreaseIconSize={false}
           icon={boatChargingPointStateMap[BoatChargingPointState.free].icon}
         />
         <CustomMarker
           {...args}
+          decreaseIconSize={false}
           icon={boatChargingPointStateMap[BoatChargingPointState.occupied].icon}
         />
         <CustomMarker
           {...args}
+          decreaseIconSize={false}
           icon={
             boatChargingPointStateMap[BoatChargingPointState.malfunction].icon
           }

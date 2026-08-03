@@ -9,6 +9,7 @@ export const BoatChargingMarker = ({status}: {status: ChargingPointStatus}) => {
 
   return (
     <CustomMarker
+      decreaseIconSize={false}
       icon={boatChargingPointStateMap[state].icon}
       testID={`BoatCharging${pascalCase(state)}Marker`}
     />

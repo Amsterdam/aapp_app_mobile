@@ -26,12 +26,17 @@ type WrapperProps = PropsWithChildren<TestProps & {size?: number}>
 
 type Props = {
   Wrapper?: ComponentType<WrapperProps>
+  /**
+   * Only decreases when the icon has a circleColor, otherwise the icon is already small enough to fit inside the base pin.
+   */
+  decreaseIconSize?: boolean
   icon: {
     circleColor?: string
     colors?: string[]
     path: string
     pathColor?: string
   }
+  isWithinMarker?: boolean
   offset?: {x: number; y: number}
   size?: number
 } & TestProps
@@ -47,6 +52,7 @@ const DEFAULT_WRAPPER = ({children, testID, size}: WrapperProps) => (
 )
 
 export const CustomMarkerIcon = ({
+  decreaseIconSize,
   Wrapper = DEFAULT_WRAPPER,
   icon: {
     pathColor = themes.light.color.text.default,
@@ -54,12 +60,22 @@ export const CustomMarkerIcon = ({
     circleColor = 'transparent',
     colors,
   },
+  isWithinMarker = false,
   testID,
   size = DEFAULT_SIZE,
   offset = DEFAULT_OFFSET,
 }: Props) => {
   const center = size / ((size / PATH_SIZE) * 2)
   const gradientColors = colors?.length ? colors : []
+  const shouldDecreaseIconSize =
+    decreaseIconSize &&
+    circleColor !== 'transparent' &&
+    gradientColors.length === 0
+  const extraOffset = isWithinMarker ? 5 : 3
+  const gTransform = shouldDecreaseIconSize
+    ? `scale(0.8) translate(${offset.x + extraOffset}, ${offset.y + extraOffset})`
+    : `translate(${offset.x}, ${offset.y})`
+  const circleRadius = shouldDecreaseIconSize ? center + 3 : center
 
   return (
     <Wrapper
@@ -82,14 +98,14 @@ export const CustomMarkerIcon = ({
           ))}
         </LinearGradient>
       </Defs>
-      <G transform={`translate(${offset.x}, ${offset.y})`}>
+      <G transform={gTransform}>
         <Circle
           cx={center}
           cy={center}
           fill={
             colors?.length ? 'url(#markerCircleRainbowGradient)' : circleColor
           }
-          r={center}
+          r={circleRadius}
         />
         <Path
           d={path}
