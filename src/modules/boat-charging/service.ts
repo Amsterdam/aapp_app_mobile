@@ -11,6 +11,7 @@ import {
   type BoatChargingLocationDetailsResponse,
   type BoatChargingOIDCConfigResponse,
   type BoatChargingSession,
+  type BoatChargingSessionCostBreakdownResponse,
   type BoatChargingSessionInitRequest,
   type BoatChargingSessionInitResponse,
   type BoatChargingSessionsEndpointRequest,
@@ -131,6 +132,16 @@ export const boatChargingApi = baseApi.injectEndpoints({
         url: `/sessions/${sessionId}/socket-status`,
       }),
     }),
+    [BoatChargingEndpointName.boatChargingSessionCostBreakdown]: builder.query<
+      BoatChargingSessionCostBreakdownResponse,
+      string
+    >({
+      query: sessionId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/sessions/${sessionId}/cost-breakdown`,
+      }),
+    }),
     [BoatChargingEndpointName.boatChargingSettings]: builder.query<
       BoatChargingSettings,
       void
@@ -197,4 +208,5 @@ export const {
   useBoatChargingSocketStatusQuery,
   useBoatChargingStartSessionMutation,
   useBoatChargingStopSessionMutation,
+  useBoatChargingSessionCostBreakdownQuery,
 } = boatChargingApi

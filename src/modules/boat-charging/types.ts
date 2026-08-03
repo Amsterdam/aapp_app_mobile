@@ -9,6 +9,7 @@ export enum BoatChargingEndpointName {
   boatChargingLocations = 'boatChargingLocations',
   boatChargingOpenIdConnectConfig = 'boatChargingOpenIdConnectConfig',
   boatChargingSession = 'boatChargingSession',
+  boatChargingSessionCostBreakdown = 'boatChargingSessionCostBreakdown',
   boatChargingSessions = 'boatChargingSessions',
   boatChargingSettings = 'boatChargingSettings',
   boatChargingSocketStatus = 'boatChargingSocketStatus',
@@ -216,4 +217,32 @@ export enum BoatChargingStopReason {
    * The CPMS transaction was stopped externally (e.g. cable unplugged).
    */
   UNPLUGGED = 'unplugged',
+}
+
+export type BoatChargingSessionCostBreakdownResponse = {
+  cdrTotalExclVat: number
+  currency: string
+  endDateTime: string
+  items: BoatChargingSessionCostBreakdownItem[]
+  startDateTime: string
+  totalEnergyKwh: number
+  totalExclVat: number
+  totalInclVat: number
+  totalTimeHours: number
+}
+
+export type BoatChargingSessionCostBreakdownItem = {
+  costExclVat: number
+  costInclVat: number
+  type: BoatChargingCostBreakdownItemType
+  unitPrice: number
+  vatPercent: number
+  volume: number
+}
+
+export enum BoatChargingCostBreakdownItemType {
+  ENERGY = 'ENERGY',
+  FLAT = 'FLAT',
+  PARKING_TIME = 'PARKING_TIME',
+  TIME = 'TIME',
 }

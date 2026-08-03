@@ -1,12 +1,10 @@
-import {StyleSheet, View} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import type {PropsWithChildren} from 'react'
+import {BottomSheetLabelValueRow} from '@/components/features/bottom-sheet/BottomSheetLabelValueRow'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {ServicePointDetailsImage} from '@/modules/service/components/ServicePointDetailsImage'
@@ -14,7 +12,6 @@ import {
   ServiceDetailPropertyType,
   type ServiceFeatureProperty,
 } from '@/modules/service/types'
-import {useThemable} from '@/themes/useThemable'
 import {isObjectWithKeys} from '@/utils/isObjectWithKeys'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'
 
@@ -23,7 +20,6 @@ export const ServicePointDetailsProperties = ({
 }: {
   properties: ServiceFeatureProperty[]
 }) => {
-  const styles = useThemable(createStyles)
   const hasAnyIcon = properties.some(property => !!property.icon)
 
   return (
@@ -79,22 +75,11 @@ export const ServicePointDetailsProperties = ({
                   })
                 ) {
                   return (
-                    <SingleSelectable
-                      key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}>
-                      {type ===
-                        ServiceDetailPropertyType.keyValueTableDivided &&
-                        rowIndex > 0 && <View style={styles.divider} />}
-                      <Row
-                        flex={1}
-                        gutter="sm">
-                        <Row flex={1}>
-                          <Phrase>{row.key}</Phrase>
-                        </Row>
-                        <Row flex={1}>
-                          <Phrase emphasis="strong">{row.value}</Phrase>
-                        </Row>
-                      </Row>
-                    </SingleSelectable>
+                    <BottomSheetLabelValueRow
+                      key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}
+                      label={row.key}
+                      value={row.value}
+                    />
                   )
                 }
 
@@ -146,12 +131,3 @@ const EnrichedText = ({children}: PropsWithChildren) => {
     </Paragraph>
   )
 }
-
-const createStyles = ({color, size}: Theme) =>
-  StyleSheet.create({
-    divider: {
-      backgroundColor: color.text.default,
-      height: size.spacing.xxs,
-      marginVertical: size.spacing.xs,
-    },
-  })

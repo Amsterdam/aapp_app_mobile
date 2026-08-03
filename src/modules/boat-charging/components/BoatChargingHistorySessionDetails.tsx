@@ -1,5 +1,7 @@
 import {useEffect} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {MetaDataCard} from '@/components/ui/MetaDataCard'
+import {Button} from '@/components/ui/buttons/Button'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -60,6 +62,8 @@ export const BoatChargingHistorySessionDetails = () => {
     }
   }, [completedSessionSeenIds, dispatch, session, setAlert])
 
+  const {toggle} = useBottomSheet()
+
   if (isLoading) {
     return <PleaseWait testID="BoatChargingHistorySessionDetailsPleaseWait" />
   }
@@ -105,6 +109,15 @@ export const BoatChargingHistorySessionDetails = () => {
                 )} inclusief btw`
               : `${formatNumber(total_cost, currency)} exclusief btw`}
           </Phrase>
+          <Button
+            icon={{name: 'chevron-down', size: 'md'}}
+            isReverseOrder
+            label="Kostenoverzicht bekijken"
+            noPadding
+            onPress={() => toggle()}
+            testID="BoatChargingHistorySessionDetailsViewCostBreakdownButton"
+            variant="tertiary"
+          />
         </MetaDataCard>
         <MetaDataCard
           iconName="lightning"
