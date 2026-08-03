@@ -66,7 +66,9 @@ export const CustomMarkerIcon = ({
   const center = size / ((size / PATH_SIZE) * 2)
   const gradientColors = colors?.length ? colors : []
   const shouldDecreaseIconSize =
-    decreaseIconSize && circleColor !== 'transparent'
+    decreaseIconSize &&
+    circleColor !== 'transparent' &&
+    gradientColors.length === 0
   const gTransform = shouldDecreaseIconSize
     ? `scale(0.8) translate(${offset.x + 5}, ${offset.y + 5})`
     : `translate(${offset.x}, ${offset.y})`
