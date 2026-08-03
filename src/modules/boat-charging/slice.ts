@@ -133,11 +133,11 @@ export const boatChargingSlice = createSlice({
     },
     addCompletedSessionSeenId: (
       state,
-      {payload: sessionIds}: PayloadAction<string>,
+      {payload: sessionId}: PayloadAction<string>,
     ) => {
       state.completedSessionSeenIds = [
         ...(state.completedSessionSeenIds ?? []),
-        sessionIds,
+        sessionId,
       ]
     },
   },

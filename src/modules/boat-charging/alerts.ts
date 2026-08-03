@@ -18,7 +18,7 @@ export const alerts = {
   chargingStoppedUnpluggedWarning: {
     title: 'Het laden is gestopt.',
     variant: AlertVariant.warning,
-    text: 'Stekker zit niet meer in stopcontact.',
+    text: 'Stekker zit niet meer in het stopcontact.',
     testID: 'BoatChargingChargingStoppedUnpluggedWarningAlert',
   },
   chargingStoppedOutOfBalanceWarning: {
