@@ -41,7 +41,10 @@ export const BoatChargingHistorySessionDetails = () => {
 
   useEffect(() => {
     if (session && !completedSessionSeenIds.includes(session?.id)) {
-      if (session.stop_reason === BoatChargingStopReason.MANUAL) {
+      if (
+        session.stop_reason === BoatChargingStopReason.MANUAL ||
+        session.stop_reason === BoatChargingStopReason.CANCELLED
+      ) {
         setAlert(alerts.chargingStoppedSuccess)
       } else if (session.stop_reason === BoatChargingStopReason.UNPLUGGED) {
         setAlert(alerts.chargingStoppedUnpluggedWarning)

@@ -192,6 +192,7 @@ export type BoatChargingSelectSocketFormSelectedSocket = {
 }
 
 export enum BoatChargingStopReason {
+  CANCELLED = 'cancelled',
   MANUAL = 'manual',
   NO_BALANCE = 'no_balance',
   OTHER = 'other',
