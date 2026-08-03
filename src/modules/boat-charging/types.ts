@@ -130,6 +130,7 @@ export type BoatChargingSession = {
   start_date_time: string
   station_id: string
   status: SessionStatus
+  stop_reason?: BoatChargingStopReason
   total_cost: number
 }
 
@@ -188,4 +189,11 @@ export type BoatChargingSelectSocketFormValues = {
 export type BoatChargingSelectSocketFormSelectedSocket = {
   socketNumber: string
   stationId: string
+}
+
+export enum BoatChargingStopReason {
+  MANUAL = 'manual',
+  NO_BALANCE = 'no_balance',
+  OTHER = 'other',
+  UNPLUGGED = 'unplugged',
 }
