@@ -1,6 +1,7 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
+import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useInvalidateAccessCode} from '@/modules/access-code/hooks/useInvalidateAccessCode'
@@ -8,25 +9,32 @@ import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
 import {AccessCodeValidScreen} from '@/modules/access-code/screens/AccessCodeValid.screen'
+import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 
 const Stack = createStackNavigator<RootStackParams>()
 
 export const ModuleStack = () => {
-  const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
+  const {attemptsLeft, isCodeValid, hasAccessCode, isLoading} =
+    useEnterAccessCode()
   const {isCodeConfirmed} = useConfirmAccessCode()
   const screenOptions = useScreenOptions()
   const isCodeInvalidated = useInvalidateAccessCode()
+  const {
+    isEnrolled,
+    useBiometrics,
+    isLoading: isLoadingBiometrics,
+  } = useAccessCodeBiometrics()
 
-  if (!isCodeInvalidated) {
+  if (!isCodeInvalidated || isLoading || isLoadingBiometrics) {
     return null
   }
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Group navigationKey={isForgotCode ? 'forgotten' : 'access-code'}>
-        {!isCodeValid ? (
+      <Stack.Group>
+        {!isCodeValid && hasAccessCode && !isCodeConfirmed ? (
           <>
             {attemptsLeft > 0 ? (
               <Stack.Screen
@@ -44,10 +52,18 @@ export const ModuleStack = () => {
         ) : (
           <>
             {isCodeConfirmed ? (
-              <Stack.Screen
-                component={AccessCodeValidScreen}
-                name={AccessCodeRouteName.validAccessCode}
-              />
+              <>
+                {!!isEnrolled && useBiometrics === undefined && (
+                  <Stack.Screen
+                    component={BiometricsPermissionScreen}
+                    name={AccessCodeRouteName.biometricsPermission}
+                  />
+                )}
+                <Stack.Screen
+                  component={AccessCodeValidScreen}
+                  name={AccessCodeRouteName.validAccessCode}
+                />
+              </>
             ) : (
               <>
                 <Stack.Screen

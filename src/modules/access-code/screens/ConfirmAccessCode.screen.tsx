@@ -22,9 +22,7 @@ export const ConfirmAccessCodeScreen = ({navigation, route}: Props) => {
   useEffect(() => {
     if (!isCodeConfirmed) {
       return
-    } else if (route.params?.showValidation) {
-      navigation.navigate(AccessCodeRouteName.validAccessCode)
-    } else {
+    } else if (!route.params?.showValidation) {
       navigation.pop(2)
     }
   }, [isCodeConfirmed, route.params, navigation])

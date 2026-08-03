@@ -91,6 +91,8 @@ export const useEnterAccessCode = () => {
     isEnteringCode,
     isForgotCode,
     isCodeValid,
+    hasAccessCode: !!secureAccessCode,
+    isLoading: secureAccessCodeIsLoading,
     onAccessCodeEntered,
     onExtendAccessCodeValidity,
     setIsEnteringCode,
