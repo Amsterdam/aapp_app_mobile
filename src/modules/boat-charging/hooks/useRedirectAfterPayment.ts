@@ -21,7 +21,8 @@ export const useRedirectAfterPayment = () => {
           dispatch(setLastGuestSessionId(sessionId))
         }
 
-        navigation.replace(BoatChargingRouteName.activeSessionDetails, {
+        navigation.popTo(BoatChargingRouteName.map)
+        navigation.push(BoatChargingRouteName.activeSessionDetails, {
           id: sessionId,
         })
       } else {

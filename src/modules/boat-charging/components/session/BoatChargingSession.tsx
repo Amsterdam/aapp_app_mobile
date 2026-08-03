@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import {Divider} from '@/components/ui/Divider'
 import {Box} from '@/components/ui/containers/Box'
 import {Notice} from '@/components/ui/feedback/Notice'
@@ -5,12 +6,14 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Column} from '@/components/ui/layout/Column'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {BoatChargingMapNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingMapNavigationButton'
 import {BoatChargingSessionInfoContainer} from '@/modules/boat-charging/components/session/BoatChargingSessionInfoContainer'
 import {BoatChargingSessionSocket} from '@/modules/boat-charging/components/session/BoatChargingSessionSocket'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
-import {SessionLengthStatus} from '@/modules/boat-charging/types'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {SessionLengthStatus, SessionStatus} from '@/modules/boat-charging/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingSession = () => {
@@ -25,6 +28,16 @@ export const BoatChargingSession = () => {
   } = useBoatChargingSession()
 
   useSetScreenTitle(session?.location.name)
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    if (session?.status === SessionStatus.COMPLETED) {
+      // TODO: add alert to inform user why the session has ended
+      navigation.replace(BoatChargingRouteName.historySessionDetails, {
+        id: session.id,
+      })
+    }
+  }, [session?.status, navigation, session?.id])
 
   if (isLoading) {
     return <PleaseWait testID="BoatChargingSessionPleaseWait" />
