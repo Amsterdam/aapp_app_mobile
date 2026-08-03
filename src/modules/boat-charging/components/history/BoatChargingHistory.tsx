@@ -30,27 +30,22 @@ import {
 
 const PAGE_SIZE = 20
 
-type BoatChargingHistoryInfiniteSession = BoatChargingSession & {page: number}
-
-type BoatChargingHistoryInfiniteDummySession = {
-  created_date_time: string
-  currency: 'EUR'
-  dummy: true
-  end_date_time: string
-  id: string
-  kwh: number
-  location: {name: string}
-  nrg_status: NRGStatus
+type BoatChargingHistoryInfiniteSession = BoatChargingSession & {
+  dummy?: never
   page: number
-  socket_number: string
-  start_date_time: string
-  station_id: string
-  status: SessionStatus
-  total_cost: number
+}
+
+type BoatChargingHistoryInfiniteDummySession = Omit<
+  BoatChargingSession,
+  'location' | 'email'
+> & {
+  dummy: true
+  location: {name: string}
+  page: number
 }
 
 type BoatChargingHistoryInfiniteItem =
-  | (BoatChargingHistoryInfiniteSession & {dummy?: never})
+  | BoatChargingHistoryInfiniteSession
   | BoatChargingHistoryInfiniteDummySession
 
 type BoatChargingHistoryInfiniteSection = {
