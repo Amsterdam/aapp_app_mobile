@@ -132,7 +132,9 @@ export type BoatChargingSession = {
   total_cost: number
 }
 
-export type BoatChargingSessionsEndpointRequest = PaginationQueryArgs
+export type BoatChargingSessionsEndpointRequest = {
+  status?: SessionStatus
+} & PaginationQueryArgs
 
 export type BoatChargingTerms = {
   content: string

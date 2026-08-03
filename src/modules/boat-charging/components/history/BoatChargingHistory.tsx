@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, type SectionListProps} from 'react-native'
-import type {PaginationQueryArgs} from '@/types/api'
 import {Divider} from '@/components/ui/Divider'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -29,29 +28,24 @@ import {
   getSectionsSortedByDate,
 } from '@/utils/sort/getSectionsSortedByDate'
 
-const pageSize = 20
+const PAGE_SIZE = 20
 
-type BoatChargingHistoryInfiniteSession = BoatChargingSession & {page: number}
-
-type BoatChargingHistoryInfiniteDummySession = {
-  created_date_time: string
-  currency: 'EUR'
-  dummy: true
-  end_date_time: string
-  id: string
-  kwh: number
-  location: {name: string}
-  nrg_status: NRGStatus
+type BoatChargingHistoryInfiniteSession = BoatChargingSession & {
+  dummy?: never
   page: number
-  socket_number: string
-  start_date_time: string
-  station_id: string
-  status: SessionStatus
-  total_cost: number
+}
+
+type BoatChargingHistoryInfiniteDummySession = Omit<
+  BoatChargingSession,
+  'location' | 'email'
+> & {
+  dummy: true
+  location: {name: string}
+  page: number
 }
 
 type BoatChargingHistoryInfiniteItem =
-  | (BoatChargingHistoryInfiniteSession & {dummy?: never})
+  | BoatChargingHistoryInfiniteSession
   | BoatChargingHistoryInfiniteDummySession
 
 type BoatChargingHistoryInfiniteSection = {
@@ -89,22 +83,19 @@ const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
 export const BoatChargingHistory = () => {
   const {isLoggedIn} = useIsLoggedIn()
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
-  const page = getCurrentPage(viewableItemIndex, 1, pageSize)
+  const page = getCurrentPage(viewableItemIndex, 1, PAGE_SIZE)
 
-  const result = useInfiniteScroller<
-    BoatChargingSession,
-    BoatChargingHistoryInfiniteItem,
-    PaginationQueryArgs
-  >(
+  const result = useInfiniteScroller(
     dummyBoatChargingHistoryItem,
     boatChargingApi.endpoints[BoatChargingEndpointName.boatChargingSessions],
     'id',
     useBoatChargingSessionsQuery,
     page,
-    pageSize,
+    PAGE_SIZE,
     isLoggedIn
       ? {
-          page_size: pageSize,
+          page_size: PAGE_SIZE,
+          status: SessionStatus.COMPLETED,
         }
       : skipToken,
   )
@@ -176,8 +167,12 @@ export const BoatChargingHistory = () => {
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
         <>
-          {section !== sections[0] && <Divider />}
-          <Gutter height="md" />
+          {section !== sections[0] && (
+            <>
+              <Divider />
+              <Gutter height="md" />
+            </>
+          )}
           <Phrase
             emphasis="strong"
             testID="BoatChargingHistorySessionDatePhrase">
