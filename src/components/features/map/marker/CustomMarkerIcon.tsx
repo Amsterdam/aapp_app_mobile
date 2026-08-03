@@ -72,7 +72,7 @@ export const CustomMarkerIcon = ({
   const gTransform = shouldDecreaseIconSize
     ? `scale(0.8) translate(${offset.x + 5}, ${offset.y + 5})`
     : `translate(${offset.x}, ${offset.y})`
-  const circleR = shouldDecreaseIconSize ? center + 3 : center
+  const circleRadius = shouldDecreaseIconSize ? center + 3 : center
 
   return (
     <Wrapper
