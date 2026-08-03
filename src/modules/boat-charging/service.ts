@@ -150,7 +150,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         slug: ModuleSlug['boat-charging'],
         url: `/sessions/${sessionId}/stop`,
         method: 'POST',
-        timeout: 60000, // 1 minute
+        timeout: 180000, // 3 minutes
         headers: deviceIdHeader,
       }),
     }),
@@ -176,7 +176,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         slug: ModuleSlug['boat-charging'],
         url: `/sessions/${sessionId}/cancel`,
         method: 'POST',
-        timeout: 60000, // 1 minute
+        timeout: 180000, // 3 minutes
         headers: deviceIdHeader,
       }),
     }),
