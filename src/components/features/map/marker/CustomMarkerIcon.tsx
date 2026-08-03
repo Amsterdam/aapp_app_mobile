@@ -36,6 +36,7 @@ type Props = {
     path: string
     pathColor?: string
   }
+  isWithinMarker?: boolean
   offset?: {x: number; y: number}
   size?: number
 } & TestProps
@@ -59,6 +60,7 @@ export const CustomMarkerIcon = ({
     circleColor = 'transparent',
     colors,
   },
+  isWithinMarker = false,
   testID,
   size = DEFAULT_SIZE,
   offset = DEFAULT_OFFSET,
@@ -69,8 +71,9 @@ export const CustomMarkerIcon = ({
     decreaseIconSize &&
     circleColor !== 'transparent' &&
     gradientColors.length === 0
+  const extraOffset = isWithinMarker ? 5 : 3
   const gTransform = shouldDecreaseIconSize
-    ? `scale(0.8) translate(${offset.x + 5}, ${offset.y + 5})`
+    ? `scale(0.8) translate(${offset.x + extraOffset}, ${offset.y + extraOffset})`
     : `translate(${offset.x}, ${offset.y})`
   const circleRadius = shouldDecreaseIconSize ? center + 3 : center
 
@@ -102,7 +105,7 @@ export const CustomMarkerIcon = ({
           fill={
             colors?.length ? 'url(#markerCircleRainbowGradient)' : circleColor
           }
-          r={circleR}
+          r={circleRadius}
         />
         <Path
           d={path}

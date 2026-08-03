@@ -36,6 +36,7 @@ export const CustomMarker = ({
   <CustomMarkerIcon
     decreaseIconSize={decreaseIconSize}
     icon={icon}
+    isWithinMarker
     offset={OFFSET}
     size={ICON_SIZE}
     testID={`${testID}CustomMarker`}
