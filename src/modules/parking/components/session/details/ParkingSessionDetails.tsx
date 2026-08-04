@@ -71,6 +71,7 @@ export const ParkingSessionDetails = ({
           <Column>
             <Phrase accessible={false}>{licensePlateString}</Phrase>
             <NavigationButton
+              accessibilityLabel={`Nieuwe parkeersessie met kenteken ${licensePlateString}`}
               chevronSize="md"
               emphasis="default"
               horizontallyAlign="start"
