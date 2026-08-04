@@ -46,11 +46,8 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
     (params: NewSessionFormValues) => {
       const state = store.getState()
       let email = params.email
-      const {
-        selectedSocket: {socketNumber, stationId},
-        approvedTerms,
-        didVerifyEmail,
-      } = params
+      const {selectedSocket, approvedTerms, didVerifyEmail} = params
+      const {socketNumber, stationId} = selectedSocket || {}
       const lastApprovedTermsVersionFromState =
         selectLastApprovedTermsVersionWhileLoggedIn(state)
 

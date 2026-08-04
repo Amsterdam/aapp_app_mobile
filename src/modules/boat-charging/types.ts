@@ -242,5 +242,5 @@ export type NewSessionFormValues = {
   approvedTerms?: boolean
   didVerifyEmail?: boolean
   email?: string
-  selectedSocket: BoatChargingSelectSocketFormSelectedSocket
+  selectedSocket?: BoatChargingSelectSocketFormSelectedSocket
 }
