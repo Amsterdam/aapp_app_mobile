@@ -12,12 +12,13 @@ import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatCha
 import {BoatChargingHistorySessionDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingHistorySessionDetails.screen'
 import {BoatChargingLocationDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingLocationDetails.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
+import {BoatChargingLoginStepsScreen} from '@/modules/boat-charging/screens/BoatChargingLoginSteps.screen'
 import {BoatChargingPaymentResultScreen} from '@/modules/boat-charging/screens/BoatChargingPaymentResult.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
-  Exclude<BoatChargingRouteName, BoatChargingRouteName.loginSteps>
+  BoatChargingRouteName
 > = {
   [BoatChargingRouteName.map]: {
     component: BoatChargingScreen,
@@ -67,7 +68,13 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.login,
     options: {
       headerTitle: 'Inloggen',
-      accessCodeGate: true, // This triggers to accessCode flow when logging in
+    },
+  },
+  [BoatChargingRouteName.loginSteps]: {
+    component: BoatChargingLoginStepsScreen,
+    name: BoatChargingRouteName.loginSteps,
+    options: {
+      headerTitle: 'Inloggen',
     },
   },
   [BoatChargingRouteName.activeSessionDetails]: {
@@ -84,7 +91,6 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerShown: false,
       headerTitle: 'Laadsessie',
-      accessCodeGate: true,
     },
   },
   [BoatChargingRouteName.termsAndConditions]: {

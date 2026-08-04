@@ -2,9 +2,11 @@ import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
+import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
 import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useInvalidateAccessCode} from '@/modules/access-code/hooks/useInvalidateAccessCode'
+import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
@@ -26,6 +28,8 @@ export const ModuleStack = () => {
     useBiometrics,
     isLoading: isLoadingBiometrics,
   } = useAccessCodeBiometrics()
+  const {isLoginStepsActive} = useLoginSteps()
+  const {pendingScreen} = useAccessCodePendingScreen()
 
   if (!isCodeInvalidated || isLoading || isLoadingBiometrics) {
     return null
@@ -51,7 +55,7 @@ export const ModuleStack = () => {
           </>
         ) : (
           <>
-            {isCodeConfirmed ? (
+            {isCodeConfirmed && !isLoginStepsActive ? (
               <>
                 {!!isEnrolled && useBiometrics === undefined && (
                   <Stack.Screen
@@ -59,10 +63,12 @@ export const ModuleStack = () => {
                     name={AccessCodeRouteName.biometricsPermission}
                   />
                 )}
-                <Stack.Screen
-                  component={AccessCodeValidScreen}
-                  name={AccessCodeRouteName.validAccessCode}
-                />
+                {!pendingScreen && (
+                  <Stack.Screen
+                    component={AccessCodeValidScreen}
+                    name={AccessCodeRouteName.validAccessCode}
+                  />
+                )}
               </>
             ) : (
               <>

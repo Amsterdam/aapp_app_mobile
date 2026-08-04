@@ -1,6 +1,5 @@
 import {useCallback, useRef, useState} from 'react'
 import {FormProvider, useForm, type SubmitHandler} from 'react-hook-form'
-import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import type {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
@@ -12,8 +11,14 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
+import {
+  ACCESS_CODE_PENDING_STATES,
+  useAccessCodeGateState,
+} from '@/modules/access-code/hooks/useAccessCodeGateState'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {RedirectKey} from '@/modules/redirects/types'
+import {devLog} from '@/processes/development'
 
 type FormValues = {
   password: string
@@ -31,6 +36,8 @@ export const BoatChargingLoginForm = () => {
   const {params} = useRoute<BoatChargingRouteName.login>()
 
   const afterLoginRoute = params?.afterLoginRoute
+  const state = useAccessCodeGateState(false)
+  const hasNoAccessCode = ACCESS_CODE_PENDING_STATES.has(state)
 
   const handleSignIn: SubmitHandler<FormValues> = useCallback(
     async ({username, password}) => {
@@ -45,6 +52,10 @@ export const BoatChargingLoginForm = () => {
       try {
         await signIn(username, password)
 
+        if (hasNoAccessCode) {
+          devLog('SHOULD DO SOMETHING WITH ACCESS CODE')
+        }
+
         if (afterLoginRoute) {
           // @ts-expect-error: afterLoginRoute is a tuple of route name and params, so we can spread it into navigate
           navigation.replace(...afterLoginRoute)
@@ -57,7 +68,7 @@ export const BoatChargingLoginForm = () => {
         )
       }
     },
-    [afterLoginRoute, canGoBack, goBack, navigation, signIn],
+    [afterLoginRoute, canGoBack, goBack, navigation, signIn, hasNoAccessCode],
   )
 
   return (

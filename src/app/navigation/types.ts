@@ -113,7 +113,7 @@ export type CrossStackTo = {
 /**
  * NavigateTo can be used to type the parameters for filling the useNavigation().navigate function
  */
-export type NavigateTo = InStackTo | CrossStackTo
+export type NavigateTo = InStackTo | CrossStackTo | ModuleSlug
 
 export type RoutesAcceptingParams<Params> = {
   [K in keyof ModuleStackParams]-?: Params extends NonNullable<

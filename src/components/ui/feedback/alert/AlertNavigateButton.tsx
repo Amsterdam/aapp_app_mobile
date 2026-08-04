@@ -4,6 +4,7 @@ import type {TestProps} from '@/components/ui/types'
 import type {GestureResponderEvent} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 const isCrossStackTo = (options: NavigateTo): options is CrossStackTo =>
   !!options[1] && typeof options[1] === 'object' && 'screen' in options[1]
@@ -21,6 +22,10 @@ export const AlertNavigateButton = ({label, params, testID}: Props) => {
   const handleNavigate = useCallback(
     (e: GestureResponderEvent) => {
       e?.preventDefault()
+
+      if (!Array.isArray(params) && params in ModuleSlug) {
+        navigate(params) //  Navigate to module root
+      }
 
       if (isCrossStackTo(params)) {
         const [route, props] = params

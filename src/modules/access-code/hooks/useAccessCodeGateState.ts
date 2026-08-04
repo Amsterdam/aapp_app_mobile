@@ -14,6 +14,22 @@ export enum AccessCodeGateStateName {
   setup = 'setup',
 }
 
+export const ACCESS_CODE_CONFIGURED_STATES: ReadonlySet<AccessCodeGateStateName> =
+  new Set([
+    AccessCodeGateStateName.accessCode,
+    AccessCodeGateStateName.allowed,
+    AccessCodeGateStateName.biometricsPermission,
+  ])
+
+export const ACCESS_CODE_PENDING_STATES: ReadonlySet<AccessCodeGateStateName> =
+  new Set([
+    AccessCodeGateStateName.setup,
+    AccessCodeGateStateName.invalid,
+    AccessCodeGateStateName.forgotCode,
+    AccessCodeGateStateName.confirm,
+    AccessCodeGateStateName.fallback,
+  ])
+
 export const useAccessCodeGateState = (
   isLoginStepsActive: boolean | undefined,
 ): AccessCodeGateStateName => {

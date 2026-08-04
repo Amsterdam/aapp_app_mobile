@@ -1,4 +1,3 @@
-import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -6,15 +5,14 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
+import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
 import {useUnsetCodeOnBlur} from '@/modules/access-code/hooks/useUnsetCodeOnBlur'
-import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
-type Props = NavigationProps<AccessCodeRouteName.validAccessCode>
-
-export const AccessCodeValidScreen = ({navigation}: Props) => {
+export const AccessCodeValidScreen = () => {
   useUnsetCodeOnBlur(AccessCodeType.codeConfirmed)
+  const {navigateToPendingScreen} = useAccessCodePendingScreen(ModuleSlug.user)
 
   return (
     <Screen
@@ -22,7 +20,7 @@ export const AccessCodeValidScreen = ({navigation}: Props) => {
         <Box>
           <Button
             label="Gereed"
-            onPress={() => navigation.popTo(ModuleSlug.user)}
+            onPress={navigateToPendingScreen}
             testID="AccessCodeValidScreenButton"
           />
         </Box>

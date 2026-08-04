@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import type {NavigateTo} from '@/app/navigation/types'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
@@ -21,6 +22,10 @@ export type AccessCodeState = {
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
+  /**
+   * Pending screen to return to after successful access code setup
+   */
+  pendingScreen?: NavigateTo
   useBiometrics?: boolean
 }
 
@@ -38,6 +43,7 @@ const initialValue: AccessCodeState = {
   isForgotCode: false,
   isLoginStepsActive: false,
   useBiometrics: undefined,
+  pendingScreen: undefined,
 }
 
 export const accessCodeSlice = createSlice({
@@ -72,6 +78,12 @@ export const accessCodeSlice = createSlice({
     },
     setError: (state, {payload}: PayloadAction<string | undefined>) => {
       state.error = payload
+    },
+    setPendingScreen: (
+      state,
+      {payload}: PayloadAction<NavigateTo | undefined>,
+    ) => {
+      state.pendingScreen = payload
     },
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
@@ -110,6 +122,7 @@ export const {
   setError,
   setIsCodeValid,
   setLoginStepsActive,
+  setPendingScreen,
 } = accessCodeSlice.actions
 
 export const selectCodeEntered = (state: RootState) =>
@@ -150,3 +163,6 @@ export const selectUseBiometrics = (state: RootState) =>
 
 export const selectIsLoginStepsActive = (state: RootState) =>
   state[ReduxKey.accessCode].isLoginStepsActive
+
+export const selectPendingScreen = (state: RootState) =>
+  state[ReduxKey.accessCode].pendingScreen

@@ -9,9 +9,9 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
-import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const BoatChargingLoginStepsScreen = () => {
   const {navigate} = useNavigation()
@@ -27,7 +27,7 @@ export const BoatChargingLoginStepsScreen = () => {
 
   const onPress = useCallback(() => {
     if (!accessCode) {
-      navigate(AccessCodeRouteName.setAccessCode)
+      navigate(ModuleSlug['access-code'])
 
       return
     }

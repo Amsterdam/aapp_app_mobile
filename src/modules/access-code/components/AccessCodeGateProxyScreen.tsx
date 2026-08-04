@@ -30,7 +30,7 @@ type AccessCodeGateProxyScreenProps<RouteName extends keyof RootStackParams> = {
       }>
     | ComponentType
   loginSteps?: StackNavigationRoutes<RootStackParams>
-  navigatorScreenOptions?: StackNavigationOptions
+  screenOptions?: StackNavigationOptions
   state: ReturnType<typeof useAccessCodeGateState>
 } & NavigationProps<RouteName> &
   StackElement<'Screen'>['props']
@@ -52,7 +52,7 @@ export const AccessCodeGateProxyScreen = <
   ForgotCodeScreen,
   state,
   loginSteps,
-  navigatorScreenOptions,
+  screenOptions,
   ...props
 }: AccessCodeGateProxyScreenProps<RouteName>) => {
   if (state === AccessCodeGateStateName.loading) {
@@ -82,7 +82,7 @@ export const AccessCodeGateProxyScreen = <
   return (
     <AccessCodeGateStack.Navigator
       layout={AnimatedView}
-      screenOptions={{...navigatorScreenOptions, headerShown: true}}>
+      screenOptions={{...screenOptions, headerShown: true}}>
       {state === AccessCodeGateStateName.biometricsPermission && (
         <AccessCodeGateStack.Screen
           {...ACCESS_CODE_SCREEN_MAP.biometricsPermission}
@@ -105,7 +105,7 @@ export const AccessCodeGateProxyScreen = <
       )}
 
       {state === AccessCodeGateStateName.setup && (
-        <AccessCodeGateStack.Group screenOptions={navigatorScreenOptions}>
+        <AccessCodeGateStack.Group screenOptions={screenOptions}>
           {!!loginSteps &&
             Object.entries(loginSteps).map(([key, route]) => (
               <AccessCodeGateStack.Screen

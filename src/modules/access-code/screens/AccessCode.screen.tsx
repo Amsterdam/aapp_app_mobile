@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -9,18 +9,14 @@ import {Title} from '@/components/ui/text/Title'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {AuthenticateWithCodeOrBiometrics} from '@/modules/access-code/components/AuthenticateWithCodeOrBiometrics'
 import {EnterAccessCode} from '@/modules/access-code/components/EnterAccessCode'
-import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
-import {useIsInAccessCodeGate} from '@/modules/access-code/hooks/useIsInAccessCodeGate'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = NavigationProps<AccessCodeRouteName.accessCode>
 
 export const AccessCodeScreen = ({navigation}: Props) => {
-  const {isCodeValid, setIsForgotCode, setIsEnteringCode} = useEnterAccessCode()
-  const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
-  const isInAccessCodeGate = useIsInAccessCodeGate()
+  const {setIsForgotCode, setIsEnteringCode} = useEnterAccessCode()
 
   const currentModule =
     (navigation.getParent()?.getState().routes.at(-1)?.name as ModuleSlug) ??
@@ -30,25 +26,11 @@ export const AccessCodeScreen = ({navigation}: Props) => {
     | ModuleSlug
     | undefined
 
-  useEffect(() => {
-    if (
-      !isInAccessCodeGate &&
-      isCodeValid &&
-      isEnrolled &&
-      useBiometrics === undefined
-    ) {
-      navigation.navigate(AccessCodeRouteName.biometricsPermission)
-    }
-  }, [isCodeValid, isEnrolled, navigation, useBiometrics, isInAccessCodeGate])
-
   const onForgotCode = useCallback(() => {
     setIsForgotCode(true)
-
-    if (!isInAccessCodeGate) {
-      // The module's stack automatically redirects user to forgot code screen.
-      navigation.popTo(currentModule)
-    }
-  }, [currentModule, navigation, setIsForgotCode, isInAccessCodeGate])
+    // The module's stack automatically redirects user to forgot code screen.
+    navigation.popTo(currentModule)
+  }, [currentModule, navigation, setIsForgotCode])
 
   useBlurEffect(() => setIsEnteringCode(false))
 

@@ -35,7 +35,7 @@ export const BoatChargingGuestEmailForm = () => {
     if (isLoggedIn) {
       goBack()
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn, goBack])
 
   return (
     <Column gutter="xl">

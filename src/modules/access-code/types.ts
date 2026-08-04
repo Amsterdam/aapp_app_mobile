@@ -1,9 +1,9 @@
-import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import type {
   AppStackNavigationOptions,
   RootStackParams,
 } from '@/app/navigation/types'
 import type {ComponentProps, ReactElement} from 'react'
+import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 
 export enum AccessCodeType {
   codeConfirmed = 'codeConfirmed',

@@ -92,10 +92,8 @@ export const useAccessCodeGate = (
   config?: AccessCodeGateConfig,
 ): AccessCodeGateFunction => {
   const {loginSteps, additionalGateCondition = true} = config || {}
-
   const {isLoginStepsActive} = useLoginSteps()
   const accessCodeGateStateName = useAccessCodeGateState(isLoginStepsActive)
-
   const forgotCodeScreen = useMemo(
     () => config?.forgotCodeScreen ?? FORGOT_CODE_SCREEN,
     [config],
@@ -128,7 +126,6 @@ export const useAccessCodeGate = (
                     {...config}
                     {...entry.props}
                     ForgotCodeScreen={forgotCodeScreen.component}
-                    navigatorScreenOptions={config?.screenOptions}
                     ProtectedScreenComponent={entry.props.component}
                     state={accessCodeGateStateName}
                   />

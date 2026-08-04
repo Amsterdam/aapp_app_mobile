@@ -14,10 +14,10 @@ export const useLoginSteps = () => {
   const unsetCodeConfirmed = useUnsetCode(AccessCodeType.codeConfirmed)
 
   const setIsLoginStepsActive = useCallback(
-    (isActive: boolean) => {
+    (isActive: boolean, resetCodeValid: boolean = true) => {
       dispatch(setLoginStepsActive(isActive))
 
-      if (!isActive) {
+      if (!isActive && resetCodeValid) {
         unsetCodeConfirmed()
       }
     },
