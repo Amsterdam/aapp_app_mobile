@@ -1,14 +1,26 @@
+import {useEffect} from 'react'
+import {useFormContext} from 'react-hook-form'
+import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
-import {
-  ParkingSessionStatus,
-  type ParkingLicensePlate,
-} from '@/modules/parking/types'
+import {ParkingSessionStatus} from '@/modules/parking/types'
 
-export const ParkingChooseLicensePlateButton = () => {
+type Props = {
+  licensePlate?: SessionFieldValues['licensePlate']
+}
+
+export const ParkingChooseLicensePlateButton = (props: Props) => {
+  const form = useFormContext<SessionFieldValues>()
   const permit = useCurrentParkingPermit()
+
+  useEffect(() => {
+    if (props.licensePlate) {
+      form.setValue('licensePlate', props.licensePlate)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const {
     parkingSessions: activeParkingSessions,
@@ -20,7 +32,7 @@ export const ParkingChooseLicensePlateButton = () => {
 
   return (
     <SelectButtonControlled<
-      {licensePlate?: ParkingLicensePlate},
+      {licensePlate?: SessionFieldValues['licensePlate']},
       'licensePlate'
     >
       accessibilityLabel={licensePlate =>

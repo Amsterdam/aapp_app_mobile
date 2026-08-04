@@ -44,7 +44,9 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                 )}
 
                 {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
-                  <ParkingChooseLicensePlateButton />
+                  <ParkingChooseLicensePlateButton
+                    licensePlate={params?.licensePlate}
+                  />
                 ) : (
                   <Column gutter="sm">
                     <Title
