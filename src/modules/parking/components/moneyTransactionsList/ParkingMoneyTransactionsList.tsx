@@ -26,7 +26,8 @@ import {getSectionsSortedByDate} from '@/utils/sort/getSectionsSortedByDate'
 const ListEmptyComponent = () => (
   <EmptyList
     testID="ParkingMoneyTransactionsEmptyList"
-    text="U heeft nog geen geldsaldo toegevoegd."
+    text="U heeft nog geen geld toegevoegd."
+    title="Geen betalingen"
   />
 )
 
@@ -119,69 +120,74 @@ export const ParkingMoneyTransactionsList = () => {
   }, [result])
 
   return (
-    <>
-      <Box>
-        <Row align="between">
-          <Phrase emphasis="strong">Omschrijving</Phrase>
-          <Phrase emphasis="strong">Bedrag</Phrase>
-        </Row>
-      </Box>
-      <SectionList
-        contentContainerStyle={layoutStyles.grow}
-        ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
-        onViewableItemsChanged={onViewableItemsChanged}
-        renderItem={({item}) =>
-          item.dummy ? (
-            <Box>
-              <Skeleton isLoading>
-                <Phrase accessible={false}>Laden...</Phrase>
-              </Skeleton>
-            </Box>
-          ) : (
-            <SingleSelectable>
-              <Box
-                insetBottom="md"
-                insetHorizontal="md"
-                insetTop="md">
-                <Row align="between">
-                  <Phrase
-                    accessible={false}
-                    emphasis="strong">
-                    {item.order_type === ParkingOrderType.recharge
-                      ? 'Geldsaldo opwaarderen'
-                      : 'Geldsaldo teruggevorderd'}
-                  </Phrase>
-                  <Phrase
-                    accessible={false}
-                    emphasis="strong"
-                    flexShrink={0}>
-                    {item.amount.value > 0 ? '+' : '-'}{' '}
-                    {formatNumber(
-                      Math.abs(item.amount.value),
-                      item.amount.currency,
-                    )}
-                  </Phrase>
-                </Row>
-              </Box>
-            </SingleSelectable>
-          )
-        }
-        renderSectionFooter={() => <Gutter height="md" />}
-        renderSectionHeader={({section}) => (
-          <Box insetHorizontal="md">
-            <Border
-              key={section.title}
-              top>
-              <Gutter height="md" />
-              <Phrase testID="ParkingPlannedSessionDatePhrase">
-                {section.title === dummyTitle ? ' ' : section.title}
-              </Phrase>
-            </Border>
+    <SectionList
+      contentContainerStyle={layoutStyles.grow}
+      ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
+      ListHeaderComponent={
+        sections.length > 0 ? (
+          <Box
+            insetBottom="md"
+            insetHorizontal="md"
+            insetTop="md">
+            <Row align="between">
+              <Phrase emphasis="strong">Omschrijving</Phrase>
+              <Phrase emphasis="strong">Bedrag</Phrase>
+            </Row>
           </Box>
-        )}
-        sections={sections}
-        stickySectionHeadersEnabled={false}
-      />
-    </>
+        ) : null
+      }
+      onViewableItemsChanged={onViewableItemsChanged}
+      renderItem={({item}) =>
+        item.dummy ? (
+          <Box>
+            <Skeleton isLoading>
+              <Phrase accessible={false}>Laden...</Phrase>
+            </Skeleton>
+          </Box>
+        ) : (
+          <SingleSelectable>
+            <Box
+              insetBottom="md"
+              insetHorizontal="md"
+              insetTop="md">
+              <Row align="between">
+                <Phrase
+                  accessible={false}
+                  emphasis="strong">
+                  {item.order_type === ParkingOrderType.recharge
+                    ? 'Geldsaldo opwaarderen'
+                    : 'Geldsaldo teruggevorderd'}
+                </Phrase>
+                <Phrase
+                  accessible={false}
+                  emphasis="strong"
+                  flexShrink={0}>
+                  {item.amount.value > 0 ? '+' : '-'}{' '}
+                  {formatNumber(
+                    Math.abs(item.amount.value),
+                    item.amount.currency,
+                  )}
+                </Phrase>
+              </Row>
+            </Box>
+          </SingleSelectable>
+        )
+      }
+      renderSectionFooter={() => <Gutter height="md" />}
+      renderSectionHeader={({section}) => (
+        <Box insetHorizontal="md">
+          <Border
+            key={section.title}
+            top>
+            <Gutter height="md" />
+            <Phrase testID="ParkingPlannedSessionDatePhrase">
+              {section.title === dummyTitle ? ' ' : section.title}
+            </Phrase>
+          </Border>
+        </Box>
+      )}
+      sections={sections}
+      stickySectionHeadersEnabled={false}
+    />
   )
 }

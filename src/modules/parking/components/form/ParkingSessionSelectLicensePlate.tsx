@@ -44,7 +44,7 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
     <View style={styles.container}>
       <Column gutter="sm">
         <Title
-          level="h5"
+          level="h3"
           text="Mijn kentekens"
         />
         {activeLicensePlates.length === 0 && (

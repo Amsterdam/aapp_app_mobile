@@ -4,7 +4,7 @@ import {ParkingSessionHistoryList} from '@/modules/parking/components/sessionsLi
 const ListEmptyComponent = () => (
   <EmptyList
     testID="ParkingSessionTransactionsList"
-    text="Geen parkeergeschiedenis"
+    title="Geen parkeergeschiedenis"
   />
 )
 

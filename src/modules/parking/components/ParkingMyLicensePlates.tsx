@@ -1,13 +1,13 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo} from 'react'
 import {Alert} from 'react-native'
+import {EmptyList} from '@/components/features/EmptyList'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {LicensePlateListItem} from '@/modules/parking/components/license-plates/LicensePlateListItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -94,13 +94,10 @@ export const ParkingMyLicensePlates = () => {
 
   const {forced_license_plate_list} = currentPermit
 
-  return (
+  return licensePlates.length ? (
     <Box>
       <Column gutter="xl">
-        {licensePlates.length === 0 && (
-          <Phrase>U heeft nog geen kentekens opgeslagen.</Phrase>
-        )}
-        {licensePlates?.map((licensePlate, index) => (
+        {licensePlates.map((licensePlate, index) => (
           <LicensePlateListItem
             isRemovable={!forced_license_plate_list}
             key={licensePlate.vehicle_id}
@@ -131,5 +128,11 @@ export const ParkingMyLicensePlates = () => {
         )}
       </Column>
     </Box>
+  ) : (
+    <EmptyList
+      testID="ParkingMyLicensePlatesEmptyList"
+      text="U heeft nog geen kentekens opgeslagen."
+      title="Geen kentekens"
+    />
   )
 }
