@@ -1,4 +1,3 @@
-import {useCallback} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
@@ -8,20 +7,20 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
-import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
+import {
+  BoatChargingInitSessionStep,
+  useInitSession,
+} from '@/modules/boat-charging/hooks/useInitSession'
 
 export const BoatChargingGuestEmailConfirmScreen = () => {
   const navigation = useNavigation()
-  const {email, setDidVerifyEmail} = useNewSessionFormValues()
 
-  const {onPress} = useInitSession()
+  const {
+    onPress,
+    form: {handleSubmit, watch, setValue},
+  } = useInitSession(BoatChargingInitSessionStep.guestEmailConfirm)
 
-  const onButtonPress = useCallback(() => {
-    setDidVerifyEmail(true)
-
-    return onPress()
-  }, [onPress, setDidVerifyEmail])
+  const email = watch('email')
 
   if (!email) {
     return (
@@ -47,7 +46,7 @@ export const BoatChargingGuestEmailConfirmScreen = () => {
               emphasis="default"
               horizontallyAlign="center"
               onPress={() => {
-                setDidVerifyEmail(false)
+                setValue('didVerifyEmail', false)
                 navigation.goBack()
               }}
               testID="BoatChargingGuestEmailConfirmScreenChangeEmailAddressButton"
@@ -59,7 +58,11 @@ export const BoatChargingGuestEmailConfirmScreen = () => {
         <Button
           label="Ja, dit klopt"
           marginTop="auto"
-          onPress={onButtonPress}
+          onPress={e => {
+            setValue('didVerifyEmail', true)
+
+            return handleSubmit(onPress)(e)
+          }}
           testID="BoatChargingGuestEmailConfirmSubmitButton"
         />
       </Box>

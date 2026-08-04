@@ -1,39 +1,36 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
-import type {BoatChargingSelectSocketFormValues} from '@/modules/boat-charging/types'
+import type {
+  BoatChargingSelectSocketFormValues,
+  NewSessionFormValues,
+} from '@/modules/boat-charging/types'
 import {Button} from '@/components/ui/buttons/Button'
-import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
+import {
+  BoatChargingInitSessionStep,
+  useInitSession,
+} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
 
 export const BoatChargingDetailsSocketSubmitButton = () => {
   const form = useFormContext<BoatChargingSelectSocketFormValues>()
   const {isLoggedIn} = useIsLoggedIn()
-  const {setSelectedChargingSocket} = useNewSessionFormValues()
 
   const {onPress, isLoading, isError, disabled, mustApproveTerms, refetch} =
-    useInitSession()
+    useInitSession(BoatChargingInitSessionStep.selectSocket)
 
   const onSubmit = useCallback(
-    ({
-      selectedSocket,
-    }: {
-      selectedSocket?: {
-        socketNumber: string
-        stationId: string
-      }
-    }) => {
+    (params: NewSessionFormValues) => {
+      const {selectedSocket} = params
+
       if (!selectedSocket) {
         form.setError('root', {message: 'Kies een stopcontact uit de lijst.'})
 
         return Promise.resolve()
       }
 
-      setSelectedChargingSocket(selectedSocket)
-
-      return onPress()
+      return onPress(params)
     },
-    [setSelectedChargingSocket, onPress, form],
+    [onPress, form],
   )
 
   if (isLoggedIn && !mustApproveTerms) {

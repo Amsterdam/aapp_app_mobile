@@ -39,7 +39,10 @@ export const BoatChargingHistorySessionDetails = () => {
 
   const {setAlert} = useAlert()
 
-  const completedSessionSeenIds = useSelector(selectCompletedSessionSeenIds)
+  const completedSessionSeenIds = useSelector(
+    selectCompletedSessionSeenIds,
+    (a, b) => a.length === b.length,
+  )
 
   useEffect(() => {
     if (session && !completedSessionSeenIds.includes(session?.id)) {

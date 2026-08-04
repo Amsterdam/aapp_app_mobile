@@ -1,9 +1,11 @@
 import {useCallback} from 'react'
+import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useStore} from '@/hooks/redux/useStore'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
+import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {
   useBoatChargingTermsQuery,
@@ -13,8 +15,18 @@ import {
   selectBoatChargingLoggedInUsername,
   selectLastApprovedTermsVersionWhileLoggedIn,
 } from '@/modules/boat-charging/slice'
+import {validateEmail} from '@/utils/validate'
 
-export const useInitSession = () => {
+export enum BoatChargingInitSessionStep {
+  guestEmail = 2,
+  guestEmailConfirm = 3,
+  selectSocket = 1,
+  termsAndConditions = 4,
+}
+
+export const useInitSession = (step: BoatChargingInitSessionStep) => {
+  const form = useNewSessionFormContext()
+
   const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
   const [
     initSession,
@@ -30,73 +42,90 @@ export const useInitSession = () => {
   const openWebUrl = useOpenWebUrl()
   const store = useStore()
 
-  const onPress = useCallback(() => {
-    const state = store.getState()
-    let {email} = state.boatCharging.newSessionFormValues || {}
-    const {socketNumber, stationId, approvedTerms, didVerifyEmail} =
-      state.boatCharging.newSessionFormValues || {}
-    const lastApprovedTermsVersionFromState =
-      selectLastApprovedTermsVersionWhileLoggedIn(state)
+  const onPress = useCallback(
+    (params: NewSessionFormValues) => {
+      const state = store.getState()
+      let email = params.email
+      const {
+        selectedSocket: {socketNumber, stationId},
+        approvedTerms,
+        didVerifyEmail,
+      } = params
+      const lastApprovedTermsVersionFromState =
+        selectLastApprovedTermsVersionWhileLoggedIn(state)
 
-    if (!socketNumber || !stationId) {
-      navigation.replace(BoatChargingRouteName.map)
-
-      return Promise.resolve()
-    }
-
-    if (isLoggedIn) {
-      if (!loggedInUsername) {
-        return Promise.resolve()
-      }
-
-      email = loggedInUsername
-
-      if (terms?.version !== lastApprovedTermsVersionFromState) {
-        navigate(BoatChargingRouteName.termsAndConditions)
-
-        return Promise.resolve()
-      }
-    } else {
-      if (!email) {
-        navigate(BoatChargingRouteName.guestEmail)
+      if (!socketNumber || !stationId) {
+        navigation.replace(BoatChargingRouteName.map)
 
         return Promise.resolve()
       }
 
-      if (!didVerifyEmail) {
-        navigate(BoatChargingRouteName.guestEmailConfirm)
+      if (isLoggedIn) {
+        if (!loggedInUsername) {
+          return Promise.resolve()
+        }
 
-        return Promise.resolve()
+        email = loggedInUsername
+
+        if (terms?.version !== lastApprovedTermsVersionFromState) {
+          navigate(BoatChargingRouteName.termsAndConditions)
+
+          return Promise.resolve()
+        }
+      } else {
+        if (
+          !email ||
+          validateEmail(email) !== true ||
+          step === BoatChargingInitSessionStep.selectSocket
+        ) {
+          navigate(BoatChargingRouteName.guestEmail)
+
+          return Promise.resolve()
+        }
+
+        if (
+          !didVerifyEmail ||
+          step === BoatChargingInitSessionStep.guestEmail
+        ) {
+          navigate(BoatChargingRouteName.guestEmailConfirm)
+
+          return Promise.resolve()
+        }
+
+        if (
+          !approvedTerms ||
+          step === BoatChargingInitSessionStep.guestEmailConfirm
+        ) {
+          navigate(BoatChargingRouteName.termsAndConditions)
+
+          return Promise.resolve()
+        }
       }
 
-      if (!approvedTerms) {
-        navigate(BoatChargingRouteName.termsAndConditions)
-
-        return Promise.resolve()
-      }
-    }
-
-    return initSession({
-      station_id: stationId,
-      socket_number: socketNumber,
-      email,
-      name: email,
-      return_url: 'amsterdam://boat-charging/payment',
-    })
-      .unwrap()
-      .then(({checkout_url}) => {
-        openWebUrl(checkout_url)
+      return initSession({
+        station_id: stationId,
+        socket_number: socketNumber,
+        email,
+        name: email,
+        return_url: 'amsterdam://boat-charging/payment',
       })
-  }, [
-    initSession,
-    isLoggedIn,
-    loggedInUsername,
-    navigate,
-    navigation,
-    openWebUrl,
-    store,
-    terms?.version,
-  ])
+        .unwrap()
+        .then(({checkout_url}) => {
+          openWebUrl(checkout_url)
+        })
+    },
+    [
+      initSession,
+      isLoggedIn,
+      loggedInUsername,
+      navigate,
+      navigation,
+      openWebUrl,
+      step,
+      store,
+      terms?.version,
+    ],
+  )
 
   return {
     onPress,
@@ -106,5 +135,6 @@ export const useInitSession = () => {
     isLoading: isLoading || isInitSessionLoading,
     isError: isError || isInitSessionError,
     refetch,
+    form,
   }
 }
