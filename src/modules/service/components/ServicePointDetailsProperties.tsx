@@ -1,3 +1,5 @@
+import {StyleSheet, View} from 'react-native'
+import type {Theme} from '@/themes/themes'
 import type {PropsWithChildren} from 'react'
 import {BottomSheetLabelValueRow} from '@/components/features/bottom-sheet/BottomSheetLabelValueRow'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -12,6 +14,7 @@ import {
   ServiceDetailPropertyType,
   type ServiceFeatureProperty,
 } from '@/modules/service/types'
+import {useThemable} from '@/themes/useThemable'
 import {isObjectWithKeys} from '@/utils/isObjectWithKeys'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'
 
@@ -20,6 +23,7 @@ export const ServicePointDetailsProperties = ({
 }: {
   properties: ServiceFeatureProperty[]
 }) => {
+  const styles = useThemable(createStyles)
   const hasAnyIcon = properties.some(property => !!property.icon)
 
   return (
@@ -75,11 +79,16 @@ export const ServicePointDetailsProperties = ({
                   })
                 ) {
                   return (
-                    <BottomSheetLabelValueRow
-                      key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}
-                      label={row.key}
-                      value={row.value}
-                    />
+                    <>
+                      {type ===
+                        ServiceDetailPropertyType.keyValueTableDivided &&
+                        rowIndex > 0 && <View style={styles.divider} />}
+                      <BottomSheetLabelValueRow
+                        key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}
+                        label={row.key}
+                        value={row.value}
+                      />
+                    </>
                   )
                 }
 
@@ -131,3 +140,12 @@ const EnrichedText = ({children}: PropsWithChildren) => {
     </Paragraph>
   )
 }
+
+const createStyles = ({color, size}: Theme) =>
+  StyleSheet.create({
+    divider: {
+      backgroundColor: color.text.default,
+      height: size.spacing.xxs,
+      marginVertical: size.spacing.xs,
+    },
+  })

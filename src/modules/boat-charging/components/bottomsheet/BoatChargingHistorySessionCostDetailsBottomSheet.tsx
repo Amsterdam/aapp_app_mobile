@@ -43,10 +43,10 @@ export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
               level="h3"
               text="Kostenoverzicht"
             />
-            {!isLoading && (
+            {!!isLoading && (
               <PleaseWait testID="BoatChargingHistorySessionCostDetailsBottomSheetPleaseWait" />
             )}
-            {!isError && (
+            {!!isError && (
               <SomethingWentWrong testID="BoatChargingHistorySessionCostDetailsBottomSheetSomethingWentWrong" />
             )}
             {!!costBreakdown && (
