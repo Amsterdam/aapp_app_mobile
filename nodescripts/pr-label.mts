@@ -24,6 +24,11 @@ const HTTP_STATUS_UNPROCESSABLE_ENTITY = 422
 const COPILOT_LOGINS = new Set(['github-copilot[bot]'])
 
 const MODULE_PATH_RE = /^src\/modules\/([^/]+)\//
+const CHANGES_HEADING = '# Changes'
+const TEST_INSTRUCTIONS_HEADING = '## Test instructions'
+const REVIEWED_CHANGES_HEADING = '### Reviewed changes'
+const DETAILS_OPEN_TAG = '<details>'
+const DETAILS_CLOSE_TAG = '</details>'
 
 if (!GITHUB_TOKEN) {
   core.setFailed(
@@ -190,6 +195,83 @@ const getReviews = async (pullNumber: number) =>
     per_page: 100,
   })
 
+const sanitizeCopilotReviewBody = (reviewBody: string): string => {
+  const reviewLines = reviewBody.replaceAll('\r\n', '\n').split('\n')
+  const reviewedChangesLineIndex = reviewLines.findIndex(
+    line =>
+      line.trim().toLowerCase() === REVIEWED_CHANGES_HEADING.toLowerCase(),
+  )
+  const linesBeforeReviewedChanges =
+    reviewedChangesLineIndex === -1
+      ? reviewLines
+      : reviewLines.slice(0, reviewedChangesLineIndex)
+
+  const sanitizedLines: string[] = []
+  let isInsideDetailsBlock = false
+
+  for (const line of linesBeforeReviewedChanges) {
+    const trimmedLine = line.trim()
+    const isOpeningDetailsTag = trimmedLine === DETAILS_OPEN_TAG
+    const isClosingDetailsTag = trimmedLine === DETAILS_CLOSE_TAG
+
+    if (isOpeningDetailsTag) {
+      isInsideDetailsBlock = true
+    }
+
+    if (isClosingDetailsTag) {
+      isInsideDetailsBlock = false
+    }
+
+    if (!isOpeningDetailsTag && !isClosingDetailsTag && !isInsideDetailsBlock) {
+      sanitizedLines.push(line)
+    }
+  }
+
+  return sanitizedLines.join('\n').trim()
+}
+
+const updatePRText = async (
+  pullNumber: number,
+  review: Awaited<ReturnType<typeof getReviews>>[number] | undefined,
+): Promise<void> => {
+  const reviewBody = review?.body?.trim()
+
+  if (!reviewBody) {
+    return
+  }
+
+  const sanitizedReviewBody = sanitizeCopilotReviewBody(reviewBody)
+
+  if (!sanitizedReviewBody) {
+    return
+  }
+
+  const pullRequest = await octokit.rest.pulls.get({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    pull_number: pullNumber,
+  })
+
+  const currentBody = pullRequest.data.body ?? ''
+  const updatedBody = currentBody
+    .replaceAll('\r\n', '\n')
+    .replace(
+      `${CHANGES_HEADING}\n\n${TEST_INSTRUCTIONS_HEADING}\n`,
+      `${CHANGES_HEADING}\n\n${sanitizedReviewBody}\n\n${TEST_INSTRUCTIONS_HEADING}\n`,
+    )
+
+  if (updatedBody === currentBody) {
+    return
+  }
+
+  await octokit.rest.pulls.update({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    pull_number: pullNumber,
+    body: updatedBody,
+  })
+}
+
 const hasTeamReview = (
   reviews: Awaited<ReturnType<typeof getReviews>>,
 ): boolean =>
@@ -341,8 +423,10 @@ const main = async () => {
     await getOpenCopilotReviewComments(pullNumber)
 
   const reviews = await getReviews(pullNumber)
+  const firstCopilotReview = reviews.find(r => isCopilotLogin(r.user?.login))
 
-  const isReviewedByCopilot = reviews.some(r => isCopilotLogin(r.user?.login))
+  await updatePRText(pullNumber, firstCopilotReview)
+  const isReviewedByCopilot = !!firstCopilotReview
   const isReviewedByTeam = hasTeamReview(reviews)
 
   if (isReviewedByCopilot && openCopilotReviewComments === 0) {
