@@ -28,7 +28,11 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
 
   return (
     <CurrentPermitProvider>
-      <ParkingSessionFormProvider defaultStartTime={params?.defaultStartTime}>
+      <ParkingSessionFormProvider
+        defaultValues={{
+          licensePlate: params?.licensePlate,
+          startTime: params?.defaultStartTime,
+        }}>
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
           keyboardAware
@@ -44,9 +48,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                 )}
 
                 {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
-                  <ParkingChooseLicensePlateButton
-                    licensePlate={params?.licensePlate}
-                  />
+                  <ParkingChooseLicensePlateButton />
                 ) : (
                   <Column gutter="sm">
                     <Title

@@ -1,5 +1,6 @@
 import {ReactNode, useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
+import type {ParkingLicensePlateBase} from '@/modules/parking/types'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingSessionContext} from '@/modules/parking/hooks/useParkingSession'
 import {ParkingSession} from '@/modules/parking/types'
@@ -7,17 +8,21 @@ import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   children: ReactNode
-  defaultStartTime?: string
+  defaultValues?: {
+    licensePlate?: ParkingLicensePlateBase
+    startTime?: string
+  }
 } & (
   | {extendVisitorSession: true; parkingSession: ParkingSession}
   | {extendVisitorSession?: false; parkingSession?: ParkingSession}
 )
 
 const getDefaultValues = ({
-  defaultStartTime,
+  licensePlate,
+  startTime,
   extendVisitorSession,
   parkingSession,
-}: Omit<Props, 'children'>) => {
+}: Omit<Props, 'children' | 'defaultValues'> & Props['defaultValues']) => {
   if (extendVisitorSession && parkingSession) {
     return {
       licensePlate: {
@@ -51,9 +56,8 @@ const getDefaultValues = ({
   }
 
   return {
-    startTime: dayjs(defaultStartTime).isAfter(dayjs())
-      ? dayjs(defaultStartTime)
-      : dayjs(),
+    licensePlate,
+    startTime: dayjs(startTime).isAfter(dayjs()) ? dayjs(startTime) : dayjs(),
   }
 }
 
@@ -61,21 +65,22 @@ export type ParkingSessionFormValues = ReturnType<typeof getDefaultValues>
 
 export const ParkingSessionFormProvider = ({
   children,
-  defaultStartTime,
+  defaultValues,
   parkingSession,
   extendVisitorSession = false,
 }: Props) => {
   const {started_at} = useCurrentParkingPermit()
 
   const isNotYetActivePermit = dayjs(started_at).isAfter(
-    dayjs(defaultStartTime),
+    dayjs(defaultValues?.startTime),
   )
 
   const form = useForm<ParkingSessionFormValues>({
     defaultValues: getDefaultValues({
-      defaultStartTime: isNotYetActivePermit
+      startTime: isNotYetActivePermit
         ? String(started_at)
-        : defaultStartTime,
+        : defaultValues?.startTime,
+      licensePlate: defaultValues?.licensePlate,
       parkingSession,
       extendVisitorSession,
     }),

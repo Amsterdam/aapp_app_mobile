@@ -1,5 +1,3 @@
-import {useEffect} from 'react'
-import {useFormContext} from 'react-hook-form'
 import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
@@ -7,20 +5,8 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
-type Props = {
-  licensePlate?: SessionFieldValues['licensePlate']
-}
-
-export const ParkingChooseLicensePlateButton = (props: Props) => {
-  const form = useFormContext<SessionFieldValues>()
+export const ParkingChooseLicensePlateButton = () => {
   const permit = useCurrentParkingPermit()
-
-  useEffect(() => {
-    if (props.licensePlate) {
-      form.setValue('licensePlate', props.licensePlate)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const {
     parkingSessions: activeParkingSessions,
