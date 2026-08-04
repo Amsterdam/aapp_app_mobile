@@ -220,23 +220,14 @@ export enum BoatChargingStopReason {
 }
 
 export type BoatChargingSessionCostBreakdownResponse = {
-  cdrTotalExclVat: number
-  currency: string
-  endDateTime: string
   items: BoatChargingSessionCostBreakdownItem[]
-  startDateTime: string
-  totalEnergyKwh: number
-  totalExclVat: number
-  totalInclVat: number
-  totalTimeHours: number
+  total_incl_vat: number
 }
 
 export type BoatChargingSessionCostBreakdownItem = {
-  costExclVat: number
-  costInclVat: number
+  cost_incl_vat: number
   type: BoatChargingCostBreakdownItemType
-  unitPrice: number
-  vatPercent: number
+  unit_price: number
   volume: number
 }
 

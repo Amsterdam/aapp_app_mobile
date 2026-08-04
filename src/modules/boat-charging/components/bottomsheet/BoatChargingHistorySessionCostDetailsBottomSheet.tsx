@@ -55,10 +55,7 @@ export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
                   <BottomSheetLabelValueRow
                     key={item.type}
                     label={BoatChargingCostBreakdownItemTypeToLabel[item.type]}
-                    value={formatNumber(
-                      item.costInclVat,
-                      costBreakdown.currency,
-                    )}
+                    value={formatNumber(item.cost_incl_vat, 'EUR')}
                   />
                 ))}
               </Column>
@@ -68,7 +65,7 @@ export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
             <Column gutter="xs">
               <Title
                 level="h3"
-                text={`Totaal ${formatNumber(costBreakdown.totalInclVat, costBreakdown.currency)}`}
+                text={`Totaal ${formatNumber(costBreakdown.total_incl_vat, 'EUR')}`}
               />
               <Phrase
                 color="secondary"
