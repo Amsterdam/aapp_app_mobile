@@ -2,7 +2,7 @@ import {useMemo} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useLicensePlateString} from '@/modules/parking/hooks/useLicensePlateString'
+import {useLicensePlate} from '@/modules/parking/hooks/useLicensePlate'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   type ParkingSession,
@@ -23,7 +23,7 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
 
-  const licensePlateString = useLicensePlateString(
+  const {licensePlateString} = useLicensePlate(
     parkingSession.vehicle_id,
     parkingSession.visitor_name,
   )

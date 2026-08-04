@@ -1,11 +1,9 @@
+import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
-import {
-  ParkingSessionStatus,
-  type ParkingLicensePlate,
-} from '@/modules/parking/types'
+import {ParkingSessionStatus} from '@/modules/parking/types'
 
 export const ParkingChooseLicensePlateButton = () => {
   const permit = useCurrentParkingPermit()
@@ -20,7 +18,7 @@ export const ParkingChooseLicensePlateButton = () => {
 
   return (
     <SelectButtonControlled<
-      {licensePlate?: ParkingLicensePlate},
+      {licensePlate?: SessionFieldValues['licensePlate']},
       'licensePlate'
     >
       accessibilityLabel={licensePlate =>

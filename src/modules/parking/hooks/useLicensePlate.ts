@@ -1,19 +1,23 @@
 import {useMemo} from 'react'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 
-export const useLicensePlateString = (
+export const useLicensePlate = (
   vehicleId: string,
-  visitorName?: string,
+  visitorNameParam?: string,
 ) => {
   const {licensePlates} = useGetLicensePlates()
-  const possiblyVisitorName = useMemo(
+  const licensePlate = useMemo(
     () =>
       licensePlates?.find(
         lp => lp.vehicle_id?.toUpperCase() === vehicleId?.toUpperCase(),
-      )?.visitor_name,
+      ),
     [licensePlates, vehicleId],
   )
-  const visitorNameResult = visitorName ?? possiblyVisitorName
+  const visitorName = visitorNameParam ?? licensePlate?.visitor_name
 
-  return `${vehicleId}${visitorNameResult ? ' - ' + visitorNameResult : ''}`
+  return {
+    licensePlate,
+    licensePlateString: `${vehicleId}${visitorName ? ' - ' + visitorName : ''}`,
+    visitorName,
+  }
 }

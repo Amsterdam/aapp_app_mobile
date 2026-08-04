@@ -2,6 +2,7 @@ import {
   ParkingHistorySession,
   ParkingSession,
   VisitorParkingSession,
+  type ParkingLicensePlateBase,
 } from '@/modules/parking/types'
 
 export enum ParkingRouteName {
@@ -68,7 +69,11 @@ export type ModuleStackParams = {
   [ParkingRouteName.visitorExtendSession]: {parkingSession: ParkingSession}
   [ParkingRouteName.forgotAccessCode]: undefined
   [ParkingRouteName.startSession]:
-    | {defaultStartTime?: string; parkingMachineId?: string}
+    | {
+        defaultStartTime?: string
+        licensePlate?: ParkingLicensePlateBase
+        parkingMachineId?: string
+      }
     | undefined
   [ParkingRouteName.increaseBalance]: undefined
   [ParkingRouteName.manageVisitor]: undefined

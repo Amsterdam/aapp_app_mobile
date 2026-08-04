@@ -12,7 +12,7 @@ import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/se
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useLicensePlateString} from '@/modules/parking/hooks/useLicensePlateString'
+import {useLicensePlate} from '@/modules/parking/hooks/useLicensePlate'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
@@ -38,7 +38,7 @@ export const ParkingSessionDetails = ({
   const parkingAccount = useParkingAccount()
   const currentPermit = useCurrentParkingPermit()
 
-  const licensePlateString = useLicensePlateString(
+  const {licensePlateString, visitorName} = useLicensePlate(
     parkingSession.vehicle_id,
     parkingSession.visitor_name,
   )
@@ -68,7 +68,26 @@ export const ParkingSessionDetails = ({
           iconName="car"
           testID="ParkingSessionDetailsLicensePlateRow"
           title="Kenteken">
-          <Phrase accessible={false}>{licensePlateString}</Phrase>
+          <Column>
+            <Phrase accessible={false}>{licensePlateString}</Phrase>
+            <NavigationButton
+              accessibilityLabel={`Nieuwe parkeersessie met kenteken ${licensePlateString}`}
+              chevronSize="md"
+              emphasis="default"
+              horizontallyAlign="start"
+              insetHorizontal="no"
+              onPress={() =>
+                navigate(ParkingRouteName.startSession, {
+                  licensePlate: {
+                    vehicle_id: parkingSession.vehicle_id,
+                    visitor_name: visitorName ?? '',
+                  },
+                })
+              }
+              testID="ParkingStartSessionNavigationButton"
+              title="Nieuwe parkeersessie"
+            />
+          </Column>
         </MetaDataCard>
 
         {!!parkingSession.parking_machine && (
