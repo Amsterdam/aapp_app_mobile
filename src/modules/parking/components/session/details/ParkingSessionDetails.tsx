@@ -38,7 +38,7 @@ export const ParkingSessionDetails = ({
   const parkingAccount = useParkingAccount()
   const currentPermit = useCurrentParkingPermit()
 
-  const {licensePlate, licensePlateString} = useLicensePlate(
+  const {licensePlateString, visitorName} = useLicensePlate(
     parkingSession.vehicle_id,
     parkingSession.visitor_name,
   )
@@ -79,7 +79,7 @@ export const ParkingSessionDetails = ({
                 navigate(ParkingRouteName.startSession, {
                   licensePlate: {
                     vehicle_id: parkingSession.vehicle_id,
-                    visitor_name: licensePlate?.visitor_name ?? '',
+                    visitor_name: visitorName ?? '',
                   },
                 })
               }

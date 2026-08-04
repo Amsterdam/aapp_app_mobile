@@ -18,5 +18,6 @@ export const useLicensePlate = (
   return {
     licensePlate,
     licensePlateString: `${vehicleId}${visitorName ? ' - ' + visitorName : ''}`,
+    visitorName,
   }
 }
