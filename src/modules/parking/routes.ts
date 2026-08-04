@@ -1,8 +1,8 @@
-import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
 import {
   ParkingHistorySession,
   ParkingSession,
   VisitorParkingSession,
+  type ParkingLicensePlateBase,
 } from '@/modules/parking/types'
 
 export enum ParkingRouteName {
@@ -71,7 +71,7 @@ export type ModuleStackParams = {
   [ParkingRouteName.startSession]:
     | {
         defaultStartTime?: string
-        licensePlate?: SessionFieldValues['licensePlate']
+        licensePlate?: ParkingLicensePlateBase
         parkingMachineId?: string
       }
     | undefined

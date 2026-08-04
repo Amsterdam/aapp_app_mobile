@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
+import type {ParkingLicensePlateBase} from '@/modules/parking/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -18,7 +19,7 @@ import {Dayjs} from '@/utils/datetime/dayjs'
 export type SessionFieldValues = {
   amount?: number
   endTime?: Dayjs
-  licensePlate?: {vehicle_id: string; visitor_name: string}
+  licensePlate?: ParkingLicensePlateBase
   parking_machine?: string
   parking_machine_favorite?: boolean
   startTime: Dayjs
