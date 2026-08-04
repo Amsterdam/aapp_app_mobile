@@ -1,7 +1,5 @@
-import {StyleSheet, View} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import type {PropsWithChildren} from 'react'
-import {BottomSheetLabelValueRow} from '@/components/features/bottom-sheet/BottomSheetLabelValueRow'
+import {BottomSheetKeyValueTable} from '@/components/features/bottom-sheet/BottomSheetKeyValueTable'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -14,8 +12,6 @@ import {
   ServiceDetailPropertyType,
   type ServiceFeatureProperty,
 } from '@/modules/service/types'
-import {useThemable} from '@/themes/useThemable'
-import {isObjectWithKeys} from '@/utils/isObjectWithKeys'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'
 
 export const ServicePointDetailsProperties = ({
@@ -23,7 +19,6 @@ export const ServicePointDetailsProperties = ({
 }: {
   properties: ServiceFeatureProperty[]
 }) => {
-  const styles = useThemable(createStyles)
   const hasAnyIcon = properties.some(property => !!property.icon)
 
   return (
@@ -62,39 +57,14 @@ export const ServicePointDetailsProperties = ({
           Array.isArray(value)
         ) {
           return (
-            <Column
-              gutter="sm"
-              key={`${ServiceDetailPropertyType.keyValueTable}-${index}`}>
-              {!!label && (
-                <Title
-                  level="h5"
-                  text={label}
-                />
-              )}
-              {value.map((row, rowIndex) => {
-                if (
-                  isObjectWithKeys(row, {
-                    key: ['string', 'number'],
-                    value: ['string', 'number'],
-                  })
-                ) {
-                  return (
-                    <>
-                      {type ===
-                        ServiceDetailPropertyType.keyValueTableDivided &&
-                        rowIndex > 0 && <View style={styles.divider} />}
-                      <BottomSheetLabelValueRow
-                        key={`${ServiceDetailPropertyType.keyValueTable}-${index}-${rowIndex}`}
-                        label={row.key}
-                        value={row.value}
-                      />
-                    </>
-                  )
-                }
-
-                return null
-              })}
-            </Column>
+            <BottomSheetKeyValueTable
+              key={`${type}-${index}`}
+              rows={value}
+              showDividers={
+                type === ServiceDetailPropertyType.keyValueTableDivided
+              }
+              title={label}
+            />
           )
         }
 
@@ -140,12 +110,3 @@ const EnrichedText = ({children}: PropsWithChildren) => {
     </Paragraph>
   )
 }
-
-const createStyles = ({color, size}: Theme) =>
-  StyleSheet.create({
-    divider: {
-      backgroundColor: color.text.default,
-      height: size.spacing.xxs,
-      marginVertical: size.spacing.xs,
-    },
-  })
