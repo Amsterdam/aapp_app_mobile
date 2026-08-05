@@ -12,3 +12,5 @@ export const tagTypes = [
   'ParkingAccount',
   'ParkingPermits',
 ] as const
+
+export const MAX_LICENSE_PLATES = 2
