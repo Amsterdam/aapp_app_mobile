@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback} from 'react'
 import type {NavigationProps} from '@/app/navigation/types'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -13,7 +13,6 @@ import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
@@ -21,10 +20,7 @@ import {
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
-import {
-  selectLastApprovedTermsVersionWhileLoggedIn,
-  setLastApprovedTermsVersionWhileLoggedIn,
-} from '@/modules/boat-charging/slice'
+import {setLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
 
 type Props = NavigationProps<BoatChargingRouteName.termsAndConditions>
@@ -35,24 +31,12 @@ const AGREED_TO_TERMS_ERROR_MESSAGE =
 export const BoatChargingTermsAndConditionsScreen = ({}: Props) => {
   const {
     onPress,
-    form: {handleSubmit, setError, setValue, watch},
+    form: {handleSubmit, setError, watch},
   } = useInitSession(BoatChargingInitSessionStep.termsAndConditions)
 
   const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
-  const lastApprovedTermsVersion = useSelector(
-    selectLastApprovedTermsVersionWhileLoggedIn,
-  )
   const dispatch = useDispatch()
   const {isLoggedIn} = useIsLoggedIn()
-
-  const alreadyAgreedToTerms =
-    isLoggedIn && terms?.version === lastApprovedTermsVersion
-
-  useEffect(() => {
-    if (alreadyAgreedToTerms) {
-      setValue('approvedTerms', true)
-    }
-  }, [alreadyAgreedToTerms, setValue])
   const agreedToTerms = watch('approvedTerms')
 
   const onSubmit = useCallback(
