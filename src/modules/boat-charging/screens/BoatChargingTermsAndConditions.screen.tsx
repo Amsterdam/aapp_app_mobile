@@ -1,6 +1,6 @@
-import {useEffect} from 'react'
-import {useForm, FormProvider} from 'react-hook-form'
+import {useCallback} from 'react'
 import type {NavigationProps} from '@/app/navigation/types'
+import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -13,128 +13,104 @@ import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
+import {
+  BoatChargingInitSessionStep,
+  useInitSession,
+} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
-import {
-  selectLastApprovedTermsVersionWhileLoggedIn,
-  setLastApprovedTermsVersionWhileLoggedIn,
-  useNewSessionFormValues,
-} from '@/modules/boat-charging/slice'
+import {setLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
 
 type Props = NavigationProps<BoatChargingRouteName.termsAndConditions>
-
-type FormValues = {
-  agreedToTerms: boolean
-}
 
 const AGREED_TO_TERMS_ERROR_MESSAGE =
   'Ga akkoord gaan met de voorwaarden om verder te gaan.'
 
 export const BoatChargingTermsAndConditionsScreen = ({}: Props) => {
-  const form = useForm<FormValues>({
-    defaultValues: {
-      agreedToTerms: false,
-    },
-  })
-  const {handleSubmit, setError} = form
+  const {
+    onPress,
+    form: {handleSubmit, setError, watch},
+  } = useInitSession(BoatChargingInitSessionStep.termsAndConditions)
 
   const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
-  const lastApprovedTermsVersion = useSelector(
-    selectLastApprovedTermsVersionWhileLoggedIn,
-  )
   const dispatch = useDispatch()
   const {isLoggedIn} = useIsLoggedIn()
+  const agreedToTerms = watch('approvedTerms')
 
-  const alreadyAgreedToTerms =
-    isLoggedIn && terms?.version === lastApprovedTermsVersion
+  const onSubmit = useCallback(
+    (params: NewSessionFormValues) => {
+      if (!params.approvedTerms || !terms) {
+        setError('approvedTerms', {
+          type: 'manual',
+          message: AGREED_TO_TERMS_ERROR_MESSAGE,
+        })
 
-  useEffect(() => {
-    if (alreadyAgreedToTerms) {
-      form.setValue('agreedToTerms', true)
-    }
-  }, [alreadyAgreedToTerms, form])
-  const agreedToTerms = form.watch('agreedToTerms')
+        return
+      }
 
-  const {setApprovedTerms} = useNewSessionFormValues()
-  const {onPress} = useInitSession()
+      if (isLoggedIn) {
+        dispatch(setLastApprovedTermsVersionWhileLoggedIn(terms.version))
+      }
 
-  const onSubmit = () => {
-    if (!terms) {
-      setError('agreedToTerms', {
-        type: 'manual',
-        message: AGREED_TO_TERMS_ERROR_MESSAGE,
-      })
-
-      return
-    }
-
-    if (isLoggedIn) {
-      dispatch(setLastApprovedTermsVersionWhileLoggedIn(terms.version))
-    }
-
-    setApprovedTerms(true)
-
-    return onPress()
-  }
+      return onPress(params)
+    },
+    [terms, isLoggedIn, dispatch, onPress, setError],
+  )
 
   return (
-    <FormProvider {...form}>
-      <Screen
-        stickyFooter={
-          <Box>
-            <Button
-              icon={{name: 'boat-charging-free', color: 'inverse'}}
-              isLoading={isLoading}
-              label="Betalen en laden"
-              onPress={isError ? refetch : handleSubmit(onSubmit)}
-              testID="BoatChargingTermsAndConditionsScreenSubmitButton"
-            />
-          </Box>
-        }
-        testID="BoatChargingTermsAndConditionsScreen">
-        <Box grow>
-          <Title
-            level="h4"
-            text="In het kort"
-          />
-          <Gutter height="sm" />
-          {isLoading ? (
-            <PleaseWait testID="BoatChargingTermsAndConditionsPleaseWait" />
-          ) : isError ? (
-            <Box insetVertical="md">
-              <SomethingWentWrong testID="BoatChargingTermsAndConditionsSomethingWentWrong" />
-            </Box>
-          ) : (
-            !!terms && (
-              <HtmlContent
-                content={terms.content}
-                testID="BoatChargingTermsAndConditionsHtmlContent"
-              />
-            )
-          )}
-          <ExternalInlineLink
-            redirectKey={RedirectKey.boatChargingTermsAndConditions}
-            testID="BoatChargingTermsAndConditionsExternalLink">
-            Bekijk alle voorwaarden
-          </ExternalInlineLink>
-
-          <Gutter height="xl" />
-          <SwitchField
-            accessibilityLabel={`Ik ga akkoord met de voorwaarden staat ${agreedToTerms ? 'aan' : 'uit'}`}
-            disabled={isLoading || isError}
-            label={<Phrase>Ik ga akkoord met de voorwaarden</Phrase>}
-            name="agreedToTerms"
-            rules={{
-              required: AGREED_TO_TERMS_ERROR_MESSAGE,
-            }}
-            testID="BoatChargingTermsAndConditionsSwitch"
+    <Screen
+      stickyFooter={
+        <Box>
+          <Button
+            icon={{name: 'boat-charging-free', color: 'inverse'}}
+            isLoading={isLoading}
+            label="Betalen en laden"
+            onPress={isError ? refetch : handleSubmit(onSubmit)}
+            testID="BoatChargingTermsAndConditionsScreenSubmitButton"
           />
         </Box>
-      </Screen>
-    </FormProvider>
+      }
+      testID="BoatChargingTermsAndConditionsScreen">
+      <Box grow>
+        <Title
+          level="h4"
+          text="In het kort"
+        />
+        <Gutter height="sm" />
+        {isLoading ? (
+          <PleaseWait testID="BoatChargingTermsAndConditionsPleaseWait" />
+        ) : isError ? (
+          <Box insetVertical="md">
+            <SomethingWentWrong testID="BoatChargingTermsAndConditionsSomethingWentWrong" />
+          </Box>
+        ) : (
+          !!terms && (
+            <HtmlContent
+              content={terms.content}
+              testID="BoatChargingTermsAndConditionsHtmlContent"
+            />
+          )
+        )}
+        <ExternalInlineLink
+          redirectKey={RedirectKey.boatChargingTermsAndConditions}
+          testID="BoatChargingTermsAndConditionsExternalLink">
+          Bekijk alle voorwaarden
+        </ExternalInlineLink>
+
+        <Gutter height="xl" />
+        <SwitchField
+          accessibilityLabel={`Ik ga akkoord met de voorwaarden staat ${agreedToTerms ? 'aan' : 'uit'}`}
+          disabled={isLoading || isError}
+          label={<Phrase>Ik ga akkoord met de voorwaarden</Phrase>}
+          name="approvedTerms"
+          rules={{
+            required: AGREED_TO_TERMS_ERROR_MESSAGE,
+          }}
+          testID="BoatChargingTermsAndConditionsSwitch"
+        />
+      </Box>
+    </Screen>
   )
 }

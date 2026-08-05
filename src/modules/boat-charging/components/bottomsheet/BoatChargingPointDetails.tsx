@@ -17,6 +17,7 @@ import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {useAvailableAndOtherEvses} from '@/modules/boat-charging/hooks/useAvailableAndOtherEvses'
+import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {
@@ -64,6 +65,7 @@ export const BoatChargingPointDetails = () => {
   const {availableEvses, evses} = useAvailableAndOtherEvses(
     location?.charging_stations ?? [],
   )
+  const {reset} = useNewSessionFormContext()
 
   if (isLoading) {
     return <PleaseWait testID="BoatChargingPointDetailsPleaseWait" />
@@ -114,9 +116,11 @@ export const BoatChargingPointDetails = () => {
         </Column>
         {!!id && (
           <BoatChargingPointDetailsButton
-            onPress={() =>
-              navigate(BoatChargingRouteName.locationDetails, {id})
-            }
+            onPress={() => {
+              reset()
+
+              return navigate(BoatChargingRouteName.locationDetails, {id})
+            }}
             status={status}
           />
         )}

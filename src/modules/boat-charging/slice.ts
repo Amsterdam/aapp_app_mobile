@@ -3,7 +3,6 @@ import {useCallback} from 'react'
 import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
-  BoatChargingSelectSocketFormSelectedSocket,
 } from '@/modules/boat-charging/types'
 import type {RootState} from '@/store/types/rootState'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -17,13 +16,6 @@ export type BoatChargingState = {
   lastApprovedTermsVersionWhileLoggedIn?: number
   lastGuestSessionId?: string
   loggedInUsername?: string
-  newSessionFormValues?: {
-    approvedTerms?: boolean
-    didVerifyEmail?: boolean
-    email?: string
-    socketNumber?: string
-    stationId?: string
-  }
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
 }
@@ -38,7 +30,6 @@ export const boatChargingSlice = createSlice({
       state,
       {payload: id}: PayloadAction<BoatChargingLocation['id']>,
     ) => {
-      state.newSessionFormValues = undefined
       state.selectedBoatChargingPointId = id
     },
     resetSelectedBoatChargingPointId: state => {
@@ -76,48 +67,6 @@ export const boatChargingSlice = createSlice({
       {payload}: PayloadAction<BoatChargingOIDCConfigResponse>,
     ) => {
       state.openIdConnectConfig = payload
-    },
-    setNewSessionEmail: (state, {payload: email}: PayloadAction<string>) => {
-      state.newSessionFormValues = {
-        ...state.newSessionFormValues,
-        email,
-        didVerifyEmail: false,
-        approvedTerms: false,
-      }
-    },
-    setNewSessionDidVerifyEmail: (
-      state,
-      {payload: didVerifyEmail}: PayloadAction<boolean>,
-    ) => {
-      state.newSessionFormValues = {
-        ...state.newSessionFormValues,
-        didVerifyEmail,
-        approvedTerms: false,
-      }
-    },
-    setNewSessionApprovedTerms: (
-      state,
-      {payload: approvedTerms}: PayloadAction<boolean>,
-    ) => {
-      state.newSessionFormValues = {
-        ...state.newSessionFormValues,
-        approvedTerms,
-      }
-    },
-    setNewSessionSelectedChargingSocket: (
-      state,
-      {payload}: PayloadAction<BoatChargingSelectSocketFormSelectedSocket>,
-    ) => {
-      state.newSessionFormValues = {
-        ...state.newSessionFormValues,
-        socketNumber: payload.socketNumber,
-        stationId: payload.stationId,
-        didVerifyEmail: false,
-        approvedTerms: false,
-      }
-    },
-    resetNewSessionFormValues: state => {
-      state.newSessionFormValues = undefined
     },
     setLastApprovedTermsVersionWhileLoggedIn: (
       state,
@@ -195,52 +144,8 @@ export const useSetBoatChargingAccessToken = () => {
   )
 }
 
-export const selectNewSessionFormValues = (state: RootState) =>
-  state[ReduxKey.boatCharging].newSessionFormValues
-
 export const selectLastApprovedTermsVersionWhileLoggedIn = (state: RootState) =>
   state[ReduxKey.boatCharging].lastApprovedTermsVersionWhileLoggedIn
 
 export const selectCompletedSessionSeenIds = (state: RootState) =>
   state[ReduxKey.boatCharging].completedSessionSeenIds ?? []
-
-export const useNewSessionFormValues = () => {
-  const {
-    setNewSessionEmail,
-    setNewSessionSelectedChargingSocket,
-    setNewSessionApprovedTerms,
-    setNewSessionDidVerifyEmail,
-    resetNewSessionFormValues,
-  } = boatChargingSlice.actions
-
-  const dispatch = useDispatch()
-
-  const guestSessionFormValues = useSelector(selectNewSessionFormValues) || {}
-  const selectedChargingSocket =
-    guestSessionFormValues.stationId && guestSessionFormValues.socketNumber
-      ? {
-          stationId: guestSessionFormValues.stationId,
-          socketNumber: guestSessionFormValues.socketNumber,
-        }
-      : undefined
-
-  const setGuestEmail = (email: string) => dispatch(setNewSessionEmail(email))
-  const setSelectedChargingSocket = (
-    payload: BoatChargingSelectSocketFormSelectedSocket,
-  ) => dispatch(setNewSessionSelectedChargingSocket(payload))
-  const setApprovedTerms = (approvedTerms: boolean) =>
-    dispatch(setNewSessionApprovedTerms(approvedTerms))
-  const setDidVerifyEmail = (didVerifyEmail: boolean) =>
-    dispatch(setNewSessionDidVerifyEmail(didVerifyEmail))
-  const resetForm = () => dispatch(resetNewSessionFormValues())
-
-  return {
-    ...guestSessionFormValues,
-    selectedChargingSocket,
-    setGuestEmail,
-    setSelectedChargingSocket,
-    resetForm,
-    setApprovedTerms,
-    setDidVerifyEmail,
-  }
-}

@@ -237,3 +237,10 @@ export enum BoatChargingCostBreakdownItemType {
   PARKING_TIME = 'PARKING_TIME',
   TIME = 'TIME',
 }
+
+export type NewSessionFormValues = {
+  approvedTerms?: boolean
+  didVerifyEmail?: boolean
+  email?: string
+  selectedSocket?: BoatChargingSelectSocketFormSelectedSocket
+}

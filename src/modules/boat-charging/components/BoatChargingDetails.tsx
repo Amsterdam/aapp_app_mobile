@@ -1,6 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import {FormProvider, useForm} from 'react-hook-form'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
@@ -15,12 +14,11 @@ import {BoatChargingDetailsSocketRadioGroup} from '@/modules/boat-charging/compo
 import {BoatChargingDetailsSocketSubmitButton} from '@/modules/boat-charging/components/BoatChargingDetailsSocketSubmitButton'
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
+import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
-import {useNewSessionFormValues} from '@/modules/boat-charging/slice'
 import {
   ChargingPointStatus,
   type BoatChargingLocation,
-  type BoatChargingSelectSocketFormValues,
 } from '@/modules/boat-charging/types'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
@@ -43,15 +41,7 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
     isError: isErrorSessions,
   } = useBoatChargingSessions()
 
-  const {selectedChargingSocket} = useNewSessionFormValues()
-
   useInterval(refetchLocationDetails, REFETCH_INTERVAL)
-
-  const form = useForm<BoatChargingSelectSocketFormValues>({
-    defaultValues: {
-      selectedSocket: selectedChargingSocket,
-    },
-  })
 
   const infoRows = useMemo(
     () =>
@@ -76,6 +66,8 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
     [activeSessions, location],
   )
 
+  const form = useNewSessionFormContext()
+
   if (isLoadingLocation || isLoadingSessions) {
     return <PleaseWait testID="BoatChargingDetailsPleaseWait" />
   }
@@ -98,44 +90,42 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
         <BoatChargingDetailsInfoRows rows={infoRows} />
       </Column>
 
-      <FormProvider {...form}>
-        <Column gutter="md">
-          <Column gutter="smd">
-            <Title
-              level="h4"
-              testID="BoatChargingDetailsChooseSocketTitle"
-              text="Kies stopcontact en betaal"
+      <Column gutter="md">
+        <Column gutter="smd">
+          <Title
+            level="h4"
+            testID="BoatChargingDetailsChooseSocketTitle"
+            text="Kies stopcontact en betaal"
+          />
+
+          <Paragraph>
+            Betaal eerst en doe daarna de stekker in het stopcontact.
+          </Paragraph>
+
+          <BoatChargingDetailsSocketRadioGroup
+            chargingStations={location.charging_stations}
+            hasActiveSession={!!activeSessions?.length}
+          />
+          {!!form.formState.errors.root?.message && (
+            <ErrorMessage
+              testID={`BoatChargingDetailsChooseSocketErrorMessage`}
+              text={form.formState.errors.root.message}
             />
+          )}
 
-            <Paragraph>
-              Betaal eerst en doe daarna de stekker in het stopcontact.
-            </Paragraph>
-
-            <BoatChargingDetailsSocketRadioGroup
-              chargingStations={location.charging_stations}
-              hasActiveSession={!!activeSessions?.length}
-            />
-            {!!form.formState.errors.root?.message && (
-              <ErrorMessage
-                testID={`BoatChargingDetailsChooseSocketErrorMessage`}
-                text={form.formState.errors.root.message}
-              />
-            )}
-
-            {!!fulfilledTimeStamp && (
-              <Phrase color="secondary">
-                Laatste update om{' '}
-                {formatTimeToDisplay(fulfilledTimeStamp, {
-                  includeHoursLabel: true,
-                })}
-              </Phrase>
-            )}
-          </Column>
-          <BoatChargingHelpNavigationButton />
+          {!!fulfilledTimeStamp && (
+            <Phrase color="secondary">
+              Laatste update om{' '}
+              {formatTimeToDisplay(fulfilledTimeStamp, {
+                includeHoursLabel: true,
+              })}
+            </Phrase>
+          )}
         </Column>
+        <BoatChargingHelpNavigationButton />
+      </Column>
 
-        {!!showSubmitButton && <BoatChargingDetailsSocketSubmitButton />}
-      </FormProvider>
+      {!!showSubmitButton && <BoatChargingDetailsSocketSubmitButton />}
     </Column>
   )
 }

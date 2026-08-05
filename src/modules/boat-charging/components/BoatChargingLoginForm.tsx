@@ -1,5 +1,6 @@
 import {useCallback, useRef, useState} from 'react'
 import {FormProvider, useForm, type SubmitHandler} from 'react-hook-form'
+import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import type {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
@@ -10,6 +11,7 @@ import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useRoute} from '@/hooks/navigation/useRoute'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
 import {RedirectKey} from '@/modules/redirects/types'
 
@@ -23,7 +25,12 @@ export const BoatChargingLoginForm = () => {
   const form = useForm<FormValues>()
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const passwordInputReference = useRef<TextInputRN>(null)
-  const {canGoBack, goBack} = useNavigation()
+  const navigation = useNavigation()
+  const {canGoBack, goBack} = navigation
+
+  const {params} = useRoute<BoatChargingRouteName.login>()
+
+  const afterLoginRoute = params?.afterLoginRoute
 
   const handleSignIn: SubmitHandler<FormValues> = useCallback(
     async ({username, password}) => {
@@ -38,7 +45,10 @@ export const BoatChargingLoginForm = () => {
       try {
         await signIn(username, password)
 
-        if (canGoBack()) {
+        if (afterLoginRoute) {
+          // @ts-expect-error: afterLoginRoute is a tuple of route name and params, so we can spread it into navigate
+          navigation.replace(...afterLoginRoute)
+        } else if (canGoBack()) {
           goBack()
         }
       } catch (error) {
@@ -47,7 +57,7 @@ export const BoatChargingLoginForm = () => {
         )
       }
     },
-    [canGoBack, goBack, signIn],
+    [afterLoginRoute, canGoBack, goBack, navigation, signIn],
   )
 
   return (
