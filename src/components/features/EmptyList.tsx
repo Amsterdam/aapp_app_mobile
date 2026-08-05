@@ -19,7 +19,7 @@ export const EmptyList = ({text, title = 'Geen resultaat', testID}: Props) => (
         text={title}
         textAlign="center"
       />
-      {!!text && <Phrase>{text}</Phrase>}
+      {!!text && <Phrase textAlign="center">{text}</Phrase>}
     </Column>
   </Center>
 )
