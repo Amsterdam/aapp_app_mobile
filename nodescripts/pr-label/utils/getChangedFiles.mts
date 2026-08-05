@@ -1,6 +1,8 @@
 import {octokit, context} from './octokit.mts'
 
-export const getChangedFiles = async (pullNumber: number): Promise<string[]> => {
+export const getChangedFiles = async (
+  pullNumber: number,
+): Promise<string[]> => {
   const files = await octokit.paginate(octokit.rest.pulls.listFiles, {
     owner: context.repo.owner,
     repo: context.repo.repo,
