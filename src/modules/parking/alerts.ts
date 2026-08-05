@@ -182,6 +182,21 @@ export const alerts = {
     hasCloseIcon: true,
     testID: 'ParkingLicensePlateDuplicateErrorAlert',
   },
+  licensePlateMutationFailed: {
+    variant: AlertVariant.negative,
+    title: 'Mislukt',
+    hasIcon: true,
+    hasCloseIcon: true,
+    testID: 'ParkingLicensePlateMutationErrorAlert',
+  },
+  licensePlateMutationInstructionsFailed: {
+    variant: AlertVariant.negative,
+    title: 'Er ging iets fout met aanpassen',
+    hasIcon: true,
+    hasCloseIcon: true,
+    text: 'Uw kenteken is hierbij verwijderd. Probeer deze nogmaals op te slaan of probeer het later opnieuw.',
+    testID: 'ParkingLicensePlateMutationErrorAlert',
+  },
   startSessionSuccess: {
     variant: AlertVariant.positive,
     title: 'Uw parkeersessie is opgeslagen',

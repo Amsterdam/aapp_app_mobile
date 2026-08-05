@@ -17,6 +17,8 @@ export const LicensePlateListItem = ({
   const {navigate} = useNavigation()
 
   return (
+    // TODO: Change this to ObjectButton once new component has been set up
+    // (https://gemeente-amsterdam.atlassian.net/browse/AM-1013?atlOrigin=eyJpIjoiNmJjZDhhNjlmZWE5NDE5ZDg5NWE2MTNkZGE5M2ExMzUiLCJwIjoiaiJ9)
     <NavigationButton
       accessibilityLabel={`Kenteken ${licensePlate}`}
       chevronColor="secondary"

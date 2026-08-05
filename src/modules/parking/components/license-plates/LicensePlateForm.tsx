@@ -42,26 +42,50 @@ export const LicensePlateForm = ({
     deleteLicensePlate,
     isLoadingAddLicensePlate,
     isLoadingRemoveLicensePlate,
+    isErrorAddLicensePlate,
+    isErrorRemoveLicensePlate,
+    isLoadingEditLicensePlate,
+    isErrorEditLicensePlate,
   } = useLicensePlateMutations()
 
   const onSave = useCallback(
     async (vehicle_id: string, visitor_name: string) => {
-      if (prefilledLicensePlate) {
-        await editLicensePlate({
-          vehicle_id,
-          visitor_name,
-          id: prefilledLicensePlate.id,
-        })
-      } else {
-        await saveLicensePlate({
-          vehicle_id,
-          visitor_name,
-        })
-      }
+      try {
+        if (prefilledLicensePlate) {
+          await editLicensePlate({
+            vehicle_id,
+            visitor_name,
+            id: prefilledLicensePlate.id,
+          })
+        } else {
+          await saveLicensePlate({
+            vehicle_id,
+            visitor_name,
+          })
+        }
 
-      navigation.popTo(ParkingRouteName.myLicensePlates)
+        navigation.popTo(ParkingRouteName.myLicensePlates)
+      } catch (error: unknown) {
+        const errorType = (error as {message: 'save' | 'delete'}).message
+
+        const alert =
+          errorType === 'save'
+            ? alerts.licensePlateMutationInstructionsFailed
+            : {
+                ...alerts.licensePlateMutationFailed,
+                text: `Er ging iets fout met het ${prefilledLicensePlate ? 'aanpassen' : 'opslaan'} van het kenteken.`,
+              }
+
+        setAlert(alert)
+      }
     },
-    [editLicensePlate, navigation, prefilledLicensePlate, saveLicensePlate],
+    [
+      editLicensePlate,
+      navigation,
+      prefilledLicensePlate,
+      saveLicensePlate,
+      setAlert,
+    ],
   )
 
   const onSubmit = ({vehicle_id, visitor_name = ''}: ParkingLicensePlate) => {
@@ -132,19 +156,26 @@ export const LicensePlateForm = ({
             // If the user confirmed, then we dispatch the action we blocked earlier
             // This will continue the action that had triggered the removal of the screen
             onPress: async () => {
-              await deleteLicensePlate({
-                vehicle_id,
-                id,
-              })
+              try {
+                await deleteLicensePlate({
+                  vehicle_id,
+                  id,
+                })
 
-              navigation.popTo(ParkingRouteName.myLicensePlates)
+                navigation.popTo(ParkingRouteName.myLicensePlates)
+              } catch {
+                setAlert({
+                  ...alerts.licensePlateMutationFailed,
+                  text: 'Er ging iets fout met het verwijderen van het kenteken',
+                })
+              }
             },
           },
         ],
         {cancelable: true},
       )
     },
-    [deleteLicensePlate, navigation],
+    [deleteLicensePlate, navigation, setAlert],
   )
 
   return (
@@ -171,7 +202,12 @@ export const LicensePlateForm = ({
             testID="ParkingLicensePlateFormNameInputField"
           />
           <Button
-            isLoading={formState.isSubmitting || isLoadingAddLicensePlate}
+            isError={isErrorAddLicensePlate || isErrorEditLicensePlate}
+            isLoading={
+              formState.isSubmitting ||
+              isLoadingAddLicensePlate ||
+              isLoadingEditLicensePlate
+            }
             label="Opslaan"
             onPress={handleSubmit(onSubmit)}
             testID="ParkingLicensePlateFormSubmitButton"
@@ -182,7 +218,10 @@ export const LicensePlateForm = ({
           !!prefilledLicensePlate && (
             <Button
               icon={{name: 'trash-bin'}}
-              isLoading={isLoadingRemoveLicensePlate}
+              isError={isErrorRemoveLicensePlate}
+              isLoading={
+                !!isLoadingRemoveLicensePlate && !isLoadingEditLicensePlate
+              }
               label="Kenteken verwijderen"
               onPress={() => onPressDelete(prefilledLicensePlate)}
               testID="ParkingDeleteLicensePlateButton"
