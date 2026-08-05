@@ -1,6 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback, useMemo} from 'react'
-import {Alert} from 'react-native'
+import {useMemo} from 'react'
 import {EmptyList} from '@/components/features/EmptyList'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -11,11 +10,8 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {LicensePlateListItem} from '@/modules/parking/components/license-plates/LicensePlateListItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {
-  useLicensePlatesQuery,
-  useRemoveLicensePlateMutation,
-} from '@/modules/parking/service'
-import {PermitType, type ParkingLicensePlate} from '@/modules/parking/types'
+import {useLicensePlatesQuery} from '@/modules/parking/service'
+import {PermitType} from '@/modules/parking/types'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const ParkingMyLicensePlates = () => {
@@ -46,43 +42,7 @@ export const ParkingMyLicensePlates = () => {
     }
   }, [currentPermit.permit_type])
 
-  const [removeLicensePlate, {isLoading: isLoadingRemoveLicensePlate}] =
-    useRemoveLicensePlateMutation()
-
-  const onPressDelete = useCallback(
-    (licensePlate: ParkingLicensePlate) => {
-      const {id, vehicle_id, visitor_name} = licensePlate
-
-      Alert.alert(
-        'Weet u zeker dat u het kenteken wilt verwijderen?',
-        `Kenteken: ${vehicle_id}${visitor_name ? '\nNaam: ' + visitor_name : ''}`,
-        [
-          {
-            text: 'Annuleren',
-            style: 'cancel',
-            onPress: () => null,
-          },
-          {
-            text: 'Verwijderen',
-            style: 'destructive',
-            // If the user confirmed, then we dispatch the action we blocked earlier
-            // This will continue the action that had triggered the removal of the screen
-            onPress: () => {
-              void removeLicensePlate({
-                report_code: currentPermit.report_code.toString(),
-                vehicle_id,
-                id,
-              })
-            },
-          },
-        ],
-        {cancelable: true},
-      )
-    },
-    [currentPermit.report_code, removeLicensePlate],
-  )
-
-  if (isFetching || isLoadingRemoveLicensePlate) {
+  if (isFetching) {
     return <PleaseWait testID="ParkingSelectLicensePlatePleaseWait" />
   }
 
@@ -96,14 +56,12 @@ export const ParkingMyLicensePlates = () => {
 
   return licensePlates.length ? (
     <Box>
-      <Column gutter="xl">
-        {licensePlates.map((licensePlate, index) => (
+      <Column gutter="md">
+        {licensePlates?.map((licensePlate, index) => (
           <LicensePlateListItem
-            isRemovable={!forced_license_plate_list}
             key={licensePlate.vehicle_id}
             licensePlate={licensePlate}
             number={String(index + 1)}
-            onPressDelete={onPressDelete}
           />
         ))}
         {!!forced_license_plate_list && !!redirectKey && (

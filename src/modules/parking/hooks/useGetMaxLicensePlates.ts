@@ -1,1 +1,1 @@
-export const useGetMaxLicensePlates = () => 10
+export const useGetMaxLicensePlates = () => 9

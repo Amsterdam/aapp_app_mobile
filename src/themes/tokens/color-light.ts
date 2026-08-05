@@ -324,6 +324,19 @@ export const lightColorTokens = {
         label: baseColor.secondary.darkblue,
       },
     },
+    tertiaryDestructive: {
+      default: {
+        background: baseColor.primary.white,
+        border: baseColor.transparent.full,
+        icon: baseColor.primary.red,
+        label: baseColor.primary.red,
+      },
+      pressed: {
+        background: baseColor.primary.white,
+        border: baseColor.transparent.full,
+        label: baseColor.secondary.orange,
+      },
+    },
     transparent: {
       default: {
         background: baseColor.transparent.full,
