@@ -95,7 +95,7 @@ export const LicensePlateForm = ({
     }
 
     const duplicateLicensePlate = licensePlates?.find(
-      lp => lp.vehicle_id === vehicle_id,
+      licensePlate => licensePlate.vehicle_id === vehicle_id,
     )
 
     if (duplicateLicensePlate?.id && !prefilledLicensePlate) {
