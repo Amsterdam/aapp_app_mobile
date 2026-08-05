@@ -26,11 +26,7 @@ export const LicensePlateForm = ({
     plate => plate.id === licensePlateId,
   )
   const form = useForm<ParkingLicensePlate>({
-    defaultValues: {
-      visitor_name: prefilledLicensePlate?.visitor_name,
-      vehicle_id: prefilledLicensePlate?.vehicle_id,
-      id: prefilledLicensePlate?.id,
-    },
+    defaultValues: prefilledLicensePlate,
   })
   const {handleSubmit, formState} = form
   const currentPermit = useCurrentParkingPermit()
@@ -41,8 +37,8 @@ export const LicensePlateForm = ({
     saveLicensePlate,
     deleteLicensePlate,
     isLoadingAddLicensePlate,
-    isLoadingRemoveLicensePlate,
     isErrorAddLicensePlate,
+    isLoadingRemoveLicensePlate,
     isErrorRemoveLicensePlate,
     isLoadingEditLicensePlate,
     isErrorEditLicensePlate,

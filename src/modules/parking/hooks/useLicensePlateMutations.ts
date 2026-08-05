@@ -1,14 +1,13 @@
 import {useCallback, useState} from 'react'
 import type {ParkingLicensePlate} from '@/modules/parking/types'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {
   useAddLicensePlateMutation,
   useRemoveLicensePlateMutation,
 } from '@/modules/parking/service'
+import {devError} from '@/processes/development'
 
 export const useLicensePlateMutations = () => {
-  const {licensePlates} = useGetLicensePlates()
   const currentPermit = useCurrentParkingPermit()
   const [isLoadingEditLicensePlate, setIsLoadingEditLicensePlate] =
     useState(false)
@@ -31,8 +30,10 @@ export const useLicensePlateMutations = () => {
     ({
       vehicle_id,
       visitor_name,
-    }: Omit<ParkingLicensePlate, 'visitor_name' | 'id'> &
-      NonNullable<{visitor_name: string}>) =>
+    }: {
+      vehicle_id: ParkingLicensePlate['vehicle_id']
+      visitor_name: NonNullable<ParkingLicensePlate['visitor_name']>
+    }) =>
       addLicensePlate({
         report_code: currentPermit.report_code.toString(),
         vehicle_id,
@@ -57,20 +58,21 @@ export const useLicensePlateMutations = () => {
       id,
       vehicle_id,
       visitor_name,
-    }: Omit<ParkingLicensePlate, 'visitor_name'> &
-      NonNullable<{visitor_name: string}>) => {
+    }: {
+      id: ParkingLicensePlate['id']
+      vehicle_id: ParkingLicensePlate['vehicle_id']
+      visitor_name: NonNullable<ParkingLicensePlate['visitor_name']>
+    }) => {
       try {
         setIsErrorEditLicensePlate(false)
         setIsLoadingEditLicensePlate(true)
 
-        if (!licensePlates?.find(plate => plate.id === id)) {
-          throw new Error('No matching license plate found to edit.')
-        }
-
-        await deleteLicensePlate({id, vehicle_id}).catch(() => {
+        await deleteLicensePlate({id, vehicle_id}).catch(error => {
+          devError(error)
           throw new Error('delete')
         })
-        await saveLicensePlate({vehicle_id, visitor_name}).catch(() => {
+        await saveLicensePlate({vehicle_id, visitor_name}).catch(error => {
+          devError(error)
           throw new Error('save')
         })
       } catch (error) {
@@ -80,7 +82,7 @@ export const useLicensePlateMutations = () => {
         setIsLoadingEditLicensePlate(false)
       }
     },
-    [deleteLicensePlate, licensePlates, saveLicensePlate],
+    [deleteLicensePlate, saveLicensePlate],
   )
 
   return {

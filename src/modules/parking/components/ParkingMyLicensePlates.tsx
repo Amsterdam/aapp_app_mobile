@@ -57,7 +57,7 @@ export const ParkingMyLicensePlates = () => {
   return licensePlates.length ? (
     <Box>
       <Column gutter="md">
-        {licensePlates?.map((licensePlate, index) => (
+        {licensePlates.map((licensePlate, index) => (
           <LicensePlateListItem
             key={licensePlate.vehicle_id}
             licensePlate={licensePlate}
