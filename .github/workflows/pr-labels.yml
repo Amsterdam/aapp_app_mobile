@@ -25,6 +25,6 @@ jobs:
         run: node ./nodescripts/installGithubActions.mts
 
       - name: Annotate PR with labels
-        run: node nodescripts/pr-label.mts
+        run: node nodescripts/pr-label/pr-label.mts
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
