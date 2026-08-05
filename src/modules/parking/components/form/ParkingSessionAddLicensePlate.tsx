@@ -8,15 +8,14 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
+import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
-import {useGetMaxLicensePlates} from '@/modules/parking/hooks/useGetMaxLicensePlates'
 import {useMaxLicensePlatesAlert} from '@/modules/parking/hooks/useMaxLicensePlatesAlert'
 
 export const ParkingSessionAddLicensePlate = () => {
   const {isOpen} = useBottomSheet()
   const [isVisitorNameVisible, setIsVisitorNameVisible] = useState(false)
   const {licensePlates, isLoading} = useGetLicensePlates()
-  const maxLicensePlates = useGetMaxLicensePlates()
   const maxLicensePlatesAlert = useMaxLicensePlatesAlert()
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export const ParkingSessionAddLicensePlate = () => {
         value={isVisitorNameVisible}
       />
       {!!isVisitorNameVisible &&
-        ((licensePlates?.length ?? 0) >= maxLicensePlates ? (
+        ((licensePlates?.length ?? 0) >= MAX_LICENSE_PLATES ? (
           <>
             <Gutter />
             <AlertBase

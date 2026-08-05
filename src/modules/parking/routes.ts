@@ -3,6 +3,7 @@ import {
   ParkingSession,
   VisitorParkingSession,
   type ParkingLicensePlateBase,
+  type ParkingLicensePlate,
 } from '@/modules/parking/types'
 
 export enum ParkingRouteName {
@@ -11,6 +12,7 @@ export enum ParkingRouteName {
   accounts = 'ParkingAccounts',
   addLicensePlate = 'ParkingAddLicensePlate',
   dashboard = 'ParkingDashboard',
+  editLicensePlate = 'ParkingChangeLicensePlate',
   editSession = 'ParkingEditSession',
   forgotAccessCode = 'ParkingForgotAccessCode',
   increaseBalance = 'ParkingIncreaseBalance',
@@ -36,6 +38,10 @@ export type ModuleStackParams = {
   [ParkingRouteName.accountInactive]: undefined
   [ParkingRouteName.accounts]: undefined
   [ParkingRouteName.addLicensePlate]: undefined
+  [ParkingRouteName.editLicensePlate]: {
+    licensePlateId: ParkingLicensePlate['id']
+  }
+
   [ParkingRouteName.dashboard]:
     | {
         action: 'increase-balance' | 'start-session-and-increase-balance'
