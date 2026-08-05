@@ -14,7 +14,6 @@ import {
 import {
   ParkingEndpointName,
   ParkingHistorySession,
-  ParkingOrderType,
   ParkingSessionsEndpointRequest,
 } from '@/modules/parking/types'
 import {layoutStyles} from '@/styles/layoutStyles'
@@ -93,7 +92,7 @@ export const ParkingSessionHistoryList = ({
           item => item.ps_right_id === items[items.length - 1]?.ps_right_id,
         )
 
-        if (firstIndex && lastIndex) {
+        if (typeof firstIndex === 'number' && typeof lastIndex === 'number') {
           setViewableItemIndex(Math.round((firstIndex + lastIndex) / 2))
         }
       }
@@ -101,16 +100,10 @@ export const ParkingSessionHistoryList = ({
     [result.data],
   )
 
-  const sections = useMemo(() => {
-    const sessionsOnly = result.data.filter(
-      item =>
-        item.dummy ||
-        item.order_type === undefined || // On v2 this property doesn't exist
-        item.order_type === ParkingOrderType.session,
-    )
-
-    return getSectionsSortedByDate(sessionsOnly, sortAscending)
-  }, [result, sortAscending])
+  const sections = useMemo(
+    () => getSectionsSortedByDate(result.data, sortAscending),
+    [result, sortAscending],
+  )
 
   return (
     <SectionList
