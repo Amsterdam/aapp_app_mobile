@@ -16,7 +16,12 @@ export const NewsHighlights = () => {
   }
 
   if (isError || !highlights?.result.length) {
-    return <SomethingWentWrong testID="NewsHighlightsSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="NewsHighlightsSomethingWentWrong"
+      />
+    )
   }
 
   return (

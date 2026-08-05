@@ -48,7 +48,10 @@ export const ParkingMyLicensePlates = () => {
 
   if (!licensePlates) {
     return (
-      <SomethingWentWrong testID="ParkingSelectLicensePlateSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="ParkingSelectLicensePlateSomethingWentWrong"
+      />
     )
   }
 

@@ -24,7 +24,10 @@ export const BoatChargingGuestEmailConfirmScreen = () => {
 
   if (!email) {
     return (
-      <SomethingWentWrong testID="BoatChargingGuestEmailConfirmScreenSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="BoatChargingGuestEmailConfirmScreenSomethingWentWrong"
+      />
     )
   }
 

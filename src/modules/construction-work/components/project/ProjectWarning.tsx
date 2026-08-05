@@ -43,7 +43,10 @@ export const ProjectWarning = ({id, projectId: passedProjectId}: Props) => {
 
   if (!warningData || warningIsError) {
     return (
-      <SomethingWentWrong testID="ConstructionWorkWarningSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="ConstructionWorkWarningSomethingWentWrong"
+      />
     )
   }
 

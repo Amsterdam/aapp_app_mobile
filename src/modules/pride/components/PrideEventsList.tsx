@@ -87,7 +87,10 @@ export const PrideEventsList = () => {
           isLoading ? (
             <PleaseWait testID="PrideEventsListPleaseWait" />
           ) : isError ? (
-            <SomethingWentWrong testID="PrideEventsListSomethingWentWrong" />
+            <SomethingWentWrong
+              inset="md"
+              testID="PrideEventsListSomethingWentWrong"
+            />
           ) : undefined
         }
         ListFooterComponent={<Gutter height="xl" />}

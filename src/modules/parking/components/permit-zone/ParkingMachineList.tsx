@@ -35,7 +35,12 @@ export const ParkingMachineList = () => {
   }
 
   if (!parkingMachinesByDistance?.length || isErrorParkingMachinesData) {
-    return <SomethingWentWrong testID="ParkingMachineListSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="ParkingMachineListSomethingWentWrong"
+      />
+    )
   }
 
   return (
