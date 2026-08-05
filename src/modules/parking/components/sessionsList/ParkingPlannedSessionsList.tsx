@@ -7,7 +7,7 @@ import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
 const ListEmptyComponent = () => (
   <EmptyList
     testID="ParkingPlannedSessionsEmptyList"
-    text="U heeft geen geplande parkeersessie."
+    title="U heeft geen geplande parkeersessie."
   />
 )
 

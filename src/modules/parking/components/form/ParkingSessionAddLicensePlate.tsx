@@ -33,7 +33,7 @@ export const ParkingSessionAddLicensePlate = () => {
     <Column gutter="md">
       <ParkingVehicleIdTextInput
         inputInstructions="Voer alleen letters en cijfers in."
-        label="Kenteken"
+        label="Uw kenteken"
         testID="ParkingAddLicensePlateFormLicensePlateInputField"
       />
       <Switch
