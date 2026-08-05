@@ -27,6 +27,7 @@ export const Future: Story = {
       vehicle_id: '123ABC',
       is_future: true,
       activated_at: '2027-01-01',
+    },
     number: '1',
   },
 }

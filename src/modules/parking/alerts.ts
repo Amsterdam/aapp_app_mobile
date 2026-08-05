@@ -187,6 +187,8 @@ export const alerts = {
     title: 'Mislukt',
     hasIcon: true,
     hasCloseIcon: true,
+    testID: 'ParkingLicensePlateMutationErrorAlert',
+  },
   licensePlateMutationInstructionsFailed: {
     variant: AlertVariant.negative,
     title: 'Er ging iets fout met het aanpassen',
@@ -194,7 +196,7 @@ export const alerts = {
     hasCloseIcon: true,
     text: 'Uw kenteken is hierbij verwijderd. Probeer deze nogmaals op te slaan of probeer het later opnieuw.',
     testID: 'ParkingLicensePlateMutationInstructionsErrorAlert',
-  }
+  },
   startSessionSuccess: {
     variant: AlertVariant.positive,
     title: 'Uw parkeersessie is opgeslagen',
