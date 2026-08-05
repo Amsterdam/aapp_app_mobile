@@ -37,7 +37,10 @@ export const ParkingMachineSearch = () => {
 
   if (!parkingMachinesData?.length || isErrorParkingMachinesData) {
     return (
-      <SomethingWentWrong testID="ParkingMachineSearchSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="ParkingMachineSearchSomethingWentWrong"
+      />
     )
   }
 

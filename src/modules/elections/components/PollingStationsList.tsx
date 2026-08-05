@@ -50,7 +50,12 @@ export const PollingStationsList = ({
   }
 
   if (!pollingStations || !pollingStations.length || isError) {
-    return <SomethingWentWrong testID="PollingStationsListSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="PollingStationsListSomethingWentWrong"
+      />
+    )
   }
 
   return (

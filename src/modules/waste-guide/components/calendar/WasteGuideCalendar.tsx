@@ -13,6 +13,7 @@ export const WasteGuideCalendar = () => {
   if (!address) {
     return (
       <SomethingWentWrong
+        inset="md"
         testID="WasteGuideCalendarListViewNoAddressSomethingWentWrong"
         text="Er is geen geldig adres geselecteerd. Ga naar Mijn profiel om een adres toe te voegen."
       />
@@ -26,6 +27,7 @@ export const WasteGuideCalendar = () => {
   if (getWasteGuideIsError || !wasteGuide) {
     return (
       <SomethingWentWrong
+        inset="md"
         testID="WasteGuideCalendarListViewSomethingWentWrong"
         text="Er is iets misgegaan bij het ophalen van de afvalkalender."
       />

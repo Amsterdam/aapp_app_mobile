@@ -87,7 +87,12 @@ export const ServicePointList = ({
   }
 
   if (!service || isError) {
-    return <SomethingWentWrong testID="ServicePointListSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="ServicePointListSomethingWentWrong"
+      />
+    )
   }
 
   return (

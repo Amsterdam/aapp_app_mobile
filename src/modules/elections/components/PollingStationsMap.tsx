@@ -41,7 +41,12 @@ export const PollingStationsMap = ({
   }
 
   if (!pollingStations?.length || isError) {
-    return <SomethingWentWrong testID="PollingStationsMapSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="PollingStationsMapSomethingWentWrong"
+      />
+    )
   }
 
   return (

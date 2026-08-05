@@ -37,7 +37,10 @@ export const WasteGuideRecyclePointMap = () => {
 
   if (!coordinates) {
     return (
-      <SomethingWentWrong testID="WasteGuideRecyclePointMapSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="WasteGuideRecyclePointMapSomethingWentWrong"
+      />
     )
   }
 

@@ -32,7 +32,10 @@ export const PrideEventDetailsScreen = ({route}: Props) => {
 
   if (!event || isError) {
     return (
-      <SomethingWentWrong testID="PrideEventDetailsScreenSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="PrideEventDetailsScreenSomethingWentWrong"
+      />
     )
   }
 

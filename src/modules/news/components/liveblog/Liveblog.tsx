@@ -49,7 +49,12 @@ export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
   }
 
   if (isError || !data) {
-    return <SomethingWentWrong testID="LiveblogSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="LiveblogSomethingWentWrong"
+      />
+    )
   }
 
   return (

@@ -44,9 +44,10 @@ export const BoatChargingSession = () => {
 
   if (isError || !session) {
     return (
-      <Box>
-        <SomethingWentWrong testID="BoatChargingSessionSomethingWentWrong" />
-      </Box>
+      <SomethingWentWrong
+        inset="md"
+        testID="BoatChargingSessionSomethingWentWrong"
+      />
     )
   }
 

@@ -65,6 +65,9 @@ export const cityPassScreenConfig: StackNavigationRoutes<
   [CityPassRouteName.securityCode]: {
     component: SecurityCodeScreen,
     name: CityPassRouteName.securityCode,
+    options: {
+      headerShown: false,
+    },
   },
   [CityPassRouteName.cityPassBlockPass]: {
     component: CityPassBlockPassScreen,

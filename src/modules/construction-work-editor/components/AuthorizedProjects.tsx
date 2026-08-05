@@ -68,7 +68,10 @@ export const AuthorizedProjects = ({initialMetrics}: Props) => {
 
   if (isError) {
     return (
-      <SomethingWentWrong testID="ConstructionWorkEditorAuthorizedProjectsSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="ConstructionWorkEditorAuthorizedProjectsSomethingWentWrong"
+      />
     )
   }
 

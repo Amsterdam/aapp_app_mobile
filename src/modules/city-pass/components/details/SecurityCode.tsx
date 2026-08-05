@@ -68,6 +68,7 @@ export const SecurityCode = ({id}: Props) => {
   if (isError) {
     return (
       <SomethingWentWrong
+        inset="md"
         testID="CityPassSecurityCodeSomethingWentWrong"
         text={SOMETHING_WENT_WRONG_TEXT}
         title=""

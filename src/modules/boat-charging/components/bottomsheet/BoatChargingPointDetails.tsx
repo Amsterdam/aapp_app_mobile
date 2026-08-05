@@ -73,9 +73,10 @@ export const BoatChargingPointDetails = () => {
 
   if (isError || !location) {
     return (
-      <Box>
-        <SomethingWentWrong testID="BoatChargingPointDetailsSomethingWentWrong" />
-      </Box>
+      <SomethingWentWrong
+        inset="md"
+        testID="BoatChargingPointDetailsSomethingWentWrong"
+      />
     )
   }
 

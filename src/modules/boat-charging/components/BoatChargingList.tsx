@@ -64,7 +64,12 @@ export const BoatChargingList = ({
   }
 
   if (isError) {
-    return <SomethingWentWrong testID="BoatChargingListSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="BoatChargingListSomethingWentWrong"
+      />
+    )
   }
 
   return (

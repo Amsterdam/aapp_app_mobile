@@ -30,7 +30,10 @@ export const WasteGuideSelectRecyclePoint = () => {
 
   if (!recyclePoints) {
     return (
-      <SomethingWentWrong testID="WasteGuideSelectRecyclePointsSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="WasteGuideSelectRecyclePointsSomethingWentWrong"
+      />
     )
   }
 
