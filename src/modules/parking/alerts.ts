@@ -191,7 +191,7 @@ export const alerts = {
   },
   licensePlateMutationInstructionsFailed: {
     variant: AlertVariant.negative,
-    title: 'Er ging iets fout met aanpassen',
+    title: 'Er ging iets fout met het aanpassen',
     hasIcon: true,
     hasCloseIcon: true,
     text: 'Uw kenteken is hierbij verwijderd. Probeer deze nogmaals op te slaan of probeer het later opnieuw.',
