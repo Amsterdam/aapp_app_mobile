@@ -10,6 +10,7 @@ import {
   BoatChargingInitSessionStep,
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
+import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 
@@ -25,6 +26,7 @@ export const BoatChargingGuestEmailForm = () => {
     (params: NewSessionFormValues) => onPress(params),
     [onPress],
   )
+  const {isLoggedIn} = useIsLoggedIn()
 
   return (
     <Column gutter="xl">
@@ -35,9 +37,10 @@ export const BoatChargingGuestEmailForm = () => {
 
         <EmailTextInputField<'email'>
           autoFocus
+          disabled={isLoggedIn}
           name="email"
           onSubmitEditing={handleSubmit(onSubmit)}
-          required
+          required={!isLoggedIn}
           testID="BoatChargingGuestEmailTextInputField"
         />
       </Column>
@@ -50,7 +53,11 @@ export const BoatChargingGuestEmailForm = () => {
         />
         <Button
           label="Inloggen"
-          onPress={() => navigate(BoatChargingRouteName.login)}
+          onPress={() =>
+            navigate(BoatChargingRouteName.login, {
+              afterLoginRoute: [BoatChargingRouteName.termsAndConditions],
+            })
+          }
           testID="BoatChargingGuestEmailFormLoginButton"
           variant="secondary"
         />
