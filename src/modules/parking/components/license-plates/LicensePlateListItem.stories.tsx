@@ -25,10 +25,8 @@ export const Future: Story = {
     licensePlate: {
       id: '3',
       vehicle_id: '123ABC',
-      visitor_name: 'Jane Doe',
       is_future: true,
-      activated_at: '01-01-2027',
-    },
+      activated_at: '2027-01-01',
     number: '1',
   },
 }
