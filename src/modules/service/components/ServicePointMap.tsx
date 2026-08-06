@@ -37,6 +37,7 @@ export const ServicePointMap = ({
     data: service,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useServiceQuery(serviceId || skipToken)
   const {
     data: {lineStrings, polygons, points},
@@ -61,7 +62,12 @@ export const ServicePointMap = ({
   }, [layers, icons_to_include])
 
   if (isLoading) {
-    return <PleaseWait testID="ServiceMapPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ServiceMapPleaseWait"
+      />
+    )
   }
 
   return (

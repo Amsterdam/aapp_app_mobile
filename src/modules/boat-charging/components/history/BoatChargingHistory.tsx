@@ -148,7 +148,12 @@ export const BoatChargingHistory = () => {
   }
 
   if (result.isLoading && result.data.length === 0) {
-    return <PleaseWait testID="BoatChargingHistoryPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BoatChargingHistoryPleaseWait"
+      />
+    )
   }
 
   if (result.isError) {

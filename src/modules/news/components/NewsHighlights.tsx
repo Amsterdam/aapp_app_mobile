@@ -9,10 +9,16 @@ export const NewsHighlights = () => {
     data: highlights,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useNewsArticlesQuery({type: 'highlight'})
 
   if (isLoading) {
-    return <PleaseWait testID="NewsHighlightsPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="NewsHighlightsPleaseWait"
+      />
+    )
   }
 
   if (isError || !highlights?.result.length) {

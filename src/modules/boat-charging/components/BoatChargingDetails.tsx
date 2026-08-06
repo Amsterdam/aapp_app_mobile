@@ -69,7 +69,12 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
   const form = useNewSessionFormContext()
 
   if (isLoadingLocation || isLoadingSessions) {
-    return <PleaseWait testID="BoatChargingDetailsPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BoatChargingDetailsPleaseWait"
+      />
+    )
   }
 
   if (isErrorLocation || isErrorSessions || !location) {

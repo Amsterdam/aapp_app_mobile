@@ -179,7 +179,12 @@ export const ParkingReceipt = () => {
   }, [isVisitor, data?.costs?.value, setValue])
 
   if (isLoading || isLoadingAccount) {
-    return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="ParkingSessionReceiptPleaseWait"
+      />
+    )
   }
 
   if (

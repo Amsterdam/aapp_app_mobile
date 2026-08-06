@@ -45,6 +45,9 @@ export const cityPassScreenConfig: StackNavigationRoutes<
   [CityPassRouteName.budget]: {
     component: BudgetScreen,
     name: CityPassRouteName.budget,
+    options: {
+      headerShown: false,
+    },
   },
 
   [CityPassRouteName.cityPassLogout]: {

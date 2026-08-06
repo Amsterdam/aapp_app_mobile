@@ -37,7 +37,12 @@ export const PollingStationsMap = ({
   useSetMapSelection(String(selectedPollingStationId))
 
   if (isLoading) {
-    return <PleaseWait testID="PollingStationsMapPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="PollingStationsMapPleaseWait"
+      />
+    )
   }
 
   if (!pollingStations?.length || isError) {

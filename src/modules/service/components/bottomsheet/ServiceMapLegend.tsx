@@ -13,6 +13,7 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
     data: service,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useServiceQuery(serviceId || skipToken)
 
   const items = useMemo(() => {
@@ -59,7 +60,12 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
   }
 
   if (isLoading) {
-    return <PleaseWait testID="ServiceMapLegendPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ServiceMapLegendPleaseWait"
+      />
+    )
   }
 
   return (

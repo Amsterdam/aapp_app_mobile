@@ -39,7 +39,12 @@ export const BoatChargingSession = () => {
   }, [session?.status, navigation, session?.id])
 
   if (isLoading) {
-    return <PleaseWait testID="BoatChargingSessionPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BoatChargingSessionPleaseWait"
+      />
+    )
   }
 
   if (isError || !session) {

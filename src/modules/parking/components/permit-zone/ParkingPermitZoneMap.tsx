@@ -24,6 +24,7 @@ export const ParkingPermitZoneMap = ({focusType}: {focusType: MapFocus}) => {
     data: permitZoneData,
     isLoading,
     isError,
+    startedTimeStamp,
   } = usePermitZonesQuery(report_code)
 
   const initialRegion = useMemo(() => {
@@ -37,7 +38,12 @@ export const ParkingPermitZoneMap = ({focusType}: {focusType: MapFocus}) => {
   }, [permitZoneData])
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingPermitZoneMapPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ParkingPermitZoneMapPleaseWait"
+      />
+    )
   }
 
   if (

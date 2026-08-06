@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
@@ -9,11 +9,21 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   grow?: boolean
-  /**
-   * Add a startedTimeStamp (e.g. Date.now()) to get textual loading timeout feedback.
-   */
-  startedTimeStamp?: number
-} & TestProps
+} & TestProps &
+  Or<
+    {
+      /**
+       * Add a timestamp to start a timer which shows textual loading timeout feedback.
+       */
+      startedTimeStamp?: number
+    },
+    {
+      /**
+       * Starts a timer from time of mount (as ref) and show textual loading timeout feedback.
+       */
+      showFeedback?: true
+    }
+  >
 
 const FIRST_TIMEOUT_VALUE = 5
 const SECOND_TIMEOUT_VALUE = 15
@@ -29,23 +39,31 @@ const getElapsedTimeFeedback = (elapsedTime: number) => {
   }
 }
 
-export const PleaseWait = ({grow, startedTimeStamp, testID}: Props) => {
+export const PleaseWait = ({
+  grow,
+  startedTimeStamp,
+  showFeedback,
+  testID,
+}: Props) => {
   const [elapsedTime, setElapsedTime] = useState(0)
+  const startTimeRef = useRef<number>(showFeedback ? Date.now() : null)
 
   useEffect(() => {
-    if (!startedTimeStamp) {
+    const countFrom = startedTimeStamp || startTimeRef.current
+
+    if (!countFrom) {
       return
     }
 
     const interval = setInterval(() => {
-      setElapsedTime(Math.abs(dayjs(startedTimeStamp).diff()))
+      setElapsedTime(Math.abs(dayjs(countFrom).diff()))
     }, 1000)
 
     return () => {
       clearInterval(interval)
       setElapsedTime(0)
     }
-  }, [startedTimeStamp])
+  }, [startedTimeStamp, startTimeRef])
 
   const elapsedSeconds = Math.floor(elapsedTime / 1000)
 

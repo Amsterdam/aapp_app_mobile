@@ -15,7 +15,12 @@ export const WasteGuideRecyclePoint = () => {
   const {activeRecyclePoint, isLoading} = useGetActiveRecyclePoint()
 
   if (isLoading) {
-    return <PleaseWait testID="WasteGuideRecyclePointsPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="WasteGuideRecyclePointsPleaseWait"
+      />
+    )
   }
 
   if (!activeRecyclePoint) {
