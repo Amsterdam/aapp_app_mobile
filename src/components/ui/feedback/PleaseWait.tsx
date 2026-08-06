@@ -82,7 +82,13 @@ export const PleaseWait = ({
             size="lg"
             testID={testID}
           />
-          {!!feedback && <Phrase textAlign="center">{feedback}</Phrase>}
+          {!!feedback && (
+            <Phrase
+              testID="PleaseWaitFeedbackPhrase"
+              textAlign="center">
+              {feedback}
+            </Phrase>
+          )}
         </Column>
       </Box>
     </Center>
