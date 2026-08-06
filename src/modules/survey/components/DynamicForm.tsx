@@ -28,7 +28,8 @@ export const DynamicForm = ({entryPoint, showError = false}: Props) => {
   const isInBottomSheet = useIsInBottomSheet()
   const isFeedbackScreen = route.name === UserRouteName.feedback
 
-  const {data, isFetching, isError} = useSurveyConfigByLocationQuery(entryPoint)
+  const {data, isFetching, isError, startedTimeStamp} =
+    useSurveyConfigByLocationQuery(entryPoint)
   const {survey, id: surveyId} = data ?? {}
   const {
     onSubmit,
@@ -44,7 +45,12 @@ export const DynamicForm = ({entryPoint, showError = false}: Props) => {
   })
 
   if (isFetching) {
-    return <PleaseWait testID="DynamicFormPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="DynamicFormPleaseWait"
+      />
+    )
   }
 
   if (isError) {

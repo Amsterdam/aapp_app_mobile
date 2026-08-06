@@ -20,7 +20,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
   useTransferReduxAccountNameToSecureStorage()
 
   useHandleDeeplink(route)
-  const {permits, isLoading} = useGetPermits()
+  const {permits, isLoading, startedTimeStamp} = useGetPermits()
   const {headerShown = true} = (navigationRef.current?.getCurrentOptions() ??
     {}) as {headerShown?: boolean}
   const isLoggingOut = useParkingAccountIsLoggingOut()
@@ -34,7 +34,10 @@ export const ParkingDashboardScreen = ({route}: Props) => {
           disableHorizontalInsets: true,
         }}
         testID="ParkingDashboardScreen">
-        <PleaseWait testID="ParkingDashboardScreenPleaseWait" />
+        <PleaseWait
+          startedTimeStamp={startedTimeStamp}
+          testID="ParkingDashboardScreenPleaseWait"
+        />
       </Screen>
     )
   }

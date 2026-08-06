@@ -17,7 +17,12 @@ export const NewsArticle = ({id}: Props) => {
   const {article, isLoading, isError} = useNewsArticle()
 
   if (isLoading) {
-    return <PleaseWait testID="NewsArticlePleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="NewsArticlePleaseWait"
+      />
+    )
   }
 
   if (isError || !article) {

@@ -21,6 +21,7 @@ export const Budget = ({budgetCode, passNumber}: Props) => {
     error,
     isLoading,
     isError,
+    startedTimeStamp,
     refetch,
   } = useGetCityPassesQuery()
   const cityPass = cityPasses?.find(cp => cp.passNumber === passNumber)
@@ -28,7 +29,12 @@ export const Budget = ({budgetCode, passNumber}: Props) => {
   useSetScreenTitle(cityPass?.owner.firstname)
 
   if (isLoading) {
-    return <PleaseWait testID="CityPassDashboardPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="CityPassDashboardPleaseWait"
+      />
+    )
   }
 
   if (isError || !cityPass) {

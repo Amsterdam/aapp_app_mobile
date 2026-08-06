@@ -14,10 +14,19 @@ export const ParkingIncreaseBalanceReceipt = () => {
   const {watch} = useFormContext<{amount?: number}>()
   const amount = watch('amount')
 
-  const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
+  const {
+    data: account,
+    isLoading: isLoadingAccount,
+    startedTimeStamp,
+  } = useAccountDetailsQuery()
 
   if (isLoadingAccount) {
-    return <PleaseWait testID="ParkingIncreaseBalanceReceiptPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ParkingIncreaseBalanceReceiptPleaseWait"
+      />
+    )
   }
 
   if (!account?.wallet) {

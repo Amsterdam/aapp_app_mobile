@@ -45,7 +45,10 @@ export const CurrentPermitProvider = ({children}: Props) => {
       <Screen
         bottomSheet={!headerShown}
         testID="ParkingCurrentPermitProviderScreen">
-        <PleaseWait testID="ParkingCurrentPermitProviderPleaseWait" />
+        <PleaseWait
+          showFeedback
+          testID="ParkingCurrentPermitProviderPleaseWait"
+        />
       </Screen>
     )
   }

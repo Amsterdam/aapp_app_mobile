@@ -23,6 +23,7 @@ export const ParkingMachineList = () => {
     data: parkingMachinesData,
     isLoading: isLoadingParkingMachinesData,
     isError: isErrorParkingMachinesData,
+    startedTimeStamp,
   } = useParkingMachinesQuery()
 
   const parkingMachinesByDistance = useMemo(
@@ -31,11 +32,21 @@ export const ParkingMachineList = () => {
   )
 
   if (isLoadingParkingMachinesData) {
-    return <PleaseWait testID="ParkingMachineListPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ParkingMachineListPleaseWait"
+      />
+    )
   }
 
   if (!parkingMachinesByDistance?.length || isErrorParkingMachinesData) {
-    return <SomethingWentWrong testID="ParkingMachineListSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="ParkingMachineListSomethingWentWrong"
+      />
+    )
   }
 
   return (

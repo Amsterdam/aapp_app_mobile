@@ -46,11 +46,21 @@ export const PollingStationsList = ({
   }, [pollingStations, address])
 
   if (isLoading) {
-    return <PleaseWait testID="PollingStationsListPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="PollingStationsListPleaseWait"
+      />
+    )
   }
 
   if (!pollingStations || !pollingStations.length || isError) {
-    return <SomethingWentWrong testID="PollingStationsListSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="PollingStationsListSomethingWentWrong"
+      />
+    )
   }
 
   return (

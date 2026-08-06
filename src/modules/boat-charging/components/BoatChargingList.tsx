@@ -60,11 +60,21 @@ export const BoatChargingList = ({
   }, [filteredFeatures, address])
 
   if (isLoading) {
-    return <PleaseWait testID="BoatChargingListPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BoatChargingListPleaseWait"
+      />
+    )
   }
 
   if (isError) {
-    return <SomethingWentWrong testID="BoatChargingListSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="BoatChargingListSomethingWentWrong"
+      />
+    )
   }
 
   return (

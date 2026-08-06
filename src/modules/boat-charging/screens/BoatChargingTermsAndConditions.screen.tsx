@@ -80,7 +80,10 @@ export const BoatChargingTermsAndConditionsScreen = ({}: Props) => {
         />
         <Gutter height="sm" />
         {isLoading ? (
-          <PleaseWait testID="BoatChargingTermsAndConditionsPleaseWait" />
+          <PleaseWait
+            showFeedback
+            testID="BoatChargingTermsAndConditionsPleaseWait"
+          />
         ) : isError ? (
           <Box insetVertical="md">
             <SomethingWentWrong testID="BoatChargingTermsAndConditionsSomethingWentWrong" />

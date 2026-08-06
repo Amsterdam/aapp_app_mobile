@@ -29,7 +29,7 @@ const options = [
 ]
 
 export const PrideEventDateBottomSheet = () => {
-  const {events, isLoading} = usePrideEvents()
+  const {events, isLoading, startedTimeStamp} = usePrideEvents()
   const dates = Array.from(
     new Set(events?.flatMap(event => [event.date_start, event.date_end]) ?? []),
   )
@@ -76,7 +76,10 @@ export const PrideEventDateBottomSheet = () => {
           />
         )}
         {!!isLoading && (
-          <PleaseWait testID="PrideEventDateBottomSheetPleaseWait" />
+          <PleaseWait
+            startedTimeStamp={startedTimeStamp}
+            testID="PrideEventDateBottomSheetPleaseWait"
+          />
         )}
         <Button
           label="Gereed"

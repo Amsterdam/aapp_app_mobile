@@ -19,7 +19,12 @@ export const ParkingSelectPermit = () => {
   const parkingAccounts = useParkingAccounts()
 
   if (isEmptyObject(parkingAccounts)) {
-    return <SomethingWentWrong testID="ParkingSelectPermitSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="ParkingSelectPermitSomethingWentWrong"
+      />
+    )
   }
 
   return (

@@ -29,7 +29,7 @@ import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 export const PrideEventsList = () => {
   const {navigate} = useNavigation()
   const {watch} = useFormContext<PrideEventFormValues>()
-  const {events, isLoading, isError} = usePrideEvents()
+  const {events, isLoading, isError, startedTimeStamp} = usePrideEvents()
   const selectedType = watch('type')
   const selectedDate = watch('date')
   const customDate = watch('customDate')
@@ -85,9 +85,15 @@ export const PrideEventsList = () => {
         ItemSeparatorComponent={<Gutter height="md" />}
         ListEmptyComponent={
           isLoading ? (
-            <PleaseWait testID="PrideEventsListPleaseWait" />
+            <PleaseWait
+              startedTimeStamp={startedTimeStamp}
+              testID="PrideEventsListPleaseWait"
+            />
           ) : isError ? (
-            <SomethingWentWrong testID="PrideEventsListSomethingWentWrong" />
+            <SomethingWentWrong
+              inset="md"
+              testID="PrideEventsListSomethingWentWrong"
+            />
           ) : undefined
         }
         ListFooterComponent={<Gutter height="xl" />}

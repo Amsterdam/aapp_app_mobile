@@ -80,7 +80,12 @@ export const NewsList = ({
       data={result.data ?? []}
       ItemSeparatorComponent={<Gutter height="md" />}
       ListEmptyComponent={
-        result.isLoading ? <PleaseWait testID="NewsListPleaseWait" /> : null
+        result.isLoading ? (
+          <PleaseWait
+            showFeedback
+            testID="NewsListPleaseWait"
+          />
+        ) : null
       }
       ListFooterComponent={footerComponent}
       ListHeaderComponent={headerComponent}

@@ -26,10 +26,16 @@ export const BudgetTransactions = ({
     data: budgetTransactions,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useGetBudgetTransactionsQuery({passNumber, budgetCode})
 
   if (isLoading) {
-    return <PleaseWait testID="CityPassBudgetPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="CityPassBudgetPleaseWait"
+      />
+    )
   }
 
   if (isError || !budgetTransactions) {

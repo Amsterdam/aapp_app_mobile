@@ -21,3 +21,17 @@ export const Default: StoryObj<typeof PleaseWait> = {
     grow: true,
   },
 }
+
+export const After5Seconds: StoryObj<typeof PleaseWait> = {
+  args: {
+    grow: true,
+    startedTimeStamp: Date.now() - 5000,
+  },
+}
+
+export const After15Seconds: StoryObj<typeof PleaseWait> = {
+  args: {
+    grow: true,
+    startedTimeStamp: Date.now() - 15000,
+  },
+}

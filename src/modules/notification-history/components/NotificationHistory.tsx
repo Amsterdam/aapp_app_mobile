@@ -11,7 +11,8 @@ import {useGetNotificationsQuery} from '@/modules/notification-history/service'
 
 export const NotificationHistory = () => {
   const navigation = useNavigation()
-  const {data, isLoading, isError, error, refetch} = useGetNotificationsQuery()
+  const {data, isLoading, isError, error, refetch, startedTimeStamp} =
+    useGetNotificationsQuery()
 
   useFocusEffect(
     useCallback(() => {
@@ -23,7 +24,10 @@ export const NotificationHistory = () => {
     return (
       <>
         <NotificationHistoryBanner />
-        <PleaseWait testID="NotificationHistoryPleaseWait" />
+        <PleaseWait
+          startedTimeStamp={startedTimeStamp}
+          testID="NotificationHistoryPleaseWait"
+        />
       </>
     )
   }

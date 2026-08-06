@@ -32,10 +32,16 @@ export const Project = ({id}: Props) => {
     isLoading,
     isFetching,
     error: projectError,
+    startedTimeStamp,
   } = useProjectDetailsQuery({id, ...addressParam})
 
   if (isLoading) {
-    return <PleaseWait testID="ConstructionWorkProjectLoadingSpinner" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ConstructionWorkProjectLoadingSpinner"
+      />
+    )
   }
 
   if (!project) {

@@ -65,7 +65,10 @@ export const WebView = ({
       ref={ref}
       renderLoading={() => (
         <Column grow={1}>
-          <PleaseWait testID={testID} />
+          <PleaseWait
+            showFeedback
+            testID={testID}
+          />
         </Column>
       )}
       source={{uri: urlWithParams}}
