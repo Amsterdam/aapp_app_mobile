@@ -16,9 +16,6 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingGuestEmailForm = () => {
-  // const {setGuestEmail, email: guestEmail} = useNewSessionFormValues()
-  const {isLoggedIn} = useIsLoggedIn()
-
   const {navigate, goBack} = useNavigation()
 
   const {
@@ -30,6 +27,7 @@ export const BoatChargingGuestEmailForm = () => {
     (params: NewSessionFormValues) => onPress(params),
     [onPress],
   )
+  const {isLoggedIn} = useIsLoggedIn()
 
   useFocusAndForegroundEffect(() => {
     if (isLoggedIn) {
