@@ -46,8 +46,7 @@ export const PleaseWait = ({
   testID,
 }: Props) => {
   const [elapsedTime, setElapsedTime] = useState(0)
-  const startTimeRef = useRef<number>(showFeedback ? Date.now() : null)
-
+  const startTimeRef = useRef<number | null>(showFeedback ? Date.now() : null)
   useEffect(() => {
     const countFrom = startedTimeStamp || startTimeRef.current
 
