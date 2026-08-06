@@ -38,7 +38,12 @@ export const ProjectWarning = ({id, projectId: passedProjectId}: Props) => {
   // useSetScreenTitle(projectData?.title)
 
   if (projectIsLoading || warningIsLoading) {
-    return <PleaseWait testID="ConstructionWorkWarningLoadingSpinner" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="ConstructionWorkWarningLoadingSpinner"
+      />
+    )
   }
 
   if (!warningData || warningIsError) {

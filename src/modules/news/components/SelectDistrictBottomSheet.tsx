@@ -13,7 +13,7 @@ import {useNewsDistrictsQuery} from '@/modules/news/service'
 import {setSelectedDistrict} from '@/modules/news/slice'
 
 export const SelectDistrictBottomSheet = () => {
-  const {data, isLoading} = useNewsDistrictsQuery()
+  const {data, isLoading, startedTimeStamp} = useNewsDistrictsQuery()
   const districts = data?.data
     ?.slice()
     ?.sort((a, b) => a.name.localeCompare(b.name))
@@ -30,7 +30,10 @@ export const SelectDistrictBottomSheet = () => {
           />
           <Column gutter="no">
             {isLoading ? (
-              <PleaseWait testID="NewsSelectDistrictPleaseWait" />
+              <PleaseWait
+                startedTimeStamp={startedTimeStamp}
+                testID="NewsSelectDistrictPleaseWait"
+              />
             ) : (
               districts?.map(district => (
                 <Pressable

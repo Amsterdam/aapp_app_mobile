@@ -21,7 +21,12 @@ export const WasteGuideCalendar = () => {
   }
 
   if (isLoading) {
-    return <PleaseWait testID="WasteGuideCalendarListViewPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="WasteGuideCalendarListViewPleaseWait"
+      />
+    )
   }
 
   if (getWasteGuideIsError || !wasteGuide) {

@@ -35,6 +35,7 @@ export const SecurityCode = ({id}: Props) => {
     data: cityPasses,
     isFetching,
     isError,
+    startedTimeStamp,
   } = useGetCityPassesQuery(id ? undefined : skipToken)
   const cityPass = cityPasses?.find(cp => cp.id === id)
   const securityCode = cityPass?.securityCode
@@ -62,7 +63,12 @@ export const SecurityCode = ({id}: Props) => {
   }, [securityCode, authenticate])
 
   if (isFetching) {
-    return <PleaseWait testID="CityPassSecurityCodePleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="CityPassSecurityCodePleaseWait"
+      />
+    )
   }
 
   if (isError) {

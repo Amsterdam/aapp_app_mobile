@@ -19,7 +19,7 @@ import {formatMeta} from '@/modules/pride/utils/formatMeta'
 type Props = NavigationProps<PrideRouteName.eventDetails>
 
 export const PrideEventDetailsScreen = ({route}: Props) => {
-  const {getEvent, isLoading, isError} = usePrideEvents()
+  const {getEvent, isLoading, isError, startedTimeStamp} = usePrideEvents()
 
   const event = useMemo(
     () => getEvent(route.params.id),
@@ -27,7 +27,12 @@ export const PrideEventDetailsScreen = ({route}: Props) => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="PrideEventDetailsScreenPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="PrideEventDetailsScreenPleaseWait"
+      />
+    )
   }
 
   if (!event || isError) {

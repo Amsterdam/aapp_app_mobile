@@ -16,7 +16,11 @@ import {RedirectKey} from '@/modules/redirects/types'
 
 export const ParkingMyLicensePlates = () => {
   const currentPermit = useCurrentParkingPermit()
-  const {data: licensePlates, isFetching} = useLicensePlatesQuery(
+  const {
+    data: licensePlates,
+    isFetching,
+    startedTimeStamp,
+  } = useLicensePlatesQuery(
     currentPermit
       ? {
           reportCode: currentPermit.report_code.toString(),
@@ -43,7 +47,12 @@ export const ParkingMyLicensePlates = () => {
   }, [currentPermit.permit_type])
 
   if (isFetching) {
-    return <PleaseWait testID="ParkingSelectLicensePlatePleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ParkingSelectLicensePlatePleaseWait"
+      />
+    )
   }
 
   if (!licensePlates) {

@@ -50,6 +50,7 @@ export const ParkingMachineBottomSheetContent = () => {
     isFetching,
     isError,
     error,
+    startedTimeStamp,
   } = useZoneByMachineQuery(
     selectedParkingMachineId
       ? {
@@ -129,7 +130,10 @@ export const ParkingMachineBottomSheetContent = () => {
                   text="Betaald parkeren"
                 />
                 {isFetching ? (
-                  <PleaseWait testID="ParkingMachineDetailsPleaseWait" />
+                  <PleaseWait
+                    startedTimeStamp={startedTimeStamp}
+                    testID="ParkingMachineDetailsPleaseWait"
+                  />
                 ) : (
                   <Paragraph>
                     {Object.entries(paymentTimes)

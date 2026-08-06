@@ -31,7 +31,12 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingSessionSelectLicensePlatePleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="ParkingSessionSelectLicensePlatePleaseWait"
+      />
+    )
   }
 
   if (!activeLicensePlates) {

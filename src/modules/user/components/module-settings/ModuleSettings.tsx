@@ -18,6 +18,7 @@ export const ModuleSettings = () => {
     return (
       <PleaseWait
         grow
+        showFeedback
         testID="UserModuleSettingsLoadingSpinner"
       />
     )

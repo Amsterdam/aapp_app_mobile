@@ -24,7 +24,12 @@ export const BurningGuide = () => {
   }
 
   if (isLoading || isFetching) {
-    return <PleaseWait testID="BurningGuideForecastListPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BurningGuideForecastListPleaseWait"
+      />
+    )
   }
 
   if (isPostalCodeError) {

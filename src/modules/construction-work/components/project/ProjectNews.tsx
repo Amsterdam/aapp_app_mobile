@@ -23,6 +23,7 @@ export const ProjectNews = ({id, projectId: passedProjectId}: Props) => {
     isError: articleIsError,
     isLoading: articleIsLoading,
     error: articleError,
+    startedTimeStamp,
   } = useProjectNewsQuery({
     id,
   })
@@ -43,7 +44,12 @@ export const ProjectNews = ({id, projectId: passedProjectId}: Props) => {
   }, [article, id, markAsRead])
 
   if (articleIsLoading) {
-    return <PleaseWait testID="ConstructionWorkNewsLoadingSpinner" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ConstructionWorkNewsLoadingSpinner"
+      />
+    )
   }
 
   if (!article || articleIsError) {
