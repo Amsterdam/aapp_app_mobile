@@ -60,7 +60,6 @@ export const PleaseWait = ({
 
     return () => {
       clearInterval(interval)
-      setElapsedTime(0)
     }
   }, [startedTimeStamp, startTimeRef])
 
