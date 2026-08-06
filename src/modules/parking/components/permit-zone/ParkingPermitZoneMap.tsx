@@ -47,7 +47,7 @@ export const ParkingPermitZoneMap = ({focusType}: {focusType: MapFocus}) => {
   }
 
   if (
-    !isError ||
+    isError ||
     !permitZoneData?.geojson ||
     !('features' in permitZoneData.geojson) ||
     Object.keys(permitZoneData.geojson).length === 0
