@@ -405,9 +405,9 @@ export type ParkingManageVisitorTimeBalanceEndpointRequest = {
   seconds_to_transfer: number
 }
 
-export type ParkingSessionOrDummy =
-  | ((ParkingSession | VisitorParkingSession) & {dummy?: never})
-  | {dummy: true; ps_right_id: number; start_date_time: string}
+export type ParkingSessionOrDummy = (ParkingSession | VisitorParkingSession) & {
+  dummy?: boolean
+}
 
 export type ParkingZoneByMachineEndpointRequest = {
   machineId: string

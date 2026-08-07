@@ -5,7 +5,7 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {NewsListItem} from '@/modules/news/components/NewsListItem'
-import {newsApi, useNewsArticlesQuery} from '@/modules/news/service'
+import {newsApi} from '@/modules/news/service'
 import {
   NewsEndpointName,
   type NewsArticleBase,
@@ -42,15 +42,10 @@ export const NewsList = ({
   const params: NewsArticlesType =
     type === 'district' ? {type, district} : {type}
 
-  const result = useInfiniteScroller<
-    NewsArticleBase,
-    NewsArticleBase & {dummy?: boolean},
-    NewsArticlesQueryArgs
-  >(
+  const result = useInfiniteScroller<NewsArticleBase, NewsArticlesQueryArgs>(
     emptyNewsItem,
     newsApi.endpoints[NewsEndpointName.articles],
     'id',
-    useNewsArticlesQuery,
     page,
     PAGE_SIZE,
     {

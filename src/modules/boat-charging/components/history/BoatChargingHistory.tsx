@@ -11,15 +11,13 @@ import {BoatChargingHistoryEmpty} from '@/modules/boat-charging/components/histo
 import {BoatChargingHistoryItem} from '@/modules/boat-charging/components/history/BoatChargingHistoryItem'
 import {BoatChargingHistoryLogin} from '@/modules/boat-charging/components/history/BoatChargingHistoryLogin'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {
-  boatChargingApi,
-  useBoatChargingSessionsQuery,
-} from '@/modules/boat-charging/service'
+import {boatChargingApi} from '@/modules/boat-charging/service'
 import {
   BoatChargingEndpointName,
   NRGStatus,
   type BoatChargingSession,
   SessionStatus,
+  type BoatChargingLocation,
 } from '@/modules/boat-charging/types'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
@@ -28,25 +26,12 @@ import {
   getSectionsSortedByDate,
 } from '@/utils/sort/getSectionsSortedByDate'
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 2
 
-type BoatChargingHistoryInfiniteSession = BoatChargingSession & {
-  dummy?: never
+export type BoatChargingHistoryInfiniteItem = BoatChargingSession & {
+  dummy?: boolean
   page: number
 }
-
-type BoatChargingHistoryInfiniteDummySession = Omit<
-  BoatChargingSession,
-  'location' | 'email'
-> & {
-  dummy: true
-  location: {name: string}
-  page: number
-}
-
-type BoatChargingHistoryInfiniteItem =
-  | BoatChargingHistoryInfiniteSession
-  | BoatChargingHistoryInfiniteDummySession
 
 type BoatChargingHistoryInfiniteSection = {
   data: BoatChargingHistoryInfiniteItem[]
@@ -66,11 +51,10 @@ const isCompletedOrDummySession = (
 const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
   created_date_time: '1970-01-01T00:00:00Z',
   currency: 'EUR',
-  dummy: true,
   end_date_time: '1970-01-01T00:00:00Z',
   id: '',
   kwh: 0,
-  location: {name: ''},
+  location: {name: ''} as BoatChargingLocation,
   nrg_status: NRGStatus.Created,
   page: 0,
   socket_number: '',
@@ -78,6 +62,7 @@ const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
   station_id: '',
   status: SessionStatus.COMPLETED,
   total_cost: 0,
+  email: '',
 }
 
 export const BoatChargingHistory = () => {
@@ -89,7 +74,6 @@ export const BoatChargingHistory = () => {
     dummyBoatChargingHistoryItem,
     boatChargingApi.endpoints[BoatChargingEndpointName.boatChargingSessions],
     'id',
-    useBoatChargingSessionsQuery,
     page,
     PAGE_SIZE,
     isLoggedIn

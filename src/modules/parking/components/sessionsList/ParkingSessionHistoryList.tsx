@@ -7,15 +7,12 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {
-  parkingApi,
-  useParkingSessionHistoryQuery,
-} from '@/modules/parking/service'
+import {parkingApi} from '@/modules/parking/service'
 import {
   ParkingEndpointName,
   ParkingHistorySession,
-  ParkingOrderType,
   ParkingSessionsEndpointRequest,
+  ParkingSessionStatus,
 } from '@/modules/parking/types'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
@@ -24,9 +21,10 @@ import {
   getSectionsSortedByDate,
 } from '@/utils/sort/getSectionsSortedByDate'
 
-type ParkingHistorySessionOrDummy =
-  | (ParkingHistorySession & {dummy?: never})
-  | {dummy: true; ps_right_id: number; start_date_time: string}
+type ParkingHistorySessionOrDummy = ParkingHistorySession & {
+  dummy?: boolean
+  page: number
+}
 
 type Props = {
   ListEmptyComponent?: ComponentType
@@ -47,7 +45,6 @@ export const ParkingSessionHistoryList = ({
 
   const result = useInfiniteScroller<
     ParkingHistorySession,
-    ParkingHistorySessionOrDummy,
     ParkingSessionsEndpointRequest
   >(
     {
@@ -56,10 +53,25 @@ export const ParkingSessionHistoryList = ({
         : '1970-01-01T00:00:00',
       dummy: true,
       ps_right_id: 0,
+      end_date_time: '',
+      no_endtime: false,
+      remaining_time: 0,
+      report_code: '',
+      status: ParkingSessionStatus.planned,
+      vehicle_id: '',
+      created_date_time: '',
+      is_cancelled: false,
+      parking_cost: {
+        currency: '',
+        value: 0,
+      },
+      amount: {
+        currency: '',
+        value: 0,
+      },
     },
     parkingApi.endpoints[ParkingEndpointName.parkingSessionHistory],
-    'start_date_time',
-    useParkingSessionHistoryQuery,
+    'ps_right_id',
     page,
     pageSize,
     {
@@ -78,9 +90,7 @@ export const ParkingSessionHistoryList = ({
   >(
     ({viewableItems}) => {
       if (viewableItems.length > 0) {
-        const items = viewableItems
-          .flatMap(section => section.item)
-          .filter(item => item.ps_right_id)
+        const items = viewableItems.flatMap(section => section.item)
 
         if (items.length === 0) {
           return
@@ -90,10 +100,10 @@ export const ParkingSessionHistoryList = ({
           item => item.ps_right_id === items[0]?.ps_right_id,
         )
         const lastIndex = result.data.findIndex(
-          item => item.ps_right_id === items[items.length - 1]?.ps_right_id,
+          item => item.ps_right_id === items.at(-1)?.ps_right_id,
         )
 
-        if (firstIndex && lastIndex) {
+        if (typeof firstIndex === 'number' && typeof lastIndex === 'number') {
           setViewableItemIndex(Math.round((firstIndex + lastIndex) / 2))
         }
       }
@@ -101,16 +111,10 @@ export const ParkingSessionHistoryList = ({
     [result.data],
   )
 
-  const sections = useMemo(() => {
-    const sessionsOnly = result.data.filter(
-      item =>
-        item.dummy ||
-        item.order_type === undefined || // On v2 this property doesn't exist
-        item.order_type === ParkingOrderType.session,
-    )
-
-    return getSectionsSortedByDate(sessionsOnly, sortAscending)
-  }, [result, sortAscending])
+  const sections = useMemo(
+    () => getSectionsSortedByDate(result.data, sortAscending),
+    [result, sortAscending],
+  )
 
   return (
     <SectionList

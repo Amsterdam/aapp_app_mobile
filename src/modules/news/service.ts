@@ -9,18 +9,21 @@ import {
   type LiveblogResponse,
 } from '@/modules/news/types'
 import {baseApi} from '@/services/baseApi'
+import {INFINITE_QUERY_OPTIONS} from '@/services/constants'
 import {deviceIdHeader} from '@/services/headers'
 
 export const newsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [NewsEndpointName.articles]: builder.query<
+    [NewsEndpointName.articles]: builder.infiniteQuery<
       NewsArticlesResponse,
-      NewsArticlesQueryArgs
+      NewsArticlesQueryArgs,
+      number
     >({
-      query: args => ({
+      infiniteQueryOptions: INFINITE_QUERY_OPTIONS,
+      query: ({pageParam, queryArg = {}}) => ({
         url: '/articles',
         slug: ModuleSlug.news,
-        params: args,
+        params: {page: pageParam, ...queryArg},
       }),
     }),
     [NewsEndpointName.article]: builder.query<NewsArticleResponse, number>({
@@ -86,7 +89,7 @@ export const newsApi = baseApi.injectEndpoints({
 
 export const {
   useNewsArticleQuery,
-  useNewsArticlesQuery,
+  useNewsArticlesInfiniteQuery,
   useNewsLiveblogQuery,
   useNewsDistrictsQuery,
   useNewsGetLiveblogNotificationsQuery,

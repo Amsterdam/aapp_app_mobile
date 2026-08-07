@@ -9,13 +9,11 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
-import {
-  parkingApi,
-  useParkingTransactionsQuery,
-} from '@/modules/parking/service'
+import {parkingApi} from '@/modules/parking/service'
 import {
   ParkingEndpointName,
   ParkingOrderType,
+  ParkingSessionStatus,
   ParkingTransaction,
   ParkingTransactionsEndpointRequest,
 } from '@/modules/parking/types'
@@ -31,15 +29,11 @@ const ListEmptyComponent = () => (
   />
 )
 
-type ParkingTransactionOrDummy =
-  | (ParkingTransaction & {dummy?: never; page: number})
-  | {
-      created_date_time: string
-      dummy: true
-      page: number
-      ps_right_id: number
-      start_date_time: string
-    }
+type ParkingTransactionOrDummy = ParkingTransaction & {
+  dummy?: boolean
+  page: number
+}
+
 type Section = {
   data: Array<ParkingTransactionOrDummy>
   title: string
@@ -54,7 +48,6 @@ export const ParkingMoneyTransactionsList = () => {
 
   const result = useInfiniteScroller<
     ParkingTransaction,
-    ParkingTransactionOrDummy,
     ParkingTransactionsEndpointRequest
   >(
     {
@@ -62,11 +55,25 @@ export const ParkingMoneyTransactionsList = () => {
       dummy: true,
       ps_right_id: 0,
       start_date_time: '',
-      page: 0,
+      end_date_time: '',
+      no_endtime: false,
+      remaining_time: 0,
+      report_code: '',
+      status: ParkingSessionStatus.cancelled,
+      vehicle_id: '',
+      is_cancelled: false,
+      is_paid: false,
+      parking_cost: {
+        currency: '',
+        value: 0,
+      },
+      amount: {
+        currency: '',
+        value: 0,
+      },
     },
     parkingApi.endpoints[ParkingEndpointName.parkingTransactions],
     'created_date_time',
-    useParkingTransactionsQuery,
     page,
     pageSize,
     {
