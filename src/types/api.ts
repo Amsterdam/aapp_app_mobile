@@ -1,9 +1,3 @@
-/** @deprecated API refactor: this is no longer the default mutation response, will be replaced by string */
-export type MutationResponse = {
-  result: string
-  status: boolean
-}
-
 type Links = {
   next: {href: string}
   previous: {href: string}
@@ -53,7 +47,7 @@ export type AddressQueryArgs = {
 }
 
 export type PaginationQueryArgs = {
-  page?: number
+  // page?: number is omitted because it is handled by the infinite query hook
   page_size?: number
 }
 

@@ -7,7 +7,7 @@ import type {
 } from '@/modules/construction-work/types/api'
 
 export type ProjectsListItem = ProjectsItem & {
-  isDummyItem?: boolean
+  dummy?: boolean
 }
 
 export type ProjectSegment = {

@@ -7,7 +7,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useInterval} from '@/hooks/useInterval'
 import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {BoatChargingDetailsInfoRows} from '@/modules/boat-charging/components/BoatChargingDetailsInfoRows'
 import {BoatChargingDetailsSocketRadioGroup} from '@/modules/boat-charging/components/BoatChargingDetailsSocketRadioGroup'
@@ -31,17 +30,16 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
     data: location,
     isLoading: isLoadingLocation,
     isError: isErrorLocation,
-    refetch: refetchLocationDetails,
     fulfilledTimeStamp,
-  } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
+  } = useBoatChargingLocationDetailsQuery(id ?? skipToken, {
+    pollingInterval: REFETCH_INTERVAL,
+  })
 
   const {
     activeSessions,
     isLoading: isLoadingSessions,
     isError: isErrorSessions,
   } = useBoatChargingSessions()
-
-  useInterval(refetchLocationDetails, REFETCH_INTERVAL)
 
   const infoRows = useMemo(
     () =>

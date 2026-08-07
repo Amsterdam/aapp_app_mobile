@@ -7,7 +7,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {parkingApi, useParkingSessionsQuery} from '@/modules/parking/service'
+import {parkingApi} from '@/modules/parking/service'
 import {
   ParkingEndpointName,
   ParkingSession,
@@ -46,7 +46,6 @@ export const ParkingSessionsList = ({
 
   const result = useInfiniteScroller<
     ParkingSession,
-    ParkingSession & {dummy: true},
     ParkingSessionsEndpointRequest
   >(
     {
@@ -71,7 +70,6 @@ export const ParkingSessionsList = ({
     },
     parkingApi.endpoints[ParkingEndpointName.parkingSessions],
     'ps_right_id',
-    useParkingSessionsQuery,
     page,
     pageSize,
     {

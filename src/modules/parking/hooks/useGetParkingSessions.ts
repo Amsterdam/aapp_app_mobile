@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
-  useParkingSessionsQuery,
+  useParkingSessionsInfiniteQuery,
   useVisitorParkingSessionsQuery,
 } from '@/modules/parking/service'
 import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
@@ -16,11 +16,11 @@ export const useGetParkingSessions = (
   const {visitorVehicleId} = useVisitorVehicleId()
 
   const {
-    currentData: parkingSessions,
+    data: parkingSessionsInfinite,
     isLoading: isLoadingParkingSessions,
     isError: isParkingSessionsError,
     refetch: refetchParkingSessions,
-  } = useParkingSessionsQuery(
+  } = useParkingSessionsInfiniteQuery(
     currentPermit && parkingAccount?.scope === ParkingPermitScope.permitHolder
       ? {
           report_code: currentPermit.report_code.toString(),
@@ -28,8 +28,9 @@ export const useGetParkingSessions = (
           page_size: 100,
         }
       : skipToken,
-    options,
+    {initialPageParam: 1, ...options},
   )
+  const parkingSessions = parkingSessionsInfinite?.pages[0]
 
   const {
     currentData: visitorParkingSessions,
