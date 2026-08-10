@@ -23,7 +23,7 @@ const getEmptyItems = <DummyItem>(
   keyName: keyof DummyItem,
 ) =>
   length > 0
-    ? Array<DummyItem>(Math.max(0, length))
+    ? new Array<DummyItem>(Math.max(0, length))
         .fill(defaultEmptyItem)
         .map((el, index) => ({
           ...el,
