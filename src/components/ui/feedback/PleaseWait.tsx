@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
@@ -47,6 +47,7 @@ export const PleaseWait = ({
 }: Props) => {
   const [elapsedTime, setElapsedTime] = useState(0)
   const startTimeRef = useRef<number | null>(showFeedback ? Date.now() : null)
+
   useEffect(() => {
     const countFrom = startedTimeStamp || startTimeRef.current
 
@@ -55,7 +56,7 @@ export const PleaseWait = ({
     }
 
     const interval = setInterval(() => {
-      setElapsedTime(Math.abs(dayjs(countFrom).diff()))
+      setElapsedTime(Math.abs(dayjs(countFrom).diff(dayjs(), 'second')))
     }, 1000)
 
     return () => {
@@ -63,12 +64,7 @@ export const PleaseWait = ({
     }
   }, [startedTimeStamp, startTimeRef])
 
-  const elapsedSeconds = Math.floor(elapsedTime / 1000)
-
-  const feedback = useMemo(
-    () => getElapsedTimeFeedback(elapsedSeconds),
-    [elapsedSeconds],
-  )
+  const feedback = getElapsedTimeFeedback(elapsedTime)
 
   return (
     <Center grow={grow}>
