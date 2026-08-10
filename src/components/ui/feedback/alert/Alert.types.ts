@@ -41,6 +41,7 @@ export type AlertProps = {
   navigateTo?: {
     label: string
     params: NavigateTo
+    type?: 'navigate' | 'popTo' | 'replace'
   }
   text?: string | ReactNode
   title?: string
