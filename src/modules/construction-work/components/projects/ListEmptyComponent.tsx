@@ -15,7 +15,12 @@ export const ListEmptyComponent = ({
   noResultsMessage,
 }: Props) => {
   if (isLoading) {
-    return <PleaseWait testID="ConstructionWorkListLoadingSpinner" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="ConstructionWorkListLoadingSpinner"
+      />
+    )
   }
 
   if (searchText !== '') {

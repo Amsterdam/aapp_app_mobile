@@ -10,7 +10,10 @@ import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 
 export const useGetPermits = (skip = false) => {
   const dispatch = useDispatch()
-  const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'}, {skip})
+  const {data, isLoading, refetch, startedTimeStamp} = usePermitsQuery(
+    {status: 'ACTIVE' as const},
+    {skip},
+  )
 
   const currentPermitReportCode = useCurrentParkingPermitReportCode()
   const {setCurrentPermitReportCode, setParkingAccountPermits} =
@@ -40,5 +43,6 @@ export const useGetPermits = (skip = false) => {
     permits,
     isLoading,
     refetch,
+    startedTimeStamp,
   }
 }

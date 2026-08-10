@@ -85,7 +85,12 @@ export const ParkingActiveSessionsSummary = () => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingPermitSessionsActivePleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="ParkingPermitSessionsActivePleaseWait"
+      />
+    )
   }
 
   if (isError) {

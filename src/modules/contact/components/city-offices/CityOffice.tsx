@@ -15,10 +15,20 @@ import {selectCityOffice} from '@/modules/contact/slice'
 
 export const CityOffice = () => {
   const selectedCityOfficeId = useSelector(selectCityOffice)
-  const {data: cityOffices, isLoading, refetch} = useGetCityOfficesQuery()
+  const {
+    data: cityOffices,
+    isLoading,
+    refetch,
+    startedTimeStamp,
+  } = useGetCityOfficesQuery()
 
   if (isLoading) {
-    return <PleaseWait testID="ContactCityOfficesLoadingSpinner" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ContactCityOfficesLoadingSpinner"
+      />
+    )
   }
 
   const cityOfficeId = selectedCityOfficeId ?? cityOffices?.[0]?.identifier

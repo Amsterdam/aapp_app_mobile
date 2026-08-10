@@ -12,7 +12,11 @@ import {useActiveRecyclePointId} from '@/modules/waste-guide/slice'
 
 export const WasteGuideSelectRecyclePoint = () => {
   const focusRef = useSetBottomSheetElementFocus()
-  const {data: recyclePoints, isLoading} = useGetWasteGuideRecyclePointsQuery()
+  const {
+    data: recyclePoints,
+    isLoading,
+    startedTimeStamp,
+  } = useGetWasteGuideRecyclePointsQuery()
   const {setActiveRecyclePointId} = useActiveRecyclePointId()
   const {close} = useBottomSheet()
 
@@ -25,12 +29,20 @@ export const WasteGuideSelectRecyclePoint = () => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="WasteGuideSelectRecyclePointsLoadingSpinner" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="WasteGuideSelectRecyclePointsLoadingSpinner"
+      />
+    )
   }
 
   if (!recyclePoints) {
     return (
-      <SomethingWentWrong testID="WasteGuideSelectRecyclePointsSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="WasteGuideSelectRecyclePointsSomethingWentWrong"
+      />
     )
   }
 

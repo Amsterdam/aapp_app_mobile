@@ -18,12 +18,18 @@ const DiscountTransactionsContent = ({
   passNumber,
   isActive,
 }: Props) => {
-  const {data, isLoading, isError, refetch} = useGetDiscountTransactionsQuery({
-    passNumber,
-  })
+  const {data, isLoading, isError, refetch, startedTimeStamp} =
+    useGetDiscountTransactionsQuery({
+      passNumber,
+    })
 
   if (isLoading) {
-    return <PleaseWait testID="CityPassDiscountTransactionsPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="CityPassDiscountTransactionsPleaseWait"
+      />
+    )
   }
 
   if (isError || !data) {

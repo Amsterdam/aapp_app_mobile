@@ -21,7 +21,12 @@ export const WasteGuide = () => {
   }
 
   if (isFetchingAddress || isFetchingWasteGuide) {
-    return <PleaseWait testID="WasteGuideLoadingSpinner" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="WasteGuideLoadingSpinner"
+      />
+    )
   }
 
   if (loadingError) {

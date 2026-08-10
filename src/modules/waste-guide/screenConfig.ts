@@ -45,6 +45,9 @@ export const screenConfig: StackNavigationRoutes<
   [WasteGuideRouteName.wasteGuideRecyclePointMap]: {
     component: WasteGuideRecyclePointMapScreen,
     name: WasteGuideRouteName.wasteGuideRecyclePointMap,
+    options: {
+      headerShown: false,
+    },
   },
   [WasteGuideRouteName.wasteGuideRecyclePoints]: {
     component: WasteGuideRecyclePointsScreen,

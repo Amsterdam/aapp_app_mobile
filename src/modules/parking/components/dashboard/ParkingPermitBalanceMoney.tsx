@@ -22,7 +22,12 @@ export const ParkingPermitBalanceMoney = () => {
   const dispatch = useDispatch()
   const currentPermit = useCurrentParkingPermit()
   const walletBalance = useWalletBalanceIncreaseStartBalance()
-  const {data: account, isLoading, refetch} = useAccountDetailsQuery()
+  const {
+    data: account,
+    isLoading,
+    refetch,
+    startedTimeStamp,
+  } = useAccountDetailsQuery()
   const accountWalletBalance = account?.wallet?.balance
   const walletBalanceIncreaseStartedAt = useWalletBalanceIncreaseStartedAt()
 
@@ -48,7 +53,12 @@ export const ParkingPermitBalanceMoney = () => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingPermitBalanceMoneyPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ParkingPermitBalanceMoneyPleaseWait"
+      />
+    )
   }
 
   if (!account) {

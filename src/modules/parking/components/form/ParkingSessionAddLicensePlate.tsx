@@ -24,7 +24,12 @@ export const ParkingSessionAddLicensePlate = () => {
   }, [isOpen])
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingSessionAddLicensePlatePleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="ParkingSessionAddLicensePlatePleaseWait"
+      />
+    )
   }
 
   return (

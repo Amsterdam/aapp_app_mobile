@@ -30,14 +30,22 @@ export const WasteGuideRecyclePointMap = () => {
   useSetScreenTitle(recyclePoint?.name)
 
   if (isLoading) {
-    return <PleaseWait testID="WasteGuideRecyclePointMapPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="WasteGuideRecyclePointMapPleaseWait"
+      />
+    )
   }
 
   const coordinates = recyclePoint?.address.coordinates
 
   if (!coordinates) {
     return (
-      <SomethingWentWrong testID="WasteGuideRecyclePointMapSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="WasteGuideRecyclePointMapSomethingWentWrong"
+      />
     )
   }
 

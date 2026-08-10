@@ -17,7 +17,7 @@ import {getLiveblogLastEntriesPerDay} from '@/modules/news/utils/getLiveblogLast
 import {useThemable} from '@/themes/useThemable'
 
 export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
-  const {data, isError, isLoading, ...rest} = useLiveblog(id)
+  const {data, isError, isLoading, startedTimeStamp, ...rest} = useLiveblog(id)
   const styles = useThemable(createStyles)
   const navigation = useNavigation()
 
@@ -45,11 +45,21 @@ export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="LiveblogPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="LiveblogPleaseWait"
+      />
+    )
   }
 
   if (isError || !data) {
-    return <SomethingWentWrong testID="LiveblogSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="LiveblogSomethingWentWrong"
+      />
+    )
   }
 
   return (

@@ -37,6 +37,7 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
     isError,
     isLoading,
     refetch,
+    startedTimeStamp,
   } = useArticlesQuery(
     projectId
       ? {
@@ -98,7 +99,12 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
   }
 
   if (isLoading) {
-    return <PleaseWait testID="ConstructionWorkProjectArticlesSpinner" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ConstructionWorkProjectArticlesSpinner"
+      />
+    )
   }
 
   if (!isError && !yearlyArticleSections?.length) {

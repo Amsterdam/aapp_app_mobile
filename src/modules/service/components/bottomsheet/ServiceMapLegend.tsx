@@ -2,7 +2,6 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import type {Service, ServiceFeature} from '@/modules/service/types'
 import {MapLegend} from '@/components/features/map/MapLegend'
-import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
@@ -14,6 +13,7 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
     data: service,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useServiceQuery(serviceId || skipToken)
 
   const items = useMemo(() => {
@@ -52,14 +52,20 @@ export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
 
   if (isError) {
     return (
-      <Box>
-        <SomethingWentWrong testID="ServiceMapLegendSomethingWentWrong" />
-      </Box>
+      <SomethingWentWrong
+        inset="md"
+        testID="ServiceMapLegendSomethingWentWrong"
+      />
     )
   }
 
   if (isLoading) {
-    return <PleaseWait testID="ServiceMapLegendPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ServiceMapLegendPleaseWait"
+      />
+    )
   }
 
   return (

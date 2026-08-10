@@ -67,7 +67,12 @@ export const ParkingPlannedSessionsSummary = () => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingPermitSessionsPlannedPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="ParkingPermitSessionsPlannedPleaseWait"
+      />
+    )
   }
 
   if (isError) {

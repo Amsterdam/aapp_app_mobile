@@ -4,7 +4,6 @@ import {Polygons} from '@/components/features/map/polygon/Polygons'
 import {ControlVariant, MapFocus} from '@/components/features/map/types'
 import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
 import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFromCoords'
-import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -25,6 +24,7 @@ export const ParkingPermitZoneMap = ({focusType}: {focusType: MapFocus}) => {
     data: permitZoneData,
     isLoading,
     isError,
+    startedTimeStamp,
   } = usePermitZonesQuery(report_code)
 
   const initialRegion = useMemo(() => {
@@ -38,7 +38,12 @@ export const ParkingPermitZoneMap = ({focusType}: {focusType: MapFocus}) => {
   }, [permitZoneData])
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingPermitZoneMapPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ParkingPermitZoneMapPleaseWait"
+      />
+    )
   }
 
   if (
@@ -48,9 +53,10 @@ export const ParkingPermitZoneMap = ({focusType}: {focusType: MapFocus}) => {
     Object.keys(permitZoneData.geojson).length === 0
   ) {
     return (
-      <Box>
-        <SomethingWentWrong testID="ParkingPermitZoneMapSomethingWentWrong" />
-      </Box>
+      <SomethingWentWrong
+        inset="md"
+        testID="ParkingPermitZoneMapSomethingWentWrong"
+      />
     )
   }
 

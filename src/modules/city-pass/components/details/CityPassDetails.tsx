@@ -17,7 +17,12 @@ type Props = {
 }
 
 export const CityPassDetails = ({passNumber}: Props) => {
-  const {data: cityPasses, isLoading, isError} = useGetCityPassesQuery()
+  const {
+    data: cityPasses,
+    isLoading,
+    isError,
+    startedTimeStamp,
+  } = useGetCityPassesQuery()
 
   const cityPass = cityPasses?.find(cp => cp.passNumber === passNumber)
   const cityPassIndex = cityPasses?.findIndex(
@@ -28,7 +33,10 @@ export const CityPassDetails = ({passNumber}: Props) => {
     return (
       <Box grow>
         <Column gutter="md">
-          <PleaseWait testID="CityPassDashboardPleaseWait" />
+          <PleaseWait
+            startedTimeStamp={startedTimeStamp}
+            testID="CityPassDashboardPleaseWait"
+          />
           <ShowCityPassButton index={cityPassIndex} />
         </Column>
       </Box>

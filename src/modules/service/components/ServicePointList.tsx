@@ -44,6 +44,7 @@ export const ServicePointList = ({
     data: service,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useServiceQuery(serviceId || skipToken)
   const {data: geojson, icons_to_include: icons} = service || {}
 
@@ -83,11 +84,21 @@ export const ServicePointList = ({
   }, [filteredFeatures, address])
 
   if (isLoading) {
-    return <PleaseWait testID="ServicePointListPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ServicePointListPleaseWait"
+      />
+    )
   }
 
   if (!service || isError) {
-    return <SomethingWentWrong testID="ServicePointListSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="ServicePointListSomethingWentWrong"
+      />
+    )
   }
 
   return (

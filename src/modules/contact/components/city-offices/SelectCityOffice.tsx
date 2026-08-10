@@ -9,10 +9,19 @@ import {useGetCityOfficesQuery} from '@/modules/contact/service'
 
 export const SelectCityOffice = () => {
   const focusRef = useSetBottomSheetElementFocus()
-  const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
+  const {
+    data: cityOffices,
+    isLoading,
+    startedTimeStamp,
+  } = useGetCityOfficesQuery()
 
   if (isLoading || !cityOffices) {
-    return <PleaseWait testID="ContactSelectCityOfficesLoadingSpinner" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ContactSelectCityOfficesLoadingSpinner"
+      />
+    )
   }
 
   return (
