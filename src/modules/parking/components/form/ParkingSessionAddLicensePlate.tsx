@@ -7,16 +7,15 @@ import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {alerts} from '@/modules/parking/alerts'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
-import {useMaxLicensePlatesAlert} from '@/modules/parking/hooks/useMaxLicensePlatesAlert'
 
 export const ParkingSessionAddLicensePlate = () => {
   const {isOpen} = useBottomSheet()
   const [isVisitorNameVisible, setIsVisitorNameVisible] = useState(false)
   const {licensePlates, isLoading} = useGetLicensePlates()
-  const maxLicensePlatesAlert = useMaxLicensePlatesAlert()
 
   useEffect(() => {
     if (!isOpen) {
@@ -47,7 +46,7 @@ export const ParkingSessionAddLicensePlate = () => {
           <>
             <Gutter />
             <AlertBase
-              {...maxLicensePlatesAlert}
+              {...alerts.maxLicensePlatesWarning}
               hasCloseIcon={false}
             />
           </>

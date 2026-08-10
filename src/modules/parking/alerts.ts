@@ -2,6 +2,7 @@ import {
   type AlertsRecord,
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
+import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {getFirstMonthOfNextQuarter} from '@/modules/parking/utils/getFirstMonthOfNextQuarter'
 
@@ -196,6 +197,14 @@ export const alerts = {
     hasCloseIcon: true,
     text: 'Uw kenteken is hierbij verwijderd. Probeer deze nogmaals op te slaan of probeer het later opnieuw.',
     testID: 'ParkingLicensePlateMutationInstructionsErrorAlert',
+  },
+  maxLicensePlatesWarning: {
+    variant: AlertVariant.warning,
+    text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
+    title: 'Maximum aantal kentekens',
+    hasIcon: true,
+    hasCloseIcon: true,
+    testID: 'ParkingMaxLicensePlatesAlert',
   },
   startSessionSuccess: {
     variant: AlertVariant.positive,
