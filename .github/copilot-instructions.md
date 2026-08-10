@@ -6,6 +6,6 @@ The documentation should be updated if relevant. The documentation should be sto
 
 - The purpose of the module
 - The main business rules
-- Large architecture decisions that are not standard, if any
+- Any major non-standard architectural decisions
 
 The documentation should not include any implementation details, such as the names of components or functions. It should focus on the business logic and the purpose of the module.
