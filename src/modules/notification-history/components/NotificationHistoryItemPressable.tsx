@@ -35,17 +35,6 @@ export const NotificationHistoryItemPressable = ({
       return openUrl(context.url)
     }
 
-    // TODO: should be removed after release 1.26.0, temporary workaround for Koningsdag notifications
-    if (
-      title.toLowerCase().includes('koningsdag') &&
-      !context.deeplink &&
-      !context.url
-    ) {
-      linkTo(`/kingsday`)
-
-      return
-    }
-
     resolveModuleOnNotificationEvent(transformedNotification, dispatch)
 
     const linkPath = resolveModulePathFromNotification(
@@ -78,7 +67,6 @@ export const NotificationHistoryItemPressable = ({
     module_slug,
     navigate,
     openUrl,
-    title,
     transformedNotification,
   ])
 
