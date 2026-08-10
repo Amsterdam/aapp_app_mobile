@@ -23,11 +23,12 @@ const getEmptyItems = <DummyItem>(
   keyName: keyof DummyItem,
 ) =>
   length > 0
-    ? Array<DummyItem>(length)
+    ? Array<DummyItem>(Math.max(0, length))
         .fill(defaultEmptyItem)
         .map((el, index) => ({
           ...el,
           [keyName]: `dummy-${index + baseIndex}`,
+          dummy: true,
         }))
     : []
 
@@ -125,7 +126,10 @@ export const useInfiniteScroller = <
             keyName,
           ).map((item, index) => ({
             ...item,
-            page: (totalElements - index - fetchedData.length) / pageSize + 1,
+            page:
+              Math.floor(
+                (totalElements - index - fetchedData.length) / pageSize,
+              ) + 1,
           })),
         ]
 

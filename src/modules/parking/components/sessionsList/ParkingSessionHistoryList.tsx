@@ -103,7 +103,7 @@ export const ParkingSessionHistoryList = ({
           item => item.ps_right_id === items.at(-1)?.ps_right_id,
         )
 
-        if (typeof firstIndex === 'number' && typeof lastIndex === 'number') {
+        if (firstIndex >= 0 && lastIndex >= 0) {
           setViewableItemIndex(Math.round((firstIndex + lastIndex) / 2))
         }
       }

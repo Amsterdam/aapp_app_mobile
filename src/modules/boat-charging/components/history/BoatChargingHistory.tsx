@@ -26,7 +26,7 @@ import {
   getSectionsSortedByDate,
 } from '@/utils/sort/getSectionsSortedByDate'
 
-const PAGE_SIZE = 2
+const PAGE_SIZE = 20
 
 export type BoatChargingHistoryInfiniteItem = BoatChargingSession & {
   dummy?: boolean
