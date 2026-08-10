@@ -2,7 +2,7 @@ Never abbreviate variable names. For example, use `district` instead of `dist` a
 
 In /src/modules we have several mini projects called 'modules'.
 
-The documentation should be updated if relevant. The documentation should be stored in the /.docs folder, for every module there should be a separate markdown file in the /.docs/modules folder. The documentation should be written in English and should be clear and concise. It should include the following information:
+Update documentation when relevant. Store each module's documentation in a separate Markdown file under `/.docs/modules`. Store all general documentation in `/.docs/`. Write documentation in clear, concise English. Include the following information:
 
 - The purpose of the module
 - The main business rules
