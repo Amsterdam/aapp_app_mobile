@@ -1,20 +1,6 @@
-import {
-  type BaseQueryFn,
-  type EndpointDefinitions,
-  type FetchArgs,
-  type FetchBaseQueryError,
-  type InfiniteQueryDefinition,
-  skipToken,
-} from '@reduxjs/toolkit/query'
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
-import type {ApiSlug} from '@/environment'
-import type {Paginated, PaginationQueryArgs} from '@/types/api'
-import type {
-  ApiEndpointInfiniteQuery,
-  TypedUseInfiniteQuery,
-  TypedUseInfiniteQueryState,
-  TypedUseInfiniteQuerySubscription,
-} from '@reduxjs/toolkit/query/react'
+import type {ApiEndpointInfinite, PaginationQueryArgs} from '@/types/api'
 
 const getEmptyItems = <DummyItem>(
   length: number,
@@ -38,40 +24,41 @@ const config = {
   pageSize: 10,
 }
 
+/**
+ * Builds a paged list for infinite scrolling by combining fetched items with
+ * dummy placeholder items up to the reported total result size.
+ *
+ * The hook automatically fetches the next page once the requested `page`
+ * reaches the last loaded page.
+ *
+ * @param defaultEmptyItem Base item shape used to generate placeholder rows.
+ * @param endpoint RTK Query infinite endpoint that returns paginated results.
+ * @param keyName Unique item key used to assign stable ids to dummy rows.
+ * @param page Current page that should be available in the local result.
+ * @param pageSize Number of items expected per page.
+ * @param queryParams Query parameters for the endpoint, or `skipToken` to disable fetching.
+ *
+ * @example
+ * const result = useInfiniteScroller(
+ *   dummyBoatChargingHistoryItem,
+ *   boatChargingApi.endpoints[BoatChargingEndpointName.boatChargingSessions],
+ *   'id',
+ *   page,
+ *   PAGE_SIZE,
+ *   isLoggedIn
+ *     ? {
+ *         page_size: PAGE_SIZE,
+ *         status: SessionStatus.COMPLETED,
+ *       }
+ *     : skipToken,
+ * )
+ */
 export const useInfiniteScroller = <
   Item,
   QueryArgs extends PaginationQueryArgs,
 >(
   defaultEmptyItem: Item & {dummy?: boolean},
-  endpoint: ApiEndpointInfiniteQuery<
-    InfiniteQueryDefinition<
-      QueryArgs,
-      number,
-      BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>,
-      string,
-      Paginated<Item>
-    >,
-    EndpointDefinitions
-  > & {
-    useInfiniteQuery: TypedUseInfiniteQuery<
-      Paginated<Item>,
-      QueryArgs,
-      number,
-      BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>
-    >
-    useInfiniteQueryState: TypedUseInfiniteQueryState<
-      Paginated<Item>,
-      QueryArgs,
-      number,
-      BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>
-    >
-    useInfiniteQuerySubscription: TypedUseInfiniteQuerySubscription<
-      Paginated<Item>,
-      QueryArgs,
-      number,
-      BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>
-    >
-  },
+  endpoint: ApiEndpointInfinite<Item, QueryArgs>,
   keyName: keyof (Item & {dummy?: boolean}),
   page = config.page,
   pageSize = config.pageSize,
