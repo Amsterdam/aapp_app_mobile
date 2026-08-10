@@ -35,7 +35,7 @@ const getElapsedTimeFeedback = (elapsedTime: number) => {
   ) {
     return 'Gegevens worden geladen'
   } else if (elapsedTime >= SECOND_TIMEOUT_VALUE) {
-    return 'Dit duurt langer dan normaal. \n We zijn nog bezig.'
+    return 'Dit duurt langer dan normaal. \nWe zijn nog bezig.'
   }
 }
 
