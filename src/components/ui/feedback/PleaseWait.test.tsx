@@ -74,7 +74,7 @@ describe('PleaseWait', () => {
 
     expect(queryByText('Gegevens worden geladen')).not.toBeTruthy()
     expect(
-      queryByText('Dit duurt langer dan normaal. \n We zijn nog bezig.'),
+      queryByText('Dit duurt langer dan normaal. \nWe zijn nog bezig.'),
     ).toBeTruthy()
   })
 
@@ -86,7 +86,7 @@ describe('PleaseWait', () => {
     })
 
     expect(
-      queryByText('Dit duurt langer dan normaal. \n We zijn nog bezig.'),
+      queryByText('Dit duurt langer dan normaal. \nWe zijn nog bezig.'),
     ).not.toBeTruthy()
 
     act(() => {
@@ -94,7 +94,7 @@ describe('PleaseWait', () => {
     })
 
     expect(
-      queryByText('Dit duurt langer dan normaal. \n We zijn nog bezig.'),
+      queryByText('Dit duurt langer dan normaal. \nWe zijn nog bezig.'),
     ).toBeTruthy()
 
     act(() => {
@@ -102,7 +102,7 @@ describe('PleaseWait', () => {
     })
 
     expect(
-      queryByText('Dit duurt langer dan normaal. \n We zijn nog bezig.'),
+      queryByText('Dit duurt langer dan normaal. \nWe zijn nog bezig.'),
     ).toBeTruthy()
   })
 })
