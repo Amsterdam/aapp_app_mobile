@@ -1,5 +1,6 @@
 import {useState, useCallback} from 'react'
 import {FlatList, StyleSheet, type FlatListProps} from 'react-native'
+import type {WithDummy} from '@/services/types'
 import type {Theme} from '@/themes/themes'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -21,7 +22,7 @@ type Props = NewsArticlesType & {
 
 const PAGE_SIZE = 20
 
-const emptyNewsItem: NewsArticleBase & {dummy?: boolean} = {
+const emptyNewsItem: WithDummy<NewsArticleBase> = {
   id: -1,
   images: [],
   modification_datetime: '',

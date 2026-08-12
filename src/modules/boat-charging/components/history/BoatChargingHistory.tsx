@@ -1,6 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, type SectionListProps} from 'react-native'
+import type {WithDummyAndPage} from '@/services/types'
 import {Divider} from '@/components/ui/Divider'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -28,10 +29,8 @@ import {
 
 const PAGE_SIZE = 20
 
-export type BoatChargingHistoryInfiniteItem = BoatChargingSession & {
-  dummy?: boolean
-  page: number
-}
+export type BoatChargingHistoryInfiniteItem =
+  WithDummyAndPage<BoatChargingSession>
 
 type BoatChargingHistoryInfiniteSection = {
   data: BoatChargingHistoryInfiniteItem[]

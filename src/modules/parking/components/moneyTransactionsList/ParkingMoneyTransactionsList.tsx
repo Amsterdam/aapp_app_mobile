@@ -1,5 +1,6 @@
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
+import type {WithDummyAndPage} from '@/services/types'
 import {EmptyList} from '@/components/features/EmptyList'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
@@ -21,9 +22,8 @@ import {layoutStyles} from '@/styles/layoutStyles'
 import {formatNumber} from '@/utils/formatNumber'
 import {getSectionsSortedByDate} from '@/utils/sort/getSectionsSortedByDate'
 
-const defaultEmptyItem: ParkingTransaction & {dummy?: boolean} = {
+const defaultEmptyItem: ParkingTransaction = {
   created_date_time: '1970-01-01T00:00:00',
-  dummy: true,
   ps_right_id: 0,
   start_date_time: '',
   end_date_time: '',
@@ -52,10 +52,7 @@ const ListEmptyComponent = () => (
   />
 )
 
-type ParkingTransactionOrDummy = ParkingTransaction & {
-  dummy?: boolean
-  page: number
-}
+type ParkingTransactionOrDummy = WithDummyAndPage<ParkingTransaction>
 
 type Section = {
   data: Array<ParkingTransactionOrDummy>

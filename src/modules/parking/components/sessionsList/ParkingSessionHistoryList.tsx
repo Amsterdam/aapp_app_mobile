@@ -1,5 +1,6 @@
 import {type ComponentType, useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
+import type {WithDummyAndPage} from '@/services/types'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -21,10 +22,7 @@ import {
   getSectionsSortedByDate,
 } from '@/utils/sort/getSectionsSortedByDate'
 
-type ParkingHistorySessionOrDummy = ParkingHistorySession & {
-  dummy?: boolean
-  page: number
-}
+type ParkingHistorySessionOrDummy = WithDummyAndPage<ParkingHistorySession>
 
 type Props = {
   ListEmptyComponent?: ComponentType

@@ -1,4 +1,5 @@
 import {Fragment, type ReactNode} from 'react'
+import type {WithDummy} from '@/services/types'
 import type {ImageURISource} from 'react-native'
 import {Pressable, type PressableProps} from '@/components/ui/buttons/Pressable'
 import {Box, type BoxProps} from '@/components/ui/containers/Box'
@@ -10,8 +11,7 @@ import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Phrase, type PhraseProps} from '@/components/ui/text/Phrase'
 
-type Props = {
-  dummy?: boolean
+type Props = WithDummy<{
   imageBackgroundColor?: BoxProps['variant']
   includeDate?: boolean
   meta?: string
@@ -19,14 +19,15 @@ type Props = {
   tag?: ReactNode
   title: string
   titleColor?: PhraseProps['color']
-} & Or<
-  {
-    images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
-  },
-  {
-    icon: IconProps
-  }
-> &
+}> &
+  Or<
+    {
+      images: Pick<ImageURISource, 'uri' | 'width' | 'height'>[]
+    },
+    {
+      icon: IconProps
+    }
+  > &
   Omit<
     PressableProps,
     'backgroundColor' | 'children' | 'border' | 'flex' | 'variant'

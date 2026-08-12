@@ -38,3 +38,7 @@ export type AfterBaseQueryErrorFn<T = unknown> = (
   api: RTKQueryAPI,
   failRetry: (e?: unknown) => void,
 ) => void | Promise<void>
+
+export type WithDummy<T> = T & {dummy?: boolean}
+
+export type WithDummyAndPage<T> = WithDummy<T> & {page: number}

@@ -1,5 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
+import type {WithDummyAndPage} from '@/services/types'
 import type {ApiEndpointInfinite, PaginationQueryArgs} from '@/types/api'
 
 const getEmptyItems = <DummyItem>(
@@ -57,9 +58,9 @@ export const useInfiniteScroller = <
   Item,
   QueryArgs extends PaginationQueryArgs,
 >(
-  defaultEmptyItem: Item & {dummy?: boolean},
+  defaultEmptyItem: Item,
   endpoint: ApiEndpointInfinite<Item, QueryArgs>,
-  keyName: keyof (Item & {dummy?: boolean}),
+  keyName: keyof Item,
   page = config.page,
   pageSize = config.pageSize,
   queryParams: QueryArgs | typeof skipToken = {} as QueryArgs,
@@ -103,7 +104,7 @@ export const useInfiniteScroller = <
 
   const numberOfDummyItems = totalElements - fetchedData.length
 
-  const data: Array<Item & {dummy?: boolean; page: number}> =
+  const data: Array<WithDummyAndPage<Item>> =
     queryParams === skipToken
       ? []
       : [
