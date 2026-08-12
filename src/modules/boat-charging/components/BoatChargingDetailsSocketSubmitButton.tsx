@@ -1,19 +1,27 @@
-import {useCallback} from 'react'
+import {skipToken} from '@reduxjs/toolkit/query'
+import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
-import type {
-  BoatChargingSelectSocketFormValues,
-  NewSessionFormValues,
-} from '@/modules/boat-charging/types'
 import {Button} from '@/components/ui/buttons/Button'
+import {Box} from '@/components/ui/containers/Box'
+import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
+import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
+import {
+  ChargingPointStatus,
+  type BoatChargingSelectSocketFormValues,
+  type NewSessionFormValues,
+} from '@/modules/boat-charging/types'
 
-export const BoatChargingDetailsSocketSubmitButton = () => {
+export const BoatChargingDetailsSocketSubmitButton = ({id}: {id: string}) => {
   const form = useFormContext<BoatChargingSelectSocketFormValues>()
   const {isLoggedIn} = useIsLoggedIn()
+
+  const {data: location} = useBoatChargingLocationDetailsQuery(id ?? skipToken)
+  const {activeSessions} = useBoatChargingSessions()
 
   const {onPress, isLoading, isError, disabled, mustApproveTerms, refetch} =
     useInitSession(BoatChargingInitSessionStep.selectSocket)
@@ -33,30 +41,47 @@ export const BoatChargingDetailsSocketSubmitButton = () => {
     [onPress, form],
   )
 
+  const showSubmitButton = useMemo(
+    () =>
+      !activeSessions?.length &&
+      location?.charging_stations.some(
+        socket => socket.status === ChargingPointStatus.OPERATIVE,
+      ),
+    [activeSessions, location],
+  )
+
+  if (!showSubmitButton) {
+    return null
+  }
+
   if (isLoggedIn && !mustApproveTerms) {
     return (
-      <Button
-        disabled={disabled}
-        icon={{name: 'boat-charging-free', color: 'inverse'}}
-        isError={isError}
-        isLoading={isLoading}
-        label="Betalen en laden"
-        marginTop="auto"
-        onPress={isError ? refetch : form.handleSubmit(onSubmit)}
-        testID="BoatChargingDetailsChooseSocketSubmitButton"
-      />
+      <Box>
+        <Button
+          disabled={disabled}
+          icon={{name: 'boat-charging-free', color: 'inverse'}}
+          isError={isError}
+          isLoading={isLoading}
+          label="Betalen en laden"
+          marginTop="auto"
+          onPress={isError ? refetch : form.handleSubmit(onSubmit)}
+          testID="BoatChargingDetailsChooseSocketSubmitButton"
+        />
+      </Box>
     )
   }
 
   return (
-    <Button
-      disabled={!!isLoggedIn && disabled}
-      isError={!!isLoggedIn && isError}
-      isLoading={!!isLoggedIn && isLoading}
-      label="Verder met opladen"
-      marginTop="auto"
-      onPress={form.handleSubmit(onSubmit)}
-      testID="BoatChargingDetailsChooseSocketSubmitButton"
-    />
+    <Box>
+      <Button
+        disabled={!!isLoggedIn && disabled}
+        isError={!!isLoggedIn && isError}
+        isLoading={!!isLoggedIn && isLoading}
+        label="Verder met opladen"
+        marginTop="auto"
+        onPress={form.handleSubmit(onSubmit)}
+        testID="BoatChargingDetailsChooseSocketSubmitButton"
+      />
+    </Box>
   )
 }
