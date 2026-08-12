@@ -110,16 +110,18 @@ export const BottomSheet = ({
           translateY={translateY}
           windowHeight={windowHeight}>
           <BackgroundComponent>
-            <BottomSheetHandle
-              closedOffset={closedOffset}
-              isAndroid={isAndroid}
-              isVisible={isVisible}
-              onClose={onClose}
-              sheetHeight={sheetHeight}
-              translateY={translateY}
-              withCloseButton={withCloseButton}
-            />
-            {!!withCloseButton && <BottomSheetCloseButton testID={testID} />}
+            {withCloseButton ? (
+              <BottomSheetCloseButton testID={testID} />
+            ) : (
+              <BottomSheetHandle
+                closedOffset={closedOffset}
+                isAndroid={isAndroid}
+                isVisible={isVisible}
+                onClose={onClose}
+                sheetHeight={sheetHeight}
+                translateY={translateY}
+              />
+            )}
 
             {scroll ? (
               <BottomSheetScrollWrapper
