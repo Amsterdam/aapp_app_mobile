@@ -28,7 +28,6 @@ export const LicensePlateListItem = ({
           ? `Actief vanaf ${dayjs(activated_at).format('D MMMM YYYY')}`
           : undefined
       }
-      icon={{name: 'car'}}
       insetHorizontal="no"
       onPress={() =>
         navigate(ParkingRouteName.editLicensePlate, {licensePlateId: id})
