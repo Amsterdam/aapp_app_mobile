@@ -7,8 +7,8 @@ const STATUS_MAP: Record<ChargingPointStatus, string> = {
   [ChargingPointStatus.OPERATIVE]: 'Vrij',
   [ChargingPointStatus.OCCUPIED]: 'Bezet',
   [ChargingPointStatus.INOPERATIVE]: 'Storing',
-  [ChargingPointStatus.OFFLINE]: 'Offline',
-  [ChargingPointStatus.UNKNOWN]: 'Onbekend',
+  [ChargingPointStatus.OFFLINE]: 'Storing',
+  [ChargingPointStatus.UNKNOWN]: 'Storing',
 }
 
 const WIDTH = {default: 60, wide: 90}
