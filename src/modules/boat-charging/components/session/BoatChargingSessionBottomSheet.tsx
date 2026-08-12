@@ -10,8 +10,8 @@ export const BoatChargingSessionBottomSheet = () => (
     testID="BoatChargingSessionBottomSheet"
     withCloseButton>
     <Box
-      insetHorizontal="md"
-      insetVertical="no">
+      insetBottom="md"
+      insetHorizontal="md">
       <Column gutter="md">
         <Title
           level="h3"
