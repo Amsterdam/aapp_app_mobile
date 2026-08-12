@@ -1,4 +1,8 @@
-export const formatNumber = (number?: number, currency?: string) => {
+export const formatNumber = (
+  number?: number,
+  currency?: string,
+  options: Intl.NumberFormatOptions = {},
+) => {
   if (currency) {
     return new Intl.NumberFormat('nl-NL', {
       style: 'currency',
@@ -6,5 +10,5 @@ export const formatNumber = (number?: number, currency?: string) => {
     }).format(number ?? 0)
   }
 
-  return number?.toLocaleString('nl-NL') ?? '0'
+  return number?.toLocaleString('nl-NL', options) ?? '0'
 }
