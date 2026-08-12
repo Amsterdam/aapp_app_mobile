@@ -11,10 +11,8 @@ import {ShowCityPassButtonSkeleton} from '@/modules/city-pass/components/ShowCit
 import {CityPassCard} from '@/modules/city-pass/components/card-display/CityPassCard'
 import {CityPassCardSkeleton} from '@/modules/city-pass/components/card-display/CityPassCard.skeleton'
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
-import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
-import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCityPasses'
+import {useGetCityPasses} from '@/modules/city-pass/hooks/useGetCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {RedirectKey} from '@/modules/redirects/types'
 
 type Props = {
@@ -23,13 +21,7 @@ type Props = {
 
 export const PassOwners = ({logout}: Props) => {
   const {navigate} = useNavigation()
-  const secureCityPasses = useGetSecureCityPasses()
-
-  const {data, isLoading, isError} = useGetCityPassesQuery()
-
-  const cityPasses = data ?? secureCityPasses
-
-  useSetSecureCityPasses(data)
+  const {cityPasses, isLoading, isError} = useGetCityPasses()
 
   const onPressCityPassCard = (passNumber?: number) => {
     if (!passNumber) {
