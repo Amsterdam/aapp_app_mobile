@@ -9,7 +9,7 @@ const getEmptyItems = <DummyItem>(
   keyName: keyof DummyItem,
 ) =>
   length > 0
-    ? new Array<DummyItem>(Math.max(0, length))
+    ? Array.from<DummyItem>({length: Math.max(0, length)})
         .fill(defaultEmptyItem)
         .map((el, index) => ({
           ...el,
@@ -90,7 +90,9 @@ export const useInfiniteScroller = <
     page,
   ])
 
-  const totalElements = currentData?.pages[0]?.page.totalElements ?? 0
+  const totalElements =
+    currentData?.pages[0]?.page.totalElements ??
+    (isLoadingCurrentPage ? pageSize : 0)
 
   const fetchedData =
     queryParams === skipToken
