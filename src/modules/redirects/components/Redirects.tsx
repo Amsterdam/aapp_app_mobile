@@ -15,7 +15,10 @@ export const Redirects = () => {
   return (
     <Column gutter="md">
       {isLoading ? (
-        <PleaseWait testID="RedirectsPleaseWait" />
+        <PleaseWait
+          showFeedback
+          testID="RedirectsPleaseWait"
+        />
       ) : isError ? (
         <SomethingWentWrong testID="RedirectsSomethingWentWrong" />
       ) : (

@@ -9,14 +9,25 @@ export const NewsHighlights = () => {
     data: highlights,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useNewsArticlesInfiniteQuery({type: 'highlight'}, {initialPageParam: 1})
 
   if (isLoading) {
-    return <PleaseWait testID="NewsHighlightsPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="NewsHighlightsPleaseWait"
+      />
+    )
   }
 
   if (isError || !highlights?.pages[0]?.result.length) {
-    return <SomethingWentWrong testID="NewsHighlightsSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="NewsHighlightsSomethingWentWrong"
+      />
+    )
   }
 
   return (

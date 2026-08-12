@@ -12,7 +12,7 @@ import {ALL_TYPES_LABEL} from '@/modules/pride/constants'
 import {usePrideEvents} from '@/modules/pride/hooks/usePrideEvents'
 
 export const PrideEventTypeBottomSheet = () => {
-  const {events, isLoading} = usePrideEvents()
+  const {events, isLoading, startedTimeStamp} = usePrideEvents()
   const options: RadioGroupOption<string, string>[] = useMemo(
     () => [
       {label: ALL_TYPES_LABEL, value: ALL_TYPES_LABEL},
@@ -40,7 +40,10 @@ export const PrideEventTypeBottomSheet = () => {
           testID="PrideEventTypeBottomSheet"
         />
         {!!isLoading && (
-          <PleaseWait testID="PrideEventTypeBottomSheetPleaseWait" />
+          <PleaseWait
+            startedTimeStamp={startedTimeStamp}
+            testID="PrideEventTypeBottomSheetPleaseWait"
+          />
         )}
         <Button
           label="Gereed"

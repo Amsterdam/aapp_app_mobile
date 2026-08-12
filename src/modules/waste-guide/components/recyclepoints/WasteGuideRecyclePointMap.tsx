@@ -30,26 +30,27 @@ export const WasteGuideRecyclePointMap = () => {
   useSetScreenTitle(recyclePoint?.name)
 
   if (isLoading) {
-    return <PleaseWait testID="WasteGuideRecyclePointMapPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="WasteGuideRecyclePointMapPleaseWait"
+      />
+    )
   }
 
   const coordinates = recyclePoint?.address.coordinates
 
   if (!coordinates) {
     return (
-      <SomethingWentWrong testID="WasteGuideRecyclePointMapSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="WasteGuideRecyclePointMapSomethingWentWrong"
+      />
     )
   }
 
-  // Ensure lat/lon are numbers (not strings) (TODO: remove once fixed in API as requested)
-  const latitude =
-    typeof coordinates.lat === 'string'
-      ? Number.parseFloat(coordinates.lat)
-      : coordinates.lat
-  const longitude =
-    typeof coordinates.lon === 'string'
-      ? Number.parseFloat(coordinates.lon)
-      : coordinates.lon
+  const latitude = coordinates.lat
+  const longitude = coordinates.lon
 
   return (
     <View style={styles.container}>

@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
 import type {CrossStackTo, InStackTo, NavigateTo} from '@/app/navigation/types'
+import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import type {TestProps} from '@/components/ui/types'
 import type {GestureResponderEvent} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
@@ -13,29 +14,41 @@ const isInStackTo = (options: NavigateTo): options is InStackTo =>
   typeof options[0] === 'string' &&
   !(options[1] && typeof options === 'object' && 'screen' in options[1])
 
-type Props = {label: string; params: NavigateTo} & TestProps
+type Props = AlertProps['navigateTo'] & TestProps
 
-export const AlertNavigateButton = ({label, params, testID}: Props) => {
-  const {navigate} = useNavigation()
+export const AlertNavigateButton = ({
+  label,
+  params,
+  type = 'navigate',
+  testID,
+}: Props) => {
+  const navigation = useNavigation()
 
   const handleNavigate = useCallback(
     (e: GestureResponderEvent) => {
       e?.preventDefault()
 
+      const navigateTo =
+        type === 'navigate'
+          ? navigation.navigate
+          : type === 'replace'
+            ? navigation.replace.bind(this)
+            : navigation.popTo.bind(this)
+
       if (isCrossStackTo(params)) {
         const [route, props] = params
 
-        navigate(route, {...props}) // Navigate cross-Stack to screen with associated params
+        navigateTo(route, {...props}) // Navigate cross-Stack to screen with associated params
       }
 
       if (isInStackTo(params)) {
         const [route, props] = params
 
         // @ts-expect-error - This is a valid navigation route, but somehow it does not understand the params type
-        navigate(route, {...props}) // Navigate in-Stack with associated params
+        navigateTo(route, {...props}) // Navigate in-Stack with associated params
       }
     },
-    [params, navigate],
+    [params, navigation, type],
   )
 
   return (

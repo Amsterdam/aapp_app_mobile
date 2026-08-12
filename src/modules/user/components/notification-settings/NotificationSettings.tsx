@@ -71,7 +71,12 @@ export const NotificationSettings = () => {
     )
 
   if (isLoadingModules || isLoadingDisabledPushModules) {
-    return <PleaseWait testID="NotificationSettingsPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="NotificationSettingsPleaseWait"
+      />
+    )
   }
 
   if (!notificationModules || !disabledPushModules) {

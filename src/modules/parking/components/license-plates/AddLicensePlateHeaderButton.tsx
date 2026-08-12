@@ -2,9 +2,9 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {alerts} from '@/modules/parking/alerts'
+import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {useGetMaxLicensePlates} from '@/modules/parking/hooks/useGetMaxLicensePlates'
-import {useMaxLicensePlatesAlert} from '@/modules/parking/hooks/useMaxLicensePlatesAlert'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useLicensePlatesQuery} from '@/modules/parking/service'
 import {useAlert} from '@/store/slices/alert'
@@ -14,8 +14,6 @@ export const AddLicensePlateHeaderButton = () => {
   const {navigate} = useNavigation()
   const {currentPermit, isLoading: isLoadingCurrentPermit} =
     useGetCurrentParkingPermit()
-  const maxLicensePlates = useGetMaxLicensePlates()
-  const maxLicensePlatesAlert = useMaxLicensePlatesAlert()
   const {data: licensePlates, isLoading: isLoadingLicensePlates} =
     useLicensePlatesQuery(
       currentPermit
@@ -45,8 +43,8 @@ export const AddLicensePlateHeaderButton = () => {
         />
       }
       onPress={() => {
-        if ((licensePlates?.length ?? 0) >= maxLicensePlates) {
-          setAlert(maxLicensePlatesAlert)
+        if ((licensePlates?.length ?? 0) >= MAX_LICENSE_PLATES) {
+          setAlert(alerts.maxLicensePlatesWarning)
         } else {
           navigate(ParkingRouteName.addLicensePlate)
         }

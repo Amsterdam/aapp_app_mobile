@@ -63,6 +63,7 @@ export const ServicesGrid = ({
     data: serviceMaps,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useServiceOverviewQuery(source)
 
   const coloredServiceMaps = useMemo<
@@ -78,7 +79,12 @@ export const ServicesGrid = ({
   )
 
   if (isLoading) {
-    return <PleaseWait testID="ServiceListPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ServiceListPleaseWait"
+      />
+    )
   }
 
   if (!coloredServiceMaps || isError) {

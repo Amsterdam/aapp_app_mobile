@@ -37,6 +37,7 @@ export const BoatChargingPointDetails = () => {
     data: location,
     isLoading,
     isError,
+    startedTimeStamp,
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
 
   const autoFocus = useAccessibilityFocus()
@@ -68,14 +69,20 @@ export const BoatChargingPointDetails = () => {
   const {reset} = useNewSessionFormContext()
 
   if (isLoading) {
-    return <PleaseWait testID="BoatChargingPointDetailsPleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="BoatChargingPointDetailsPleaseWait"
+      />
+    )
   }
 
   if (isError || !location) {
     return (
-      <Box>
-        <SomethingWentWrong testID="BoatChargingPointDetailsSomethingWentWrong" />
-      </Box>
+      <SomethingWentWrong
+        inset="md"
+        testID="BoatChargingPointDetailsSomethingWentWrong"
+      />
     )
   }
 

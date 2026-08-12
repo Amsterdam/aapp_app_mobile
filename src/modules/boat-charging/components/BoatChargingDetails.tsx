@@ -1,5 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
+import type {BoatChargingLocation} from '@/modules/boat-charging/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
@@ -10,15 +11,10 @@ import {Title} from '@/components/ui/text/Title'
 import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {BoatChargingDetailsInfoRows} from '@/modules/boat-charging/components/BoatChargingDetailsInfoRows'
 import {BoatChargingDetailsSocketRadioGroup} from '@/modules/boat-charging/components/BoatChargingDetailsSocketRadioGroup'
-import {BoatChargingDetailsSocketSubmitButton} from '@/modules/boat-charging/components/BoatChargingDetailsSocketSubmitButton'
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
-import {
-  ChargingPointStatus,
-  type BoatChargingLocation,
-} from '@/modules/boat-charging/types'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
@@ -55,19 +51,15 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
     [location],
   )
 
-  const showSubmitButton = useMemo(
-    () =>
-      !activeSessions?.length &&
-      location?.charging_stations.some(
-        socket => socket.status === ChargingPointStatus.OPERATIVE,
-      ),
-    [activeSessions, location],
-  )
-
   const form = useNewSessionFormContext()
 
   if (isLoadingLocation || isLoadingSessions) {
-    return <PleaseWait testID="BoatChargingDetailsPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BoatChargingDetailsPleaseWait"
+      />
+    )
   }
 
   if (isErrorLocation || isErrorSessions || !location) {
@@ -122,8 +114,6 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
         </Column>
         <BoatChargingHelpNavigationButton />
       </Column>
-
-      {!!showSubmitButton && <BoatChargingDetailsSocketSubmitButton />}
     </Column>
   )
 }

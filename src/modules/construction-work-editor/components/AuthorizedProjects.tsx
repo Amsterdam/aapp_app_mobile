@@ -56,19 +56,30 @@ export const AuthorizedProjects = ({initialMetrics}: Props) => {
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
-  const {data: authorizedProjects, isFetching, isError} = useGetProjectsQuery()
+  const {
+    data: authorizedProjects,
+    isFetching,
+    isError,
+    startedTimeStamp,
+  } = useGetProjectsQuery()
 
   useRegisterConstructionWorkEditor()
 
   if (isFetching) {
     return (
-      <PleaseWait testID="ConstructionWorkEditorAuthorizedProjectsLoadingSpinner" />
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="ConstructionWorkEditorAuthorizedProjectsLoadingSpinner"
+      />
     )
   }
 
   if (isError) {
     return (
-      <SomethingWentWrong testID="ConstructionWorkEditorAuthorizedProjectsSomethingWentWrong" />
+      <SomethingWentWrong
+        inset="md"
+        testID="ConstructionWorkEditorAuthorizedProjectsSomethingWentWrong"
+      />
     )
   }
 

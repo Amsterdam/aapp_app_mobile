@@ -55,11 +55,21 @@ export const BoatChargingMap = ({
   })
 
   if (isLoading) {
-    return <PleaseWait testID="BoatChargingMapPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BoatChargingMapPleaseWait"
+      />
+    )
   }
 
   if (isError) {
-    return <SomethingWentWrong testID="BoatChargingMapSomethingWentWrong" />
+    return (
+      <SomethingWentWrong
+        inset="md"
+        testID="BoatChargingMapSomethingWentWrong"
+      />
+    )
   }
 
   return (

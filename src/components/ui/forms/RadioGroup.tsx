@@ -66,6 +66,8 @@ export const RadioGroup = <
 
   if (shouldSerializeValues) {
     value = JSON.stringify(valueSerialized)
+  } else {
+    value = valueSerialized
   }
 
   return (

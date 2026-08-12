@@ -68,7 +68,12 @@ export const BoatChargingHistorySessionDetails = () => {
   const {toggle} = useBottomSheet()
 
   if (isLoading) {
-    return <PleaseWait testID="BoatChargingHistorySessionDetailsPleaseWait" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BoatChargingHistorySessionDetailsPleaseWait"
+      />
+    )
   }
 
   if (!session) {

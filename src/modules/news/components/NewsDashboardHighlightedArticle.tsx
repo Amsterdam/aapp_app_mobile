@@ -11,7 +11,8 @@ import {useHighlightedArticle} from '@/modules/news/hooks/useHighlightedArticle'
 import {NewsRouteName} from '@/modules/news/routes'
 
 export const NewsDashboardHighlightedArticle = () => {
-  const {isError, isLoading, highlightedArticle} = useHighlightedArticle()
+  const {isError, isLoading, highlightedArticle, startedTimeStamp} =
+    useHighlightedArticle()
   const {navigate} = useNavigation()
 
   const navigateTo = useCallback(() => {
@@ -31,7 +32,12 @@ export const NewsDashboardHighlightedArticle = () => {
   }, [highlightedArticle, navigate])
 
   if (isLoading) {
-    return <PleaseWait testID="NewsDashboardHighlightedArticlePleaseWait" />
+    return (
+      <PleaseWait
+        startedTimeStamp={startedTimeStamp}
+        testID="NewsDashboardHighlightedArticlePleaseWait"
+      />
+    )
   }
 
   if (isError) {

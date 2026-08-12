@@ -36,7 +36,11 @@ export const ProjectArticle = ({
   publicationDate,
   title,
 }: Props) => {
-  const {data: project, isLoading: isLoadingProject} = useProjectDetailsQuery(
+  const {
+    data: project,
+    isLoading: isLoadingProject,
+    startedTimeStamp,
+  } = useProjectDetailsQuery(
     projectId
       ? {
           id: projectId,
@@ -62,7 +66,10 @@ export const ProjectArticle = ({
         testID={`ConstructionWorkProjectArticle${id}Image`}
       />
       {isLoadingProject ? (
-        <PleaseWait testID={`ConstructionWorkProjectArticle${id}PleaseWait`} />
+        <PleaseWait
+          startedTimeStamp={startedTimeStamp}
+          testID={`ConstructionWorkProjectArticle${id}PleaseWait`}
+        />
       ) : (
         <HorizontalSafeArea>
           <Box>

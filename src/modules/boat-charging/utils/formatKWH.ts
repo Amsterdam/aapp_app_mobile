@@ -5,5 +5,5 @@ export const formatKWH = (kwh?: number | null) => {
     return ''
   }
 
-  return `${formatNumber(kwh)} kWh`
+  return `${formatNumber(kwh, undefined, {maximumFractionDigits: 2})} kWh`
 }

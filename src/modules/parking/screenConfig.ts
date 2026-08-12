@@ -3,6 +3,7 @@ import {ParkingTransactionHistoryHeaderButton} from '@/modules/parking/component
 import {AddLicensePlateHeaderButton} from '@/modules/parking/components/license-plates/AddLicensePlateHeaderButton'
 import {ParkingRouteName, ModuleStackParams} from '@/modules/parking/routes'
 import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.screen'
+import {ChangeLicensePlateScreen} from '@/modules/parking/screens/ChangeLicensePlate.screen'
 import {ParkingAccountInactiveScreen} from '@/modules/parking/screens/ParkingAccountInactiveScreen.screen'
 import {ParkingActiveSessionsScreen} from '@/modules/parking/screens/ParkingActiveSessions.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
@@ -79,6 +80,13 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.addLicensePlate,
     options: {
       headerTitle: 'Nieuw kenteken',
+    },
+  },
+  [ParkingRouteName.editLicensePlate]: {
+    component: ChangeLicensePlateScreen,
+    name: ParkingRouteName.editLicensePlate,
+    options: {
+      headerTitle: 'Kenteken aanpassen',
     },
   },
   [ParkingRouteName.parkingPermitZones]: {

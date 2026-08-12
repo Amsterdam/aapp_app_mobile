@@ -11,7 +11,12 @@ export const Home = () => {
     useModules()
 
   if (modulesLoading) {
-    return <PleaseWait testID="HomeLoadingSpinner" />
+    return (
+      <PleaseWait
+        showFeedback
+        testID="HomeLoadingSpinner"
+      />
+    )
   }
 
   if (modulesError || !enabledModules) {
