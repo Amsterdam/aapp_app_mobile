@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useCallback} from 'react'
 import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
 import {CityPassResponse, SecureCityPass} from '@/modules/city-pass/types'
 import {SecureItemKey} from '@/utils/secureStorage'
@@ -17,15 +17,18 @@ const transformResponse = (data: CityPassResponse) =>
     return [...acc, newItem]
   }, [])
 
-export const useSetSecureCityPasses = (data?: CityPassResponse) => {
+export const useSetSecureCityPasses = () => {
   const setSecureItem = useSetSecureItem()
 
-  useEffect(() => {
-    if (data) {
-      void setSecureItem(
-        SecureItemKey.cityPasses,
-        JSON.stringify(transformResponse(data)),
-      )
-    }
-  }, [data, setSecureItem])
+  return useCallback(
+    (data?: CityPassResponse) => {
+      if (data) {
+        void setSecureItem(
+          SecureItemKey.cityPasses,
+          JSON.stringify(transformResponse(data)),
+        )
+      }
+    },
+    [setSecureItem],
+  )
 }

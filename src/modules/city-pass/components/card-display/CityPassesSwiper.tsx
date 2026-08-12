@@ -10,7 +10,7 @@ import {
   CITY_PASS_HEIGHT,
   NEXT_CARD_VISIBLE_FRACTION_OF_AVAILABLE_SPACE,
 } from '@/modules/city-pass/constants'
-import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
+import {useGetCityPasses} from '@/modules/city-pass/hooks/useGetCityPasses'
 import {selectStartIndex} from '@/modules/city-pass/slice'
 import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
@@ -21,7 +21,8 @@ const PAGINATION_HEIGHT = 50
 
 export const CityPassesSwiper = () => {
   const styles = useThemable(createStyles)
-  const cityPasses = useGetSecureCityPasses()
+  const {cityPasses} = useGetCityPasses()
+
   const startIndex = useSelector(selectStartIndex)
   const {
     onPressPagination,
