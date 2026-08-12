@@ -5,6 +5,7 @@ export const formatNumber = (
 ) => {
   if (currency) {
     return new Intl.NumberFormat('nl-NL', {
+      ...options,
       style: 'currency',
       currency,
     }).format(number ?? 0)
