@@ -20,8 +20,16 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: {id: string}) => {
   const form = useFormContext<BoatChargingSelectSocketFormValues>()
   const {isLoggedIn} = useIsLoggedIn()
 
-  const {data: location} = useBoatChargingLocationDetailsQuery(id ?? skipToken)
-  const {activeSessions} = useBoatChargingSessions()
+  const {
+    data: location,
+    isLoading: isLoadingLocationDetails,
+    isError: isErrorLocationDetails,
+  } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
+  const {
+    activeSessions,
+    isLoading: isLoadingSessions,
+    isError: isErrorSessions,
+  } = useBoatChargingSessions()
 
   const {onPress, isLoading, isError, disabled, mustApproveTerms, refetch} =
     useInitSession(BoatChargingInitSessionStep.selectSocket)
@@ -43,11 +51,22 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: {id: string}) => {
 
   const showSubmitButton = useMemo(
     () =>
+      !isLoadingLocationDetails &&
+      !isLoadingSessions &&
+      !isErrorLocationDetails &&
+      !isErrorSessions &&
       !activeSessions?.length &&
       location?.charging_stations.some(
         socket => socket.status === ChargingPointStatus.OPERATIVE,
       ),
-    [activeSessions, location],
+    [
+      activeSessions,
+      location,
+      isLoadingLocationDetails,
+      isLoadingSessions,
+      isErrorLocationDetails,
+      isErrorSessions,
+    ],
   )
 
   if (!showSubmitButton) {
