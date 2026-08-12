@@ -32,5 +32,6 @@ const createStyles = ({size}: Theme) =>
     closeButton: {
       marginLeft: 'auto',
       marginRight: size.spacing.md,
+      marginVertical: size.spacing.smd,
     },
   })
