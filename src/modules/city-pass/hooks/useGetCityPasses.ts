@@ -13,14 +13,14 @@ import {useGetCityPassesQuery} from '@/modules/city-pass/service'
  */
 export const useGetCityPasses = () => {
   const secureCityPasses = useGetSecureCityPasses()
-  const setSecureCityPasses = useSetSecureCityPasses()
-
   const {isConnected, isInternetReachable} = useNetInfo()
   const isOffline = !isConnected || !isInternetReachable
 
   const {data, isLoading, isError} = useGetCityPassesQuery(
     isOffline ? skipToken : undefined,
   )
+
+  useSetSecureCityPasses(data)
 
   const cityPasses = useMemo<(CityPassPass & Partial<CityPass>)[]>(() => {
     if (data) {
@@ -34,10 +34,6 @@ export const useGetCityPasses = () => {
 
     return secureCityPasses ?? []
   }, [data, secureCityPasses])
-
-  if (data && !isLoading && !isError) {
-    setSecureCityPasses(data)
-  }
 
   return {
     cityPasses,
