@@ -10,7 +10,7 @@ import {useTheme} from '@/themes/useTheme'
 type Props = {
   label: string
   onPress: () => void
-  variant?: 'backward' | 'default' | 'forward'
+  variant?: 'backward' | 'forward'
 } & TestProps
 
 type LinkIconProps = {
@@ -33,7 +33,7 @@ const LinkIcon = ({direction, testID}: LinkIconProps) => {
   )
 }
 
-export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
+export const Link = ({label, onPress, testID, variant = 'forward'}: Props) => {
   const {text} = useTheme()
 
   return (
@@ -46,12 +46,6 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
         {variant === 'backward' && (
           <LinkIcon
             direction={Direction.left}
-            testID={`${testID}Icon`}
-          />
-        )}
-        {variant === 'default' && (
-          <LinkIcon
-            direction={Direction.right}
             testID={`${testID}Icon`}
           />
         )}
