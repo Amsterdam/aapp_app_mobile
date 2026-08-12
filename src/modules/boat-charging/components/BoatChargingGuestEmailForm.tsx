@@ -36,7 +36,6 @@ export const BoatChargingGuestEmailForm = () => {
         </Paragraph>
 
         <EmailTextInputField<'email'>
-          autoFocus
           disabled={isLoggedIn}
           name="email"
           onSubmitEditing={handleSubmit(onSubmit)}

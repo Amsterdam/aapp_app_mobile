@@ -179,7 +179,6 @@ export const LicensePlateForm = ({
       <Column gutter="xl">
         <Column gutter="lg">
           <ParkingVehicleIdTextInput
-            autoFocus
             inputInstructions="Voer alleen letters en cijfers in."
             label="Kenteken"
             testID="ParkingLicensePlateFormLicensePlateInputField"

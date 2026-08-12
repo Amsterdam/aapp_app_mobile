@@ -66,7 +66,6 @@ export const BoatChargingLoginForm = () => {
         <Column gutter="xl">
           <Column gutter="lg">
             <EmailTextInputField<'username'>
-              autoFocus
               label="Gebruikersnaam"
               name="username"
               onSubmitEditing={() => passwordInputReference.current?.focus()}
