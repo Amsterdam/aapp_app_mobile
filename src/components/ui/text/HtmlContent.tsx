@@ -252,8 +252,8 @@ const createStyles: (
         lineHeight: text.lineHeight.h5,
       },
       titleLevel6: {
-        fontSize: text.fontSize.h6,
-        lineHeight: text.lineHeight.h6,
+        fontSize: text.fontSize.h5,
+        lineHeight: text.lineHeight.h5,
       },
       titleMargins: {
         marginTop: 0,
