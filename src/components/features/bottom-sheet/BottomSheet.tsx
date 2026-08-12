@@ -120,7 +120,6 @@ export const BottomSheet = ({
                 onClose={onClose}
                 sheetHeight={sheetHeight}
                 translateY={translateY}
-                withCloseButton={withCloseButton}
               />
             )}
 
