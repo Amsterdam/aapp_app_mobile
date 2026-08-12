@@ -116,10 +116,7 @@ export const useInfiniteScroller = <
             keyName,
           ).map((item, index) => ({
             ...item,
-            page:
-              Math.floor(
-                (totalElements - index - fetchedData.length) / pageSize,
-              ) + 1,
+            page: Math.floor((index + fetchedData.length) / pageSize) + 1,
           })),
         ]
 
