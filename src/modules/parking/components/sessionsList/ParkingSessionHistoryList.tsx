@@ -43,33 +43,34 @@ export const ParkingSessionHistoryList = ({
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
   const page = getCurrentPage(viewableItemIndex, 1, pageSize)
 
+  const defaultEmptyItem: ParkingHistorySession = {
+    start_date_time: sortAscending
+      ? '2038-01-01T00:00:00'
+      : '1970-01-01T00:00:00',
+    ps_right_id: 0,
+    end_date_time: '',
+    no_endtime: false,
+    remaining_time: 0,
+    report_code: '',
+    status: ParkingSessionStatus.planned,
+    vehicle_id: '',
+    created_date_time: '',
+    is_cancelled: false,
+    parking_cost: {
+      currency: '',
+      value: 0,
+    },
+    amount: {
+      currency: '',
+      value: 0,
+    },
+  }
+
   const result = useInfiniteScroller<
     ParkingHistorySession,
     ParkingSessionsEndpointRequest
   >(
-    {
-      start_date_time: sortAscending
-        ? '2038-01-01T00:00:00'
-        : '1970-01-01T00:00:00',
-      dummy: true,
-      ps_right_id: 0,
-      end_date_time: '',
-      no_endtime: false,
-      remaining_time: 0,
-      report_code: '',
-      status: ParkingSessionStatus.planned,
-      vehicle_id: '',
-      created_date_time: '',
-      is_cancelled: false,
-      parking_cost: {
-        currency: '',
-        value: 0,
-      },
-      amount: {
-        currency: '',
-        value: 0,
-      },
-    },
+    defaultEmptyItem,
     parkingApi.endpoints[ParkingEndpointName.parkingSessionHistory],
     'ps_right_id',
     page,

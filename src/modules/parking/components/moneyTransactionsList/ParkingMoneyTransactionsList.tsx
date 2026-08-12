@@ -21,6 +21,29 @@ import {layoutStyles} from '@/styles/layoutStyles'
 import {formatNumber} from '@/utils/formatNumber'
 import {getSectionsSortedByDate} from '@/utils/sort/getSectionsSortedByDate'
 
+const defaultEmptyItem: ParkingTransaction & {dummy?: boolean} = {
+  created_date_time: '1970-01-01T00:00:00',
+  dummy: true,
+  ps_right_id: 0,
+  start_date_time: '',
+  end_date_time: '',
+  no_endtime: false,
+  remaining_time: 0,
+  report_code: '',
+  status: ParkingSessionStatus.cancelled,
+  vehicle_id: '',
+  is_cancelled: false,
+  is_paid: false,
+  parking_cost: {
+    currency: '',
+    value: 0,
+  },
+  amount: {
+    currency: '',
+    value: 0,
+  },
+}
+
 const ListEmptyComponent = () => (
   <EmptyList
     testID="ParkingMoneyTransactionsEmptyList"
@@ -50,28 +73,7 @@ export const ParkingMoneyTransactionsList = () => {
     ParkingTransaction,
     ParkingTransactionsEndpointRequest
   >(
-    {
-      created_date_time: '1970-01-01T00:00:00',
-      dummy: true,
-      ps_right_id: 0,
-      start_date_time: '',
-      end_date_time: '',
-      no_endtime: false,
-      remaining_time: 0,
-      report_code: '',
-      status: ParkingSessionStatus.cancelled,
-      vehicle_id: '',
-      is_cancelled: false,
-      is_paid: false,
-      parking_cost: {
-        currency: '',
-        value: 0,
-      },
-      amount: {
-        currency: '',
-        value: 0,
-      },
-    },
+    defaultEmptyItem,
     parkingApi.endpoints[ParkingEndpointName.parkingTransactions],
     'created_date_time',
     page,
