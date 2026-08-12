@@ -7,7 +7,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {parkingApi, useParkingSessionsQuery} from '@/modules/parking/service'
+import {parkingApi} from '@/modules/parking/service'
 import {
   ParkingEndpointName,
   ParkingSession,
@@ -44,34 +44,33 @@ export const ParkingSessionsList = ({
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
   const page = getCurrentPage(viewableItemIndex, 1, pageSize)
 
+  const defaultEmptyItem: ParkingSession = {
+    start_date_time: sortAscending
+      ? '2038-01-01T00:00:00'
+      : '1970-01-01T00:00:00',
+    ps_right_id: -1,
+    vehicle_id: '',
+    end_date_time: '',
+    no_endtime: false,
+    remaining_time: 0,
+    report_code: '',
+    status: ParkingSessionStatus.active,
+    created_date_time: '',
+    is_cancelled: false,
+    is_paid: false,
+    parking_cost: {
+      currency: '',
+      value: 0,
+    },
+  }
+
   const result = useInfiniteScroller<
     ParkingSession,
-    ParkingSession & {dummy: true},
     ParkingSessionsEndpointRequest
   >(
-    {
-      start_date_time: sortAscending
-        ? '2038-01-01T00:00:00'
-        : '1970-01-01T00:00:00',
-      ps_right_id: -1,
-      vehicle_id: '',
-      dummy: true,
-      end_date_time: '',
-      no_endtime: false,
-      remaining_time: 0,
-      report_code: '',
-      status: ParkingSessionStatus.active,
-      created_date_time: '',
-      is_cancelled: false,
-      is_paid: false,
-      parking_cost: {
-        currency: '',
-        value: 0,
-      },
-    },
+    defaultEmptyItem,
     parkingApi.endpoints[ParkingEndpointName.parkingSessions],
     'ps_right_id',
-    useParkingSessionsQuery,
     page,
     pageSize,
     {
@@ -103,10 +102,10 @@ export const ParkingSessionsList = ({
           item => item.ps_right_id === items[0]?.ps_right_id,
         )
         const lastIndex = result.data.findIndex(
-          item => item.ps_right_id === items[items.length - 1]?.ps_right_id,
+          item => item.ps_right_id === items.at(-1)?.ps_right_id,
         )
 
-        if (firstIndex && lastIndex) {
+        if (firstIndex >= 0 && lastIndex >= 0) {
           setViewableItemIndex(Math.round((firstIndex + lastIndex) / 2))
         }
       }

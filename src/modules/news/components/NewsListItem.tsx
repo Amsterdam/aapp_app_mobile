@@ -1,12 +1,13 @@
 import {useCallback} from 'react'
 import type {NewsArticleBase} from '@/modules/news/types'
+import type {WithDummy} from '@/services/types'
 import {ContentButton} from '@/components/ui/buttons/ContentButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {LiveblogTag} from '@/modules/news/components/liveblog/LiveblogTag'
 import {NewsRouteName} from '@/modules/news/routes'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
-type Props = NewsArticleBase & {dummy?: boolean; includeDate?: boolean}
+type Props = WithDummy<NewsArticleBase> & {includeDate?: boolean}
 
 export const NewsListItem = ({
   id,

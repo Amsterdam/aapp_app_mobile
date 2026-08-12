@@ -10,10 +10,7 @@ import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
 import {config} from '@/modules/construction-work/components/projects/config'
-import {
-  projectsApi,
-  useProjectsQuery,
-} from '@/modules/construction-work/service'
+import {projectsApi} from '@/modules/construction-work/service'
 import {
   type ProjectsItem,
   type ProjectsQueryArgs,
@@ -28,7 +25,7 @@ const emptyProjectsItem: ProjectsListItem = {
   image: null,
   meter: 0,
   id: -1,
-  isDummyItem: true,
+  dummy: true,
   recent_articles: [],
   subtitle: ' ',
   title: ' ',
@@ -46,15 +43,10 @@ export const Projects = () => {
     projectItemListPageSize,
   )
 
-  const result = useInfiniteScroller<
-    ProjectsItem,
-    ProjectsListItem,
-    ProjectsQueryArgs
-  >(
+  const result = useInfiniteScroller<ProjectsItem, ProjectsQueryArgs>(
     emptyProjectsItem,
     projectsApi.endpoints[ConstructionWorkEndpointName.projects],
     'id',
-    useProjectsQuery,
     page,
     projectItemListPageSize,
     {

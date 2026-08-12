@@ -22,6 +22,7 @@ import {
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
+import {INFINITE_QUERY_OPTIONS} from '@/services/constants'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 
@@ -96,14 +97,16 @@ export const boatChargingApi = baseApi.injectEndpoints({
       providesTags: ['BoatChargingSessions'],
       keepUnusedDataFor: CacheLifetime.minute,
     }),
-    [BoatChargingEndpointName.boatChargingSessions]: builder.query<
+    [BoatChargingEndpointName.boatChargingSessions]: builder.infiniteQuery<
       Paginated<BoatChargingSession>,
-      BoatChargingSessionsEndpointRequest
+      BoatChargingSessionsEndpointRequest,
+      number
     >({
-      query: params => ({
+      infiniteQueryOptions: INFINITE_QUERY_OPTIONS,
+      query: ({pageParam, queryArg = {}}) => ({
         prepareHeaders,
         method: 'GET',
-        params,
+        params: {page: pageParam, ...queryArg},
         slug: ModuleSlug['boat-charging'],
         url: '/sessions',
       }),
@@ -202,7 +205,7 @@ export const {
   useBoatChargingOpenIdConnectConfigQuery,
   useBoatChargingTermsQuery,
   useBoatChargingSessionQuery,
-  useBoatChargingSessionsQuery,
+  useBoatChargingSessionsInfiniteQuery,
   useBoatChargingSettingsQuery,
   useBoatChargingInitSessionMutation,
   useBoatChargingSocketStatusQuery,

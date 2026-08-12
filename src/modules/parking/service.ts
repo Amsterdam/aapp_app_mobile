@@ -42,6 +42,7 @@ import {
 import {afterError} from '@/modules/parking/utils/afterError'
 import {prepareHeaders} from '@/modules/parking/utils/prepareHeaders'
 import {baseApi} from '@/services/baseApi'
+import {INFINITE_QUERY_OPTIONS} from '@/services/constants'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
@@ -116,45 +117,51 @@ export const parkingApi = baseApi.injectEndpoints({
         },
       }),
     }),
-    [ParkingEndpointName.parkingSessionHistory]: builder.query<
+    [ParkingEndpointName.parkingSessionHistory]: builder.infiniteQuery<
       ParkingSessionHistoryEndpointResponse,
-      ParkingSessionHistoryEndpointRequest
+      ParkingSessionHistoryEndpointRequest,
+      number
     >({
       providesTags: ['ParkingSessions'],
-      query: params => ({
+      infiniteQueryOptions: INFINITE_QUERY_OPTIONS,
+      query: ({pageParam, queryArg = {}}) => ({
         prepareHeaders,
         method: 'GET',
-        params,
+        params: {page: pageParam, ...queryArg},
         slug: ModuleSlug.parking,
         url: '/sessions/history',
         afterError,
       }),
       keepUnusedDataFor: CacheLifetime.second * 3,
     }),
-    [ParkingEndpointName.parkingSessions]: builder.query<
+    [ParkingEndpointName.parkingSessions]: builder.infiniteQuery<
       ParkingSessionsEndpointResponse,
-      ParkingSessionsEndpointRequest
+      ParkingSessionsEndpointRequest,
+      number
     >({
       providesTags: ['ParkingSessions'],
-      query: ({...params}) => ({
+      infiniteQueryOptions: INFINITE_QUERY_OPTIONS,
+      query: ({pageParam, queryArg = {}}) => ({
         prepareHeaders,
         method: 'GET',
-        params,
+        params: {page: pageParam, ...queryArg},
         slug: ModuleSlug.parking,
         url: '/sessions',
         afterError,
       }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),
-    [ParkingEndpointName.parkingTransactions]: builder.query<
+    [ParkingEndpointName.parkingTransactions]: builder.infiniteQuery<
       ParkingTransactionsEndpointResponse,
-      ParkingTransactionsEndpointRequest
+      ParkingTransactionsEndpointRequest,
+      number
     >({
       providesTags: ['ParkingTransactions'],
-      query: ({...params}) => ({
+      infiniteQueryOptions: INFINITE_QUERY_OPTIONS,
+      query: ({pageParam, queryArg = {}}) => ({
         prepareHeaders,
         method: 'GET',
-        params,
+        params: {page: pageParam, ...queryArg},
         slug: ModuleSlug.parking,
         url: '/transactions',
         afterError,
@@ -411,9 +418,9 @@ export const {
   useConfirmBalanceMutation,
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
-  useParkingSessionHistoryQuery,
-  useParkingSessionsQuery,
-  useParkingTransactionsQuery,
+  useParkingSessionHistoryInfiniteQuery,
+  useParkingSessionsInfiniteQuery,
+  useParkingTransactionsInfiniteQuery,
   useRemoveLicensePlateMutation,
   useParkingMachinesQuery,
   useZoneByMachineQuery,

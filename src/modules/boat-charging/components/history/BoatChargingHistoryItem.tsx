@@ -1,23 +1,22 @@
 import {memo} from 'react'
-import type {BoatChargingSession} from '@/modules/boat-charging/types'
+import type {BoatChargingHistoryInfiniteItem} from '@/modules/boat-charging/components/history/BoatChargingHistory'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {useBoatChargingSettingsQuery} from '@/modules/boat-charging/service'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatNumber} from '@/utils/formatNumber'
 
-export type BoatChargingSessionOrDummy =
-  | (BoatChargingSession & {dummy?: never})
-  | {dummy: true; start_date_time: string}
-
 type Props = {
-  session: BoatChargingSessionOrDummy
+  session: BoatChargingHistoryInfiniteItem
 }
 
 export const BoatChargingHistoryItem = memo(({session}: Props) => {
   const {navigate} = useNavigation()
+
+  const {data: settingsServerData} = useBoatChargingSettingsQuery()
 
   if ('dummy' in session && session.dummy === true) {
     return (
@@ -38,7 +37,10 @@ export const BoatChargingHistoryItem = memo(({session}: Props) => {
 
   const elements = [
     typeof session.total_cost === 'number'
-      ? formatNumber(session.total_cost * 1.21, session.currency)
+      ? formatNumber(
+          session.total_cost * (settingsServerData?.vat_fraction ?? 1.21),
+          session.currency,
+        )
       : null,
     typeof session.kwh === 'number' ? formatKWH(session.kwh) : null,
   ].filter(Boolean)

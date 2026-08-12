@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useMemo} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useNewsArticlesQuery} from '@/modules/news/service'
+import {useNewsArticlesInfiniteQuery} from '@/modules/news/service'
 import {
   selectHighlightedArticleQueue,
   selectHighlightedArticleStatus,
@@ -15,11 +15,14 @@ export const useHighlightedArticle = () => {
   const highlightedArticleStatus = useSelector(selectHighlightedArticleStatus)
   const dispatch = useDispatch()
 
-  const {data: highlights, ...rest} = useNewsArticlesQuery({type: 'highlight'})
+  const {data: highlights, ...rest} = useNewsArticlesInfiniteQuery(
+    {type: 'highlight'},
+    {initialPageParam: 1},
+  )
 
   const advanceHighlightQueue = useCallback(() => {
     const incomingQueue =
-      highlights?.result.map(highlight => highlight.id) ?? []
+      highlights?.pages[0]?.result.map(highlight => highlight.id) ?? []
 
     const newQueue = mergeAndOrderQueue(
       new Set(highlightedArticleQueue),
@@ -45,7 +48,7 @@ export const useHighlightedArticle = () => {
   ])
 
   const highlightedArticle = useMemo(() => {
-    const liveblog = highlights?.result.find(
+    const liveblog = highlights?.pages[0]?.result.find(
       highlight => highlight.is_active_liveblog,
     )
 
@@ -53,10 +56,10 @@ export const useHighlightedArticle = () => {
       return liveblog
     }
 
-    return highlights?.result.find(
+    return highlights?.pages[0]?.result.find(
       highlight => highlight.id === highlightedArticleQueue[0],
     )
-  }, [highlightedArticleQueue, highlights?.result])
+  }, [highlightedArticleQueue, highlights?.pages])
 
   return {
     highlightedArticle,

@@ -1,8 +1,17 @@
-/** @deprecated API refactor: this is no longer the default mutation response, will be replaced by string */
-export type MutationResponse = {
-  result: string
-  status: boolean
-}
+import {
+  type BaseQueryFn,
+  type EndpointDefinitions,
+  type FetchArgs,
+  type FetchBaseQueryError,
+  type InfiniteQueryDefinition,
+} from '@reduxjs/toolkit/query'
+import type {ApiSlug} from '@/environment'
+import type {
+  ApiEndpointInfiniteQuery,
+  TypedUseInfiniteQuery,
+  TypedUseInfiniteQueryState,
+  TypedUseInfiniteQuerySubscription,
+} from '@reduxjs/toolkit/query/react'
 
 type Links = {
   next: {href: string}
@@ -53,7 +62,7 @@ export type AddressQueryArgs = {
 }
 
 export type PaginationQueryArgs = {
-  page?: number
+  // page?: number is omitted because it is handled by the infinite query hook
   page_size?: number
 }
 
@@ -71,4 +80,37 @@ export enum TimeOutDuration {
 export type ApiError<CodesEnum = unknown> = {
   code: CodesEnum
   detail: string
+}
+
+export type ApiEndpointInfinite<
+  Item,
+  QueryArgs extends PaginationQueryArgs,
+> = ApiEndpointInfiniteQuery<
+  InfiniteQueryDefinition<
+    QueryArgs,
+    number,
+    BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>,
+    string,
+    Paginated<Item>
+  >,
+  EndpointDefinitions
+> & {
+  useInfiniteQuery: TypedUseInfiniteQuery<
+    Paginated<Item>,
+    QueryArgs,
+    number,
+    BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>
+  >
+  useInfiniteQueryState: TypedUseInfiniteQueryState<
+    Paginated<Item>,
+    QueryArgs,
+    number,
+    BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>
+  >
+  useInfiniteQuerySubscription: TypedUseInfiniteQuerySubscription<
+    Paginated<Item>,
+    QueryArgs,
+    number,
+    BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>
+  >
 }

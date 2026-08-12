@@ -2,17 +2,24 @@ import {Platform} from 'react-native'
 import {GlobalApiSlug} from '@/environment'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
-import {MutationResponse} from '@/types/api'
 import {DeviceRegistrationEndpointName} from '@/types/device'
 
 type DeviceRegistrationQueryArg = {
   firebase_token: string
 }
 
+type DeviceRegistrationMutationResponse = {
+  external_id: string
+  firebase_token: string
+  id: number
+  last_seen: string
+  os: string
+}
+
 export const deviceRegistrationApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [DeviceRegistrationEndpointName.registerDevice]: builder.mutation<
-      MutationResponse,
+      DeviceRegistrationMutationResponse,
       DeviceRegistrationQueryArg
     >({
       query: body => ({
@@ -27,7 +34,7 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
       }),
     }),
     [DeviceRegistrationEndpointName.unregisterDevice]: builder.mutation<
-      MutationResponse,
+      string,
       undefined
     >({
       query: () => ({

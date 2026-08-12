@@ -1,3 +1,4 @@
+import type {WithDummy} from '@/services/types'
 import type {EmptyObject} from '@/types/utils'
 import type {FeatureCollection, Polygon} from 'geojson'
 import {Paginated, PaginationQueryArgs} from '@/types/api'
@@ -405,9 +406,9 @@ export type ParkingManageVisitorTimeBalanceEndpointRequest = {
   seconds_to_transfer: number
 }
 
-export type ParkingSessionOrDummy =
-  | ((ParkingSession | VisitorParkingSession) & {dummy?: never})
-  | {dummy: true; ps_right_id: number; start_date_time: string}
+export type ParkingSessionOrDummy = WithDummy<
+  ParkingSession | VisitorParkingSession
+>
 
 export type ParkingZoneByMachineEndpointRequest = {
   machineId: string

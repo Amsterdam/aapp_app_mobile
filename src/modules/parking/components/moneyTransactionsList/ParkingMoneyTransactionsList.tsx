@@ -1,5 +1,6 @@
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
+import type {WithDummyAndPage} from '@/services/types'
 import {EmptyList} from '@/components/features/EmptyList'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,19 +10,39 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
-import {
-  parkingApi,
-  useParkingTransactionsQuery,
-} from '@/modules/parking/service'
+import {parkingApi} from '@/modules/parking/service'
 import {
   ParkingEndpointName,
   ParkingOrderType,
+  ParkingSessionStatus,
   ParkingTransaction,
   ParkingTransactionsEndpointRequest,
 } from '@/modules/parking/types'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {formatNumber} from '@/utils/formatNumber'
 import {getSectionsSortedByDate} from '@/utils/sort/getSectionsSortedByDate'
+
+const defaultEmptyItem: ParkingTransaction = {
+  created_date_time: '1970-01-01T00:00:00',
+  ps_right_id: 0,
+  start_date_time: '',
+  end_date_time: '',
+  no_endtime: false,
+  remaining_time: 0,
+  report_code: '',
+  status: ParkingSessionStatus.cancelled,
+  vehicle_id: '',
+  is_cancelled: false,
+  is_paid: false,
+  parking_cost: {
+    currency: '',
+    value: 0,
+  },
+  amount: {
+    currency: '',
+    value: 0,
+  },
+}
 
 const ListEmptyComponent = () => (
   <EmptyList
@@ -31,15 +52,8 @@ const ListEmptyComponent = () => (
   />
 )
 
-type ParkingTransactionOrDummy =
-  | (ParkingTransaction & {dummy?: never; page: number})
-  | {
-      created_date_time: string
-      dummy: true
-      page: number
-      ps_right_id: number
-      start_date_time: string
-    }
+type ParkingTransactionOrDummy = WithDummyAndPage<ParkingTransaction>
+
 type Section = {
   data: Array<ParkingTransactionOrDummy>
   title: string
@@ -54,19 +68,11 @@ export const ParkingMoneyTransactionsList = () => {
 
   const result = useInfiniteScroller<
     ParkingTransaction,
-    ParkingTransactionOrDummy,
     ParkingTransactionsEndpointRequest
   >(
-    {
-      created_date_time: '1970-01-01T00:00:00',
-      dummy: true,
-      ps_right_id: 0,
-      start_date_time: '',
-      page: 0,
-    },
+    defaultEmptyItem,
     parkingApi.endpoints[ParkingEndpointName.parkingTransactions],
     'created_date_time',
-    useParkingTransactionsQuery,
     page,
     pageSize,
     {

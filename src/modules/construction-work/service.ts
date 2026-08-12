@@ -18,6 +18,7 @@ import {processSearchQueryArgs} from '@/modules/construction-work/utils/processS
 import {tempPostProcessProjectDetails} from '@/modules/construction-work/utils/tempPostProcessProjectDetails'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
+import {INFINITE_QUERY_OPTIONS} from '@/services/constants'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
@@ -84,15 +85,17 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /projects GET
-    [ConstructionWorkEndpointName.projects]: builder.query<
+    [ConstructionWorkEndpointName.projects]: builder.infiniteQuery<
       ProjectsResponse,
-      ProjectsQueryArgs
+      ProjectsQueryArgs,
+      number
     >({
       providesTags: ['FollowedProjects', 'Projects'],
-      query: params => ({
+      infiniteQueryOptions: INFINITE_QUERY_OPTIONS,
+      query: ({pageParam, queryArg = {}}) => ({
         slug: MODULE_SLUG,
         url: '/projects',
-        params,
+        params: {page: pageParam, ...queryArg},
         headers: deviceIdHeader,
       }),
       keepUnusedDataFor: CacheLifetime.hour,
@@ -155,6 +158,6 @@ export const {
   useProjectNewsQuery,
   useProjectUnfollowMutation,
   useProjectWarningQuery,
-  useProjectsQuery,
+  useProjectsInfiniteQuery,
   useProjectsSearchQuery,
 } = projectsApi

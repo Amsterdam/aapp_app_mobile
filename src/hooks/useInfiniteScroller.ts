@@ -1,19 +1,7 @@
-import {
-  type ApiEndpointQuery,
-  type BaseQueryFn,
-  type EndpointDefinitions,
-  type FetchArgs,
-  type FetchBaseQueryError,
-  type QueryDefinition,
-  QueryStatus,
-  skipToken,
-} from '@reduxjs/toolkit/query'
-import {useEffect, useState} from 'react'
-import type {ApiSlug} from '@/environment'
-import type {Paginated, PaginationQueryArgs} from '@/types/api'
-import type {SerializedError} from '@reduxjs/toolkit'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {baseApi} from '@/services/baseApi'
+import {skipToken} from '@reduxjs/toolkit/query'
+import {useEffect} from 'react'
+import type {WithDummyAndPage} from '@/services/types'
+import type {ApiEndpointInfinite, PaginationQueryArgs} from '@/types/api'
 
 const getEmptyItems = <DummyItem>(
   length: number,
@@ -22,11 +10,12 @@ const getEmptyItems = <DummyItem>(
   keyName: keyof DummyItem,
 ) =>
   length > 0
-    ? Array<DummyItem>(length)
+    ? Array.from<DummyItem>({length: Math.max(0, length)})
         .fill(defaultEmptyItem)
         .map((el, index) => ({
           ...el,
           [keyName]: `dummy-${index + baseIndex}`,
+          dummy: true,
         }))
     : []
 
@@ -36,127 +25,105 @@ const config = {
   pageSize: 10,
 }
 
-type QueryDef<Item, QueryArgs extends PaginationQueryArgs> = QueryDefinition<
-  QueryArgs,
-  BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>,
-  string,
-  Paginated<Item>
->
-
-type UseQueryHook<QueryArgs, Result> = (arg: QueryArgs | typeof skipToken) => {
-  data?: Result
-  error?: FetchBaseQueryError | SerializedError
-  isError: boolean
-  isLoading: boolean
-}
-
+/**
+ * Builds a paged list for infinite scrolling by combining fetched items with
+ * dummy placeholder items up to the reported total result size.
+ *
+ * The hook automatically fetches the next page once the requested `page`
+ * reaches the last loaded page.
+ *
+ * @param defaultEmptyItem Base item shape used to generate placeholder rows.
+ * @param endpoint RTK Query infinite endpoint that returns paginated results.
+ * @param keyName Unique item key used to assign stable ids to dummy rows.
+ * @param page Current page that should be available in the local result.
+ * @param pageSize Number of items expected per page.
+ * @param queryParams Query parameters for the endpoint, or `skipToken` to disable fetching.
+ *
+ * @example
+ * const result = useInfiniteScroller(
+ *   dummyBoatChargingHistoryItem,
+ *   boatChargingApi.endpoints[BoatChargingEndpointName.boatChargingSessions],
+ *   'id',
+ *   page,
+ *   PAGE_SIZE,
+ *   isLoggedIn
+ *     ? {
+ *         page_size: PAGE_SIZE,
+ *         status: SessionStatus.COMPLETED,
+ *       }
+ *     : skipToken,
+ * )
+ */
 export const useInfiniteScroller = <
   Item,
-  ItemOrDummyItem,
   QueryArgs extends PaginationQueryArgs,
 >(
-  defaultEmptyItem: ItemOrDummyItem,
-  endpoint: ApiEndpointQuery<QueryDef<Item, QueryArgs>, EndpointDefinitions>,
-  keyName: keyof ItemOrDummyItem,
-  useQueryHook: UseQueryHook<QueryArgs, Paginated<Item>>,
+  defaultEmptyItem: Item,
+  endpoint: ApiEndpointInfinite<Item, QueryArgs>,
+  keyName: keyof Item,
   page = config.page,
   pageSize = config.pageSize,
   queryParams: QueryArgs | typeof skipToken = {} as QueryArgs,
 ) => {
-  const reduxApiState = useSelector(state => state[baseApi.reducerPath])
-  const [totalPages, setTotalPages] = useState<number>(config.totalPages)
-
-  const {
-    data: previousData,
-    isError: isErrorPreviousPage,
-    isLoading: isLoadingPreviousPage,
-    error: errorPreviousPage,
-  } = useQueryHook(
-    page > 1 && queryParams !== skipToken
-      ? {
-          ...queryParams,
-          page: page - 1,
-        }
-      : skipToken,
-  )
-
   const {
     data: currentData,
     isError: isErrorCurrentPage,
     isLoading: isLoadingCurrentPage,
     error: errorCurrentPage,
-  } = useQueryHook(
-    page <= totalPages && queryParams !== skipToken
-      ? {
-          ...queryParams,
-          page,
-        }
-      : skipToken,
-  )
-
-  const {
-    data: nextData,
-    isError: isErrorNextPage,
-    isLoading: isLoadingNextPage,
-    error: errorNextPage,
-  } = useQueryHook(
-    page < totalPages && queryParams !== skipToken
-      ? {
-          ...queryParams,
-          page: page + 1,
-        }
-      : skipToken,
-  )
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = endpoint.useInfiniteQuery(queryParams, {initialPageParam: 1})
 
   useEffect(() => {
-    if (currentData?.page.totalPages) {
-      setTotalPages(currentData?.page.totalPages)
+    if (
+      hasNextPage &&
+      page >= (currentData?.pageParams.at(-1) ?? 0) &&
+      !isFetchingNextPage
+    ) {
+      void fetchNextPage()
     }
-  }, [currentData?.page.totalPages])
+  }, [
+    currentData?.pageParams,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    page,
+  ])
 
   const totalElements =
-    previousData?.page.totalElements ??
-    currentData?.page.totalElements ??
-    nextData?.page.totalElements ??
-    0
+    currentData?.pages[0]?.page.totalElements ??
+    (isLoadingCurrentPage ? pageSize : 0)
 
-  const endpointSelectorState = {
-    [baseApi.reducerPath]: reduxApiState,
-  } as Parameters<ReturnType<typeof endpoint.select>>[0]
+  const fetchedData =
+    queryParams === skipToken
+      ? []
+      : (currentData?.pages.flatMap(({result}, index) =>
+          result.map(item => ({...item, page: index + 1})),
+        ) ?? [])
+
+  const numberOfDummyItems = totalElements - fetchedData.length
+
+  const data: Array<WithDummyAndPage<Item>> =
+    queryParams === skipToken
+      ? []
+      : [
+          ...fetchedData,
+          ...getEmptyItems(
+            numberOfDummyItems,
+            fetchedData.length,
+            defaultEmptyItem,
+            keyName,
+          ).map((item, index) => ({
+            ...item,
+            page: Math.floor((index + fetchedData.length) / pageSize) + 1,
+          })),
+        ]
 
   return {
-    // create an array of pages with data
-    data:
-      queryParams === skipToken
-        ? []
-        : (Array(totalPages)
-            // fill the array with empty values
-            .fill({})
-            // map over the array and fill it with data
-            .reduce<unknown[]>((acc, _s, index) => {
-              const {data, status} = endpoint.select({
-                ...queryParams,
-                page: index + 1,
-              })(endpointSelectorState)
-              // if there is no data, fill the page with empty items
-              const pageData =
-                data?.result && status === QueryStatus.fulfilled
-                  ? data?.result
-                  : getEmptyItems<ItemOrDummyItem>(
-                      Math.min(pageSize, totalElements - index * pageSize),
-                      index * pageSize,
-                      defaultEmptyItem,
-                      keyName,
-                    )
-
-              return [
-                ...acc,
-                ...pageData.map(item => ({...item, page: index + 1})),
-              ]
-            }, []) as Array<ItemOrDummyItem & {page: number}>),
-    error: errorPreviousPage || errorCurrentPage || errorNextPage,
-    isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
-    isLoading:
-      isLoadingPreviousPage || isLoadingCurrentPage || isLoadingNextPage,
+    data,
+    error: errorCurrentPage,
+    isError: isErrorCurrentPage,
+    isLoading: isLoadingCurrentPage,
   }
 }

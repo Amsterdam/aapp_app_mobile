@@ -1,6 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, type SectionListProps} from 'react-native'
+import type {WithDummyAndPage} from '@/services/types'
 import {Divider} from '@/components/ui/Divider'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -11,15 +12,13 @@ import {BoatChargingHistoryEmpty} from '@/modules/boat-charging/components/histo
 import {BoatChargingHistoryItem} from '@/modules/boat-charging/components/history/BoatChargingHistoryItem'
 import {BoatChargingHistoryLogin} from '@/modules/boat-charging/components/history/BoatChargingHistoryLogin'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {
-  boatChargingApi,
-  useBoatChargingSessionsQuery,
-} from '@/modules/boat-charging/service'
+import {boatChargingApi} from '@/modules/boat-charging/service'
 import {
   BoatChargingEndpointName,
   NRGStatus,
   type BoatChargingSession,
   SessionStatus,
+  type BoatChargingLocation,
 } from '@/modules/boat-charging/types'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
@@ -30,23 +29,8 @@ import {
 
 const PAGE_SIZE = 20
 
-type BoatChargingHistoryInfiniteSession = BoatChargingSession & {
-  dummy?: never
-  page: number
-}
-
-type BoatChargingHistoryInfiniteDummySession = Omit<
-  BoatChargingSession,
-  'location' | 'email'
-> & {
-  dummy: true
-  location: {name: string}
-  page: number
-}
-
-type BoatChargingHistoryInfiniteItem =
-  | BoatChargingHistoryInfiniteSession
-  | BoatChargingHistoryInfiniteDummySession
+export type BoatChargingHistoryInfiniteItem =
+  WithDummyAndPage<BoatChargingSession>
 
 type BoatChargingHistoryInfiniteSection = {
   data: BoatChargingHistoryInfiniteItem[]
@@ -66,11 +50,10 @@ const isCompletedOrDummySession = (
 const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
   created_date_time: '1970-01-01T00:00:00Z',
   currency: 'EUR',
-  dummy: true,
   end_date_time: '1970-01-01T00:00:00Z',
   id: '',
   kwh: 0,
-  location: {name: ''},
+  location: {name: ''} as BoatChargingLocation,
   nrg_status: NRGStatus.Created,
   page: 0,
   socket_number: '',
@@ -78,6 +61,7 @@ const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
   station_id: '',
   status: SessionStatus.COMPLETED,
   total_cost: 0,
+  email: '',
 }
 
 export const BoatChargingHistory = () => {
@@ -89,7 +73,6 @@ export const BoatChargingHistory = () => {
     dummyBoatChargingHistoryItem,
     boatChargingApi.endpoints[BoatChargingEndpointName.boatChargingSessions],
     'id',
-    useBoatChargingSessionsQuery,
     page,
     PAGE_SIZE,
     isLoggedIn

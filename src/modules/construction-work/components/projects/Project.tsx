@@ -41,14 +41,14 @@ export const Project = memo(
       ]
     }, [followed, meter, readArticles, recent_articles, showTraits])
 
-    const {id, image, isDummyItem, subtitle, title} = project
+    const {id, image, dummy, subtitle, title} = project
 
     return (
       <ProjectCard
         additionalAccessibilityLabel={additionalAccessibilityLabel}
         imageSource={image?.sources}
-        isDummyItem={isDummyItem}
-        onPress={() => onPress(id, isDummyItem)}
+        isDummyItem={dummy}
+        onPress={() => onPress(id, dummy)}
         subtitle={subtitle}
         testID={`ConstructionWork${id}ProjectCard`}
         title={title}
