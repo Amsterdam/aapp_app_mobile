@@ -13,5 +13,6 @@ describe('formatKWH', () => {
     expect(formatKWH(3.7)).toBe('3,7 kWh')
     expect(formatKWH(123456789.01)).toBe('123.456.789,01 kWh')
     expect(formatKWH(-1.5)).toBe('-1,5 kWh')
+    expect(formatKWH(1.5111111)).toBe('1,51 kWh')
   })
 })

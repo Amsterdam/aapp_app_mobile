@@ -20,4 +20,12 @@ describe('formatNumber', () => {
     expect(formatNumber(undefined as unknown as number)).toEqual('0')
     expect(formatNumber(null as unknown as number)).toEqual('0')
   })
+  it('should allow optional options', () => {
+    expect(
+      formatNumber(1.111111, undefined, {maximumFractionDigits: 1}),
+    ).toEqual('1,1')
+    expect(formatNumber(1, undefined, {minimumFractionDigits: 3})).toEqual(
+      '1,000',
+    )
+  })
 })
