@@ -36,5 +36,11 @@ export const sanitizeCopilotReviewBody = (reviewBody: string): string => {
     }
   }
 
+  const indexOfHr = sanitizedLines.findIndex(line => line.trim() === '---')
+
+  if (indexOfHr !== -1) {
+    sanitizedLines.splice(indexOfHr)
+  }
+
   return sanitizedLines.join('\n').trim()
 }
