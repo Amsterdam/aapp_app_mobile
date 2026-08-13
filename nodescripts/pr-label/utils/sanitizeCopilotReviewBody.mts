@@ -36,10 +36,12 @@ export const sanitizeCopilotReviewBody = (reviewBody: string): string => {
     }
   }
 
-  const indexOfHr = sanitizedLines.findIndex(line => line.trim() === '---')
+  const horizontalRuleLineIndex = sanitizedLines.findIndex(
+    line => line.trim() === '---',
+  )
 
-  if (indexOfHr !== -1) {
-    sanitizedLines.splice(indexOfHr)
+  if (horizontalRuleLineIndex !== -1) {
+    sanitizedLines.splice(horizontalRuleLineIndex)
   }
 
   return sanitizedLines.join('\n').trim()
