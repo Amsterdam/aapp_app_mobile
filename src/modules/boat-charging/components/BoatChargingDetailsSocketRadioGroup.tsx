@@ -29,26 +29,31 @@ export const BoatChargingDetailsSocketRadioGroup = ({
           {...form}
           disabledStyle={!selectableEvses.length ? 'none' : 'hidden'}
           name="selectedSocket"
-          options={evses.map(({station, name, evse_id, status}) => ({
-            label: (
-              <BoatChargingSocketRadioLabel
-                name={name}
-                status={
-                  status === ChargingPointStatus.OPERATIVE
-                    ? station.status
-                    : status
-                }
-              />
-            ),
-            value: {
-              stationId: station.id,
-              socketNumber: evse_id,
-            },
-            disabled:
+          options={evses.map(({station, name, evse_id, status}) => {
+            const disabled =
               hasActiveSession ||
               station.status !== ChargingPointStatus.OPERATIVE ||
-              status !== ChargingPointStatus.OPERATIVE,
-          }))}
+              status !== ChargingPointStatus.OPERATIVE
+
+            return {
+              label: (
+                <BoatChargingSocketRadioLabel
+                  disabled={disabled}
+                  name={name}
+                  status={
+                    status === ChargingPointStatus.OPERATIVE
+                      ? station.status
+                      : status
+                  }
+                />
+              ),
+              value: {
+                stationId: station.id,
+                socketNumber: evse_id,
+              },
+              disabled,
+            }
+          })}
           testID="BoatChargingDetailsChooseSocketRadioGroup"
         />
       )}

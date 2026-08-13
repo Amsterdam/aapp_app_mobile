@@ -3,12 +3,15 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {BoatChargingSocketStatusTag} from '@/modules/boat-charging/components/BoatChargingSocketStatusTag'
 
+type Props = {disabled?: boolean} & Pick<EVSEWithStation, 'name' | 'status'>
+
 export const BoatChargingSocketRadioLabel = ({
   name,
   status,
-}: Pick<EVSEWithStation, 'name' | 'status'>) => (
+  disabled,
+}: Props) => (
   <Row gutter="sm">
     <BoatChargingSocketStatusTag status={status} />
-    <Phrase>{name}</Phrase>
+    <Phrase color={disabled ? 'secondary' : 'default'}>{name}</Phrase>
   </Row>
 )
