@@ -75,6 +75,7 @@ export const Radio = ({
     accessibilityLanguage="nl-NL"
     accessibilityRole="radio"
     accessibilityState={{selected: isSelected}}
+    disabled={disabled}
     onPress={onPress}
     testID={testID}>
     <Row gutter="sm">
