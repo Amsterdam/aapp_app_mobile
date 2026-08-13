@@ -11,14 +11,10 @@ const STATUS_MAP: Record<ChargingPointStatus, string> = {
   [ChargingPointStatus.UNKNOWN]: 'Storing',
 }
 
-const WIDTH = {default: 60, wide: 90}
-
 export const BoatChargingSocketStatusTag = ({
   status,
-  width = 'default',
 }: {
   status: ChargingPointStatus
-  width?: keyof typeof WIDTH
 }) => (
   <Tag
     paddingVertical="no"
@@ -26,7 +22,7 @@ export const BoatChargingSocketStatusTag = ({
     variant={
       status === ChargingPointStatus.OPERATIVE ? 'positive' : 'secondary'
     }>
-    <Size width={WIDTH[width]}>
+    <Size width={60}>
       <Phrase
         allowFontScaling={false}
         color="inverse"

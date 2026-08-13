@@ -8,26 +8,27 @@ import {
 import type {ReactNode} from 'react'
 import {
   RadioGroup,
-  type RadioGroupOption,
+  type RadioGroupProps,
 } from '@/components/ui/forms/RadioGroup'
-import {type LayoutOrientation, type TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   LabelNode extends ReactNode = string,
-> = {
-  label?: string
-  options?: RadioGroupOption<PathValue<TFieldValues, TName>, LabelNode>[]
-  orientation?: LayoutOrientation
-} & TestProps &
-  UseControllerProps<TFieldValues, TName>
+> = Pick<
+  RadioGroupProps<PathValue<TFieldValues, TName>, LabelNode>,
+  'disabledStyle' | 'options' | 'orientation' | 'label'
+> &
+  UseControllerProps<TFieldValues, TName> &
+  TestProps
 
 export const RadioGroupControlled = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   LabelNode extends ReactNode = string,
 >({
+  disabledStyle,
   label,
   options,
   orientation,
@@ -46,6 +47,7 @@ export const RadioGroupControlled = <
 
   return (
     <RadioGroup<PathValue<TFieldValues, TName>, LabelNode>
+      disabledStyle={disabledStyle}
       errorMessage={error?.message}
       label={label}
       onChange={onChange}

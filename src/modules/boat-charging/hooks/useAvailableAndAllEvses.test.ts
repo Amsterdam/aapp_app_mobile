@@ -1,4 +1,4 @@
-import {getAvailableAndOtherEvses} from '@/modules/boat-charging/hooks/useAvailableAndOtherEvses'
+import {getAvailableAndAllEvses} from '@/modules/boat-charging/hooks/useAvailableAndAllEvses'
 import {
   ChargingPointStatus,
   type ChargingStation,
@@ -21,12 +21,11 @@ const baseChargingStation: ChargingStation = {
   status: ChargingPointStatus.OPERATIVE,
 }
 
-describe('getAvailableAndOtherEvses', () => {
+describe('getAvailableAndAllEvses', () => {
   test('returns empty collections when no charging stations are provided', () => {
-    expect(getAvailableAndOtherEvses([])).toEqual({
+    expect(getAvailableAndAllEvses([])).toEqual({
       evses: [],
       availableEvses: [],
-      otherEvses: [],
     })
   })
 
@@ -55,55 +54,43 @@ describe('getAvailableAndOtherEvses', () => {
       status: ChargingPointStatus.OFFLINE,
     }
 
-    expect(
-      getAvailableAndOtherEvses([operativeStation, offlineStation]),
-    ).toEqual({
-      evses: [
-        {
-          ...offlineStationEvse,
-          station: offlineStation,
-          name: 'station-offline-1',
-        },
-        {
-          ...operativeEvse,
-          station: operativeStation,
-          name: 'station-operative-1',
-        },
-        {
-          ...occupiedEvse,
-          station: operativeStation,
-          name: 'station-operative-2',
-        },
-      ],
-      availableEvses: [
-        {
-          ...operativeEvse,
-          station: operativeStation,
-          name: 'station-operative-1',
-        },
-      ],
-      otherEvses: [
-        {
-          ...offlineStationEvse,
-          station: offlineStation,
-          name: 'station-offline-1',
-        },
-        {
-          ...occupiedEvse,
-          station: operativeStation,
-          name: 'station-operative-2',
-        },
-      ],
-    })
+    expect(getAvailableAndAllEvses([operativeStation, offlineStation])).toEqual(
+      {
+        evses: [
+          {
+            ...offlineStationEvse,
+            station: offlineStation,
+            name: 'station-offline-1',
+          },
+          {
+            ...operativeEvse,
+            station: operativeStation,
+            name: 'station-operative-1',
+          },
+          {
+            ...occupiedEvse,
+            station: operativeStation,
+            name: 'station-operative-2',
+          },
+        ],
+        availableEvses: [
+          {
+            ...operativeEvse,
+            station: operativeStation,
+            name: 'station-operative-1',
+          },
+        ],
+      },
+    )
   })
 
-  test('places an EVSE in otherEvses when the station status is null', () => {
+  test('places an EVSE not in available when the station status is null', () => {
     const chargingStation = {
       ...baseChargingStation,
       status: null as unknown as ChargingPointStatus,
     }
 
-    expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
+    expect(getAvailableAndAllEvses([chargingStation])).toEqual({
       evses: [
         {
           ...chargingStation.evses[0],
@@ -112,23 +99,16 @@ describe('getAvailableAndOtherEvses', () => {
         },
       ],
       availableEvses: [],
-      otherEvses: [
-        {
-          ...chargingStation.evses[0],
-          station: chargingStation,
-          name: 'station-1-1',
-        },
-      ],
     })
   })
 
-  test('places an EVSE in otherEvses when the station status is undefined', () => {
+  test('places an EVSE not in available when the station status is undefined', () => {
     const chargingStation = {
       ...baseChargingStation,
       status: undefined as unknown as ChargingPointStatus,
     }
 
-    expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
+    expect(getAvailableAndAllEvses([chargingStation])).toEqual({
       evses: [
         {
           ...chargingStation.evses[0],
@@ -137,23 +117,16 @@ describe('getAvailableAndOtherEvses', () => {
         },
       ],
       availableEvses: [],
-      otherEvses: [
-        {
-          ...chargingStation.evses[0],
-          station: chargingStation,
-          name: 'station-1-1',
-        },
-      ],
     })
   })
 
-  test('places an EVSE in otherEvses when the EVSE status is null', () => {
+  test('places an EVSE not in available when the EVSE status is null', () => {
     const chargingStation = {
       ...baseChargingStation,
       evses: [{...baseEvse, status: null as unknown as ChargingPointStatus}],
     }
 
-    expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
+    expect(getAvailableAndAllEvses([chargingStation])).toEqual({
       evses: [
         {
           ...chargingStation.evses[0],
@@ -162,17 +135,10 @@ describe('getAvailableAndOtherEvses', () => {
         },
       ],
       availableEvses: [],
-      otherEvses: [
-        {
-          ...chargingStation.evses[0],
-          station: chargingStation,
-          name: 'station-1-1',
-        },
-      ],
     })
   })
 
-  test('places an EVSE in otherEvses when the EVSE status is undefined', () => {
+  test('places an EVSE not in available when the EVSE status is undefined', () => {
     const chargingStation = {
       ...baseChargingStation,
       evses: [
@@ -180,7 +146,7 @@ describe('getAvailableAndOtherEvses', () => {
       ],
     }
 
-    expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
+    expect(getAvailableAndAllEvses([chargingStation])).toEqual({
       evses: [
         {
           ...chargingStation.evses[0],
@@ -189,33 +155,24 @@ describe('getAvailableAndOtherEvses', () => {
         },
       ],
       availableEvses: [],
-      otherEvses: [
-        {
-          ...chargingStation.evses[0],
-          station: chargingStation,
-          name: 'station-1-1',
-        },
-      ],
     })
   })
 
   test('throws when chargingStations is null', () => {
     expect(
-      getAvailableAndOtherEvses(null as unknown as ChargingStation[]),
+      getAvailableAndAllEvses(null as unknown as ChargingStation[]),
     ).toEqual({
       evses: [],
       availableEvses: [],
-      otherEvses: [],
     })
   })
 
   test('throws when chargingStations is undefined', () => {
     expect(
-      getAvailableAndOtherEvses(undefined as unknown as ChargingStation[]),
+      getAvailableAndAllEvses(undefined as unknown as ChargingStation[]),
     ).toEqual({
       evses: [],
       availableEvses: [],
-      otherEvses: [],
     })
   })
 
@@ -225,10 +182,9 @@ describe('getAvailableAndOtherEvses', () => {
       evses: null as unknown as EVSE[],
     }
 
-    expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
+    expect(getAvailableAndAllEvses([chargingStation])).toEqual({
       evses: [],
       availableEvses: [],
-      otherEvses: [],
     })
   })
 
@@ -238,10 +194,9 @@ describe('getAvailableAndOtherEvses', () => {
       evses: undefined as unknown as EVSE[],
     }
 
-    expect(getAvailableAndOtherEvses([chargingStation])).toEqual({
+    expect(getAvailableAndAllEvses([chargingStation])).toEqual({
       evses: [],
       availableEvses: [],
-      otherEvses: [],
     })
   })
 })

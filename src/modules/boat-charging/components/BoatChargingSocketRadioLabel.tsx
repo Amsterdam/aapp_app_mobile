@@ -1,5 +1,4 @@
 import type {EVSEWithStation} from '@/modules/boat-charging/types'
-import type {ComponentProps} from 'react'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {BoatChargingSocketStatusTag} from '@/modules/boat-charging/components/BoatChargingSocketStatusTag'
@@ -7,15 +6,9 @@ import {BoatChargingSocketStatusTag} from '@/modules/boat-charging/components/Bo
 export const BoatChargingSocketRadioLabel = ({
   name,
   status,
-  width,
-}: Pick<EVSEWithStation, 'name' | 'status'> & {
-  width?: ComponentProps<typeof BoatChargingSocketStatusTag>['width']
-}) => (
+}: Pick<EVSEWithStation, 'name' | 'status'>) => (
   <Row gutter="sm">
-    <BoatChargingSocketStatusTag
-      status={status}
-      width={width}
-    />
+    <BoatChargingSocketStatusTag status={status} />
     <Phrase>{name}</Phrase>
   </Row>
 )
