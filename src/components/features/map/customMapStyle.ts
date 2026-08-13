@@ -49,4 +49,13 @@ export const customMapStyle: MapStyleElement[] = [
       },
     ],
   },
+  {
+    featureType: 'poi',
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
 ]
