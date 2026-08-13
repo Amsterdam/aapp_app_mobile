@@ -59,7 +59,7 @@ const createStyles =
       text: {
         flexShrink: 1,
         color: color.text[textColor],
-        fontFamily: text.fontFamily[variant === 'quote' ? 'bold' : 'regular'],
+        fontFamily: text.fontFamily.regular,
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant],
         textAlign,
