@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {AccessCodeType} from '@/modules/access-code/types'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
@@ -17,6 +18,7 @@ export type AccessCodeState = {
   isCodeValid: boolean
   isEnteringCode: boolean
   isForgotCode: boolean
+  isLoginStepsActive: Array<ModuleSlug>
   useBiometrics?: boolean
 }
 
@@ -33,6 +35,7 @@ const initialValue: AccessCodeState = {
   isEnteringCode: false,
   isForgotCode: false,
   useBiometrics: undefined,
+  isLoginStepsActive: [],
 }
 
 export const accessCodeSlice = createSlice({
@@ -89,6 +92,22 @@ export const accessCodeSlice = createSlice({
     setIsForgotCode: (state, {payload}: PayloadAction<boolean>) => {
       state.isForgotCode = payload
     },
+    setLoginStepsActive: (
+      state,
+      {payload}: PayloadAction<[ModuleSlug, boolean]>,
+    ) => {
+      const [module, isActive] = payload
+
+      const moduleSet = new Set<ModuleSlug>(state.isLoginStepsActive)
+
+      if (isActive) {
+        moduleSet.add(module)
+      } else {
+        moduleSet.delete(module)
+      }
+
+      state.isLoginStepsActive = [...moduleSet]
+    },
     setUseBiometrics: (state, {payload}: PayloadAction<boolean>) => {
       state.useBiometrics = payload
     },
@@ -101,6 +120,7 @@ export const {
   setAttemptsLeft,
   setError,
   setIsCodeValid,
+  setLoginStepsActive,
 } = accessCodeSlice.actions
 
 export const selectCodeEntered = (state: RootState) =>
@@ -138,3 +158,6 @@ export const selectCodeValidTimestamp = (state: RootState) =>
 
 export const selectUseBiometrics = (state: RootState) =>
   state[ReduxKey.accessCode].useBiometrics
+
+export const selectIsLoginStepsActive = (state: RootState) =>
+  state[ReduxKey.accessCode].isLoginStepsActive

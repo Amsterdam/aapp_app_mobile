@@ -6,16 +6,19 @@ import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputFie
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {setPendingScreen} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingGuestEmailForm = () => {
   const {navigate} = useNavigation()
+  const dispatch = useDispatch()
 
   const {
     onPress,
@@ -53,11 +56,13 @@ export const BoatChargingGuestEmailForm = () => {
         />
         <Button
           label="Inloggen"
-          onPress={() =>
-            navigate(BoatChargingRouteName.login, {
-              afterLoginRoute: [BoatChargingRouteName.termsAndConditions],
-            })
-          }
+          onPress={() => {
+            dispatch(
+              setPendingScreen([BoatChargingRouteName.termsAndConditions]),
+            )
+
+            navigate(BoatChargingRouteName.login)
+          }}
           testID="BoatChargingGuestEmailFormLoginButton"
           variant="secondary"
         />

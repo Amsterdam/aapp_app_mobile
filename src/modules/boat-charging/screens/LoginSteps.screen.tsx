@@ -1,63 +1,32 @@
 import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
-import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
+import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
-import {useLogin} from '@/modules/city-pass/hooks/useLogin'
-import {useRegisterCityPassOwner} from '@/modules/city-pass/hooks/useRegisterCityPassOwner'
-import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {RedirectErrorCodes} from '@/types/mijnAmsterdam'
 
-type Props = NavigationProps<CityPassRouteName.loginSteps>
-
-export const LoginStepsScreen = ({route}: Props) => {
-  const {
-    accessToken: deeplinkAccessToken,
-    errorCode,
-    errorMessage,
-    loginResult,
-    refreshToken: deeplinkRefreshToken,
-  } = route.params || {}
-
+export const LoginStepsScreen = () => {
   const {navigate} = useNavigation()
-  const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
-  const {accessCode} = useGetSecureAccessCode()
-  const isStepsComplete = isCityPassOwnerRegistered && accessCode
-  const {setIsLoginStepsActive} = useLoginSteps(ModuleSlug['city-pass'])
-  const login = useLogin()
+  const {isLoggedIn} = useIsLoggedIn()
+  const {accessCode, isLoading} = useGetSecureAccessCode()
+  const isStepsComplete = isLoggedIn && accessCode
+  const {setIsLoginStepsActive} = useLoginSteps(ModuleSlug['boat-charging'])
 
   useEffect(() => {
     setIsLoginStepsActive(true)
   }, [setIsLoginStepsActive])
 
-  useRegisterCityPassOwner({
-    loginResult,
-    deeplinkAccessToken,
-    deeplinkRefreshToken,
-    errorCode:
-      errorCode ?? (route.params?.['amp;errorCode'] as RedirectErrorCodes), // TODO: remove this once fixed at Mijn Amsterdam
-    errorMessage,
-  })
-
   const onPress = useCallback(() => {
-    if (!isCityPassOwnerRegistered) {
-      void login()
-
-      return
-    }
-
     if (!accessCode) {
       navigate(AccessCodeRouteName.setAccessCode)
 
@@ -67,14 +36,16 @@ export const LoginStepsScreen = ({route}: Props) => {
     if (isStepsComplete) {
       setIsLoginStepsActive(false)
     }
-  }, [
-    accessCode,
-    isCityPassOwnerRegistered,
-    isStepsComplete,
-    login,
-    navigate,
-    setIsLoginStepsActive,
-  ])
+  }, [accessCode, isStepsComplete, navigate, setIsLoginStepsActive])
+
+  if (isLoading) {
+    return (
+      <PleaseWait
+        showFeedback
+        testID="BoatChargingLoginStepsScreenPleaseWait"
+      />
+    )
+  }
 
   return (
     <Screen
@@ -85,22 +56,22 @@ export const LoginStepsScreen = ({route}: Props) => {
             accessibilityLabel={
               isStepsComplete
                 ? 'Gereed'
-                : isCityPassOwnerRegistered
+                : isLoggedIn
                   ? 'Volgende. Ga naar toegangscode instellen.'
-                  : 'Volgende. Ga naar inloggen met DigiD.'
+                  : 'Volgende. Ga naar inloggen boot laden.'
             }
             label={isStepsComplete ? 'Gereed' : 'Volgende'}
             onPress={onPress}
-            testID="CityPassLoginScreenNextButton"
+            testID="BoatChargingLoginStepsScreenNextButton"
           />
         </Box>
       }
-      testID="LoginStepsScreenButton">
+      testID="BoatChargingLoginStepsScreenButton">
       <Box>
         <Column gutter="lg">
           <Column gutter="sm">
             <Title
-              testID="LoginStepsScreenTitle"
+              testID="BoatChargingLoginStepsScreenTitle"
               text="Inloggen & beveiligen"
             />
             <Paragraph testID="LoginStepsScreenParagraph">
@@ -110,14 +81,14 @@ export const LoginStepsScreen = ({route}: Props) => {
           <View>
             <LoginItem
               isCurrent
-              isDone={isCityPassOwnerRegistered}
+              isDone={!!isLoggedIn}
               isNextDone={!!accessCode}
               numberIndicator={1}
-              text="Om te laten zien wie u bent."
-              title="Inloggen met DigiD"
+              text="Met uw gebruikersnaam en wachtwoord."
+              title="Inloggen"
             />
             <LoginItem
-              isCurrent={isCityPassOwnerRegistered}
+              isCurrent={!!isLoggedIn}
               isDone={!!accessCode}
               isLast
               numberIndicator={2}

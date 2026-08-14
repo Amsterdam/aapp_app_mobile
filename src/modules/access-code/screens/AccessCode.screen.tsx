@@ -9,6 +9,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {AuthenticateWithCodeOrBiometrics} from '@/modules/access-code/components/AuthenticateWithCodeOrBiometrics'
 import {EnterAccessCode} from '@/modules/access-code/components/EnterAccessCode'
+import {useAccessCodeGateContext} from '@/modules/access-code/hooks/useAccessCodeGateContext'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -17,14 +18,11 @@ type Props = NavigationProps<AccessCodeRouteName.accessCode>
 
 export const AccessCodeScreen = ({navigation}: Props) => {
   const {setIsForgotCode, setIsEnteringCode} = useEnterAccessCode()
+  const {hasForgotCodeScreen} = useAccessCodeGateContext()
 
   const currentModule =
     (navigation.getParent()?.getState().routes.at(-1)?.name as ModuleSlug) ??
     ModuleSlug.home
-
-  const prevModule = navigation.getParent()?.getState().routes.at(-2)?.name as
-    | ModuleSlug
-    | undefined
 
   const onForgotCode = useCallback(() => {
     setIsForgotCode(true)
@@ -48,7 +46,7 @@ export const AccessCodeScreen = ({navigation}: Props) => {
               text="Voer uw toegangscode in"
             />
             <EnterAccessCode />
-            {prevModule !== ModuleSlug.user && (
+            {!!hasForgotCodeScreen && (
               <Button
                 label="Toegangscode vergeten"
                 onPress={onForgotCode}

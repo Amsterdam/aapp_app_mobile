@@ -1,5 +1,6 @@
 import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
+import type {NavigateTo} from '@/app/navigation/types'
 import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
@@ -17,6 +18,10 @@ export type BoatChargingState = {
   lastGuestSessionId?: string
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
+  /**
+   * Used for when access code flow gets triggered mid-stack
+   */
+  pendingScreen?: NavigateTo
   selectedBoatChargingPointId?: BoatChargingLocation['id']
 }
 
@@ -80,6 +85,12 @@ export const boatChargingSlice = createSlice({
     ) => {
       state.lastGuestSessionId = sessionId
     },
+    setPendingScreen: (
+      state,
+      {payload}: PayloadAction<NavigateTo | undefined>,
+    ) => {
+      state.pendingScreen = payload
+    },
     addCompletedSessionSeenId: (
       state,
       {payload: sessionId}: PayloadAction<string>,
@@ -101,6 +112,7 @@ export const {
   setBoatChargingLoggedInUsername,
   setLastApprovedTermsVersionWhileLoggedIn,
   setLastGuestSessionId,
+  setPendingScreen,
   addCompletedSessionSeenId,
 } = boatChargingSlice.actions
 
@@ -149,3 +161,6 @@ export const selectLastApprovedTermsVersionWhileLoggedIn = (state: RootState) =>
 
 export const selectCompletedSessionSeenIds = (state: RootState) =>
   state[ReduxKey.boatCharging].completedSessionSeenIds ?? []
+
+export const selectPendingScreen = (state: RootState) =>
+  state[ReduxKey.boatCharging].pendingScreen

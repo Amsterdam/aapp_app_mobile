@@ -7,13 +7,13 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
 import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
-import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {
   cityPassScreenConfig,
@@ -23,6 +23,7 @@ import {CityPassForgotAccessCodeScreen} from '@/modules/city-pass/screens/CityPa
 import {CityPassIntroScreen} from '@/modules/city-pass/screens/CityPassIntro.screen'
 import {LoginStepsScreen} from '@/modules/city-pass/screens/LoginSteps.screen'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {sortEntriesByKeyFirst} from '@/utils/sort/sortEntriesByKeyFirst'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -33,7 +34,7 @@ export const ModuleStack = () => {
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const {accessCode, isLoading} = useGetSecureAccessCode()
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
-  const {isLoginStepsActive} = useLoginSteps()
+  const {isLoginStepsActive} = useLoginSteps(ModuleSlug['city-pass'])
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
   const {pendingScreen} = usePendingScreen<CityPassScreenConfigRoutes>()
   const sortedScreenConfig = sortEntriesByKeyFirst(

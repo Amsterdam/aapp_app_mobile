@@ -1,14 +1,18 @@
 import {TransitionPresets} from '@react-navigation/stack'
-import type {ReactNode} from 'react'
+import {useCallback, type ReactNode} from 'react'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {
   type RootStackParams,
   type StackNavigationRouteConfig,
   type StackNavigationRoutes,
 } from '@/app/navigation/types'
-import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
-import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
-import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Center} from '@/components/ui/layout/Center'
+import {
+  AccessCodeGateStateName,
+  useAccessCodeGateState,
+} from '@/modules/access-code/hooks/useAccessCodeGateState'
+import {AccessCodeGateProvider} from '@/modules/access-code/providers/AccessCodeGate.provider'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
@@ -34,6 +38,12 @@ type AccessCodeGateConfig = {
    * loginSteps - Defines the routes and screens that are part of the login process into the module, as part of the access-code flow.
    */
   loginSteps?: StackNavigationRoutes<Record<string, unknown>>
+  /**
+   * shouldRenderGate - Whether the access code gate should be rendered.
+   * @example ```shouldRenderGate: isLoggedIn === true```
+   * @default true
+   */
+  shouldRenderGate?: boolean
 }
 
 /**
@@ -44,101 +54,118 @@ type AccessCodeGateConfig = {
  */
 export const useAccessCodeGate = (
   Stack: ReturnType<typeof createStackNavigator<RootStackParams>>,
-  config?: AccessCodeGateConfig,
+  {
+    loginSteps,
+    isLoginStepsActive,
+    forgotCodeScreen,
+    shouldRenderGate = true,
+  }: AccessCodeGateConfig = {},
 ) => {
-  const {accessCode, isLoading} = useGetSecureAccessCode()
-  const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
-  const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
+  const state = useAccessCodeGateState(isLoginStepsActive)
 
-  const {loginSteps, isLoginStepsActive, forgotCodeScreen} = config || {}
+  const renderFlow = useCallback(
+    (stack: ReactNode) => {
+      switch (state) {
+        case AccessCodeGateStateName.biometricsPermission:
+          return (
+            <Stack.Screen
+              component={BiometricsPermissionScreen}
+              name={AccessCodeRouteName.biometricsPermission}
+              options={{
+                headerTitle: 'Sneller toegang',
+              }}
+            />
+          )
 
-  return (stack: ReactNode): ReactNode => {
-    if (useBiometrics === undefined && isEnrolled && isCodeValid) {
-      return (
-        <Stack.Screen
-          component={BiometricsPermissionScreen}
-          name={AccessCodeRouteName.biometricsPermission}
-          options={{
-            headerTitle: 'Sneller toegang',
-          }}
-        />
-      )
-    }
+        case AccessCodeGateStateName.allowed:
+          return stack
 
-    if (isCodeValid) {
-      return stack
-    }
+        case AccessCodeGateStateName.invalid:
+          return (
+            <Stack.Screen
+              component={AccessCodeInvalidScreen}
+              name={AccessCodeRouteName.accessCodeInvalid}
+            />
+          )
 
-    if (isLoading) {
-      return (
-        <Stack.Screen
-          name={AccessCodeGateRouteName.loading}
-          options={{
-            ...TransitionPresets.ModalFadeTransition,
-          }}>
-          {() => null}
-        </Stack.Screen>
-      )
-    }
+        case AccessCodeGateStateName.forgotCode:
+          if (forgotCodeScreen) {
+            return <Stack.Screen {...forgotCodeScreen} />
+          } else {
+            return null
+          }
 
-    if (isForgotCode && forgotCodeScreen) {
-      return <Stack.Screen {...forgotCodeScreen} />
-    }
-
-    if (!accessCode || isLoginStepsActive) {
-      return (
-        <Stack.Group>
-          {!!loginSteps &&
-            Object.entries(loginSteps).map(([key, route]) => (
+        case AccessCodeGateStateName.setup:
+          return (
+            <>
+              {!!loginSteps &&
+                Object.entries(loginSteps).map(([key, route]) => (
+                  <Stack.Screen
+                    key={key}
+                    {...route}
+                  />
+                ))}
               <Stack.Screen
-                key={key}
-                {...route}
+                component={SetAccessCodeScreen}
+                name={AccessCodeRouteName.setAccessCode}
+                options={{headerTitle: 'Toegangscode kiezen'}}
               />
-            ))}
-          <Stack.Screen
-            component={SetAccessCodeScreen}
-            name={AccessCodeRouteName.setAccessCode}
-            options={{headerTitle: 'Toegangscode kiezen'}}
+              <Stack.Screen
+                component={ConfirmAccessCodeScreen}
+                name={AccessCodeRouteName.confirmAccessCode}
+                options={{headerTitle: 'Toegangscode herhalen'}}
+              />
+            </>
+          )
+
+        case AccessCodeGateStateName.accessCode:
+          return (
+            <Stack.Screen
+              component={AccessCodeScreen}
+              name={AccessCodeRouteName.accessCode}
+              options={{
+                headerTitle: 'Toegangscode invoeren',
+                ...TransitionPresets.ModalFadeTransition,
+              }}
+            />
+          )
+
+        case AccessCodeGateStateName.fallback:
+        case AccessCodeGateStateName.loading:
+        default:
+          return (
+            <Stack.Screen
+              name={AccessCodeGateRouteName.loading}
+              options={{
+                ...TransitionPresets.ModalFadeTransition,
+              }}>
+              {() => (
+                <Center>
+                  <PleaseWait
+                    showFeedback
+                    testID="AccessCodeGatePleaseWait"
+                  />
+                </Center>
+              )}
+            </Stack.Screen>
+          )
+      }
+    },
+    [state, Stack, loginSteps, forgotCodeScreen],
+  )
+
+  return useCallback(
+    (stack: ReactNode): ReactNode => (
+      <Stack.Group
+        screenLayout={props => (
+          <AccessCodeGateProvider
+            {...props}
+            hasForgotCodeScreen={!!forgotCodeScreen}
           />
-          <Stack.Screen
-            component={ConfirmAccessCodeScreen}
-            name={AccessCodeRouteName.confirmAccessCode}
-            options={{headerTitle: 'Toegangscode herhalen'}}
-          />
-        </Stack.Group>
-      )
-    }
-
-    if (attemptsLeft > 0) {
-      return (
-        <Stack.Screen
-          component={AccessCodeScreen}
-          name={AccessCodeRouteName.accessCode}
-          options={{
-            headerTitle: 'Toegangscode invoeren',
-            ...TransitionPresets.ModalFadeTransition,
-          }}
-        />
-      )
-    }
-
-    if (attemptsLeft === 0) {
-      return (
-        <Stack.Screen
-          component={AccessCodeInvalidScreen}
-          name={AccessCodeRouteName.accessCodeInvalid}
-        />
-      )
-    }
-
-    return (
-      <Stack.Screen
-        name={AccessCodeGateRouteName.fallback}
-        options={{
-          ...TransitionPresets.ModalFadeTransition,
-        }}>
-        {() => null}
-      </Stack.Screen>
-    )
-  }
+        )}>
+        {!shouldRenderGate ? stack : renderFlow(stack)}
+      </Stack.Group>
+    ),
+    [Stack, renderFlow, shouldRenderGate, forgotCodeScreen],
+  )
 }

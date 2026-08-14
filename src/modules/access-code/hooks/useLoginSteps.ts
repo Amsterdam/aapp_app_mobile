@@ -1,28 +1,32 @@
 import {useCallback} from 'react'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useUnsetCode} from '@/modules/access-code/hooks/useUnsetCode'
-import {AccessCodeType} from '@/modules/access-code/types'
 import {
   selectIsLoginStepsActive,
   setLoginStepsActive,
-} from '@/modules/parking/slice'
+} from '@/modules/access-code/slice'
+import {AccessCodeType} from '@/modules/access-code/types'
 
-export const useLoginSteps = () => {
+export const useLoginSteps = (module: ModuleSlug) => {
+  const activeLoginSteps = useSelector(selectIsLoginStepsActive)
   const dispatch = useDispatch()
-  const isLoginStepsActive = useSelector(selectIsLoginStepsActive)
   const unsetCodeConfirmed = useUnsetCode(AccessCodeType.codeConfirmed)
 
   const setIsLoginStepsActive = useCallback(
     (isActive: boolean) => {
-      dispatch(setLoginStepsActive(isActive))
+      dispatch(setLoginStepsActive([module, isActive]))
 
       if (!isActive) {
         unsetCodeConfirmed()
       }
     },
-    [dispatch, unsetCodeConfirmed],
+    [dispatch, module, unsetCodeConfirmed],
   )
 
-  return {isLoginStepsActive, setIsLoginStepsActive}
+  return {
+    isLoginStepsActive: activeLoginSteps.includes(module),
+    setIsLoginStepsActive,
+  }
 }
