@@ -142,5 +142,6 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
     isError: isError || isInitSessionError,
     refetch,
     form,
+    shouldRefetchTerms: isError,
   }
 }

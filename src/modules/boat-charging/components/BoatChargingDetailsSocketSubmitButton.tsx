@@ -31,8 +31,15 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: {id: string}) => {
     isError: isErrorSessions,
   } = useBoatChargingSessions()
 
-  const {onPress, isLoading, isError, disabled, mustApproveTerms, refetch} =
-    useInitSession(BoatChargingInitSessionStep.selectSocket)
+  const {
+    onPress,
+    isLoading,
+    isError,
+    disabled,
+    mustApproveTerms,
+    refetch,
+    shouldRefetchTerms,
+  } = useInitSession(BoatChargingInitSessionStep.selectSocket)
 
   const onSubmit = useCallback(
     (params: NewSessionFormValues) => {
@@ -83,7 +90,7 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: {id: string}) => {
           isLoading={isLoading}
           label="Betalen en laden"
           marginTop="auto"
-          onPress={isError ? refetch : form.handleSubmit(onSubmit)}
+          onPress={shouldRefetchTerms ? refetch : form.handleSubmit(onSubmit)}
           testID="BoatChargingDetailsChooseSocketSubmitButton"
         />
       </Box>
