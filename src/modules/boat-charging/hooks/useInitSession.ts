@@ -4,6 +4,7 @@ import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useStore} from '@/hooks/redux/useStore'
+import {alerts} from '@/modules/boat-charging/alerts'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
@@ -15,6 +16,7 @@ import {
   selectBoatChargingLoggedInUsername,
   selectLastApprovedTermsVersionWhileLoggedIn,
 } from '@/modules/boat-charging/slice'
+import {useAlert} from '@/store/slices/alert'
 import {validateEmail} from '@/utils/validate'
 
 export enum BoatChargingInitSessionStep {
@@ -41,6 +43,7 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
   const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
   const openWebUrl = useOpenWebUrl()
   const store = useStore()
+  const {setAlert} = useAlert()
 
   const onPress = useCallback(
     (params: NewSessionFormValues) => {
@@ -107,9 +110,14 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         return_url: 'amsterdam://boat-charging/payment',
       })
         .unwrap()
-        .then(({checkout_url}) => {
-          openWebUrl(checkout_url)
-        })
+        .then(
+          ({checkout_url}) => {
+            openWebUrl(checkout_url)
+          },
+          () => {
+            setAlert(alerts.initializeFailed)
+          },
+        )
     },
     [
       initSession,
@@ -118,6 +126,7 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
       navigate,
       navigation,
       openWebUrl,
+      setAlert,
       step,
       store,
       terms?.version,
@@ -133,5 +142,6 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
     isError: isError || isInitSessionError,
     refetch,
     form,
+    shouldRefetchTerms: isError,
   }
 }
