@@ -3,7 +3,9 @@ import {Box} from '@/components/ui/containers/Box'
 import {BoatChargingGuestEmailForm} from '@/modules/boat-charging/components/BoatChargingGuestEmailForm'
 
 export const BoatChargingGuestEmailScreen = () => (
-  <Screen testID="BoatChargingGuestEmailScreen">
+  <Screen
+    hasStickyAlert
+    testID="BoatChargingGuestEmailScreen">
     <Box grow>
       <BoatChargingGuestEmailForm />
     </Box>

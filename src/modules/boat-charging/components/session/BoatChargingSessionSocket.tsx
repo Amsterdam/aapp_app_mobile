@@ -13,6 +13,8 @@ export const BoatChargingSessionSocket = ({socketNumber, stationId}: Props) => {
     return null
   }
 
+  const socketNumberString = `${stationId}-${socketNumber}`
+
   return (
     <Column>
       <Title
@@ -20,9 +22,7 @@ export const BoatChargingSessionSocket = ({socketNumber, stationId}: Props) => {
         testID="BoatChargingSessionSocketTitle"
         text="Stopcontact"
       />
-      <Phrase>
-        {stationId}-{socketNumber}
-      </Phrase>
+      <Phrase>{socketNumberString}</Phrase>
     </Column>
   )
 }

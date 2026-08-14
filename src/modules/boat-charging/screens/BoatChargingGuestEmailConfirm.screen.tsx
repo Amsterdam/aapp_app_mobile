@@ -32,7 +32,9 @@ export const BoatChargingGuestEmailConfirmScreen = () => {
   }
 
   return (
-    <Screen testID="BoatChargingGuestEmailConfirmScreen">
+    <Screen
+      hasStickyAlert
+      testID="BoatChargingGuestEmailConfirmScreen">
       <Box grow>
         <Column gutter="xl">
           <Paragraph>

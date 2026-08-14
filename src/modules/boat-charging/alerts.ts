@@ -10,6 +10,12 @@ export const alerts = {
     text: 'De betaling is niet gelukt. Probeer het opnieuw.',
     testID: 'BoatChargingPaymentFailedAlert',
   },
+  initializeFailed: {
+    title: 'Betaling kon niet worden gestart',
+    variant: AlertVariant.negative,
+    text: 'Probeer het opnieuw.',
+    testID: 'BoatChargingInitializeFailedAlert',
+  },
   chargingStoppedSuccess: {
     title: 'Het laden is gestopt.',
     variant: AlertVariant.positive,

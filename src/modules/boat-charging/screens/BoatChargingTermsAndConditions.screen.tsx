@@ -61,6 +61,7 @@ export const BoatChargingTermsAndConditionsScreen = ({}: Props) => {
 
   return (
     <Screen
+      hasStickyAlert
       stickyFooter={
         <Box>
           <Button
