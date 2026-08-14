@@ -9,6 +9,7 @@ import {alerts} from '@/modules/parking/alerts'
 import {ParkingAddMoneyButton} from '@/modules/parking/components/ParkingAddMoneyButton'
 import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {useStartSessionMutation} from '@/modules/parking/service'
 import {useVisitorVehicleId} from '@/modules/parking/slice'
 import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
@@ -37,7 +38,8 @@ export const ParkingStartSessionButton = () => {
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
   const [startSession, {isLoading}] = useStartSessionMutation()
-  const {goBack} = useNavigation()
+  const navigation = useNavigation()
+  const {goBack} = navigation
   const openWebUrl = useOpenWebUrl()
   const {registerDeviceIfPermitted} = useRegisterDevice()
   const openSurveyBottomsheet = useOpenBottomsheetIfSurveyShouldShow(
@@ -112,7 +114,7 @@ export const ParkingStartSessionButton = () => {
                   ),
                 Duration.normal,
               )
-              goBack()
+              navigation.popTo(ParkingRouteName.dashboard)
             },
             (error: {
               data?: {code?: string; detail?: string}
@@ -158,7 +160,7 @@ export const ParkingStartSessionButton = () => {
       startSession,
       report_code,
       registerDeviceIfPermitted,
-      goBack,
+      navigation,
       setVisitorVehicleId,
       openWebUrl,
       setAlert,
