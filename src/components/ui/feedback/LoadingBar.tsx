@@ -4,6 +4,7 @@ import Animated, {
   Easing,
   useAnimatedProps,
   useSharedValue,
+  withDelay,
   withRepeat,
   withTiming,
 } from 'react-native-reanimated'
@@ -12,7 +13,8 @@ import {useTheme} from '@/themes/useTheme'
 
 const BAR_WIDTH = 100
 const BAR_HEIGHT = 8
-const ANIMATION_DURATION = 2000
+const ANIMATION_DURATION = 1500
+const ANIMATION_DELAY = 800
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect)
 
@@ -21,10 +23,13 @@ export const LoadingBar = () => {
 
   useEffect(() => {
     translateX.value = withRepeat(
-      withTiming(2, {
-        duration: ANIMATION_DURATION,
-        easing: Easing.out(Easing.quad),
-      }),
+      withDelay(
+        ANIMATION_DELAY,
+        withTiming(1, {
+          duration: ANIMATION_DURATION,
+          easing: Easing.linear,
+        }),
+      ),
       -1,
     )
 
