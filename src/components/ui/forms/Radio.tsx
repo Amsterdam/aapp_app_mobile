@@ -10,6 +10,8 @@ import {Size} from '@/components/ui/layout/Size'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useTheme} from '@/themes/useTheme'
 
+const RADIO_SIZE = 24
+
 export type RadioProps = {
   disabledStyle?: 'default' | 'hidden' | 'none'
   isSelected: boolean
@@ -26,9 +28,9 @@ const RadioIndicator = ({checked, disabled = false}: RadioIndicatorProps) => {
 
   return (
     <Svg
-      height={24}
+      height={RADIO_SIZE}
       viewBox="0 0 24 24"
-      width={24}>
+      width={RADIO_SIZE}>
       <Circle
         cx={12}
         cy={12}
@@ -81,7 +83,7 @@ export const Radio = ({
     <Row gutter="sm">
       {!!disabled && disabledStyle === 'none' ? null : !!disabled &&
         disabledStyle === 'hidden' ? (
-        <Size width={24} />
+        <Size width={RADIO_SIZE} />
       ) : (
         <RadioIndicator
           checked={isSelected}

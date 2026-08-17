@@ -30,7 +30,7 @@ export type RadioGroupProps<T, LabelNode extends ReactNode = string> = {
   LogProps &
   Pick<RadioProps, 'disabledStyle'>
 
-export type RadioValue = string | number | boolean
+type RadioValue = string | number | boolean
 
 export const RadioGroup = <
   T extends RadioValue,
