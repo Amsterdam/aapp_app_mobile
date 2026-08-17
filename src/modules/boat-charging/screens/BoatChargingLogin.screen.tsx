@@ -6,18 +6,19 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {BoatChargingLoginForm} from '@/modules/boat-charging/components/BoatChargingLoginForm'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const BoatChargingLoginScreen = () => {
   const {hasValidAccessToken, isAuthenticated, signOut} = useOpenIdConnectAuth()
   const isLoggedIn = isAuthenticated && hasValidAccessToken
 
-  const {canGoBack, goBack} = useNavigation()
+  const navigation = useNavigation()
 
   useFocusAndForegroundEffect(() => {
-    if (canGoBack() && isLoggedIn) {
-      goBack()
+    if (isLoggedIn) {
+      navigation.replace(ModuleSlug['boat-charging'])
     }
-  }, [isLoggedIn, canGoBack, goBack])
+  }, [isLoggedIn, navigation])
 
   return (
     <Screen

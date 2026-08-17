@@ -7,6 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
@@ -14,10 +15,11 @@ import {
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {setPendingScreen} from '@/modules/boat-charging/slice'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingGuestEmailForm = () => {
-  const {navigate} = useNavigation()
+  const navigation = useNavigation()
   const dispatch = useDispatch()
 
   const {
@@ -30,6 +32,14 @@ export const BoatChargingGuestEmailForm = () => {
     [onPress],
   )
   const {isLoggedIn} = useIsLoggedIn()
+
+  useFocusAndForegroundEffect(() => {
+    if (isLoggedIn) {
+      // When the user logs in from this flow, and returns to this screen after login,
+      // we need to 'reset' the navigation to the module root to render the pending screen.
+      navigation.replace(ModuleSlug['boat-charging'])
+    }
+  }, [isLoggedIn, navigation])
 
   return (
     <Column gutter="xl">
@@ -61,7 +71,7 @@ export const BoatChargingGuestEmailForm = () => {
               setPendingScreen([BoatChargingRouteName.termsAndConditions]),
             )
 
-            navigate(BoatChargingRouteName.login)
+            navigation.navigate(BoatChargingRouteName.login)
           }}
           testID="BoatChargingGuestEmailFormLoginButton"
           variant="secondary"

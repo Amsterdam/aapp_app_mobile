@@ -24,6 +24,10 @@ export const AccessCodeScreen = ({navigation}: Props) => {
     (navigation.getParent()?.getState().routes.at(-1)?.name as ModuleSlug) ??
     ModuleSlug.home
 
+  const prevModule = navigation.getParent()?.getState().routes.at(-2)?.name as
+    | ModuleSlug
+    | undefined
+
   const onForgotCode = useCallback(() => {
     setIsForgotCode(true)
     // The module's stack automatically redirects user to forgot code screen.
@@ -31,6 +35,10 @@ export const AccessCodeScreen = ({navigation}: Props) => {
   }, [currentModule, navigation, setIsForgotCode])
 
   useBlurEffect(() => setIsEnteringCode(false))
+
+  // TODO: migrate city-pass stack to use accessCodeGate and remove prevModule variable https://gemeente-amsterdam.atlassian.net/browse/AM-1154
+  const shouldShowForgotCodeButton =
+    hasForgotCodeScreen || prevModule !== ModuleSlug.user
 
   return (
     <Screen
@@ -46,7 +54,7 @@ export const AccessCodeScreen = ({navigation}: Props) => {
               text="Voer uw toegangscode in"
             />
             <EnterAccessCode />
-            {!!hasForgotCodeScreen && (
+            {!!shouldShowForgotCodeButton && (
               <Button
                 label="Toegangscode vergeten"
                 onPress={onForgotCode}
