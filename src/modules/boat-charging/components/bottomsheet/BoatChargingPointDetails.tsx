@@ -1,7 +1,9 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
+import {Share} from 'react-native'
 import simplur from 'simplur'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
+import {ShareButton} from '@/components/ui/buttons/ShareButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -28,6 +30,7 @@ import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailableAndAllEvses'
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
+import {coordinatesToDDM} from '@/utils/transform/coordinatesToDDM'
 
 export const BoatChargingPointDetails = () => {
   const {navigate} = useNavigation()
@@ -87,6 +90,7 @@ export const BoatChargingPointDetails = () => {
   }
 
   const {address, status} = location
+  const coordinatesDDM = coordinatesToDDM(address.coordinates)
 
   const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[evses.length]}`
   const availableSocketsSentence = `${availableEvses.length} van ${evses.length} ${pluralizedSockets} vrij`
@@ -97,11 +101,24 @@ export const BoatChargingPointDetails = () => {
       insetBottom="md"
       insetHorizontal="md">
       <Column gutter="lg">
-        <Title
-          level="h3"
-          ref={autoFocus}
-          text={getAddressLine1(address)}
-        />
+        <Column gutter="xs">
+          <Title
+            level="h3"
+            ref={autoFocus}
+            text={getAddressLine1(address)}
+          />
+          {!!coordinatesDDM && (
+            <ShareButton
+              label="Coördinaten delen"
+              onPress={() => {
+                void Share.share({
+                  message: coordinatesDDM,
+                })
+              }}
+              testID="BoatChargingPointDetailsCoordinatesShareButton"
+            />
+          )}
+        </Column>
         <Column gutter="xs">
           <Row gutter="sm">
             <CustomMarkerIcon

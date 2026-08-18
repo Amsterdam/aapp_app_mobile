@@ -1,10 +1,11 @@
 import type {TestProps} from '@/components/ui/types'
+import type {Coordinates} from '@/types/location'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 
 type RouteButtonProps = {
   accessibilityLabel?: string
-  coordinates: {lat?: number; lon?: number}
+  coordinates: Partial<Coordinates>
 } & TestProps
 
 export const RouteButton = ({
