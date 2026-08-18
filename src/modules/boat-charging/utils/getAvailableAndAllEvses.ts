@@ -8,6 +8,9 @@ import {
 const compareByName = (a: EVSEWithStation, b: EVSEWithStation) =>
   a.name.localeCompare(b.name)
 
+/**
+ * @deprecated Use `useAvailableAndAllEvses` instead. This function is only exported for testing purposes.
+ */
 export const getAvailableAndAllEvses = (
   chargingStations: ChargingStation[] = [],
 ) => {

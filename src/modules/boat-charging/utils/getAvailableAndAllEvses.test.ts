@@ -1,9 +1,9 @@
-import {getAvailableAndAllEvses} from '@/modules/boat-charging/hooks/useAvailableAndAllEvses'
 import {
   ChargingPointStatus,
   type ChargingStation,
   type EVSE,
 } from '@/modules/boat-charging/types'
+import {getAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailableAndAllEvses'
 
 const baseEvse: EVSE = {
   connectors: [],

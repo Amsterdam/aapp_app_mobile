@@ -2,12 +2,12 @@ import {useFormContext} from 'react-hook-form'
 import {RadioGroupControlled} from '@/components/ui/forms/RadioGroupControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {BoatChargingSocketRadioLabel} from '@/modules/boat-charging/components/BoatChargingSocketRadioLabel'
-import {useAvailableAndAllEvses} from '@/modules/boat-charging/hooks/useAvailableAndAllEvses'
 import {
   ChargingPointStatus,
   type BoatChargingSelectSocketFormValues,
   type ChargingStation,
 } from '@/modules/boat-charging/types'
+import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailableAndAllEvses'
 
 export const BoatChargingDetailsSocketRadioGroup = ({
   hasActiveSession,
