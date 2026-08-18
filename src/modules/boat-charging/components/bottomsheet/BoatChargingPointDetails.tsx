@@ -111,9 +111,14 @@ export const BoatChargingPointDetails = () => {
             <ShareButton
               label="Coördinaten delen"
               onPress={() => {
-                void Share.share({
-                  message: formattedCoordinates,
-                })
+                void Share.share(
+                  {
+                    message: formattedCoordinates,
+                  },
+                  {
+                    dialogTitle: 'Coördinaten delen',
+                  },
+                )
               }}
               testID="BoatChargingPointDetailsCoordinatesShareButton"
             />

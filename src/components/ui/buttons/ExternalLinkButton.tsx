@@ -1,11 +1,11 @@
-import {Button, ButtonProps} from '@/components/ui/buttons/Button'
+import {Button, type ButtonProps} from '@/components/ui/buttons/Button'
 import {TestProps} from '@/components/ui/types'
 import {
   useOpenExternalLink,
   type ExternalLinkProps,
 } from '@/hooks/linking/useOpenExternalLink'
 
-type Props = ExternalLinkProps & ButtonProps & TestProps
+type Props = ExternalLinkProps & Omit<ButtonProps, 'onPress'> & TestProps
 
 export const ExternalLinkButton = ({
   accessibilityHint,
