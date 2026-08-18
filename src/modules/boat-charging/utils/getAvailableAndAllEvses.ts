@@ -8,7 +8,10 @@ import {
 const compareByName = (a: EVSEWithStation, b: EVSEWithStation) =>
   a.name.localeCompare(b.name)
 
-export const getAvailableAndOtherEvses = (
+/**
+ * @deprecated Use `useAvailableAndAllEvses` instead. This function is only exported for testing purposes.
+ */
+export const getAvailableAndAllEvses = (
   chargingStations: ChargingStation[] = [],
 ) => {
   const evses =
@@ -28,16 +31,11 @@ export const getAvailableAndOtherEvses = (
       status === ChargingPointStatus.OPERATIVE,
   )
 
-  const otherEvses = evses.filter(evse => !availableEvses.includes(evse))
-
   return {
     evses,
     availableEvses,
-    otherEvses,
   }
 }
 
-export const useAvailableAndOtherEvses = (
-  chargingStations: ChargingStation[],
-) =>
-  useMemo(() => getAvailableAndOtherEvses(chargingStations), [chargingStations])
+export const useAvailableAndAllEvses = (chargingStations: ChargingStation[]) =>
+  useMemo(() => getAvailableAndAllEvses(chargingStations), [chargingStations])

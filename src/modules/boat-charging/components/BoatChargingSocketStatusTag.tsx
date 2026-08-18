@@ -3,6 +3,8 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Tag} from '@/components/ui/text/Tag'
 import {ChargingPointStatus} from '@/modules/boat-charging/types'
 
+const SIZE = 60
+
 const STATUS_MAP: Record<ChargingPointStatus, string> = {
   [ChargingPointStatus.OPERATIVE]: 'Vrij',
   [ChargingPointStatus.OCCUPIED]: 'Bezet',
@@ -11,14 +13,10 @@ const STATUS_MAP: Record<ChargingPointStatus, string> = {
   [ChargingPointStatus.UNKNOWN]: 'Storing',
 }
 
-const WIDTH = {default: 60, wide: 90}
-
 export const BoatChargingSocketStatusTag = ({
   status,
-  width = 'default',
 }: {
   status: ChargingPointStatus
-  width?: keyof typeof WIDTH
 }) => (
   <Tag
     paddingVertical="no"
@@ -26,7 +24,7 @@ export const BoatChargingSocketStatusTag = ({
     variant={
       status === ChargingPointStatus.OPERATIVE ? 'positive' : 'secondary'
     }>
-    <Size width={WIDTH[width]}>
+    <Size width={SIZE}>
       <Phrase
         allowFontScaling={false}
         color="inverse"

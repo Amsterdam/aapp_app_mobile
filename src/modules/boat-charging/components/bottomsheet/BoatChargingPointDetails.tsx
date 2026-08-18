@@ -16,7 +16,6 @@ import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components/bottomsheet/BoatChargingPointDetailsButton'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
-import {useAvailableAndOtherEvses} from '@/modules/boat-charging/hooks/useAvailableAndOtherEvses'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
@@ -26,6 +25,7 @@ import {
 } from '@/modules/boat-charging/slice'
 import {ChargingPointStatus} from '@/modules/boat-charging/types'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
+import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailableAndAllEvses'
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -63,7 +63,7 @@ export const BoatChargingPointDetails = () => {
     return [maxKw, rate].filter(Boolean).join(' - ')
   }, [location])
 
-  const {availableEvses, evses} = useAvailableAndOtherEvses(
+  const {availableEvses, evses} = useAvailableAndAllEvses(
     location?.charging_stations ?? [],
   )
   const {reset} = useNewSessionFormContext()

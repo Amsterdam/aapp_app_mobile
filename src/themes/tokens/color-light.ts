@@ -211,6 +211,10 @@ export const lightColorTokens = {
       background: baseColor.primary.blue,
       border: baseColor.primary.blue,
     },
+    disabled: {
+      border: baseColor.neutral.grey3,
+      background: baseColor.neutral.grey1,
+    },
     focus: {
       border: baseColor.primary.black,
     },
