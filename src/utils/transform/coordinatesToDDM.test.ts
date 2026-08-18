@@ -7,6 +7,12 @@ describe('coordinatesToDDM', () => {
     )
   })
 
+  test('formats a latitude that rounds up to sixty minutes', () => {
+    expect(coordinatesToDDM({lat: 12.999999, lon: 4.9041})).toBe(
+      "13° 0.000' N, 004° 54.246' E",
+    )
+  })
+
   test('formats zero coordinates with north and east hemispheres', () => {
     expect(coordinatesToDDM({lat: 0, lon: 0})).toBe(
       "00° 0.000' N, 000° 0.000' E",

@@ -5,8 +5,9 @@ const toDegreesDecimalMinutes = (
   type: 'latitude' | 'longitude',
 ): string => {
   const absoluteValue = Math.abs(value)
-  const degrees = Math.floor(absoluteValue)
-  const minutes = (absoluteValue - degrees) * 60
+  const totalThousandthsOfMinute = Math.round(absoluteValue * 60000)
+  const degrees = Math.floor(totalThousandthsOfMinute / 60000)
+  const minutes = (totalThousandthsOfMinute % 60000) / 1000
 
   const hemisphere =
     type === 'latitude' ? (value >= 0 ? 'N' : 'S') : value >= 0 ? 'E' : 'W'
