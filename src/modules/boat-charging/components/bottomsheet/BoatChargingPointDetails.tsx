@@ -90,7 +90,7 @@ export const BoatChargingPointDetails = () => {
   }
 
   const {address, status} = location
-  const coordinatesDDM = coordinatesToDDM(address.coordinates)
+  const formattedCoordinates = coordinatesToDDM(address.coordinates)
 
   const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[evses.length]}`
   const availableSocketsSentence = `${availableEvses.length} van ${evses.length} ${pluralizedSockets} vrij`
@@ -107,12 +107,12 @@ export const BoatChargingPointDetails = () => {
             ref={autoFocus}
             text={getAddressLine1(address)}
           />
-          {!!coordinatesDDM && (
+          {!!formattedCoordinates && (
             <ShareButton
               label="Coördinaten delen"
               onPress={() => {
                 void Share.share({
-                  message: coordinatesDDM,
+                  message: formattedCoordinates,
                 })
               }}
               testID="BoatChargingPointDetailsCoordinatesShareButton"

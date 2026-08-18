@@ -2,7 +2,7 @@ import {Platform} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
 import {Button} from '@/components/ui/buttons/Button'
 
-type RouteButtonProps = {
+type Props = {
   accessibilityLabel?: string
   /**
    * @default "Delen"
@@ -16,7 +16,7 @@ export const ShareButton = ({
   onPress,
   accessibilityLabel = 'Delen',
   label = 'Delen',
-}: RouteButtonProps) => (
+}: Props) => (
   <Button
     accessibilityLabel={accessibilityLabel}
     alignSelf="flex-start"

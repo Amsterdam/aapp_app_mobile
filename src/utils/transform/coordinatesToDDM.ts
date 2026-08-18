@@ -20,6 +20,12 @@ const toDegreesDecimalMinutes = (
   return `${paddedDegrees}° ${minutes.toFixed(3)}' ${hemisphere}`
 }
 
+/**
+ * Formats coordinates into degrees decimal minutes (DDM) format.
+ * @param coordinates
+ * @returns The coordinates formatted in DDM, or undefined if the input is invalid.
+ * @example coordinatesToDDM({ lat: 52.3676, lon: 4.9041 }) // "52° 22.056' N, 004° 54.246' E"
+ */
 export const coordinatesToDDM = (
   coordinates: Coordinates | null | undefined,
 ): string | undefined => {
