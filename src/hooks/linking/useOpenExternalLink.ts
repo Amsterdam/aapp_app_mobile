@@ -3,15 +3,14 @@ import type {RedirectKey} from '@/modules/redirects/types'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 
-export type ExternalLinkProps =
-  | {
-      redirectKey: RedirectKey
-      url?: never
-    }
-  | {
-      redirectKey?: never
-      url: string
-    }
+export type ExternalLinkProps = Or<
+  {
+    redirectKey: RedirectKey
+  },
+  {
+    url: string
+  }
+>
 
 export function useOpenExternalLink({
   redirectKey,
