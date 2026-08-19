@@ -85,4 +85,16 @@ describe('formatTimeRangeToDisplay', () => {
 
     expect(formatTimeRangeToDisplay(startTime, endTime)).toBe('- 15 minuten')
   })
+
+  it('should process unit config correctly', () => {
+    const startTime = '2023-10-01T12:45:00'
+    const endTime = '2023-10-01T13:00:45'
+
+    expect(
+      formatTimeRangeToDisplay(startTime, endTime, {smallestUnit: 'seconds'}),
+    ).toBe('15 minuten en 45 seconden')
+    expect(
+      formatTimeRangeToDisplay(startTime, endTime, {smallestUnit: 'hours'}),
+    ).toBe('0 uur')
+  })
 })

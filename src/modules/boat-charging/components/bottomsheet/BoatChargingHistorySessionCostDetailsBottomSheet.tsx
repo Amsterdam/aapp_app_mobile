@@ -1,26 +1,19 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import type {BoatChargingSessionCostBreakdownItem} from '@/modules/boat-charging/types'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
-import {BottomSheetLabelValueRow} from '@/components/features/bottom-sheet/BottomSheetLabelValueRow'
+import {Divider} from '@/components/ui/Divider'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {BoatChargingHistorySessionCostDetailsInfoRow} from '@/modules/boat-charging/components/bottomsheet/BoatChargingHistorySessionCostDetailsInfoRow'
+import {boatChargingCostItemTypeMap} from '@/modules/boat-charging/constants/boatChargingCostItemTypeMap'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {useBoatChargingSessionCostBreakdownQuery} from '@/modules/boat-charging/service'
-import {BoatChargingCostBreakdownItemType} from '@/modules/boat-charging/types'
 import {formatNumber} from '@/utils/formatNumber'
-
-const BoatChargingCostBreakdownItemTypeToLabel: Record<
-  BoatChargingCostBreakdownItemType,
-  string
-> = {
-  [BoatChargingCostBreakdownItemType.ENERGY]: 'Stroom',
-  [BoatChargingCostBreakdownItemType.TIME]: 'Laadtijd',
-  [BoatChargingCostBreakdownItemType.PARKING_TIME]: 'Ligtijd',
-  [BoatChargingCostBreakdownItemType.FLAT]: 'Starttarief',
-}
 
 export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
   const {session} = useBoatChargingSession()
@@ -36,46 +29,71 @@ export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
       scroll
       testID="BoatChargingHistorySessionCostDetailsBottomSheet"
       withCloseButton>
-      <Box>
+      <Box
+        insetBottom="md"
+        insetHorizontal="md">
         <Column gutter="lg">
-          <Column gutter="md">
-            <Title
-              level="h3"
-              text="Kostenoverzicht"
-            />
-            {!!isLoading && (
-              <PleaseWait testID="BoatChargingHistorySessionCostDetailsBottomSheetPleaseWait" />
-            )}
-            {!!isError && (
-              <SomethingWentWrong testID="BoatChargingHistorySessionCostDetailsBottomSheetSomethingWentWrong" />
-            )}
-            {!!costBreakdown && (
-              <Column gutter="sm">
-                {costBreakdown.items.map(item => (
-                  <BottomSheetLabelValueRow
-                    key={item.type}
-                    label={BoatChargingCostBreakdownItemTypeToLabel[item.type]}
-                    value={formatNumber(item.cost_incl_vat, 'EUR')}
-                  />
-                ))}
-              </Column>
-            )}
-          </Column>
+          <Title
+            level="h3"
+            text="Kostenoverzicht"
+          />
+          {!!isLoading && (
+            <PleaseWait testID="BoatChargingHistorySessionCostDetailsBottomSheetPleaseWait" />
+          )}
+          {!!isError && (
+            <SomethingWentWrong testID="BoatChargingHistorySessionCostDetailsBottomSheetSomethingWentWrong" />
+          )}
+
           {!!costBreakdown && (
-            <Column gutter="xs">
-              <Title
-                level="h3"
-                text={`Totaal ${formatNumber(costBreakdown.total_incl_vat, 'EUR')}`}
+            <>
+              <BoatChargingSessionCostBreakdownItems
+                items={costBreakdown.items}
               />
-              <Phrase
-                color="secondary"
-                variant="small">
-                Prijzen zijn inclusief btw.
-              </Phrase>
-            </Column>
+
+              <Divider />
+
+              <Column gutter="xs">
+                <Row
+                  align="between"
+                  flex={1}>
+                  <Title
+                    level="h3"
+                    text="Totaal"
+                  />
+                  <Title
+                    level="h3"
+                    text={formatNumber(costBreakdown.total_incl_vat, 'EUR')}
+                  />
+                </Row>
+                <Phrase
+                  color="secondary"
+                  variant="small">
+                  Prijzen zijn inclusief btw.
+                </Phrase>
+              </Column>
+            </>
           )}
         </Column>
       </Box>
     </BottomSheet>
   )
 }
+
+export const BoatChargingSessionCostBreakdownItems = ({
+  items,
+}: {
+  items: BoatChargingSessionCostBreakdownItem[]
+}) => (
+  <Column gutter="sm">
+    {items.map(item =>
+      !item.cost_incl_vat ? null : (
+        <BoatChargingHistorySessionCostDetailsInfoRow
+          key={item.type}
+          label={boatChargingCostItemTypeMap[item.type].label}
+          meta={boatChargingCostItemTypeMap[item.type].meta(item)}
+          value={formatNumber(item.cost_incl_vat, 'EUR')}
+        />
+      ),
+    )}
+  </Column>
+)

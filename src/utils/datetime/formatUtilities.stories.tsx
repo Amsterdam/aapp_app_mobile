@@ -269,6 +269,15 @@ const DatetimeFormatUtilitiesDocs = () => {
             timeRangeExampleStart,
           ),
         },
+        {
+          label:
+            "formatTimeRangeToDisplay('2023-10-01T14:32:17', '2023-10-01T12:00:00', {smallestUnit: 'seconds'})",
+          result: formatTimeRangeToDisplay(
+            timeRangeExampleEnd,
+            timeRangeExampleStart,
+            {smallestUnit: 'seconds'},
+          ),
+        },
       ],
     },
     {
