@@ -6,16 +6,20 @@ import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputFie
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
+import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingGuestEmailForm = () => {
-  const {navigate} = useNavigation()
+  const navigation = useNavigation()
+  const {setPendingScreen} = useAccessCodePendingScreen()
 
   const {
     onPress,
@@ -27,6 +31,14 @@ export const BoatChargingGuestEmailForm = () => {
     [onPress],
   )
   const {isLoggedIn} = useIsLoggedIn()
+
+  useFocusAndForegroundEffect(() => {
+    if (isLoggedIn) {
+      // When the user logs in from this flow, and returns to this screen after login,
+      // we need to 'reset' the navigation to the module root to render the pending screen.
+      navigation.replace(ModuleSlug['boat-charging'])
+    }
+  }, [isLoggedIn, navigation])
 
   return (
     <Column gutter="xl">
@@ -52,11 +64,10 @@ export const BoatChargingGuestEmailForm = () => {
         />
         <Button
           label="Inloggen"
-          onPress={() =>
-            navigate(BoatChargingRouteName.login, {
-              afterLoginRoute: [BoatChargingRouteName.termsAndConditions],
-            })
-          }
+          onPress={() => {
+            setPendingScreen([BoatChargingRouteName.termsAndConditions])
+            navigation.navigate(BoatChargingRouteName.login)
+          }}
           testID="BoatChargingGuestEmailFormLoginButton"
           variant="secondary"
         />

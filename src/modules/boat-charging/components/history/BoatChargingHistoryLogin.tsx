@@ -4,11 +4,13 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingHistoryLogin = () => {
   const {navigate} = useNavigation()
+  const {setPendingScreen} = useAccessCodePendingScreen()
 
   return (
     <Column gutter="xl">
@@ -23,7 +25,10 @@ export const BoatChargingHistoryLogin = () => {
       <Column gutter="lg">
         <Button
           label="Inloggen"
-          onPress={() => navigate(BoatChargingRouteName.login)}
+          onPress={() => {
+            setPendingScreen([BoatChargingRouteName.history])
+            navigate(BoatChargingRouteName.login)
+          }}
           testID="BoatChargingHistoryLoginButton"
         />
         <ExternalLinkButton

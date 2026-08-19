@@ -9,9 +9,10 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
-import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const LoginStepsScreen = () => {
@@ -23,7 +24,7 @@ export const LoginStepsScreen = () => {
   const isLoggedIn = securePermitHolder || secureVisitor
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isLoggedIn && accessCode
-  const {setIsLoginStepsActive} = useLoginSteps()
+  const {setIsLoginStepsActive} = useLoginSteps(ModuleSlug.parking)
 
   useEffect(() => {
     setIsLoginStepsActive(true)

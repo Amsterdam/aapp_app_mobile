@@ -1,4 +1,3 @@
-import type {InStackTo} from '@/app/navigation/types'
 import type {
   BoatChargingLocation,
   BoatChargingSession,
@@ -7,6 +6,7 @@ import type {
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
+  forgotAccessCode = 'BoatChargingForgotAccessCode',
   guestEmail = 'BoatChargingGuestEmail',
   guestEmailConfirm = 'BoatChargingGuestEmailConfirm',
   help = 'BoatChargingHelp',
@@ -14,6 +14,7 @@ export enum BoatChargingRouteName {
   historySessionDetails = 'BoatChargingHistorySessionDetails',
   locationDetails = 'BoatChargingLocationDetails',
   login = 'BoatChargingLogin',
+  loginSteps = 'BoatChargingLoginSteps',
   map = 'BoatChargingMap',
   paymentResult = 'BoatChargingPaymentResult',
   termsAndConditions = 'BoatChargingTermsAndConditions',
@@ -28,11 +29,7 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.guestEmailConfirm]: undefined
   [BoatChargingRouteName.help]: undefined
   [BoatChargingRouteName.history]: undefined
-  [BoatChargingRouteName.login]:
-    | {
-        afterLoginRoute?: InStackTo
-      }
-    | undefined
+  [BoatChargingRouteName.login]: undefined
   [BoatChargingRouteName.activeSessionDetails]: {
     id: BoatChargingSession['id']
   }

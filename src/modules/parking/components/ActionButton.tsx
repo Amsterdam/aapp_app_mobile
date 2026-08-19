@@ -3,9 +3,9 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {clientModule as parkingModule} from '@/modules/parking'
-import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
@@ -22,7 +22,7 @@ export const ActionButton = () => {
   const {navigate} = useNavigation()
 
   const {accessCode} = useGetSecureAccessCode()
-  const {isLoginStepsActive} = useLoginSteps()
+  const {isLoginStepsActive} = useLoginSteps(ModuleSlug.parking)
   const parkingAccount = useParkingAccount()
   const {isInactive} = useGetCachedServerModule(parkingModule.slug)
 
