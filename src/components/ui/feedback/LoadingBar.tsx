@@ -13,8 +13,8 @@ import {useTheme} from '@/themes/useTheme'
 
 const BAR_WIDTH = 100
 const BAR_HEIGHT = 8
-const ANIMATION_DURATION = 1500
-const ANIMATION_DELAY = 800
+const ANIMATION_DURATION = 2000
+const ANIMATION_DELAY = 250
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect)
 
