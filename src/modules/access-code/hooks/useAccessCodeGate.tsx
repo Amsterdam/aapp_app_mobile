@@ -1,5 +1,6 @@
 import {TransitionPresets} from '@react-navigation/stack'
 import {useCallback, type ReactNode} from 'react'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {
   type RootStackParams,
@@ -31,10 +32,6 @@ type AccessCodeGateConfig = {
    */
   forgotCodeScreen?: StackNavigationRouteConfig<Record<string, unknown>>
   /**
-   * isLoginStepsActive - Indicates whether the login steps should show.
-   */
-  isLoginStepsActive?: boolean
-  /**
    * loginSteps - Defines the routes and screens that are part of the login process into the module, as part of the access-code flow.
    */
   loginSteps?: StackNavigationRoutes<Record<string, unknown>>
@@ -54,14 +51,14 @@ type AccessCodeGateConfig = {
  */
 export const useAccessCodeGate = (
   Stack: ReturnType<typeof createStackNavigator<RootStackParams>>,
+  module: ModuleSlug,
   {
     loginSteps,
-    isLoginStepsActive,
     forgotCodeScreen,
     shouldRenderGate = true,
   }: AccessCodeGateConfig = {},
 ) => {
-  const state = useAccessCodeGateState(isLoginStepsActive)
+  const state = useAccessCodeGateState(module)
 
   const renderFlow = useCallback(
     (stack: ReactNode) => {

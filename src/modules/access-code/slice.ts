@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import type {NavigateTo} from '@/app/navigation/types'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -19,6 +20,10 @@ export type AccessCodeState = {
   isEnteringCode: boolean
   isForgotCode: boolean
   isLoginStepsActive: Array<ModuleSlug>
+  /**
+   * Used for when access code flow gets triggered mid-stack
+   */
+  pendingScreen?: NavigateTo
   useBiometrics?: boolean
 }
 
@@ -108,6 +113,12 @@ export const accessCodeSlice = createSlice({
 
       state.isLoginStepsActive = [...moduleSet]
     },
+    setPendingScreen: (
+      state,
+      {payload}: PayloadAction<NavigateTo | undefined>,
+    ) => {
+      state.pendingScreen = payload
+    },
     setUseBiometrics: (state, {payload}: PayloadAction<boolean>) => {
       state.useBiometrics = payload
     },
@@ -120,6 +131,7 @@ export const {
   setAttemptsLeft,
   setError,
   setIsCodeValid,
+  setPendingScreen,
   setLoginStepsActive,
 } = accessCodeSlice.actions
 
@@ -159,5 +171,10 @@ export const selectCodeValidTimestamp = (state: RootState) =>
 export const selectUseBiometrics = (state: RootState) =>
   state[ReduxKey.accessCode].useBiometrics
 
-export const selectIsLoginStepsActive = (state: RootState) =>
-  state[ReduxKey.accessCode].isLoginStepsActive
+export const selectIsLoginStepsActive = (
+  state: RootState,
+  moduleSlug: ModuleSlug,
+) => state[ReduxKey.accessCode].isLoginStepsActive.includes(moduleSlug)
+
+export const selectPendingScreen = (state: RootState) =>
+  state[ReduxKey.accessCode].pendingScreen

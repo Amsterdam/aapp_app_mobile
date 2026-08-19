@@ -1,6 +1,8 @@
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 
 export enum AccessCodeGateStateName {
   accessCode = 'accessCode',
@@ -15,10 +17,11 @@ export enum AccessCodeGateStateName {
 }
 
 export const useAccessCodeGateState = (
-  isLoginStepsActive: boolean | undefined,
+  module: ModuleSlug,
 ): AccessCodeGateStateName => {
   const {accessCode, isLoading: isLoadingAccessCode} = useGetSecureAccessCode()
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
+  const {isLoginStepsActive} = useLoginSteps(module)
   const {
     isEnrolled,
     useBiometrics,

@@ -5,7 +5,6 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {usePendingScreen} from '@/hooks/navigation/usePendingScreen'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAccessCodeGate} from '@/modules/access-code/hooks/useAccessCodeGate'
-import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useIsLoggedIn} from '@/modules/parking/hooks/useIsLoggedIn'
 import {useIsRecentlyLoggedOut} from '@/modules/parking/hooks/useIsRecentlyLoggedOut'
@@ -44,9 +43,8 @@ export const ModuleStack = () => {
   )
 
   const {isRecentlyLoggedOut} = useIsRecentlyLoggedOut()
-  const {isLoginStepsActive} = useLoginSteps(ModuleSlug.parking)
 
-  const accessCodeGate = useAccessCodeGate(Stack, {
+  const accessCodeGate = useAccessCodeGate(Stack, ModuleSlug.parking, {
     loginSteps: {
       [ParkingRouteName.loginSteps]: {
         component: LoginStepsScreen,
@@ -56,7 +54,6 @@ export const ModuleStack = () => {
         },
       },
     },
-    isLoginStepsActive,
     forgotCodeScreen: {
       component: ParkingForgotAccessCodeScreen,
       name: ParkingRouteName.forgotAccessCode,

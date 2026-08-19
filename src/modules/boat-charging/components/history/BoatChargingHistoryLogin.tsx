@@ -4,14 +4,13 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {setPendingScreen} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingHistoryLogin = () => {
   const {navigate} = useNavigation()
-  const dispatch = useDispatch()
+  const {setPendingScreen} = useAccessCodePendingScreen()
 
   return (
     <Column gutter="xl">
@@ -27,7 +26,7 @@ export const BoatChargingHistoryLogin = () => {
         <Button
           label="Inloggen"
           onPress={() => {
-            dispatch(setPendingScreen([BoatChargingRouteName.history]))
+            setPendingScreen([BoatChargingRouteName.history])
             navigate(BoatChargingRouteName.login)
           }}
           testID="BoatChargingHistoryLoginButton"

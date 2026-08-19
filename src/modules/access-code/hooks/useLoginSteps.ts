@@ -10,7 +10,9 @@ import {
 import {AccessCodeType} from '@/modules/access-code/types'
 
 export const useLoginSteps = (module: ModuleSlug) => {
-  const activeLoginSteps = useSelector(selectIsLoginStepsActive)
+  const isLoginStepsActive = useSelector(state =>
+    selectIsLoginStepsActive(state, module),
+  )
   const dispatch = useDispatch()
   const unsetCodeConfirmed = useUnsetCode(AccessCodeType.codeConfirmed)
 
@@ -26,7 +28,7 @@ export const useLoginSteps = (module: ModuleSlug) => {
   )
 
   return {
-    isLoginStepsActive: activeLoginSteps.includes(module),
+    isLoginStepsActive,
     setIsLoginStepsActive,
   }
 }

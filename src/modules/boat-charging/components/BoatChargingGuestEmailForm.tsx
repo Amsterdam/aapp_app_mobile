@@ -6,21 +6,20 @@ import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputFie
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
+import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {setPendingScreen} from '@/modules/boat-charging/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const BoatChargingGuestEmailForm = () => {
   const navigation = useNavigation()
-  const dispatch = useDispatch()
+  const {setPendingScreen} = useAccessCodePendingScreen()
 
   const {
     onPress,
@@ -67,10 +66,7 @@ export const BoatChargingGuestEmailForm = () => {
         <Button
           label="Inloggen"
           onPress={() => {
-            dispatch(
-              setPendingScreen([BoatChargingRouteName.termsAndConditions]),
-            )
-
+            setPendingScreen([BoatChargingRouteName.termsAndConditions])
             navigation.navigate(BoatChargingRouteName.login)
           }}
           testID="BoatChargingGuestEmailFormLoginButton"
