@@ -61,10 +61,12 @@ describe('formatTimeDurationToDisplay', () => {
     ).toBe('59 seconden')
   })
 
-  it('should return 0 with appopriate unit for invalid inputs', () => {
+  it('should return 0 with appropriate unit for invalid inputs', () => {
     expect(formatTimeDurationToDisplay(null as unknown as number, 'hour')).toBe(
       '0 minuten',
     )
+
+    expect(formatTimeDurationToDisplay(Infinity, 'hour')).toBe('0 minuten')
 
     expect(
       formatTimeDurationToDisplay(undefined as unknown as number, 'hour', {

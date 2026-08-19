@@ -13,7 +13,8 @@ export const formatTimeDurationToDisplay = (
 ) => {
   const now = dayjs()
 
-  const isInvalid = Number.isNaN(Number(value))
+  const isInvalid =
+    Number.isNaN(Number(value)) || !Number.isFinite(Number(value))
   const valueGuard = isInvalid ? 0 : value
 
   if (isInvalid) {

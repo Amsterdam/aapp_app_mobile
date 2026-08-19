@@ -4,17 +4,17 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 
 type Props = {
+  details?: string
   label: string | number
-  meta?: string
   value: string | number
 }
 
 export const BoatChargingHistorySessionCostDetailsInfoRow = ({
   label,
-  meta,
+  details,
   value,
 }: Props) => (
-  <SingleSelectable testID={`BoatChargingHistorySessionCostDetailsInfoRow`}>
+  <SingleSelectable testID="BoatChargingHistorySessionCostDetailsInfoRow">
     <Column>
       <Row
         flex={1}
@@ -28,11 +28,11 @@ export const BoatChargingHistorySessionCostDetailsInfoRow = ({
           {value}
         </Phrase>
       </Row>
-      {!!meta && (
+      {!!details && (
         <Phrase
           accessible={false}
           color="secondary">
-          {meta}
+          {details}
         </Phrase>
       )}
     </Column>

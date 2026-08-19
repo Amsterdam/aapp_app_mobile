@@ -65,7 +65,7 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
       )
 
       expect(infoRows[index]).toContainElement(
-        getByText(boatChargingCostItemTypeMap[item.type].meta(item)),
+        getByText(boatChargingCostItemTypeMap[item.type].details(item)),
       )
     })
   })
@@ -109,23 +109,23 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
     expect(infoRows).toHaveLength(2)
 
     void [
-      (BoatChargingCostBreakdownItemType.TIME,
-      BoatChargingCostBreakdownItemType.FLAT),
+      BoatChargingCostBreakdownItemType.TIME,
+      BoatChargingCostBreakdownItemType.FLAT,
     ].forEach(type => {
       expect(queryByText(boatChargingCostItemTypeMap[type].label)).toBeNull()
 
       expect(
         queryByText(
-          boatChargingCostItemTypeMap[type].meta(
-            items.find(i => i.type === type)!,
+          boatChargingCostItemTypeMap[type].details(
+            items.find(item => item.type === type)!,
           ),
         ),
       ).toBeNull()
     })
 
     void [
-      (BoatChargingCostBreakdownItemType.ENERGY,
-      BoatChargingCostBreakdownItemType.PARKING_TIME),
+      BoatChargingCostBreakdownItemType.ENERGY,
+      BoatChargingCostBreakdownItemType.PARKING_TIME,
     ].forEach(type => {
       expect(
         queryByText(boatChargingCostItemTypeMap[type].label),
@@ -133,8 +133,8 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
 
       expect(
         queryByText(
-          boatChargingCostItemTypeMap[type].meta(
-            items.find(i => i.type === type)!,
+          boatChargingCostItemTypeMap[type].details(
+            items.find(item => item.type === type)!,
           ),
         ),
       ).not.toBeNull()

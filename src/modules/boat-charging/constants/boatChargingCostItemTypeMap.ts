@@ -6,27 +6,31 @@ import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
+const getItemString = (item: BoatChargingSessionCostBreakdownItem) =>
+  `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price, 'EUR')}`
+
 export const boatChargingCostItemTypeMap: Record<
   BoatChargingCostBreakdownItemType,
-  {label: string; meta: (item: BoatChargingSessionCostBreakdownItem) => string}
+  {
+    details: (item: BoatChargingSessionCostBreakdownItem) => string
+    label: string
+  }
 > = {
   [BoatChargingCostBreakdownItemType.ENERGY]: {
     label: 'Stroom',
-    meta: item =>
+    details: item =>
       `${formatKWH(item.volume)} × ${formatNumber(item.unit_price, 'EUR')} per kWh`,
   },
   [BoatChargingCostBreakdownItemType.TIME]: {
     label: 'Laadtijd',
-    meta: item =>
-      `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price, 'EUR')}`,
+    details: getItemString,
   },
   [BoatChargingCostBreakdownItemType.PARKING_TIME]: {
     label: 'Ligtijd',
-    meta: item =>
-      `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price, 'EUR')}`,
+    details: getItemString,
   },
   [BoatChargingCostBreakdownItemType.FLAT]: {
     label: 'Starttarief',
-    meta: () => 'Eenmalig',
+    details: () => 'Eenmalig',
   },
 }

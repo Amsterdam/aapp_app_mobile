@@ -57,10 +57,15 @@ export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
                   align="between"
                   flex={1}>
                   <Title
+                    accessibilityLabel={`Totaal ${formatNumber(
+                      costBreakdown.total_incl_vat,
+                      'EUR',
+                    )}`}
                     level="h3"
                     text="Totaal"
                   />
                   <Title
+                    accessible={false}
                     level="h3"
                     text={formatNumber(costBreakdown.total_incl_vat, 'EUR')}
                   />
@@ -88,9 +93,9 @@ export const BoatChargingSessionCostBreakdownItems = ({
     {items.map(item =>
       !item.cost_incl_vat ? null : (
         <BoatChargingHistorySessionCostDetailsInfoRow
+          details={boatChargingCostItemTypeMap[item.type].details(item)}
           key={item.type}
           label={boatChargingCostItemTypeMap[item.type].label}
-          meta={boatChargingCostItemTypeMap[item.type].meta(item)}
           value={formatNumber(item.cost_incl_vat, 'EUR')}
         />
       ),
