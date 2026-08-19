@@ -93,7 +93,7 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
     expect(infoRows).toHaveLength(0)
   })
 
-  it('renders appropriate row it that item row has costs', () => {
+  it('renders the appropriate rows when only some items have costs', () => {
     const items = [
       ITEMS.ENERGY,
       ITEMS.PARKING_TIME,
