@@ -159,5 +159,83 @@ export const Polygons = <P extends GeoJsonProperties>({
         },
       ],
     },
+    {
+      code: `export const Items = <const T,>({
+  items,
+}: {
+  items: T[]
+}) => items`,
+      output: `type Props<T> = {
+  items: T[]
+}
+export const Items = <const T,>({
+  items,
+}: Props<T>) => items`,
+      errors: [
+        {
+          messageId: 'noCombinedTypeForComponentProps',
+          data: {name: 'Items'},
+        },
+      ],
+    },
+    {
+      code: `export const Options = <T = string>({
+  items,
+}: {
+  items: T[]
+}) => items`,
+      output: `type Props<T = string> = {
+  items: T[]
+}
+export const Options = <T = string>({
+  items,
+}: Props<T>) => items`,
+      errors: [
+        {
+          messageId: 'noCombinedTypeForComponentProps',
+          data: {name: 'Options'},
+        },
+      ],
+    },
+    {
+      code: `export const PairList = <T, U extends NamedItem>({
+  items,
+}: {
+  items: Array<[T, U]>
+}) => items`,
+      output: `type Props<T, U extends NamedItem> = {
+  items: Array<[T, U]>
+}
+export const PairList = <T, U extends NamedItem>({
+  items,
+}: Props<T, U>) => items`,
+      errors: [
+        {
+          messageId: 'noCombinedTypeForComponentProps',
+          data: {name: 'PairList'},
+        },
+      ],
+    },
+    {
+      code: `type Props = {existing: string}
+const Items = <T = string>({
+  items,
+}: {
+  items: T[]
+}) => items`,
+      output: `type Props = {existing: string}
+type ItemsProps<T = string> = {
+  items: T[]
+}
+const Items = <T = string>({
+  items,
+}: ItemsProps<T>) => items`,
+      errors: [
+        {
+          messageId: 'noCombinedTypeForComponentProps',
+          data: {name: 'Items'},
+        },
+      ],
+    },
   ],
 })

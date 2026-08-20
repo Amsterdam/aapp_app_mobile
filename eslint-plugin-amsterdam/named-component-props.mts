@@ -233,9 +233,25 @@ const getTypeParameterDeclarationText = (
 ): string => {
   const typeParameterDeclaration = getTypeParameterDeclaration(targetNode)
 
-  return typeParameterDeclaration
-    ? sourceCode.getText(typeParameterDeclaration)
-    : ''
+  if (
+    !typeParameterDeclaration ||
+    typeParameterDeclaration.params.length === 0
+  ) {
+    return ''
+  }
+
+  const renderedParams = typeParameterDeclaration.params.map(typeParameter => {
+    const constraintText = typeParameter.constraint
+      ? ` extends ${sourceCode.getText(typeParameter.constraint)}`
+      : ''
+    const defaultText = typeParameter.default
+      ? ` = ${sourceCode.getText(typeParameter.default)}`
+      : ''
+
+    return `${typeParameter.name.name}${constraintText}${defaultText}`
+  })
+
+  return `<${renderedParams.join(', ')}>`
 }
 
 const getTypeParameterUsageText = (targetNode: ReportTarget): string => {
