@@ -1,8 +1,10 @@
 import simplur from 'simplur'
+import type {DurationUnitType} from 'dayjs/plugin/duration'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 
 export type Options = {
   format?: 'default' | 'short' | 'veryShort'
+  smallestUnit?: Extract<DurationUnitType, 'seconds' | 'minutes' | 'hours'>
 }
 
 const formatHours = (hours: number, format: NonNullable<Options['format']>) => {
@@ -20,6 +22,15 @@ const formatMinutes = (
   return simplur`${minutes} minu[ut|ten]`
 }
 
+const formatSeconds = (
+  seconds: number,
+  format: NonNullable<Options['format']>,
+) => {
+  if (format !== 'default') return `${seconds} sec`
+
+  return simplur`${seconds} second[e|en]`
+}
+
 const getDurationParts = (start: Dayjs, end: Dayjs) => {
   const isNegative = end.isBefore(start)
   const earlier = isNegative ? end : start
@@ -27,33 +38,77 @@ const getDurationParts = (start: Dayjs, end: Dayjs) => {
 
   const hours = later.diff(earlier, 'hour')
   const minutes = later.diff(earlier.add(hours, 'hour'), 'minute')
+  const seconds = later.diff(
+    earlier.add(hours, 'hour').add(minutes, 'minute'),
+    'second',
+  )
 
-  return {isNegative, hours, minutes}
+  return {isNegative, hours, minutes, seconds}
+}
+
+const constructTimeString = (
+  {smallestUnit = 'minutes', format = 'default'}: Options,
+  hours: number,
+  minutes: number,
+  seconds: number,
+) => {
+  const separator = format === 'veryShort' ? ' ' : ' en '
+  const hourString = formatHours(hours, format)
+
+  if (smallestUnit === 'hours') {
+    return hourString
+  }
+
+  const minutesString = formatMinutes(minutes, format)
+
+  if (smallestUnit === 'minutes') {
+    const parts = []
+
+    if (hours > 0) {
+      parts.push(hourString)
+    }
+
+    if (minutes > 0 || hours === 0) {
+      parts.push(minutesString)
+    }
+
+    return parts.join(separator)
+  }
+
+  const secondsString = formatSeconds(seconds, format)
+
+  const parts = []
+
+  if (hours > 0) {
+    parts.push(hourString)
+  }
+
+  if (minutes > 0) {
+    parts.push(minutesString)
+  }
+
+  if (seconds > 0 || (hours === 0 && minutes === 0)) {
+    parts.push(secondsString)
+  }
+
+  const additionalSeparator = format === 'veryShort' ? ' ' : ', '
+
+  return parts.length === 3
+    ? `${parts[0]}${additionalSeparator}${parts[1]}${separator}${parts[2]}`
+    : parts.join(separator)
 }
 
 export const formatTimeRangeToDisplay = (
   startTime: string | Dayjs,
   endTime: string | Dayjs,
-  {format = 'default'}: Options = {},
+  options: Options = {},
 ) => {
   const start = dayjs(startTime)
   const end = dayjs(endTime)
-  const {isNegative, hours, minutes} = getDurationParts(start, end)
+  const {isNegative, hours, minutes, seconds} = getDurationParts(start, end)
   const sign = isNegative ? '- ' : ''
 
-  const minutesText = formatMinutes(minutes, format)
+  const timeString = constructTimeString(options, hours, minutes, seconds)
 
-  if (hours === 0) {
-    return `${sign}${minutesText}`
-  }
-
-  const hoursText = formatHours(hours, format)
-
-  if (minutes === 0) {
-    return `${sign}${hoursText}`
-  }
-
-  const separator = format === 'veryShort' ? ' ' : ' en '
-
-  return `${sign}${hoursText}${separator}${minutesText}`
+  return `${sign}${timeString}`
 }

@@ -1,4 +1,5 @@
 import {type ManipulateType} from 'dayjs'
+import {devError} from '@/processes/development'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {
   formatTimeRangeToDisplay,
@@ -12,5 +13,15 @@ export const formatTimeDurationToDisplay = (
 ) => {
   const now = dayjs()
 
-  return formatTimeRangeToDisplay(now, now.add(value, unit), options)
+  const isInvalid =
+    Number.isNaN(Number(value)) || !Number.isFinite(Number(value))
+  const valueGuard = isInvalid ? 0 : value
+
+  if (isInvalid) {
+    devError(
+      `[formatTimeDurationToDisplay] The value ${value} is not a valid number.`,
+    )
+  }
+
+  return formatTimeRangeToDisplay(now, now.add(valueGuard, unit), options)
 }
