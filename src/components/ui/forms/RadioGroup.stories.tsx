@@ -3,7 +3,7 @@ import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 
 export default {
   component: RadioGroup,
-} as Meta<typeof RadioGroup>
+} satisfies Meta<typeof RadioGroup>
 
 export const Default: StoryObj<typeof RadioGroup> = {
   args: {

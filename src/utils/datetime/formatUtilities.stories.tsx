@@ -381,12 +381,12 @@ const DatetimeFormatUtilitiesDocs = () => {
   )
 }
 
-const meta: Meta<typeof DatetimeFormatUtilitiesDocs> = {
+const meta = {
   component: DatetimeFormatUtilitiesDocs,
   parameters: {
     layout: 'fullscreen',
   },
-}
+} satisfies Meta<typeof DatetimeFormatUtilitiesDocs>
 
 export default meta
 

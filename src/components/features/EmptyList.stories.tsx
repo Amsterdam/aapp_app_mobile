@@ -2,9 +2,9 @@ import {Size} from '../ui/layout/Size'
 import {EmptyList} from './EmptyList'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
-const meta: Meta<typeof EmptyList> = {
+const meta = {
   component: EmptyList,
-}
+} satisfies Meta<typeof EmptyList>
 
 export default meta
 

@@ -3,12 +3,12 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {LayoutOrientation} from '@/components/ui/types'
 import {QuestionType} from '@/modules/survey/types'
 
-const meta: Meta<typeof Options> = {
+const meta = {
   argTypes: {
     onChange: {action: 'onChange'},
   },
   component: Options,
-}
+} satisfies Meta<typeof Options>
 
 export default meta
 

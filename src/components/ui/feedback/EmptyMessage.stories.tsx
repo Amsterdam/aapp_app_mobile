@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: EmptyMessage,
-} as Meta<typeof EmptyMessage>
+} satisfies Meta<typeof EmptyMessage>
 
 export const Default: StoryObj<typeof EmptyMessage> = {
   args: {

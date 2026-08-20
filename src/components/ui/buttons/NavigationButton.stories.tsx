@@ -8,7 +8,7 @@ export default {
       action: 'onPress',
     },
   },
-} as Meta<typeof NavigationButton>
+} satisfies Meta<typeof NavigationButton>
 
 export const Default: StoryObj<typeof NavigationButton> = {
   args: {

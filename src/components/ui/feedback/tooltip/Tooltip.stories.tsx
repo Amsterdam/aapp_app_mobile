@@ -4,7 +4,7 @@ import {Placement} from '@/components/ui/types'
 
 export default {
   component: Tooltip,
-} as Meta<typeof Tooltip>
+} satisfies Meta<typeof Tooltip>
 
 export const Default: StoryObj<typeof Tooltip> = {
   args: {

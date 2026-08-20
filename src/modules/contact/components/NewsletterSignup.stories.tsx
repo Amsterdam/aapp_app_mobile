@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: NewsletterSignup,
-} as Meta<typeof NewsletterSignup>
+} satisfies Meta<typeof NewsletterSignup>
 
 export const Default: StoryObj<typeof NewsletterSignup> = {
   args: {

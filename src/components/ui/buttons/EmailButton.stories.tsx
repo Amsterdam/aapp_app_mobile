@@ -3,12 +3,8 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: EmailButton,
-  argTypes: {
-    onPress: {
-      action: 'onPress',
-    },
-  },
-} as Meta<typeof EmailButton>
+  argTypes: {},
+} satisfies Meta<typeof EmailButton>
 
 export const Default: StoryObj<typeof EmailButton> = {
   args: {

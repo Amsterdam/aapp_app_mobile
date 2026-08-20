@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Notice} from '@/components/ui/feedback/Notice'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 
-const meta: Meta<typeof Notice> = {
+const meta = {
   component: Notice,
   argTypes: {
     variant: {
@@ -15,7 +15,7 @@ const meta: Meta<typeof Notice> = {
   args: {
     text: 'Dit is een melding.',
   },
-}
+} satisfies Meta<typeof Notice>
 
 export default meta
 

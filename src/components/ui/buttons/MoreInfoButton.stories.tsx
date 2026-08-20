@@ -8,7 +8,7 @@ export default {
       action: 'onPress',
     },
   },
-} as Meta<typeof MoreInfoButton>
+} satisfies Meta<typeof MoreInfoButton>
 
 export const Default: StoryObj<typeof MoreInfoButton> = {
   args: {

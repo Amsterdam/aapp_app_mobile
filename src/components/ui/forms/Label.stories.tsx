@@ -3,7 +3,7 @@ import {Label} from '@/components/ui/forms/Label'
 
 export default {
   component: Label,
-} as Meta<typeof Label>
+} satisfies Meta<typeof Label>
 
 export const Default: StoryObj<typeof Label> = {
   args: {

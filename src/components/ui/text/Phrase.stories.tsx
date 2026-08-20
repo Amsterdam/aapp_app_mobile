@@ -4,7 +4,7 @@ import {Phrase} from './Phrase'
 
 export default {
   component: Phrase,
-} as Meta<typeof Phrase>
+} satisfies Meta<typeof Phrase>
 
 export const Default: StoryObj<typeof Phrase> = {
   args: {

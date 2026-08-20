@@ -3,7 +3,7 @@ import {List} from './List'
 
 export default {
   component: List,
-} as Meta<typeof List>
+} satisfies Meta<typeof List>
 
 export const Default: StoryFn<typeof List> = args => <List {...args} />
 Default.args = {

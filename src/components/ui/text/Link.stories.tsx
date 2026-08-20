@@ -3,7 +3,7 @@ import {Link} from './Link'
 
 export default {
   component: Link,
-} as Meta<typeof Link>
+} satisfies Meta<typeof Link>
 
 export const Default: StoryFn<typeof Link> = args => <Link {...args} />
 Default.args = {

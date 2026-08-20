@@ -3,7 +3,7 @@ import {TextInput} from '@/components/ui/forms/input/TextInput'
 
 export default {
   component: TextInput,
-} as Meta<typeof TextInput>
+} satisfies Meta<typeof TextInput>
 
 export const Default: StoryObj<typeof TextInput> = {
   args: {

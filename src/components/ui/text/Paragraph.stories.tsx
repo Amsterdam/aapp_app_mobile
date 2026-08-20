@@ -3,7 +3,7 @@ import {Paragraph} from './Paragraph'
 
 export default {
   component: Paragraph,
-} as Meta<typeof Paragraph>
+} satisfies Meta<typeof Paragraph>
 
 export const Default: StoryFn<typeof Paragraph> = args => (
   <Paragraph {...args}>
