@@ -33,6 +33,10 @@ const getStatusText = (
         return 'Laden'
       }
 
+    case NRGStatus.Starting:
+      return 'Het laden wordt gestart'
+    case NRGStatus.Stopping:
+      return 'Het laden wordt gestopt'
     case NRGStatus.Completed:
     case NRGStatus.Cancelled:
       return 'Het laden is gestopt'
