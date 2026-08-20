@@ -18,25 +18,34 @@ const ANIMATION_DELAY = 250
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect)
 
-export const LoadingBar = () => {
+type Props = {
+  active?: boolean
+}
+
+export const LoadingBar = ({active = true}: Props) => {
   const translateX = useSharedValue(-1)
 
   useEffect(() => {
-    translateX.value = withRepeat(
-      withDelay(
-        ANIMATION_DELAY,
-        withTiming(1, {
-          duration: ANIMATION_DURATION,
-          easing: Easing.linear,
-        }),
-      ),
-      -1,
-    )
+    if (active) {
+      translateX.value = withRepeat(
+        withDelay(
+          ANIMATION_DELAY,
+          withTiming(1, {
+            duration: ANIMATION_DURATION,
+            easing: Easing.linear,
+          }),
+        ),
+        -1,
+      )
+    } else {
+      cancelAnimation(translateX)
+      translateX.value = -1
+    }
 
     return () => {
       cancelAnimation(translateX)
     }
-  }, [translateX])
+  }, [translateX, active])
 
   const animatedProps = useAnimatedProps(
     () => ({

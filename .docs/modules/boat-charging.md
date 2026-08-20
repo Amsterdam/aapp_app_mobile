@@ -1,9 +1,17 @@
 # Boat-charging
 
+## Purpose
+
+Boat charging lets users reserve a socket, complete the required payment and conditions steps, and manage a charging session until it either starts, is cancelled, or is stopped.
+
 ## Business rules
 
 1. Users must agree to the terms and conditions before proceeding with boat charging.
-2. Logged in users will not be asked to agree to the terms and conditions again if they have already agreed to the latest version of the terms and conditions.
+2. Logged in users are not asked to accept the terms again when they already approved the latest version.
+3. A paid session does not start charging immediately after checkout. Charging starts automatically only after the cable is connected.
+4. The session has separate in-progress phases for starting and stopping so the user can see whether the charging point is still processing a command.
+5. Cancelling and stopping are different actions. A session that has not started charging yet can still be cancelled, while an active charging session must be stopped.
+6. If the start command fails, the session remains recoverable. The user is told to unplug and try again, or to cancel the session instead.
 
 ## Start session flow
 
@@ -22,8 +30,8 @@ D -- Login --> E[User logs in]
 D -- Guest --> F[User enters an email address]
 F --> G[User confirms the email address]
 G --> H[User accepts the terms and conditions]
-E --> I{Is an accesscode already set?}
-I -- No --> J[User sets accesscode]
+E --> I{Is an access code already set?}
+I -- No --> J[User sets access code]
 I -- Yes --> H
 J --> H
 C -- Yes --> K{Are the latest terms already approved?}
@@ -32,10 +40,29 @@ K -- Yes --> L[User starts payment]
 H --> L
 L --> M[Payment checkout opens in the browser]
 M --> N[User completes payment]
-N --> O[App returns to the payment result flow]
-O --> P[User starts charging]
+N --> O[Session is ready for charging]
+O --> P{Is the cable connected?}
+P -- No --> Q[User is asked to connect the cable]
+Q --> P
+P -- Yes --> R[Charging start is requested automatically]
+R --> S[Session enters the starting phase]
+S --> T{Did charging start successfully?}
+T -- Yes --> U[Session becomes active]
+T -- No --> V[User sees a retry message and can cancel or try again]
 ```
 
-### Practical implication
+## Session lifecycle after checkout
 
-The hook does not own the form fields themselves; it owns the orchestration. Individual screens collect one piece of information at a time, store it in Redux, and then call the same hook again. That keeps the branching logic in one place and prevents the start-session flow from diverging between logged in and guest users.
+After payment, the session can move through five user-visible phases:
+
+1. Ready to start: the payment is complete, but the cable still needs to be connected.
+2. Starting: the app is waiting for confirmation that the charging point accepted the start request.
+3. Charging: charging is active and the session shows energy use, time, and estimated cost.
+4. Stopping: the stop request has been sent and the app keeps the charging view visible until the charging point confirms the session is ending.
+5. Stopped: the charging point confirmed that charging has ended.
+
+## Stop and recovery rules
+
+1. Before charging starts, the user can cancel the session. This is the way to end a paid session that is still waiting to start or is still in the starting phase.
+2. Once charging is active, the user can stop charging. Stopping is confirmed separately and may remain visible as an in-progress state for a short period.
+3. If a start attempt fails, the user is instructed to disconnect the cable and retry. The retry path stays available as long as the session is still in the pre-charging state.

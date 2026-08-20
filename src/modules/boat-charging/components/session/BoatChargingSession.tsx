@@ -13,7 +13,11 @@ import {BoatChargingSessionInfoContainer} from '@/modules/boat-charging/componen
 import {BoatChargingSessionSocket} from '@/modules/boat-charging/components/session/BoatChargingSessionSocket'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {SessionLengthStatus, SessionStatus} from '@/modules/boat-charging/types'
+import {
+  NRGStatus,
+  SessionLengthStatus,
+  SessionStatus,
+} from '@/modules/boat-charging/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingSession = () => {
@@ -31,12 +35,15 @@ export const BoatChargingSession = () => {
   const navigation = useNavigation()
 
   useEffect(() => {
-    if (session?.status === SessionStatus.COMPLETED) {
+    if (
+      session?.nrg_status === NRGStatus.Completed &&
+      session?.status === SessionStatus.COMPLETED
+    ) {
       navigation.replace(BoatChargingRouteName.historySessionDetails, {
         id: session.id,
       })
     }
-  }, [session?.status, navigation, session?.id])
+  }, [session?.status, navigation, session?.id, session?.nrg_status])
 
   if (isLoading) {
     return (
