@@ -44,7 +44,8 @@
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "explicit",
     "source.addMissingImports.ts": "explicit",
-    "source.fixAll.eslint": "always"
+    "source.fixAll.eslint": "always",
+    "source.fixAll.oxc": "always"
   },
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true,
@@ -63,6 +64,7 @@
   "chat.tools.terminal.autoApprove": {
     "npx jest": true,
     "npx tsc": true,
-    "npx eslint": true
+    "npx eslint": true,
+    "npx oxlint": true
   }
 }

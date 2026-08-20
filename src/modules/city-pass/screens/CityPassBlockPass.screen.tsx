@@ -31,7 +31,7 @@ export const CityPassBlockPassScreen = ({navigation, route}: Props) => {
           <List
             items={[
               'Is je pas gestolen of kwijt? Blokkeer de pas om misbruik te voorkomen.',
-              <Phrase>
+              <Phrase key="CityPassBlockPassPassFoundPhrase">
                 Pas teruggevonden? Bel naar{' '}
                 <CityPassContactPhoneInlineLink testID="CityPassContactPhoneInlineLink" />
                 . Daarna kun je de pas meteen weer gebruiken.
