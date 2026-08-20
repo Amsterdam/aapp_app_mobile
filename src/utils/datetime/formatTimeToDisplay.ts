@@ -1,5 +1,5 @@
-import {isDayjs} from 'dayjs'
-import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
+import type {Dayjs} from '@/utils/datetime/dayjs'
+import {processDateInput} from '@/utils/datetime/isDayjsOrDate'
 import {parseTimeToDayjs} from '@/utils/datetime/parseTimeToDayjs'
 
 type Options = {
@@ -16,7 +16,7 @@ export const formatTimeToDisplay = (
     replaceMidnightBy24,
   }: Options = {},
 ) => {
-  let parsedTime = isDayjs(date) ? date : dayjs(date)
+  let parsedTime = processDateInput(date)
 
   if (!parsedTime.isValid() && typeof date === 'string') {
     parsedTime = parseTimeToDayjs(date)

@@ -1,7 +1,7 @@
-import {isDayjs} from 'dayjs'
+import type {Dayjs} from 'dayjs'
 import {cutAmountOfCharsFromString} from '@/utils/cutAmountOfCharsFromString'
-import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {formatDate} from '@/utils/datetime/formatDate'
+import {processDateInput} from '@/utils/datetime/isDayjsOrDate'
 import {isThisYear} from '@/utils/datetime/isThisYear'
 
 export const formatDateTimeToDisplay = (
@@ -13,7 +13,7 @@ export const formatDateTimeToDisplay = (
     return ''
   }
 
-  const dayjsDate = isDayjs(date) ? date : dayjs(date)
+  const dayjsDate = processDateInput(date)
   const dateToDisplay = formatDate(date)
 
   const time = `${dayjsDate.format('HH.mm')} uur`

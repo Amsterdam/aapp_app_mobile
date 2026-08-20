@@ -1,5 +1,5 @@
-import {isDayjs} from 'dayjs'
-import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
+import type {Dayjs} from 'dayjs'
+import {processDateInput} from '@/utils/datetime/isDayjsOrDate'
 
 /**
  * Converts string to date
@@ -11,5 +11,5 @@ export const formatDate = (
     return ''
   }
 
-  return (isDayjs(date) ? date : dayjs(date)).format('D MMMM YYYY')
+  return processDateInput(date).format('D MMMM YYYY')
 }
