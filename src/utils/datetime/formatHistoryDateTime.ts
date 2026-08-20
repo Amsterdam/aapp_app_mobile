@@ -1,3 +1,4 @@
+import {isDayjs} from 'dayjs'
 import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {weekDays} from '@/utils/datetime/weekDays'
 
@@ -6,7 +7,7 @@ export const formatHistoryDateTime = (date: string | number | Dayjs) => {
     return ''
   }
 
-  const moment = dayjs(date)
+  const moment = isDayjs(date) ? date : dayjs(date)
   const today = dayjs()
   const dayDifference = moment.startOf('day').diff(today.startOf('day'), 'days')
   const isToday = dayDifference === 0

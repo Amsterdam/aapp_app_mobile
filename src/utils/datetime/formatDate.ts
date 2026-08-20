@@ -1,3 +1,4 @@
+import {isDayjs} from 'dayjs'
 import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 
 /**
@@ -10,5 +11,5 @@ export const formatDate = (
     return ''
   }
 
-  return dayjs(date).format('D MMMM YYYY')
+  return (isDayjs(date) ? date : dayjs(date)).format('D MMMM YYYY')
 }

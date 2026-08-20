@@ -1,3 +1,4 @@
+import {isDayjs} from 'dayjs'
 import simplur from 'simplur'
 import type {DurationUnitType} from 'dayjs/plugin/duration'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
@@ -103,8 +104,8 @@ export const formatTimeRangeToDisplay = (
   endTime: string | Dayjs,
   options: Options = {},
 ) => {
-  const start = dayjs(startTime)
-  const end = dayjs(endTime)
+  const start = isDayjs(startTime) ? startTime : dayjs(startTime)
+  const end = isDayjs(endTime) ? endTime : dayjs(endTime)
   const {isNegative, hours, minutes, seconds} = getDurationParts(start, end)
   const sign = isNegative ? '- ' : ''
 

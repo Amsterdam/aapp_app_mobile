@@ -1,3 +1,4 @@
+import {isDayjs} from 'dayjs'
 import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 
 /**
@@ -5,4 +6,6 @@ import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
  * calculated from today or a given base date.
  */
 export const isYesterday = (date: string | Dayjs, baseDate: Dayjs = dayjs()) =>
-  dayjs(date).startOf('day').diff(baseDate.startOf('day'), 'day') === -1
+  (isDayjs(date) ? date : dayjs(date))
+    .startOf('day')
+    .diff(baseDate.startOf('day'), 'day') === -1

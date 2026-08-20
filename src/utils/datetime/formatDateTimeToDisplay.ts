@@ -1,3 +1,4 @@
+import {isDayjs} from 'dayjs'
 import {cutAmountOfCharsFromString} from '@/utils/cutAmountOfCharsFromString'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {formatDate} from '@/utils/datetime/formatDate'
@@ -6,17 +7,18 @@ import {isThisYear} from '@/utils/datetime/isThisYear'
 export const formatDateTimeToDisplay = (
   date: string | Dayjs,
   showTodayAsDate = true,
-  serverTimeDate?: string | Dayjs,
+  serverTimeDate?: Dayjs,
 ) => {
   if (!date) {
     return ''
   }
 
+  const dayjsDate = isDayjs(date) ? date : dayjs(date)
   const dateToDisplay = formatDate(date)
 
-  const time = `${dayjs(date).format('HH.mm')} uur`
+  const time = `${dayjsDate.format('HH.mm')} uur`
 
-  if (!showTodayAsDate && dayjs(date).isSame(dayjs(serverTimeDate), 'day')) {
+  if (!showTodayAsDate && dayjsDate.isSame(serverTimeDate, 'day')) {
     return `Vandaag, ${time}`
   }
 

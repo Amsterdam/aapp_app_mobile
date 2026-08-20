@@ -1,3 +1,4 @@
+import {isDayjs} from 'dayjs'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 export const isBetween = (
@@ -5,9 +6,9 @@ export const isBetween = (
   start: string | Dayjs,
   end: string | Dayjs,
 ): boolean => {
-  const testDatetime = dayjs(date)
-  const startDatetime = dayjs(start)
-  const endDatetime = dayjs(end)
+  const testDatetime = isDayjs(date) ? date : dayjs(date)
+  const startDatetime = isDayjs(start) ? start : dayjs(start)
+  const endDatetime = isDayjs(end) ? end : dayjs(end)
 
   return (
     testDatetime.isAfter(startDatetime) && testDatetime.isBefore(endDatetime)
