@@ -28,7 +28,7 @@ export const CityPassCard = ({
 
   return (
     <Pressable
-      accessibilityLabel={`Stadspas details van ${firstname}. ${cityPass.actief === false ? 'Geblokkeerd' : ''}`}
+      accessibilityLabel={`Stadspas details van ${firstname}.${cityPass.type ? ` Type ${capitalizeString(cityPass.type)}.` : ''}${cityPass.actief === false ? ' Geblokkeerd.' : ''}`}
       accessibilityLanguage="nl-NL"
       accessibilityRole={accessibilityRole}
       onPress={onPress}
