@@ -36,7 +36,8 @@ export const BoatChargingSession = () => {
 
   useEffect(() => {
     if (
-      session?.nrg_status === NRGStatus.Completed &&
+      (session?.nrg_status === NRGStatus.Completed ||
+        session?.nrg_status === NRGStatus.Cancelled) &&
       session?.status === SessionStatus.COMPLETED
     ) {
       navigation.replace(BoatChargingRouteName.historySessionDetails, {
