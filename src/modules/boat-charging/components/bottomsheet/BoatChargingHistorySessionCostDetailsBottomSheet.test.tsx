@@ -12,6 +12,12 @@ const ITEMS: Record<
   BoatChargingCostBreakdownItemType,
   BoatChargingSessionCostBreakdownItem
 > = {
+  [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
+    cost_incl_vat: 20,
+    type: BoatChargingCostBreakdownItemType.STANDARD_FINE,
+    unit_price: 10,
+    volume: 2,
+  },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
     cost_incl_vat: 1.85,
     type: BoatChargingCostBreakdownItemType.ENERGY,
@@ -57,7 +63,7 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
       `BoatChargingHistorySessionCostDetailsInfoRow`,
     )
 
-    expect(infoRows).toHaveLength(4)
+    expect(infoRows).toHaveLength(5)
 
     ITEMS_ARRAY.forEach((item, index) => {
       expect(infoRows[index]).toContainElement(
