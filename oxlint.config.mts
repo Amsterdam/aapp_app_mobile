@@ -2,7 +2,7 @@ import sonarjs from 'eslint-plugin-sonarjs'
 import {defineConfig} from 'oxlint'
 import {getRulesFromPluginConfig} from './oxlint.utils.mts'
 
-const {rules: sonarjsRecommendedLegacyRules} = getRulesFromPluginConfig(
+const sonarjsRecommendedLegacyRules = getRulesFromPluginConfig(
   sonarjs,
   'recommended-legacy',
 )

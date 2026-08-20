@@ -14,7 +14,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 export const getRulesFromPluginConfig = (
   plugin: EslintPluginWithConfigs,
   configName: string,
-): {overrides: unknown; rules: RulesRecord} => {
+): RulesRecord => {
   const pluginConfig = plugin.configs?.[configName]
 
   if (!pluginConfig) {
@@ -29,7 +29,15 @@ export const getRulesFromPluginConfig = (
     )
   }
 
-  const {rules = {}, overrides = {}} = pluginConfig
+  const {rules} = pluginConfig
 
-  return {rules: rules as RulesRecord, overrides}
+  if (!isRecord(rules)) {
+    throw new Error(
+      `Unable to load plugin config rules for "${configName}". Ruleset does not contain a "rules" property, available properties: ${JSON.stringify(Object.keys(pluginConfig))}`,
+    )
+  }
+
+  return Object.fromEntries(
+    Object.entries(rules).filter(([, value]) => value !== undefined),
+  ) as RulesRecord
 }
