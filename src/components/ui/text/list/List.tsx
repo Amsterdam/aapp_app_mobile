@@ -22,7 +22,7 @@ export const List = ({
     {items.map((text, index) => (
       <ListItem
         accessible={accessible}
-        key={typeof text === 'string' ? text : index}
+        key={typeof text === 'string' ? `${text}-${index}` : index}
         marker={marker}
         testID={`${testID}${index}Item`}
         text={text}
