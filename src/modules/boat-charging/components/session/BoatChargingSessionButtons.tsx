@@ -74,7 +74,7 @@ export const BoatChargingSessionButtons = () => {
   return (
     <Box variant="distinct">
       <SafeArea bottom>
-        {isCharging ? (
+        {isCharging || session.nrg_status === NRGStatus.Stopping ? (
           <Button
             isError={isErrorStopSession}
             isLoading={
