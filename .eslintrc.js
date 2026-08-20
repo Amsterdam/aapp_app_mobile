@@ -225,6 +225,7 @@ module.exports = {
         'plugin:typescript-sort-keys/recommended',
       ],
       rules: {
+        'amsterdam/named-component-props': 'warn',
         'amsterdam/no-relative-file-import': 'warn',
         'amsterdam/no-type-import-for-function-component': 'warn',
         'amsterdam/jsx-strict-logical-expression': 'error',
