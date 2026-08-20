@@ -9,19 +9,19 @@ import 'dayjs/locale/nl'
 
 export {Dayjs} from 'dayjs'
 
-export const defaultTimezone = 'Europe/Amsterdam'
+export const DEFAULT_TIMEZONE = 'Europe/Amsterdam'
+const UTC_OFFSET_PATTERN = /([+-]\d{2}:\d{2}|Z)$/
 
 dayjsFn.extend(utc)
 dayjsFn.extend(timezone)
 dayjsFn.extend(minMax)
 dayjsFn.extend(weekOfYear)
-
 dayjsFn.extend(localeData)
 dayjsFn.locale('nl')
-dayjsFn.tz.setDefault(defaultTimezone)
+dayjsFn.tz.setDefault(DEFAULT_TIMEZONE)
 
 /**
- * This function replaces the default dayjs function to make sure the timezone uses the default that is set above and the locale is set properly
+ * This function replaces the default dayjs function to make sure the locale is set properly.
  */
 export const dayjs = (date?: ConfigType) => {
   const date1 = dayjsFn(date).format()
@@ -38,4 +38,23 @@ export const dayjsFromUnix = (timestamp: number) => {
   const date1 = dayjsFn.unix(timestamp)
 
   return dayjsFn(date1)
+}
+
+/**
+ * Uses an explicit offset from the input when present, otherwise normalizes the value to the local runtime timezone.
+ */
+export const dayjsTimeZoneAware = (date?: ConfigType) => {
+  if (typeof date !== 'string') {
+    return dayjsFn(date).local()
+  }
+
+  const utcOffsetString = UTC_OFFSET_PATTERN.exec(date)?.[1]
+
+  if (!utcOffsetString) {
+    return dayjsFn(date).local()
+  }
+
+  return utcOffsetString === 'Z'
+    ? dayjsFn.utc(date)
+    : dayjsFn.utc(date).utcOffset(utcOffsetString)
 }

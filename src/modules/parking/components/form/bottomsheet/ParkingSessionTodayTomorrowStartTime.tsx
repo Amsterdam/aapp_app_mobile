@@ -69,7 +69,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           mode="time"
           onChange={newTime => {
             userHasEditedStart.current = true
-            onChangeStartTime(dayjs(newTime))
+            onChangeStartTime(newTime)
           }}
         />
       )}

@@ -1,11 +1,10 @@
 import {useFormContext} from 'react-hook-form'
-import {StyleSheet} from 'react-native'
-import DatePicker from 'react-native-date-picker'
 import type {PrideEventFormValues} from '@/modules/pride/types'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {DatePicker} from '@/components/ui/forms/DatePicker'
 import {RadioGroupControlled} from '@/components/ui/forms/RadioGroupControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -65,13 +64,10 @@ export const PrideEventDateBottomSheet = () => {
         {selectedDate === CHOOSE_DATE_LABEL && (
           <DatePicker
             date={customDate.toDate()}
-            is24hourSource="locale"
-            locale="nl-NL"
             maximumDate={lastDate?.toDate()}
             minimumDate={firstDate.toDate()}
             mode={'date'}
-            onDateChange={date => setValue('customDate', dayjs(date))}
-            style={styles.centerSelf}
+            onChange={date => setValue('customDate', date)}
             theme="light"
           />
         )}
@@ -90,9 +86,3 @@ export const PrideEventDateBottomSheet = () => {
     </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  centerSelf: {
-    alignSelf: 'center',
-  },
-})
