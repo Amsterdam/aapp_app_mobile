@@ -46,49 +46,69 @@ const getDurationParts = (start: Dayjs, end: Dayjs) => {
   return {isNegative, hours, minutes, seconds}
 }
 
+const constructTimeString = (
+  {smallestUnit = 'minutes', format = 'default'}: Options,
+  hours: number,
+  minutes: number,
+  seconds: number,
+) => {
+  const separator = format === 'veryShort' ? ' ' : ' en '
+  const hourString = formatHours(hours, format)
+
+  if (smallestUnit === 'hours') {
+    return hourString
+  }
+
+  const minutesString = formatMinutes(minutes, format)
+
+  if (smallestUnit === 'minutes') {
+    const parts = []
+
+    if (hours > 0) {
+      parts.push(hourString)
+    }
+
+    if (minutes > 0 || hours === 0) {
+      parts.push(minutesString)
+    }
+
+    return parts.join(separator)
+  }
+
+  const secondsString = formatSeconds(seconds, format)
+
+  const parts = []
+
+  if (hours > 0) {
+    parts.push(hourString)
+  }
+
+  if (minutes > 0) {
+    parts.push(minutesString)
+  }
+
+  if (seconds > 0 || (hours === 0 && minutes === 0)) {
+    parts.push(secondsString)
+  }
+
+  const additionalSeparator = format === 'veryShort' ? ' ' : ', '
+
+  return parts.length === 3
+    ? `${parts[0]}${additionalSeparator}${parts[1]}${separator}${parts[2]}`
+    : parts.join(separator)
+}
+
 export const formatTimeRangeToDisplay = (
   startTime: string | Dayjs,
   endTime: string | Dayjs,
-  {format = 'default', smallestUnit = 'minutes'}: Options = {},
+  options: Options = {},
 ) => {
   const start = dayjs(startTime)
   const end = dayjs(endTime)
   const {isNegative, hours, minutes, seconds} = getDurationParts(start, end)
   const sign = isNegative ? '- ' : ''
 
-  const hoursString = formatHours(hours, format)
+  const timeString = constructTimeString(options, hours, minutes, seconds)
 
-  if (smallestUnit === 'hours') {
-    return `${sign}${hoursString}`
-  }
-
-  const minutesString = formatMinutes(minutes, format)
-
-  if (smallestUnit === 'minutes') {
-    if (hours === 0) {
-      return `${sign}${minutesString}`
-    }
-
-    if (minutes === 0) {
-      return `${sign}${hoursString}`
-    }
-
-    return `${sign}${hoursString}${format === 'veryShort' ? ' ' : ' en '}${minutesString}`
-  }
-
-  const secondsString = formatSeconds(seconds, format)
-
-  if (minutes === 0 && hours === 0) {
-    return `${sign}${secondsString}`
-  }
-
-  if (minutes === 0) {
-    return `${sign}${hoursString} en ${secondsString}`
-  }
-
-  if (hours === 0) {
-    return `${sign}${minutesString} en ${secondsString}`
-  }
-
-  return `${sign}${hoursString}${format === 'veryShort' ? ' ' : ', '}${minutesString}${format === 'veryShort' ? ' ' : ' en '}${secondsString}`
+  return `${sign}${timeString}`
 }

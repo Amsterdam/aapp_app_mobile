@@ -47,12 +47,21 @@ describe('formatTimeDurationToDisplay', () => {
     expect(
       formatTimeDurationToDisplay(0.5, 'hour', {smallestUnit: 'minutes'}),
     ).toBe('30 minuten')
+    expect(
+      formatTimeDurationToDisplay(0, 'hour', {smallestUnit: 'minutes'}),
+    ).toBe('0 minuten')
   })
 
   it("should omit hours and only return minutes and seconds if input does not exceed more than one hour and smallest unit is 'seconds'", () => {
     expect(
       formatTimeDurationToDisplay(0.5, 'hour', {smallestUnit: 'seconds'}),
-    ).toBe('30 minuten en 0 seconden')
+    ).toBe('30 minuten')
+    expect(
+      formatTimeDurationToDisplay(0.51, 'hour', {smallestUnit: 'seconds'}),
+    ).toBe('30 minuten en 36 seconden')
+    expect(
+      formatTimeDurationToDisplay(0, 'hour', {smallestUnit: 'seconds'}),
+    ).toBe('0 seconden')
   })
 
   it("should omit hours and minutes and only return seconds if input does not exceed more than one minute and smallest unit is 'seconds'", () => {
@@ -91,8 +100,19 @@ describe('formatTimeDurationToDisplay', () => {
     expect(formatTimeDurationToDisplay(1, 'hour')).toBe('1 uur')
     expect(
       formatTimeDurationToDisplay(1, 'hour', {smallestUnit: 'seconds'}),
-    ).toBe('1 uur en 0 seconden')
-
+    ).toBe('1 uur')
+    expect(
+      formatTimeDurationToDisplay(1.01, 'hour', {smallestUnit: 'seconds'}),
+    ).toBe('1 uur en 36 seconden')
+    expect(
+      formatTimeDurationToDisplay(1.11, 'hour', {smallestUnit: 'seconds'}),
+    ).toBe('1 uur, 6 minuten en 36 seconden')
+    expect(
+      formatTimeDurationToDisplay(0.11, 'hour', {smallestUnit: 'seconds'}),
+    ).toBe('6 minuten en 36 seconden')
+    expect(
+      formatTimeDurationToDisplay(0.01, 'hour', {smallestUnit: 'seconds'}),
+    ).toBe('36 seconden')
     expect(formatTimeDurationToDisplay(1, 'minute')).toBe('1 minuut')
     expect(
       formatTimeDurationToDisplay(1, 'second', {smallestUnit: 'seconds'}),
