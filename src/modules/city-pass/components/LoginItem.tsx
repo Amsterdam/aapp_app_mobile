@@ -24,9 +24,7 @@ export const LoginItem = ({
   title,
 }: Props) => (
   <View
-    accessibilityLabel={`Stap ${numberIndicator}, ${title}, ${text}`.concat(
-      isDone ? 'afgerond' : '',
-    )}
+    accessibilityLabel={`Stap ${numberIndicator}, ${title}, ${text}${isDone ? ', afgerond' : ''}`}
     accessible>
     <ProgressStep
       accessible={false}
