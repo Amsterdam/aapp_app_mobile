@@ -59,6 +59,7 @@ describe('useTimeDifference', () => {
         deviceNow,
         isSameDay: true,
         isSameTime: true,
+        isLoading: props.isLoading,
       })
       expect(useGetServerTimeQueryMock).toHaveBeenCalledWith(undefined, {
         pollingInterval: 30000,
@@ -87,6 +88,7 @@ describe('useTimeDifference', () => {
         deviceNow,
         isSameDay: true,
         isSameTime: true,
+        isLoading: false,
       })
       expect(mockedIsLocalTimeSameAsServerTime).not.toHaveBeenCalled()
     },
@@ -129,6 +131,7 @@ describe('useTimeDifference', () => {
       isSameTime: false,
       serverNow,
       serverUtcOffset: 0,
+      isLoading: false,
     })
 
     expect(mockedIsLocalTimeSameAsServerTime).toHaveBeenCalledWith(serverTime)

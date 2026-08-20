@@ -10,6 +10,7 @@ type UseTimeDifferenceReturnType = {
   deviceNow: Dayjs
   differenceMS?: number
   differenceUtcOffset?: number
+  isLoading: boolean
   isSameDay: boolean
   isSameTime: boolean
   serverNow?: Dayjs
@@ -19,6 +20,7 @@ type UseTimeDifferenceReturnType = {
 const DEFAULTS = {
   isSameTime: true,
   isSameDay: true,
+  isLoading: false,
 }
 
 /**
@@ -42,7 +44,7 @@ export const useTimeDifference = (
     const deviceNow = dayjs()
 
     if (isLoading || isError || !serverTime) {
-      return {...DEFAULTS, deviceNow}
+      return {...DEFAULTS, deviceNow, isLoading}
     }
 
     const serverNow = dayjsTimeZoneAware(serverTime)
@@ -56,6 +58,7 @@ export const useTimeDifference = (
       isSameTime: isLocalTimeSameAsServerTime(serverTime),
       isSameDay: serverNow.isSame(deviceNow, 'day'),
       serverUtcOffset: serverNow.utcOffset(),
+      isLoading,
     }
   }, [isLoading, serverTime, isError])
 }

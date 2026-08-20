@@ -22,14 +22,14 @@ export const ParkingChooseStartTimeButton = () => {
   const {startTimeRef, userHasEditedStart} = useParkingSession()
   const {started_at} = useCurrentParkingPermit()
 
-  const {isSameTime, serverNow} = useTimeDifference()
+  const {isSameTime, serverNow, isLoading} = useTimeDifference()
 
   const checkStartTime = useCallback(() => {
-    if (!serverNow) {
+    if (isLoading) {
       return
     }
 
-    if (!isSameTime) {
+    if (!isSameTime && serverNow) {
       if (!userHasEditedStart.current || startTimeField.isBefore(serverNow)) {
         setValue('startTime', serverNow)
 
@@ -53,6 +53,7 @@ export const ParkingChooseStartTimeButton = () => {
     isSameTime,
     originalEndTime,
     serverNow,
+    isLoading,
     setValue,
     startTimeField,
     startTimeRef,
