@@ -38,3 +38,5 @@ export const aboutBlocks: AboutBlock[] = [
     testID: 'CityPassUsageLink',
   },
 ]
+
+export const CITY_PASS_PHONE_NUMBER = '0202526000'
