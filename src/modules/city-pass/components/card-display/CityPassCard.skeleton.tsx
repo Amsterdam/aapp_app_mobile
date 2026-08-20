@@ -3,11 +3,12 @@ import {CityPassCard} from '@/modules/city-pass/components/card-display/CityPass
 
 const cityPassMock = {
   actief: true,
-  firstname: 'John',
-  infix: 'van',
-  lastname: 'Doe',
-  passNumberComplete: '123456789',
-  dateEndFormatted: '01-01-2022',
+  firstname: ' ',
+  infix: ' ',
+  lastname: ' ',
+  passNumberComplete: ' ',
+  dateEndFormatted: ' ',
+  type: ' ' as unknown as 'volwassene',
 }
 
 type Props = {

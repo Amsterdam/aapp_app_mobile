@@ -50,8 +50,11 @@ export const SetAccessCodeScreen = ({navigation: {navigate}}: Props) => {
             accessibilityLanguage="nl-NL"
             accessible
             testID="SetAccessCodeScreenText">
-            <Paragraph>Uw toegangscode mag niet bestaan uit:</Paragraph>
+            <Paragraph accessible={false}>
+              Uw toegangscode mag niet bestaan uit:
+            </Paragraph>
             <List
+              accessible={false}
               items={[
                 '5 dezelfde cijfers',
                 'Opeenvolgende cijfers, zoals 12345 of 87654',

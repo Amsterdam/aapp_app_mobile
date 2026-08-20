@@ -6,18 +6,23 @@ import {ListMarkerProp} from '@/components/ui/text/list/types'
 import {type TestProps} from '@/components/ui/types'
 
 type Props = {
+  accessible?: boolean
   text: string | ReactNode
 } & ListMarkerProp &
   TestProps
 
-export const ListItem = ({text, marker, testID}: Props) => (
+export const ListItem = ({accessible = true, text, marker, testID}: Props) => (
   <Row>
     <ListItemMarker
       marker={marker}
       testID={`${testID}Marker`}
     />
     {typeof text === 'string' ? (
-      <Phrase testID={`${testID}Text`}>{text}</Phrase>
+      <Phrase
+        accessible={accessible}
+        testID={`${testID}Text`}>
+        {text}
+      </Phrase>
     ) : (
       text
     )}

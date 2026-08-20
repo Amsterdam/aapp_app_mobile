@@ -15,11 +15,13 @@ export const CityPassDetailsName = ({cityPass}: Props) => {
     <Column halign="center">
       <SingleSelectable testID="CityPassCityPassDetailsName">
         <Title
+          accessible={false}
           testID="CityPassCityPassDetailsTitle"
           text={firstname}
           textAlign="center"
         />
         <Phrase
+          accessible={false}
           emphasis="strong"
           testID="CityPassCityPassDetailsSubtitle"
           textAlign="center">

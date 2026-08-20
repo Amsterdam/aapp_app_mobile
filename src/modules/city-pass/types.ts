@@ -85,11 +85,12 @@ export type CityPass = {
   passNumber: number
   passNumberComplete: string
   securityCode: string | null
+  type?: 'kind' | 'volwassene'
 }
 
 export type CityPassPass = Pick<
   CityPass,
-  'actief' | 'dateEndFormatted' | 'passNumberComplete'
+  'actief' | 'dateEndFormatted' | 'passNumberComplete' | 'type'
 > &
   Pick<CityPassOwner, 'firstname' | 'infix' | 'lastname'>
 
@@ -100,6 +101,7 @@ export type SecureCityPass = {
   i?: CityPassPass['infix']
   l: CityPassPass['lastname']
   p: CityPassPass['passNumberComplete']
+  t: CityPass['type']
 }
 
 // api

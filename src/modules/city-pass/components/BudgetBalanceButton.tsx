@@ -40,12 +40,14 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
               />
               <Column shrink={1}>
                 <Phrase
+                  accessible={false}
                   color="inverse"
                   emphasis="strong"
                   testID="CityPassBalanceButtonBalanceLabel">
                   {title}
                 </Phrase>
                 <Title
+                  accessible={false}
                   color="inverse"
                   testID="CityPassBalanceButtonBalanceValue"
                   text={budgetBalanceFormatted}
@@ -58,6 +60,7 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
             insetVertical="sm">
             <Row align="between">
               <Phrase
+                accessible={false}
                 color="cityPass"
                 emphasis="strong"
                 testID="CityPassBalanceButtonActionLabel">

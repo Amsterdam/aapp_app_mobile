@@ -18,7 +18,7 @@ const NoTransactions = ({text}: {text: string}) => (
       <Phrase
         color="secondary"
         testID="CityPassTransactionHistoryNoTransactionsPhrase">
-        {text}{' '}
+        {text}
       </Phrase>
     </Box>
   </Border>
@@ -45,11 +45,13 @@ export const TransactionHistory = ({transactions, type}: Props) => {
             testID="CityPassTransactionHistoryTableHeader">
             <Row align="between">
               <Phrase
+                accessible={false}
                 emphasis="strong"
                 testID="CityPassTransactionHistoryTableHeaderDescription">
                 Omschrijving
               </Phrase>
               <Phrase
+                accessible={false}
                 emphasis="strong"
                 testID="CityPassTransactionHistoryTableHeaderValue">
                 {type === TransactionType.discount ? 'Besparing' : 'Bedrag'}
@@ -67,6 +69,7 @@ export const TransactionHistory = ({transactions, type}: Props) => {
               <SingleSelectable>
                 <Column gutter="sm">
                   <Phrase
+                    accessible={false}
                     color="secondary"
                     testID="CityPassTransactionHistoryDatePhrase">
                     {dateGroup.date}
@@ -75,6 +78,7 @@ export const TransactionHistory = ({transactions, type}: Props) => {
                     <TransactionItem
                       key={transaction.id}
                       {...transaction}
+                      accessible={false}
                     />
                   ))}
                 </Column>

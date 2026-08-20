@@ -11,6 +11,7 @@ import {
 import {TestProps} from '@/components/ui/types'
 
 type Props = {
+  accessible?: boolean
   children: ReactNode
   isExpanded?: boolean
   numberIndicator?: number
@@ -27,12 +28,14 @@ export const ProgressStep = ({
   progressStatusNextItem,
   testID,
   variant,
+  accessible = true,
 }: Props) => (
   <View testID={testID}>
     <Row
       gutter="md"
       valign="start">
       <ProgressStepIndicator
+        accessible={accessible}
         numberIndicator={numberIndicator}
         progressStatus={progressStatus}
         variant={variant}

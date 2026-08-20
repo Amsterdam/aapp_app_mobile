@@ -27,6 +27,7 @@ export const Default: StoryObj<typeof CityPassCard> = {
       passNumber: 6064366011012605,
       passNumberComplete: '6064366011012605999',
       securityCode: null,
+      type: 'volwassene',
     },
   },
 }

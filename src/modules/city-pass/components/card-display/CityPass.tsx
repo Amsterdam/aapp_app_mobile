@@ -20,6 +20,7 @@ import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {stringGroupInto} from '@/utils/stringGroupInto'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 const PASS_BORDER_RADIUS = 10
 const BARCODE_WIDTH_PERCENTAGE = 85
@@ -42,6 +43,7 @@ export const CityPass = ({
     lastname,
     passNumberComplete,
     dateEndFormatted,
+    type,
   },
 }: Props) => {
   const {width: windowWidth} = useWindowDimensions()
@@ -81,12 +83,22 @@ export const CityPass = ({
                   align="evenly"
                   grow={1}
                   halign="center">
-                  <Phrase
-                    emphasis="strong"
-                    testID="CityPassCityPassNamePhrase"
-                    textAlign="center">
-                    {firstname} {infix} {lastname}
-                  </Phrase>
+                  <Column gutter="xs">
+                    <Phrase
+                      emphasis="strong"
+                      testID="CityPassCityPassNamePhrase"
+                      textAlign="center">
+                      {firstname} {infix} {lastname}
+                    </Phrase>
+                    {!!type && (
+                      <Phrase
+                        color="secondary"
+                        testID="CityPassCityPassBlockedPhrase"
+                        textAlign="center">
+                        {capitalizeString(type)}
+                      </Phrase>
+                    )}
+                  </Column>
 
                   {actief === false ? (
                     <Phrase

@@ -5,7 +5,7 @@ import {ListMarkerProp} from '@/components/ui/text/list/types'
 import {type TestProps} from '@/components/ui/types'
 
 type Props = {
-  accessibilityLanguage?: string
+  accessible?: boolean
   gutter?: ColumnProps['gutter']
   items: (string | ReactNode)[]
 } & Partial<ListMarkerProp> &
@@ -16,12 +16,13 @@ export const List = ({
   marker = 'square',
   gutter = 'md',
   testID,
+  accessible = true,
 }: Props) => (
   <Column gutter={gutter}>
     {items.map((text, index) => (
       <ListItem
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        key={String(text) + index}
+        accessible={accessible}
+        key={typeof text === 'string' ? text : index}
         marker={marker}
         testID={`${testID}${index}Item`}
         text={text}

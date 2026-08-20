@@ -64,6 +64,7 @@ export const CityPassesSwiper = () => {
       />
       <View style={styles.paginationContainer}>
         <Basic
+          accessibilityLabel="pas"
           activeDotStyle={styles.paginationItemActive}
           containerStyle={styles.pagination}
           currentIndex={currentIndex}

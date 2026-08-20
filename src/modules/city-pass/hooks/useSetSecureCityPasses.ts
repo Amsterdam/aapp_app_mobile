@@ -12,6 +12,7 @@ const transformResponse = (data: CityPassResponse) =>
       ...(item.owner.infix && {i: item.owner.infix}),
       l: item.owner.lastname,
       p: item.passNumberComplete,
+      t: item.type,
     }
 
     return [...acc, newItem]
