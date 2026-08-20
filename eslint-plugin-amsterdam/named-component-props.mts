@@ -181,13 +181,31 @@ const getInsertionIndex = (
   declarationNode: ComponentDeclarationNode,
 ): number => {
   const leadingComments = sourceCode.getCommentsBefore(declarationNode)
-  const jsDocComment = leadingComments.find(
-    comment =>
-      comment.type === TSESTree.AST_TOKEN_TYPES.Block &&
-      comment.value.startsWith('*'),
-  )
 
-  return jsDocComment ? jsDocComment.range[0] : declarationNode.range[0]
+  if (leadingComments.length === 0) {
+    return declarationNode.range[0]
+  }
+
+  let insertionComment = leadingComments.at(-1)
+
+  if (!insertionComment) {
+    return declarationNode.range[0]
+  }
+
+  let nextStartLine = declarationNode.loc.start.line
+
+  for (let index = leadingComments.length - 1; index >= 0; index -= 1) {
+    const comment = leadingComments[index]
+
+    if (comment.loc.end.line + 1 < nextStartLine) {
+      break
+    }
+
+    insertionComment = comment
+    nextStartLine = comment.loc.start.line
+  }
+
+  return insertionComment.range[0]
 }
 
 const getTypeParameterDeclaration = (

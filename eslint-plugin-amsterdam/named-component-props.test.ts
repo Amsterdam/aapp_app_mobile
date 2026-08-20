@@ -120,6 +120,19 @@ export const Icon = (props: Props) => <View {...props} />`,
       ],
     },
     {
+      code: `// some comment
+export const Html = (props: HtmlProps | UnsafeHtmlProps) => MissingValue`,
+      output: `type Props = HtmlProps | UnsafeHtmlProps
+// some comment
+export const Html = (props: Props) => MissingValue`,
+      errors: [
+        {
+          messageId: 'noCombinedTypeForComponentProps',
+          data: {name: 'Html'},
+        },
+      ],
+    },
+    {
       code: `export const Polygons = <P extends GeoJsonProperties>({
   data,
 }: {
