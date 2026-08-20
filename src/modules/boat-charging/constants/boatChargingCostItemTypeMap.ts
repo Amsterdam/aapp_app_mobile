@@ -17,7 +17,7 @@ export const boatChargingCostItemTypeMap: Record<
   }
 > = {
   [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
-    label: 'Plaktarief',
+    label: 'Kleeftarief',
     details: getItemString,
   },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
