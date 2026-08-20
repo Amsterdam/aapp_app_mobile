@@ -58,7 +58,7 @@ export const mapTransactions = (
   if (transactionsIsBudget(transactions, type)) {
     return transactions.map(transaction => ({
       id: transaction.id,
-      accessibilityLabel: transaction.amountFormatted,
+      accessibilityLabel: `${transaction.title}: ${transaction.amountFormatted}`,
       amountFormatted: transaction.amountFormatted,
       datePublished: transaction.datePublished,
       datePublishedFormatted: transaction.datePublishedFormatted,
@@ -67,7 +67,7 @@ export const mapTransactions = (
   } else {
     return transactions.map(transaction => ({
       id: transaction.id,
-      accessibilityLabel: `${transaction.discountAmountFormatted} bespaard.`,
+      accessibilityLabel: `${transaction.description ?? ''}, ${transaction.discountTitle ?? ''}, ${transaction.title ?? ''}, ${transaction.discountAmountFormatted} bespaard.`,
       amountFormatted: transaction.discountAmountFormatted,
       datePublished: transaction.datePublished,
       datePublishedFormatted: transaction.datePublishedFormatted,
