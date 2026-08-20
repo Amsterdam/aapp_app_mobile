@@ -110,8 +110,7 @@ export const BoatChargingSessionButtons = () => {
                   testID="BoatChargingSessionButtonsStartButton"
                 />
               )}
-            {(session.nrg_status === NRGStatus.CheckedOut ||
-              session.nrg_status === NRGStatus.Starting) && (
+            {session.nrg_status === NRGStatus.CheckedOut && (
               <Button
                 isError={isErrorCancelSession}
                 isLoading={isLoadingCancelSession}
