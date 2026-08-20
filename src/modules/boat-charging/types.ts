@@ -235,6 +235,7 @@ export enum BoatChargingCostBreakdownItemType {
   ENERGY = 'ENERGY',
   FLAT = 'FLAT',
   PARKING_TIME = 'PARKING_TIME',
+  STANDARD_FINE = 'STANDARD_FINE',
   TIME = 'TIME',
 }
 

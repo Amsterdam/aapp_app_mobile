@@ -16,6 +16,10 @@ export const boatChargingCostItemTypeMap: Record<
     label: string
   }
 > = {
+  [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
+    label: 'Plaktarief',
+    details: getItemString,
+  },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
     label: 'Stroom',
     details: item =>
