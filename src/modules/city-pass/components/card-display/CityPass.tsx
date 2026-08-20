@@ -93,7 +93,7 @@ export const CityPass = ({
                     {!!type && (
                       <Phrase
                         color="secondary"
-                        testID="CityPassCityPassBlockedPhrase"
+                        testID="CityPassCityPassTypePhrase"
                         textAlign="center">
                         {capitalizeString(type)}
                       </Phrase>
