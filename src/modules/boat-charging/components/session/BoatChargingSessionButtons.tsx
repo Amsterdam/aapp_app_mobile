@@ -27,14 +27,17 @@ export const BoatChargingSessionButtons = () => {
   const [
     stopSession,
     {isLoading: isLoadingStopSession, isError: isErrorStopSession},
-  ] = useBoatChargingStopSessionMutation()
+  ] = useBoatChargingStopSessionMutation({
+    fixedCacheKey: `boat-charging-stop-session:${session?.id}`,
+  })
 
   useEffect(() => {
     if (
       session?.nrg_status === NRGStatus.CheckedOut &&
       isPluggedIn &&
       !isLoadingStartSession &&
-      !isErrorStartSession
+      !isErrorStartSession &&
+      !session.last_command_error
     ) {
       void startSession(session.id)
     }
@@ -112,7 +115,7 @@ export const BoatChargingSessionButtons = () => {
               <Button
                 isError={isErrorCancelSession}
                 isLoading={isLoadingCancelSession}
-                label="Annuleren"
+                label="Laadsessie annuleren"
                 onPress={stop}
                 testID="BoatChargingSessionButtonsCancelButton"
                 variant="secondary"

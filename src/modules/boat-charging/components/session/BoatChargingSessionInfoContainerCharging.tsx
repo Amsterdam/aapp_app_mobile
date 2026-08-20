@@ -23,7 +23,9 @@ export const BoatChargingSessionInfoContainerCharging = () => {
   } = useBoatChargingSession()
   const {toggle} = useBottomSheet()
   const [, {isLoading: isLoadingStopSession}] =
-    useBoatChargingStopSessionMutation()
+    useBoatChargingStopSessionMutation({
+      fixedCacheKey: `boat-charging-stop-session:${session?.id}`,
+    })
 
   const isStopping =
     session?.nrg_status === NRGStatus.Stopping || isLoadingStopSession
