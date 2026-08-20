@@ -32,6 +32,7 @@ export const CityPassDetailsPassNumber = ({passNumberComplete}: Props) => {
         </HideFromAccessibility>
         <Row gutter="sm">
           <Phrase
+            accessible={false}
             color={isCopied ? 'confirm' : undefined}
             emphasis="strong"
             selectable

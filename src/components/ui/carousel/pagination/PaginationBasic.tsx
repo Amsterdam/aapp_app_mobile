@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/carousel/pagination/PaginationItem'
 
 export type BasicProps<T extends object = object> = {
+  accessibilityLabel?: string
   activeDotStyle?: DotStyle
   containerStyle?: StyleProp<ViewStyle>
   currentIndex: number
@@ -28,21 +29,20 @@ export type BasicProps<T extends object = object> = {
   size?: number
 } & TestProps
 
-export const Basic = <T extends object>(props: BasicProps<T>) => {
-  const {
-    activeDotStyle,
-    currentIndex,
-    dotStyle,
-    progress,
-    horizontal = true,
-    data,
-    size,
-    containerStyle,
-    renderItem,
-    onPress,
-    testID,
-  } = props
-
+export const Basic = <T extends object>({
+  activeDotStyle,
+  currentIndex,
+  dotStyle,
+  progress,
+  horizontal = true,
+  data,
+  size,
+  containerStyle,
+  renderItem,
+  onPress,
+  testID,
+  accessibilityLabel = 'stap',
+}: BasicProps<T>) => {
   if (
     typeof size === 'string' ||
     typeof dotStyle?.width === 'string' ||
@@ -57,8 +57,8 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
         <PressableBase
           accessibilityLabel={
             currentIndex === index
-              ? `Huidige stap, ${index + 1} van ${data.length}`
-              : `Ga naar stap ${index + 1} van ${data.length}`
+              ? `Huidige ${accessibilityLabel}, ${index + 1} van ${data.length}`
+              : `Ga naar ${accessibilityLabel} ${index + 1} van ${data.length}`
           }
           accessibilityRole="button"
           hitSlop={5}

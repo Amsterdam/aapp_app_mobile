@@ -14,12 +14,16 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 import Logo from '@/modules/city-pass/assets/logo.svg'
 import {BarCode} from '@/modules/city-pass/components/card-display/BarCode'
-import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
+import {
+  CITY_PASS_HEIGHT,
+  CITY_PASS_PHONE_NUMBER,
+} from '@/modules/city-pass/constants'
 import {CityPassPass} from '@/modules/city-pass/types'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {stringGroupInto} from '@/utils/stringGroupInto'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 const PASS_BORDER_RADIUS = 10
 const BARCODE_WIDTH_PERCENTAGE = 85
@@ -42,6 +46,7 @@ export const CityPass = ({
     lastname,
     passNumberComplete,
     dateEndFormatted,
+    type,
   },
 }: Props) => {
   const {width: windowWidth} = useWindowDimensions()
@@ -53,8 +58,8 @@ export const CityPass = ({
 
   const accessibilityLabel =
     actief === false
-      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel 0202526000 om te deblokkeren.`
-      : `De stadspas van ${firstname} ${infix ?? ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`
+      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel ${CITY_PASS_PHONE_NUMBER} om te deblokkeren.`
+      : `De stadspas van ${firstname} ${infix ?? ''} ${lastname} kan nu gescand worden. ${type ? 'Type: ' + type + '. ' : ''}Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`
 
   return (
     <HideFromAccessibility
@@ -81,12 +86,22 @@ export const CityPass = ({
                   align="evenly"
                   grow={1}
                   halign="center">
-                  <Phrase
-                    emphasis="strong"
-                    testID="CityPassCityPassNamePhrase"
-                    textAlign="center">
-                    {firstname} {infix} {lastname}
-                  </Phrase>
+                  <Column gutter="xs">
+                    <Phrase
+                      emphasis="strong"
+                      testID="CityPassCityPassNamePhrase"
+                      textAlign="center">
+                      {firstname} {infix} {lastname}
+                    </Phrase>
+                    {!!type && (
+                      <Phrase
+                        color="secondary"
+                        testID="CityPassCityPassTypePhrase"
+                        textAlign="center">
+                        {capitalizeString(type)}
+                      </Phrase>
+                    )}
+                  </Column>
 
                   {actief === false ? (
                     <Phrase

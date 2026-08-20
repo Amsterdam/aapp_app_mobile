@@ -9,6 +9,7 @@ import {CityPassDetailsPassNumber} from '@/modules/city-pass/components/details/
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {CityPass} from '@/modules/city-pass/types'
 import {zTokens} from '@/themes/tokens/z'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 type Props = {
   cityPass: CityPass
@@ -23,6 +24,25 @@ export const CityPassDetailsInfo = ({cityPass}: Props) => {
       gutter="md"
       zIndex={zTokens.tooltip}>
       <CityPassDetailsPassNumber passNumberComplete={passNumberComplete} />
+      {!!cityPass.type && (
+        <SingleSelectable testID="CityPassCityPassDetailsType">
+          <Row
+            align="between"
+            gutter="md">
+            <Phrase
+              accessible={false}
+              testID="CityPassCityPassDetailsTypeLabel">
+              Type
+            </Phrase>
+            <Phrase
+              accessible={false}
+              emphasis="strong"
+              testID="CityPassCityPassDetailsTypeValue">
+              {capitalizeString(cityPass.type)}
+            </Phrase>
+          </Row>
+        </SingleSelectable>
+      )}
       {!!securityCode && (
         <Row
           align="between"
@@ -48,10 +68,13 @@ export const CityPassDetailsInfo = ({cityPass}: Props) => {
           <Row
             align="between"
             gutter="md">
-            <Phrase testID="CityPassCityPassDetailsExpiryDateLabel">
+            <Phrase
+              accessible={false}
+              testID="CityPassCityPassDetailsExpiryDateLabel">
               Geldig tot en met
             </Phrase>
             <Phrase
+              accessible={false}
               emphasis="strong"
               testID="CityPassCityPassDetailsExpiryDateValue">
               {dateEndFormatted}

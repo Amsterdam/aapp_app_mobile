@@ -5,6 +5,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 
 export type TransactionItemProps = {
   accessibilityLabel: string
+  accessible?: boolean
   amountFormatted: string
   description?: string
   id: string
@@ -13,6 +14,7 @@ export type TransactionItemProps = {
 }
 
 export const TransactionItem = ({
+  accessible = true,
   accessibilityLabel,
   amountFormatted,
   description,
@@ -24,19 +26,23 @@ export const TransactionItem = ({
       align="between"
       gutter="md">
       <Phrase
+        accessible={accessible}
         emphasis="strong"
         testID="CityPassTransactionTitle">
         {title}
       </Phrase>
       <Phrase
         accessibilityLabel={accessibilityLabel}
+        accessible={accessible}
         emphasis="strong"
         flexShrink={0}
         testID="CityPassTransactionItemAmountPhrase">
         {amountFormatted}
       </Phrase>
     </Row>
-    {!!provider && <Paragraph>{provider}</Paragraph>}
-    {!!description && <Paragraph>{description}</Paragraph>}
+    {!!provider && <Paragraph accessible={accessible}>{provider}</Paragraph>}
+    {!!description && (
+      <Paragraph accessible={accessible}>{description}</Paragraph>
+    )}
   </Column>
 )

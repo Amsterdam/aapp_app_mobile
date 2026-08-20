@@ -11,6 +11,7 @@ const transformResponse = (cityPasses: SecureCityPass[]): CityPassPass[] =>
     infix: cityPass.i,
     lastname: cityPass.l,
     passNumberComplete: cityPass.p,
+    type: cityPass.t,
   }))
 
 export const useGetSecureCityPasses = () => {

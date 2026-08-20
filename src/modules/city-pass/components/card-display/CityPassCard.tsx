@@ -4,12 +4,12 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {CityPass, CityPassPass} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 type Props = {
   cityPass: CityPass | CityPassPass
@@ -25,15 +25,10 @@ export const CityPassCard = ({
   const styles = useThemable(createStyles)
   const firstname =
     'owner' in cityPass ? cityPass?.owner.firstname : cityPass?.firstname
-  const budgetsBalanceSentence =
-    'balanceFormatted' in cityPass
-      ? `Totaal saldo ${cityPass.balanceFormatted}`
-      : ''
-  const budgets = 'budgets' in cityPass ? cityPass.budgets : []
 
   return (
     <Pressable
-      accessibilityLabel={`Stadspas details van ${firstname}. ${budgetsBalanceSentence}`}
+      accessibilityLabel={`Stadspas details van ${firstname}. ${cityPass.type ? 'Type: ' + cityPass.type + '. ' : ''}${cityPass.actief === false ? 'Geblokkeerd.' : ''}`}
       accessibilityLanguage="nl-NL"
       accessibilityRole={accessibilityRole}
       onPress={onPress}
@@ -57,31 +52,35 @@ export const CityPassCard = ({
           gutter="xs"
           shrink={1}>
           <Title
+            accessible={false}
             color="link"
             level="h3"
             testID={`${testID}Title`}
             text="Stadspas details"
           />
           <Title
+            accessible={false}
             color="link"
             level="h3"
             testID={`${testID}NameTitle`}
             text={firstname}
           />
-          {cityPass.actief === false ? (
+          {cityPass.actief === false && (
             <Phrase
+              accessible={false}
               testID={`${testID}BlockedPhrase`}
               variant="small">
               Geblokkeerd
             </Phrase>
-          ) : (
-            !!budgets.length && (
-              <Paragraph
-                testID={`${testID}Text`}
-                variant="small">
-                {budgetsBalanceSentence}
-              </Paragraph>
-            )
+          )}
+          {!!cityPass.type && (
+            <Phrase
+              accessible={false}
+              color="secondary"
+              testID={`${testID}TypePhrase`}
+              variant="small">
+              {capitalizeString(cityPass.type)}
+            </Phrase>
           )}
         </Column>
         <Row>

@@ -37,11 +37,13 @@ To have access to the passes even while being offline, relevant data is been sto
 ```
 [
     {
+        a: boolean // whether the pass is active
         f: string // the first name of the pass holder
         i: string // the infix of the pass holder if applicable
         l: string // the last name of the pass holder
         d: string // the date until which the pass is valid
         p: string // the complete pass number
+        t: string // the type of city pass
     }
 ]
 ```

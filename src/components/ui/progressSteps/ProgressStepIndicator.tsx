@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, Text} from 'react-native'
 import {Icon} from '@/components/ui/media/Icon'
 import {
   ProgressStatus,
@@ -10,6 +10,7 @@ import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
+  accessible?: boolean
   numberIndicator?: number
   progressStatus: ProgressStatus
   variant: ProgressStepsVariant
@@ -19,10 +20,13 @@ export const ProgressStepIndicator = ({
   progressStatus,
   numberIndicator,
   variant,
+  accessible = true,
 }: Props) => {
   const theme = useTheme()
   const {fontScale} = useDeviceContext()
   const styles = createStyles(theme, fontScale, progressStatus, variant)
+
+  const TextComponent = accessible ? AccessibleText : Text
 
   return (
     <View
@@ -37,11 +41,11 @@ export const ProgressStepIndicator = ({
         />
       )}
       {!!numberIndicator && progressStatus !== 'done' && (
-        <AccessibleText
+        <TextComponent
           style={styles.text}
           testID="ProgressStepIndicatorNumberLabel">
           {numberIndicator}
-        </AccessibleText>
+        </TextComponent>
       )}
     </View>
   )

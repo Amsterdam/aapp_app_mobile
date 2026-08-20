@@ -24,11 +24,10 @@ export const LoginItem = ({
   title,
 }: Props) => (
   <View
-    accessibilityLabel={`Stap ${numberIndicator},`.concat(
-      isDone ? 'afgerond' : `${title}, ${text}`,
-    )}
+    accessibilityLabel={`Stap ${numberIndicator}, ${title}, ${text}${isDone ? ', afgerond' : ''}`}
     accessible>
     <ProgressStep
+      accessible={false}
       numberIndicator={numberIndicator}
       progressStatus={isDone ? 'done' : isCurrent ? 'active' : 'planned'}
       progressStatusNextItem={
@@ -38,11 +37,14 @@ export const LoginItem = ({
       variant="secondary">
       <Column shrink={1}>
         <Title
+          accessible={false}
           color={!isDone && !isCurrent ? 'secondary' : 'default'}
           level="h4"
           text={title}
         />
-        <Paragraph color={!isDone && !isCurrent ? 'secondary' : 'default'}>
+        <Paragraph
+          accessible={false}
+          color={!isDone && !isCurrent ? 'secondary' : 'default'}>
           {text}
         </Paragraph>
       </Column>
