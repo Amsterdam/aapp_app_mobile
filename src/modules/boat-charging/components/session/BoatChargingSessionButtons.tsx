@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -27,10 +27,27 @@ export const BoatChargingSessionButtons = () => {
   const [
     stopSession,
     {isLoading: isLoadingStopSession, isError: isErrorStopSession},
-  ] = useBoatChargingStopSessionMutation()
+  ] = useBoatChargingStopSessionMutation({
+    fixedCacheKey: `boat-charging-stop-session:${session?.id}`,
+  })
+
+  useEffect(() => {
+    if (
+      session?.nrg_status === NRGStatus.CheckedOut &&
+      isPluggedIn &&
+      !isLoadingStartSession &&
+      !isErrorStartSession &&
+      !session.last_command_error
+    ) {
+      void startSession(session.id)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.nrg_status, isPluggedIn, startSession, session?.id])
 
   const stop = useCallback(() => {
-    if (!session) return
+    if (!session) {
+      return
+    }
 
     Alert.alert(
       'Wilt u het laden stoppen?',
@@ -60,35 +77,44 @@ export const BoatChargingSessionButtons = () => {
   return (
     <Box variant="distinct">
       <SafeArea bottom>
-        {isCharging ? (
+        {isCharging || session.nrg_status === NRGStatus.Stopping ? (
           <Button
             isError={isErrorStopSession}
-            isLoading={isLoadingStopSession}
+            isLoading={
+              isLoadingStopSession || session?.nrg_status === NRGStatus.Stopping
+            }
             label="Stop laden"
-            onPress={stop}
+            onPress={() =>
+              isLoadingStopSession || session?.nrg_status === NRGStatus.Stopping
+                ? null
+                : stop()
+            }
             testID="BoatChargingSessionButtonsStopButton"
             variant="secondary"
           />
         ) : (
           <Column gutter="smd">
-            <Button
-              isError={isErrorStartSession}
-              isLoading={isLoadingStartSession}
-              label="Start laden"
-              onPress={() => {
-                if (isPluggedIn) {
-                  void startSession(session.id)
-                } else {
-                  onPressStartButtonNotPluggedIn()
-                }
-              }}
-              testID="BoatChargingSessionButtonsStartButton"
-            />
+            {session.nrg_status === NRGStatus.CheckedOut &&
+              !!session.last_command_error && (
+                <Button
+                  isError={isErrorStartSession}
+                  isLoading={isLoadingStartSession}
+                  label="Opnieuw proberen"
+                  onPress={() => {
+                    if (isPluggedIn) {
+                      void startSession(session.id)
+                    } else {
+                      onPressStartButtonNotPluggedIn()
+                    }
+                  }}
+                  testID="BoatChargingSessionButtonsStartButton"
+                />
+              )}
             {session.nrg_status === NRGStatus.CheckedOut && (
               <Button
                 isError={isErrorCancelSession}
                 isLoading={isLoadingCancelSession}
-                label="Annuleren"
+                label="Laadsessie annuleren"
                 onPress={stop}
                 testID="BoatChargingSessionButtonsCancelButton"
                 variant="secondary"
