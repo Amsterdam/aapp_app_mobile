@@ -1,18 +1,61 @@
 import {pascalCase} from 'pascal-case'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {useModules} from '@/hooks/useModules'
 import {ModuleButton} from '@/modules/home/components/ModuleButton'
-import {ModuleStatus, type Module} from '@/modules/types'
+import {ModuleStatus} from '@/modules/types'
 
-type Props = {
-  modules: Module[]
-}
+export const Modules = () => {
+  const {
+    enabledModules,
+    modulesError,
+    modulesLoading,
+    modulesFetching,
+    refetchModules,
+  } = useModules()
 
-export const Modules = ({modules}: Props) => {
-  const availableModules = modules?.filter(m => !m.excludeFromHome)
+  if (modulesLoading || modulesFetching) {
+    return (
+      <PleaseWait
+        showFeedback
+        testID="HomeLoadingSpinner"
+      />
+    )
+  }
 
-  if (!modules.length) {
+  if (modulesError || !enabledModules) {
+    return (
+      <Column gutter="lg">
+        <Box>
+          <Column gutter="md">
+            <Title
+              level="h3"
+              testID="ModulesErrorTitle"
+              text="We kunnen de onderwerpen niet laden"
+              textAlign="center"
+            />
+            <Paragraph textAlign="center">
+              Controleer uw internetverbinding of probeer het later opnieuw
+            </Paragraph>
+          </Column>
+        </Box>
+        <Button
+          accessibilityLabel="Laad de modules opnieuw"
+          label="Opnieuw laden"
+          onPress={refetchModules}
+          testID="ModulesErrorButton"
+          variant="secondary"
+        />
+      </Column>
+    )
+  }
+
+  if (!enabledModules.length) {
     return (
       <Box>
         <EmptyMessage
@@ -22,6 +65,8 @@ export const Modules = ({modules}: Props) => {
       </Box>
     )
   }
+
+  const availableModules = enabledModules?.filter(m => !m.excludeFromHome)
 
   return (
     <Column gutter="sm">
