@@ -1,7 +1,7 @@
 import {Tabs} from '@/components/ui/Tabs' // Updated import
 import {Column} from '@/components/ui/layout/Column'
 import {ParkingStartSessionDatePicker} from '@/modules/parking/components/form/bottomsheet/ParkingStartSessionDatePicker'
-import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
+import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
@@ -36,7 +36,7 @@ export const ParkingSessionDateTime = ({
             minDate={minDateTime ?? dateTime}
             mode="time"
             onChange={newDateTime => {
-              setDateTime(dayjs(newDateTime))
+              setDateTime(newDateTime)
             }}
           />
         </Tabs.Tab>
@@ -50,7 +50,7 @@ export const ParkingSessionDateTime = ({
             minDate={minDateTime ?? dateTime}
             mode="date"
             onChange={newDateTime => {
-              setDateTime(dayjs(newDateTime))
+              setDateTime(newDateTime)
             }}
           />
         </Tabs.Tab>

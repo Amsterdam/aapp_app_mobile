@@ -1,10 +1,11 @@
 import {impactAsync, ImpactFeedbackStyle} from 'expo-haptics'
 import {useFormContext, useController} from 'react-hook-form'
 import {Platform, StyleSheet, View} from 'react-native'
-import DatePicker from 'react-native-date-picker'
+import type {Dayjs} from '@/utils/datetime/dayjs'
 import {Tabs} from '@/components/ui/Tabs'
 import {Button} from '@/components/ui/buttons/Button'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {DatePicker} from '@/components/ui/forms/DatePicker'
 import {TimeDurationSpinner} from '@/components/ui/forms/TimeDurationSpinner'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -15,7 +16,6 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ParkingPermit} from '@/modules/parking/types'
-import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
@@ -174,15 +174,10 @@ export const ParkingSessionDurationTimePicker = ({
           label="Eindtijd">
           <DatePicker
             date={endTime?.toDate() ?? startTime.toDate()}
-            is24hourSource="locale"
-            locale="nl-NL"
             maximumDate={maximumDateTime?.toDate()}
             minimumDate={minimumDateTime.toDate()}
             mode="time"
-            onDateChange={newStartTime => {
-              onChange(dayjs(newStartTime))
-            }}
-            style={styles.centerSelf}
+            onChange={onChange}
             theme="light"
           />
         </Tabs.Tab>
@@ -192,9 +187,6 @@ export const ParkingSessionDurationTimePicker = ({
 }
 
 const styles = StyleSheet.create({
-  centerSelf: {
-    alignSelf: 'center',
-  },
   floatingButtons: {
     position: 'absolute',
     width: '100%',

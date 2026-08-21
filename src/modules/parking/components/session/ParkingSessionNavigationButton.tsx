@@ -12,6 +12,7 @@ import {
 } from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
+import {isToday} from '@/utils/datetime/isToday'
 
 const DATE_FORMAT = 'D MMMM, HH.mm'
 
@@ -99,7 +100,7 @@ const getDescription = (
   const {start_date_time, end_date_time, status} = parkingSession
 
   if (status === ParkingSessionStatus.active) {
-    const isEndDateToday = dayjs(end_date_time).isSame(dayjs(), 'day')
+    const isEndDateToday = isToday(end_date_time)
 
     return noEndTime
       ? `Actief sinds ${dayjs(start_date_time).format(isEndDateToday ? 'HH.mm' : DATE_FORMAT)} uur`

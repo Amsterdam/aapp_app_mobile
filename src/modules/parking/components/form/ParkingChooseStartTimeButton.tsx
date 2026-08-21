@@ -3,7 +3,7 @@ import {useFormContext} from 'react-hook-form'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {useInterval} from '@/hooks/useInterval'
-import {useIsLocalTimeSameAsServerTime} from '@/hooks/useIsLocalTimeSameAsServerTime'
+import {useTimeDifference} from '@/hooks/useTimeDifference'
 import {TimeDifferenceNotice} from '@/modules/parking/components/TimeDifferenceNotice'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -22,23 +22,19 @@ export const ParkingChooseStartTimeButton = () => {
   const {startTimeRef, userHasEditedStart} = useParkingSession()
   const {started_at} = useCurrentParkingPermit()
 
-  const {isSameTime, isLoading, serverTime} = useIsLocalTimeSameAsServerTime()
+  const {isSameTime, serverNow, isLoading} = useTimeDifference()
 
   const checkStartTime = useCallback(() => {
     if (isLoading) {
       return
     }
 
-    if (!isSameTime) {
-      if (
-        serverTime &&
-        (!userHasEditedStart.current ||
-          startTimeField.isBefore(dayjs(serverTime)))
-      ) {
-        setValue('startTime', dayjs(serverTime))
+    if (!isSameTime && serverNow) {
+      if (!userHasEditedStart.current || startTimeField.isBefore(serverNow)) {
+        setValue('startTime', serverNow)
 
         if (!startTimeRef.current) {
-          startTimeRef.current = dayjs(serverTime)
+          startTimeRef.current = serverNow
         }
       }
 
@@ -47,9 +43,7 @@ export const ParkingChooseStartTimeButton = () => {
 
     const now = dayjs().set('second', 0)
 
-    if (!startTimeRef.current) {
-      startTimeRef.current = now
-    }
+    startTimeRef.current ??= now
 
     if (!originalEndTime && now.isAfter(startTimeField)) {
       setValue('startTime', now)
@@ -57,9 +51,9 @@ export const ParkingChooseStartTimeButton = () => {
     }
   }, [
     isSameTime,
-    isLoading,
     originalEndTime,
-    serverTime,
+    serverNow,
+    isLoading,
     setValue,
     startTimeField,
     startTimeRef,
@@ -74,10 +68,7 @@ export const ParkingChooseStartTimeButton = () => {
 
   return (
     <Column gutter="md">
-      <TimeDifferenceNotice
-        isSameTime={isSameTime}
-        serverTime={serverTime}
-      />
+      <TimeDifferenceNotice />
       <SelectButtonControlled<{startTime: Dayjs}, 'startTime'>
         bottomSheetVariant={ParkingSessionBottomSheetVariant.startTime}
         icon={{name: 'clock', size: 'lgx'}}
@@ -90,7 +81,7 @@ export const ParkingChooseStartTimeButton = () => {
             }
 
             const currentTime = !isSameTime
-              ? dayjs(serverTime)
+              ? serverNow
               : dayjs().set('second', 0)
 
             if (startTime.isBefore(currentTime, 'minute')) {
@@ -103,9 +94,7 @@ export const ParkingChooseStartTimeButton = () => {
           },
         }}
         testID="ParkingChooseStartTimeButton"
-        text={startTime =>
-          formatDateTimeToDisplay(startTime, false, serverTime)
-        }
+        text={startTime => formatDateTimeToDisplay(startTime, false, serverNow)}
         title="Starttijd"
       />
     </Column>
