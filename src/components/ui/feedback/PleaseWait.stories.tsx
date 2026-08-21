@@ -14,7 +14,7 @@ export default {
       </Canvas>
     ),
   ],
-} as Meta<typeof PleaseWait>
+} satisfies Meta<typeof PleaseWait>
 
 export const Default: StoryObj<typeof PleaseWait> = {
   args: {

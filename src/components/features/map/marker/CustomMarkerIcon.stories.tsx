@@ -6,14 +6,14 @@ import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatC
 import {BoatChargingPointState} from '@/modules/boat-charging/types'
 import {themes} from '@/themes/themes'
 
-const meta: Meta<typeof CustomMarkerIcon> = {
+const meta = {
   component: CustomMarkerIcon,
   parameters: {
     backgrounds: {
       default: 'custom-grey0',
     },
   },
-}
+} satisfies Meta<typeof CustomMarkerIcon>
 
 export default meta
 
@@ -34,6 +34,7 @@ export const Default: Story = {
             <CustomMarkerIcon
               {...args}
               icon={icon}
+              key={`${icon.path}-${size}`}
               size={size}
             />
           ))}

@@ -4,7 +4,7 @@ import {Trait} from '@/components/ui/feedback/Trait'
 
 export default {
   component: Trait,
-} as Meta<typeof Trait>
+} satisfies Meta<typeof Trait>
 
 export const Default: StoryFn<typeof Trait> = args => (
   <Trait

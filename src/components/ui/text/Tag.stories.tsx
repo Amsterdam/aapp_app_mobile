@@ -4,9 +4,9 @@ import {Tag} from './Tag'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {LiveblogDot} from '@/modules/news/components/liveblog/LiveblogDot'
 
-const meta: Meta<typeof Tag> = {
+const meta = {
   component: Tag,
-}
+} satisfies Meta<typeof Tag>
 
 export default meta
 

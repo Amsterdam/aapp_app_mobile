@@ -3,10 +3,10 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Icon} from '@/components/ui/media/Icon'
 import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
 
-const meta: Meta<typeof IconButton> = {
+const meta = {
   component: IconButton,
   argTypes: pressableArgTypes,
-}
+} satisfies Meta<typeof IconButton>
 
 export default meta
 

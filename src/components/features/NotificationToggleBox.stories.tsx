@@ -1,12 +1,10 @@
+import {action} from 'storybook/actions'
 import {NotificationToggleBox} from './NotificationToggleBox'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
-const meta: Meta<typeof NotificationToggleBox> = {
-  argTypes: {
-    onChange: {action: 'onChange'},
-  },
+const meta = {
   component: NotificationToggleBox,
-}
+} satisfies Meta<typeof NotificationToggleBox>
 
 export default meta
 
@@ -15,6 +13,9 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     description: 'U ontvangt meldingen over ophaaldagen voor ‘Mijn adres’.',
+    testID: 'Switch',
+    value: true,
+    onChange: action('onChange'),
   },
 
   parameters: {

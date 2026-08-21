@@ -16,11 +16,11 @@ type Props = {
   description: string
   disabled?: boolean
   onChange: (value: boolean) => void
-  testID: string
   value: boolean
 } & TestProps
 
-const Wrapper = ({children}: {children: React.ReactNode}) => (
+type WrapperProps = {children: React.ReactNode}
+const Wrapper = ({children}: WrapperProps) => (
   <Box
     borderColor="default"
     borderStyle="solid"

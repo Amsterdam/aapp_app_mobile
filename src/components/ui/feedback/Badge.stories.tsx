@@ -6,7 +6,7 @@ export default {
   args: {
     value: 3,
   },
-} as Meta<typeof Badge>
+} satisfies Meta<typeof Badge>
 
 export const Default = {}
 

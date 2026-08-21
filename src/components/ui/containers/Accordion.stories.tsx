@@ -4,7 +4,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 
 export default {
   component: Accordion,
-} as Meta<typeof Accordion>
+} satisfies Meta<typeof Accordion>
 
 const paragraphText =
   'Een accordeon (Engels: accordion) is een klikbare verticaal gestapelde lijst van koppen om bijbehorende inhoud te verbergen of te vertonen. Je toont inhoud op een progressieve manier aan gebruikers. Ze zijn geschikt zodra gebruikers op zoek zijn naar essentiële inhoud op 1 pagina. Door niet essentiële inhoud te verbergen, kunnen gebruikers focussen op de primaire inhoud.'
@@ -35,6 +35,7 @@ export const Multiple: StoryFn<typeof Accordion> = () => (
     {['Grof afval', 'Restafval', 'Containers in de buurt', 'Recyclepunten'].map(
       title => (
         <Accordion
+          key={title}
           testID={`${title}Accordion`}
           title={title}>
           <Paragraph>

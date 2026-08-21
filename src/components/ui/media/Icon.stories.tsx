@@ -117,7 +117,7 @@ const MultipleIconsTemplate = ({color, category}: Props) => (
   </Row>
 )
 
-const meta: Meta<typeof MultipleIconsTemplate> = {
+const meta = {
   component: MultipleIconsTemplate,
   argTypes: {
     color: {
@@ -131,7 +131,7 @@ const meta: Meta<typeof MultipleIconsTemplate> = {
       control: 'select',
     },
   },
-}
+} satisfies Meta<typeof MultipleIconsTemplate>
 
 export default meta
 

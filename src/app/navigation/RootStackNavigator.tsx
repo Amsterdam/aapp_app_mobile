@@ -20,6 +20,7 @@ const moduleStacks = allModules.map(({screenOptions: options, slug}) => {
 
   return (
     <Stack.Screen
+      // oxlint-disable-next-line react/no-children-prop
       children={props => (
         <InactiveModuleGuard
           component={stack}

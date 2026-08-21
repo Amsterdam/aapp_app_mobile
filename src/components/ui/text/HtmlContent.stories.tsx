@@ -3,7 +3,7 @@ import {HtmlContent} from './HtmlContent'
 
 export default {
   component: HtmlContent,
-} as Meta<typeof HtmlContent>
+} satisfies Meta<typeof HtmlContent>
 
 export const Default: StoryFn<typeof HtmlContent> = args => (
   <HtmlContent {...args} />

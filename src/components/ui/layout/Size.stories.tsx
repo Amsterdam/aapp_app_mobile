@@ -5,7 +5,7 @@ import {Canvas} from '@/storybook/components'
 
 export default {
   component: Size,
-} as Meta<typeof Size>
+} satisfies Meta<typeof Size>
 
 export const Default: StoryFn<typeof Size> = args => (
   <Size {...args}>

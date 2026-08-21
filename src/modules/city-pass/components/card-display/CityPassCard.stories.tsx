@@ -8,7 +8,7 @@ export default {
       action: 'onPress',
     },
   },
-} as Meta<typeof CityPassCard>
+} satisfies Meta<typeof CityPassCard>
 
 export const Default: StoryObj<typeof CityPassCard> = {
   args: {

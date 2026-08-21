@@ -3,7 +3,7 @@ import {Title} from './Title'
 
 export default {
   component: Title,
-} as Meta<typeof Title>
+} satisfies Meta<typeof Title>
 
 export const Default: StoryFn<typeof Title> = args => <Title {...args} />
 Default.args = {

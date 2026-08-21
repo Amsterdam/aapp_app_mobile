@@ -3,7 +3,7 @@ import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay
 
 export default {
   component: CharactersLeftDisplay,
-} as Meta<typeof CharactersLeftDisplay>
+} satisfies Meta<typeof CharactersLeftDisplay>
 
 export const Default: StoryObj<typeof CharactersLeftDisplay> = {
   args: {

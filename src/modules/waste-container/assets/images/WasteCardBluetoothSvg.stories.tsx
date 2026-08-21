@@ -1,9 +1,9 @@
 import {WasteCardBluetoothSvg} from './WasteCardBluetoothSvg'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
-const meta: Meta<typeof WasteCardBluetoothSvg> = {
+const meta = {
   component: WasteCardBluetoothSvg,
-}
+} satisfies Meta<typeof WasteCardBluetoothSvg>
 
 export default meta
 

@@ -1,14 +1,16 @@
 import {Checkbox} from './Checkbox'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
-export default {
+const meta = {
   component: Checkbox,
   argTypes: {
-    onValueChange: {
-      action: 'onValueChange',
+    onPress: {
+      action: 'onPress',
     },
   },
-} as Meta<typeof Checkbox>
+} satisfies Meta<typeof Checkbox>
+
+export default meta
 
 export const Default: StoryObj<typeof Checkbox> = {
   args: {

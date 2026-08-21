@@ -22,4 +22,9 @@ const rules = Object.fromEntries(
   ]),
 )
 
-export {rules}
+const meta = {name: 'amsterdam'}
+
+export {rules, meta}
+
+// eslint-disable-next-line import-x/no-default-export
+export default {rules, meta}

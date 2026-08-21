@@ -1,9 +1,9 @@
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 
-const meta: Meta<typeof ConstructionWorkDetailFigure> = {
+const meta = {
   component: ConstructionWorkDetailFigure,
-}
+} satisfies Meta<typeof ConstructionWorkDetailFigure>
 
 export default meta
 

@@ -1,9 +1,9 @@
 import {ParkingIntroFigure} from './ParkingIntroFigure'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
-const meta: Meta<typeof ParkingIntroFigure> = {
+const meta = {
   component: ParkingIntroFigure,
-}
+} satisfies Meta<typeof ParkingIntroFigure>
 
 export default meta
 

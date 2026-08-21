@@ -60,7 +60,7 @@ export const ContactOptions = () => {
                   accessibilityLabel={`${props.accessibilityLabel ?? props.title}, ${props.text}`}
                   accessibilityRole="link"
                   icon={redirectsKey && isLoading ? {name: 'spinner'} : icon}
-                  isExternalLink={/^https:/.test(resultUrl ?? '')}
+                  isExternalLink={(resultUrl ?? '').startsWith('https:')}
                   isInternalLink={!!routeName}
                   onPress={() => {
                     if (resultUrl) {

@@ -3,13 +3,13 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Row} from '@/components/ui/layout/Row'
 import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
 
-const meta: Meta<typeof Button> = {
+const meta = {
   argTypes: pressableArgTypes,
   component: Button,
   parameters: {
     componentSubtitle: 'Het basis button component',
   },
-}
+} satisfies Meta<typeof Button>
 
 export default meta
 

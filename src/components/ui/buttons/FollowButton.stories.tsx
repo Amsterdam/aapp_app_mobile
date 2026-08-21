@@ -8,7 +8,7 @@ export default {
       action: 'onPress',
     },
   },
-} as Meta<typeof FollowButton>
+} satisfies Meta<typeof FollowButton>
 
 export const Default: StoryObj<typeof FollowButton> = {
   args: {
