@@ -100,7 +100,8 @@ GEM
     escape (0.0.4)
     ethon (0.15.0)
       ffi (>= 1.15.0)
-    excon (0.112.0)
+    excon (1.5.0)
+      logger
     faraday (1.10.6)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
