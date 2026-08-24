@@ -8,10 +8,11 @@ Boat charging lets users reserve a socket, complete the required payment and con
 
 1. Users must agree to the terms and conditions before proceeding with boat charging.
 2. Logged in users are not asked to accept the terms again when they already approved the latest version.
-3. A paid session does not start charging immediately after checkout. Charging starts automatically only after the cable is connected.
-4. The session has separate in-progress phases for starting and stopping so the user can see whether the charging point is still processing a command.
-5. Cancelling and stopping are different actions. A session that has not started charging yet can still be cancelled, while an active charging session must be stopped.
-6. If the start command fails, the session remains recoverable. The user is told to unplug and try again, or to cancel the session instead.
+3. All prices shown to users in the boat-charging flow must be inclusive of VAT, including location rates, start fees, session history amounts, and cost breakdowns.
+4. A paid session does not start charging immediately after checkout. Charging starts automatically only after the cable is connected.
+5. The session has separate in-progress phases for starting and stopping so the user can see whether the charging point is still processing a command.
+6. Cancelling and stopping are different actions. A session that has not started charging yet can still be cancelled, while an active charging session must be stopped.
+7. If the start command fails, the session remains recoverable. The user is told to unplug and try again, or to cancel the session instead.
 
 ## Start session flow
 
