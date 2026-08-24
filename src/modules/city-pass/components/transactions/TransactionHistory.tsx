@@ -12,7 +12,8 @@ import {
   mapTransactions,
 } from '@/modules/city-pass/utils/transactionUtils'
 
-const NoTransactions = ({text}: {text: string}) => (
+type NoTransactionsProps = {text: string}
+const NoTransactions = ({text}: NoTransactionsProps) => (
   <Border bottom>
     <Box insetBottom="md">
       <Phrase

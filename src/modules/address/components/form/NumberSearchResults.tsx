@@ -3,11 +3,11 @@ import {NumberSearchAnimation} from '@/modules/address/components/form/NumberSea
 import {NumberSearchResult} from '@/modules/address/components/form/NumberSearchResult'
 import {useGetAddressFormList} from '@/modules/address/hooks/useGetAddressFormList'
 
-export const NumberSearchResults = ({
-  onPressResult,
-}: {
+type Props = {
   onPressResult: (item: Address | BaseAddress) => void
-}) => {
+}
+
+export const NumberSearchResults = ({onPressResult}: Props) => {
   const {
     data: list,
     isError,

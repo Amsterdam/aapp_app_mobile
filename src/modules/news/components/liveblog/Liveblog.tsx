@@ -16,7 +16,9 @@ import {useLiveblog} from '@/modules/news/hooks/useLiveblog'
 import {getLiveblogLastEntriesPerDay} from '@/modules/news/utils/getLiveblogLastEntriesPerDay'
 import {useThemable} from '@/themes/useThemable'
 
-export const Liveblog = ({id}: {id: NewsArticleBase['id']}) => {
+type Props = {id: NewsArticleBase['id']}
+
+export const Liveblog = ({id}: Props) => {
   const {data, isError, isLoading, startedTimeStamp, ...rest} = useLiveblog(id)
   const styles = useThemable(createStyles)
   const navigation = useNavigation()

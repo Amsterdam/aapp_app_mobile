@@ -63,13 +63,15 @@ type ExternalIconProps = Omit<IconProps, 'name' | 'isFilled' | 'path'> & {
 
 const DEFAULT_VIEW_BOX = '0 0 24 24'
 
+type Props = IconProps | ExternalIconProps
+
 export const Icon = ({
   color = 'default',
   size = 'md',
   testID,
   'logging-label': loggingLabel,
   ...rest
-}: IconProps | ExternalIconProps) => {
+}: Props) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale

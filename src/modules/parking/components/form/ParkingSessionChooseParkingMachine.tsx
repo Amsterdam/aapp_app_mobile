@@ -18,11 +18,13 @@ type FieldValues = Pick<
   'parking_machine' | 'startTime' | 'parking_machine_favorite'
 >
 
+type Props = {
+  selectedParkingMachineId?: ParkingMachine['id']
+}
+
 export const ParkingSessionChooseParkingMachine = ({
   selectedParkingMachineId,
-}: {
-  selectedParkingMachineId?: ParkingMachine['id']
-}) => {
+}: Props) => {
   const {
     clearErrors,
     control,

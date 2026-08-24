@@ -14,11 +14,11 @@ import {
 } from '@/modules/service/types'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'
 
-export const ServicePointDetailsProperties = ({
-  properties,
-}: {
+type Props = {
   properties: ServiceFeatureProperty[]
-}) => {
+}
+
+export const ServicePointDetailsProperties = ({properties}: Props) => {
   const hasAnyIcon = properties.some(property => !!property.icon)
 
   return (

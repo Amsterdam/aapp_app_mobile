@@ -16,7 +16,9 @@ import {debounce} from '@/utils/debounce'
 
 const DEBOUNCE_DELAY = 100
 
-export const ParkingPermitZoneMap = ({focusType}: {focusType: MapFocus}) => {
+type Props = {focusType: MapFocus}
+
+export const ParkingPermitZoneMap = ({focusType}: Props) => {
   const {report_code, can_select_zone} = useCurrentParkingPermit()
   const {setRegion} = usePermitMapContext()
 

@@ -5,15 +5,10 @@ import {Box} from '@/components/ui/containers/Box'
 import {PopupMenuItem} from '@/components/ui/menus/types'
 import {Phrase} from '@/components/ui/text/Phrase'
 
-export const PopUpMenuItem = ({
-  ref,
-  onPress,
-  testID,
-  label,
-  color,
-}: PopupMenuItem & {
+type Props = PopupMenuItem & {
   ref: Ref<View>
-}) => (
+}
+export const PopUpMenuItem = ({ref, onPress, testID, label, color}: Props) => (
   <Pressable
     onPress={onPress}
     ref={ref}

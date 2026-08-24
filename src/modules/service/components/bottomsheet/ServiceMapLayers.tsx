@@ -8,7 +8,9 @@ import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus
 import {ServiceMapLayerSwitch} from '@/modules/service/components/ServiceMapLayerSwitch'
 import {useServiceQuery} from '@/modules/service/service'
 
-export const ServiceMapLayers = ({id: serviceId}: {id: Service['id']}) => {
+type Props = {id: Service['id']}
+
+export const ServiceMapLayers = ({id: serviceId}: Props) => {
   const {data: service} = useServiceQuery(serviceId || skipToken)
   const {layers, activeFilters, onPressFilter} = useMapFilters()
 

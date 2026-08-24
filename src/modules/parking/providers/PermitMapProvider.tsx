@@ -5,7 +5,9 @@ import {PermitZoneMapBottomSheetVariant} from '@/modules/parking/components/perm
 import {PermitMapContext} from '@/modules/parking/providers/PermitMap.context'
 import {type ParkingMachine} from '@/modules/parking/types'
 
-export const PermitMapProvider = ({children}: {children: ReactNode}) => {
+type Props = {children: ReactNode}
+
+export const PermitMapProvider = ({children}: Props) => {
   const [selectedMachineId, setSelectedMachineId] = useState<
     ParkingMachine['id'] | undefined
   >(undefined)

@@ -10,7 +10,8 @@ type Props = {
   labelPosition?: MainAxisPosition
 }
 
-const Label = ({children}: {children: ReactNode}) => (
+type LabelProps = {children: ReactNode}
+const Label = ({children}: LabelProps) => (
   <HideFromAccessibility style={[layoutStyles.grow, layoutStyles.shrink]}>
     {children}
   </HideFromAccessibility>

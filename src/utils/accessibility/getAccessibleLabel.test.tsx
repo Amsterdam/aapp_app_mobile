@@ -5,7 +5,8 @@ import {
   getAccessibleLabel,
 } from '@/utils/accessibility/getAccessibleLabel'
 
-const Wrapper = ({children}: {children: ReactNode}) => <>{children}</>
+type WrapperProps = {children: ReactNode}
+const Wrapper = ({children}: WrapperProps) => <>{children}</>
 
 test(`accessibleText returns empty string`, () => {
   expect(accessibleText('')).toBe('')

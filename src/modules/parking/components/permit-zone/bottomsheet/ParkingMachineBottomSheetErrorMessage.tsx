@@ -11,11 +11,10 @@ const isSSPError = (error: unknown): error is {data: {code: string}} =>
   'code' in error.data &&
   !!error.data.code
 
-export const ParkingMachineBottomSheetErrorMessage = ({
-  error,
-}: {
+type Props = {
   error: unknown
-}) => (
+}
+export const ParkingMachineBottomSheetErrorMessage = ({error}: Props) => (
   <Column gutter="sm">
     <Title
       level="h5"

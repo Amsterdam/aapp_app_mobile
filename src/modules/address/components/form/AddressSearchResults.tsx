@@ -4,11 +4,11 @@ import type {Address, BaseAddress} from '@/modules/address/types'
 import {NumberSearchResults} from '@/modules/address/components/form/NumberSearchResults'
 import {StreetSearchResults} from '@/modules/address/components/form/StreetSearchResults'
 
-export const AddressSearchResults = ({
-  onPressResult,
-}: {
+type Props = {
   onPressResult: (address: Address) => void
-}) => {
+}
+
+export const AddressSearchResults = ({onPressResult}: Props) => {
   const {setValue, watch} = useFormContext<AddressSearchFields>()
 
   const selectAddress = (selectedAddress: Address | BaseAddress) => {

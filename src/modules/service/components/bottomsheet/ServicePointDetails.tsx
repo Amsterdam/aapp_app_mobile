@@ -11,7 +11,9 @@ import {useSelectedServicePointDetails} from '@/modules/service/hooks/useSelecte
 import {resetSelectedServicePointId} from '@/modules/service/slice'
 import {type Service} from '@/modules/service/types'
 
-export const ServicePointDetails = ({id: serviceId}: {id: Service['id']}) => {
+type Props = {id: Service['id']}
+
+export const ServicePointDetails = ({id: serviceId}: Props) => {
   const dispatch = useDispatch()
   const servicePointDetails = useSelectedServicePointDetails(serviceId)
   const autoFocus = useAccessibilityFocus()

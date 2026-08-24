@@ -18,18 +18,18 @@ export type DotStyle = Omit<ViewStyle, 'width' | 'height'> & {
   width?: number
 }
 
-export const PaginationItem: React.FC<
-  PropsWithChildren<{
-    activeDotStyle?: DotStyle
-    animValue: SharedValue<number>
-    count: number
-    dotStyle?: DotStyle
-    horizontal?: boolean
-    index: number
-    size?: number
-  }> &
-    ViewProps
-> = props => {
+type Props = PropsWithChildren<{
+  activeDotStyle?: DotStyle
+  animValue: SharedValue<number>
+  count: number
+  dotStyle?: DotStyle
+  horizontal?: boolean
+  index: number
+  size?: number
+}> &
+  ViewProps
+
+export const PaginationItem: React.FC<Props> = props => {
   const {
     animValue,
     dotStyle,

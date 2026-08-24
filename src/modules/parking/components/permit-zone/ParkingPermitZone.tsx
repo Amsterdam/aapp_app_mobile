@@ -4,7 +4,8 @@ import {ParkingMachineList} from '@/modules/parking/components/permit-zone/Parki
 import {ParkingMachineSearch} from '@/modules/parking/components/permit-zone/ParkingMachineSearch'
 import {ParkingPermitZoneMap} from '@/modules/parking/components/permit-zone/ParkingPermitZoneMap'
 
-export const ParkingPermitZone = (props: {focusType: MapFocus}) => (
+type Props = {focusType: MapFocus}
+export const ParkingPermitZone = (props: Props) => (
   <MapViewSwitchView
     componentMap={{
       map: ParkingPermitZoneMap,

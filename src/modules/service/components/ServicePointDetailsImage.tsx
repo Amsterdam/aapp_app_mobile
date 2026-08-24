@@ -1,7 +1,9 @@
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {useDynamicImageAspectRatio} from '@/hooks/useDynamicImageAspectRatio'
 
-export const ServicePointDetailsImage = ({uri}: {uri: string}) => {
+type Props = {uri: string}
+
+export const ServicePointDetailsImage = ({uri}: Props) => {
   const aspectRatio = useDynamicImageAspectRatio(uri)
 
   return (

@@ -10,11 +10,11 @@ import {useAlert} from '@/store/slices/alert'
 import {getAccessibleLabel} from '@/utils/accessibility/getAccessibleLabel'
 import {isEmptyObject} from '@/utils/object'
 
-export const AlertTopOfScreen = ({
-  inset = 'md',
-}: {
+type Props = {
   inset?: AlertBaseProps['inset']
-}) => {
+}
+
+export const AlertTopOfScreen = ({inset = 'md'}: Props) => {
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
   const {resetAlert, alert} = useAlert()
 

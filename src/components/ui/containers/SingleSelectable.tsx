@@ -2,6 +2,8 @@ import {useMemo} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 import {getAccessibleLabel} from '@/utils/accessibility/getAccessibleLabel'
 
+type Props = ViewProps & React.RefAttributes<View>
+
 /**
  * Groups its children into a single selectable component for screen readers.
  */
@@ -10,7 +12,7 @@ export const SingleSelectable = ({
   style,
   accessibilityLabel: explicitAccessibilityLabel,
   ...viewProps
-}: ViewProps & React.RefAttributes<View>) => {
+}: Props) => {
   const accessibilityLabel = useMemo(
     () =>
       getAccessibleLabel({
