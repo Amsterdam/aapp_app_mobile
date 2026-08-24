@@ -14,6 +14,7 @@ export const refreshAccessToken = (
   dispatch: ReduxDispatch,
   state: RootState,
 ): Promise<string> =>
+  // oxlint-disable-next-line no-async-promise-executor
   new Promise(async (resolve, reject) => {
     if (!reportCode) {
       devError('No account provided')

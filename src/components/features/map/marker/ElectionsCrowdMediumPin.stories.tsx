@@ -10,14 +10,14 @@ const styles = StyleSheet.create({
   },
 })
 
-const meta: Meta<typeof MapMarkerElectionsCrowdMediumPin> = {
+const meta = {
   component: MapMarkerElectionsCrowdMediumPin,
   parameters: {
     backgrounds: {
       default: 'custom-grey0',
     },
   },
-}
+} satisfies Meta<typeof MapMarkerElectionsCrowdMediumPin>
 
 export default meta
 

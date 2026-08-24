@@ -24,7 +24,7 @@ export default {
       },
     },
   },
-} as Meta<typeof Box>
+} satisfies Meta<typeof Box>
 
 export const Default: StoryFn<typeof Box> = args => (
   <Box {...args}>

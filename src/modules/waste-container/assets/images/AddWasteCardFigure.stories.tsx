@@ -1,9 +1,9 @@
 import {AddWasteCardFigure} from './AddWasteCardFigure'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
-const meta: Meta<typeof AddWasteCardFigure> = {
+const meta = {
   component: AddWasteCardFigure,
-}
+} satisfies Meta<typeof AddWasteCardFigure>
 
 export default meta
 

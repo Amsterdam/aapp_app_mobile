@@ -9,7 +9,7 @@ export default {
       action: 'onValueChange',
     },
   },
-} as Meta<typeof Switch>
+} satisfies Meta<typeof Switch>
 
 export const Default: StoryObj<typeof Switch> = {
   args: {

@@ -4,7 +4,7 @@ import {Direction} from '@/components/ui/types'
 
 export default {
   component: Triangle,
-} as Meta<typeof Triangle>
+} satisfies Meta<typeof Triangle>
 
 export const Default: StoryObj<typeof Triangle> = {
   args: {

@@ -20,17 +20,17 @@ const moduleStacks = allModules.map(({screenOptions: options, slug}) => {
 
   return (
     <Stack.Screen
-      children={props => (
+      key={slug}
+      name={slug}
+      options={options}>
+      {props => (
         <InactiveModuleGuard
           component={stack}
           slug={slug}
           {...props}
         />
       )}
-      key={slug}
-      name={slug}
-      options={options}
-    />
+    </Stack.Screen>
   )
 })
 

@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import type {NavigationProps} from '@/app/navigation/types'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -18,17 +17,14 @@ import {
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
 import {setLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/types'
 
-type Props = NavigationProps<BoatChargingRouteName.termsAndConditions>
-
 const AGREED_TO_TERMS_ERROR_MESSAGE =
   'Ga akkoord gaan met de voorwaarden om verder te gaan.'
 
-export const BoatChargingTermsAndConditionsScreen = ({}: Props) => {
+export const BoatChargingTermsAndConditionsScreen = () => {
   const {
     onPress,
     form: {handleSubmit, setError, watch},

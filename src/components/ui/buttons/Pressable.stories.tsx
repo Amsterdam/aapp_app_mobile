@@ -9,7 +9,7 @@ export default {
       action: 'onPress',
     },
   },
-} as Meta<typeof Pressable>
+} satisfies Meta<typeof Pressable>
 
 export const Default: StoryObj<typeof Pressable> = {
   args: {

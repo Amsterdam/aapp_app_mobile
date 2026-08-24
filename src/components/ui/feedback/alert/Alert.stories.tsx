@@ -9,7 +9,7 @@ import {ParkingRouteName} from '@/modules/parking/routes'
 const title = 'Titel'
 const text = 'U kunt een dagontheffing of jaarontheffing aanvragen'
 
-const meta: Meta<typeof AlertBase> = {
+const meta = {
   component: AlertBase,
   argTypes: {
     hasCloseIcon: {
@@ -39,7 +39,7 @@ const meta: Meta<typeof AlertBase> = {
     title,
     text,
   },
-}
+} satisfies Meta<typeof AlertBase>
 
 export default meta
 

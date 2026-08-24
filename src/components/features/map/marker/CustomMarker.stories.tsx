@@ -6,14 +6,14 @@ import {SvgIconsConfig} from '@/components/ui/media/svgIcons'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {BoatChargingPointState} from '@/modules/boat-charging/types'
 
-const meta: Meta<typeof CustomMarker> = {
+const meta = {
   component: CustomMarker,
   parameters: {
     backgrounds: {
       default: 'custom-grey0',
     },
   },
-}
+} satisfies Meta<typeof CustomMarker>
 
 export default meta
 

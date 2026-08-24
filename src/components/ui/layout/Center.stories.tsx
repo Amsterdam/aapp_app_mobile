@@ -15,7 +15,7 @@ export default {
       </Canvas>
     ),
   ],
-} as Meta<typeof Center>
+} satisfies Meta<typeof Center>
 
 export const Default: StoryFn<typeof Center> = args => (
   <Center {...args}>

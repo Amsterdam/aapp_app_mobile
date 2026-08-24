@@ -20,7 +20,7 @@ export default {
       />
     </Form>
   ),
-} as Meta<typeof EmailTextInputField>
+} satisfies Meta<typeof EmailTextInputField>
 
 export const Default: StoryObj<typeof EmailTextInputField> = {
   args: {

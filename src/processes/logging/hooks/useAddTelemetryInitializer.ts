@@ -27,7 +27,7 @@ export const useAddTelemetryInitializer = () => {
       {} as Record<string, boolean>,
     )
 
-    void Promise.all([isEmulatorDeviceInfo()]).then(([isEmulator]) => {
+    void isEmulatorDeviceInfo().then(isEmulator => {
       const telemetryInitializer = (envelope: ITelemetryItem) => {
         envelope.data ??= {}
 

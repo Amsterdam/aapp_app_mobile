@@ -3,6 +3,6 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: ModuleIcon,
-} as Meta<typeof ModuleIcon>
+} satisfies Meta<typeof ModuleIcon>
 
 export const Default: StoryObj<typeof ModuleIcon> = {}

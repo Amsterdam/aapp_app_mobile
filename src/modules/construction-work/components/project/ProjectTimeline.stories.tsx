@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: ProjectTimeline,
-} as Meta<typeof ProjectTimeline>
+} satisfies Meta<typeof ProjectTimeline>
 
 export const Default: StoryObj<typeof ProjectTimeline> = {
   args: {

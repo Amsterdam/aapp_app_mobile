@@ -5,7 +5,7 @@ import {Canvas} from '@/storybook/components'
 
 export default {
   component: AspectRatio,
-} as Meta<typeof AspectRatio>
+} satisfies Meta<typeof AspectRatio>
 
 export const Default: StoryFn<typeof AspectRatio> = args => (
   <AspectRatio {...args}>

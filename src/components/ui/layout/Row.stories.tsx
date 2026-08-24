@@ -5,7 +5,7 @@ import {Block, Canvas} from '@/storybook/components'
 
 export default {
   component: Row,
-} as Meta<typeof Row>
+} satisfies Meta<typeof Row>
 
 export const Default: StoryFn<typeof Row> = args => (
   <Canvas highlight>

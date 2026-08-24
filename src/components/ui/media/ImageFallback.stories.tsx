@@ -1,9 +1,9 @@
 import {ImageFallback} from './ImageFallback'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
-const meta: Meta<typeof ImageFallback> = {
+const meta = {
   component: ImageFallback,
-}
+} satisfies Meta<typeof ImageFallback>
 
 export default meta
 

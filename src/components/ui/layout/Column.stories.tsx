@@ -4,7 +4,7 @@ import {Block, Canvas} from '@/storybook/components'
 
 export default {
   component: Column,
-} as Meta<typeof Column>
+} satisfies Meta<typeof Column>
 
 export const Default: StoryFn<typeof Column> = args => (
   <Canvas highlight>

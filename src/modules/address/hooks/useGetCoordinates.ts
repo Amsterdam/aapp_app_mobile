@@ -40,6 +40,7 @@ export const useGetCoordinates = (
 
   return useCallback(
     (options?: Partial<GeoOptions>) =>
+      // oxlint-disable-next-line no-async-promise-executor
       new Promise<Coordinates | undefined>(async (resolve, reject) => {
         if (!hasPermission) {
           reject({isTechnicalError: false})
