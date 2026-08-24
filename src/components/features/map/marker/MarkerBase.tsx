@@ -34,7 +34,10 @@ const MapMarkerBasePin = (props: Omit<PathProps, 'd'>) => (
   />
 )
 
-const MapMarkerBaseDropShadow = ({translateY}: {translateY: number}) => (
+type MapMarkerBaseDropShadowProps = {translateY: number}
+const MapMarkerBaseDropShadow = ({
+  translateY,
+}: MapMarkerBaseDropShadowProps) => (
   <G transform={`translate(0, ${translateY})`}>
     <MapMarkerBasePin
       fill="black"
