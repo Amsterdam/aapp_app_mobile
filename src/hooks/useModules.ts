@@ -18,7 +18,6 @@ export const useModules = () => {
     data: release,
     error,
     isLoading,
-    isFetching,
     isSuccess,
     refetch,
   } = useGetReleaseQuery()
@@ -73,7 +72,6 @@ export const useModules = () => {
   return {
     userDisabledModulesBySlug,
     modulesLoading,
-    modulesFetching: isFetching,
     modulesError: error,
     refetchModules: refetch,
     ...postProcessedModules,

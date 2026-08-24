@@ -11,19 +11,14 @@ import {ModuleButton} from '@/modules/home/components/ModuleButton'
 import {ModuleStatus} from '@/modules/types'
 
 export const Modules = () => {
-  const {
-    enabledModules,
-    modulesError,
-    modulesLoading,
-    modulesFetching,
-    refetchModules,
-  } = useModules()
+  const {enabledModules, modulesError, modulesLoading, refetchModules} =
+    useModules()
 
-  if (modulesLoading || modulesFetching) {
+  if (modulesLoading) {
     return (
       <PleaseWait
         showFeedback
-        testID="HomeLoadingSpinner"
+        testID="HomeModulesLoadingSpinner"
       />
     )
   }
@@ -45,10 +40,10 @@ export const Modules = () => {
           </Column>
         </Box>
         <Button
-          accessibilityLabel="Laad de modules opnieuw"
+          accessibilityLabel="Laad de onderwerpen opnieuw"
           label="Opnieuw laden"
           onPress={refetchModules}
-          testID="ModulesErrorButton"
+          testID="HomeModulesErrorButton"
           variant="secondary"
         />
       </Column>
@@ -60,7 +55,7 @@ export const Modules = () => {
       <Box>
         <EmptyMessage
           testID="HomeModulesEmptyList"
-          text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven."
+          text="Alle onderwerpen staan uit. Daardoor is hier niet veel te doen. Zet één of meer onderwerpen aan via de instellingen rechtsboven."
         />
       </Box>
     )
