@@ -18,9 +18,13 @@ import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components/bottomsheet/BoatChargingPointDetailsButton'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
+import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
+import {
+  useBoatChargingLocationDetailsQuery,
+  useBoatChargingSettingsQuery,
+} from '@/modules/boat-charging/service'
 import {
   resetSelectedBoatChargingPointId,
   useSelectedBoatChargingPointId,
@@ -53,6 +57,10 @@ export const BoatChargingPointDetails = () => {
     [dispatch],
   )
 
+  const {data: settingsServerData} = useBoatChargingSettingsQuery()
+
+  const vat_fraction = settingsServerData?.vat_fraction ?? VAT_FRACTION_FALLBACK
+
   const details = useMemo(() => {
     if (!location) {
       return ''
@@ -60,11 +68,11 @@ export const BoatChargingPointDetails = () => {
 
     const maxKw = formatMaxKW(location.max_kw)
     const rate = location.tariff
-      ? `${formatNumber(location.tariff.energy_price_per_kwh, 'EUR')} per kWh`
+      ? `${formatNumber(location.tariff.energy_price_per_kwh * vat_fraction, 'EUR', {maximumFractionDigits: 4})} per kWh`
       : ''
 
     return [maxKw, rate].filter(Boolean).join(' - ')
-  }, [location])
+  }, [location, vat_fraction])
 
   const {availableEvses, evses} = useAvailableAndAllEvses(
     location?.charging_stations ?? [],

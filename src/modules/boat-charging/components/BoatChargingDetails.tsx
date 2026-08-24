@@ -12,16 +12,22 @@ import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 import {BoatChargingDetailsInfoRows} from '@/modules/boat-charging/components/BoatChargingDetailsInfoRows'
 import {BoatChargingDetailsSocketRadioGroup} from '@/modules/boat-charging/components/BoatChargingDetailsSocketRadioGroup'
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
+import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
-import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
+import {
+  useBoatChargingLocationDetailsQuery,
+  useBoatChargingSettingsQuery,
+} from '@/modules/boat-charging/service'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 const REFETCH_INTERVAL = 1000 * 15
 
-export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
+type Props = {id: BoatChargingLocation['id']}
+
+export const BoatChargingDetails = ({id}: Props) => {
   const {
     data: location,
     isLoading: isLoadingLocation,
@@ -37,18 +43,26 @@ export const BoatChargingDetails = ({id}: {id: BoatChargingLocation['id']}) => {
     isError: isErrorSessions,
   } = useBoatChargingSessions()
 
+  const {data: settingsServerData} = useBoatChargingSettingsQuery()
+
+  const vat_fraction = settingsServerData?.vat_fraction ?? VAT_FRACTION_FALLBACK
+
   const infoRows = useMemo(
     () =>
       Object.entries({
         Vermogen: formatMaxKW(location?.max_kw),
         Kosten: location?.tariff
-          ? `${formatNumber(location?.tariff.energy_price_per_kwh, 'EUR')} per kWh`
+          ? `${formatNumber(location?.tariff.energy_price_per_kwh * vat_fraction, 'EUR', {maximumFractionDigits: 4})} per kWh`
           : undefined,
         Starttarief: location?.tariff
-          ? formatNumber(location?.tariff.flat_fee_price, 'EUR')
+          ? formatNumber(
+              location?.tariff.flat_fee_price * vat_fraction,
+              'EUR',
+              {maximumFractionDigits: 4},
+            )
           : undefined,
       }),
-    [location],
+    [location, vat_fraction],
   )
 
   const form = useNewSessionFormContext()

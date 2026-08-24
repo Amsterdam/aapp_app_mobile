@@ -16,7 +16,9 @@ import {useBoatChargingSessionCostBreakdownQuery} from '@/modules/boat-charging/
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
-  const {session} = useBoatChargingSession()
+  const {session, settings} = useBoatChargingSession()
+
+  const {vat_fraction} = settings || {}
 
   const {
     data: costBreakdown,
@@ -48,6 +50,7 @@ export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
             <>
               <BoatChargingSessionCostBreakdownItems
                 items={costBreakdown.items}
+                vat_fraction={vat_fraction}
               />
 
               <Divider />
@@ -84,16 +87,22 @@ export const BoatChargingHistorySessionCostDetailsBottomSheet = () => {
   )
 }
 
+type Props = {
+  items: BoatChargingSessionCostBreakdownItem[]
+  vat_fraction?: number | null
+}
 export const BoatChargingSessionCostBreakdownItems = ({
   items,
-}: {
-  items: BoatChargingSessionCostBreakdownItem[]
-}) => (
+  vat_fraction,
+}: Props) => (
   <Column gutter="sm">
     {items.map(item =>
       !item.cost_incl_vat ? null : (
         <BoatChargingHistorySessionCostDetailsInfoRow
-          details={boatChargingCostItemTypeMap[item.type].details(item)}
+          details={boatChargingCostItemTypeMap[item.type].details(
+            item,
+            vat_fraction,
+          )}
           key={item.type}
           label={boatChargingCostItemTypeMap[item.type].label}
           value={formatNumber(item.cost_incl_vat, 'EUR')}

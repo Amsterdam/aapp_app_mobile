@@ -1,6 +1,7 @@
 import {useIsFocused} from '@react-navigation/native'
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useEffect, useMemo, useState, type ReactNode} from 'react'
+import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {BoatChargingSessionContext} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {
   useBoatChargingSessionQuery,
@@ -100,7 +101,7 @@ export const BoatChargingSessionProvider = ({
         session_expiry_hours: 24,
         session_expiry_warning_hours: 20,
         standard_fine: null,
-        vat_fraction: 1.21,
+        vat_fraction: VAT_FRACTION_FALLBACK,
       },
     [settingsServerData],
   )
