@@ -1,4 +1,5 @@
 import {StyleSheet, View} from 'react-native'
+import type {ComponentType} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {BoatChargingSessionInfoContainerCharging} from '@/modules/boat-charging/components/session/BoatChargingSessionInfoContainerCharging'
@@ -9,9 +10,23 @@ import {NRGStatus} from '@/modules/boat-charging/types'
 
 const MIN_CONTAINER_HEIGHT = 258
 
+const mapStatusToComponent: Record<NRGStatus, ComponentType> = {
+  [NRGStatus.Completed]: () => null,
+  [NRGStatus.Cancelled]: () => null,
+  [NRGStatus.CheckedOut]: BoatChargingSessionInfoContainerCheckedOut,
+  [NRGStatus.Created]: BoatChargingSessionInfoContainerCheckedOut,
+  [NRGStatus.Starting]: BoatChargingSessionInfoContainerStarting,
+  [NRGStatus.Charging]: BoatChargingSessionInfoContainerCharging,
+  [NRGStatus.Stopping]: BoatChargingSessionInfoContainerCharging,
+}
+
 export const BoatChargingSessionInfoContainer = () => {
   const {session} = useBoatChargingSession()
   const styles = createStyles()
+
+  const Component = session
+    ? mapStatusToComponent[session.nrg_status]
+    : () => null
 
   return (
     <View style={styles.container}>
@@ -26,14 +41,7 @@ export const BoatChargingSessionInfoContainer = () => {
           grow={1}
           gutter="md"
           halign="center">
-          {session?.nrg_status === NRGStatus.Charging ||
-          session?.nrg_status === NRGStatus.Stopping ? (
-            <BoatChargingSessionInfoContainerCharging />
-          ) : session?.nrg_status === NRGStatus.Starting ? (
-            <BoatChargingSessionInfoContainerStarting />
-          ) : (
-            <BoatChargingSessionInfoContainerCheckedOut />
-          )}
+          <Component />
         </Column>
       </Box>
     </View>
