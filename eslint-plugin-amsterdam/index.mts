@@ -24,6 +24,7 @@ const rules = Object.fromEntries(
 
 const meta = {name: 'amsterdam'}
 
+// TODO: remove this export when this plugin is no longer with eslint, but only with oxlint (https://gemeente-amsterdam.atlassian.net/browse/AM-1161)
 export {rules, meta}
 
 // eslint-disable-next-line import-x/no-default-export
