@@ -10,7 +10,9 @@ import {useEventsByDate} from '@/modules/waste-guide/hooks/useEventsByDate'
 import {isToday} from '@/utils/datetime/isToday'
 import {isTomorrow} from '@/utils/datetime/isTomorrow'
 
-export const WasteGuideCalendarDay = ({day}: {day: Dayjs | null}) => {
+type Props = {day: Dayjs | null}
+
+export const WasteGuideCalendarDay = ({day}: Props) => {
   const eventsByDate = useEventsByDate()
 
   const {

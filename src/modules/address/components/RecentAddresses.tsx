@@ -5,11 +5,11 @@ import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {useRecentAddresses} from '@/modules/address/slice'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
 
-export const RecentAddresses = ({
-  onPress,
-}: {
+type Props = {
   onPress: (address: Address) => void
-}) => {
+}
+
+export const RecentAddresses = ({onPress}: Props) => {
   const recentAddresses = useRecentAddresses()
 
   if (!recentAddresses.length) {

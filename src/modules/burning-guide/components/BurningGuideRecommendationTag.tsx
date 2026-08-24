@@ -17,13 +17,15 @@ const TAG_WIDTH_MAP: Record<FontSize, number> = {
   small: 116,
 }
 
+type Props = {
+  fontSize?: FontSize
+  variant: BurningGuideCodeVariant
+}
+
 export const BurningGuideRecommendationTag = ({
   variant,
   fontSize = 'body',
-}: {
-  fontSize?: FontSize
-  variant: BurningGuideCodeVariant
-}) => {
+}: Props) => {
   const {fontScale} = useDeviceContext()
   const styles = useThemable(createStyles(variant))
 

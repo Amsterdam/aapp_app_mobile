@@ -2,6 +2,7 @@ import type {TestProps} from '@/components/ui/types'
 import type {CarouselItemButton} from '@/modules/onboarding/types'
 import {Button, type ButtonProps} from '@/components/ui/buttons/Button'
 
+type Props = CarouselItemButton & TestProps & ButtonProps
 export const CarouselRenderItemContentButton = ({
   label,
   external,
@@ -9,7 +10,7 @@ export const CarouselRenderItemContentButton = ({
   useOnPress,
   testID,
   ...rest
-}: CarouselItemButton & TestProps & ButtonProps) => (
+}: Props) => (
   <Button
     {...rest}
     icon={external ? {name: 'link-external', size: 'md'} : undefined}

@@ -4,13 +4,11 @@ import {Title} from '@/components/ui/text/Title'
 import {WasteGuideCalendarWeek} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarWeek'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
-export const WasteGuideCalendarMonth = ({
-  month,
-  weeks,
-}: {
+type Props = {
   month: string
   weeks: Record<string, Array<Dayjs | null>>
-}) => (
+}
+export const WasteGuideCalendarMonth = ({month, weeks}: Props) => (
   <Column gutter="sm">
     <Title
       level="h5"

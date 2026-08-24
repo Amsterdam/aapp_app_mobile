@@ -2,15 +2,16 @@ import type {Dayjs} from 'dayjs'
 import {WasteGuideCalendarDay} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDay'
 import {WasteGuideCalendarDaysRow} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDaysRow'
 
+type Props = {
+  days: Array<Dayjs | null>
+  isFirstOfMonth?: boolean
+  isLastRow?: boolean
+}
 export const WasteGuideCalendarWeek = ({
   days,
   isFirstOfMonth,
   isLastRow,
-}: {
-  days: Array<Dayjs | null>
-  isFirstOfMonth?: boolean
-  isLastRow?: boolean
-}) => (
+}: Props) => (
   <WasteGuideCalendarDaysRow
     isFirstOfMonth={isFirstOfMonth}
     isLastRow={isLastRow}>

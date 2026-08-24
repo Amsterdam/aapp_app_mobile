@@ -13,10 +13,9 @@ import {
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-export const ParkingMachineDetails = ({
-  parkingSession,
-  report_code,
-}: ParkingSessionProps & {report_code?: string}) => {
+type Props = ParkingSessionProps & {report_code?: string}
+
+export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
   const {data: parkingMachines, isLoading: isLoadingParkingMachines} =
     useParkingMachinesQuery()
 

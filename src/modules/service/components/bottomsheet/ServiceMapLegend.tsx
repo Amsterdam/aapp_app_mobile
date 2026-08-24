@@ -8,7 +8,9 @@ import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointC
 import {useServiceQuery} from '@/modules/service/service'
 import {getLegendEntryLabel} from '@/modules/service/utils/getLegendEntryLabel'
 
-export const ServiceMapLegend = ({id: serviceId}: {id: Service['id']}) => {
+type Props = {id: Service['id']}
+
+export const ServiceMapLegend = ({id: serviceId}: Props) => {
   const {
     data: service,
     isLoading,

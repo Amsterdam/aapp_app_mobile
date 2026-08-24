@@ -84,10 +84,8 @@ const MapLegendItemCategory = ({
   </Column>
 )
 
-const MapLegendItem = ({
-  label,
-  ...iconProps
-}: MapLegendItem & {iconSize?: keyof typeof IconSize}) => (
+type MapLegendItemProps = MapLegendItem & {iconSize?: keyof typeof IconSize}
+const MapLegendItem = ({label, ...iconProps}: MapLegendItemProps) => (
   <Row gutter="smd">
     <MapLegendItemIcon {...iconProps} />
 
@@ -95,13 +93,15 @@ const MapLegendItem = ({
   </Row>
 )
 
+type MapLegendItemIconProps = Partial<MapLegendItem> & {
+  iconSize?: keyof typeof IconSize
+}
+
 const MapLegendItemIcon = ({
   icon,
   Icon: CustomIcon,
   iconSize = 'lg',
-}: Partial<MapLegendItem> & {
-  iconSize?: keyof typeof IconSize
-}) => {
+}: MapLegendItemIconProps) => {
   const {fontScale} = useDeviceContext()
 
   if (!icon && !CustomIcon) {

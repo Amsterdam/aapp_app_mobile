@@ -7,7 +7,9 @@ export type BottomSheetState = {
   variant?: string
 }
 
-export const BottomSheetProvider = ({children}: {children: ReactNode}) => {
+type Props = {children: ReactNode}
+
+export const BottomSheetProvider = ({children}: Props) => {
   const {close: closeMenu} = useMenu()
   const [state, setState] = useState<BottomSheetState>({
     isOpen: false,

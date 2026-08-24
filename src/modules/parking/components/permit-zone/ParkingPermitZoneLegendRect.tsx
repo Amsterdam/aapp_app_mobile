@@ -8,13 +8,12 @@ import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZ
 const SIZE = 'lg'
 const STROKE_WIDTH = 2
 
-export const ParkingPermitZoneLegendRect = ({
-  fill,
-  size = SIZE,
-}: {
+type Props = {
   fill: PermitZoneFeatureProperties['fill']
   size?: keyof typeof IconSize
-}) => {
+}
+
+export const ParkingPermitZoneLegendRect = ({fill, size = SIZE}: Props) => {
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
 

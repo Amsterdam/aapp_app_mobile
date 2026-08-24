@@ -5,13 +5,15 @@ import {LazyImage} from '@/components/ui/media/LazyImage'
 import {LiveblogTag} from '@/modules/news/components/liveblog/LiveblogTag'
 import {useThemable} from '@/themes/useThemable'
 
+type Props = {
+  isLiveblog?: boolean
+  source: NewsArticleBase['images']
+}
+
 export const NewsDashboardHighlightedArticleImage = ({
   source,
   isLiveblog = false,
-}: {
-  isLiveblog?: boolean
-  source: NewsArticleBase['images']
-}) => {
+}: Props) => {
   const styles = useThemable(createStyles)
 
   return (

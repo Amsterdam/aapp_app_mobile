@@ -1,13 +1,14 @@
 import {type ReactNode, useMemo} from 'react'
 import {AccessCodeContext} from '@/modules/access-code/providers/AccessCodeGate.context'
 
+type Props = {
+  children: ReactNode
+  hasForgotCodeScreen?: boolean
+}
 export const AccessCodeGateProvider = ({
   hasForgotCodeScreen = false,
   children,
-}: {
-  children: ReactNode
-  hasForgotCodeScreen?: boolean
-}) => (
+}: Props) => (
   <AccessCodeContext.Provider
     value={useMemo(
       () => ({

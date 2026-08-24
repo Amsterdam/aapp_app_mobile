@@ -14,13 +14,12 @@ const isLayerWithIcon = (layer: Layer): layer is LayerWithIcon =>
   typeof layer.icon?.circle_color === 'string' &&
   layer.icon.circle_color.length > 0
 
-export const GroupedClusterMarker = ({
-  properties,
-  getChildren,
-}: {
+type Props = {
   getChildren: (id: number) => ClusterItem[]
   properties: ClusterProperties
-}) => {
+}
+
+export const GroupedClusterMarker = ({properties, getChildren}: Props) => {
   const {layers} = useMapFilters()
 
   const pie = useMemo(() => {

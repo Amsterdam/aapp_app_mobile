@@ -31,13 +31,12 @@ import {layoutStyles} from '@/styles/layoutStyles'
 import {useThemable} from '@/themes/useThemable'
 import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 
-export const ServicePointList = ({
-  id: serviceId,
-  onMapElementPress,
-}: {
+type Props = {
   id: Service['id']
   onMapElementPress: (id: ServicePointFeature['id']) => void
-}) => {
+}
+
+export const ServicePointList = ({id: serviceId, onMapElementPress}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(createStyles(insets))
   const {

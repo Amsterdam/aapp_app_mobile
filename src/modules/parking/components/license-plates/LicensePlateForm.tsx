@@ -14,11 +14,11 @@ import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingLicensePlate} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
 
-export const LicensePlateForm = ({
-  licensePlateId,
-}: {
+type Props = {
   licensePlateId?: ParkingLicensePlate['id']
-}) => {
+}
+
+export const LicensePlateForm = ({licensePlateId}: Props) => {
   const navigation = useNavigation()
   const {licensePlates} = useGetLicensePlates()
 

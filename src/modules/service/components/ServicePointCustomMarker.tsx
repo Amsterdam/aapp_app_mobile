@@ -1,11 +1,10 @@
 import type {ServiceMapResponseIcon} from '@/modules/service/types'
 import {CustomMarker} from '@/components/features/map/marker/CustomMarker'
 
-export const ServicePointCustomMarker = ({
-  icon,
-}: {
+type Props = {
   icon: ServiceMapResponseIcon
-}) => (
+}
+export const ServicePointCustomMarker = ({icon}: Props) => (
   <CustomMarker
     icon={{
       circleColor: icon.circle_color,

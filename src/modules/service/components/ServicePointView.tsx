@@ -10,10 +10,12 @@ import {ServicePointMap} from '@/modules/service/components/ServicePointMap'
 import {ServiceMapBottomSheetVariant} from '@/modules/service/components/bottomsheet/bottomsheetVariants'
 import {setSelectedServicePointId} from '@/modules/service/slice'
 
-export const ServicePointView = (props: {
+type Props = {
   focusType?: MapFocus
   id: Service['id']
-}) => {
+}
+
+export const ServicePointView = (props: Props) => {
   const dispatch = useDispatch()
   const {open} = useBottomSheet()
 

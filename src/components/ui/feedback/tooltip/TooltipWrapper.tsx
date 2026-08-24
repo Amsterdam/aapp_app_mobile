@@ -9,6 +9,8 @@ import {Placement} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
+type Props = WrapperProps & ViewProps
+
 export const TooltipWrapper = ({
   ref,
   extraSpace,
@@ -20,7 +22,7 @@ export const TooltipWrapper = ({
   fadeInDuration,
   startFadeIn,
   ...props
-}: WrapperProps & ViewProps) => {
+}: Props) => {
   const {width: windowWidth} = useWindowDimensions()
   const {left, right} = useSafeAreaInsets()
 
