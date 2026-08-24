@@ -62,9 +62,7 @@ describe('dayjsTimeZoneAware', () => {
 
     expect(dayjsTimeZoneAware(serverTime).utcOffset()).toBe(2 * 60)
     expect(dayjsTimeZoneAware(otherTimeZoneTime).utcOffset()).toBe(3 * 60)
-    expect(dayjsTimeZoneAware('2026-08-19T12:00:00+00:00').utcOffset()).toBe(
-      0 * 60,
-    )
+    expect(dayjsTimeZoneAware('2026-08-19T12:00:00+00:00').utcOffset()).toBe(0)
     expect(dayjsTimeZoneAware('2026-08-19T12:00:00+01:00').utcOffset()).toBe(
       1 * 60,
     )
