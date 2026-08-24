@@ -167,6 +167,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         timeout: 180000, // 3 minutes
         headers: deviceIdHeader,
       }),
+      invalidatesTags: ['BoatChargingSessions'],
     }),
     [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
       void,
@@ -180,6 +181,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         timeout: 180000, // 3 minutes
         headers: deviceIdHeader,
       }),
+      invalidatesTags: ['BoatChargingSessions'],
     }),
     [BoatChargingEndpointName.boatChargingCancelSession]: builder.mutation<
       void,
@@ -193,6 +195,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         timeout: 180000, // 3 minutes
         headers: deviceIdHeader,
       }),
+      invalidatesTags: ['BoatChargingSessions'],
     }),
   }),
   overrideExisting: false,

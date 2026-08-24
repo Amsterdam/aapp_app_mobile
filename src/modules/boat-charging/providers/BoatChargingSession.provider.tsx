@@ -1,6 +1,6 @@
 import {useIsFocused} from '@react-navigation/native'
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback, useMemo, useState, type ReactNode} from 'react'
+import {useCallback, useEffect, useMemo, useState, type ReactNode} from 'react'
 import {BoatChargingSessionContext} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {
   useBoatChargingSessionQuery,
@@ -34,6 +34,10 @@ export const BoatChargingSessionProvider = ({
   const [isNotPluggedInErrorVisible, setIsNotPluggedInErrorVisible] =
     useState(false)
   const isFocused = useIsFocused()
+  const [lastStatus, setLastStatus] = useState<NRGStatus | undefined>(undefined)
+
+  const shouldPollFast =
+    lastStatus === NRGStatus.Starting || lastStatus === NRGStatus.Stopping
 
   const {
     data: session,
@@ -41,9 +45,14 @@ export const BoatChargingSessionProvider = ({
     isError,
     fulfilledTimeStamp,
   } = useBoatChargingSessionQuery(id, {
-    pollingInterval: isFocused && shouldPollSession ? 30000 : 0,
+    pollingInterval:
+      isFocused && shouldPollSession ? (shouldPollFast ? 5000 : 30000) : 0,
     skip: !id,
   })
+
+  useEffect(() => {
+    setLastStatus(session?.nrg_status)
+  }, [session?.nrg_status])
 
   const {data: socketStatus} = useBoatChargingSocketStatusQuery(
     shouldPollSocketStatus ? (id ?? skipToken) : skipToken,

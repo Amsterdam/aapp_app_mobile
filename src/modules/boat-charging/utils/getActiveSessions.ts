@@ -5,6 +5,10 @@ export const getActiveSessions = (sessions?: BoatChargingSession[]) =>
   sessions?.filter(
     session =>
       session.status !== SessionStatus.COMPLETED &&
-      (session.nrg_status === NRGStatus.CheckedOut ||
-        session.nrg_status === NRGStatus.Charging),
+      [
+        NRGStatus.CheckedOut,
+        NRGStatus.Charging,
+        NRGStatus.Starting,
+        NRGStatus.Stopping,
+      ].includes(session.nrg_status),
   )

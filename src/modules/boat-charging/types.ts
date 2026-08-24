@@ -93,6 +93,8 @@ export enum NRGStatus {
   Charging = 3,
   Completed = 4,
   Cancelled = 5,
+  Starting = 6,
+  Stopping = 7,
 }
 
 export enum SessionStatus {
@@ -125,6 +127,7 @@ export type BoatChargingSession = {
   end_date_time?: string
   id: string
   kwh: number
+  last_command_error?: string
   location: BoatChargingLocation
   nrg_status: NRGStatus
   socket_number: string
