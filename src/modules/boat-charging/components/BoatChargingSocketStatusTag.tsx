@@ -13,11 +13,10 @@ const STATUS_MAP: Record<ChargingPointStatus, string> = {
   [ChargingPointStatus.UNKNOWN]: 'Storing',
 }
 
-export const BoatChargingSocketStatusTag = ({
-  status,
-}: {
+type Props = {
   status: ChargingPointStatus
-}) => (
+}
+export const BoatChargingSocketStatusTag = ({status}: Props) => (
   <Tag
     paddingVertical="no"
     testID="BoatChargingSocketStatusTag"

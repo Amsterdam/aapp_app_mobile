@@ -4,7 +4,9 @@ import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatC
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {ChargingPointStatus} from '@/modules/boat-charging/types'
 
-export const BoatChargingMarker = ({status}: {status: ChargingPointStatus}) => {
+type Props = {status: ChargingPointStatus}
+
+export const BoatChargingMarker = ({status}: Props) => {
   const state = mapStatusToState[status]
 
   return (

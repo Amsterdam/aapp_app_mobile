@@ -16,7 +16,9 @@ import {
   type NewSessionFormValues,
 } from '@/modules/boat-charging/types'
 
-export const BoatChargingDetailsSocketSubmitButton = ({id}: {id: string}) => {
+type Props = {id: string}
+
+export const BoatChargingDetailsSocketSubmitButton = ({id}: Props) => {
   const form = useFormContext<BoatChargingSelectSocketFormValues>()
   const {isLoggedIn} = useIsLoggedIn()
 

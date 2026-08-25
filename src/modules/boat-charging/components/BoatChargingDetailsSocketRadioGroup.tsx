@@ -9,13 +9,15 @@ import {
 } from '@/modules/boat-charging/types'
 import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailableAndAllEvses'
 
+type Props = {
+  chargingStations: ChargingStation[]
+  hasActiveSession: boolean
+}
+
 export const BoatChargingDetailsSocketRadioGroup = ({
   hasActiveSession,
   chargingStations = [],
-}: {
-  chargingStations: ChargingStation[]
-  hasActiveSession: boolean
-}) => {
+}: Props) => {
   const form = useFormContext<BoatChargingSelectSocketFormValues>()
 
   const {availableEvses, evses} = useAvailableAndAllEvses(chargingStations)
