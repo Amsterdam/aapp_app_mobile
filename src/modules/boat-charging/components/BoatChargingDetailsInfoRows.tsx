@@ -2,11 +2,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 
-export const BoatChargingDetailsInfoRows = ({
-  rows,
-}: {
+type Props = {
   rows: Array<[string, string | undefined]>
-}) => (
+}
+export const BoatChargingDetailsInfoRows = ({rows}: Props) => (
   <Column>
     {rows.map(([key, value]) => {
       if (!value) return null

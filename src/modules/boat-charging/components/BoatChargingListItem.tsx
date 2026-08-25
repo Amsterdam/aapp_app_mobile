@@ -14,13 +14,12 @@ import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {getFormattedDistanceToPoint} from '@/modules/service/utils/getFormattedDistanceToPoint'
 import {useTheme} from '@/themes/useTheme'
 
-export const BoatChargingListItem = ({
-  item,
-  onPress,
-}: {
+type Props = {
   item: BoatChargingPointFeature
   onPress: (chargingPointId: string) => void
-}) => {
+}
+
+export const BoatChargingListItem = ({item, onPress}: Props) => {
   const {size} = useTheme()
   const {address} = useSelectedAddress(ModuleSlug['boat-charging'])
 
