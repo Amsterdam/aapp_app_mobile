@@ -1,4 +1,8 @@
-import {rule} from './todo-comment-for-current-branch-must-be-resolved.mts'
+import {execSync} from 'node:child_process'
+import {
+  rule,
+  testUtilities,
+} from './todo-comment-for-current-branch-must-be-resolved.mts'
 import {ruleTester} from './utils/ruleTester'
 
 const noTicketBranchSettings = {
@@ -61,4 +65,45 @@ const value = 1`,
       errors: [{messageId: 'todoCommentForCurrentBranchMustBeResolved'}],
     },
   ],
+})
+
+// Test the caching behavior of the getCurrentBranchName function:
+
+jest.mock('node:child_process', () => ({
+  execSync: jest.fn(),
+}))
+
+const mockedExecSync = jest.mocked(execSync)
+
+describe('todo-comment-for-current-branch-must-be-resolved git branch cache', () => {
+  let currentTime = 0
+
+  beforeEach(() => {
+    currentTime = 0
+    mockedExecSync.mockReset()
+    testUtilities.resetGitBranchCache()
+    testUtilities.setCurrentTimeProvider(() => currentTime)
+  })
+
+  afterEach(() => {
+    testUtilities.resetGitBranchCache()
+    testUtilities.resetCurrentTimeProvider()
+  })
+
+  it('reuses the cached branch name for 10 seconds', () => {
+    mockedExecSync.mockReturnValueOnce('chore/AM-123-remove-todo\n')
+
+    expect(testUtilities.getGitBranchName()).toBe('chore/AM-123-remove-todo')
+
+    currentTime = 9_999
+
+    expect(testUtilities.getGitBranchName()).toBe('chore/AM-123-remove-todo')
+    expect(mockedExecSync).toHaveBeenCalledTimes(1)
+
+    mockedExecSync.mockReturnValueOnce('chore/AM-456-next-ticket\n')
+    currentTime = 10_000
+
+    expect(testUtilities.getGitBranchName()).toBe('chore/AM-456-next-ticket')
+    expect(mockedExecSync).toHaveBeenCalledTimes(2)
+  })
 })

@@ -12,10 +12,21 @@ type MessageIds = keyof typeof messages
 
 const todoMarker = 'TODO'
 const branchTicketPattern = /\bam-\d+\b/gi
+const gitBranchCacheLifetimeMs = 10_000
 
 type BranchSettings = {
   currentBranchName?: unknown
 }
+
+type CurrentTimeProvider = () => number
+
+type GitBranchCache = {
+  branchName: string | undefined
+  expiresAt: number
+}
+
+let gitBranchCache: GitBranchCache | undefined
+let getCurrentTime: CurrentTimeProvider = () => Date.now()
 
 const normalizeTicketCode = (ticketCode: string) => ticketCode.toLowerCase()
 
@@ -25,15 +36,43 @@ const extractTicketCodes = (text: string) =>
   )
 
 const getGitBranchName = () => {
+  const now = getCurrentTime()
+
+  if (gitBranchCache && gitBranchCache.expiresAt > now) {
+    return gitBranchCache.branchName
+  }
+
+  let branchName: string | undefined
+
   try {
     // eslint-disable-next-line sonarjs/no-os-command-from-path
-    return execSync('git branch --show-current', {
+    branchName = execSync('git branch --show-current', {
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore'],
     }).trim()
   } catch {
-    return undefined
+    branchName = undefined
   }
+
+  gitBranchCache = {
+    branchName,
+    expiresAt: now + gitBranchCacheLifetimeMs,
+  }
+
+  return branchName
+}
+
+export const testUtilities = {
+  getGitBranchName,
+  resetGitBranchCache: () => {
+    gitBranchCache = undefined
+  },
+  setCurrentTimeProvider: (currentTimeProvider: CurrentTimeProvider) => {
+    getCurrentTime = currentTimeProvider
+  },
+  resetCurrentTimeProvider: () => {
+    getCurrentTime = () => Date.now()
+  },
 }
 
 const getBranchNameFromSettings = (settings: BranchSettings) => {
