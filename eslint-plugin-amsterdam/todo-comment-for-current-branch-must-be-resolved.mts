@@ -99,9 +99,11 @@ const getCurrentBranchName = (settings: BranchSettings) => {
   const environmentVariables = getEnvironmentVariables()
   const branchNameFromEnvironment = [
     environmentVariables?.GITHUB_HEAD_REF,
+    environmentVariables?.SYSTEM_PULLREQUEST_SOURCEBRANCH,
     environmentVariables?.GITHUB_REF_NAME,
     environmentVariables?.CI_COMMIT_REF_NAME,
     environmentVariables?.BRANCH_NAME,
+    environmentVariables?.BUILD_SOURCEBRANCH,
   ].find(
     (branchName): branchName is string =>
       typeof branchName === 'string' && branchName.trim().length > 0,
