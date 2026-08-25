@@ -4,8 +4,6 @@ import {createRule} from './utils/createRule.mts'
 import type {NoOptions} from './utils/noOptions'
 
 const messages = {
-  todoCommentRequiresTicket:
-    'Comments containing TODO must also include a ticket number in the form AM-123 or am-123.',
   todoCommentForCurrentBranchMustBeResolved:
     'Comments containing TODO with the current branch ticket must be resolved and removed from this branch.',
 }
@@ -28,7 +26,6 @@ const extractTicketCodes = (text: string) =>
 
 const getGitBranchName = () => {
   try {
-    // oxlint-disable-next-line sonarjs/no-os-command-from-path
     // eslint-disable-next-line sonarjs/no-os-command-from-path
     return execSync('git branch --show-current', {
       encoding: 'utf8',
@@ -107,7 +104,7 @@ export const rule = createRule<NoOptions, MessageIds>({
     type: 'suggestion',
     docs: {
       description:
-        'Require TODO comments to include a ticket number and forbid TODO comments for the current branch ticket',
+        'Forbid TODO comments with ticket codes that are present in the current branch name.',
     },
     schema: [],
     messages,
@@ -121,21 +118,14 @@ export const rule = createRule<NoOptions, MessageIds>({
     return {
       Program: () => {
         for (const comment of context.sourceCode.getAllComments()) {
-          const messageId = hasTodoForCurrentBranchTicket(
-            comment,
-            currentBranchTicketCodes,
-          )
-            ? 'todoCommentForCurrentBranchMustBeResolved'
-            : undefined
-
-          if (!messageId) {
-            continue
+          if (
+            hasTodoForCurrentBranchTicket(comment, currentBranchTicketCodes)
+          ) {
+            context.report({
+              loc: comment.loc,
+              messageId: 'todoCommentForCurrentBranchMustBeResolved',
+            })
           }
-
-          context.report({
-            loc: comment.loc,
-            messageId,
-          })
         }
       },
     }
