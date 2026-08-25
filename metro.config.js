@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-unsafe-assignment
 /* eslint-disable no-console */
 const {mergeConfig} = require('@react-native/metro-config')
 const {getDefaultConfig: getExpoDefaultConfig} = require('expo/metro-config')

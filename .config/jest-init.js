@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-unsafe-assignment
 /* eslint-disable @typescript-eslint/no-empty-function */
 // include this line for mocking react-native-gesture-handler
 import 'react-native-gesture-handler/jestSetup'

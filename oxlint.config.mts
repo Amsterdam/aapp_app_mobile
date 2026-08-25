@@ -18,8 +18,13 @@ export default defineConfig({
   categories: {
     correctness: 'error',
   },
+  options: {typeAware: true},
   rules: {
     ...sonarjsRecommendedLegacyRules,
+    'typescript/no-unsafe-assignment': 'error',
+    'typescript/no-empty-function': 'error',
+    'typescript/no-meaningless-void-operator': 'off',
+    'typescript/no-useless-default-assignment': 'off',
     'sonarjs/no-misleading-array-reverse': 'off', // not (yet) supported in Hermes
     'sonarjs/no-ignored-exceptions': 'off', // does not (yet) detect a correct catch implementation
     'sonarjs/no-nested-conditional': 'off',
