@@ -1,6 +1,6 @@
 import {render} from '@testing-library/react-native'
 import type {ComponentProps} from 'react'
-import {BoatChargingSessionCostBreakdownItems} from '@/modules/boat-charging/components/BoatChargingSessionCostBreakDown'
+import {BoatChargingSessionCostBreakdownItems} from '@/modules/boat-charging/components/BoatChargingSessionCostBreakdown'
 import {boatChargingCostItemTypeMap} from '@/modules/boat-charging/constants/boatChargingCostItemTypeMap'
 import {
   BoatChargingCostBreakdownItemType,

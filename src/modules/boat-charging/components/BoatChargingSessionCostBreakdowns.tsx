@@ -13,7 +13,7 @@ import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatCharg
 import {useBoatChargingSessionCostBreakdownQuery} from '@/modules/boat-charging/service'
 import {formatNumber} from '@/utils/formatNumber'
 
-export const BoatChargingSessionCostBreakDown = () => {
+export const BoatChargingSessionCostBreakdown = () => {
   const {session, settings} = useBoatChargingSession()
 
   const {vat_fraction} = settings || {}
