@@ -1,0 +1,1 @@
+export const VAT_FRACTION_FALLBACK = 1.21

@@ -4,6 +4,7 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingSettingsQuery} from '@/modules/boat-charging/service'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
@@ -38,7 +39,8 @@ export const BoatChargingHistoryItem = memo(({session}: Props) => {
   const elements = [
     typeof session.total_cost === 'number'
       ? formatNumber(
-          session.total_cost * (settingsServerData?.vat_fraction ?? 1.21),
+          session.total_cost *
+            (settingsServerData?.vat_fraction ?? VAT_FRACTION_FALLBACK),
           session.currency,
         )
       : null,
