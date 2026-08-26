@@ -2,6 +2,7 @@ import {Box} from '../containers/Box'
 import {Column} from '../layout/Column'
 import {Row} from '../layout/Row'
 import {Phrase} from '../text/Phrase'
+import {SvgIconVariant} from '../types'
 import {Icon} from './Icon'
 import {
   DesignSystemSvgIcons,
@@ -54,7 +55,8 @@ const MultipleIconsTemplate = ({color, category}: Props) => (
       iconName => {
         const icon = SvgIconsConfig[iconName]
 
-        const hasFilled = 'filled' in icon
+        const hasFilled = SvgIconVariant.filled in icon
+        const hasDefault = SvgIconVariant.default in icon
 
         return (
           <Box
@@ -70,19 +72,19 @@ const MultipleIconsTemplate = ({color, category}: Props) => (
                 <Row
                   gutter="sm"
                   valign="end">
-                  <Column
-                    flex={1}
-                    halign="center">
-                    <Icon
-                      color={color}
-                      name={iconName}
-                      size="lg"
-                      testID="testIdIcon"
-                    />
-                    {!!hasFilled && (
+                  {!!hasDefault && (
+                    <Column
+                      flex={1}
+                      halign="center">
+                      <Icon
+                        color={color}
+                        name={iconName}
+                        size="lg"
+                        testID="testIdIcon"
+                      />
                       <Phrase variant="extraSmall">Default</Phrase>
-                    )}
-                  </Column>
+                    </Column>
+                  )}
                   {!!hasFilled && (
                     <Column
                       flex={1}
