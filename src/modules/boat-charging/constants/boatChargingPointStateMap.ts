@@ -1,5 +1,6 @@
 import type {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import type {ComponentProps} from 'react'
+import {SvgIconsConfig} from '@/components/ui/media/svgIcons'
 import {boatChargingSvgIcons} from '@/modules/boat-charging/constants/icons'
 import {BoatChargingPointState} from '@/modules/boat-charging/types'
 import {themes} from '@/themes/themes'
@@ -13,7 +14,7 @@ export const boatChargingPointStateMap: Record<
     icon: {
       circleColor: themes.light.color.text.confirm,
       pathColor: themes.light.color.text.inverse,
-      path: boatChargingSvgIcons['boat-charging-free'].default.path,
+      path: SvgIconsConfig.lightning.filled.path,
     },
   },
   [BoatChargingPointState.occupied]: {
@@ -21,7 +22,7 @@ export const boatChargingPointStateMap: Record<
     icon: {
       circleColor: themes.light.color.text.secondary,
       pathColor: themes.light.color.text.inverse,
-      path: boatChargingSvgIcons['boat-charging-occupied'].default.path,
+      path: boatChargingSvgIcons['lightning-strikethrough'].filled.path,
     },
   },
   [BoatChargingPointState.malfunction]: {
@@ -29,7 +30,7 @@ export const boatChargingPointStateMap: Record<
     icon: {
       circleColor: themes.light.color.text.secondary,
       pathColor: themes.light.color.text.inverse,
-      path: boatChargingSvgIcons['boat-charging-malfunction'].default.path,
+      path: boatChargingSvgIcons['exclamation-mark'].filled.path,
     },
   },
 }
