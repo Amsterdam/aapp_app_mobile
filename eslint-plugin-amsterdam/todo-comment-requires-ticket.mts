@@ -10,7 +10,7 @@ const messages = {
 type MessageIds = keyof typeof messages
 
 const todoMarker = 'TODO'
-const ticketPattern = /\b(?:AM|am)-\d+\b/
+const ticketPattern = /\bam-\d+\b/i
 
 const hasTodoWithoutTicket = (comment: TSESTree.Comment) => {
   const commentText = comment.value.trim()
