@@ -5,7 +5,6 @@ import {main} from './utils/main.mts'
 try {
   const config = await loadConfig()
 
-  console.log('Loaded config:', config)
   await main(config)
 } catch (e: unknown) {
   core.setFailed((e as Error).message)
