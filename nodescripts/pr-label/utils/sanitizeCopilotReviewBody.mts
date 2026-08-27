@@ -2,7 +2,7 @@ import {
   DETAILS_CLOSE_TAG,
   DETAILS_OPEN_TAG,
   REVIEWED_CHANGES_HEADING,
-} from '../constants.mts'
+} from './constants.mts'
 
 export const sanitizeCopilotReviewBody = (reviewBody: string): string => {
   const reviewLines = reviewBody.replaceAll('\r\n', '\n').split('\n')

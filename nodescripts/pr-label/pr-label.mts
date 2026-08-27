@@ -1,8 +1,12 @@
 import * as core from '@actions/core'
+import {loadConfig} from './utils/config.mts'
 import {main} from './utils/main.mts'
 
 try {
-  await main()
+  const config = await loadConfig()
+
+  console.log('Loaded config:', config)
+  await main(config)
 } catch (e: unknown) {
   core.setFailed((e as Error).message)
 }
