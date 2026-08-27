@@ -12,10 +12,12 @@ export const createStackNavigator = <T extends ParamListBase>() => {
     return (
       <Navigator
         {...props}
-        screenOptions={{
+        screenOptions={screenOptionsProps => ({
           animation: isReduceMotionEnabled ? 'none' : undefined,
-          ...screenOptions,
-        }}
+          ...(typeof screenOptions === 'function'
+            ? screenOptions(screenOptionsProps)
+            : screenOptions),
+        })}
       />
     )
   }

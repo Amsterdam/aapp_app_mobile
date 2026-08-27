@@ -45,6 +45,7 @@ module.exports = {
         'sonarjs/todo-tag': 'off',
         'sonarjs/no-selector-parameter': 'off',
         'sonarjs/void-use': 'off',
+        'sonarjs/aws-restricted-ip-admin-access': 'off',
         'sonarjs/deprecation': 'off',
         'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits
         'amsterdam/todo-comment-requires-ticket': 'warn',
@@ -240,6 +241,7 @@ module.exports = {
         '@typescript-eslint/restrict-template-expressions': 'error',
         '@typescript-eslint/prefer-promise-reject-errors': 'off',
         '@typescript-eslint/only-throw-error': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
       },
       parserOptions: {
         project: ['./tsconfig.json'],

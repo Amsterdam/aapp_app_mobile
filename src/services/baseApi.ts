@@ -59,7 +59,7 @@ const dynamicBaseQuery: BaseQueryFn<
         prepareHeaders: argsPrepareHeaders = headers => headers,
         method,
         url,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        // oxlint-disable-next-line typescript/no-unsafe-assignment
         body,
       } = args
 

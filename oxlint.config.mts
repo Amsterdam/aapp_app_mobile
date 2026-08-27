@@ -18,8 +18,13 @@ export default defineConfig({
   categories: {
     correctness: 'error',
   },
+  options: {typeAware: true},
   rules: {
     ...sonarjsRecommendedLegacyRules,
+    'typescript/no-unsafe-assignment': 'error',
+    'typescript/no-empty-function': 'warn',
+    'typescript/no-meaningless-void-operator': 'off',
+    'typescript/no-useless-default-assignment': 'off',
     'sonarjs/no-misleading-array-reverse': 'off', // not (yet) supported in Hermes
     'sonarjs/no-ignored-exceptions': 'off', // does not (yet) detect a correct catch implementation
     'sonarjs/no-nested-conditional': 'off',
@@ -36,7 +41,6 @@ export default defineConfig({
     'amsterdam/jsx-prefer-coerced-and-over-null-ternary': 'error',
     'amsterdam/todo-comment-requires-ticket': 'warn',
     'no-process-env': 'error',
-    '@typescript-eslint/no-empty-function': 'warn',
     'no-shadow': 'error',
     'no-void': ['error', {allowAsStatement: true}],
     'no-restricted-imports': [
@@ -174,9 +178,9 @@ export default defineConfig({
       files: ['*.test.ts', '*.test.tsx', '*.test.mts', '*.test.mtsx'],
       rules: {
         'no-restricted-imports': 'off',
-        '@typescript-eslint/ban-ts-comment': 'off',
+        'typescript/ban-ts-comment': 'off',
         'sonarjs/no-duplicate-string': 'off',
-        '@typescript-eslint/no-magic-numbers': 'off',
+        'typescript/no-magic-numbers': 'off',
         'sonarjs/no-undefined-argument': 'off',
       },
     },
