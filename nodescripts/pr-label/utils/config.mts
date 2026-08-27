@@ -53,15 +53,15 @@ export type PackageConfig = {
    */
   labels?: Record<string, Label>
   /**
-   * Heading before the Copilot-managed pull request description section; content is inserted after this heading.
-   * @type {string}
-   * @default '# Changes'
-   */
-  prDescriptionCopilotSectionAfter?: string
-  /**
    * Heading after the Copilot-managed pull request description section; content is inserted before this heading.
    * @type {string}
    * @default '## Test instructions'
+   */
+  prDescriptionCopilotSectionAfter?: string
+  /**
+   * Heading before the Copilot-managed pull request description section; content is inserted after this heading.
+   * @type {string}
+   * @default '# Changes'
    */
   prDescriptionCopilotSectionBefore?: string
   /**
