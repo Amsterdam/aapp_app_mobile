@@ -22,7 +22,10 @@ export const main = async (config: Required<PackageConfig>) => {
 
   const touchFilesLabels = getTouchedFilesLabels(changedFiles, config)
 
-  await addLabels(pullNumber, touchFilesLabels)
+  await addLabels(
+    pullNumber,
+    touchFilesLabels.filter(label => !alreadyOnPr.has(label.name)),
+  )
 
   const reviews = await getReviews(pullNumber)
   const firstCopilotReview = reviews.find(review =>
