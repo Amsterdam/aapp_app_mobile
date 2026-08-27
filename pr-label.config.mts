@@ -27,6 +27,11 @@ export const config: PackageConfig = {
       color: '#0366d6',
       description: 'Module related',
     },
+    '/^nodescripts/': {
+      name: 'nodescripts',
+      color: '#634991',
+      description: 'Node scripts related',
+    },
   },
   prDescriptionCopilotSectionBefore: '# Changes',
   prDescriptionCopilotSectionAfter: '## Test instructions',
