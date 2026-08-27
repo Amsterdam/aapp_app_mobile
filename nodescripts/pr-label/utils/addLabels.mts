@@ -15,7 +15,7 @@ export const addLabels = async (pullNumber: number, labels: Label[]) => {
     for (const {name, color, description} of labels) {
       await ensureRepoLabelExists(
         name,
-        color,
+        color.replace(/^#/, ''),
         description ?? 'Auto-added label, based on modified files.',
       )
     }
