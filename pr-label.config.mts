@@ -22,12 +22,12 @@ export const config: PackageConfig = {
       color: '#036d66',
       description: 'iOS related',
     },
-    '/^src/modules/([^/]+)//': {
+    '^src/modules/([^/]+)//': {
       name: 'module:$1',
       color: '#0366d6',
       description: 'Module related',
     },
-    '/^nodescripts/': {
+    '^nodescripts/': {
       name: 'nodescripts',
       color: '#634991',
       description: 'Node scripts related',

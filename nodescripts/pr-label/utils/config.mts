@@ -111,7 +111,7 @@ const defaultConfig: Required<PackageConfig> = {
       color: '#036d66',
       description: 'iOS related',
     },
-    '/^src/modules/([^/]+)//': {
+    '^src/modules/([^/]+)//': {
       name: 'module:$1',
       color: '#0366d6',
       description: 'Module $1 related',
