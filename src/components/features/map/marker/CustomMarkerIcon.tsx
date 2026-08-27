@@ -26,10 +26,6 @@ type WrapperProps = PropsWithChildren<TestProps & {size?: number}>
 
 type Props = {
   Wrapper?: ComponentType<WrapperProps>
-  /**
-   * Only decreases when the icon has a circleColor, otherwise the icon is already small enough to fit inside the base pin.
-   */
-  decreaseIconSize?: boolean
   icon: {
     circleColor?: string
     colors?: string[]
@@ -52,7 +48,6 @@ const DEFAULT_WRAPPER = ({children, testID, size}: WrapperProps) => (
 )
 
 export const CustomMarkerIcon = ({
-  decreaseIconSize,
   Wrapper = DEFAULT_WRAPPER,
   icon: {
     pathColor = themes.light.color.text.default,
@@ -68,9 +63,7 @@ export const CustomMarkerIcon = ({
   const center = size / ((size / PATH_SIZE) * 2)
   const gradientColors = colors?.length ? colors : []
   const shouldDecreaseIconSize =
-    decreaseIconSize &&
-    circleColor !== 'transparent' &&
-    gradientColors.length === 0
+    circleColor !== 'transparent' && gradientColors.length === 0
   const extraOffset = isWithinMarker ? 5 : 3
   const gTransform = shouldDecreaseIconSize
     ? `scale(0.8) translate(${offset.x + extraOffset}, ${offset.y + extraOffset})`

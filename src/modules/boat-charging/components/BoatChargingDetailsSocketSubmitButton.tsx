@@ -87,7 +87,12 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: Props) => {
       <Box>
         <Button
           disabled={disabled}
-          icon={{name: 'boat-charging-free', color: 'inverse'}}
+          icon={{
+            name: 'lightning',
+            color: 'inverse',
+            size: 'ml',
+            isFilled: true,
+          }}
           isError={isError}
           isLoading={isLoading}
           label="Betalen en laden"

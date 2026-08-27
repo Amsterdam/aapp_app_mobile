@@ -11,7 +11,6 @@ export const ServicePointCustomIcon = ({
   testID,
 }: Props) => (
   <CustomMarkerIcon
-    decreaseIconSize
     icon={{
       path,
       pathColor: path_color,
