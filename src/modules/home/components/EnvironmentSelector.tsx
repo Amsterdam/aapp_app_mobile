@@ -65,10 +65,20 @@ export const EnvironmentSelector = () => {
                 const state = store.getState()
 
                 await Promise.all(
-                  enabledModules?.map(
-                    module =>
-                      module.logout?.(dispatch, state) ?? Promise.resolve(),
-                  ) ?? [],
+                  enabledModules?.map(async module => {
+                    if (!module.logout) {
+                      return
+                    }
+
+                    try {
+                      await module.logout(dispatch, state)
+                    } catch (error) {
+                      devError(
+                        error,
+                        `Environment switch logout failed for module ${module.slug}`,
+                      )
+                    }
+                  }) ?? [],
                 )
                 await destroyStorageAndAuthorization()
                 dispatch(
