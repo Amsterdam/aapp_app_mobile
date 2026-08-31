@@ -91,12 +91,12 @@ const defaultConfig: Required<PackageConfig> = {
   copilotLogins: ['github-copilot[bot]'],
   reviewerUsernames: [],
   labels: {
-    '^(pipelines/)|(.github/workflows/)|(.github/actions/)': {
+    '^(?:pipelines/|\\.github/(?:workflows|actions)/)': {
       name: 'pipelines',
       color: '#036d66',
       description: 'Pipeline related',
     },
-    '^(package-lock.json)|(ios/Podfile.lock)|(Gemfile)|(Gemfile.lock)$': {
+    '^(?:package-lock\\.json|ios/Podfile\\.lock|Gemfile(?:\\.lock)?)$': {
       name: 'dependencies',
       color: '#634991',
       description: 'Dependency related',
