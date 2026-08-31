@@ -79,7 +79,7 @@ export const PrivacyStatementScreen = () => (
               'Cliëntnummer Stadpashouder',
               'Stadspashouder naam',
               'Stadspasnummer',
-              'BSN (de gebruiker logt eenmalig in met Digid om door middel van het BSN een cliëntnummer op te halen uit Zorgned. Het cliëntnummer wordt beveiligd opgeslagen, BSN wordt niet bewaard.',
+              'BSN (de gebruiker logt eenmalig in met Digid om door middel van het BSN een cliëntnummer op te halen uit Zorgned. Het cliëntnummer wordt beveiligd opgeslagen, BSN wordt niet bewaard.)',
               'Kenteken',
             ]}
             testID="AboutPrivacyStatementPersonalDataList"
