@@ -69,6 +69,15 @@ export const HomeButton = ({moduleName, onPress}: Props) => {
 
 We usually log using a custom event: `trackCustomEvent` (see https://github.com/PiwikPRO/react-native-piwik-pro-sdk#tracking-custom-events).
 
+### Analytics destinations
+
+We send analytics to two destinations with different purposes:
+
+- Piwik Pro is used for agreed product analytics and reporting.
+- Application Insights is used for operational telemetry and diagnostics.
+
+Not every event has to be sent to both destinations. Events that mainly describe technical state or support diagnostics can be kept in Application Insights only. This currently includes app state around permissions, accessibility settings, device characteristics, push notifications shown while the app is in the foreground, and whether modules are enabled or disabled. This keeps Piwik focused on the measurement plan while still preserving operational visibility.
+
 There are some special logging options:
 
 - `trackScreen`: screen views; this is integrated in the navigation (see below)
