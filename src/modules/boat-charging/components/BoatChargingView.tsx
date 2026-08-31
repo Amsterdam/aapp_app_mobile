@@ -16,7 +16,7 @@ export const BoatChargingView = () => {
     data,
     isLoading: isLoadingLocations,
     isError: isErrorLocations,
-  } = useBoatChargingLocationsQuery()
+  } = useBoatChargingLocationsQuery(undefined, {pollingInterval: 20000})
 
   return (
     <MapFiltersProvider filters={mapFilters}>

@@ -138,6 +138,7 @@ export const baseApi = createApi({
     'Projects',
     'WasteGuideNotifications',
     'BurningGuideNotifications',
+    'BoatChargingLocations',
     'BoatChargingLocationDetails',
     'BoatChargingSessions',
     'MijnAmsterdam',
