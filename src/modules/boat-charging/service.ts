@@ -168,7 +168,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
         method: 'POST',
         headers: deviceIdHeader,
       }),
-      invalidatesTags: ['BoatChargingSessions', 'BoatChargingLocations']
+      invalidatesTags: ['BoatChargingSessions', 'BoatChargingLocations'],
     }),
     [BoatChargingEndpointName.boatChargingStartSession]: builder.mutation<
       void,
