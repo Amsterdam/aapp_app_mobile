@@ -1,3 +1,4 @@
+import {useIsFocused} from '@react-navigation/native'
 import {type ComponentProps} from 'react'
 import {MapViewSwitchView} from '@/components/features/map/MapViewSwitchView'
 import {MapFiltersProvider} from '@/components/features/map/providers/MapFiltersProvider'
@@ -12,11 +13,15 @@ export const BoatChargingView = () => {
   useOpenIdConnectAuth()
   const selectChargingPoint = useSelectChargingPoint()
 
+  const isFocused = useIsFocused()
+
   const {
     data,
     isLoading: isLoadingLocations,
     isError: isErrorLocations,
-  } = useBoatChargingLocationsQuery(undefined, {pollingInterval: 20000})
+  } = useBoatChargingLocationsQuery(undefined, {
+    pollingInterval: isFocused ? 20000 : 0,
+  })
 
   return (
     <MapFiltersProvider filters={mapFilters}>
