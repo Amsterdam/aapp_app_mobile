@@ -8,6 +8,7 @@ import {useEffect} from 'react'
 import {useAppState} from '@/hooks/useAppState'
 import {useGetNotificationsQuery} from '@/modules/notification-history/service'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
+import {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
 const messaging = getMessaging()
@@ -90,6 +91,9 @@ export const useDisplayNotificationOnAppForeground = () => {
                 [PiwikDimension.pushTitle]: message.notification?.title,
                 [PiwikDimension.pushContent]: message.notification?.body,
               },
+              undefined,
+              undefined,
+              LogTarget.appInsights,
             )
           })
       }

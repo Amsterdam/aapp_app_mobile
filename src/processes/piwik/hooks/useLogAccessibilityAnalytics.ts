@@ -5,6 +5,7 @@ import {
   PiwikSessionDimension,
   useTrackEvents,
 } from '@/processes/logging/hooks/useTrackEvents'
+import {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 import {
   type AccessibilityFeatureLogConfig,
   type CustomDimensions,
@@ -45,7 +46,14 @@ export const useLogAccessibilityAnalytics = () => {
     void Promise.all(
       accessibilityFeatures.map(({getIsEnabled}) => getIsEnabled()),
     ).then(results => {
-      trackCustomEvent('general', PiwikAction.startUp, getDimensions(results))
+      trackCustomEvent(
+        'general',
+        PiwikAction.startUp,
+        getDimensions(results),
+        undefined,
+        undefined,
+        LogTarget.appInsights,
+      )
     })
 
     // intentionally do this only once, when the Piwik initialization is ready
@@ -57,9 +65,16 @@ export const useLogAccessibilityAnalytics = () => {
       AccessibilityInfo.addEventListener(
         accessibilityFeature.eventName,
         (isEnabled: boolean) => {
-          trackCustomEvent('general', PiwikAction.accessibilityChange, {
-            [accessibilityFeature.dimension]: isEnabled.toString(),
-          })
+          trackCustomEvent(
+            'general',
+            PiwikAction.accessibilityChange,
+            {
+              [accessibilityFeature.dimension]: isEnabled.toString(),
+            },
+            undefined,
+            undefined,
+            LogTarget.appInsights,
+          )
         },
       ),
     )

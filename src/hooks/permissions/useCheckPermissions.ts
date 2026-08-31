@@ -12,6 +12,7 @@ import {
   ExceptionLogKey,
   useTrackException,
 } from '@/processes/logging/hooks/useTrackException'
+import {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 import {CustomDimensions, PiwikAction} from '@/processes/piwik/types'
 
 import {setPermission} from '@/store/slices/permissions'
@@ -79,7 +80,14 @@ export const useCheckPermissions = () => {
             {},
           )
 
-          trackCustomEvent('permissions', action, dimensions)
+          trackCustomEvent(
+            'permissions',
+            action,
+            dimensions,
+            undefined,
+            undefined,
+            LogTarget.appInsights,
+          )
         }
       })
     },

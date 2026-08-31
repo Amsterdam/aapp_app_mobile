@@ -11,6 +11,12 @@ import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 const FILENAME = 'useTrackEvents.ts'
 
+export enum LogTarget {
+  appInsights = 'appInsights',
+  both = 'both',
+  piwik = 'piwik',
+}
+
 export const getTrackEvents = (
   trackException: TrackException,
   suggestedCategory: PiwikCategory,
@@ -26,8 +32,12 @@ export const getTrackEvents = (
     dimensions,
     category = suggestedCategory,
     value = undefined,
+    logTarget: LogTarget = LogTarget.both,
   ) => {
-    if (piwikInstance) {
+    if (
+      piwikInstance &&
+      (logTarget === LogTarget.piwik || logTarget === LogTarget.both)
+    ) {
       piwikInstance
         .trackCustomEvent(category, action, {
           path: routeName,
@@ -46,21 +56,26 @@ export const getTrackEvents = (
         })
     }
 
-    appInsights.trackEvent({
-      name: action,
-      properties: {
-        ...getCustomDimensions(dimensions, true),
-        value,
-        name,
-        routeName,
-        category,
-      },
-    })
+    if (logTarget === LogTarget.appInsights || logTarget === LogTarget.both) {
+      appInsights.trackEvent({
+        name: action,
+        properties: {
+          ...getCustomDimensions(dimensions, true),
+          value,
+          name,
+          routeName,
+          category,
+        },
+      })
+    }
   },
-  trackOutlink: (rawUrl, options) => {
+  trackOutlink: (rawUrl, options, logTarget: LogTarget = LogTarget.both) => {
     const url = sanitizeUrl(rawUrl)
 
-    if (piwikInstance) {
+    if (
+      piwikInstance &&
+      (logTarget === LogTarget.piwik || logTarget === LogTarget.both)
+    ) {
       piwikInstance
         .trackOutlink(url, {
           ...options,
@@ -76,17 +91,19 @@ export const getTrackEvents = (
         })
     }
 
-    appInsights.trackEvent({
-      name: 'outlink',
-      properties: {
-        ...getCustomDimensions(options?.customDimensions, true),
-        url,
-        routeName,
-        category: suggestedCategory,
-      },
-    })
+    if (logTarget === LogTarget.appInsights || logTarget === LogTarget.both) {
+      appInsights.trackEvent({
+        name: 'outlink',
+        properties: {
+          ...getCustomDimensions(options?.customDimensions, true),
+          url,
+          routeName,
+          category: suggestedCategory,
+        },
+      })
+    }
   },
-  trackScreen: path => {
+  trackScreen: (path, logTarget: LogTarget = LogTarget.both) => {
     const name = path ?? routeName
 
     if (!name) {
@@ -98,7 +115,10 @@ export const getTrackEvents = (
       piwik: customDimensionsPiwik,
     } = createCustomDimensionsFromRouteParams(params)
 
-    if (piwikInstance) {
+    if (
+      piwikInstance &&
+      (logTarget === LogTarget.piwik || logTarget === LogTarget.both)
+    ) {
       piwikInstance
         .trackScreen(name, {
           title: getTitleFromParams(params),
@@ -113,16 +133,21 @@ export const getTrackEvents = (
         })
     }
 
-    appInsights.trackPageView(
-      {name},
-      {
-        ...customDimensionsAppInsights,
-        title: getTitleFromParams(params),
-      },
-    )
+    if (logTarget === LogTarget.appInsights || logTarget === LogTarget.both) {
+      appInsights.trackPageView(
+        {name},
+        {
+          ...customDimensionsAppInsights,
+          title: getTitleFromParams(params),
+        },
+      )
+    }
   },
-  trackSearch: (keyword, options) => {
-    if (piwikInstance) {
+  trackSearch: (keyword, options, logTarget: LogTarget = LogTarget.both) => {
+    if (
+      piwikInstance &&
+      (logTarget === LogTarget.piwik || logTarget === LogTarget.both)
+    ) {
       piwikInstance
         .trackSearch(keyword, {
           ...options,
@@ -133,14 +158,16 @@ export const getTrackEvents = (
         })
     }
 
-    appInsights.trackEvent({
-      name: 'search',
-      properties: {
-        ...getCustomDimensions(options?.customDimensions, true),
-        keyword,
-        routeName,
-        category: suggestedCategory,
-      },
-    })
+    if (logTarget === LogTarget.appInsights || logTarget === LogTarget.both) {
+      appInsights.trackEvent({
+        name: 'search',
+        properties: {
+          ...getCustomDimensions(options?.customDimensions, true),
+          keyword,
+          routeName,
+          category: suggestedCategory,
+        },
+      })
+    }
   },
 })
