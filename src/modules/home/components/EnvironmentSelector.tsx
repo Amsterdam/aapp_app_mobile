@@ -8,6 +8,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Environment, editableApiSlug} from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useStore} from '@/hooks/redux/useStore'
+import {useModules} from '@/hooks/useModules'
 import {setShouldShowOnboarding} from '@/modules/onboarding/slice'
 import {devError, devLog, isDevApp} from '@/processes/development'
 import {persistor} from '@/store/persistor'
@@ -42,8 +44,10 @@ const CustomApiTextInput = ({
 )
 
 export const EnvironmentSelector = () => {
+  const {enabledModules} = useModules()
   const dispatch = useDispatch()
   const {environment, custom} = useSelector(selectEnvironment)
+  const store = useStore()
 
   if (!isDevApp) {
     return null
@@ -58,6 +62,14 @@ export const EnvironmentSelector = () => {
               key={env}
               label={env}
               onPress={async () => {
+                const state = store.getState()
+
+                await Promise.all(
+                  enabledModules?.map(
+                    module =>
+                      module.logout?.(dispatch, state) ?? Promise.resolve(),
+                  ) ?? [],
+                )
                 await destroyStorageAndAuthorization()
                 dispatch(
                   setEnvironment(
