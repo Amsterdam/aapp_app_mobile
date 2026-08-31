@@ -8,12 +8,14 @@ export const NewsHighlightsScreen = () => (
   <Screen
     scroll
     testID="NewsHighlightsScreen">
-    <Box insetTop="xl">
-      <Column gutter="xl">
+    <Column gutter="xl">
+      <Box
+        insetHorizontal="md"
+        insetVertical="no">
         <NewsHighlights />
+      </Box>
 
-        <NewsletterSignup variant="news" />
-      </Column>
-    </Box>
+      <NewsletterSignup variant="news" />
+    </Column>
   </Screen>
 )

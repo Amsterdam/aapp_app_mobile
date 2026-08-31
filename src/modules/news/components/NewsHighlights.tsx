@@ -1,7 +1,7 @@
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {NewsListItem} from '@/modules/news/components/NewsListItem'
+import {NewsHighlight} from '@/modules/news/components/NewsHighlight'
 import {useNewsArticlesInfiniteQuery} from '@/modules/news/service'
 
 export const NewsHighlights = () => {
@@ -33,8 +33,7 @@ export const NewsHighlights = () => {
   return (
     <Column gutter="md">
       {highlights.pages[0].result.map(highlight => (
-        <NewsListItem
-          includeDate={false}
+        <NewsHighlight
           key={highlight.id}
           {...highlight}
         />
