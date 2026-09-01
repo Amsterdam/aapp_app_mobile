@@ -1,4 +1,5 @@
-import {StatusBar, StyleSheet, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
+import {SystemBars} from 'react-native-edge-to-edge'
 import {
   useSafeAreaInsets,
   type EdgeInsets,
@@ -10,10 +11,10 @@ import {Screen} from '@/components/features/screen/Screen'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {HomeModalName} from '@/modules/home/routes'
+import {type HomeRouteName} from '@/modules/home/routes'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = NavigationProps<HomeModalName.imageViewer>
+type Props = NavigationProps<HomeRouteName.imageViewer>
 
 export const ImageViewerScreen = ({route}: Props) => {
   const {goBack} = useNavigation()
@@ -29,7 +30,7 @@ export const ImageViewerScreen = ({route}: Props) => {
       withLeftInset={false}
       withRightInset={false}
       withTopInset={false}>
-      <StatusBar barStyle="light-content" />
+      <SystemBars style="light" />
       <View style={styles.backButtonContainer}>
         <IconButton
           border
