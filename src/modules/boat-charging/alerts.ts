@@ -39,6 +39,12 @@ export const alerts = {
     text: 'Er ging iets mis tijdens het laden.',
     testID: 'BoatChargingChargingStoppedSomethingWentWrongWarningAlert',
   },
+  loginFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    title: 'Inloggen is mislukt',
+    testID: 'BoatChargingLoginFailedAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts

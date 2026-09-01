@@ -53,12 +53,14 @@ export const TextInputField = ({
   numberOfLines,
   name,
   placeholder,
+  required,
   rules,
   testID,
   textTransform,
   fieldType = FieldType.text,
   ...textInputProps
 }: Props) => {
+  const isRequired = !!rules?.required || required
   const accessibilityAnnounce = useAccessibilityAnnounce()
 
   return (
@@ -75,7 +77,7 @@ export const TextInputField = ({
             <Column gutter="xs">
               <TextInput
                 accessibilityHint={inputInstructions}
-                accessibilityLabel={`${label}${rules?.required ? '' : ', niet verplicht'}`}
+                accessibilityLabel={`${label}${isRequired ? '' : ', niet verplicht'}`}
                 accessibilityLanguage="nl-NL"
                 autoFocus={autoFocus}
                 inputInstructions={inputInstructions}
@@ -87,7 +89,7 @@ export const TextInputField = ({
                 onChangeText={onChange}
                 placeholder={placeholder}
                 ref={ref}
-                required={!!rules?.required}
+                required={isRequired}
                 secureTextEntry={fieldType === FieldType.password}
                 testID={`${testID}Input`}
                 textTransform={textTransform ?? getTextTransform(fieldType)}
@@ -111,7 +113,12 @@ export const TextInputField = ({
           </Column>
         )
       }}
-      rules={{...rules, ...fieldTypeRules[fieldType]}}
+      rules={{
+        ...rules,
+        ...fieldTypeRules[fieldType],
+        required:
+          rules?.required || (isRequired ? `${label} is verplicht` : false),
+      }}
     />
   )
 }

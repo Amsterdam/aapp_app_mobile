@@ -1,4 +1,4 @@
-import {useCallback, useRef, useState} from 'react'
+import {useCallback, useRef} from 'react'
 import {FormProvider, useForm, type SubmitHandler} from 'react-hook-form'
 import type {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
@@ -8,9 +8,10 @@ import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputFie
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
-import {Paragraph} from '@/components/ui/text/Paragraph'
+import {alerts} from '@/modules/boat-charging/alerts'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
 import {RedirectKey} from '@/modules/redirects/types'
+import {useAlert} from '@/store/slices/alert'
 
 type FormValues = {
   password: string
@@ -20,28 +21,21 @@ type FormValues = {
 export const BoatChargingLoginForm = () => {
   const {signIn} = useOpenIdConnectAuth()
   const form = useForm<FormValues>()
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const passwordInputReference = useRef<TextInputRN>(null)
+
+  const {resetAlert, setAlert} = useAlert()
 
   const handleSignIn: SubmitHandler<FormValues> = useCallback(
     async ({username, password}) => {
-      if (!username || !password) {
-        setErrorMessage('Vul een gebruikersnaam en wachtwoord in')
-
-        return
-      }
-
-      setErrorMessage(null)
+      resetAlert()
 
       try {
         await signIn(username, password)
-      } catch (error) {
-        setErrorMessage(
-          error instanceof Error ? error.message : 'Inloggen is mislukt',
-        )
+      } catch {
+        setAlert(alerts.loginFailed)
       }
     },
-    [signIn],
+    [resetAlert, setAlert, signIn],
   )
 
   return (
@@ -68,13 +62,6 @@ export const BoatChargingLoginForm = () => {
               testID="BoatChargingLoginFormPasswordInputField"
             />
           </Column>
-          {!!errorMessage && (
-            <Paragraph
-              color="warning"
-              testID="BoatChargingLoginFormErrorMessage">
-              {errorMessage}
-            </Paragraph>
-          )}
           <Button
             isLoading={form.formState.isSubmitting}
             label="Inloggen"

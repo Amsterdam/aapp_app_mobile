@@ -22,6 +22,7 @@ export const BoatChargingLoginScreen = () => {
 
   return (
     <Screen
+      hasStickyAlert
       keyboardAware
       testID="BoatChargingLoginScreen">
       {isLoggedIn ? (
