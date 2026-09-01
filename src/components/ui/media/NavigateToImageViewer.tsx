@@ -3,7 +3,8 @@ import type {ImageProps} from '@/components/ui/media/Image'
 import type {PropsWithChildren} from 'react'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {HomeModalName} from '@/modules/home/routes'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {HomeRouteName} from '@/modules/home/routes'
 
 type Props = PropsWithChildren<{
   imageProps: ImageProps
@@ -26,11 +27,14 @@ export const NavigateToImageViewer = ({
       accessibilityHint="Dubbel tik om groot te bekijken"
       accessibilityLabel={alt || accessibilityLabel}
       onPress={() =>
-        navigate(HomeModalName.imageViewer, {
-          source,
-          testID,
-          aspectRatio,
-          alt: alt || accessibilityLabel,
+        navigate(ModuleSlug.home, {
+          screen: HomeRouteName.imageViewer,
+          params: {
+            source,
+            testID,
+            aspectRatio,
+            alt: alt || accessibilityLabel,
+          },
         })
       }
       style={styles.wrapper}

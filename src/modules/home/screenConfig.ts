@@ -29,19 +29,20 @@ export const screenConfig: StackNavigationRoutes<
       headerShown: false,
     },
   },
+  [HomeRouteName.imageViewer]: {
+    component: ImageViewerScreen,
+    name: HomeRouteName.imageViewer,
+    options: {
+      presentation: 'modal',
+      animation: 'fade',
+      headerShown: false,
+    },
+  },
 }
 
 export const modals: StackNavigationRoutes<ModuleModalParams> = {
   [HomeModalName.permissionInstructions]: {
     component: PermissionInstructionsScreen,
     name: HomeModalName.permissionInstructions,
-  },
-  [HomeModalName.imageViewer]: {
-    component: ImageViewerScreen,
-    name: HomeModalName.imageViewer,
-    options: {
-      presentation: 'modal',
-      animation: 'fade',
-    },
   },
 }
