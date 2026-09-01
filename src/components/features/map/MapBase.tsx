@@ -54,7 +54,11 @@ export const MapBase = ({
   const regionRef = useRef<Region>(null)
   const styles = useThemable(createStyles)
 
-  const {isMapReady, ...initialize} = useInitializeMap(focusType, mapRef)
+  const {isMapReady, ...initialize} = useInitializeMap(
+    focusType,
+    mapRef,
+    initialRegion,
+  )
 
   const context = useMemo(
     () => ({

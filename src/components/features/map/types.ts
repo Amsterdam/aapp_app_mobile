@@ -23,6 +23,10 @@ export enum MapFocus {
    * Focus on the user's location
    */
   user = 'user',
+  /**
+   * Focus on the user's location, but only if it is within the initial region, otherwise the initial region will be shown. Use in combination with `initialRegion`.
+   */
+  userInInitialRegion = 'userInInitialRegion',
 }
 
 export type MapControlOption = {

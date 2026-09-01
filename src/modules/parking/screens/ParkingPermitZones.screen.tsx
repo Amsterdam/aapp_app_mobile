@@ -46,7 +46,7 @@ const ParkingPermitZonesScreenInner = () => {
           <ParkingPermitZone
             focusType={
               previousRouteName === ParkingRouteName.startSession
-                ? MapFocus.user
+                ? MapFocus.userInInitialRegion
                 : MapFocus.specific
             }
           />

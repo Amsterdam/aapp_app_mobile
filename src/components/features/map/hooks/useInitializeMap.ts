@@ -1,16 +1,21 @@
 import {useCallback, useRef, useState, type RefObject} from 'react'
-import MapView, {type UserLocationChangeEvent} from 'react-native-maps'
+import MapView, {
+  type Region,
+  type UserLocationChangeEvent,
+} from 'react-native-maps'
 import {
   ANIMATION_DURATION,
   USER_LOCATION_DELTA,
 } from '@/components/features/map/constants'
 import {MapFocus} from '@/components/features/map/types'
+import {isCoordinateInRegion} from '@/components/features/map/utils/isCoordinateInRegion'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {Permissions} from '@/types/permissions'
 
 export const useInitializeMap = (
   focusType: MapFocus,
   map: RefObject<MapView | null>,
+  initialRegion?: Region,
 ) => {
   const [isMapReady, setIsMapReady] = useState(false)
   const hasFocused = useRef(false)
@@ -30,25 +35,33 @@ export const useInitializeMap = (
   const handleInitialUserLocation = useCallback(
     (e: UserLocationChangeEvent) => {
       if (
-        focusType !== MapFocus.user ||
+        !(
+          focusType === MapFocus.user ||
+          focusType === MapFocus.userInInitialRegion
+        ) ||
         !e.nativeEvent.coordinate ||
         hasFocused.current
       ) {
         return
       }
 
-      map.current?.animateToRegion(
-        {
-          ...e.nativeEvent.coordinate,
-          latitudeDelta: USER_LOCATION_DELTA,
-          longitudeDelta: USER_LOCATION_DELTA,
-        },
-        ANIMATION_DURATION,
-      )
+      if (
+        focusType !== MapFocus.userInInitialRegion ||
+        isCoordinateInRegion(e.nativeEvent.coordinate, initialRegion)
+      ) {
+        map.current?.animateToRegion(
+          {
+            ...e.nativeEvent.coordinate,
+            latitudeDelta: USER_LOCATION_DELTA,
+            longitudeDelta: USER_LOCATION_DELTA,
+          },
+          ANIMATION_DURATION,
+        )
+      }
 
       hasFocused.current = true
     },
-    [focusType, map],
+    [focusType, initialRegion, map],
   )
 
   return {
