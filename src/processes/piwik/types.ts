@@ -3,6 +3,7 @@ import {
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {AccessibilityChangeEventName} from 'react-native'
+import type {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export type Piwik = {
@@ -13,15 +14,21 @@ export type Piwik = {
     dimensions?: CustomDimensions,
     category?: PiwikCategory,
     value?: number,
+    logTarget?: LogTarget,
   ) => void
   trackOutlink: (
     url: string,
     options?: ReplaceCustomDimensions<CommonEventOptions>,
+    logTarget?: LogTarget,
   ) => void
-  trackScreen: (path?: ScreenOutsideNavigationName) => void
+  trackScreen: (
+    path?: ScreenOutsideNavigationName,
+    logTarget?: LogTarget,
+  ) => void
   trackSearch: (
     keyword: string,
     options?: ReplaceCustomDimensions<TrackScreenOptions>,
+    logTarget?: LogTarget,
   ) => void
 }
 

@@ -5,6 +5,7 @@ import {
   PiwikAction,
   useTrackEvents,
 } from '@/processes/logging/hooks/useTrackEvents'
+import {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 import {CustomDimensions} from '@/processes/piwik/types'
 import {selectDisabledModules} from '@/store/slices/modules'
 
@@ -30,6 +31,13 @@ export const useLogModuleAnalytics = () => {
       }
     }, {})
 
-    trackCustomEvent('modules', PiwikAction.moduleChange, dimensions)
+    trackCustomEvent(
+      'modules',
+      PiwikAction.moduleChange,
+      dimensions,
+      undefined,
+      undefined,
+      LogTarget.appInsights,
+    )
   }, [ready, trackCustomEvent, userDisabledModulesBySlug])
 }

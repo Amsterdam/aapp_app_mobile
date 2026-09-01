@@ -5,6 +5,7 @@ import {
   PiwikSessionDimension,
   useTrackEvents,
 } from '@/processes/logging/hooks/useTrackEvents'
+import {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 
 export const useLogDeviceInfoAnalytics = () => {
   const {ready, trackCustomEvent} = useTrackEvents()
@@ -15,11 +16,18 @@ export const useLogDeviceInfoAnalytics = () => {
       return
     }
 
-    trackCustomEvent('device', PiwikAction.deviceInfoChange, {
-      [PiwikSessionDimension.fontScale]: fontScale.toString(),
-      [PiwikSessionDimension.isLandscape]: isLandscape.toString(),
-      [PiwikSessionDimension.isPortrait]: isPortrait.toString(),
-      [PiwikSessionDimension.isTablet]: isTablet.toString(),
-    })
+    trackCustomEvent(
+      'device',
+      PiwikAction.deviceInfoChange,
+      {
+        [PiwikSessionDimension.fontScale]: fontScale.toString(),
+        [PiwikSessionDimension.isLandscape]: isLandscape.toString(),
+        [PiwikSessionDimension.isPortrait]: isPortrait.toString(),
+        [PiwikSessionDimension.isTablet]: isTablet.toString(),
+      },
+      undefined,
+      undefined,
+      LogTarget.appInsights,
+    )
   }, [fontScale, isLandscape, isPortrait, isTablet, ready, trackCustomEvent])
 }
