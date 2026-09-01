@@ -16,18 +16,24 @@ import {dayjs} from '@/utils/datetime/dayjs'
 type Props = ParkingSessionProps & {report_code?: string}
 
 export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
-  const {data: parkingMachines, isLoading: isLoadingParkingMachines} =
-    useParkingMachinesQuery()
+  const {
+    data: parkingMachines,
+    isLoading: isLoadingParkingMachines,
+    isFetching: isFetchingParkingMachines,
+  } = useParkingMachinesQuery()
 
-  const {data: parkingZoneData, isLoading: isLoadingParkingMachineData} =
-    useZoneByMachineQuery(
-      parkingSession.parking_machine && report_code
-        ? {
-            report_code,
-            machineId: parkingSession.parking_machine,
-          }
-        : skipToken,
-    )
+  const {
+    data: parkingZoneData,
+    isLoading: isLoadingParkingMachineData,
+    isFetching: isFetchingParkingZone,
+  } = useZoneByMachineQuery(
+    parkingSession.parking_machine && report_code
+      ? {
+          report_code,
+          machineId: parkingSession.parking_machine,
+        }
+      : skipToken,
+  )
 
   const parkingMachine = parkingMachines?.find(
     p => p.id === parkingSession.parking_machine,
@@ -50,7 +56,10 @@ export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
       iconName="map-marker"
       testID="ParkingSessionDetailsParkingMachineRow"
       title={`Parkeerautomaat ${parkingSession.parking_machine}`}>
-      {isLoadingParkingMachineData || isLoadingParkingMachines ? (
+      {isLoadingParkingMachineData ||
+      isLoadingParkingMachines ||
+      (!parkingMachines && isFetchingParkingMachines) ||
+      (!parkingZoneData && isFetchingParkingZone) ? (
         <PleaseWait testID="ParkingSessionPleaseWait" />
       ) : (
         <>
@@ -63,7 +72,7 @@ export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
           )}
           {!!machineDetailsLabel && (
             <Phrase
-              accessibilityLabel={`Adres: test`}
+              accessibilityLabel={machineDetailsLabel}
               accessible={false}>
               {machineDetailsLabel}
             </Phrase>
