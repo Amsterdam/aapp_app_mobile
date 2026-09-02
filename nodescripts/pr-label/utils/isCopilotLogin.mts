@@ -1,6 +1,9 @@
-import {COPILOT_LOGINS} from '../constants.mts'
+import type {PackageConfig} from './config.mts'
 
-export const isCopilotLogin = (login: string | null | undefined): boolean => {
+export const isCopilotLogin = (
+  login: string | null | undefined,
+  config: Required<PackageConfig>,
+): boolean => {
   if (!login) {
     return false
   }
@@ -8,7 +11,7 @@ export const isCopilotLogin = (login: string | null | undefined): boolean => {
   const normalized = login.toLowerCase()
 
   return (
-    COPILOT_LOGINS.has(normalized) ||
+    config.copilotLogins.includes(normalized) ||
     normalized.includes('copilot') ||
     normalized === 'copilot'
   )

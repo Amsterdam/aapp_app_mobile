@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 
 import {isCopilotLogin} from './isCopilotLogin.mts'
 import {octokit, context} from './octokit.mts'
+import type {PackageConfig} from './config.mts'
 
 type ReviewThreadCommentNode = {
   author: {login: string | null} | null
@@ -50,6 +51,7 @@ const REVIEW_THREADS_QUERY = `query($owner: String!, $repo: String!, $number: In
 
 export const getOpenCopilotReviewComments = async (
   pullNumber: number,
+  config: Required<PackageConfig>,
 ): Promise<number> => {
   try {
     let after: string | null = null
@@ -75,7 +77,7 @@ export const getOpenCopilotReviewComments = async (
         }
 
         const hasCopilotComment = thread.comments.nodes.some(comment =>
-          isCopilotLogin(comment.author?.login),
+          isCopilotLogin(comment.author?.login, config),
         )
 
         if (hasCopilotComment) {
