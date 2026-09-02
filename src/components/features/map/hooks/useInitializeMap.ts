@@ -49,7 +49,7 @@ export const useInitializeMap = (
       }
 
       if (
-        focusType !== MapFocus.userInInitialRegion ||
+        focusType === MapFocus.user ||
         isCoordinateInRegion(e.nativeEvent.coordinate, initialRegion)
       ) {
         map.current?.animateToRegion(
