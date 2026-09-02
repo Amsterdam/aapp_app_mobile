@@ -23,7 +23,7 @@ export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
   } = useParkingMachinesQuery()
 
   const {
-    data: parkingZoneData,
+    currentData: parkingZoneData,
     isLoading: isLoadingParkingMachineData,
     isFetching: isFetchingParkingZone,
   } = useZoneByMachineQuery(
