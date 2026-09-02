@@ -16,13 +16,14 @@ export const isCoordinateInRegion = (coordinate: LatLng, region?: Region) => {
 
   const latitudeMinimum = region.latitude - region.latitudeDelta / 2
   const latitudeMaximum = region.latitude + region.latitudeDelta / 2
-  const longitudeMinimum = region.longitude - region.longitudeDelta / 2
-  const longitudeMaximum = region.longitude + region.longitudeDelta / 2
+  const longitudeDistance = Math.abs(
+    ((coordinate.longitude - region.longitude + 540) % 360) - 180,
+  )
 
   return (
     coordinate.latitude >= latitudeMinimum &&
     coordinate.latitude <= latitudeMaximum &&
-    coordinate.longitude >= longitudeMinimum &&
-    coordinate.longitude <= longitudeMaximum
+    (region.longitudeDelta >= 360 ||
+      longitudeDistance <= region.longitudeDelta / 2)
   )
 }

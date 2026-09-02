@@ -27,7 +27,10 @@ export const useInitializeMap = (
   const handleOnMapReady = useCallback(() => {
     setIsMapReady(true)
 
-    if (focusType === MapFocus.user) {
+    if (
+      focusType === MapFocus.user ||
+      focusType === MapFocus.userInInitialRegion
+    ) {
       void requestLocationPermission()
     }
   }, [focusType, requestLocationPermission])
