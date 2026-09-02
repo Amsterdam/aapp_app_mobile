@@ -14,15 +14,15 @@ export const isCoordinateInRegion = (coordinate: LatLng, region?: Region) => {
     return false
   }
 
-  const latMin = region.latitude - region.latitudeDelta / 2
-  const latMax = region.latitude + region.latitudeDelta / 2
-  const lngMin = region.longitude - region.longitudeDelta / 2
-  const lngMax = region.longitude + region.longitudeDelta / 2
+  const latitudeMinimum = region.latitude - region.latitudeDelta / 2
+  const latitudeMaximum = region.latitude + region.latitudeDelta / 2
+  const longitudeMinimum = region.longitude - region.longitudeDelta / 2
+  const longitudeMaximum = region.longitude + region.longitudeDelta / 2
 
   return (
-    coordinate.latitude >= latMin &&
-    coordinate.latitude <= latMax &&
-    coordinate.longitude >= lngMin &&
-    coordinate.longitude <= lngMax
+    coordinate.latitude >= latitudeMinimum &&
+    coordinate.latitude <= latitudeMaximum &&
+    coordinate.longitude >= longitudeMinimum &&
+    coordinate.longitude <= longitudeMaximum
   )
 }
