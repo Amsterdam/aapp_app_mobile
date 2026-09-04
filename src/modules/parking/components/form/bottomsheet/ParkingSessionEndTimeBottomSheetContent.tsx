@@ -55,6 +55,7 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
             maxDateTime={startTime
               .add(max_session_length_in_days, 'day')
               .endOf('day')}
+            minDateTime={minimumEndTime}
             setDateTime={onChange}
           />
         </>
