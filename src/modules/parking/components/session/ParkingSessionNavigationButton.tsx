@@ -7,7 +7,6 @@ import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   type ParkingSession,
   type VisitorParkingSession,
-  type ParkingHistorySession,
   ParkingSessionStatus,
 } from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -17,7 +16,7 @@ import {isToday} from '@/utils/datetime/isToday'
 const DATE_FORMAT = 'D MMMM, HH.mm'
 
 type Props = {
-  parkingSession: ParkingSession | VisitorParkingSession | ParkingHistorySession
+  parkingSession: ParkingSession | VisitorParkingSession
 }
 
 export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {

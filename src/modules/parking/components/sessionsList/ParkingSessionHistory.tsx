@@ -1,5 +1,6 @@
 import {EmptyList} from '@/components/features/EmptyList'
-import {ParkingSessionHistoryList} from '@/modules/parking/components/sessionsList/ParkingSessionHistoryList'
+import {ParkingSessionsList} from '@/modules/parking/components/sessionsList/ParkingSessionsList'
+import {ParkingSessionStatus} from '@/modules/parking/types'
 
 const ListEmptyComponent = () => (
   <EmptyList
@@ -9,8 +10,9 @@ const ListEmptyComponent = () => (
 )
 
 export const ParkingSessionHistory = () => (
-  <ParkingSessionHistoryList
+  <ParkingSessionsList
     ListEmptyComponent={ListEmptyComponent}
     sortAscending={false}
+    status={ParkingSessionStatus.completed}
   />
 )

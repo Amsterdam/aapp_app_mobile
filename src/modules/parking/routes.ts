@@ -1,5 +1,4 @@
 import {
-  ParkingHistorySession,
   ParkingSession,
   VisitorParkingSession,
   type ParkingLicensePlateBase,
@@ -64,10 +63,7 @@ export type ModuleStackParams = {
   [ParkingRouteName.parkingPermitZones]: undefined
   [ParkingRouteName.parkingPlannedSessions]: undefined
   [ParkingRouteName.parkingSession]: {
-    parkingSession:
-      | ParkingSession
-      | VisitorParkingSession
-      | ParkingHistorySession
+    parkingSession: ParkingSession | VisitorParkingSession
   }
   [ParkingRouteName.parkingSessionTransactions]: undefined
   [ParkingRouteName.parkingMoneyTransactions]: undefined
