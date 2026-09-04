@@ -3,7 +3,7 @@
   "version": "1.30.0",
   "private": true,
   "scripts": {
-    "ci": "npm ci && npm run postinstall && npm run prepare",
+    "ci": "npm ci --no-audit && npm run postinstall && npm run prepare",
     "i": "npm i && npm run postinstall && npm run prepare",
     "android:connect:device": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8000 tcp:8000",
     "android:phone:dev": "expo run:android --variant devDebug --app-id nl.amsterdam.app.dev",
