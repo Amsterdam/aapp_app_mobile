@@ -29,8 +29,6 @@ import {
   ParkingSessionStatus,
   type ParkingManageVisitorTimeBalanceEndpointRequest,
   ParkingEndpointName,
-  type ParkingSessionHistoryEndpointRequest,
-  type ParkingSessionHistoryEndpointResponse,
   type ParkingZoneByMachineEndpointRequest,
   type PaymentZone,
   type ParkingMachine,
@@ -116,23 +114,6 @@ export const parkingApi = baseApi.injectEndpoints({
           )
         },
       }),
-    }),
-    [ParkingEndpointName.parkingSessionHistory]: builder.infiniteQuery<
-      ParkingSessionHistoryEndpointResponse,
-      ParkingSessionHistoryEndpointRequest,
-      number
-    >({
-      providesTags: ['ParkingSessions'],
-      infiniteQueryOptions: INFINITE_QUERY_OPTIONS,
-      query: ({pageParam, queryArg = {}}) => ({
-        prepareHeaders,
-        method: 'GET',
-        params: {page: pageParam, ...queryArg},
-        slug: ModuleSlug.parking,
-        url: '/sessions/history',
-        afterError,
-      }),
-      keepUnusedDataFor: CacheLifetime.second * 3,
     }),
     [ParkingEndpointName.parkingSessions]: builder.infiniteQuery<
       ParkingSessionsEndpointResponse,
@@ -418,7 +399,6 @@ export const {
   useConfirmBalanceMutation,
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
-  useParkingSessionHistoryInfiniteQuery,
   useParkingSessionsInfiniteQuery,
   useParkingTransactionsInfiniteQuery,
   useRemoveLicensePlateMutation,

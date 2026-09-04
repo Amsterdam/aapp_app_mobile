@@ -16,7 +16,6 @@ import {useLicensePlate} from '@/modules/parking/hooks/useLicensePlate'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
-  ParkingHistorySession,
   ParkingPermitScope,
   ParkingSession,
   ParkingSessionStatus,
@@ -28,7 +27,7 @@ import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDispla
 import {formatNumber} from '@/utils/formatNumber'
 
 export type ParkingSessionProps = {
-  parkingSession: ParkingSession | VisitorParkingSession | ParkingHistorySession
+  parkingSession: ParkingSession | VisitorParkingSession
 }
 
 export const ParkingSessionDetails = ({
