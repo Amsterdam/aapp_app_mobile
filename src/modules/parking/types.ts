@@ -251,10 +251,6 @@ export type ParkingSessionsEndpointRequest = {
   status?: ParkingSessionStatus
 } & PaginationQueryArgs
 
-export type ParkingSessionHistoryEndpointRequest = {
-  report_code: string
-} & PaginationQueryArgs
-
 export type VisitorParkingSessionsEndpointRequest = {
   report_code: string
   status?: ParkingSessionStatus
@@ -280,26 +276,6 @@ export enum ParkingOrderType {
   session = 'SESSION',
 }
 
-export type ParkingHistorySession = Omit<
-  ParkingTransaction,
-  'is_paid' | 'parkingCost' | 'money_balance_applicable' | 'time_balance'
-> & {
-  days?: {
-    day_of_week: string
-    end_time: string
-    start_time: string
-  }
-  is_payed?: boolean
-  is_stopped_early?: boolean
-  is_visitor?: boolean
-  money_balance_applicable?: boolean
-  parking_time?: number
-  permit_name?: string
-  time_balance_applicable?: boolean
-}
-
-export type ParkingSessionHistoryEndpointResponse =
-  Paginated<ParkingHistorySession>
 export type ParkingTransactionsEndpointResponse = Paginated<ParkingTransaction>
 
 export type ParkingSessionReceiptEndpointResponse = {

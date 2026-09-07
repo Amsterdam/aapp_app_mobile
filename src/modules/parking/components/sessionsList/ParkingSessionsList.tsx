@@ -30,7 +30,7 @@ type Props = {
   status: ParkingSessionStatus
 }
 
-const pageSize = 20
+const pageSize = 40
 
 export const ParkingSessionsList = ({
   ListEmptyComponent,
@@ -38,7 +38,6 @@ export const ParkingSessionsList = ({
   sortAscending = false,
   status,
 }: Props) => {
-  const isSessionHistory = status === ParkingSessionStatus.completed
   const currentPermit = useCurrentParkingPermit()
 
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
@@ -76,7 +75,7 @@ export const ParkingSessionsList = ({
     {
       page_size: pageSize,
       report_code: currentPermit.report_code.toString(),
-      status: isSessionHistory ? undefined : status,
+      status,
     },
   )
 
@@ -148,7 +147,7 @@ export const ParkingSessionsList = ({
             <Gutter height="md" />
             <Phrase
               emphasis="strong"
-              testID="ParkingPlannedSessionDatePhrase">
+              testID="ParkingSessionDatePhrase">
               {section.title === dummyTitle ? ' ' : section.title}
             </Phrase>
           </Border>

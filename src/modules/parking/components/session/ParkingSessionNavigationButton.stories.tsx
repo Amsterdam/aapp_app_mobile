@@ -19,7 +19,6 @@ export const Default: Story = {
       end_date_time: '2025-12-31 16:00:00 UTC',
       is_cancelled: false,
       is_paid: false,
-      money_balance_applicable: false,
       no_endtime: false,
       parking_cost: {
         currency: '',
@@ -30,7 +29,6 @@ export const Default: Story = {
       report_code: '',
       start_date_time: '2025-12-31 8:00:00 UTC',
       status: ParkingSessionStatus.planned,
-      time_balance_applicable: false,
     },
   },
 }
