@@ -78,7 +78,6 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 - **Google Firebase Messaging:** Provides cloud messaging services to send push notifications and in-app messages, enabling real-time communication with users across platforms.
 - **GitHub:** Hosts our code repository as an open-source project, in compliance with government organization requirements for transparency and accessibility.
 - **Piwik Pro:** A privacy-focused analytics platform that helps us measure user engagement and behavior within the app, ensuring data-driven improvements while maintaining compliance with privacy regulations.
-- **Storybook:** Used for developing and showcasing our UI components in isolation, providing a visual interface to view, test, and document components in various states.
 
 ## Storybook
 
