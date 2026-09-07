@@ -17,14 +17,47 @@ jobs:
   pr-labels:
     runs-on: ubuntu-26.04-arm
     steps:
-      - uses: actions/checkout@v7
-
-      - uses: ./.github/actions/install-node
-
-      - name: Install github actions dependencies
-        run: node ./nodescripts/installGithubActions.mts
-
-      - name: Annotate PR with labels
-        run: node nodescripts/pr-label/pr-label.mts
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: Amsterdam/aapp_pr_label@1.1.0
+        with:
+          code-reviewed-color: '#99f490'
+          code-reviewed-enabled: true
+          code-reviewed-label: 'Code reviewed'
+          copilot-logins: |
+            github-copilot[bot]
+          copilot-ready-color: '#05b103'
+          copilot-ready-enabled: true
+          copilot-ready-label: 'Copilot ready'
+          labels: |
+            "^(?:pipelines/|\\.github/(?:workflows|actions)/)":
+              name: 'pipelines'
+              color: '#036d66'
+              description: 'Pipeline related'
+            "^(?:package-lock\\.json|ios/Podfile\\.lock|Gemfile(?:\\.lock)?)$":
+              name: 'dependencies'
+              color: '#634991'
+              description: 'Dependency related'
+            '^android/':
+              name: 'android'
+              color: '#036d66'
+              description: 'Android related'
+            '^ios/(?!Podfile.lock$)':
+              name: 'ios'
+              color: '#036d66'
+              description: 'iOS related'
+            '^src/modules/([^/]+)/':
+              name: 'module:$1'
+              color: '#0366d6'
+              description: 'Module $1 related'
+            '^nodescripts/':
+              name: 'nodescripts'
+              color: '#634991'
+              description: 'Node scripts related'
+          pr-description-copilot-section-before: '# Changes'
+          pr-description-copilot-section-after: '## Test instructions'
+          pr-description-update-enabled: true
+          reviewer-usernames: |
+            frankfe-amsterdam
+            RikSchefferAmsterdam
+            WouterAms
+            fhaver-amsterdam
+            jjbeekman
