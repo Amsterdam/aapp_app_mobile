@@ -133,7 +133,7 @@ export const notificationApi = baseApi.injectEndpoints({
           dispatch(
             updateGETNotificationSubscription(
               notificationSubscriptionType,
-              false,
+              true,
               false,
             ),
           )

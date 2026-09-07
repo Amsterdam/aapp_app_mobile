@@ -46,7 +46,7 @@ export const NotificationSubscriptionToggleBox = ({
   return (
     <NotificationToggleBox
       description={description}
-      disabled={isLoading || data?.optimistic}
+      disabled={!data || isLoading || data?.optimistic}
       onChange={onChange}
       testID={testID}
       value={!!isSuccess && data.status === 'success'}
