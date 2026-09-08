@@ -20,9 +20,21 @@ export const ParkingStartSessionDatePicker = ({
   <DatePicker
     date={date.toDate()}
     maximumDate={maxDate?.toDate()}
-    minimumDate={roundDownToMinutes(minDate).toDate()}
+    minimumDate={
+      mode === 'time'
+        ? roundDownToMinutes(minDate).toDate()
+        : minDate.startOf('day').toDate()
+    }
     mode={mode}
-    onChange={onChange}
+    onChange={newDate => {
+      if (newDate.isBefore(minDate)) {
+        onChange(minDate)
+
+        return
+      }
+
+      onChange(newDate)
+    }}
     theme="light"
   />
 )
