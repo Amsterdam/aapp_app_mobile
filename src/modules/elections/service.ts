@@ -1,4 +1,3 @@
-import {afterError} from '@/modules/city-pass/utils/afterError'
 import {
   PollingStationsResponse,
   ElectionsEndpointName,
@@ -16,7 +15,6 @@ export const electionsApi = baseApi.injectEndpoints({
         method: 'GET',
         slug: ModuleSlug.elections,
         url: '/polling-stations',
-        afterError,
       }),
     }),
   }),
