@@ -46,7 +46,7 @@ export const NumberSearchResult = ({
     )
   }
 
-  if (bagList?.length === 0) {
+  if (!bagList || bagList.length === 0) {
     return (
       <Box insetVertical="md">
         <EmptyMessage

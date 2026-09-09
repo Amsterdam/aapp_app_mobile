@@ -4,6 +4,7 @@ import {HeaderProps} from '@/components/features/header/types'
 import {type Tip} from '@/components/features/product-tour/types'
 import {ScreenBase} from '@/components/features/screen/ScreenBase'
 import {type TestProps} from '@/components/ui/types'
+import {useRoute} from '@/hooks/navigation/useRoute'
 
 export type WithInsetProps = {
   withBottomInset?: boolean
@@ -33,4 +34,13 @@ export type ScreenProps = {
 } & TestProps &
   WithInsetProps
 
-export const Screen = ScreenBase
+export const Screen = (props: ScreenProps) => {
+  const route = useRoute()
+
+  return (
+    <ScreenBase
+      {...props}
+      route={route}
+    />
+  )
+}
