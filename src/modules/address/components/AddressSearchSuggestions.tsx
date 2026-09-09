@@ -16,7 +16,7 @@ export const AddressSearchSuggestions = ({
   showNumbersOnly = false,
 }: Props) => (
   <Column gutter="xs">
-    {addresses.map(address => {
+    {addresses?.map(address => {
       const key =
         'bagId' in address && address.bagId
           ? address.bagId

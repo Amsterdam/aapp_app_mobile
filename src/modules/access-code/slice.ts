@@ -17,7 +17,6 @@ export type AccessCodeState = {
   isCodeConfirmed: boolean
   isCodeSet: boolean
   isCodeValid: boolean
-  isEnteringCode: boolean
   isForgotCode: boolean
   isLoginStepsActive: Array<ModuleSlug>
   /**
@@ -37,7 +36,6 @@ const initialValue: AccessCodeState = {
   isCodeSet: false,
   isCodeConfirmed: false,
   isCodeValid: false,
-  isEnteringCode: false,
   isForgotCode: false,
   useBiometrics: undefined,
   isLoginStepsActive: [],
@@ -90,9 +88,6 @@ export const accessCodeSlice = createSlice({
         state.isCodeValid = false
         state.codeValidTimestamp = undefined
       }
-    },
-    setIsEnteringCode: (state, {payload}: PayloadAction<boolean>) => {
-      state.isEnteringCode = payload
     },
     setIsForgotCode: (state, {payload}: PayloadAction<boolean>) => {
       state.isForgotCode = payload
@@ -158,9 +153,6 @@ export const selectIsCodeConfirmed = (state: RootState) =>
 
 export const selectIsCodeValid = (state: RootState) =>
   state[ReduxKey.accessCode].isCodeValid
-
-export const selectIsEnteringCode = (state: RootState) =>
-  state[ReduxKey.accessCode].isEnteringCode
 
 export const selectIsForgotCode = (state: RootState) =>
   state[ReduxKey.accessCode].isForgotCode

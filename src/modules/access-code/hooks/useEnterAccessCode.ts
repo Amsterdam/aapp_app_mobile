@@ -7,7 +7,6 @@ import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAc
 import {
   selectAttemptsLeft,
   selectCodeEntered,
-  selectIsEnteringCode,
   accessCodeSlice,
   resetAttemptsLeft,
   setIsCodeValid,
@@ -23,7 +22,6 @@ export const useEnterAccessCode = () => {
   const dispatch = useDispatch()
   const attemptsLeft = useSelector(selectAttemptsLeft)
   const codeEntered = useSelector(selectCodeEntered)
-  const isEnteringCode = useSelector(selectIsEnteringCode)
   const isForgotCode = useSelector(selectIsForgotCode)
   const {accessCode: secureAccessCode, isLoading: secureAccessCodeIsLoading} =
     useGetSecureAccessCode()
@@ -33,11 +31,6 @@ export const useEnterAccessCode = () => {
 
   const isCodeValid = getIsAccessCodeWithinDuration(codeValidTimestamp)
 
-  const setIsEnteringCode = useCallback(
-    (isEntering: boolean) =>
-      dispatch(accessCodeSlice.actions.setIsEnteringCode(isEntering)),
-    [dispatch],
-  )
   const onAccessCodeEntered = useCallback(
     (withBiometrics = false) => {
       if (isCodeValid || secureAccessCodeIsLoading) {
@@ -88,14 +81,12 @@ export const useEnterAccessCode = () => {
   return {
     attemptsLeft,
     codeEntered,
-    isEnteringCode,
     isForgotCode,
     isCodeValid,
     hasAccessCode: !!secureAccessCode,
     isLoading: secureAccessCodeIsLoading,
     onAccessCodeEntered,
     onExtendAccessCodeValidity,
-    setIsEnteringCode,
     setIsForgotCode,
   }
 }
