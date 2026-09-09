@@ -1,6 +1,7 @@
 import {useMemo, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import type {RootStackParams, RouteProp} from '@/app/navigation/types'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {ScreenProps, WithInsetProps} from '@/components/features/screen/Screen'
 import {ScreenHeader} from '@/components/features/screen/ScreenHeader'
@@ -8,14 +9,15 @@ import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrappe
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {ScreenBackgroundOverlay} from '@/components/ui/containers/ScreenBackgroundOverlay'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
-import {useRoute} from '@/hooks/navigation/useRoute'
 import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
 import {HeaderForHome} from '@/modules/home/components/HeaderForHome'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ScreenProvider} from '@/providers/screen.provider'
 import {useScreen} from '@/store/slices/screen'
 
-export const ScreenBase = (props: ScreenProps) => {
+type Props = ScreenProps & {route?: RouteProp<keyof RootStackParams>}
+
+export const ScreenBase = ({route, ...props}: Props) => {
   const [overriddenProps, setOverriddenProps] = useState<Partial<ScreenProps>>(
     {},
   )
@@ -44,13 +46,12 @@ export const ScreenBase = (props: ScreenProps) => {
   } = screenProps
 
   const insets = useSafeAreaInsets()
-  const route = useRoute()
   const {
     isContentHiddenFromAccessibility,
     isHiddenFromAccessibility,
     spaceBottom,
   } = useScreen()
-  const isHomeScreen = route.name === (HomeRouteName.home as string)
+  const isHomeScreen = route?.name === (HomeRouteName.home as string)
 
   const hasStickyFooter = !!stickyFooter
   const hasStickyHeader = !!stickyHeader
