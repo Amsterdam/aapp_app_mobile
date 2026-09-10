@@ -26,6 +26,8 @@ export const LiveblogNotificationToggleBox = ({articleId}: Props) => {
 
   const onChange = useCallback(
     (value: boolean) => {
+      setError(undefined)
+
       if (value) {
         void postLiveblogNotification(articleId)
           .unwrap()
