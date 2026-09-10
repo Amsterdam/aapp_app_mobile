@@ -50,15 +50,11 @@ steps:
       mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs
     displayName: 'Copy secure files for ios and android'
 
-  - script: |
-      bundle exec fastlane getAppStoreBuildVersion 
-      echo "Version: $IOS_VERSION_NUMBER"
+  - script: bundle exec fastlane getAppStoreBuildVersion
     displayName: Fetch App Store build- and version number
     workingDirectory: ios
 
-  - script: |
-      bundle exec fastlane getPlayStoreBuildVersion
-      echo "Release names: $ANDROID_RELEASE_NAMES"
+  - script: bundle exec fastlane getPlayStoreBuildVersion
     displayName: Fetch Play Store release names
     workingDirectory: android
 
@@ -67,7 +63,7 @@ steps:
     env:
       IOS_VERSION_NUMBER: $(IOS_VERSION_NUMBER)
       DRY_RUN: ${{ parameters.dryRun }}
-      # ANDROID_VERSION_NUMBER: $(ANDROID_LIVE_VERSION_NUMBER)
+      ANDROID_VERSION_NUMBER: $(ANDROID_VERSION_NUMBER)
       INTERNAL_API_KEY_ONTW: $(INTERNAL_API_KEY_TEST)
       INTERNAL_API_KEY_TEST: $(INTERNAL_API_KEY_TEST)
       INTERNAL_API_KEY_ACC: $(INTERNAL_API_KEY_ACC)

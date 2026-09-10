@@ -13,14 +13,27 @@ const syncReleaseDates = async ({
   releases: Release[]
 }) => {
   const iosVersion = requiredEnv('IOS_VERSION_NUMBER')
+  const androidVersion = requiredEnv('ANDROID_VERSION_NUMBER')
   const dryRun = requiredEnv('DRY_RUN')
 
-  // const androidVersion = requiredEnv('ANDROID_VERSION_NUMBER')
+  const isIosVersionValid = RELEASE_VERSION_PATTERN.test(iosVersion)
+  const isAndroidVersion = RELEASE_VERSION_PATTERN.test(androidVersion)
 
-  const isBuildVersionValid = RELEASE_VERSION_PATTERN.test(iosVersion)
-
-  if (!isBuildVersionValid) {
+  if (!isIosVersionValid) {
     throw new Error('IOS_VERSION_NUMBER is not a valid release value')
+  }
+
+  if (!isAndroidVersion) {
+    throw new Error('ANDROID_VERSION_NUMBER is not a valid release value')
+  }
+
+  if (iosVersion !== androidVersion) {
+    // App store and Play store do not have the same (new) release, so no update of dates required.
+    console.log(
+      `No update required. IOS: ${iosVersion} and ANDROID ${androidVersion} not in sync (yet).`,
+    )
+
+    return
   }
 
   const currentRelease = releases.find(

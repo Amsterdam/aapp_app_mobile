@@ -122,14 +122,15 @@ platform :android do
   lane :getPlayStoreBuildVersion do |options|
     track = options[:track] || "production"
 
-    result = google_play_track_release_names(
+    releaseNames = google_play_track_release_names(
       package_name: "nl.amsterdam.app",
       track: track
     )
-
-    UI.message("Release names: #{result}")
     
-    puts "##vso[task.setvariable variable=ANDROID_RELEASE_NAMES;]#{result}"
+    firstReleaseName = Array(releaseNames).first
+    UI.user_error!("No release name found on track #{track}") if firstReleaseName.nil?
+    
+    puts "##vso[task.setvariable variable=ANDROID_VERSION_NUMBER;]#{firstReleaseName}"
   end
 
 
