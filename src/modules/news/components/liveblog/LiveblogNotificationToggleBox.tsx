@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const LiveblogNotificationToggleBox = ({articleId}: Props) => {
-  const {isLoading, isSuccess, data} =
+  const {isLoading, isSuccess, data, isFetching} =
     useNewsGetLiveblogNotificationsQuery(articleId)
 
   const [postLiveblogNotification, {isLoading: isPosting}] =
@@ -44,13 +44,14 @@ export const LiveblogNotificationToggleBox = ({articleId}: Props) => {
     },
     [deleteLiveblogNotification, postLiveblogNotification, articleId],
   )
+  const isLoadingOrFetching = isLoading || isPosting || isDeleting || isFetching
 
   return (
     <NotificationToggleBox
       description="U krijgt een melding bij een nieuw bericht."
-      disabled={isLoading || isPosting || isDeleting}
+      disabled={isLoadingOrFetching}
       error={error}
-      loading={isLoading || isPosting || isDeleting}
+      loading={isLoadingOrFetching}
       onChange={onChange}
       testID="NewsLiveblogNotificationSwitch"
       value={!!isSuccess && !!data?.id}

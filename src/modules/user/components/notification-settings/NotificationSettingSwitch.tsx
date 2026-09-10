@@ -45,6 +45,8 @@ export const NotificationSettingSwitch = ({
 
   const onChangeType = useCallback(
     (newValue: boolean) => {
+      setError(undefined)
+
       if (isLoading) {
         return
       }
@@ -53,18 +55,18 @@ export const NotificationSettingSwitch = ({
         void addDisabledPushType(type)
           .unwrap()
           .catch(() => {
-            setError(NOTIFICATION_ON_ERROR_MESSAGE)
+            setError(NOTIFICATION_OFF_ERROR_MESSAGE)
           })
       } else {
         void deleteDisabledPushType(type)
           .unwrap()
           .catch(() => {
-            setError(NOTIFICATION_OFF_ERROR_MESSAGE)
+            setError(NOTIFICATION_ON_ERROR_MESSAGE)
           })
         void deleteDisabledPushModule(module)
           .unwrap()
           .catch(() => {
-            setError(NOTIFICATION_OFF_ERROR_MESSAGE)
+            setError(NOTIFICATION_ON_ERROR_MESSAGE)
           })
       }
     },
