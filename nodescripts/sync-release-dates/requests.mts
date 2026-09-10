@@ -1,4 +1,5 @@
 import {env} from 'node:process'
+import {requiredEnv} from './requiredEnv.mts'
 import type {EnvironmentSubDomain, Release, ReleaseUpdate} from './types.mts'
 
 export const fetchReleases = async (
@@ -9,11 +10,13 @@ export const fetchReleases = async (
       ? `https://${environment}.app.amsterdam.nl/modules/api/v1/releases`
       : 'https://app.amsterdam.nl/modules/api/v1/releases'
 
+  const INTERNAL_API_KEY = requiredEnv(
+    `INTERNAL_API_KEY_${environment.toUpperCase()}`,
+  )
+
   const response = await fetch(url, {
     headers: {
-      // oxlint-disable-next-line typescript/no-unsafe-assignment
-      'X-Api-Key-Internal':
-        env[`INTERNAL_API_KEY_${environment.toUpperCase()}`],
+      'X-Api-Key-Internal': INTERNAL_API_KEY,
       accept: 'application/json',
     },
   })
