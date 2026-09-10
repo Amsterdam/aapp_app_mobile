@@ -1,9 +1,6 @@
 export enum BurningGuideEndpointName {
   burningGuide = 'burningGuide',
   deleteBurningGuideNotification = 'deleteBurningGuideNotification',
-  getBurningGuideNotification = 'getBurningGuideNotification',
-  patchBurningGuideNotification = 'patchBurningGuideNotification',
-  postBurningGuideNotification = 'postBurningGuideNotification',
 }
 
 export enum BurningGuideCodeVariant {
@@ -33,13 +30,3 @@ export type BurningGuideApiResponse = {
   model_runtime: string
   postal_code: string
 }
-
-export type BurningGuideNotificationSettings =
-  | {
-      message: string
-      status: 'error'
-    }
-  | {
-      message: never
-      status: 'success'
-    }

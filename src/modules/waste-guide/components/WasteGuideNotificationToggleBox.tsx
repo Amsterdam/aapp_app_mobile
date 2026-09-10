@@ -1,52 +1,34 @@
-import {useCallback} from 'react'
-import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
+import {NotificationSubscriptionToggleBox} from '@/components/features/NotificationSubscriptionToggleBox'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useLocationType, useMyAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
-import {
-  useDeleteWasteGuideNotificationMutation,
-  useGetWasteGuideNotificationQuery,
-  usePostWasteGuideNotificationMutation,
-} from '@/modules/waste-guide/service'
 import {selectContract} from '@/modules/waste-guide/slice'
+import {NotificationSubscriptionType} from '@/services/notification.service'
 
 export const WasteGuideNotificationToggleBox = () => {
   const locationType = useLocationType(ModuleSlug['waste-guide'])
-  const {isLoading, isSuccess, data} = useGetWasteGuideNotificationQuery()
   const address = useMyAddress()
   const {wasteGuide} = useGetWasteGuide()
   const contract = useSelector(selectContract(address?.bagId))
 
-  const [postWasteGuideNotification] = usePostWasteGuideNotificationMutation()
-  const [deleteWasteGuideNotification] =
-    useDeleteWasteGuideNotificationMutation()
-
-  const onChange = useCallback(
-    (value: boolean) => {
-      if (value && address?.bagId) {
-        void postWasteGuideNotification(address?.bagId)
-      } else {
-        void deleteWasteGuideNotification()
-      }
-    },
-    [address?.bagId, deleteWasteGuideNotification, postWasteGuideNotification],
-  )
-
   const isNonResidentialWithContract =
     wasteGuide?.is_residential === false && contract?.hasContract === true
 
-  if (!address || locationType !== 'address' || isNonResidentialWithContract) {
+  if (
+    !address?.bagId ||
+    locationType !== 'address' ||
+    isNonResidentialWithContract
+  ) {
     return null
   }
 
   return (
-    <NotificationToggleBox
+    <NotificationSubscriptionToggleBox
+      bag_nummeraanduiding_id={address.bagId}
       description="U krijgt meldingen over ophaaldagen voor ‘Mijn adres’."
-      disabled={isLoading}
-      onChange={onChange}
+      notificationSubscriptionType={NotificationSubscriptionType.wasteGuide}
       testID="WasteGuideNotificationSwitch"
-      value={!!isSuccess && data.status === 'success'}
     />
   )
 }

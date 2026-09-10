@@ -2,12 +2,8 @@ import type {Address} from '@/modules/address/types'
 import type {ExceptionDate, VisitingHour} from '@/modules/contact/types'
 
 export enum WasteGuideEndpointName {
-  deleteWasteGuideNotification = 'deleteWasteGuideNotification',
   getWasteGuide = 'getWasteGuide',
-  getWasteGuideNotification = 'getWasteGuideNotification',
   getWasteGuideRecyclePoints = 'getWasteGuideRecyclePoints',
-  patchWasteGuideNotification = 'patchWasteGuideNotification',
-  postWasteGuideNotification = 'postWasteGuideNotification',
 }
 
 export enum FractionCode {
@@ -20,14 +16,8 @@ export enum FractionCode {
   Textiel = 'Textiel',
 }
 
-export type WasteGuideIconNames = keyof typeof FractionCode
-
 export type Contract = {
   [bagNummeraanduidingId: string]: {hasContract: boolean}
-}
-
-export type WasteGuideQueryArg = {
-  bagNummeraanduidingId: string
 }
 
 export type WasteGuideCalendarEvent = {
@@ -61,16 +51,6 @@ export type WasteGuideResponse = {
   is_residential: boolean
   waste_types: WasteType[]
 }
-
-export type WasteGuideNotificationSettings =
-  | {
-      message: string
-      status: 'error'
-    }
-  | {
-      message: never
-      status: 'success'
-    }
 
 export type WasteGuideRecyclePoint = {
   address: Omit<Address, 'bagId'> & {cityDistrict?: string}

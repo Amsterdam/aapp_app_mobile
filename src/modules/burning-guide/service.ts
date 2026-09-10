@@ -1,13 +1,9 @@
-import {GlobalApiSlug} from '@/environment'
 import {
   BurningGuideEndpointName,
   type BurningGuideApiResponse,
-  type BurningGuideNotificationSettings,
 } from '@/modules/burning-guide/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
-import {deviceIdHeader} from '@/services/headers'
-import {CacheLifetime} from '@/types/api'
 
 export const burningGuideApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -22,51 +18,8 @@ export const burningGuideApi = baseApi.injectEndpoints({
         url: '/advice',
       }),
     }),
-    // notifications:
-    [BurningGuideEndpointName.getBurningGuideNotification]: builder.query<
-      BurningGuideNotificationSettings,
-      void
-    >({
-      query: () => ({
-        slug: GlobalApiSlug.notification,
-        url: '/device/burning-guide',
-        headers: deviceIdHeader,
-      }),
-      providesTags: ['BurningGuideNotifications'],
-      keepUnusedDataFor: CacheLifetime.day,
-    }),
-    [BurningGuideEndpointName.postBurningGuideNotification]: builder.mutation<
-      BurningGuideNotificationSettings,
-      string
-    >({
-      query: postal_code => ({
-        body: {postal_code},
-        slug: GlobalApiSlug.notification,
-        url: '/device/burning-guide',
-        headers: deviceIdHeader,
-        method: 'POST',
-      }),
-      invalidatesTags: ['BurningGuideNotifications'],
-    }),
-    [BurningGuideEndpointName.deleteBurningGuideNotification]: builder.mutation<
-      BurningGuideNotificationSettings,
-      void
-    >({
-      query: () => ({
-        slug: GlobalApiSlug.notification,
-        url: '/device/burning-guide',
-        headers: deviceIdHeader,
-        method: 'DELETE',
-      }),
-      invalidatesTags: ['BurningGuideNotifications'],
-    }),
   }),
   overrideExisting: false,
 })
 
-export const {
-  useBurningGuideQuery,
-  useGetBurningGuideNotificationQuery,
-  usePostBurningGuideNotificationMutation,
-  useDeleteBurningGuideNotificationMutation,
-} = burningGuideApi
+export const {useBurningGuideQuery} = burningGuideApi
