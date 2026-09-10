@@ -18,6 +18,9 @@ schedules:
 pool:
   vmImage: macOS-26
 
+variables:
+  - group: React Native Variables
+
 steps:
   - checkout: self
     path: './s/'
