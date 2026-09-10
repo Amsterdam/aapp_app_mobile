@@ -20,9 +20,9 @@ pool:
 
 steps:
   - checkout: self
-    # path: './s/'
-    # fetchDepth: 1
-    # fetchTags: false
+    path: './s/'
+    fetchDepth: 1
+    fetchTags: false
 
   - template: ./templates/install-node.yml
 
@@ -44,14 +44,13 @@ steps:
     displayName: Fetch Play Store release names
     workingDirectory: android
 
-  - script: nodescripts/sync-release-dates/main.mts
+  - script: npx ts-node --esm nodescripts/sync-release-dates/main.mts
     displayName: Sync release dates
-
     env:
       IOS_VERSION_NUMBER: $(IOS_VERSION_NUMBER)
       DRY_RUN: ${{ parameters.dryRun }}
       # ANDROID_VERSION_NUMBER: $(ANDROID_LIVE_VERSION_NUMBER)
-      INTERNAL_API_KEY_ONTW: ${INTERNAL_API_KEY_TEST}
-      INTERNAL_API_KEY_TEST: ${INTERNAL_API_KEY_TEST}
-      INTERNAL_API_KEY_ACC: '${INTERNAL_API_KEY_ACC}'
-      INTERNAL_API_KEY_PROD: ${INTERNAL_API_KEY_PROD}
+      INTERNAL_API_KEY_ONTW: $(INTERNAL_API_KEY_TEST)
+      INTERNAL_API_KEY_TEST: $(INTERNAL_API_KEY_TEST)
+      INTERNAL_API_KEY_ACC: $(INTERNAL_API_KEY_ACC)
+      INTERNAL_API_KEY_PROD: $(INTERNAL_API_KEY_PROD)

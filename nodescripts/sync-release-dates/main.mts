@@ -39,7 +39,7 @@ const syncReleaseDates = async ({
   const relevantReleases = getRelevantReleases(releases, iosVersion)
   const releaseUpdates = buildReleaseDateUpdates(relevantReleases, iosVersion)
 
-  if (dryRun === 'true') {
+  if (dryRun?.toLowerCase() === 'true') {
     console.log(environment.toUpperCase(), releaseUpdates)
 
     return
