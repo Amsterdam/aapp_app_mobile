@@ -25,12 +25,30 @@ steps:
     fetchTags: false
 
   - template: ./templates/install-node.yml
-
   - script: npm run ci
     displayName: Install Dependencies
 
+  - script: bundle config set --local without 'iosAppBuildDependencies'
+    displayName: 'Set Bundler to ignore iosAppBuildDependencies'
   - script: bundle install
-    displayName: Install Ruby dependencies
+    displayName: Install Ruby Gems
+
+  - task: DownloadSecureFile@1
+    displayName: 'Download App Store Connect API Key'
+    name: AppStoreConnectApiKey
+    inputs:
+      secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
+
+  - task: DownloadSecureFile@1
+    displayName: 'Download Play Store API Key'
+    name: PlayStoreApiKey
+    inputs:
+      secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
+
+  - script: |
+      mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
+      mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs
+    displayName: 'Copy secure files for ios and android'
 
   - script: |
       bundle exec fastlane getAppStoreBuildVersion 
