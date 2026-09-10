@@ -4,14 +4,16 @@ import type {EnvironmentSubDomain, Release, ReleaseUpdate} from './types.mts'
 export const fetchReleases = async (
   environment: EnvironmentSubDomain = 'ontw',
 ) => {
-  const url = environment
-    ? `https://${environment}.app.amsterdam.nl/modules/api/v1/releases`
-    : 'https://app.amsterdam.nl/modules/api/v1/releases'
+  const url =
+    environment !== 'prod'
+      ? `https://${environment}.app.amsterdam.nl/modules/api/v1/releases`
+      : 'https://app.amsterdam.nl/modules/api/v1/releases'
 
   const response = await fetch(url, {
     headers: {
       // oxlint-disable-next-line typescript/no-unsafe-assignment
-      'X-Api-Key-Internal': env.INTERNAL_API_KEY,
+      'X-Api-Key-Internal':
+        env[`INTERNAL_API_KEY_${environment.toUpperCase()}`],
       accept: 'application/json',
     },
   })
@@ -32,15 +34,17 @@ export const patchReleaseDates = async (
   update: ReleaseUpdate,
   environment: EnvironmentSubDomain = 'ontw',
 ) => {
-  const url = environment
-    ? `https://${environment}.app.amsterdam.nl/modules/api/v1/release/${releaseVersion}`
-    : `https://app.amsterdam.nl/modules/api/v1/release/${releaseVersion}`
+  const url =
+    environment !== 'prod'
+      ? `https://${environment}.app.amsterdam.nl/modules/api/v1/release/${releaseVersion}`
+      : `https://app.amsterdam.nl/modules/api/v1/release/${releaseVersion}`
 
   const response = await fetch(url, {
     method: 'PATCH',
     headers: {
       // oxlint-disable-next-line typescript/no-unsafe-assignment
-      'X-Api-Key-Internal': env.INTERNAL_API_KEY,
+      'X-Api-Key-Internal':
+        env[`INTERNAL_API_KEY_${environment.toUpperCase()}`],
       accept: 'application/json',
       'Content-Type': 'application/json',
     },

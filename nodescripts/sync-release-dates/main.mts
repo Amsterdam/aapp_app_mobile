@@ -13,6 +13,8 @@ const syncReleaseDates = async ({
   releases: Release[]
 }) => {
   const iosVersion = requiredEnv('IOS_VERSION_NUMBER')
+  const dryRun = requiredEnv('DRY_RUN')
+
   // const androidVersion = requiredEnv('ANDROID_VERSION_NUMBER')
 
   const isBuildVersionValid = RELEASE_VERSION_PATTERN.test(iosVersion)
@@ -36,6 +38,12 @@ const syncReleaseDates = async ({
 
   const relevantReleases = getRelevantReleases(releases, iosVersion)
   const releaseUpdates = buildReleaseDateUpdates(relevantReleases, iosVersion)
+
+  if (dryRun === 'true') {
+    console.log(environment.toUpperCase(), releaseUpdates)
+
+    return
+  }
 
   await Promise.all(
     Object.entries(releaseUpdates).map(async ([version, update]) =>

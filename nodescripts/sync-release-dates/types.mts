@@ -1,4 +1,4 @@
-export type EnvironmentSubDomain = 'ontw' | 'test' | 'acc' | '' // Empty string is prod
+export type EnvironmentSubDomain = 'ontw' | 'test' | 'acc' | 'prod'
 
 export type Release = {
   created: string
