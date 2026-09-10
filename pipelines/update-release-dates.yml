@@ -29,15 +29,18 @@ steps:
   - script: npm run ci
     displayName: Install Dependencies
 
+  - script: bundle install
+    displayName: Install Ruby dependencies
+
   - script: |
       bundle exec fastlane getAppStoreBuildVersion 
-      echo "Version: $(IOS_VERSION_NUMBER)"
+      echo "Version: $IOS_VERSION_NUMBER"
     displayName: Fetch App Store build- and version number
     workingDirectory: ios
 
   - script: |
       bundle exec fastlane getPlayStoreBuildVersion
-      echo "Release names: $(ANDROID_RELEASE_NAMES)"
+      echo "Release names: $ANDROID_RELEASE_NAMES"
     displayName: Fetch Play Store release names
     workingDirectory: android
 
