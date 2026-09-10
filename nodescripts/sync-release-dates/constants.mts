@@ -9,4 +9,9 @@ const DAY = 24 * HOUR
 
 export const WEEK = 7 * DAY
 
-export const ENVIRONMENTS: EnvironmentSubDomain[] = ['ontw', 'test']
+export const ENVIRONMENTS: EnvironmentSubDomain[] = [
+  'ontw',
+  'test',
+  'acc',
+  'prod',
+]
