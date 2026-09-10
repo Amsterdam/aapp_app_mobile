@@ -147,6 +147,20 @@ platform :ios do
 
   end
 
+  desc "Fetch App Store (live / beta) version and build number"
+  lane :getAppStoreBuildVersion do |options|
+    installAppStoreApiKey()
+
+    buildNumber = app_store_build_number(
+      app_identifier: "nl.amsterdam.app",
+      live: options[:live] || true
+    )
+    versionNumber = lane_context[SharedValues::LATEST_VERSION]
+
+    puts "##vso[task.setvariable variable=IOS_BUILD_NUMBER;]#{buildNumber}"
+    puts "##vso[task.setvariable variable=IOS_VERSION_NUMBER;]#{versionNumber}"
+  end
+
   desc "Sync development certificates"
   lane :syncDevelopment do |options|
     syncCertificates(options)

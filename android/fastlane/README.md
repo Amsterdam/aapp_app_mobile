@@ -14,6 +14,20 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
+### android getPlayStoreBuildVersion
+
+```sh
+[bundle exec] fastlane android getPlayStoreBuildVersion
+```
+
+Fetch Play Store (live / beta) version and build number
+
+### android setEnvironmentForApp
+
+```sh
+[bundle exec] fastlane android setEnvironmentForApp
+```
+
 ### android buildApps
 
 ```sh

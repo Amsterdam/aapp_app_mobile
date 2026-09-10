@@ -1,0 +1,48 @@
+trigger: none
+pr: none
+
+parameters:
+  - name: dryRun
+    displayName: Dry run (do not patch admin API)
+    type: boolean
+    default: true
+
+schedules:
+  - cron: '0 0 * * *'
+    displayName: Daily app version (un)publish/deprecation date sync
+    branches:
+      include:
+        - main
+    always: true
+
+pool:
+  vmImage: macOS-26
+
+steps:
+  - checkout: self
+    # path: './s/'
+    # fetchDepth: 1
+    # fetchTags: false
+
+  - template: ./templates/install-node.yml
+
+  - script: npm run ci
+    displayName: Install Dependencies
+
+  - script: |
+      bundle exec fastlane getAppStoreBuildVersion 
+      echo "Version: $(IOS_VERSION_NUMBER)"
+    displayName: Fetch App Store build- and version number
+    workingDirectory: ios
+
+  - script: |
+      bundle exec fastlane getPlayStoreBuildVersion
+      echo "Release names: $(ANDROID_RELEASE_NAMES)"
+    displayName: Fetch Play Store release names
+    workingDirectory: android
+
+  - script: nodescripts/sync-releases.mts
+    displayName: Sync releases
+    env:
+      IOS_VERSION_NUMBER: $(IOS_VERSION_NUMBER)
+      # ANDROID_VERSION_NUMBER: $(ANDROID_LIVE_VERSION_NUMBER)

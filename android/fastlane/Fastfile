@@ -117,6 +117,22 @@ end
 
 platform :android do
 
+
+  desc "Fetch Play Store (live / beta) version and build number"
+  lane :getPlayStoreBuildVersion do |options|
+    track = options[:track] || "production"
+
+    result = google_play_track_release_names(
+      package_name: "nl.amsterdam.app",
+      track: track
+    )
+
+    UI.message("Release names: #{result}")
+    
+    puts "##vso[task.setvariable variable=ANDROID_RELEASE_NAMES;]#{result}"
+  end
+
+
   lane :setEnvironmentForApp do |app|
     app[:env].each do |key, value|
       ENV[key] = value
