@@ -1,19 +1,21 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useLicensePlatesQuery} from '@/modules/parking/service'
-import {useParkingAccount} from '@/modules/parking/slice'
+import {
+  useCurrentParkingPermitReportCode,
+  useParkingAccount,
+} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const useGetLicensePlates = () => {
-  const currentPermit = useCurrentParkingPermit()
+  const reportCode = useCurrentParkingPermitReportCode()
   const parkingAccount = useParkingAccount()
   const isPermitHolder =
     parkingAccount?.scope === ParkingPermitScope.permitHolder
 
   const {data: licensePlates, isLoading} = useLicensePlatesQuery(
-    currentPermit && isPermitHolder
+    reportCode && isPermitHolder
       ? {
-          reportCode: currentPermit.report_code.toString(),
+          reportCode,
         }
       : skipToken,
   )

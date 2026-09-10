@@ -6,11 +6,11 @@ export enum ParkingSessionBottomSheetVariant {
 }
 
 export const tagTypes = [
-  'ParkingLicensePlates',
-  'ParkingSessions',
-  'ParkingTransactions',
-  'ParkingAccount',
-  'ParkingPermits',
-] as const
+  'ParkingLicensePlates' as const,
+  'ParkingSessions' as const,
+  'ParkingTransactions' as const,
+  'ParkingAccount' as const,
+  'ParkingPermits' as const,
+]
 
 export const MAX_LICENSE_PLATES = 10

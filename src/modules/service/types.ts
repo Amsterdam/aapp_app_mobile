@@ -17,6 +17,7 @@ export enum ServiceModuleSource {
   kingsday = 'koningsdag',
   pride = 'pride',
   service = 'handig-in-de-stad',
+  waste = 'waste',
 }
 
 export type Service = {

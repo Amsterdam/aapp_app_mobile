@@ -11,7 +11,7 @@ export const useSwitchPermit = () => {
     (reportCodeParkingAccount: string, reportCode: string) => {
       dispatch(parkingSlice.actions.setCurrentAccount(reportCodeParkingAccount))
       dispatch(parkingSlice.actions.setCurrentPermitReportCode(reportCode))
-      dispatch(parkingApi.util.invalidateTags([...tagTypes]))
+      dispatch(parkingApi.util.invalidateTags(tagTypes))
     },
     [dispatch],
   )
