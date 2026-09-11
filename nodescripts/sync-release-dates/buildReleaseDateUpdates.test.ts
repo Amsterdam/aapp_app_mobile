@@ -17,7 +17,15 @@ const createReleases = (versions: Array<Release['version']>) =>
   }))
 
 describe('buildReleaseDateUpdates', () => {
-  const nowRounded = Number((Date.now() / 1000).toFixed(0)) * 1000
+  const nowRounded = Date.parse('2026-09-10T10:00:00.000Z')
+
+  beforeAll(() => {
+    jest.useFakeTimers()
+    jest.setSystemTime(nowRounded)
+  })
+  afterAll(() => {
+    jest.useRealTimers()
+  })
 
   it('should return a record with version keys and dates to update as values', () => {
     const releases = createReleases(['1.29.0', '1.28.0', '1.27.1', '1.27.0'])
