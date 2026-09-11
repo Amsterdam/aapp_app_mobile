@@ -1,4 +1,4 @@
-import {WEEK} from './constants.mts'
+import {MAX_SUPPORTED_VERSIONS, WEEK} from './constants.mts'
 import type {Release, ReleaseUpdate} from './types.mts'
 
 export const buildReleaseDateUpdates = (
@@ -17,10 +17,10 @@ export const buildReleaseDateUpdates = (
         }
       }
 
-      const isLastEntry = index === releases.length - 1
-      const isSecondToLastEntry = index === releases.length - 2
+      const deprecateEntry = index === MAX_SUPPORTED_VERSIONS - 1
+      const unpublishEntry = index === MAX_SUPPORTED_VERSIONS
 
-      if (isSecondToLastEntry) {
+      if (deprecateEntry) {
         // We deprecate the second to last release in the list
         return {
           ...updateRecord,
@@ -28,7 +28,7 @@ export const buildReleaseDateUpdates = (
         }
       }
 
-      if (isLastEntry) {
+      if (unpublishEntry) {
         // We phase out the oldest release in the list
         return {
           ...updateRecord,
