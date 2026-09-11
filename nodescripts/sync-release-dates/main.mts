@@ -7,9 +7,9 @@ void (() =>
     ENVIRONMENTS.map(environment =>
       fetchReleases(environment)
         .then(syncReleaseDates)
-        .catch(err => {
-          console.error(err, environment)
-          throw new Error(String(err))
+        .catch(error => {
+          console.error(error, environment)
+          throw new Error(String(error))
         }),
     ),
   ))()

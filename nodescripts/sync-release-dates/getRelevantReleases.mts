@@ -5,9 +5,9 @@ import type {Release} from './types.mts'
 
 export const getRelevantReleases = (
   releases: Release[],
-  iosVersion: string,
+  currentReleaseVersionString: string,
 ): Release[] => {
-  const currentReleaseVersion = parseReleaseVersion(iosVersion)
+  const currentReleaseVersion = parseReleaseVersion(currentReleaseVersionString)
 
   const validReleases = releases.filter(release =>
     RELEASE_VERSION_PATTERN.test(release.version),
