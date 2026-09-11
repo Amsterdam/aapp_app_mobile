@@ -8,15 +8,20 @@ import {Switch as SwitchRN} from 'react-native-gesture-handler'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Size} from '@/components/ui/layout/Size'
 import {MainAxisPosition} from '@/components/ui/layout/types'
+import {Icon} from '@/components/ui/media/Icon'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useTheme} from '@/themes/useTheme'
 
 export type SwitchProps = {
+  hasLoadingPlaceholder?: boolean
   label: ReactNode
   labelPosition?: MainAxisPosition
+  loading?: boolean
   onChange?: (event?: SwitchChangeEvent | GestureResponderEvent) => void
   wrapper?: ElementType
 } & Omit<SwitchRNProps, 'onChange'> &
@@ -34,6 +39,8 @@ export const Switch = ({
   logAction = PiwikAction.toggle,
   logDimensions = {},
   onChange,
+  hasLoadingPlaceholder = false,
+  loading = false,
   testID,
   value,
   wrapper: Wrapper = Fragment,
@@ -61,6 +68,7 @@ export const Switch = ({
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       aria-disabled={disabled}
+      disabled={disabled}
       onPress={onPress}
       testID={testID}>
       <Wrapper>
@@ -68,22 +76,39 @@ export const Switch = ({
           label={label}
           labelPosition={labelPosition}>
           <Column>
-            <SwitchRN
-              accessibilityElementsHidden
-              accessibilityState={{checked: value}}
-              importantForAccessibility="no-hide-descendants"
-              ios_backgroundColor={color.switch.track.off.background}
-              onChange={onPress}
-              thumbColor={
-                color.switch.thumb[disabled ? 'disabled' : 'enabled'].background
-              }
-              trackColor={{
-                false: color.switch.track.off.background,
-                true: color.switch.track.on.background,
-              }}
-              value={value}
-              {...switchProps}
-            />
+            <Row gutter="sm">
+              {loading ? (
+                <Icon
+                  name="spinner"
+                  size="lg"
+                  testID={`${testID}Icon`}
+                />
+              ) : hasLoadingPlaceholder ? (
+                <Size
+                  height={24}
+                  width={24}
+                />
+              ) : null}
+
+              <SwitchRN
+                accessibilityElementsHidden
+                accessibilityState={{checked: value}}
+                disabled={disabled}
+                importantForAccessibility="no-hide-descendants"
+                ios_backgroundColor={color.switch.track.off.background}
+                onChange={onPress}
+                thumbColor={
+                  color.switch.thumb[disabled ? 'disabled' : 'enabled']
+                    .background
+                }
+                trackColor={{
+                  false: color.switch.track.off.background,
+                  true: color.switch.track.on.background,
+                }}
+                value={value}
+                {...switchProps}
+              />
+            </Row>
           </Column>
         </FormField>
       </Wrapper>
