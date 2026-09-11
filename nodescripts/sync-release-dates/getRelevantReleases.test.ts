@@ -10,8 +10,8 @@ const BASE_RELEASE_OBJECT: Omit<Release, 'version'> = {
 }
 
 const createReleases = (versions: Array<Release['version']>) =>
-  Array.from<Release>({length: versions.length}).map((_, index) => ({
-    version: versions[index],
+  versions.map(version => ({
+    version,
     ...BASE_RELEASE_OBJECT,
   }))
 
