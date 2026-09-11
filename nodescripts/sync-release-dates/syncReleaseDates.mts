@@ -12,7 +12,7 @@ export const syncReleaseDates = async ({
   releases,
   environment = 'ontw',
 }: {
-  environment: EnvironmentSubDomain
+  environment?: EnvironmentSubDomain
   releases: Release[]
 }) => {
   const iosVersionLive = requiredEnv(
