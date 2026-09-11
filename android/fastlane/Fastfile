@@ -136,7 +136,19 @@ def play_store_releases(track: "production", release_lifecycle_states: [])
   }
 
   client = Supply::Client.make_from_config(params: supply_parameters)
-  release_summaries = client.list_track_release_summaries(supply_parameters[:package_name], track)
+  client.begin_edit(package_name: supply_parameters[:package_name])
+
+  begin
+    track_object = client.tracks(track).first
+    release_summaries = Array(track_object&.releases).map do |release|
+      {
+        "release_name" => release.name,
+        "release_lifecycle_state" => release.status
+      }
+    end
+  ensure
+    client.abort_current_edit
+  end
 
   return release_summaries if release_lifecycle_states.nil? || release_lifecycle_states.empty?
 
@@ -147,10 +159,9 @@ end
 
 def first_release_name(release_summaries)
   Array(release_summaries).each do |release_summary|
-    release_name = release_summary.release_name.to_s.strip
+    release_name = release_summary["release_name"].to_s.strip
     return release_name unless release_name.empty?
   end
-
   nil
 end
 
@@ -165,7 +176,7 @@ platform :android do
     UI.user_error!("No releases found on track \"production\"") if release_summaries.empty?
 
     live_release_summaries = release_summaries.select do |release_summary|
-      release_summary.release_lifecycle_state == "completed"
+      release_summary["release_lifecycle_state"] == "completed"
     end
 
     live_version_number = first_release_name(live_release_summaries)
@@ -176,7 +187,7 @@ platform :android do
     end
 
     review_release_summaries = release_summaries.select do |release_summary|
-      review_lifecycle_states.include?(release_summary.release_lifecycle_state)
+      review_lifecycle_states.include?(release_summary["release_lifecycle_state"])
     end
 
     review_version_number = first_release_name(review_release_summaries)
