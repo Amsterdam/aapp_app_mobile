@@ -119,11 +119,15 @@ def play_store_releases(track: "production", release_lifecycle_states: [])
   require 'supply'
   require 'supply/client'
 
-  json_key_file = CredentialsManager::AppfileConfig.try_fetch_value(:json_key_file)
-  json_key_file ||= ENV["SUPPLY_JSON_KEY"]
+  json_key_file = ENV["SUPPLY_JSON_KEY"]
+  json_key_file ||= CredentialsManager::AppfileConfig.try_fetch_value(:json_key_file)
 
   if json_key_file.to_s.empty?
-    UI.user_error!("Missing Play Store credentials. Configure json_key_file in Appfile or set SUPPLY_JSON_KEY.")
+    UI.user_error!("Missing Play Store credentials. Set SUPPLY_JSON_KEY or json_key_file in Appfile.")
+  end
+
+  unless File.exist?(json_key_file)
+    UI.user_error!("Play Store json key not found at: #{json_key_file}")
   end
 
   supply_parameters = {
@@ -134,9 +138,7 @@ def play_store_releases(track: "production", release_lifecycle_states: [])
   client = Supply::Client.make_from_config(params: supply_parameters)
   release_summaries = client.list_track_release_summaries(supply_parameters[:package_name], track)
 
-  if release_lifecycle_states.nil? || release_lifecycle_states.empty?
-    return release_summaries
-  end
+  return release_summaries if release_lifecycle_states.nil? || release_lifecycle_states.empty?
 
   release_summaries.select do |release_summary|
     release_lifecycle_states.include?(release_summary.release_lifecycle_state)
