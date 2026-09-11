@@ -1,0 +1,93 @@
+trigger: none
+pr: none
+
+parameters:
+  - name: dryRun
+    displayName: Dry run (do not patch admin API)
+    type: boolean
+    default: false
+
+schedules:
+  - cron: '0 0 * * *'
+    displayName: Daily app version (un)publish/deprecation date sync
+    branches:
+      include:
+        - main
+    always: true
+
+pool:
+  vmImage: macOS-26
+
+variables:
+  - group: React Native Variables
+  - name: BUNDLE_PATH
+    value: $(Pipeline.Workspace)/.bundle
+  - name: NPM_CONFIG_CACHE
+    value: $(Pipeline.Workspace)/.npm
+
+steps:
+  - checkout: self
+    path: './s/'
+    fetchDepth: 1
+    fetchTags: false
+
+  - template: ./templates/install-node.yml
+  - template: ./templates/install-ruby.yml
+
+  - template: ./templates/cache-gems.yml
+    parameters:
+      platform: android
+      gemfileLocation: .
+
+  - task: Cache@2
+    displayName: Cache npm package tarballs
+    inputs:
+      key: 'npm-cache | "$(Agent.OS)"'
+      path: $(NPM_CONFIG_CACHE)
+
+  - script: |
+      bundle config set --local path '$(BUNDLE_PATH)'
+      bundle config set --local without 'iosAppBuildDependencies'
+      bundle config set --local deployment 'true'
+      bundle install --jobs 4 --retry 3
+    displayName: Install Ruby Gems
+
+  - task: DownloadSecureFile@1
+    displayName: 'Download App Store Connect API Key'
+    name: AppStoreConnectApiKey
+    inputs:
+      secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
+
+  - task: DownloadSecureFile@1
+    displayName: 'Download Play Store API Key'
+    name: PlayStoreApiKey
+    inputs:
+      secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
+
+  - script: |
+      mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
+      mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs
+    displayName: 'Copy secure files for ios and android'
+
+  - script: bundle exec fastlane getAppStoreVersionNumbers
+    displayName: Fetch App Store release version numbers
+    workingDirectory: ios
+
+  - script: bundle exec fastlane getPlayStoreVersionNumbers
+    displayName: Fetch Play Store release version numbers
+    workingDirectory: android
+    env:
+      SUPPLY_JSON_KEY: $(Build.SourcesDirectory)/android/certs/api-5152920179310760437-158079-bad988ebb867.json
+
+  - script: npm exec --yes --package tsx@4.20.6 tsx nodescripts/sync-release-dates/main.mts
+    displayName: Sync release dates
+    env:
+      DRY_RUN: ${{ parameters.dryRun }}
+      IOS_VERSION_NUMBER_LIVE: $(IOS_VERSION_NUMBER_LIVE)
+      IOS_VERSION_NUMBER_REVIEW: $(IOS_VERSION_NUMBER_REVIEW)
+      ANDROID_VERSION_NUMBER_LIVE: $(ANDROID_VERSION_NUMBER_LIVE)
+      ANDROID_VERSION_NUMBER_REVIEW: $(ANDROID_VERSION_NUMBER_REVIEW)
+      INTERNAL_API_KEY_ONTW: $(INTERNAL_API_KEY_TEST)
+      INTERNAL_API_KEY_TEST: $(INTERNAL_API_KEY_TEST)
+      INTERNAL_API_KEY_ACC: $(INTERNAL_API_KEY_ACC)
+      INTERNAL_API_KEY_PROD: $(INTERNAL_API_KEY_PROD)
