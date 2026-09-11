@@ -120,7 +120,6 @@ def play_store_releases(track: "production", release_lifecycle_states: [])
   require 'supply/client'
 
   json_key_file = ENV["SUPPLY_JSON_KEY"]
-  json_key_file ||= CredentialsManager::AppfileConfig.try_fetch_value(:json_key_file)
 
   if json_key_file.to_s.empty?
     UI.user_error!("Missing Play Store credentials. Set SUPPLY_JSON_KEY or json_key_file in Appfile.")
@@ -181,11 +180,8 @@ platform :android do
 
     live_version_number = first_release_name(live_release_summaries)
     live_version_number ||= first_release_name(release_summaries)
-
-    if live_version_number.nil?
-      UI.user_error!("No release name found on track \"production\"")
-    end
-
+    UI.user_error!("No release name found on track \"production\"") if live_version_number.nil?
+  
     review_release_summaries = release_summaries.select do |release_summary|
       review_lifecycle_states.include?(release_summary["release_lifecycle_state"])
     end
