@@ -115,7 +115,7 @@ def writeReleaseNotes(releaseNotes)
   File.write(filePath, releaseNotes)
 end
 
-def play_store_releases(track: "production", release_lifecycle_states: [])
+def play_store_releases(track: "production")
   require 'supply'
   require 'supply/client'
 
@@ -149,11 +149,7 @@ def play_store_releases(track: "production", release_lifecycle_states: [])
     client.abort_current_edit
   end
 
-  return release_summaries if release_lifecycle_states.nil? || release_lifecycle_states.empty?
-
-  release_summaries.select do |release_summary|
-    release_lifecycle_states.include?(release_summary.release_lifecycle_state)
-  end
+  return release_summaries
 end
 
 def first_release_name(release_summaries)
