@@ -5,7 +5,7 @@ parameters:
   - name: dryRun
     displayName: Dry run (do not patch admin API)
     type: boolean
-    default: true
+    default: false
 
 schedules:
   - cron: '0 0 * * *'
