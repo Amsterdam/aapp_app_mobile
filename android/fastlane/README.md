@@ -14,13 +14,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android getPlayStoreBuildVersion
+### android getPlayStoreVersionNumbers
 
 ```sh
-[bundle exec] fastlane android getPlayStoreBuildVersion
+[bundle exec] fastlane android getPlayStoreVersionNumbers
 ```
 
-Fetch Play Store (live / beta) version and build number
+Fetch Play Store live and review release version numbers
 
 ### android setEnvironmentForApp
 

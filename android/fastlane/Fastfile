@@ -115,22 +115,75 @@ def writeReleaseNotes(releaseNotes)
   File.write(filePath, releaseNotes)
 end
 
+def play_store_releases(track: "production", release_lifecycle_states: [])
+  require 'supply'
+  require 'supply/client'
+
+  json_key_file = CredentialsManager::AppfileConfig.try_fetch_value(:json_key_file)
+  json_key_file ||= ENV["SUPPLY_JSON_KEY"]
+
+  if json_key_file.to_s.empty?
+    UI.user_error!("Missing Play Store credentials. Configure json_key_file in Appfile or set SUPPLY_JSON_KEY.")
+  end
+
+  supply_parameters = {
+    package_name: "nl.amsterdam.app",
+    json_key: json_key_file,
+  }
+
+  client = Supply::Client.make_from_config(params: supply_parameters)
+  release_summaries = client.list_track_release_summaries(supply_parameters[:package_name], track)
+
+  if release_lifecycle_states.nil? || release_lifecycle_states.empty?
+    return release_summaries
+  end
+
+  release_summaries.select do |release_summary|
+    release_lifecycle_states.include?(release_summary.release_lifecycle_state)
+  end
+end
+
+def first_release_name(release_summaries)
+  Array(release_summaries).each do |release_summary|
+    release_name = release_summary.release_name.to_s.strip
+    return release_name unless release_name.empty?
+  end
+
+  nil
+end
+
 platform :android do
 
 
-  desc "Fetch Play Store (live / beta) version and build number"
-  lane :getPlayStoreBuildVersion do |options|
-    track = options[:track] || "production"
+  desc "Fetch Play Store live and review release version numbers"
+  lane :getPlayStoreVersionNumbers do |options|
+    review_lifecycle_states = ["inReview"]
 
-    releaseNames = google_play_track_release_names(
-      package_name: "nl.amsterdam.app",
-      track: track
-    )
-    
-    firstReleaseName = Array(releaseNames).first
-    UI.user_error!("No release name found on track #{track}") if firstReleaseName.nil?
-    
-    puts "##vso[task.setvariable variable=ANDROID_VERSION_NUMBER;]#{firstReleaseName}"
+    release_summaries = play_store_releases(track: "production")
+    UI.user_error!("No releases found on track \"production\"") if release_summaries.empty?
+
+    live_release_summaries = release_summaries.select do |release_summary|
+      release_summary.release_lifecycle_state == "completed"
+    end
+
+    live_version_number = first_release_name(live_release_summaries)
+    live_version_number ||= first_release_name(release_summaries)
+
+    if live_version_number.nil?
+      UI.user_error!("No release name found on track \"production\"")
+    end
+
+    review_release_summaries = release_summaries.select do |release_summary|
+      review_lifecycle_states.include?(release_summary.release_lifecycle_state)
+    end
+
+    review_version_number = first_release_name(review_release_summaries)
+
+    UI.message("ANDROID_VERSION_NUMBER_LIVE: #{live_version_number}")
+    UI.message("ANDROID_VERSION_NUMBER_REVIEW: #{review_version_number || live_version_number}")
+
+    puts "##vso[task.setvariable variable=ANDROID_VERSION_NUMBER_LIVE;]#{live_version_number}"
+    puts "##vso[task.setvariable variable=ANDROID_VERSION_NUMBER_REVIEW;]#{review_version_number || live_version_number}"
   end
 
 

@@ -53,20 +53,22 @@ steps:
       mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs
     displayName: 'Copy secure files for ios and android'
 
-  - script: bundle exec fastlane getAppStoreBuildVersion
-    displayName: Fetch App Store build- and version number
+  - script: bundle exec fastlane getAppStoreVersionNumbers
+    displayName: Fetch App Store release version numbers
     workingDirectory: ios
 
-  - script: bundle exec fastlane getPlayStoreBuildVersion
-    displayName: Fetch Play Store release names
+  - script: bundle exec fastlane getPlayStoreVersionNumbers
+    displayName: Fetch Play Store release version numbers
     workingDirectory: android
 
   - script: npx ts-node --esm nodescripts/sync-release-dates/main.mts
     displayName: Sync release dates
     env:
-      IOS_VERSION_NUMBER: $(IOS_VERSION_NUMBER)
       DRY_RUN: ${{ parameters.dryRun }}
-      ANDROID_VERSION_NUMBER: $(ANDROID_VERSION_NUMBER)
+      IOS_VERSION_NUMBER_LIVE: $(IOS_VERSION_NUMBER_LIVE)
+      IOS_VERSION_NUMBER_REVIEW: $(IOS_VERSION_NUMBER_REVIEW)
+      ANDROID_VERSION_NUMBER_LIVE: $(ANDROID_VERSION_NUMBER_LIVE)
+      ANDROID_VERSION_NUMBER_REVIEW: $(ANDROID_VERSION_NUMBER_REVIEW)
       INTERNAL_API_KEY_ONTW: $(INTERNAL_API_KEY_TEST)
       INTERNAL_API_KEY_TEST: $(INTERNAL_API_KEY_TEST)
       INTERNAL_API_KEY_ACC: $(INTERNAL_API_KEY_ACC)

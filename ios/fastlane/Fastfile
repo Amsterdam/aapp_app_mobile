@@ -147,18 +147,34 @@ platform :ios do
 
   end
 
-  desc "Fetch App Store (live / beta) version and build number"
-  lane :getAppStoreBuildVersion do |options|
+  desc "Fetch App Store live and review release version numbers"
+  lane :getAppStoreVersionNumbers do |options|
     installAppStoreApiKey()
 
-    buildNumber = app_store_build_number(
+    app_store_build_number(
       app_identifier: "nl.amsterdam.app",
-      live: options[:live] || true
+      live: true
     )
-    versionNumber = lane_context[SharedValues::LATEST_VERSION]
 
-    puts "##vso[task.setvariable variable=IOS_BUILD_NUMBER;]#{buildNumber}"
-    puts "##vso[task.setvariable variable=IOS_VERSION_NUMBER;]#{versionNumber}"
+    live_version_number = lane_context[SharedValues::LATEST_VERSION]
+
+    app = Spaceship::ConnectAPI::App.find("nl.amsterdam.app")
+
+    versions = app.get_app_store_versions(
+      limit: 20
+    )
+
+    review_version_number = versions
+      .find do |version|
+        %w[WAITING_FOR_REVIEW IN_REVIEW].include?(version.app_store_state)
+      end
+      &.version_string
+
+    UI.message("IOS_VERSION_NUMBER_LIVE: #{live_version_number}")
+    UI.message("IOS_VERSION_NUMBER_REVIEW: #{review_version_number || live_version_number}")
+
+    puts "##vso[task.setvariable variable=IOS_VERSION_NUMBER_LIVE;]#{live_version_number}"
+    puts "##vso[task.setvariable variable=IOS_VERSION_NUMBER_REVIEW;]#{review_version_number || live_version_number}"
   end
 
   desc "Sync development certificates"

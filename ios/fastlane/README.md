@@ -14,13 +14,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios getAppStoreBuildVersion
+### ios getAppStoreVersionNumbers
 
 ```sh
-[bundle exec] fastlane ios getAppStoreBuildVersion
+[bundle exec] fastlane ios getAppStoreVersionNumbers
 ```
 
-Fetch App Store (live / beta) version and build number
+Fetch App Store live and review release version numbers
 
 ### ios syncDevelopment
 

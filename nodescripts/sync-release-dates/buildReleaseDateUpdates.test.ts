@@ -29,7 +29,7 @@ describe('buildReleaseDateUpdates', () => {
     })
   })
 
-  it('should return a record with 3 update entries, regardless of releases length', () => {
+  it('should return a record with 3 or less update entries, regardless of releases length', () => {
     const releases = createReleases([
       '1.29.0',
       '1.28.0',
@@ -45,6 +45,26 @@ describe('buildReleaseDateUpdates', () => {
       '1.29.0': {published: new Date(nowRounded)},
       '1.24.1': {deprecated: new Date(nowRounded + WEEK)},
       '1.24.0': {unpublished: new Date(nowRounded)},
+    })
+
+    const shortReleases = createReleases(['1.29.0', '1.28.0'])
+
+    expect(buildReleaseDateUpdates(shortReleases, '1.29.0')).toEqual({
+      '1.29.0': {
+        published: new Date(nowRounded),
+      },
+      '1.28.0': {unpublished: new Date(nowRounded)},
+    })
+
+    expect(
+      buildReleaseDateUpdates(
+        [{...BASE_RELEASE_OBJECT, version: '1.29.0'}],
+        '1.29.0',
+      ),
+    ).toEqual({
+      '1.29.0': {
+        published: new Date(nowRounded),
+      },
     })
   })
 })
