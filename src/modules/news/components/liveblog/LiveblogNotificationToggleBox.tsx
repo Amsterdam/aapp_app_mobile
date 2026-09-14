@@ -1,5 +1,9 @@
-import {useCallback} from 'react'
+import {useCallback, useState} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
+import {
+  NOTIFICATION_ON_ERROR_MESSAGE,
+  NOTIFICATION_OFF_ERROR_MESSAGE,
+} from '@/constants/notifications'
 import {
   useNewsDeleteLiveblogNotificationsMutation,
   useNewsGetLiveblogNotificationsQuery,
@@ -11,28 +15,43 @@ type Props = {
 }
 
 export const LiveblogNotificationToggleBox = ({articleId}: Props) => {
-  const {isLoading, isSuccess, data} =
+  const {isLoading, isSuccess, data, isFetching} =
     useNewsGetLiveblogNotificationsQuery(articleId)
 
-  const [postLiveblogNotification] = useNewsPostLiveblogNotificationsMutation()
-  const [deleteLiveblogNotification] =
+  const [postLiveblogNotification, {isLoading: isPosting}] =
+    useNewsPostLiveblogNotificationsMutation()
+  const [deleteLiveblogNotification, {isLoading: isDeleting}] =
     useNewsDeleteLiveblogNotificationsMutation()
+  const [error, setError] = useState<string | undefined>(undefined)
 
   const onChange = useCallback(
     (value: boolean) => {
+      setError(undefined)
+
       if (value) {
         void postLiveblogNotification(articleId)
+          .unwrap()
+          .catch(() => {
+            setError(NOTIFICATION_ON_ERROR_MESSAGE)
+          })
       } else {
         void deleteLiveblogNotification(articleId)
+          .unwrap()
+          .catch(() => {
+            setError(NOTIFICATION_OFF_ERROR_MESSAGE)
+          })
       }
     },
     [deleteLiveblogNotification, postLiveblogNotification, articleId],
   )
+  const isLoadingOrFetching = isLoading || isPosting || isDeleting || isFetching
 
   return (
     <NotificationToggleBox
       description="U krijgt een melding bij een nieuw bericht."
-      disabled={isLoading}
+      disabled={isLoadingOrFetching}
+      error={error}
+      loading={isLoadingOrFetching}
       onChange={onChange}
       testID="NewsLiveblogNotificationSwitch"
       value={!!isSuccess && !!data?.id}

@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from 'react'
 import type {TestProps} from '@/components/ui/types'
 import {Box} from '@/components/ui/containers/Box'
+import {Notice} from '@/components/ui/feedback/Notice'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -15,6 +16,8 @@ import {Permissions} from '@/types/permissions'
 type Props = {
   description: string
   disabled?: boolean
+  error?: string
+  loading?: boolean
   onChange: (value: boolean) => void
   value: boolean
 } & TestProps
@@ -36,6 +39,8 @@ export const NotificationToggleBox = ({
   testID,
   onChange,
   disabled,
+  loading,
+  error,
 }: Props) => {
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
     Permissions.notifications,
@@ -66,31 +71,41 @@ export const NotificationToggleBox = ({
   }, [accessibilityAnnounce, isValueChanged, value])
 
   return (
-    <Switch
-      accessibilityLabel={`${description} staat ${value ? 'aan' : 'uit'}`}
-      disabled={disabled}
-      label={
-        <Column
-          grow={1}
-          gutter="sm">
-          <Row gutter="sm">
-            <Icon
-              name="bell"
-              size="lg"
-              testID={`${testID}Icon`}
-            />
-            <Title
-              level="h5"
-              text="Meldingen"
-            />
-          </Row>
-          <Phrase>{description}</Phrase>
-        </Column>
-      }
-      onChange={onChangeFn}
-      testID={`${testID}Switch`}
-      value={value}
-      wrapper={Wrapper}
-    />
+    <Column gutter="smd">
+      <Switch
+        accessibilityLabel={`${description} staat ${value ? 'aan' : 'uit'}`}
+        disabled={disabled}
+        hasLoadingPlaceholder
+        label={
+          <Column
+            grow={1}
+            gutter="sm">
+            <Row gutter="sm">
+              <Icon
+                name="bell"
+                size="lg"
+                testID={`${testID}Icon`}
+              />
+              <Title
+                level="h5"
+                text="Meldingen"
+              />
+            </Row>
+            <Phrase>{description}</Phrase>
+          </Column>
+        }
+        loading={loading}
+        onChange={onChangeFn}
+        testID={`${testID}Switch`}
+        value={value}
+        wrapper={Wrapper}
+      />
+      {!!error && (
+        <Notice
+          text={error}
+          variant="negative"
+        />
+      )}
+    </Column>
   )
 }
