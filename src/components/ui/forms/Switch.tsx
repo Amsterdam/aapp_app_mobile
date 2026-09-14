@@ -59,6 +59,8 @@ export const Switch = ({
     testID,
   })
 
+  const isDisabled = disabled || loading
+
   return (
     <PressableBase
       accessibilityHint={`Dubbel tik om dit ${value ? 'uit' : 'aan'} te zetten`}
@@ -67,8 +69,8 @@ export const Switch = ({
       }
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
-      aria-disabled={disabled}
-      disabled={disabled}
+      aria-disabled={isDisabled}
+      disabled={isDisabled}
       onPress={onPress}
       testID={testID}>
       <Wrapper>
@@ -93,12 +95,12 @@ export const Switch = ({
               <SwitchRN
                 accessibilityElementsHidden
                 accessibilityState={{checked: value}}
-                disabled={disabled}
+                disabled={isDisabled}
                 importantForAccessibility="no-hide-descendants"
                 ios_backgroundColor={color.switch.track.off.background}
                 onChange={onPress}
                 thumbColor={
-                  color.switch.thumb[disabled ? 'disabled' : 'enabled']
+                  color.switch.thumb[isDisabled ? 'disabled' : 'enabled']
                     .background
                 }
                 trackColor={{
