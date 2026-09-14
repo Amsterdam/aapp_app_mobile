@@ -39,6 +39,8 @@ export const useBiometrics = ({
   const [authenticated, setAuthenticated] = useState(false)
   const [failed, setFailed] = useState(false)
   const authenticate = useCallback(async () => {
+    setAuthenticated(false)
+
     const enrolledLevel = await getEnrolledLevelAsync()
 
     if (enrolledLevel !== SecurityLevel.NONE) {
@@ -61,8 +63,7 @@ export const useBiometrics = ({
         },
       )
     } else {
-      setFailed(false)
-      setAuthenticated(true)
+      setFailed(true)
     }
   }, [
     cancelButtonText,

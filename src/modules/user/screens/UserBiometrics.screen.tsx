@@ -1,6 +1,4 @@
-import {AuthenticationType} from 'expo-local-authentication'
 import {ReactNode, useCallback} from 'react'
-import {Platform} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Switch} from '@/components/ui/forms/Switch'
@@ -22,38 +20,26 @@ const SwitchWrapper = ({children}: Props) => (
 )
 
 export const UserBiometricsScreen = () => {
-  const {
-    biometricsLabel,
-    biometricsAuthenticationType,
-    requestPermission,
-    setUseBiometrics,
-    useBiometrics,
-  } = useAccessCodeBiometrics()
+  const {biometricsLabel, isEnrolled, updateUseBiometrics, useBiometrics} =
+    useAccessCodeBiometrics()
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
     Permissions.biometrics,
   )
 
   const onChange = useCallback(() => {
-    setUseBiometrics(!useBiometrics)
+    if (!useBiometrics && !isEnrolled) {
+      if (!isEnrolled) {
+        navigateToInstructionsScreen()
+      }
 
-    if (
-      Platform.OS === 'ios' &&
-      biometricsAuthenticationType?.includes(
-        AuthenticationType.FACIAL_RECOGNITION,
-      ) &&
-      !useBiometrics
-    ) {
-      void requestPermission().then(granted => {
-        if (!granted) {
-          navigateToInstructionsScreen()
-        }
-      })
+      return
     }
+
+    void updateUseBiometrics(!useBiometrics)
   }, [
-    biometricsAuthenticationType,
+    isEnrolled,
     navigateToInstructionsScreen,
-    requestPermission,
-    setUseBiometrics,
+    updateUseBiometrics,
     useBiometrics,
   ])
 
