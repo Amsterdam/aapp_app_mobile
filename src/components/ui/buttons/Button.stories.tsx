@@ -20,7 +20,7 @@ const meta = {
       ...iconMapping,
       control: {type: 'select'},
       description:
-        'Icon properties that define the icon to render inside the ActionButton',
+        'Icon properties that define the icon to render inside the Button',
     },
     isReverseOrder: {
       control: 'boolean',
