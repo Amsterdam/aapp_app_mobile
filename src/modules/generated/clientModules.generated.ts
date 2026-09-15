@@ -8,16 +8,17 @@ import {clientModule as clientModules6} from '@/modules/contact/index'
 import {clientModule as clientModules7} from '@/modules/elections/index'
 import {clientModule as clientModules8} from '@/modules/kingsday/index'
 import {clientModule as clientModules9} from '@/modules/mijn-amsterdam/index'
-import {clientModule as clientModules10} from '@/modules/news/index'
-import {clientModule as clientModules11} from '@/modules/notification-history/index'
-import {clientModule as clientModules12} from '@/modules/parking/index'
-import {clientModule as clientModules13} from '@/modules/pride/index'
-import {clientModule as clientModules14} from '@/modules/redirects/index'
-import {clientModule as clientModules15} from '@/modules/report-problem/index'
-import {clientModule as clientModules16} from '@/modules/service/index'
-import {clientModule as clientModules17} from '@/modules/survey/index'
-import {clientModule as clientModules18} from '@/modules/waste-container/index'
-import {clientModule as clientModules19} from '@/modules/waste-guide/index'
+import {clientModule as clientModules10} from '@/modules/neighborhood/index'
+import {clientModule as clientModules11} from '@/modules/news/index'
+import {clientModule as clientModules12} from '@/modules/notification-history/index'
+import {clientModule as clientModules13} from '@/modules/parking/index'
+import {clientModule as clientModules14} from '@/modules/pride/index'
+import {clientModule as clientModules15} from '@/modules/redirects/index'
+import {clientModule as clientModules16} from '@/modules/report-problem/index'
+import {clientModule as clientModules17} from '@/modules/service/index'
+import {clientModule as clientModules18} from '@/modules/survey/index'
+import {clientModule as clientModules19} from '@/modules/waste-container/index'
+import {clientModule as clientModules20} from '@/modules/waste-guide/index'
 
 export const clientModules = [
   clientModules0,
@@ -40,4 +41,5 @@ export const clientModules = [
   clientModules17,
   clientModules18,
   clientModules19,
+  clientModules20,
 ]

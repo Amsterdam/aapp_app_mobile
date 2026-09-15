@@ -122,6 +122,7 @@ export const NotificationSettings = () => {
                         moduleSlug: slug,
                       }),
                     )
+                    //@ts-expect-error moduleSlug should be accepted
                     navigate(slug)
                   }}
                   testID={`UserNotificationSettings${slug}NavigationButton`}

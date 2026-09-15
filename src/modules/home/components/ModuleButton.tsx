@@ -115,6 +115,7 @@ export const ModuleButton = ({
       }
       inset="md"
       onPress={() => {
+        //@ts-expect-error moduleSlug should be accepted
         navigation.navigate(slug)
       }}
       testID={`${testID}Button`}

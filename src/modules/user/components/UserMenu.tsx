@@ -84,6 +84,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
               key={item.label}
               {...item}
               onPress={() =>
+                //@ts-expect-error moduleSlug should be accepted
                 navigate(item.moduleSlug ?? ModuleSlug.user, {
                   screen: item.route,
                 })

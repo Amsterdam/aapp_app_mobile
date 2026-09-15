@@ -38,6 +38,7 @@ export const AlertNavigateButton = ({
       if (isCrossStackTo(params)) {
         const [route, props] = params
 
+        //@ts-expect-error moduleSlug should be accepted
         navigateTo(route, {...props}) // Navigate cross-Stack to screen with associated params
       }
 

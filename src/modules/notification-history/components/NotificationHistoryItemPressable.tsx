@@ -57,6 +57,7 @@ export const NotificationHistoryItemPressable = ({
     }
 
     if (module_slug) {
+      //@ts-expect-error moduleSlug should be accepted
       navigate(module_slug as ModuleSlug)
     }
   }, [

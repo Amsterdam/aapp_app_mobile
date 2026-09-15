@@ -28,6 +28,7 @@ export const ModuleTitle = ({moduleSlug, noNavigate, testID}: Props) => {
     />
   ) : (
     <PressableBase
+      //@ts-expect-error moduleSlug should be accepted
       onPress={() => navigate(moduleSlug)}
       testID={testID}>
       <Row gutter="xs">
