@@ -10,7 +10,7 @@ This workflow keeps release lifecycle dates consistent across environments by up
 - The current release is the highest version observed in the app stores and is marked as published.
 - Only the two most recent releases are treated as actively supported.
 - The next older release is marked as deprecated with a one-week deprecation window.
-- The oldest release in the managed window is marked as unpublished.
+- Releases older then the releases in the managed window are marked as unpublished.
 - If the current release is already marked as published, no additional lifecycle updates are applied.
 
 ## Cross-store decision behavior
