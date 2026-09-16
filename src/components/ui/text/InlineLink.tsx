@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase, type PhraseProps} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
@@ -48,7 +49,7 @@ export const InlineLink = ({
       {children}
       {!!isExternal && (
         <>
-          {'  '}
+          <Gutter width="xs" />
           <Icon
             color="link"
             name="link-external"
