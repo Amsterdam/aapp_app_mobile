@@ -23,3 +23,15 @@
   );
   border: 1px solid var(--highlight-color);
 }
+
+#storybook-root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+body.sb-show-main.sb-main-fullscreen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
