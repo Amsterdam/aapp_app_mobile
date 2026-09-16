@@ -1,11 +1,15 @@
-import {DeviatingApiSlug} from '@/environment'
+import {DeviatingApiSlug, GlobalApiSlug} from '@/environment'
 import {
   WasteGuideEndpointName,
   type WasteGuideResponse,
   type WasteGuideRecyclePointsResponse,
+  type WasteGuideSortingGuideSearchQueryArgs,
+  type WasteGuideSortingGuideSearchResponse,
 } from '@/modules/waste-guide/types'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
+
+const DEFAULT_SEARCH_PAGE_SIZE = 100
 
 export const wasteGuideApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -30,9 +34,43 @@ export const wasteGuideApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.day,
     }),
+
+    // /sorting-guide/search GET
+    [WasteGuideEndpointName.getWasteGuideSortingGuideSearch]: builder.query<
+      WasteGuideSortingGuideSearchResponse,
+      WasteGuideSortingGuideSearchQueryArgs
+    >({
+      query: params => ({
+        params: {
+          page_size: DEFAULT_SEARCH_PAGE_SIZE,
+          ...params,
+        },
+        slug: GlobalApiSlug.bridge,
+        url: '/afvalscheidingswijzer',
+      }),
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
+    [WasteGuideEndpointName.getWasteGuideSortingGuideDetails]: builder.query<
+      WasteGuideSortingGuideSearchResponse,
+      WasteGuideSortingGuideSearchQueryArgs
+    >({
+      query: params => ({
+        params: {
+          page_size: DEFAULT_SEARCH_PAGE_SIZE,
+          ...params,
+        },
+        slug: GlobalApiSlug.bridge,
+        url: '/afvalscheidingswijzer',
+      }),
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
   }),
   overrideExisting: true,
 })
 
-export const {useGetWasteGuideQuery, useGetWasteGuideRecyclePointsQuery} =
-  wasteGuideApi
+export const {
+  useGetWasteGuideQuery,
+  useGetWasteGuideRecyclePointsQuery,
+  useGetWasteGuideSortingGuideSearchQuery,
+  useGetWasteGuideSortingGuideDetailsQuery,
+} = wasteGuideApi

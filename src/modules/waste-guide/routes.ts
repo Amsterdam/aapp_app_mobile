@@ -7,6 +7,8 @@ export enum WasteGuideRouteName {
   wasteGuideFraction = 'WasteGuideFraction',
   wasteGuideRecyclePointMap = 'WasteGuideRecyclePointMap',
   wasteGuideRecyclePoints = 'WasteGuideRecyclePoints',
+  wasteGuideSortingGuide = 'WasteGuideSortingGuide',
+  wasteGuideSortingGuideDetails = 'WasteGuideSortingGuideDetails',
 }
 
 export type ModuleStackParams = {
@@ -18,4 +20,6 @@ export type ModuleStackParams = {
   }
   [WasteGuideRouteName.wasteGuideRecyclePoints]: undefined
   [WasteGuideRouteName.wasteGuideRecyclePointMap]: undefined
+  [WasteGuideRouteName.wasteGuideSortingGuide]: undefined
+  [WasteGuideRouteName.wasteGuideSortingGuideDetails]: undefined
 }

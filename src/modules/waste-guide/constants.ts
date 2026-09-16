@@ -14,7 +14,11 @@ export type FractionIconConfig = Record<
 
 export const fractionIconConfig: Omit<
   FractionIconConfig,
-  FractionCode.Plastic | 'plastic'
+  | FractionCode.Plastic
+  | 'plastic'
+  | FractionCode.RecyclingCentre
+  | FractionCode.DropOffPoint
+  | FractionCode.Manufacturer
 > = {
   [FractionCode.GA]: {
     [SvgIconVariant.default]: {

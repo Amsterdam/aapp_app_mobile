@@ -4,7 +4,14 @@ import {FractionCode} from '@/modules/waste-guide/types'
 import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 
 const wasteTypeMapping: Record<
-  Exclude<FractionCode, FractionCode.GA> | 'Brood',
+  | Exclude<
+      FractionCode,
+      | FractionCode.GA
+      | FractionCode.RecyclingCentre
+      | FractionCode.DropOffPoint
+      | FractionCode.Manufacturer
+    >
+  | 'Brood',
   number[]
 > = {
   Rest: [12491],

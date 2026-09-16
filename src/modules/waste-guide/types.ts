@@ -1,17 +1,23 @@
 import type {Address} from '@/modules/address/types'
 import type {ExceptionDate, VisitingHour} from '@/modules/contact/types'
+import type {Paginated, PaginationQueryArgs} from '@/types/api'
 
 export enum WasteGuideEndpointName {
   getWasteGuide = 'getWasteGuide',
   getWasteGuideRecyclePoints = 'getWasteGuideRecyclePoints',
+  getWasteGuideSortingGuideDetails = 'getWasteGuideSortingGuideDetails',
+  getWasteGuideSortingGuideSearch = 'getWasteGuideSortingGuideSearch',
 }
 
 export enum FractionCode {
+  DropOffPoint = 'Inleverpunt',
   GA = 'GA',
   GFT = 'GFT',
   Glas = 'Glas',
+  Manufacturer = 'Fabrikant',
   Papier = 'Papier',
   Plastic = 'Plastic',
+  RecyclingCentre = 'Recyclepunt',
   Rest = 'Rest',
   Textiel = 'Textiel',
 }
@@ -64,3 +70,15 @@ export type WasteGuideRecyclePoint = {
 }
 
 export type WasteGuideRecyclePointsResponse = WasteGuideRecyclePoint[]
+
+export type WasteGuideSortingGuideSearchQueryArgs = {
+  text: string
+} & PaginationQueryArgs
+
+export type WasteGuideSortingGuideSearchResponse =
+  Paginated<WasteGuideSortingGuideSearchItem>
+
+export type WasteGuideSortingGuideSearchItem = {
+  id: number
+  name: string
+}

@@ -10,6 +10,8 @@ import {WasteGuideFeedbackScreen} from '@/modules/waste-guide/screens/WasteGuide
 import {WasteGuideFractionScreen} from '@/modules/waste-guide/screens/WasteGuideFraction.screen'
 import {WasteGuideRecyclePointMapScreen} from '@/modules/waste-guide/screens/WasteGuideRecyclePointMap.screen'
 import {WasteGuideRecyclePointsScreen} from '@/modules/waste-guide/screens/WasteGuideRecyclePoints.screen'
+import {WasteGuideSortingGuideScreen} from '@/modules/waste-guide/screens/WasteGuideSortingGuide.screen'
+import {WasteGuideSortingGuideDetailsScreen} from '@/modules/waste-guide/screens/WasteGuideSortingGuideDetails.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
@@ -55,6 +57,20 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerShown: false,
       headerTitle: 'Recyclepunt',
+    },
+  },
+  [WasteGuideRouteName.wasteGuideSortingGuide]: {
+    component: WasteGuideSortingGuideScreen,
+    name: WasteGuideRouteName.wasteGuideSortingGuide,
+    options: {
+      headerTitle: 'Wat wil je wegdoen?',
+    },
+  },
+  [WasteGuideRouteName.wasteGuideSortingGuideDetails]: {
+    component: WasteGuideSortingGuideDetailsScreen,
+    name: WasteGuideRouteName.wasteGuideSortingGuideDetails,
+    options: {
+      headerTitle: 'Wat wil je wegdoen?',
     },
   },
 }

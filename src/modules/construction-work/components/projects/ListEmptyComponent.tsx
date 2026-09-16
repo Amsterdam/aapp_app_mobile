@@ -1,9 +1,11 @@
 import type {TestProps} from '@/components/ui/types'
+import type {ReactNode} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 
 type Props = {
+  fallback?: ReactNode
   isLoading: boolean
   noResultsMessage: string
   searchText: string
@@ -13,6 +15,7 @@ export const ListEmptyComponent = ({
   isLoading,
   searchText,
   noResultsMessage,
+  fallback = null,
 }: Props) => {
   if (isLoading) {
     return (
@@ -32,7 +35,7 @@ export const ListEmptyComponent = ({
     )
   }
 
-  return null
+  return fallback
 }
 
 type ListEmptyMessageProps = {

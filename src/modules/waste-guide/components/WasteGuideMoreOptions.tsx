@@ -17,6 +17,19 @@ export const WasteGuideMoreOptions = () => {
         Icon={
           <Icon
             color="link"
+            name="litterBin"
+            size="xl"
+          />
+        }
+        insetHorizontal="sm"
+        onPress={() => navigate(WasteGuideRouteName.wasteGuideSortingGuide)}
+        testID="WasteGuideWasteSortingGuideButton"
+        title="Afvalscheidingswijzer"
+      />
+      <NavigationButton
+        Icon={
+          <Icon
+            color="link"
             name="warning"
             size="xl"
           />

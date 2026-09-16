@@ -1,7 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import simplur from 'simplur'
-import {Paragraph} from '@/components/ui/text/Paragraph'
-import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
+import {SearchResultsLabel} from '@/components/ui/forms/SearchResultsLabel'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
@@ -25,13 +23,7 @@ export const ProjectsByText = () => {
       : skipToken,
   )
 
-  const resultsLabel =
-    hasSearchText && data?.result
-      ? simplur`${data.result.length} zoekresulta[at|ten]`
-      : undefined
   const results = hasSearchText ? data?.result : undefined
-
-  useAccessibilityAnnounceEffect(resultsLabel)
 
   return (
     <SearchFieldProvider
@@ -44,11 +36,11 @@ export const ProjectsByText = () => {
         listHeader={
           <ProjectsListHeader>
             <ProjectsTextSearchField />
-            {!!resultsLabel && (
-              <Paragraph testID="ConstructionWorkProjectsNumberOfSearchResultsText">
-                {resultsLabel}
-              </Paragraph>
-            )}
+            <SearchResultsLabel
+              hasSearchText={hasSearchText}
+              numberOfResults={data?.result.length ?? 0}
+              testID="ConstructionWorkProjectsNumberOfSearchResultsText"
+            />
           </ProjectsListHeader>
         }
         noResultsMessage="We hebben geen werkzaamheden gevonden voor deze zoekterm."
