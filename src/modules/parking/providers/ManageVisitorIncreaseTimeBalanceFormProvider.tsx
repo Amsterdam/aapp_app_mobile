@@ -5,7 +5,9 @@ type Props = {
   children: ReactNode
 }
 
-export const ParkingSessionFormProvider = ({children}: Props) => {
+export const ManageVisitorIncreaseTimeBalanceFormProvider = ({
+  children,
+}: Props) => {
   const form = useForm()
 
   return <FormProvider {...form}>{children}</FormProvider>

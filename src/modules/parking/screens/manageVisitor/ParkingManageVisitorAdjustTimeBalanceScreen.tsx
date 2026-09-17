@@ -8,8 +8,8 @@ import {ManageVisitorChooseTimeAddOn} from '@/modules/parking/components/manageV
 import {ManageVisitorTimeAddOnBottomSheet} from '@/modules/parking/components/manageVisitor/ManageVisitorTimeAddOnBottomSheet'
 import {ManageVisitorTimeBalance} from '@/modules/parking/components/manageVisitor/ManageVisitorTimeBalance'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
+import {ManageVisitorIncreaseTimeBalanceFormProvider} from '@/modules/parking/providers/ManageVisitorIncreaseTimeBalanceFormProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {ParkingSessionFormProvider} from '@/modules/parking/screens/manageVisitor/ManageVisitorIncreaseTimeBalanceFormProvider'
 
 type Props = NavigationProps<ParkingRouteName.manageVisitorAdjustTimeBalance>
 
@@ -20,7 +20,7 @@ export const ParkingManageVisitorAdjustTimeBalanceScreen = ({route}: Props) => {
 
   return (
     <CurrentPermitProvider>
-      <ParkingSessionFormProvider>
+      <ManageVisitorIncreaseTimeBalanceFormProvider>
         <Screen
           bottomSheet={
             <ManageVisitorTimeAddOnBottomSheet
@@ -42,7 +42,7 @@ export const ParkingManageVisitorAdjustTimeBalanceScreen = ({route}: Props) => {
             </Column>
           </Box>
         </Screen>
-      </ParkingSessionFormProvider>
+      </ManageVisitorIncreaseTimeBalanceFormProvider>
     </CurrentPermitProvider>
   )
 }
