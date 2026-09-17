@@ -31,37 +31,30 @@ const getOptions = (
     options = optionsArray
       .filter(n => n < secondsRemaining / 3600)
       .map(value => ({
-        label: '- ' + value + ' uur',
+        label: `- ${value} uur`,
         value: value * 3600,
       }))
     const hoursRemaining = Math.floor(secondsRemaining / 3600)
 
     options.push({
-      label:
-        '- ' +
-        formatTimeDurationToDisplay(hoursRemaining * 3600, 'seconds', {
-          format: 'short',
-        }),
+      label: `- ${hoursRemaining} uur`,
       value: hoursRemaining * 3600,
     })
   } else {
     options = optionsArray
       .filter(n => n < timeBalance / 3600)
       .map(value => ({
-        label: '+ ' + value + ' uur',
+        label: `+ ${value} uur`,
         value: value * 3600,
       }))
   }
 
-  // Temporarily removed until adding partial hours is possible in the api again
-  // if (optionsArray[0] && timeBalance < optionsArray[0] * 3600) {
-  //   options.push({
-  //     label:
-  //       '+ ' +
-  //       formatTimeDurationToDisplay(timeBalance, 'seconds', {format: 'short'}),
-  //     value: timeBalance,
-  //   })
-  // }
+  if (optionsArray[0] && timeBalance < 3600) {
+    options.push({
+      label: '+ 0 uur',
+      value: 0,
+    })
+  }
 
   return options
 }
