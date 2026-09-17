@@ -115,21 +115,19 @@ def writeReleaseNotes(releaseNotes)
   File.write(filePath, releaseNotes)
 end
 
-def getPlayStoreVersionUnderReview
+def getPlayStoreReleases
   require "google/apis/androidpublisher_v3"
   require "googleauth"
 
   service = Google::Apis::AndroidpublisherV3::AndroidPublisherService.new
 
-  service.authorization =
-    Google::Auth::ServiceAccountCredentials.make_creds(
-      json_key_io: File.open(ENV["SUPPLY_JSON_KEY"]),
-      scope: "https://www.googleapis.com/auth/androidpublisher"
-    )
+  service.authorization = Google::Auth::ServiceAccountCredentials.make_creds(
+    json_key_io: File.open(ENV.fetch("SUPPLY_JSON_KEY")),
+    scope: "https://www.googleapis.com/auth/androidpublisher"
+  )
 
   response = service.list_application_track_releases(
-    "nl.amsterdam.app",
-    "production"
+    "applications/nl.amsterdam.app/tracks/production"
   )
 
   response.releases || []
@@ -140,7 +138,7 @@ platform :android do
 
   desc "Fetch Play Store live and review release version numbers"
   lane :getPlayStoreVersionNumbers do
-    releases = getPlayStoreVersionUnderReview
+    releases = getPlayStoreReleases
 
     review_release = releases.find do |release|
       release.release_lifecycle_state ==
