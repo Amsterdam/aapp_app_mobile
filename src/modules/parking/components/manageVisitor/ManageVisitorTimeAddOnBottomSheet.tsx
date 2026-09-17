@@ -34,15 +34,16 @@ const getOptions = (
         label: '- ' + value + ' uur',
         value: value * 3600,
       }))
-    // Temporarily removed until subtracting partial hours is possible in the api again
-    // options.push({
-    //   label:
-    //     '- ' +
-    //     formatTimeDurationToDisplay(secondsRemaining, 'seconds', {
-    //       format: 'short',
-    //     }),
-    //   value: secondsRemaining,
-    // })
+    const hoursRemaining = Math.floor(secondsRemaining / 3600)
+
+    options.push({
+      label:
+        '- ' +
+        formatTimeDurationToDisplay(hoursRemaining * 3600, 'seconds', {
+          format: 'short',
+        }),
+      value: hoursRemaining * 3600,
+    })
   } else {
     options = optionsArray
       .filter(n => n < timeBalance / 3600)
