@@ -43,6 +43,7 @@ export enum ExceptionLogKey {
   resetLoginsAfterInvalidAccessCode = 'Reset logins after invalid access code failed',
   shareFailed = 'Failed to share url',
   surveySubmissionFailed = 'Survey submission failed',
+  svgProps = 'The provided svg props are not valid',
   takingPhotoFailed = 'Taking photo failed',
   tokenInvalid = 'Access token invalid',
   updatePermission = 'Update permission failed',
