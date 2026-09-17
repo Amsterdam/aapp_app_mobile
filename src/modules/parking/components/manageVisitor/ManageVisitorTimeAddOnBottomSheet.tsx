@@ -24,7 +24,7 @@ const getOptions = (
   secondsRemaining: number,
   isNegative?: boolean,
 ) => {
-  const optionsArray = [2, 4, 8, 12]
+  const optionsArray = [1, 2, 4, 8, 12]
   let options: Option[] = []
 
   if (isNegative) {
@@ -34,14 +34,15 @@ const getOptions = (
         label: '- ' + value + ' uur',
         value: value * 3600,
       }))
-    options.push({
-      label:
-        '- ' +
-        formatTimeDurationToDisplay(secondsRemaining, 'seconds', {
-          format: 'short',
-        }),
-      value: secondsRemaining,
-    })
+    // Temporarily removed until subtracting partial hours is possible in the api again
+    // options.push({
+    //   label:
+    //     '- ' +
+    //     formatTimeDurationToDisplay(secondsRemaining, 'seconds', {
+    //       format: 'short',
+    //     }),
+    //   value: secondsRemaining,
+    // })
   } else {
     options = optionsArray
       .filter(n => n < timeBalance / 3600)
@@ -51,14 +52,15 @@ const getOptions = (
       }))
   }
 
-  if (optionsArray[0] && timeBalance < optionsArray[0] * 3600) {
-    options.push({
-      label:
-        '+ ' +
-        formatTimeDurationToDisplay(timeBalance, 'seconds', {format: 'short'}),
-      value: timeBalance,
-    })
-  }
+  // Temporarily removed until adding partial hours is possible in the api again
+  // if (optionsArray[0] && timeBalance < optionsArray[0] * 3600) {
+  //   options.push({
+  //     label:
+  //       '+ ' +
+  //       formatTimeDurationToDisplay(timeBalance, 'seconds', {format: 'short'}),
+  //     value: timeBalance,
+  //   })
+  // }
 
   return options
 }
