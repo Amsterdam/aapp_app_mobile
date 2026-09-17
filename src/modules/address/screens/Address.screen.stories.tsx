@@ -1,3 +1,5 @@
+import {AddressRouteName} from '../routes'
+import {screenConfig} from '../screenConfig'
 import {AddressScreen} from './Address.screen'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
@@ -9,10 +11,8 @@ const meta = {
   render: () => (
     <Stack.Navigator>
       <Stack.Screen
-        component={AddressScreen}
         key="address"
-        name="address"
-        options={{}}
+        {...screenConfig[AddressRouteName.address]}
       />
     </Stack.Navigator>
   ),
