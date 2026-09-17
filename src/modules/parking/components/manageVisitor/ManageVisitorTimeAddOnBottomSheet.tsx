@@ -47,13 +47,13 @@ const getOptions = (
         label: `+ ${value} uur`,
         value: value * 3600,
       }))
-  }
 
-  if (optionsArray[0] && timeBalance < 3600) {
-    options.push({
-      label: '+ 0 uur',
-      value: 0,
-    })
+    if (optionsArray[0] && timeBalance < 3600) {
+      options.push({
+        label: '+ 0 uur',
+        value: 0,
+      })
+    }
   }
 
   return options
