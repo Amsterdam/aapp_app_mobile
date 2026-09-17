@@ -1,12 +1,14 @@
 import {compareReleaseVersions} from './compareReleaseVersions.mts'
-import {MAX_SUPPORTED_VERSIONS, RELEASE_VERSION_PATTERN} from './constants.mts'
+import {RELEASE_VERSION_PATTERN} from './constants.mts'
+import {groupMinorReleases} from './groupMinorReleases.mts'
 import {parseReleaseVersion} from './parseReleaseVersion.mts'
 import type {Release} from './types.mts'
 
 export const getRelevantReleases = (
   releases: Release[],
   currentReleaseVersionString: string,
-): Release[] => {
+  maxSupportedVersions: number,
+): Release[][] => {
   const currentReleaseVersion = parseReleaseVersion(currentReleaseVersionString)
 
   const validReleases = releases.filter(release =>
@@ -25,19 +27,14 @@ export const getRelevantReleases = (
     )
   }
 
-  const recentPastReleases = validReleases
-    .filter(release => {
-      const releaseVersion = parseReleaseVersion(release.version)
+  const pastReleases = validReleases.filter(release => {
+    const releaseVersion = parseReleaseVersion(release.version)
 
-      return compareReleaseVersions(releaseVersion, currentReleaseVersion) < 0 // Return only older versions than currentReleaseVersion
-    })
-    .sort((leftRelease, rightRelease) => {
-      const lVersion = parseReleaseVersion(leftRelease.version)
-      const rVersion = parseReleaseVersion(rightRelease.version)
+    return compareReleaseVersions(releaseVersion, currentReleaseVersion) < 0 // Return only older versions than currentReleaseVersion
+  })
 
-      return compareReleaseVersions(rVersion, lVersion)
-    })
-    .slice(0, MAX_SUPPORTED_VERSIONS)
-
-  return [currentRelease, ...recentPastReleases]
+  return groupMinorReleases([currentRelease, ...pastReleases]).slice(
+    0,
+    maxSupportedVersions + 1,
+  ) // + 1 to unpublish
 }

@@ -98,17 +98,24 @@ describe('syncReleaseDates', () => {
   })
 
   it('should patch publish, deprecate and unpublish updates for a normal rollout', async () => {
-    const releases = createReleases(['1.29.0', '1.28.0', '1.27.1', '1.27.0'])
+    const releases = createReleases([
+      '1.29.0',
+      '1.28.0',
+      '1.27.1',
+      '1.27.0',
+      '1.26.0',
+    ])
 
     await syncReleaseDates({releases})
 
     const fetchMock = global.fetch as jest.MockedFunction<typeof fetch>
 
-    expect(fetchMock).toHaveBeenCalledTimes(3)
+    expect(fetchMock).toHaveBeenCalledTimes(4)
 
     expect(getFetchCallUrl(0)).toContain('/release/1.29.0')
-    expect(getFetchCallUrl(1)).toContain('/release/1.27.1')
-    expect(getFetchCallUrl(2)).toContain('/release/1.27.0')
+    expect(getFetchCallUrl(1)).toContain('/release/1.28.0')
+    expect(getFetchCallUrl(2)).toContain('/release/1.27.1')
+    expect(getFetchCallUrl(3)).toContain('/release/1.27.0')
   })
 
   it('should patch only the unpublish update when one store review version is higher than live', async () => {
@@ -127,7 +134,7 @@ describe('syncReleaseDates', () => {
     const fetchMock = global.fetch as jest.MockedFunction<typeof fetch>
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(getFetchCallUrl(0)).toContain('/release/1.27.0')
+    expect(getFetchCallUrl(0)).toContain('/release/1.28.0')
   })
 
   it('should not patch when current release already has a published date', async () => {

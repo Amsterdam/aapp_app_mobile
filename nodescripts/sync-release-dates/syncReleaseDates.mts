@@ -1,6 +1,6 @@
 import {buildReleaseDateUpdates} from './buildReleaseDateUpdates.mts'
 import {compareReleaseVersions} from './compareReleaseVersions.mts'
-import {RELEASE_VERSION_PATTERN} from './constants.mts'
+import {MAX_SUPPORTED_VERSIONS, RELEASE_VERSION_PATTERN} from './constants.mts'
 import {getHighestReleaseVersion} from './getHighestReleaseVersion.mts'
 import {getRelevantReleases} from './getRelevantReleases.mts'
 import {parseReleaseVersion} from './parseReleaseVersion.mts'
@@ -63,11 +63,16 @@ export const syncReleaseDates = async ({
     return
   }
 
-  const relevantReleases = getRelevantReleases(releases, highestReleaseVersion)
+  const relevantReleases = getRelevantReleases(
+    releases,
+    highestReleaseVersion,
+    MAX_SUPPORTED_VERSIONS,
+  )
 
   const releaseUpdates = buildReleaseDateUpdates(
     relevantReleases,
     highestReleaseVersion,
+    MAX_SUPPORTED_VERSIONS,
   )
 
   const isIosReviewHigherThanLive =

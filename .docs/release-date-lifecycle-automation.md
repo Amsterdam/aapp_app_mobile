@@ -9,6 +9,7 @@ This workflow keeps release lifecycle dates consistent across environments by up
 - Releases move through three lifecycle states: published, deprecated, and unpublished.
 - The current release is the highest version observed in the app stores and is marked as published.
 - Only the two most recent releases are treated as actively supported.
+- Patch (hotfix) releases follow the same lifecycle as other releases in the same minor version (for example, 1.29.0 and 1.29.1 move through the same states).
 - The next older release is marked as deprecated with a one-week deprecation window.
 - Releases older then the releases in the managed window are marked as unpublished.
 - If the current release is already marked as published, no additional lifecycle updates are applied.
