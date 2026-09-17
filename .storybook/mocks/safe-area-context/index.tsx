@@ -1,8 +1,11 @@
 import {createContext} from 'react'
+import {Dimensions} from 'react-native'
+
+const {height, width} = Dimensions.get('window')
 
 const safeAreaFrame = {
-  height: 100,
-  width: 100,
+  height,
+  width,
   x: 0,
   y: 0,
 }
