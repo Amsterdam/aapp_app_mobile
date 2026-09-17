@@ -12,6 +12,7 @@ import {
   AMSTERDAM_REGION,
   DEFAULT_CLUSTER_OPTIONS,
 } from '@/components/features/map/constants'
+import {useFilterOutPointsOutsideNetherlands} from '@/components/features/map/hooks/useFilterOutPointsOutsideNetherlands'
 
 export type ClustererProps = {
   clusterOptions?: Supercluster.Options<
@@ -37,9 +38,10 @@ export const Clusterer = ({
   clusterOptions = DEFAULT_CLUSTER_OPTIONS,
 }: ClustererProps) => {
   const dimensions = useWindowDimensions()
+  const filteredData = useFilterOutPointsOutsideNetherlands(data)
 
   const [points, supercluster] = useClusterer(
-    data,
+    filteredData,
     mapDimensions || dimensions,
     region,
     clusterOptions,

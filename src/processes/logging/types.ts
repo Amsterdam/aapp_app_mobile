@@ -23,6 +23,7 @@ export enum ExceptionLogKey {
   getRedirectsUrl = 'Get redirects url with key',
   hideSplashScreen = 'Hide splash screen failed',
   isScreenReaderEnabled = 'Screenreader enabled check failed',
+  mapPressCluster = 'Map press cluster failed',
   nodeNotFound = 'Node not found for ref',
   notSupportedStoredUrl = 'Can not use url to open store',
   openMailUrl = 'Open mail url failed',
