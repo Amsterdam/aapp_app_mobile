@@ -36,10 +36,12 @@ const getOptions = (
       }))
     const hoursRemaining = Math.floor(secondsRemaining / 3600)
 
-    options.push({
-      label: `- ${hoursRemaining} uur`,
-      value: hoursRemaining * 3600,
-    })
+    if (!optionsArray.includes(hoursRemaining)) {
+      options.push({
+        label: `- ${hoursRemaining} uur`,
+        value: hoursRemaining * 3600,
+      })
+    }
   } else {
     options = optionsArray
       .filter(n => n < timeBalance / 3600)
