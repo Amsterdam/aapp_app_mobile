@@ -115,105 +115,32 @@ def writeReleaseNotes(releaseNotes)
   File.write(filePath, releaseNotes)
 end
 
-# def play_store_releases(track: "production")
-#   require 'supply'
-#   require 'supply/client'
+def getPlayStoreVersionUnderReview
+  require "google/apis/androidpublisher_v3"
+  require "googleauth"
 
-#   json_key_file = ENV["SUPPLY_JSON_KEY"]
+  service = Google::Apis::AndroidpublisherV3::AndroidPublisherService.new
 
-#   if json_key_file.to_s.empty?
-#     UI.user_error!("Missing Play Store credentials. Set SUPPLY_JSON_KEY or json_key_file in Appfile.")
-#   end
+  service.authorization =
+    Google::Auth::ServiceAccountCredentials.make_creds(
+      json_key_io: File.open(ENV["SUPPLY_JSON_KEY"]),
+      scope: "https://www.googleapis.com/auth/androidpublisher"
+    )
 
-#   unless File.exist?(json_key_file)
-#     UI.user_error!("Play Store json key not found at: #{json_key_file}")
-#   end
+  response = service.list_application_track_releases(
+    "nl.amsterdam.app",
+    "production"
+  )
 
-#   supply_parameters = {
-#     package_name: "nl.amsterdam.app",
-#     json_key: json_key_file,
-#   }
-
-#   client = Supply::Client.make_from_config(params: supply_parameters)
-#   client.begin_edit(package_name: supply_parameters[:package_name])
-
-#   begin
-#     track_object = client.tracks(track).first
-#     release_summaries = Array(track_object&.releases).map do |release|
-#       {
-#         "release_name" => release.name,
-#         "release_lifecycle_state" => release.status
-#       }
-#     end
-#   ensure
-#     client.abort_current_edit
-#   end
-
-#   return release_summaries
-# end
-
-# def first_release_name(release_summaries)
-#   Array(release_summaries).each do |release_summary|
-#     release_name = release_summary["release_name"].to_s.strip
-#     return release_name unless release_name.empty?
-#   end
-#   nil
-# end
-
-# def getPlayStoreVersionUnderReview()
-#   service = Google::Apis::AndroidpublisherV3::AndroidPublisherService.new
-
-#   service.authorization = Spaceship::Google::Auth::ServiceAccount::Token.new(
-#     json_key: ENV["SUPPLY_JSON_KEY"],
-#     scope: "https://www.googleapis.com/auth/androidpublisher"
-#   )
-
-#   response = service.list_application_track_releases(
-#     "nl.amsterdam.app",
-#     "production"
-#   )
-
-#   release = response.releases.find do |release|
-#     release.release_lifecycle_state ==
-#       "RELEASE_LIFECYCLE_STATE_IN_REVIEW"
-#   end
-
-#   release&.release_name
-# end
+  response.releases || []
+end
 
 platform :android do
 
 
   desc "Fetch Play Store live and review release version numbers"
-  lane :getPlayStoreVersionNumbers do |options|
-    service = Google::Apis::AndroidpublisherV3::AndroidPublisherService.new
-
-    service.authorization = Spaceship::Google::Auth::ServiceAccount::Token.new(
-      json_key: ENV["SUPPLY_JSON_KEY"],
-      scope: "https://www.googleapis.com/auth/androidpublisher"
-    )
-
-    # review_lifecycle_states = ["inReview"]
-
-    # release_summaries = play_store_releases(track: "production")
-    # UI.user_error!("No releases found on track \"production\"") if release_summaries.empty?
-
-    # live_release_summaries = release_summaries.select do |release_summary|
-    #   release_summary["release_lifecycle_state"] == "completed"
-    # end
-
-    # live_version_number = first_release_name(live_release_summaries)
-    # live_version_number ||= first_release_name(release_summaries)
-    # UI.user_error!("No release name found on track \"production\"") if live_version_number.nil?
-  
-    # review_release_summaries = release_summaries.select do |release_summary|
-    #   review_lifecycle_states.include?(release_summary["release_lifecycle_state"])
-    # end
-
-    releases = service.list_application_track_releases(
-      "nl.amsterdam.app",
-      "production"
-    ).releases
+  lane :getPlayStoreVersionNumbers do
+    releases = getPlayStoreVersionUnderReview
 
     review_release = releases.find do |release|
       release.release_lifecycle_state ==
@@ -228,12 +155,8 @@ platform :android do
     live_version_number = published_release&.release_name
     review_version_number = review_release&.release_name
 
-
-    UI.message("Live version: #{live_version_number}")
-    UI.message("Review version: #{review_version_number}")
-
-    UI.message("ANDROID_VERSION_NUMBER_LIVE: #{live_version_number}")
-    UI.message("ANDROID_VERSION_NUMBER_REVIEW: #{review_version_number || live_version_number}")
+    UI.message("Live version: #{live_version_number || 'none'}")
+    UI.message("Review version: #{review_version_number || 'none'}")
 
     puts "##vso[task.setvariable variable=ANDROID_VERSION_NUMBER_LIVE;]#{live_version_number}"
     puts "##vso[task.setvariable variable=ANDROID_VERSION_NUMBER_REVIEW;]#{review_version_number || live_version_number}"
