@@ -1,13 +1,31 @@
 import {Button} from './Button'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Row} from '@/components/ui/layout/Row'
+import iconMapping from '@/storybook/utils/icon-mapping'
 import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
+import {sizeTokens} from '@/themes/tokens/size'
 
 const meta = {
-  argTypes: pressableArgTypes,
   component: Button,
+  tags: ['!autodocs'],
   parameters: {
-    componentSubtitle: 'Het basis button component',
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/9IGm6IdPUYizBNGsUnueBd/Amsterdam-Design-System?node-id=15700-53370&t=XrQ1fYsDWoiJfdwX-4',
+    },
+  },
+  argTypes: {
+    onPress: pressableArgTypes.onPress,
+    icon: {
+      ...iconMapping,
+      control: {type: 'select'},
+      description:
+        'Icon properties that define the icon to render inside the Button',
+    },
+    isReverseOrder: {
+      control: 'boolean',
+      if: {arg: 'icon', truthy: true},
+    },
   },
 } satisfies Meta<typeof Button>
 
@@ -59,6 +77,16 @@ export const __Alignment: Story<typeof Row> = {
   args: {
     align: 'start',
     gutter: 'md',
+  },
+  argTypes: {
+    align: {
+      control: {type: 'select'},
+      options: ['around', 'between', 'center', 'end', 'evenly', 'start'],
+    },
+    gutter: {
+      control: {type: 'select'},
+      options: Object.keys(sizeTokens.spacing),
+    },
   },
   render: ({align, gutter}) => (
     <Row

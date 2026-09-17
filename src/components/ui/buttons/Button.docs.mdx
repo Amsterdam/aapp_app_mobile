@@ -1,0 +1,55 @@
+import {
+  Title,
+  Subtitle,
+  Primary,
+  Controls,
+  Stories,
+  Meta,
+} from '@storybook/addon-docs/blocks'
+
+import * as ButtonStories from './Button.stories.tsx'
+
+<Meta of={ButtonStories} />
+
+<Title />
+[Amsterdam Design System
+Button](https://designsystem.amsterdam/?path=/docs/components-buttons-button--docs)
+
+<Subtitle />
+
+<Primary />
+
+## When to use
+
+Use the Button for clear, intentional actions that should feel immediate and reliable. In most flows, the button represents the next step a user can take.
+
+## Do's and don'ts
+
+### Do's
+
+- Use one primary action per view or section
+- Match visual emphasis to user priority
+- Use a button for actions that happen now
+- Show icon support only when it improves recognition
+
+### Dont's
+
+- Place multiple primary buttons next to each other
+- Use strong emphasis for secondary tasks
+- Use a button for simple navigation when a link is clearer
+- Add icons that duplicate the label without adding meaning
+
+## States to review
+
+When working on a button, review more than the default state:
+
+- default
+- pressed or active
+- disabled
+- loading, if the action takes time
+- icon and no-icon variants
+- inline placement versus full-width placement
+
+<Stories />
+
+<Controls />

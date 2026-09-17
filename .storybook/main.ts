@@ -46,8 +46,19 @@ const config: StorybookConfig = {
 
   docs: {},
 
+  refs: {
+    'amsterdam-design-system': {
+      title: 'Amsterdam Design System',
+      url: 'https://designsystem.amsterdam',
+    },
+  },
+
   staticDirs: ['./public'],
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: [
+    './docs/*.mdx',
+    '../src/**/*.mdx',
+    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+  ],
 
   viteFinal: viteConfig =>
     mergeConfig(viteConfig, {

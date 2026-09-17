@@ -21,6 +21,8 @@ declare module '*.png' {
   export default content
 }
 
+declare module '*.css'
+
 declare module '@env' {
   export const API_KEY_DEV: string | undefined
   export const API_KEY_TEST: string | undefined
