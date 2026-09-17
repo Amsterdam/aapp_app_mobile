@@ -87,23 +87,35 @@ export const syncReleaseDates = async ({
       parseReleaseVersion(androidVersionReview),
     ) === -1
 
-  if (isIosReviewHigherThanLive || isAndroidReviewHigherThanLive) {
+  const areLiveStoreVersionsDifferent =
+    compareReleaseVersions(
+      parseReleaseVersion(iosVersionLive),
+      parseReleaseVersion(androidVersionLive),
+    ) !== 0
+
+  if (
+    isIosReviewHigherThanLive ||
+    isAndroidReviewHigherThanLive ||
+    areLiveStoreVersionsDifferent
+  ) {
     // If release version currently in review in either app- or play store is higher than respective live versions,
     // or one of the stores published the higher release version and the other not yet,
     // we only unpublish the currently deprecated past release.
 
-    const [version, update] =
-      Object.entries(releaseUpdates).find(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ([_, {unpublished}]) => !!unpublished,
-      ) || []
+    const unpublishUpdates = Object.entries(releaseUpdates).filter(
+      ([, {unpublished}]) => Boolean(unpublished),
+    )
 
-    if (version && update && dryRun?.toLowerCase() !== 'true') {
-      await patchReleaseDates(version, update, environment)
+    if (unpublishUpdates.length > 0 && dryRun?.toLowerCase() !== 'true') {
+      await Promise.all(
+        unpublishUpdates.map(([version, update]) =>
+          patchReleaseDates(version, update, environment),
+        ),
+      )
     } else {
       console.log(environment.toUpperCase(), releaseUpdates)
       console.log(
-        `Only update unpublish date of currently deprecated release ${version}`,
+        `Only update unpublish dates for currently deprecated releases: ${unpublishUpdates.map(([version]) => version).join(', ')}`,
       )
     }
 

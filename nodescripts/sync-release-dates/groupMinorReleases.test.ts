@@ -15,6 +15,8 @@ const createReleases = (versions: Array<Release['version']>) =>
     ...BASE_RELEASE_OBJECT,
   }))
 
+const extractVersions = (group: Release[]) => group.map(({version}) => version)
+
 describe('groupMinorReleases', () => {
   it('should group minor releases', () => {
     const releases = [
@@ -27,9 +29,7 @@ describe('groupMinorReleases', () => {
     ]
 
     expect(
-      groupMinorReleases(createReleases(releases)).map(r =>
-        r.map(({version}) => version),
-      ),
+      groupMinorReleases(createReleases(releases)).map(extractVersions),
     ).toEqual([
       ['1.29.1', '1.29.0'],
       ['1.28.1', '1.28.0'],
@@ -49,9 +49,7 @@ describe('groupMinorReleases', () => {
     ]
 
     expect(
-      groupMinorReleases(createReleases(releases)).map(r =>
-        r.map(({version}) => version),
-      ),
+      groupMinorReleases(createReleases(releases)).map(extractVersions),
     ).toEqual([
       ['1.29.1', '1.29.0'],
       ['1.28.1', '1.28.0'],
@@ -64,9 +62,7 @@ describe('groupMinorReleases', () => {
     const releases = ['1.1.1', '1.1.0', '1.0.0', '0.99.1', '0.99.0', '0.98.0']
 
     expect(
-      groupMinorReleases(createReleases(releases)).map(r =>
-        r.map(({version}) => version),
-      ),
+      groupMinorReleases(createReleases(releases)).map(extractVersions),
     ).toEqual([['1.1.1', '1.1.0'], ['1.0.0'], ['0.99.1', '0.99.0'], ['0.98.0']])
   })
 })
