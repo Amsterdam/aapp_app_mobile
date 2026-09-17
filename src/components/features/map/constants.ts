@@ -7,6 +7,12 @@ export const AMSTERDAM_REGION: Region = {
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 }
+export const NETHERLANDS_OUTER_BOX = {
+  minimum_latitude: 50.584250836385095,
+  minimum_longitude: 3.050399875549396,
+  maximum_latitude: 53.51040342342342,
+  maximum_longitude: 7.227095603942652,
+}
 
 export const USER_LOCATION_DELTA = 0.01
 

@@ -1,4 +1,5 @@
 import {Feature, type Geometry, Point} from 'geojson'
+import {NETHERLANDS_OUTER_BOX} from '@/components/features/map/constants'
 import {getFirstPosition} from '@/components/features/map/utils/getFirstPosition'
 
 export const convertGeometryToPoint = <Properties extends object | null>(
@@ -26,6 +27,10 @@ export const convertGeometryToPoint = <Properties extends object | null>(
       return (
         coordinates.length >= 2 &&
         Number.isFinite(coordinates[0]) &&
-        Number.isFinite(coordinates[1])
+        Number.isFinite(coordinates[1]) &&
+        coordinates[0] >= NETHERLANDS_OUTER_BOX.minimum_longitude &&
+        coordinates[0] <= NETHERLANDS_OUTER_BOX.maximum_longitude &&
+        coordinates[1] >= NETHERLANDS_OUTER_BOX.minimum_latitude &&
+        coordinates[1] <= NETHERLANDS_OUTER_BOX.maximum_latitude
       )
     })

@@ -47,6 +47,7 @@ export const allowList = {
   [ExceptionLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
   [ExceptionLogKey.tokenInvalid]: ['message'],
   [ExceptionLogKey.updatePermission]: ['error', 'permission', 'request'],
+  [ExceptionLogKey.mapPressCluster]: ['error', 'clusterId', 'coordinates'],
 } as const
 
 export type AllowListKeys<LogKey extends ExceptionLogKey> =

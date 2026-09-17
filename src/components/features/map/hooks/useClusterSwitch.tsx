@@ -13,11 +13,16 @@ import {
   MapMarkerVariants,
 } from '@/components/features/map/marker/MapMarkerVariants'
 import {isNearlyEqualFloat} from '@/components/features/map/utils/isNearlyEqualFloat'
+import {devError} from '@/processes/development'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 
 export const useClusterSwitch = (
   item: ClusterItem,
   getChildren: (clusterId: number) => ClusterItem[],
-  shouldGroup?: boolean,
+  shouldGroup: boolean = false,
 ) => {
   const {map, getCurrentRegion} = useMap()
 
@@ -35,35 +40,49 @@ export const useClusterSwitch = (
   const variant = isSelected
     ? MapMarkerVariant.selectedPin
     : markerProps?.variant
+  const trackException = useTrackException()
 
   const handlePress = useCallback(() => {
     if ('cluster_id' in item.properties) {
       const {getExpansionRegion} = item.properties
 
-      const expansionRegion = getExpansionRegion()
+      try {
+        const expansionRegion = getExpansionRegion()
 
-      const currentRegion = getCurrentRegion()
+        const currentRegion = getCurrentRegion()
 
-      const shouldForceZoom =
-        !!currentRegion &&
-        isNearlyEqualFloat(
-          expansionRegion.longitudeDelta,
-          currentRegion.longitudeDelta,
-          5,
+        const shouldForceZoom =
+          !!currentRegion &&
+          isNearlyEqualFloat(
+            expansionRegion.longitudeDelta,
+            currentRegion.longitudeDelta,
+            5,
+          )
+
+        map?.animateToRegion({
+          ...expansionRegion,
+          longitudeDelta: shouldForceZoom
+            ? expansionRegion.longitudeDelta / 2
+            : expansionRegion.longitudeDelta,
+        })
+      } catch (error) {
+        devError('Failed to get expansion region:', error)
+        trackException(
+          ExceptionLogKey.mapPressCluster,
+          'useClusterSwitch.tsx',
+          {
+            error,
+            clusterId: item.properties.cluster_id,
+            coordinates: item.geometry.coordinates,
+          },
         )
-
-      map?.animateToRegion({
-        ...expansionRegion,
-        longitudeDelta: shouldForceZoom
-          ? expansionRegion.longitudeDelta / 2
-          : expansionRegion.longitudeDelta,
-      })
+      }
 
       return
     }
 
     item.properties.onMarkerPress?.()
-  }, [item, map, getCurrentRegion])
+  }, [item, map, getCurrentRegion, trackException])
 
   const MarkerContent = useCallback(() => {
     if (clusterProps) {
