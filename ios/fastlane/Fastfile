@@ -170,8 +170,8 @@ platform :ios do
       end
       &.version_string
 
-    UI.message("IOS_VERSION_NUMBER_LIVE: #{live_version_number}")
-    UI.message("IOS_VERSION_NUMBER_REVIEW: #{review_version_number || live_version_number}")
+    UI.message("Live version: #{live_version_number || 'none'}")
+    UI.message("Review version: #{review_version_number || 'none'}")
 
     puts "##vso[task.setvariable variable=IOS_VERSION_NUMBER_LIVE;]#{live_version_number}"
     puts "##vso[task.setvariable variable=IOS_VERSION_NUMBER_REVIEW;]#{review_version_number || live_version_number}"
