@@ -13,7 +13,6 @@ import {ParkingSessionSubmitButton} from '@/modules/parking/components/form/Park
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingMaxSessionsWarning} from '@/modules/parking/components/session/ParkingMaxSessionsWarning'
-import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components/session/ParkingStartSessionVisitorPermitZone'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
@@ -43,10 +42,6 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
             insetTop="md">
             <Column gutter="xl">
               <Column gutter="lg">
-                {parkingAccount?.scope === ParkingPermitScope.visitor && (
-                  <ParkingStartSessionVisitorPermitZone />
-                )}
-
                 {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
                   <ParkingChooseLicensePlateButton />
                 ) : (
