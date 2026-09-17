@@ -1,5 +1,6 @@
 package nl.amsterdam.app
 import expo.modules.ReactActivityDelegateWrapper
+import com.swmansion.rnscreens.fragment.restoration.RNScreensFragmentFactory
 
 // Needed by react-navigation:
 import android.os.Bundle
@@ -32,7 +33,8 @@ class MainActivity : ReactActivity() {
   // Needed by react-navigation:
   override fun onCreate(savedInstanceState: Bundle?) {
     RNBootSplash.init(this, R.style.BootTheme); // initialize the splashscreen
-    super.onCreate(null)
+    supportFragmentManager.fragmentFactory = RNScreensFragmentFactory()
+    super.onCreate(savedInstanceState)
 
     OkHttpClientProvider.setOkHttpClientFactory(OkHttpClientWithCertificatePinningFactory());
   }
