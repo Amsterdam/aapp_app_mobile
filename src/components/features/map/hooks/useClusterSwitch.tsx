@@ -66,7 +66,7 @@ export const useClusterSwitch = (
             : expansionRegion.longitudeDelta,
         })
       } catch (error) {
-        devError('Failed to get expansion region:', error)
+        devError('Failed to handle cluster press:', error)
         trackException(
           ExceptionLogKey.mapPressCluster,
           'useClusterSwitch.tsx',
