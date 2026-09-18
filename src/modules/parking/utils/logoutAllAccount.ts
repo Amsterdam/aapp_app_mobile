@@ -17,6 +17,7 @@ export const logoutAllAccounts = async (
       ),
     )
     dispatch(parkingSlice.actions.reset())
+    dispatch(parkingSlice.actions.setIsRecentlyLoggedOut(true))
 
     return true
   } catch (error) {
