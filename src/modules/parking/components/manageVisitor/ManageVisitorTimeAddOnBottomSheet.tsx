@@ -19,12 +19,13 @@ type Option = {
   value: number
 }
 
+const optionsArray = [1, 2, 4, 8, 12]
+
 const getOptions = (
   timeBalance: number,
   secondsRemaining: number,
-  isNegative?: boolean,
+  isNegative: boolean = false,
 ) => {
-  const optionsArray = [1, 2, 4, 8, 12]
   let options: Option[] = []
 
   if (isNegative) {
@@ -50,7 +51,7 @@ const getOptions = (
         value: value * 3600,
       }))
 
-    if (optionsArray[0] && timeBalance < 3600) {
+    if (timeBalance < 3600) {
       options.push({
         label: '+ 0 uur',
         value: 0,
