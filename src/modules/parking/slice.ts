@@ -165,6 +165,7 @@ export const parkingSlice = createSlice({
     ) => {
       state.walletBalanceIncreaseStartBalance = payload
     },
+    reset: () => initialState,
   },
 })
 

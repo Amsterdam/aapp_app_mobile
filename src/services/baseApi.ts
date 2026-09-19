@@ -7,6 +7,8 @@ import {
   retry,
 } from '@reduxjs/toolkit/query/react'
 import {apiKeyForEnvironment, ApiSlug} from '@/environment'
+import {tagTypes as boatChargingTagTypes} from '@/modules/boat-charging/constants'
+import {tagTypes as cityPassTagTypes} from '@/modules/city-pass/constants'
 import {tagTypes as parkingTagTypes} from '@/modules/parking/constants'
 import {devError, devInfo} from '@/processes/development'
 import {
@@ -129,18 +131,16 @@ export const baseApi = createApi({
   reducerPath: 'api',
   tagTypes: [
     ...parkingTagTypes,
+    ...cityPassTagTypes,
+    ...boatChargingTagTypes,
     'Articles',
-    'CityPass',
     'FollowedProjects',
     'Form',
     'Modules',
     'Notifications',
     'Projects',
     'NotificationSubscriptions',
-    'BoatChargingLocations',
-    'BoatChargingLocationDetails',
-    'BoatChargingSessions',
-    'MijnAmsterdam',
     'NewsLiveblogNotifications',
+    'MijnAmsterdam',
   ],
 })

@@ -44,6 +44,7 @@ export const mijnAmsterdamSlice = createSlice({
     ) => {
       state.shouldShowBanner = shouldShowBanner
     },
+    reset: () => initialState,
   },
 })
 

@@ -2,7 +2,7 @@ import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {onNotificationEvent} from '@/modules/parking/notifications/onNotificationEvent'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingSlice, ParkingState} from '@/modules/parking/slice'
-import {logout} from '@/modules/parking/utils/logout'
+import {logoutAllAccounts} from '@/modules/parking/utils/logoutAllAccount'
 import {postProcessLinking} from '@/modules/parking/utils/postProcessLinking'
 import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
@@ -16,7 +16,7 @@ const persistWhitelist: (keyof ParkingState)[] = [
 ] as const
 
 export const clientModule = createClientModule({
-  logout: (dispatch, state) => logout(dispatch, state),
+  logout: (dispatch, state) => logoutAllAccounts(dispatch, state),
   name: 'ParkingModule',
   linking: {
     [ParkingRouteName.dashboard]: {

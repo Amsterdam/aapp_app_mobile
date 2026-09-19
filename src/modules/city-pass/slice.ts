@@ -65,6 +65,7 @@ export const cityPassSlice = createSlice({
     ) => {
       state.isAutomaticLogoutAlertDismissed = payload
     },
+    reset: () => initialState,
   },
 })
 

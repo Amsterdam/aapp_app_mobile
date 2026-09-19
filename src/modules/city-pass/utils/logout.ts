@@ -1,7 +1,8 @@
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {alerts} from '@/modules/city-pass/alerts'
 import {cityPassApi} from '@/modules/city-pass/service'
-import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
+import {cityPassSlice} from '@/modules/city-pass/slice'
+import {devError} from '@/processes/development'
 import {setAlertAction} from '@/store/slices/alert'
 import {deleteSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
 import {
@@ -17,27 +18,33 @@ export const logout = async (
   successAlert: keyof typeof alerts | false,
   dispatch: ReduxDispatch,
 ) => {
-  const accessToken = await getSecureItem(SecureItemKey.cityPassAccessToken)
+  try {
+    const accessToken = await getSecureItem(SecureItemKey.cityPassAccessToken)
 
-  if (accessToken) {
-    void dispatch(cityPassApi.endpoints.logout.initiate())
+    if (accessToken) {
+      void dispatch(cityPassApi.endpoints.logout.initiate())
+    }
+
+    await removeSecureItems([
+      SecureItemKey.cityPassAccessToken,
+      SecureItemKey.cityPassRefreshToken,
+      SecureItemKey.cityPasses,
+    ])
+    dispatch(
+      deleteSecureItemUpdatedTimestamp(SecureItemKey.cityPassAccessToken),
+    )
+    dispatch(
+      deleteSecureItemUpdatedTimestamp(SecureItemKey.cityPassRefreshToken),
+    )
+    dispatch(cityPassSlice.actions.reset())
+
+    if (successAlert) {
+      setTimeout(() => dispatch(setAlertAction(alerts[successAlert])), 100)
+    }
+
+    return true
+  } catch (error) {
+    devError(error)
+    throw error
   }
-
-  await removeSecureItems([
-    SecureItemKey.cityPassAccessToken,
-    SecureItemKey.cityPassRefreshToken,
-    SecureItemKey.cityPasses,
-  ])
-  dispatch(deleteSecureItemUpdatedTimestamp(SecureItemKey.cityPassAccessToken))
-  dispatch(deleteSecureItemUpdatedTimestamp(SecureItemKey.cityPassRefreshToken))
-  dispatch(setIsCityPassOwnerRegistered(false))
-
-  if (successAlert) {
-    setTimeout(() => dispatch(setAlertAction(alerts[successAlert])), 100)
-  }
-
-  // invalidate the city pass data cache after logout with a delay to make sure all queries are unmounted, otherwise they will try to refetch and that will result in useless 401 errors
-  setTimeout(() => {
-    dispatch(cityPassApi.util.resetApiState())
-  }, 1000)
 }
