@@ -44,9 +44,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
             </Box>
           }
           testID="ParkingStartSessionScreen">
-          <Box
-            insetHorizontal="md"
-            insetVertical="md">
+          <Box>
             <Column gutter="xl">
               <Column gutter="lg">
                 {parkingAccount?.scope === ParkingPermitScope.visitor && (
