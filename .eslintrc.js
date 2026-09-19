@@ -61,7 +61,15 @@ module.exports = {
         'react-refresh/only-export-components': 'warn',
         'react-native/no-raw-text': [
           'error',
-          {skip: ['Phrase', 'Paragraph', 'InlineLink', 'ExternalInlineLink']},
+          {
+            skip: [
+              'Phrase',
+              'Paragraph',
+              'InlineLink',
+              'ExternalInlineLink',
+              'AccessibleText',
+            ],
+          },
         ],
         'react-native/no-single-element-style-arrays': 'warn',
         'import-x/no-default-export': 'error',

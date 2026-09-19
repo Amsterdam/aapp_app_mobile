@@ -9,7 +9,7 @@ import RenderHTML, {
   useInternalRenderer,
   useRendererProps,
 } from '@native-html/render'
-import {Fragment, useCallback, useMemo, useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import {
   LayoutChangeEvent,
   Platform,
@@ -20,21 +20,21 @@ import {
   type ViewProps,
 } from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
-import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
+import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
+import {OrderedListItemMarker} from '@/components/ui/text/list/OrderedListItemMarker'
 import {type TestProps} from '@/components/ui/types'
-import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
-import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useDynamicImageAspectRatio} from '@/hooks/useDynamicImageAspectRatio'
 import {Theme} from '@/themes/themes'
 import {TextTokens} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
+import {getTNodeAccessibleLabel} from '@/utils/accessibility/getTNodeAccessibleLabel'
 
 type Props = {
   content: string | undefined
@@ -117,7 +117,6 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const baseStyle = useThemable(createBaseStyle)
   const styles = useThemable(createStyles(isIntro))
   const systemFonts = useThemable(createFontList)
-  const isScreenReaderEnabled = useIsScreenReaderEnabled()
   const openUrl = useOpenUrl()
 
   const onLayoutChange = useCallback((event: LayoutChangeEvent) => {
@@ -131,10 +130,8 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
 
     const transformedContent = transformContent(content, transformRules)
 
-    return isScreenReaderEnabled
-      ? promoteInlineLinks(transformedContent)
-      : transformedContent
-  }, [content, isScreenReaderEnabled, transformRules])
+    return transformedContent
+  }, [content, transformRules])
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = useMemo(
     () => ({
@@ -176,9 +173,11 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
         renderers={renderers}
         renderersProps={{
           img: {enableExperimentalPercentWidth: true},
-          anchor: {isScreenReaderEnabled, openUrl},
+          anchor: {openUrl},
         }}
-        source={{html}}
+        source={{
+          html,
+        }}
         systemFonts={systemFonts}
         tagsStyles={tagsStyles}
       />
@@ -276,9 +275,14 @@ const createFontList = ({text}: Theme): string[] => [
   text.fontFamily.regular,
 ]
 
-// An unordered list only renders its children, without the bullet point and any spacing.
-const UlRenderer: CustomBlockRenderer = ({TNodeChildrenRenderer, ...props}) => (
-  <Box insetBottom="lg">
+// A list only renders its children, without the bullet point or number and any spacing.
+const ListRenderer: CustomBlockRenderer = ({
+  TNodeChildrenRenderer,
+  ...props
+}) => (
+  <Box
+    accessible={false}
+    insetBottom="lg">
     <TNodeChildrenRenderer {...props} />
   </Box>
 )
@@ -306,61 +310,72 @@ const LiMarker = () => {
 // A list item in an unordered list renders the correct bullet point encoded in the font.
 // The `Column` with the `flex` prop allows the list item children to shrink and fit the row.
 const LiRenderer: CustomBlockRenderer = props => {
-  const {TDefaultRenderer, TNodeChildrenRenderer} = props
+  const {TNodeChildrenRenderer, tnode, style} = props
 
-  if (props.tnode.parent?.tagName === 'ul') {
+  if (tnode.parent?.tagName === 'ul') {
     return (
       <Row>
         <LiMarker />
         <Column flex={1}>
-          <TNodeChildrenRenderer {...props} />
+          <AccessibleText
+            accessibilityLabel={getTNodeAccessibleLabel(tnode)}
+            style={style}>
+            <TNodeChildrenRenderer {...props} />
+          </AccessibleText>
         </Column>
       </Row>
     )
   }
 
-  return <TDefaultRenderer {...props} />
+  return (
+    <Row gutter="xs">
+      <OrderedListItemMarker
+        number={tnode.nodeIndex + 1}
+        testID="OrderedListItemMarker"
+      />
+      <Column flex={1}>
+        <AccessibleText
+          accessibilityLabel={getTNodeAccessibleLabel(tnode)}
+          style={style}>
+          <TNodeChildrenRenderer {...props} />
+        </AccessibleText>
+      </Column>
+    </Row>
+  )
 }
 
 const ARenderer: CustomMixedRenderer = props => {
-  const {href} = props.tnode.attributes
-  const {openUrl, isScreenReaderEnabled} = useRendererProps('anchor') as {
-    isScreenReaderEnabled: boolean
+  const {tnode, TNodeChildrenRenderer} = props
+  const {href} = tnode.attributes
+  const {openUrl} = useRendererProps('anchor') as {
     openUrl: ReturnType<typeof useOpenUrl>
   }
 
-  const parentTags = getParentTags(props.tnode)
+  const parentTags = getParentTags(tnode)
   const isInCaption = parentTags.some(tag => CAPTION_TAGS.has(tag))
 
-  const {TNodeChildrenRenderer} = props
-
-  const Wrapper = isScreenReaderEnabled ? SingleSelectable : Fragment
-
   return (
-    <Wrapper
-      {...(isScreenReaderEnabled && {
-        accessibilityRole: 'link',
-        accessibilityActions: [
-          {
-            name: 'open',
-            label: 'Open de link',
-          },
-        ],
-        onAccessibilityAction: event => {
-          if (event.nativeEvent.actionName === 'open') {
-            openUrl(href)
-          }
+    <InlineLink
+      accessibilityActions={[
+        {
+          name: 'open',
+          label: 'Open de link',
         },
-      })}>
-      <InlineLink
-        isExternal
-        onPress={() => openUrl(href)}
-        screenReaderFocusable={false}
-        testID="HtmlRendererAInlineLink"
-        variant={isInCaption ? 'small' : 'body'}>
-        <TNodeChildrenRenderer {...props} />
-      </InlineLink>
-    </Wrapper>
+      ]}
+      accessibilityLabel={getTNodeAccessibleLabel(tnode)}
+      accessibilityRole="link"
+      isExternal
+      onAccessibilityAction={event => {
+        if (event.nativeEvent.actionName === 'open') {
+          openUrl(href)
+        }
+      }}
+      onPress={() => openUrl(href)}
+      screenReaderFocusable={true}
+      testID="HtmlRendererAInlineLink"
+      variant={isInCaption ? 'small' : 'body'}>
+      <TNodeChildrenRenderer {...props} />
+    </InlineLink>
   )
 }
 
@@ -395,9 +410,25 @@ const ImgRenderer: CustomMixedRenderer = props => {
   )
 }
 
+const PRenderer: CustomMixedRenderer = props => {
+  const {TNodeChildrenRenderer, tnode, style} = props
+
+  return (
+    <View
+      accessibilityLabel={getTNodeAccessibleLabel(tnode)}
+      accessible
+      style={style}>
+      <TNodeChildrenRenderer {...props} />
+    </View>
+  )
+}
+
 const renderers: CustomTagRendererRecord = {
   a: ARenderer,
   li: LiRenderer,
-  ul: UlRenderer,
+  ul: ListRenderer,
+  ol: ListRenderer,
   img: ImgRenderer,
+  p: PRenderer,
+  figcaption: PRenderer,
 }
