@@ -115,7 +115,51 @@ def writeReleaseNotes(releaseNotes)
   File.write(filePath, releaseNotes)
 end
 
+def getPlayStoreReleases
+  require "google/apis/androidpublisher_v3"
+  require "googleauth"
+
+  service = Google::Apis::AndroidpublisherV3::AndroidPublisherService.new
+
+  service.authorization = Google::Auth::ServiceAccountCredentials.make_creds(
+    json_key_io: File.open(ENV.fetch("SUPPLY_JSON_KEY")),
+    scope: "https://www.googleapis.com/auth/androidpublisher"
+  )
+
+  response = service.list_application_track_releases(
+    "applications/nl.amsterdam.app/tracks/production"
+  )
+
+  response.releases || []
+end
+
 platform :android do
+
+
+  desc "Fetch Play Store live and review release version numbers"
+  lane :getPlayStoreVersionNumbers do
+    releases = getPlayStoreReleases
+
+    review_release = releases.find do |release|
+      release.release_lifecycle_state ==
+        "RELEASE_LIFECYCLE_STATE_IN_REVIEW"
+    end
+
+    published_release = releases.find do |release|
+      release.release_lifecycle_state ==
+        "RELEASE_LIFECYCLE_STATE_PUBLISHED"
+    end
+
+    live_version_number = published_release&.release_name
+    review_version_number = review_release&.release_name
+
+    UI.message("Live version: #{live_version_number || 'none'}")
+    UI.message("Review version: #{review_version_number || 'none'}")
+
+    puts "##vso[task.setvariable variable=ANDROID_VERSION_NUMBER_LIVE;]#{live_version_number}"
+    puts "##vso[task.setvariable variable=ANDROID_VERSION_NUMBER_REVIEW;]#{review_version_number || live_version_number}"
+  end
+
 
   lane :setEnvironmentForApp do |app|
     app[:env].each do |key, value|
