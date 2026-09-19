@@ -19,45 +19,44 @@ type Option = {
   value: number
 }
 
+const optionsArray = [1, 2, 4, 8, 12]
+
 const getOptions = (
   timeBalance: number,
   secondsRemaining: number,
-  isNegative?: boolean,
+  isNegative: boolean = false,
 ) => {
-  const optionsArray = [2, 4, 8, 12]
   let options: Option[] = []
 
   if (isNegative) {
     options = optionsArray
       .filter(n => n < secondsRemaining / 3600)
       .map(value => ({
-        label: '- ' + value + ' uur',
+        label: `- ${value} uur`,
         value: value * 3600,
       }))
-    options.push({
-      label:
-        '- ' +
-        formatTimeDurationToDisplay(secondsRemaining, 'seconds', {
-          format: 'short',
-        }),
-      value: secondsRemaining,
-    })
+    const hoursRemaining = Math.floor(secondsRemaining / 3600)
+
+    if (!optionsArray.includes(hoursRemaining)) {
+      options.push({
+        label: `- ${hoursRemaining} uur`,
+        value: hoursRemaining * 3600,
+      })
+    }
   } else {
     options = optionsArray
       .filter(n => n < timeBalance / 3600)
       .map(value => ({
-        label: '+ ' + value + ' uur',
+        label: `+ ${value} uur`,
         value: value * 3600,
       }))
-  }
 
-  if (optionsArray[0] && timeBalance < optionsArray[0] * 3600) {
-    options.push({
-      label:
-        '+ ' +
-        formatTimeDurationToDisplay(timeBalance, 'seconds', {format: 'short'}),
-      value: timeBalance,
-    })
+    if (timeBalance < 3600) {
+      options.push({
+        label: '+ 0 uur',
+        value: 0,
+      })
+    }
   }
 
   return options
