@@ -35,11 +35,15 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
           keyboardAware
+          stickyFooter={
+            <Box
+              insetBottom="smd"
+              insetHorizontal="md">
+              <ParkingSessionSubmitButton />
+            </Box>
+          }
           testID="ParkingStartSessionScreen">
-          <Box
-            insetBottom="no"
-            insetHorizontal="md"
-            insetTop="md">
+          <Box>
             <Column gutter="xl">
               <Column gutter="lg">
                 {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
@@ -68,7 +72,6 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                 <ParkingMaxSessionsWarning />
               </Column>
               <ParkingReceipt />
-              <ParkingSessionSubmitButton />
             </Column>
           </Box>
         </Screen>
