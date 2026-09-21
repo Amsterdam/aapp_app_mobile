@@ -6,7 +6,7 @@ This workflow keeps release lifecycle dates consistent across environments by up
 
 ## Lifecycle rules
 
-- Releases move through three lifecycle states: published, deprecated, and unpublished.
+- Releases move through four lifecycle states: Supported (pre-release), Supported, Supported (deprecated), and Unpublished.
 - The current release is the highest version observed in the app stores and is marked as published.
 - Only the two most recent releases are treated as actively supported.
 - Patch (hotfix) releases follow the same lifecycle as other releases in the same minor version (for example, 1.29.0 and 1.29.1 move through the same states).
