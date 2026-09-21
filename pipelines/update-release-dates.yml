@@ -79,7 +79,7 @@ steps:
     env:
       SUPPLY_JSON_KEY: $(Build.SourcesDirectory)/android/certs/api-5152920179310760437-158079-bad988ebb867.json
 
-  - script: npm exec --yes --package tsx@4.20.6 tsx nodescripts/sync-release-dates/main.mts
+  - script: node nodescripts/sync-release-dates/main.mts
     displayName: Sync release dates
     env:
       DRY_RUN: ${{ parameters.dryRun }}
