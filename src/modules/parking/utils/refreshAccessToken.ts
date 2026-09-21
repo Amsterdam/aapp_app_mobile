@@ -8,69 +8,66 @@ import {logout} from '@/modules/parking/utils/logout'
 import {devLog, devError} from '@/processes/development'
 import {type RootState} from '@/store/types/rootState'
 
-export const refreshAccessToken = (
+export const refreshAccessToken = async (
   reportCode: string,
   scope: ParkingPermitScope,
   dispatch: ReduxDispatch,
   state: RootState,
-): Promise<string> =>
-  // oxlint-disable-next-line no-async-promise-executor
-  new Promise(async (resolve, reject) => {
-    if (!reportCode) {
-      devError('No account provided')
-      reject(new Error('No account provided'))
+): Promise<string> => {
+  if (!reportCode) {
+    devError('No account provided')
 
-      return
-    }
+    throw new Error('No account provided')
+  }
 
-    const secureAccount = await getSecureParkingAccount(reportCode, scope)
+  const secureAccount = await getSecureParkingAccount(reportCode, scope)
 
-    if (!secureAccount) {
-      devError('No pin found for account')
-      reject(new Error('No pin found for account'))
-      void logout(dispatch, state)
+  if (!secureAccount) {
+    devError('No pin found for account')
 
-      return
-    }
+    void logout(dispatch, state)
+    throw new Error('No pin found for account')
+  }
 
-    dispatch(
-      parkingApi.endpoints[ParkingEndpointName.login].initiate({
-        pin: secureAccount.pin,
-        report_code: secureAccount.reportCode,
-      }),
-    )
-      .unwrap()
-      .then(
-        ({access_token, access_token_expiration}) => {
-          dispatch(
-            parkingSlice.actions.setAccessToken({
-              accessToken: access_token,
-              accessTokenExpiration: access_token_expiration,
-              reportCode: secureAccount.reportCode,
-            }),
+  return dispatch(
+    parkingApi.endpoints[ParkingEndpointName.login].initiate({
+      pin: secureAccount.pin,
+      report_code: secureAccount.reportCode,
+    }),
+  )
+    .unwrap()
+    .then(
+      ({access_token, access_token_expiration}) => {
+        dispatch(
+          parkingSlice.actions.setAccessToken({
+            accessToken: access_token,
+            accessTokenExpiration: access_token_expiration,
+            reportCode: secureAccount.reportCode,
+          }),
+        )
+        devLog('Token parking account successful refreshed')
+
+        return access_token
+      },
+      ({data, status}: {data?: {code?: string}; status?: number}) => {
+        if (status === 401 && data?.code === 'SSP_BAD_CREDENTIALS') {
+          void logout(dispatch, state)
+          devError(
+            'Token refresh failed, because of bad credentials, you are now logged out',
           )
-          devLog('Token parking account successful refreshed')
-          resolve(access_token)
-        },
-        ({data, status}: {data?: {code?: string}; status?: number}) => {
-          if (status === 401 && data?.code === 'SSP_BAD_CREDENTIALS') {
-            void logout(dispatch, state)
-            devError(
-              'Token refresh failed, because of bad credentials, you are now logged out',
-            )
-          } else if (status === 401 && data?.code === 'SSP_ACCOUNT_INACTIVE') {
-            void logout(dispatch, state, alerts.loginAccountInactiveFailed)
-            devError(
-              'Token refresh failed, because account is inactive, you are now logged out',
-            )
-          } else if (status === 401 && data?.code === 'SSP_ACCOUNT_BLOCKED') {
-            void logout(dispatch, state, alerts.loginAccountBlockedFailed)
-            devError(
-              'Token refresh failed, because account is blocked, you are now logged out',
-            )
-          }
+        } else if (status === 401 && data?.code === 'SSP_ACCOUNT_INACTIVE') {
+          void logout(dispatch, state, alerts.loginAccountInactiveFailed)
+          devError(
+            'Token refresh failed, because account is inactive, you are now logged out',
+          )
+        } else if (status === 401 && data?.code === 'SSP_ACCOUNT_BLOCKED') {
+          void logout(dispatch, state, alerts.loginAccountBlockedFailed)
+          devError(
+            'Token refresh failed, because account is blocked, you are now logged out',
+          )
+        }
 
-          reject(new Error('Token refresh failed'))
-        },
-      )
-  })
+        throw new Error('Token refresh failed')
+      },
+    )
+}

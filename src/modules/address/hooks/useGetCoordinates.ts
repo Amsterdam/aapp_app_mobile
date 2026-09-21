@@ -39,28 +39,25 @@ export const useGetCoordinates = (
   const {hasPermission} = usePermission(Permissions.location)
 
   return useCallback(
-    (options?: Partial<GeoOptions>) =>
-      // oxlint-disable-next-line no-async-promise-executor
-      new Promise<Coordinates | undefined>(async (resolve, reject) => {
-        if (!hasPermission) {
-          reject({isTechnicalError: false})
+    async (options?: Partial<GeoOptions>) => {
+      if (!hasPermission) {
+        throw {isTechnicalError: false}
+      }
 
-          return
-        }
+      if (
+        highAccuracyPurposeKey &&
+        Platform.OS === 'ios' &&
+        isVersionHigherOrEqual(
+          DeviceInfo.getSystemVersion(),
+          LOCATION_ACCURACY_IOS_VERSION,
+        )
+      ) {
+        await requestLocationAccuracy({
+          purposeKey: highAccuracyPurposeKey,
+        })
+      }
 
-        if (
-          highAccuracyPurposeKey &&
-          Platform.OS === 'ios' &&
-          isVersionHigherOrEqual(
-            DeviceInfo.getSystemVersion(),
-            LOCATION_ACCURACY_IOS_VERSION,
-          )
-        ) {
-          await requestLocationAccuracy({
-            purposeKey: highAccuracyPurposeKey,
-          })
-        }
-
+      return new Promise<Coordinates | undefined>((resolve, reject) => {
         Geolocation.getCurrentPosition(
           ({coords: {latitude, longitude}}) => {
             const coordinates = {
@@ -83,7 +80,8 @@ export const useGetCoordinates = (
             ...options,
           },
         )
-      }),
+      })
+    },
     [hasPermission, highAccuracyPurposeKey, trackException],
   )
 }
