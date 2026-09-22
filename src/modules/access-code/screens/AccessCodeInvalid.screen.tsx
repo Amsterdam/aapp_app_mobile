@@ -43,7 +43,7 @@ export const AccessCodeInvalidScreen = () => {
           gutter="lg">
           <Row align="center">
             <Icon
-              color="warning"
+              color="negative"
               name="failed"
               size="xxl"
             />

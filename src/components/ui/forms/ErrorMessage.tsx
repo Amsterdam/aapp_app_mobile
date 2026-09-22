@@ -10,13 +10,13 @@ type Props = {
 export const ErrorMessage = ({text, testID}: Props) => (
   <Row gutter="sm">
     <Icon
-      color="warning"
+      color="negative"
       name="warning"
       size="md"
       testID={`${testID}Icon`}
     />
     <Paragraph
-      color="warning"
+      color="negative"
       testID={testID}>
       {text}
     </Paragraph>

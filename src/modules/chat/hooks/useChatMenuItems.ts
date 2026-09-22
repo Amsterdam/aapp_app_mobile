@@ -47,7 +47,7 @@ export const useChatMenuItems = () => {
 
     if (sessionStatus !== SessionStatus.ended) {
       menuItems.push({
-        color: 'warning',
+        color: 'destructive',
         label: 'Chat stoppen',
         onPress: () => {
           closeMenu()

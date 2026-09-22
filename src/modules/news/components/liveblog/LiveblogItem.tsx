@@ -25,8 +25,7 @@ export const LiveblogItem = ({
       </Phrase>
     )}
     <Phrase
-      // TODO: this is semanticly not correct and might give problems when implementing dark-mode, this is pending for more information from design
-      color="warning"
+      color="accented"
       emphasis="strong"
       variant="small">
       {formatTimeToDisplay(creation_datetime, {includeHoursLabel: true})}

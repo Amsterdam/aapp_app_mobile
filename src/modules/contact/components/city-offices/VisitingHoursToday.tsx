@@ -25,7 +25,7 @@ export const VisitingHoursToday = ({
     return (
       <Column>
         <Phrase
-          color="warning"
+          color="negative"
           emphasis="strong"
           testID="ContactVisitingHoursTodayClosedLabel">
           Gesloten

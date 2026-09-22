@@ -19,7 +19,7 @@ export const crowdStateMap: Record<
   [ElectionsState.busy]: {
     label: 'Druk',
     icon: 'crowd-busy',
-    color: 'warning',
+    color: 'negative',
   },
   [ElectionsState.unknown]: {
     label: 'Onbekend',

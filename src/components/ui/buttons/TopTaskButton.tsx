@@ -106,7 +106,7 @@ export const TopTaskButton = ({
                   variant === 'transparentInverse'
                     ? 'inverse'
                     : isError
-                      ? 'warning'
+                      ? 'negative'
                       : undefined
                 }
                 testID={`${testID}Text`}

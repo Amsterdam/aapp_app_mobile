@@ -12,6 +12,6 @@ export const CharactersLeftDisplay = ({
   <Paragraph
     accessibilityLabel={`U heeft ${numOfCharacters} van de maximaal ${maxCharacters} tekens ingevoerd`}
     color={
-      numOfCharacters > maxCharacters ? 'warning' : 'default'
+      numOfCharacters > maxCharacters ? 'negative' : 'default'
     }>{`${numOfCharacters}/${maxCharacters}`}</Paragraph>
 )

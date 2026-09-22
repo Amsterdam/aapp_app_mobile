@@ -15,7 +15,7 @@ export const LiveblogTag = ({variant = 'default'}: Props) => (
     <Row gutter="sm">
       <LiveblogDot />
       <Phrase
-        color="warning"
+        color="accented"
         emphasis="strong"
         variant="small">
         Liveblog

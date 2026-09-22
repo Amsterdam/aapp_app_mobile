@@ -12,7 +12,7 @@ export const CityPassDetailsMenu = ({passNumber}: Props) => {
 
   const menuItems: PopupMenuItem[] = [
     {
-      color: 'warning',
+      color: 'destructive',
       label: 'Pas blokkeren',
       onPress: () =>
         navigate(CityPassRouteName.cityPassBlockPass, {passNumber}),

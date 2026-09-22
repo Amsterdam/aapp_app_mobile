@@ -22,7 +22,7 @@ export const ButtonIcon = ({
     variant === 'primary'
       ? 'inverse'
       : variant === 'secondaryDestructive' || variant === 'tertiaryDestructive'
-        ? 'warning'
+        ? 'destructive'
         : 'link'
   const iconSize = icon?.size ?? 'lg'
 

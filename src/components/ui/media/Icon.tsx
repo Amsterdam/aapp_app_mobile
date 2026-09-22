@@ -107,11 +107,13 @@ export const Icon = ({
           height={scaledSize}
           viewBox={'viewBox' in icon ? icon.viewBox : DEFAULT_VIEW_BOX}
           width={scaledSize}>
-          <Path
-            d={icon.path}
-            fill={!stroke ? colorTokens.text[color] : 'none'}
-            stroke={stroke ? colorTokens.text[color] : undefined}
-          />
+          {!!icon.path && (
+            <Path
+              d={icon.path}
+              fill={!stroke ? colorTokens.text[color] : 'none'}
+              stroke={stroke ? colorTokens.text[color] : undefined}
+            />
+          )}
         </Svg>
       </Wrapper>
     </View>

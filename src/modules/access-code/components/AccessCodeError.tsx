@@ -13,5 +13,5 @@ export const AccessCodeError = ({error}: Props) => {
     accessibilityAnnounce(error)
   })
 
-  return <Paragraph color="warning">{error}</Paragraph>
+  return <Paragraph color="negative">{error}</Paragraph>
 }

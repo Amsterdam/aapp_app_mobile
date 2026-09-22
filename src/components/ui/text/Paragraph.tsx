@@ -40,7 +40,7 @@ export const Paragraph = ({
   return (
     <AccessibleText
       accessibilityLanguage="nl-NL"
-      accessibilityRole={color === 'warning' ? 'alert' : 'none'}
+      accessibilityRole={color === 'negative' ? 'alert' : 'none'}
       style={styles.text}
       {...textProps}>
       {children}
