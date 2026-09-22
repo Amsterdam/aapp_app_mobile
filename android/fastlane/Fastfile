@@ -122,6 +122,7 @@ def getPlayStoreReleases
   service = Google::Apis::AndroidpublisherV3::AndroidPublisherService.new
 
   service.authorization = Google::Auth::ServiceAccountCredentials.make_creds(
+    json_key_io: File.open('./android/certs/api-5152920179310760437-158079-bad988ebb867.json'),
     scope: "https://www.googleapis.com/auth/androidpublisher"
   )
 
