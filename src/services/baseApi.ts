@@ -100,6 +100,12 @@ const dynamicBaseQuery: BaseQueryFn<
         devInfo(`Request success: ${requestInfo}`)
       }
 
+      if (error) {
+        await afterError?.(result, baseQueryApi, retry.fail)
+      } else {
+        await afterSuccess?.(result, baseQueryApi)
+      }
+
       if (status === 404) {
         retry.fail(error)
       }
@@ -110,12 +116,6 @@ const dynamicBaseQuery: BaseQueryFn<
         error?.status === 502
       ) {
         await sleep(100)
-      }
-
-      if (error) {
-        await afterError?.(result, baseQueryApi, retry.fail)
-      } else {
-        await afterSuccess?.(result, baseQueryApi)
       }
 
       return result
