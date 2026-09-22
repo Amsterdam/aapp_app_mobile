@@ -94,7 +94,7 @@ export const Icon = ({
   } = (name && AdditionalIconConfigs[name]) || {}
 
   useTrackRenderException({
-    data: {name, path: icon?.path},
+    data: {name, path: {iconPath: icon?.path, path}, isFilled},
     shouldTrack: !icon || typeof icon.path !== 'string',
     filename: 'Icon.tsx',
     logKey: ExceptionLogKey.svgProps,

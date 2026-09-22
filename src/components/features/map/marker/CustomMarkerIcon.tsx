@@ -109,7 +109,7 @@ export const CustomMarkerIcon = ({
           }
           r={circleRadius}
         />
-        {!!path && (
+        {typeof path === 'string' && (
           <Path
             d={path}
             fill={pathColor}

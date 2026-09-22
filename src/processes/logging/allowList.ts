@@ -40,7 +40,7 @@ export const allowList = {
   [ExceptionLogKey.piwikTrackSearch]: [],
   [ExceptionLogKey.redirectNotFound]: ['urlKey', 'redirectsAvailable'],
   [ExceptionLogKey.registerDevice]: ['error'],
-  [ExceptionLogKey.svgProps]: ['name', 'path'],
+  [ExceptionLogKey.svgProps]: ['name', 'path', 'isFilled'],
   [ExceptionLogKey.requestLocationPermission]: ['error'],
   [ExceptionLogKey.resetLoginsAfterInvalidAccessCode]: ['error'],
   [ExceptionLogKey.shareFailed]: ['error', 'url'],
