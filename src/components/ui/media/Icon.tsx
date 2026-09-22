@@ -10,7 +10,7 @@ import {
 import {IconSize, SvgIconVariant, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {devError} from '@/processes/development'
-import {useTrackException} from '@/processes/logging/hooks/useTrackException'
+import {useTrackRenderException} from '@/processes/logging/hooks/useTrackRenderException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
@@ -77,7 +77,6 @@ export const Icon = ({
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
-  const trackException = useTrackException()
 
   const {name, path, isFilled = false} = rest
 
@@ -94,14 +93,17 @@ export const Icon = ({
     fillRule = 'evenodd',
   } = (name && AdditionalIconConfigs[name]) || {}
 
+  useTrackRenderException({
+    data: {name, path},
+    shouldTrack: !icon || typeof icon.path !== 'string',
+    filename: 'Icon.tsx',
+    logKey: ExceptionLogKey.svgProps,
+  })
+
   if (!icon) {
     devError(`Icon with name "${name}" does not exist.`)
 
     return null
-  }
-
-  if (typeof icon.path !== 'string') {
-    trackException(ExceptionLogKey.svgProps, 'Icon.tsx', {name, path})
   }
 
   return (
