@@ -12,7 +12,7 @@ export const LiveblogDot = () => {
       <Circle
         cx={5}
         cy={5}
-        fill={theme.color.text.warning}
+        fill={theme.color.text.accented}
         r={5}
       />
     </Svg>

@@ -17,7 +17,7 @@ export const WasteCardMenu = () => {
 
   const menuItems: PopupMenuItem[] = [
     {
-      color: 'warning',
+      color: 'destructive',
       label: 'Verwijder afvalpas',
       onPress,
       testID: 'WasteCardMenuDeleteButton',

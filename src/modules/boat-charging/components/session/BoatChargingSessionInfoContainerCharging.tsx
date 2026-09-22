@@ -99,7 +99,7 @@ export const BoatChargingSessionInfoContainerCharging = () => {
             valign="center">
             {sessionLengthStatus === SessionLengthStatus.expiry && (
               <Icon
-                color="warning"
+                color="negative"
                 isFilled
                 name="warning"
                 size="lg"
@@ -108,7 +108,7 @@ export const BoatChargingSessionInfoContainerCharging = () => {
             <Title
               color={
                 sessionLengthStatus === SessionLengthStatus.expiry
-                  ? 'warning'
+                  ? 'negative'
                   : 'default'
               }
               level="h3"

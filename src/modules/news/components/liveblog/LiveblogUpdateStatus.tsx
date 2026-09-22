@@ -18,7 +18,7 @@ export const LiveblogUpdateStatus = ({isActive, ...rest}: Props) => {
   return (
     <>
       <Phrase
-        color="warning"
+        color="negative"
         emphasis="strong">
         Liveblog gesloten
       </Phrase>

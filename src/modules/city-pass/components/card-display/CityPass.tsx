@@ -105,7 +105,7 @@ export const CityPass = ({
 
                   {actief === false ? (
                     <Phrase
-                      color="warning"
+                      color="negative"
                       emphasis="strong"
                       testID="CityPassCityPassBlockedPhrase"
                       textAlign="center">

@@ -30,11 +30,11 @@ export const ServicePointDetailsProperties = ({properties}: Props) => {
               gutter="sm"
               key={`${ServiceDetailPropertyType.malfunction}-${value}`}>
               <Icon
-                color="warning"
+                color="negative"
                 name="warning"
                 size="lg"
               />
-              <Paragraph color="warning">{value}</Paragraph>
+              <Paragraph color="negative">{value}</Paragraph>
             </Row>
           )
         }

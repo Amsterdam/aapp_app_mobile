@@ -452,7 +452,9 @@ export const lightColorTokens = {
     link: baseColor.primary.blue,
     secondary: baseColor.neutral.grey3,
     tertiary: baseColor.neutral.grey2,
-    warning: baseColor.primary.red,
+    negative: baseColor.primary.red,
+    destructive: baseColor.primary.red,
+    accented: baseColor.primary.red,
   },
   textInput: {
     container: {

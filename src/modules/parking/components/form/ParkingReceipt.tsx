@@ -239,12 +239,12 @@ export const ParkingReceipt = () => {
             <ParkingReceiptItem>
               <Phrase
                 accessible={false}
-                color={remainingTimeBalanceError ? 'warning' : undefined}>
+                color={remainingTimeBalanceError ? 'negative' : undefined}>
                 Resterend tijdsaldo
               </Phrase>
               <Phrase
                 accessible={false}
-                color={remainingTimeBalanceError ? 'warning' : undefined}>
+                color={remainingTimeBalanceError ? 'negative' : undefined}>
                 {remainingTimeBalanceText}
               </Phrase>
             </ParkingReceiptItem>
@@ -254,12 +254,12 @@ export const ParkingReceipt = () => {
             <ParkingReceiptItem>
               <Phrase
                 accessible={false}
-                color={remainingWalletBalanceError ? 'warning' : undefined}>
+                color={remainingWalletBalanceError ? 'negative' : undefined}>
                 Resterend geldsaldo
               </Phrase>
               <Phrase
                 accessible={false}
-                color={remainingWalletBalanceError ? 'warning' : undefined}>
+                color={remainingWalletBalanceError ? 'negative' : undefined}>
                 {remainingWalletBalanceText}
               </Phrase>
             </ParkingReceiptItem>

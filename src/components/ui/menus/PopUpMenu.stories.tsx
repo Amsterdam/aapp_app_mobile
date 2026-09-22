@@ -17,7 +17,7 @@ const menuItems: PopupMenuItem[] = [
     testID: 'ChatMenuPressableChatPrivacyItem',
   },
   {
-    color: 'warning',
+    color: 'destructive',
     label: 'Chat stoppen',
     onPress: () => null,
     testID: 'ChatMenuPressableStopChatItem',
