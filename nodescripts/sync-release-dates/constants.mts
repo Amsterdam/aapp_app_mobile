@@ -15,3 +15,10 @@ export const ENVIRONMENTS: EnvironmentSubDomain[] = [
   'acc',
   'prod',
 ]
+
+export const STORE_RELEASE_VERSION_ENV_IDS = [
+  'IOS_VERSION_NUMBER_LIVE',
+  'IOS_VERSION_NUMBER_REVIEW',
+  'ANDROID_VERSION_NUMBER_LIVE',
+  'ANDROID_VERSION_NUMBER_REVIEW',
+] as const

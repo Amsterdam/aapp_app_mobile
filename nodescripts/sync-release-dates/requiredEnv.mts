@@ -1,6 +1,15 @@
 import {env} from 'node:process'
+import type {STORE_RELEASE_VERSION_ENV_IDS} from './constants.mts'
 
-export const requiredEnv = (name: string, pattern?: RegExp): string => {
+type EnvironmentVariables =
+  | 'DRY_RUN'
+  | (typeof STORE_RELEASE_VERSION_ENV_IDS)[number]
+  | `INTERNAL_API_KEY_${string}`
+
+export const requiredEnv = (
+  name: EnvironmentVariables,
+  pattern?: RegExp,
+): string => {
   // oxlint-disable-next-line typescript/no-unsafe-assignment
   const value = env[name]
 
@@ -14,3 +23,11 @@ export const requiredEnv = (name: string, pattern?: RegExp): string => {
 
   return value
 }
+
+export const requiredEnvs = (
+  names: EnvironmentVariables[],
+  pattern?: RegExp | RegExp[],
+): string[] =>
+  names.map((name, index) =>
+    requiredEnv(name, Array.isArray(pattern) ? pattern[index] : pattern),
+  )

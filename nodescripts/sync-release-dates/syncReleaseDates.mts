@@ -5,7 +5,7 @@ import {getHighestReleaseVersion} from './getHighestReleaseVersion.mts'
 import {getRelevantReleases} from './getRelevantReleases.mts'
 import {parseReleaseVersion} from './parseReleaseVersion.mts'
 import {patchReleaseDates} from './requests.mts'
-import {requiredEnv} from './requiredEnv.mts'
+import {requiredEnv, requiredEnvs} from './requiredEnv.mts'
 import type {EnvironmentSubDomain, Release} from './types.mts'
 
 export const syncReleaseDates = async ({
@@ -15,22 +15,21 @@ export const syncReleaseDates = async ({
   environment?: EnvironmentSubDomain
   releases: Release[]
 }) => {
-  const iosVersionLive = requiredEnv(
-    'IOS_VERSION_NUMBER_LIVE',
+  const [
+    iosVersionLive,
+    iosVersionReview,
+    androidVersionLive,
+    androidVersionReview,
+  ] = requiredEnvs(
+    [
+      'IOS_VERSION_NUMBER_LIVE',
+      'IOS_VERSION_NUMBER_REVIEW',
+      'ANDROID_VERSION_NUMBER_LIVE',
+      'ANDROID_VERSION_NUMBER_REVIEW',
+    ],
     RELEASE_VERSION_PATTERN,
   )
-  const iosVersionReview = requiredEnv(
-    'IOS_VERSION_NUMBER_REVIEW',
-    RELEASE_VERSION_PATTERN,
-  )
-  const androidVersionLive = requiredEnv(
-    'ANDROID_VERSION_NUMBER_LIVE',
-    RELEASE_VERSION_PATTERN,
-  )
-  const androidVersionReview = requiredEnv(
-    'ANDROID_VERSION_NUMBER_REVIEW',
-    RELEASE_VERSION_PATTERN,
-  )
+
   const dryRun = requiredEnv('DRY_RUN')
 
   const highestIosVersion = getHighestReleaseVersion([
