@@ -1,5 +1,6 @@
-import {type ReduxDispatch} from '@/hooks/redux/types'
+import type {ReduxDispatch} from '@/hooks/redux/types'
 import {alerts} from '@/modules/city-pass/alerts'
+import {tagTypes} from '@/modules/city-pass/constants'
 import {cityPassApi} from '@/modules/city-pass/service'
 import {cityPassSlice} from '@/modules/city-pass/slice'
 import {devError} from '@/processes/development'
@@ -22,7 +23,7 @@ export const logout = async (
     const accessToken = await getSecureItem(SecureItemKey.cityPassAccessToken)
 
     if (accessToken) {
-      void dispatch(cityPassApi.endpoints.logout.initiate())
+      await dispatch(cityPassApi.endpoints.logout.initiate()).unwrap()
     }
 
     await removeSecureItems([
@@ -37,6 +38,11 @@ export const logout = async (
       deleteSecureItemUpdatedTimestamp(SecureItemKey.cityPassRefreshToken),
     )
     dispatch(cityPassSlice.actions.reset())
+
+    // invalidate the city pass data cache after logout with a delay to make sure all queries are unmounted, otherwise they will try to refetch and that will result in useless 401 errors
+    setTimeout(() => {
+      dispatch(cityPassApi.util.invalidateTags([...tagTypes]))
+    }, 1000)
 
     if (successAlert) {
       setTimeout(() => dispatch(setAlertAction(alerts[successAlert])), 100)

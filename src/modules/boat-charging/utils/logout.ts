@@ -17,7 +17,12 @@ export const logout = async (dispatch: ReduxDispatch, state: RootState) => {
     }
 
     dispatch(boatChargingSlice.actions.reset())
-    dispatch(boatChargingApi.util.invalidateTags(['BoatChargingSessions']))
+    dispatch(
+      boatChargingApi.util.invalidateTags([
+        'BoatChargingSessions',
+        'BoatChargingOpenIdConnectConfig',
+      ]),
+    )
 
     return true
   } catch (error) {

@@ -12,7 +12,9 @@ export const logout = async (dispatch: ReduxDispatch, state: RootState) => {
     const isLoggedIn = selectIsLoggedIn(state)
 
     if (isLoggedIn) {
-      await dispatch(mijnAmsterdamApi.endpoints.mijnAmsterdamLogout.initiate())
+      await dispatch(
+        mijnAmsterdamApi.endpoints.mijnAmsterdamLogout.initiate(),
+      ).unwrap()
     }
 
     dispatch(mijnAmsterdamSlice.actions.reset())

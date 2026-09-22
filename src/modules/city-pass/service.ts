@@ -1,4 +1,3 @@
-import {tagTypes} from '@/modules/city-pass/constants'
 import {setIsAutomaticLogoutAlertDismissed} from '@/modules/city-pass/slice'
 import {
   CityPassTokensResponse,
@@ -86,7 +85,6 @@ export const cityPassApi = baseApi.injectEndpoints({
         url: '/session/logout',
         afterError,
       }),
-      invalidatesTags: tagTypes,
     }),
     [CityPassEndpointName.refreshToken]: builder.mutation<
       CityPassTokensResponse,
