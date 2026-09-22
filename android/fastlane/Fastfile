@@ -120,9 +120,10 @@ def getPlayStoreReleases
   require "googleauth"
 
   service = Google::Apis::AndroidpublisherV3::AndroidPublisherService.new
+  json_key_path = File.expand_path("../certs/api-5152920179310760437-158079-bad988ebb867.json", __dir__)
 
   service.authorization = Google::Auth::ServiceAccountCredentials.make_creds(
-    json_key_io: File.open('./android/certs/api-5152920179310760437-158079-bad988ebb867.json'),
+    json_key_io: File.open(json_key_path),    
     scope: "https://www.googleapis.com/auth/androidpublisher"
   )
 
