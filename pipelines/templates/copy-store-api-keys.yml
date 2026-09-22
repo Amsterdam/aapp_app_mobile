@@ -1,0 +1,40 @@
+parameters:
+  - name: platform
+    type: string
+    default: 'all'
+    values: [ios, android, all]
+  - name: workingDirectory
+    type: string
+    default: '$(System.DefaultWorkingDirectory)'
+  - name: condition
+    type: string
+    default: 'true'
+
+steps:
+  - ${{ if or(eq(parameters.platform, 'ios'), eq(parameters.platform, 'all')) }}:
+      - task: DownloadSecureFile@1
+        displayName: 'Download App Store Connect API Key'
+        name: AppStoreConnectApiKey
+        inputs:
+          secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
+        condition: and(always(), ${{ parameters.condition }})
+
+      - script: |
+          mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
+        workingDirectory: ${{ parameters.workingDirectory }}
+        displayName: 'Copy API key file for ios'
+        condition: and(always(), ne(variables['AppStoreConnectApiKey.secureFilePath'], ''), ${{ parameters.condition }})
+
+  - ${{ if or(eq(parameters.platform, 'android'), eq(parameters.platform, 'all')) }}:
+      - task: DownloadSecureFile@1
+        displayName: 'Download Play Store API Key'
+        name: PlayStoreApiKey
+        inputs:
+          secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
+        condition: and(always(), ${{ parameters.condition }})
+
+      - script: |
+          mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs
+        workingDirectory: ${{ parameters.workingDirectory }}
+        displayName: 'Copy API key file for android'
+        condition: and(always(), ne(variables['PlayStoreApiKey.secureFilePath'], ''), ${{ parameters.condition }})

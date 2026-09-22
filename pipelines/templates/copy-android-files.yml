@@ -3,32 +3,34 @@ parameters:
     type: string
 
 steps:
-  - task: DownloadSecureFile@1
-    displayName: 'Download Play Store API Key'
-    name: PlayStoreApiKey
-    inputs:
-      secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
-    condition: ${{ parameters.condition }}
+  - template: ./copy-store-api-keys.yml
+    parameters:
+      platform: android
+      condition: ${{ parameters.condition }}
+
   - task: DownloadSecureFile@1
     displayName: 'Download google-services.json'
     name: FirebaseApiKey
     inputs:
       secureFile: 'google-services.json'
     condition: ${{ parameters.condition }}
+
   - task: DownloadSecureFile@1
     displayName: 'Download google-services.json dev'
     name: FirebaseApiKeyDev
     inputs:
       secureFile: 'google-services-dev.json'
     condition: ${{ parameters.condition }}
+
   - task: DownloadSecureFile@1
     displayName: 'Download Keystore'
     name: Keystore
     inputs:
       secureFile: 'upload.keystore'
     condition: ${{ parameters.condition }}
+
   - script: |
-      mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
+      mkdir -p android/certs && cp $(Keystore.secureFilePath) android/certs
       mkdir -p android/app && cp $(FirebaseApiKey.secureFilePath) android/app
       mkdir -p android/app/src/dev && cp $(FirebaseApiKeyDev.secureFilePath) android/app/src/dev/google-services.json
     displayName: 'Copy secure files'
