@@ -43,16 +43,16 @@ describe('UserMenu - Security user menu items', () => {
     mockNavigate.mockClear()
   })
 
-  it('shows the biometrics navigation item when biometrics are supported but not enrolled', () => {
+  it('hides the biometrics navigation item when not enrolled', () => {
     mockIsEnrolled = false
 
-    const {getByText} = render(
+    const {getByText, queryByText} = render(
       <StoreProvider>
         <UserMenu />
       </StoreProvider>,
     )
 
-    expect(getByText('Toegang met Face ID')).toBeTruthy()
+    expect(queryByText('Toegang met Face ID')).toBeNull()
     expect(getByText('Wijzig toegangscode')).toBeTruthy()
   })
 

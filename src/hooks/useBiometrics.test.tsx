@@ -23,7 +23,7 @@ describe('useBiometrics', () => {
     jest.clearAllMocks()
   })
 
-  it('fails authentication when no biometrics are enrolled', async () => {
+  it('skips authentication when no biometrics are enrolled', async () => {
     getEnrolledLevelAsyncMock.mockResolvedValue(SecurityLevel.NONE)
 
     const {result} = renderHook(() =>
@@ -38,10 +38,10 @@ describe('useBiometrics', () => {
     })
 
     await waitFor(() => {
-      expect(result.current.failed).toBe(true)
+      expect(result.current.failed).toBe(false)
     })
 
-    expect(result.current.authenticated).toBe(false)
+    expect(result.current.authenticated).toBe(true)
     expect(authenticateAsyncMock).not.toHaveBeenCalled()
   })
 

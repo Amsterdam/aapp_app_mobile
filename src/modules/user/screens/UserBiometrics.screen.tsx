@@ -28,9 +28,7 @@ export const UserBiometricsScreen = () => {
 
   const onChange = useCallback(() => {
     if (!useBiometrics && !isEnrolled) {
-      if (!isEnrolled) {
-        navigateToInstructionsScreen()
-      }
+      navigateToInstructionsScreen()
 
       return
     }

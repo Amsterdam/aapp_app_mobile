@@ -55,7 +55,7 @@ export const useAccessCodeBiometrics = () => {
   )
 
   const updateUseBiometrics = useCallback(
-    async (shouldUseBiometrics: boolean): Promise<void> => {
+    async (shouldUseBiometrics: boolean) => {
       if (!shouldUseBiometrics || !biometricsLabel) {
         setUseBiometrics(false)
 
