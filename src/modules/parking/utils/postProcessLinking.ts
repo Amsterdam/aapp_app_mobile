@@ -61,7 +61,7 @@ export const postProcessLinking = (
           )
         }
 
-        dispatch(parkingApi.util.invalidateTags([...tagTypes]))
+        dispatch(parkingApi.util.invalidateTags(tagTypes))
         dispatch(parkingSlice.actions.setIsLoggingIn(false))
         dispatch(parkingSlice.actions.setDeeplinkAccount(undefined))
       }

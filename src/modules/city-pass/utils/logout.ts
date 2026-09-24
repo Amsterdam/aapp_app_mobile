@@ -41,7 +41,7 @@ export const logout = async (
 
     // invalidate the city pass data cache after logout with a delay to make sure all queries are unmounted, otherwise they will try to refetch and that will result in useless 401 errors
     setTimeout(() => {
-      dispatch(cityPassApi.util.invalidateTags([...tagTypes]))
+      dispatch(cityPassApi.util.invalidateTags(tagTypes))
     }, 1000)
 
     if (successAlert) {

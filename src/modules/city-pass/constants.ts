@@ -42,7 +42,7 @@ export const aboutBlocks: AboutBlock[] = [
 export const CITY_PASS_PHONE_NUMBER = '0202526000'
 
 export const tagTypes = [
-  'CityPasses',
+  'CityPasses' as const,
   'CityPassBudgetTransactions',
-  'CityPassDiscountTransactions',
-] as const
+  'CityPassDiscountTransactions' as const,
+]
