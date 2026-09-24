@@ -27,6 +27,7 @@ export const internetConnectionSlice = createSlice({
       state.isConnected = isConnected
       state.isInternetReachable = isInternetReachable
     },
+    reset: () => initialState,
   },
 })
 

@@ -29,6 +29,7 @@ export const permissionsSlice = createSlice({
         status,
       }
     },
+    reset: () => initialState,
   },
 })
 

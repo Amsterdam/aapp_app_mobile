@@ -23,7 +23,7 @@ import {ReduxConfig} from '@/store/types/reduxConfig'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {themeSlice} from '@/themes/slice'
 
-const baseFunctionalitySlicesConfig: ReduxConfig[] = [
+export const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: 0},
   {key: ReduxKey.internetConnection, slice: internetConnectionSlice},

@@ -92,6 +92,7 @@ export const surveySlice = createSlice({
 
       survey.lastSeenAt = dayjs().toISOString()
     },
+    reset: () => initialState,
   },
 })
 

@@ -5,10 +5,14 @@ import {type Themes, themes} from '@/themes/themes'
 
 export type ThemeState = {theme: Themes}
 
+const initialState: ThemeState = {theme: 'light'}
+
 export const themeSlice = createSlice({
   name: ReduxKey.theme,
-  initialState: {theme: 'light'},
-  reducers: {},
+  initialState,
+  reducers: {
+    reset: () => initialState,
+  },
 })
 
 export const selectTheme = (state: RootState) =>

@@ -64,6 +64,7 @@ export const modulesSlice = createSlice({
     ) => {
       state.cachedServerModules = newCachedServerModules
     },
+    reset: () => initialState,
   },
 })
 

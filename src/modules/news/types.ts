@@ -19,6 +19,7 @@ export enum NewsEndpointName {
   getLiveblogNotifications = 'NewsGetLiveblogNotifications',
   liveblog = 'NewsLiveblog',
   postLiveblogNotifications = 'NewsPostLiveblogNotifications',
+  unregister = 'NewsUnregister',
 }
 
 export type NewsArticleResponse = NewsArticleBase & {

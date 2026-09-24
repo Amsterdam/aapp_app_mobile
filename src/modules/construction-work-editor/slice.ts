@@ -39,14 +39,13 @@ export const constructionWorkEditorSlice = createSlice({
     ) => {
       state.hasAutoFollowedProjects = hasFollowed
     },
-    removeConstructionWorkEditor: () => initialState,
+    reset: () => initialState,
   },
 })
 
 export const {
   saveConstructionWorkEditorToken,
   setHasSeenWelcomeMessage,
-  removeConstructionWorkEditor,
   removeConstructionWorkEditorToken,
   setHasAutoFollowedProjects,
 } = constructionWorkEditorSlice.actions

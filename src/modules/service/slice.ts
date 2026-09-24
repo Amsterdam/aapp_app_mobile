@@ -22,6 +22,7 @@ export const serviceSlice = createSlice({
     resetSelectedServicePointId: state => {
       state.selectedServicePointId = undefined
     },
+    reset: () => initialState,
   },
 })
 

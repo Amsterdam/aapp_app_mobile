@@ -14,7 +14,7 @@ export const crowdStateMap: Record<
   [ElectionsState.medium]: {
     label: 'Gemiddeld',
     icon: 'crowd-medium',
-    color: 'alert',
+    color: 'warning',
   },
   [ElectionsState.busy]: {
     label: 'Druk',

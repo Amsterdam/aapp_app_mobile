@@ -126,6 +126,7 @@ export const addressSlice = createSlice({
         customAddress.showSaveAsMyAddress = show
       }
     },
+    reset: () => initialState,
   },
 })
 

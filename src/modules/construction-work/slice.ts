@@ -32,6 +32,7 @@ export const constructionWorkSlice = createSlice({
     setSearchText: (state, {payload: searchText}: PayloadAction<string>) => {
       state.searchText = searchText
     },
+    reset: () => initialState,
   },
 })
 

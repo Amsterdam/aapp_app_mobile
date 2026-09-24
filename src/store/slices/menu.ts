@@ -18,6 +18,7 @@ export const menuSlice = createSlice({
     setIsOpen: (state, {payload}: PayloadAction<boolean>) => {
       state.isOpen = payload
     },
+    reset: () => initialState,
   },
 })
 

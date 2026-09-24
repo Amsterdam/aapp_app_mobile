@@ -26,7 +26,7 @@ import {generateRequestUrl} from '@/utils/api'
 const DEFAULT_SEARCH_PAGE_SIZE = 1000
 const MODULE_SLUG = ModuleSlug['construction-work']
 
-export const projectsApi = baseApi.injectEndpoints({
+export const constructionWorkApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     // /articles GET
     [ConstructionWorkEndpointName.articles]: builder.query<
@@ -147,6 +147,14 @@ export const projectsApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),
+    [ConstructionWorkEndpointName.unregister]: builder.mutation<void, void>({
+      query: () => ({
+        method: 'DELETE',
+        slug: MODULE_SLUG,
+        url: '/device',
+        headers: deviceIdHeader,
+      }),
+    }),
   }),
   overrideExisting: true,
 })
@@ -160,4 +168,4 @@ export const {
   useProjectWarningQuery,
   useProjectsInfiniteQuery,
   useProjectsSearchQuery,
-} = projectsApi
+} = constructionWorkApi

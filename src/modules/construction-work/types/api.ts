@@ -19,6 +19,7 @@ export enum ConstructionWorkEndpointName {
   projects = 'projects',
   projectsFollowedArticles = 'projectsFollowedArticles',
   projectsSearch = 'projectsSearch',
+  unregister = 'ConstructionWorkUnregister',
 }
 
 // shared
