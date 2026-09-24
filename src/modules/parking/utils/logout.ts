@@ -24,7 +24,7 @@ export const logout = async (
   const {reportCode, scope} = parkingAccount || {}
 
   if (!reportCode || !scope) {
-    throw new Error('No report code or scope found for this parking account')
+    return
   }
 
   dispatch(parkingSlice.actions.setIsLoggingOut(true))
