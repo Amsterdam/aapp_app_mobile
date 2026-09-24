@@ -11,6 +11,9 @@ export enum UserRouteName {
   moduleSettings = 'ModuleSettings',
   notificationSettings = 'NotificationSettings',
   privacyStatement = 'PrivacyStatement',
+  removeAllData = 'UserRemoveAllData',
+  removeAllDataPermissions = 'UserRemoveAllDataPermissions',
+  removeAllDataResult = 'UserRemoveAllDataResult',
   user = 'User',
   userBiometrics = 'UserBiometrics',
 }
@@ -33,4 +36,7 @@ export type ModuleStackParams = {
   [UserRouteName.notificationSettings]: undefined
   [UserRouteName.user]: undefined
   [UserRouteName.userBiometrics]: undefined
+  [UserRouteName.removeAllData]: undefined
+  [UserRouteName.removeAllDataPermissions]: undefined
+  [UserRouteName.removeAllDataResult]: {errors?: string[]; success: boolean}
 }

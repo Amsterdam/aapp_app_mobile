@@ -7,9 +7,11 @@ export type UpdateState = {
   lastSeenTimestamp?: number
 }
 
+const initialState: UpdateState = {}
+
 export const updateAppSlice = createSlice({
   name: ReduxKey.updateApp,
-  initialState: {},
+  initialState,
   reducers: {
     setLastSeenTimestamp: (
       state,
@@ -18,6 +20,7 @@ export const updateAppSlice = createSlice({
       ...state,
       lastSeenTimestamp,
     }),
+    reset: () => initialState,
   },
 })
 

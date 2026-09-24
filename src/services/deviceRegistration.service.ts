@@ -35,7 +35,7 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
     }),
     [DeviceRegistrationEndpointName.unregisterDevice]: builder.mutation<
       string,
-      undefined
+      void
     >({
       query: () => ({
         method: 'DELETE',

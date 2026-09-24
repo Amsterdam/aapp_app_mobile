@@ -36,6 +36,7 @@ export const wasteGuideSlice = createSlice({
     toggleCalendarView: state => {
       state.calendarView = state.calendarView === 'list' ? 'calendar' : 'list'
     },
+    reset: () => initialState,
   },
 })
 

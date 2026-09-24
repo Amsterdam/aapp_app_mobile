@@ -15,6 +15,7 @@ export const contactSlice = createSlice({
     setSelectedCityOffice: (state, {payload}: PayloadAction<string>) => {
       state.selectedCityOfficeId = payload
     },
+    reset: () => initialState,
   },
 })
 

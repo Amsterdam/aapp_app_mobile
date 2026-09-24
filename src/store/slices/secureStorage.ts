@@ -7,9 +7,11 @@ import {SecureItemKey} from '@/utils/secureStorage'
 
 export type SecureStorageState = Record<SecureItemKey, number | undefined>
 
+const initialState = {} as SecureStorageState
+
 export const secureStorageSlice = createSlice({
   name: ReduxKey.secureStorage,
-  initialState: {} as SecureStorageState,
+  initialState,
   reducers: {
     setSecureItemUpdatedTimestamp: (
       state,
@@ -25,6 +27,7 @@ export const secureStorageSlice = createSlice({
         delete state[payload]
       }
     },
+    reset: () => initialState,
   },
 })
 

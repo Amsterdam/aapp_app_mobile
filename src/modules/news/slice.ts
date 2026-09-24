@@ -44,6 +44,7 @@ export const NewsSlice = createSlice({
     markHighlightedArticleAsStale: state => {
       state.highlightedArticles.status = DashboardHighlightStatus.stale
     },
+    reset: () => initialState,
   },
 })
 

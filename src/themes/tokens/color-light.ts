@@ -444,7 +444,6 @@ export const lightColorTokens = {
     },
   },
   text: {
-    alert: baseColor.secondary.orange,
     cityPass: baseColor.secondary.purple,
     confirm: baseColor.secondary.darkgreen,
     default: baseColor.primary.black,
@@ -455,6 +454,7 @@ export const lightColorTokens = {
     negative: baseColor.primary.red,
     destructive: baseColor.primary.red,
     accented: baseColor.primary.red,
+    warning: baseColor.secondary.orange,
   },
   textInput: {
     container: {

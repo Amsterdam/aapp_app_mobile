@@ -1,8 +1,15 @@
-import {Slice} from '@reduxjs/toolkit'
+import {Slice, type SliceCaseReducers} from '@reduxjs/toolkit'
 import {MigrationManifest} from 'redux-persist'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export type ReduxConfig = {
+type SliceCaseReducersWithReset<T> = SliceCaseReducers<T> & {reset: () => void}
+
+export type ReduxConfig<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  CaseReducers extends SliceCaseReducersWithReset<any> =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    SliceCaseReducersWithReset<any>,
+> = {
   /**
    * Key for the Redux state.
    */
@@ -24,5 +31,5 @@ export type ReduxConfig = {
    * A redux slice for this module.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  slice: Slice<any>
+  slice: Slice<any, CaseReducers>
 }

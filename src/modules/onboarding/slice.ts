@@ -20,6 +20,7 @@ export const onboardingSlice = createSlice({
     ) => {
       state.shouldShowOnboarding = shouldShow
     },
+    reset: () => initialState,
   },
 })
 

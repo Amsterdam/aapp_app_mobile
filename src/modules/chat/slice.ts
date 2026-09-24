@@ -84,6 +84,7 @@ export const chatSlice = createSlice({
       ...state,
       isMenuOpen,
     }),
+    reset: () => initialState,
   },
 })
 

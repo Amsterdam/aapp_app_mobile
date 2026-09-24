@@ -10,7 +10,7 @@ import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
 import {config} from '@/modules/construction-work/components/projects/config'
-import {projectsApi} from '@/modules/construction-work/service'
+import {constructionWorkApi} from '@/modules/construction-work/service'
 import {
   type ProjectsItem,
   type ProjectsQueryArgs,
@@ -45,7 +45,7 @@ export const Projects = () => {
 
   const result = useInfiniteScroller<ProjectsItem, ProjectsQueryArgs>(
     emptyProjectsItem,
-    projectsApi.endpoints[ConstructionWorkEndpointName.projects],
+    constructionWorkApi.endpoints[ConstructionWorkEndpointName.projects],
     'id',
     page,
     projectItemListPageSize,

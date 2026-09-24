@@ -21,6 +21,7 @@ export default defineConfig({
   options: {typeAware: true},
   rules: {
     ...sonarjsRecommendedLegacyRules,
+    'dot-notation': 'warn',
     'typescript/no-unsafe-assignment': 'error',
     'typescript/no-empty-function': 'warn',
     'typescript/no-meaningless-void-operator': 'off',
@@ -118,6 +119,13 @@ export default defineConfig({
             importNames: ['default', 'Pagination'],
             message:
               'Import Carousel and Pagination from @/components/ui/carousel/Carousel.',
+          },
+        ],
+        patterns: [
+          {
+            group: ['storybook', '@storybook/*', '@storybook/*/*'],
+            message:
+              'Only import storybook imports in stories and storybook files',
           },
         ],
       },

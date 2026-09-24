@@ -21,6 +21,7 @@ export const productTourSlice = createSlice({
         seenTips.push(payload)
       }
     },
+    reset: () => initialState,
   },
 })
 

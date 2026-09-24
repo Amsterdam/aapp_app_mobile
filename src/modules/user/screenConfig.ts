@@ -10,6 +10,9 @@ import {UserScreen} from '@/modules/user/screens/User.screen'
 import {UserBiometricsScreen} from '@/modules/user/screens/UserBiometrics.screen'
 import {AccountsScreen} from '@/modules/user/screens/my-accounts/Accounts.screen'
 import {LogoutModuleScreen} from '@/modules/user/screens/my-accounts/LogoutModule.screen'
+import {RemoveAllDataScreen} from '@/modules/user/screens/remove-all-data/RemoveAllData.screen'
+import {RemoveAllDataPermissionsScreen} from '@/modules/user/screens/remove-all-data/RemoveAllDataPermissions.screen'
+import {RemoveAllDataResultScreen} from '@/modules/user/screens/remove-all-data/RemoveAllDataResult.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
@@ -89,5 +92,29 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Mijn accounts',
     },
+  },
+  [UserRouteName.removeAllData]: {
+    component: RemoveAllDataScreen,
+    name: UserRouteName.removeAllData,
+    options: {
+      headerTitle: 'Instellingen verwijderen',
+    },
+    screenType: 'default',
+  },
+  [UserRouteName.removeAllDataPermissions]: {
+    component: RemoveAllDataPermissionsScreen,
+    name: UserRouteName.removeAllDataPermissions,
+    options: {
+      headerShown: false,
+    },
+    screenType: 'default',
+  },
+  [UserRouteName.removeAllDataResult]: {
+    component: RemoveAllDataResultScreen,
+    name: UserRouteName.removeAllDataResult,
+    options: {
+      headerShown: false,
+    },
+    screenType: 'default',
   },
 }

@@ -135,6 +135,10 @@ export type ModuleClientConfig<
     notification: PushNotification<PushNotificationData>,
     isPushNotificationDeeplink: boolean,
   ) => string | undefined
+  /**
+   * Function to call the unregister logic of the module.
+   */
+  unregister?: (dispatch: ReduxDispatch, state: RootState) => Promise<boolean>
 }
 
 /**

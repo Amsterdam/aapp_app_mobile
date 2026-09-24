@@ -4,6 +4,7 @@ import {
   type ConstructionWorkState,
   constructionWorkSlice,
 } from '@/modules/construction-work/slice'
+import {unregister} from '@/modules/construction-work/utils/unregister'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
@@ -32,4 +33,5 @@ export const clientModule = createClientModule({
   ],
   slug: ModuleSlug['construction-work'],
   resolvePathFromNotification,
+  unregister,
 })

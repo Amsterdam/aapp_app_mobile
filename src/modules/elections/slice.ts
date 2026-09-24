@@ -25,6 +25,7 @@ export const electionsSlice = createSlice({
     resetSelectedPollingStationId: state => {
       state.selectedPollingStationId = undefined
     },
+    reset: () => initialState,
   },
 })
 

@@ -16,7 +16,7 @@ export const alertSlice = createSlice({
   name: ReduxKey.alert,
   initialState,
   reducers: {
-    resetAlert: () => initialState,
+    reset: () => initialState,
     setAlert: (_state, {payload}: PayloadAction<AlertState>) => {
       if (!isReduceMotionEnabled) {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
@@ -27,7 +27,7 @@ export const alertSlice = createSlice({
   },
 })
 
-export const {resetAlert: resetAlertAction, setAlert: setAlertAction} =
+export const {reset: resetAlertAction, setAlert: setAlertAction} =
   alertSlice.actions
 
 export const selectAlert = (state: RootState) => state[ReduxKey.alert]

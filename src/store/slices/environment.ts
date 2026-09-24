@@ -27,6 +27,7 @@ export const environmentSlice = createSlice({
     ) => {
       state.custom = {...state.custom, ...payload}
     },
+    reset: () => initialState,
   },
 })
 

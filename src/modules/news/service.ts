@@ -83,6 +83,14 @@ export const newsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['NewsLiveblogNotifications'],
     }),
+    [NewsEndpointName.unregister]: builder.mutation<void, void>({
+      query: () => ({
+        method: 'DELETE',
+        slug: ModuleSlug.news,
+        url: 'device',
+        headers: deviceIdHeader,
+      }),
+    }),
   }),
   overrideExisting: false,
 })

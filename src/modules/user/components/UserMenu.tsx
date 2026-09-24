@@ -11,7 +11,6 @@ import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {AppInfoCopyButtons} from '@/modules/user/components/AppInfoCopyButtons'
-import {aboutSections} from '@/modules/user/constants'
 import {UserRouteName} from '@/modules/user/routes'
 
 const accessCodeSection: UserMenuSection = {
@@ -31,7 +30,7 @@ const accessCodeSection: UserMenuSection = {
   ],
 }
 
-const generalSection = [
+const generalSection: UserMenuSection[] = [
   {
     navigationItems: [
       {
@@ -57,7 +56,35 @@ const generalSection = [
       },
     ],
   },
-] satisfies UserMenuSection[]
+]
+
+const aboutSections: UserMenuSection[] = [
+  {
+    title: 'Hulp en informatie',
+    navigationItems: [
+      {
+        label: 'Over deze app',
+        route: UserRouteName.about,
+      },
+      {
+        label: 'Geef uw mening over de app',
+        route: UserRouteName.feedback,
+      },
+      {
+        label: 'Privacyverklaring',
+        route: UserRouteName.privacyStatement,
+      },
+      {
+        label: 'Toegankelijkheidsverklaring',
+        route: UserRouteName.accessibilityStatement,
+      },
+      {
+        label: 'Instellingen verwijderen',
+        route: UserRouteName.removeAllData,
+      },
+    ],
+  },
+]
 
 const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   const {biometricsLabel, isEnrolled} = useAccessCodeBiometrics()

@@ -51,6 +51,7 @@ export const screenSlice = createSlice({
     setHeaderHeight: (state, {payload}: PayloadAction<number>) => {
       state.headerHeight = payload
     },
+    reset: () => initialState,
   },
 })
 

@@ -32,7 +32,7 @@ export const logout = async (
   if (alert) {
     dispatch(alertSlice.actions.setAlert(alert))
   } else {
-    dispatch(alertSlice.actions.resetAlert())
+    dispatch(alertSlice.actions.reset())
   }
 
   await removeSecureParkingAccount(reportCode, scope, dispatch)
