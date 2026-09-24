@@ -14,6 +14,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios getAppStoreVersionNumbers
+
+```sh
+[bundle exec] fastlane ios getAppStoreVersionNumbers
+```
+
+Fetch App Store live and review release version numbers
+
 ### ios syncDevelopment
 
 ```sh
@@ -46,13 +54,19 @@ Sync appstore certificates
 
 Sync all certificates
 
+### ios setEnvironmentForApp
+
+```sh
+[bundle exec] fastlane ios setEnvironmentForApp
+```
+
 ### ios buildApps
 
 ```sh
 [bundle exec] fastlane ios buildApps
 ```
 
-Build prod and dev version of the app
+Build iOS app(s); optionally limit with variant:test|prod|all
 
 ### ios distributeInternal
 

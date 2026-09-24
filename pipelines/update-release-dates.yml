@@ -1,0 +1,63 @@
+trigger: none
+pr: none
+
+parameters:
+  - name: dryRun
+    displayName: Dry run (do not patch admin API)
+    type: boolean
+    default: false
+
+schedules:
+  - cron: '0 0 * * *'
+    displayName: Daily app version (un)publish/deprecation date sync
+    branches:
+      include:
+        - main
+    always: true
+
+pool:
+  vmImage: macOS-26
+
+variables:
+  - group: React Native Variables
+  - name: BUNDLE_PATH
+    value: $(Pipeline.Workspace)/.bundle
+
+steps:
+  - checkout: self
+    path: './s/'
+    fetchDepth: 1
+    fetchTags: false
+
+  - template: ./templates/install-node.yml
+  - template: ./templates/install-ruby.yml
+
+  - template: ./templates/cache-gems.yml
+    parameters:
+      platform: android
+
+  - script: |
+      bundle config set --local path '$(BUNDLE_PATH)'
+      bundle config set --local without 'iosAppBuildDependencies'
+      bundle config set --local deployment 'true'
+      bundle install --jobs 4 --retry 3
+    displayName: Install Ruby Gems
+
+  - template: ./templates/copy-store-api-keys.yml
+
+  - script: bundle exec fastlane getAppStoreVersionNumbers
+    displayName: Fetch App Store release version numbers
+    workingDirectory: ios
+
+  - script: bundle exec fastlane getPlayStoreVersionNumbers
+    displayName: Fetch Play Store release version numbers
+    workingDirectory: android
+
+  - script: node nodescripts/sync-release-dates/main.mts
+    displayName: Sync release dates
+    env:
+      DRY_RUN: ${{ parameters.dryRun }}
+      INTERNAL_API_KEY_ONTW: $(INTERNAL_API_KEY_TEST)
+      INTERNAL_API_KEY_TEST: $(INTERNAL_API_KEY_TEST)
+      INTERNAL_API_KEY_ACC: $(INTERNAL_API_KEY_ACC)
+      INTERNAL_API_KEY_PROD: $(INTERNAL_API_KEY_PROD)

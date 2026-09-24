@@ -3,26 +3,27 @@ parameters:
     type: string
 
 steps:
-  - task: DownloadSecureFile@1
-    displayName: 'Download App Store Connect API Key'
-    name: AppStoreConnectApiKey
-    inputs:
-      secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
-    condition: ${{ parameters.condition }}
+  - template: ./copy-store-api-keys.yml
+    parameters:
+      platform: ios
+      condition: ${{ parameters.condition }}
+
   - task: DownloadSecureFile@1
     displayName: 'Download GoogleService-Info-Test.plist'
     name: GoogleServiceTest
     inputs:
       secureFile: 'GoogleService-Info-Test.plist'
     condition: ${{ parameters.condition }}
+
   - task: DownloadSecureFile@1
     displayName: 'Download GoogleService-Info-Prod.plist'
     name: GoogleServiceProd
     inputs:
       secureFile: 'GoogleService-Info-Prod.plist'
     condition: ${{ parameters.condition }}
+
   - script: |
-      mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
+      mkdir -p ios
       cp $(GoogleServiceTest.secureFilePath) ios
       cp $(GoogleServiceProd.secureFilePath) ios
     displayName: 'Copy secure files'

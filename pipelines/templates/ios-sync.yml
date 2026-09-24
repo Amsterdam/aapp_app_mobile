@@ -7,15 +7,9 @@ steps:
     fetchDepth: 1
     fetchTags: false
 
-  - task: DownloadSecureFile@1
-    displayName: 'Download App Store Connect API Key'
-    name: AppStoreConnectApiKey
-    inputs:
-      secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
-    condition: ${{ parameters.condition }}
-  - script: |
-      mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
-    displayName: 'Copy AppStoreConnectApiKey'
+  - template: ./copy-store-api-keys.yml
+    parameters:
+      platform: ios
 
   - template: ./install-ruby.yml
   - script: gem install bundler:$(cat .bundler)
