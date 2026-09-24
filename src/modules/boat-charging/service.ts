@@ -72,6 +72,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
           }
         },
       }),
+      providesTags: ['BoatChargingOpenIdConnectConfig'],
       keepUnusedDataFor: CacheLifetime.minute,
     }),
     [BoatChargingEndpointName.boatChargingTerms]: builder.query<

@@ -101,7 +101,7 @@ export type ModuleClientConfig<
   /**
    * Function to call the logout logic of the module.
    */
-  logout?: (dispatch: ReduxDispatch, state: RootState) => Promise<void>
+  logout?: (dispatch: ReduxDispatch, state: RootState) => Promise<boolean>
   /**
    * Function to call when user pressed on a push-notification
    * @param notification Push notification

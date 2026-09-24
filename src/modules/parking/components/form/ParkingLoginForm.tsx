@@ -61,7 +61,7 @@ export const ParkingLoginForm = () => {
       dispatch(parkingSlice.actions.setCurrentAccount(reportCode))
       dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))
       dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
-      dispatch(parkingApi.util.invalidateTags([...tagTypes]))
+      dispatch(parkingApi.util.invalidateTags(tagTypes))
       dispatch(setIsLoggingIn(false))
 
       if (Object.keys(accounts).length) {

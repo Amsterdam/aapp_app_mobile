@@ -24,7 +24,7 @@ export const cityPassApi = baseApi.injectEndpoints({
         url: `/data/passes/${pass_number}/block`,
         afterError,
       }),
-      invalidatesTags: ['CityPass'],
+      invalidatesTags: ['CityPasses'],
     }),
 
     [CityPassEndpointName.getAccessToken]: builder.mutation<
@@ -43,13 +43,13 @@ export const cityPassApi = baseApi.injectEndpoints({
     }),
     [CityPassEndpointName.getCityPasses]: builder.query<CityPassResponse, void>(
       {
-        providesTags: ['CityPass'],
         query: () => ({
           prepareHeaders,
           slug: ModuleSlug['city-pass'],
           url: '/data/passes',
           afterError,
         }),
+        providesTags: ['CityPasses'],
       },
     ),
     [CityPassEndpointName.getBudgetTransactions]: builder.query<
@@ -63,6 +63,7 @@ export const cityPassApi = baseApi.injectEndpoints({
         url: '/data/budget-transactions',
         afterError,
       }),
+      providesTags: ['CityPassBudgetTransactions'],
     }),
     [CityPassEndpointName.getDiscountTransactions]: builder.query<
       DiscountTransactionsResponse,
@@ -74,6 +75,7 @@ export const cityPassApi = baseApi.injectEndpoints({
         slug: ModuleSlug['city-pass'],
         url: '/data/aanbieding-transactions',
       }),
+      providesTags: ['CityPassDiscountTransactions'],
     }),
     [CityPassEndpointName.logout]: builder.mutation<void, void>({
       query: () => ({

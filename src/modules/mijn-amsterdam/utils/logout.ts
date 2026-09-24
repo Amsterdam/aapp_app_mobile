@@ -1,14 +1,27 @@
 import type {RootState} from '@/store/types/rootState'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {mijnAmsterdamApi} from '@/modules/mijn-amsterdam/service'
-import {selectIsLoggedIn} from '@/modules/mijn-amsterdam/slice'
+import {
+  mijnAmsterdamSlice,
+  selectIsLoggedIn,
+} from '@/modules/mijn-amsterdam/slice'
+import {devError} from '@/processes/development'
 
 export const logout = async (dispatch: ReduxDispatch, state: RootState) => {
-  const isLoggedIn = selectIsLoggedIn(state)
+  try {
+    const isLoggedIn = selectIsLoggedIn(state)
 
-  if (!isLoggedIn) {
-    return
+    if (isLoggedIn) {
+      await dispatch(
+        mijnAmsterdamApi.endpoints.mijnAmsterdamLogout.initiate(),
+      ).unwrap()
+    }
+
+    dispatch(mijnAmsterdamSlice.actions.reset())
+
+    return true
+  } catch (error) {
+    devError(error)
+    throw error
   }
-
-  await dispatch(mijnAmsterdamApi.endpoints.mijnAmsterdamLogout.initiate())
 }

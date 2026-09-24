@@ -89,6 +89,7 @@ export const boatChargingSlice = createSlice({
         sessionId,
       ]
     },
+    reset: () => initialState,
   },
 })
 
