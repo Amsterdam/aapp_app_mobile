@@ -11,8 +11,8 @@ jest.mock('expo-local-authentication', () => ({
   getEnrolledLevelAsync: jest.fn(),
   SecurityLevel: {
     NONE: 0,
-    BIOMETRIC: 1,
-  },
+    BIOMETRIC_STRONG: 3,
+  }
 }))
 
 const getEnrolledLevelAsyncMock = jest.mocked(getEnrolledLevelAsync)
