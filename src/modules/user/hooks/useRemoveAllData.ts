@@ -46,7 +46,7 @@ export const useRemoveAllData = () => {
     const logoutErrors = moduleSlugsWithLogoutError.map(slug => {
       const moduleName = findModuleTitle(slug, cachedServerModules)
 
-      return `Uitloggen bij ${moduleName} `
+      return `Uitloggen bij ${moduleName}`
     })
 
     const moduleSlugsWithUnregisterError = (
