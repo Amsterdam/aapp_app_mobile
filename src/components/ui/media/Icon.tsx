@@ -10,6 +10,8 @@ import {
 import {IconSize, SvgIconVariant, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {devError} from '@/processes/development'
+import {useTrackRenderException} from '@/processes/logging/hooks/useTrackRenderException'
+import {ExceptionLogKey} from '@/processes/logging/types'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
@@ -90,6 +92,13 @@ export const Icon = ({
     stroke,
     fillRule = 'evenodd',
   } = (name && AdditionalIconConfigs[name]) || {}
+
+  useTrackRenderException({
+    data: {name, path: {iconPath: icon?.path, path}, isFilled},
+    shouldTrack: !icon || typeof icon.path !== 'string',
+    filename: 'Icon.tsx',
+    logKey: ExceptionLogKey.svgProps,
+  })
 
   if (!icon) {
     devError(`Icon with name "${name}" does not exist.`)

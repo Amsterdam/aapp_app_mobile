@@ -38,10 +38,12 @@ export const Triangle = ({
       style={styles.svg}
       viewBox={viewBox}
       width={width}>
-      <Path
-        d={path[direction]}
-        {...iconProps}
-      />
+      {!!path[direction] && (
+        <Path
+          d={path[direction]}
+          {...iconProps}
+        />
+      )}
     </Svg>
   )
 }

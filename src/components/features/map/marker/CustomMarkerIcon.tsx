@@ -8,6 +8,8 @@ import Svg, {
 } from 'react-native-svg'
 import type {TestProps} from '@/components/ui/types'
 import type {ComponentType, PropsWithChildren} from 'react'
+import {ExceptionLogKey} from '@/processes/logging/hooks/useTrackException'
+import {useTrackRenderException} from '@/processes/logging/hooks/useTrackRenderException'
 import {themes} from '@/themes/themes'
 
 /**
@@ -70,6 +72,13 @@ export const CustomMarkerIcon = ({
     : `translate(${offset.x}, ${offset.y})`
   const circleRadius = shouldDecreaseIconSize ? center + 3 : center
 
+  useTrackRenderException({
+    data: {path},
+    shouldTrack: typeof path !== 'string',
+    filename: 'CustomMarkerIcon.tsx',
+    logKey: ExceptionLogKey.svgProps,
+  })
+
   return (
     <Wrapper
       size={size}
@@ -100,10 +109,12 @@ export const CustomMarkerIcon = ({
           }
           r={circleRadius}
         />
-        <Path
-          d={path}
-          fill={pathColor}
-        />
+        {typeof path === 'string' && (
+          <Path
+            d={path}
+            fill={pathColor}
+          />
+        )}
       </G>
     </Wrapper>
   )
