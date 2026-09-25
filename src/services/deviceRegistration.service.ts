@@ -44,9 +44,32 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
         headers: deviceIdHeader,
       }),
     }),
+    [DeviceRegistrationEndpointName.unregisterDeviceAndDelete]:
+      builder.mutation<void, void>({
+        query: () => ({
+          method: 'DELETE',
+          slug: GlobalApiSlug.notification,
+          url: '/device',
+          headers: deviceIdHeader,
+        }),
+      }),
   }),
   overrideExisting: true,
 })
 
-export const {useRegisterDeviceMutation, useUnregisterDeviceMutation} =
-  deviceRegistrationApi
+export const {
+  useRegisterDeviceMutation,
+  /**
+   * Unregister a device by removing its Firebase token.
+   */
+  useUnregisterDeviceMutation,
+  /**
+   * Permanently delete a device and all related notification records.
+   * Removes:
+   *  - Device ID and Firebase token
+   *  - All notification history DB rows
+   *  - All scheduled notifications
+   *  - All records in notification tables of related modules
+   */
+  useUnregisterDeviceAndDeleteMutation,
+} = deviceRegistrationApi

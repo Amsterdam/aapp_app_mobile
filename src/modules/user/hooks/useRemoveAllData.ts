@@ -9,7 +9,8 @@ import {allModules, clientModules} from '@/modules/modules'
 import {useAllModulesLogout} from '@/modules/user/hooks/useAllModulesLogout'
 import {UserRouteName} from '@/modules/user/routes'
 import {baseApi} from '@/services/baseApi'
-import {useUnregisterDeviceMutation} from '@/services/deviceRegistration.service'
+import {useUnregisterDeviceAndDeleteMutation} from '@/services/deviceRegistration.service'
+import {notificationApi} from '@/services/notification.service'
 import {persistor} from '@/store/persistor'
 import {selectCachedServerModules} from '@/store/slices/modules'
 import {baseFunctionalitySlicesConfig} from '@/store/store'
@@ -28,7 +29,7 @@ const findModuleTitle = (
 export const useRemoveAllData = () => {
   const [isRemoving, setIsRemoving] = useState(false)
   const navigation = useNavigation()
-  const [unregisterDevice] = useUnregisterDeviceMutation()
+  const [unregisterDeviceAndDelete] = useUnregisterDeviceAndDeleteMutation()
   const dispatch = useDispatch()
   const allModulesLogout = useAllModulesLogout()
   const store = useStore()
@@ -76,9 +77,11 @@ export const useRemoveAllData = () => {
     })
 
     const otherErrors = [
-      await unregisterDevice()
+      await unregisterDeviceAndDelete()
         .unwrap()
-        .then(() => undefined)
+        .then(() => {
+          dispatch(notificationApi.util.invalidateTags(['Notifications']))
+        })
         .catch(() => 'Afmelden voor meldingen'),
       !hasLogoutErrors
         ? await removeAllSecureItems()
@@ -134,11 +137,11 @@ export const useRemoveAllData = () => {
         },
       ],
     })
-  }, [allModulesLogout, dispatch, navigation, store, unregisterDevice])
+  }, [allModulesLogout, dispatch, navigation, store, unregisterDeviceAndDelete])
   const requestRemoveAllData = useCallback(() => {
     setIsRemoving(true)
     Alert.alert(
-      'Weet u zeker?',
+      'Weet u het zeker?',
       'Als u doorgaat, verwijderen we uw persoonlijke instellingen.',
       [
         {
