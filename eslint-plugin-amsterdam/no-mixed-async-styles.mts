@@ -27,6 +27,29 @@ type TrackedScope = {
 
 const promiseChainingMethods = new Set(['then', 'catch', 'finally'])
 
+const isTransparentTypeScriptWrapper = (node: TSESTree.Node) =>
+  node.type === TSESTree.AST_NODE_TYPES.TSAsExpression ||
+  node.type === TSESTree.AST_NODE_TYPES.TSTypeAssertion ||
+  node.type === TSESTree.AST_NODE_TYPES.TSNonNullExpression
+
+const isDirectlyAwaited = (node: TSESTree.Node) => {
+  let currentNode = node
+  let currentParent = node.parent
+
+  while (
+    currentParent !== undefined &&
+    isTransparentTypeScriptWrapper(currentParent)
+  ) {
+    currentNode = currentParent
+    currentParent = currentParent.parent
+  }
+
+  return (
+    currentParent?.type === TSESTree.AST_NODE_TYPES.AwaitExpression &&
+    currentParent.argument === currentNode
+  )
+}
+
 const isTrackedBlockStatement = (node: TSESTree.BlockStatement) =>
   node.parent?.type === TSESTree.AST_NODE_TYPES.FunctionDeclaration ||
   node.parent?.type === TSESTree.AST_NODE_TYPES.FunctionExpression ||
@@ -59,6 +82,16 @@ const getAsyncUsage = (node: TSESTree.Node): AsyncUsage | null => {
     }
   }
 
+  if (
+    node.type === TSESTree.AST_NODE_TYPES.ForOfStatement &&
+    node.await === true
+  ) {
+    return {
+      reportNode: node,
+      style: 'async/await',
+    }
+  }
+
   if (node.type === TSESTree.AST_NODE_TYPES.NewExpression) {
     const isPromiseConstructor =
       node.callee.type === TSESTree.AST_NODE_TYPES.Identifier &&
@@ -68,11 +101,7 @@ const getAsyncUsage = (node: TSESTree.Node): AsyncUsage | null => {
       return null
     }
 
-    const isDirectlyAwaited =
-      node.parent?.type === TSESTree.AST_NODE_TYPES.AwaitExpression &&
-      node.parent.argument === node
-
-    if (isDirectlyAwaited) {
+    if (isDirectlyAwaited(node)) {
       return null
     }
 
@@ -189,8 +218,19 @@ export const rule = createRule<NoOptions, MessageIds>({
           exitTrackedScope()
         }
       },
+      ArrowFunctionExpression: node => {
+        if (node.body.type !== TSESTree.AST_NODE_TYPES.BlockStatement) {
+          enterTrackedScope()
+        }
+      },
+      'ArrowFunctionExpression:exit': node => {
+        if (node.body.type !== TSESTree.AST_NODE_TYPES.BlockStatement) {
+          exitTrackedScope()
+        }
+      },
       AwaitExpression: trackAsyncUsage,
       CallExpression: trackAsyncUsage,
+      ForOfStatement: trackAsyncUsage,
       NewExpression: trackAsyncUsage,
     }
   },

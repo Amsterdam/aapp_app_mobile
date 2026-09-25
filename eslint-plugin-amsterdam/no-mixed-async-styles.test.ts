@@ -31,6 +31,34 @@ ruleTester.run('no-mixed-async-styles', rule, {
 }`,
     },
     {
+      code: `async function waitForValue() {
+  await (new Promise<void>(resolve => {
+    resolve()
+  }) as Promise<void>)
+}`,
+    },
+    {
+      languageOptions: {
+        parserOptions: {
+          ecmaFeatures: {
+            jsx: false,
+          },
+        },
+      },
+      code: `async function waitForValue() {
+  await <Promise<void>>new Promise<void>(resolve => {
+    resolve()
+  })
+}`,
+    },
+    {
+      code: `async function waitForValue() {
+  await new Promise<void>(resolve => {
+    resolve()
+  })!
+}`,
+    },
+    {
       code: `async function loadData() {
   await fetchData()
 
@@ -39,6 +67,13 @@ ruleTester.run('no-mixed-async-styles', rule, {
   }
 
   return loadNestedData()
+}`,
+    },
+    {
+      code: `async function loadData(stream: AsyncIterable<string>) {
+  for await (const chunk of stream) {
+    reportChunk(chunk)
+  }
 }`,
     },
   ],
@@ -84,6 +119,88 @@ ruleTester.run('no-mixed-async-styles', rule, {
           messageId: 'mixedAsyncStyles',
           data: {
             currentStyle: 'Promise constructor',
+            otherStyles: 'async/await',
+          },
+        },
+      ],
+    },
+    {
+      code: `async function loadData() {
+  await (new Promise<void>(resolve => {
+    resolve()
+  }) as Promise<void>)
+
+  return fetchOtherData().then(data => saveData(data))
+}`,
+      errors: [
+        {
+          messageId: 'mixedAsyncStyles',
+          data: {
+            currentStyle: 'async/await',
+            otherStyles: 'promise chaining',
+          },
+        },
+        {
+          messageId: 'mixedAsyncStyles',
+          data: {
+            currentStyle: 'promise chaining',
+            otherStyles: 'async/await',
+          },
+        },
+      ],
+    },
+    {
+      languageOptions: {
+        parserOptions: {
+          ecmaFeatures: {
+            jsx: false,
+          },
+        },
+      },
+      code: `async function loadData() {
+  await <Promise<void>>new Promise<void>(resolve => {
+    resolve()
+  })
+
+  return fetchOtherData().then(data => saveData(data))
+}`,
+      errors: [
+        {
+          messageId: 'mixedAsyncStyles',
+          data: {
+            currentStyle: 'async/await',
+            otherStyles: 'promise chaining',
+          },
+        },
+        {
+          messageId: 'mixedAsyncStyles',
+          data: {
+            currentStyle: 'promise chaining',
+            otherStyles: 'async/await',
+          },
+        },
+      ],
+    },
+    {
+      code: `async function loadData() {
+  await new Promise<void>(resolve => {
+    resolve()
+  })!
+
+  return fetchOtherData().then(data => saveData(data))
+}`,
+      errors: [
+        {
+          messageId: 'mixedAsyncStyles',
+          data: {
+            currentStyle: 'async/await',
+            otherStyles: 'promise chaining',
+          },
+        },
+        {
+          messageId: 'mixedAsyncStyles',
+          data: {
+            currentStyle: 'promise chaining',
             otherStyles: 'async/await',
           },
         },
@@ -150,6 +267,31 @@ ruleTester.run('no-mixed-async-styles', rule, {
           data: {
             currentStyle: 'promise chaining',
             otherStyles: 'async/await and Promise constructor',
+          },
+        },
+      ],
+    },
+    {
+      code: `async function loadData(stream: AsyncIterable<string>) {
+  for await (const chunk of stream) {
+    reportChunk(chunk)
+  }
+
+  return fetchOtherData().then(data => saveData(data))
+}`,
+      errors: [
+        {
+          messageId: 'mixedAsyncStyles',
+          data: {
+            currentStyle: 'async/await',
+            otherStyles: 'promise chaining',
+          },
+        },
+        {
+          messageId: 'mixedAsyncStyles',
+          data: {
+            currentStyle: 'promise chaining',
+            otherStyles: 'async/await',
           },
         },
       ],
