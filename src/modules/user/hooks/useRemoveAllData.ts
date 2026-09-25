@@ -80,7 +80,7 @@ export const useRemoveAllData = () => {
       await unregisterDeviceAndDelete()
         .unwrap()
         .then(() => {
-          notificationApi.util.invalidateTags(['Notifications'])
+          dispatch(notificationApi.util.invalidateTags(['Notifications']))
         })
         .catch(() => 'Afmelden voor meldingen'),
       !hasLogoutErrors
