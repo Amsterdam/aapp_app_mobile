@@ -104,8 +104,8 @@ export const getParkingMachinePaymentTimes = (
 }
 
 export const sortPaymentTimes = (
-  [_a, timeSpanA]: [unknown, string],
-  [_b, timeSpanB]: [unknown, string],
+  [, timeSpanA]: [unknown, string],
+  [, timeSpanB]: [unknown, string],
 ) => {
   if (timeSpanA && !timeSpanB) {
     return -1
