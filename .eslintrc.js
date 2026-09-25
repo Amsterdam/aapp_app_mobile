@@ -49,6 +49,7 @@ module.exports = {
         'sonarjs/deprecation': 'off',
         'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits
         'amsterdam/todo-comment-requires-ticket': 'warn',
+        'amsterdam/no-mixed-async-styles': 'warn',
         'no-process-env': 'error',
         'depend/ban-dependencies': 'warn',
         '@typescript-eslint/no-empty-function': 'warn',
