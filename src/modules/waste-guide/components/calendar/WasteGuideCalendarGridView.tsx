@@ -28,7 +28,7 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
           <Box
             insetHorizontal="md"
             insetTop="md">
-            {Object.entries(formattedCalendar).map(([_, months]) =>
+            {Object.values(formattedCalendar).map(months =>
               Object.entries(months).map(([month, weeks]) => (
                 <WasteGuideCalendarMonth
                   key={month}
