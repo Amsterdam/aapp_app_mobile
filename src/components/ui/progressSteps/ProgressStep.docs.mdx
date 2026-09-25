@@ -1,0 +1,49 @@
+import {
+  Title,
+  Subtitle,
+  Primary,
+  Controls,
+  Stories,
+  Meta,
+} from '@storybook/addon-docs/blocks'
+
+import * as ProgressStepStories from './ProgressStep.stories.tsx'
+
+<Meta of={ProgressStepStories} />
+
+<Title />
+
+<Subtitle />
+
+Use Progress Step to show where someone is in a sequence and what still comes next.
+
+<Primary />
+
+## When to use
+
+Use Progress Step in short flows, timelines, or checklists where people benefit from seeing both their current position and the remaining sequence.
+
+## Key states to review
+
+- active versus planned versus completed progress
+- numbered steps compared with completed steps that switch to a confirmation icon
+- the last step, where the connector should stop cleanly
+- expanded timeline content, where the connector should continue through the revealed content
+
+## Do's and don'ts
+
+### Do's
+
+- Keep step labels clear enough to scan quickly
+- Match the visual status to the real state of the journey
+- Check that long content still preserves the sense of sequence
+
+### Don'ts
+
+- Use progress steps for unrelated items that do not form a sequence
+- Mark a step as complete before the user or system has actually finished it
+- Add extra detail inside a step if it makes the sequence harder to follow
+
+<Stories />
+
+<Controls />
