@@ -45,6 +45,11 @@ module.exports = {
         'sonarjs/todo-tag': 'off',
         'sonarjs/no-selector-parameter': 'off',
         'sonarjs/void-use': 'off',
+        'sonarjs/prefer-specific-assertions': 'warn',
+        'sonarjs/parameterized-tests': 'warn',
+        'sonarjs/assertions-in-tests': 'warn',
+        'sonarjs/no-redundant-optional': 'warn',
+        'sonarjs/synchronous-suite-callback': 'off', // eslint-plugin-sonarjs@4.2.1 uses sourceCode.getRange, which is unavailable in ESLint 8
         'sonarjs/aws-restricted-ip-admin-access': 'off',
         'sonarjs/deprecation': 'off',
         'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits

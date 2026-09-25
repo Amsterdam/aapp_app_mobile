@@ -67,7 +67,7 @@ export const useMapControlsLocationButton = (moduleSlug: ModuleSlug) => {
 
     setLocationType('location')
   }, [
-    address?.coordinates,
+    address,
     isSetLocation,
     startLocationFetch,
     map,

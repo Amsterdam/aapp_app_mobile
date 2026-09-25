@@ -22,6 +22,11 @@ export default defineConfig({
   rules: {
     ...sonarjsRecommendedLegacyRules,
     'dot-notation': 'warn',
+    'react/immutability': 'warn', // TODO: Fix occurrences and remove rule/set rule to 'error' https://gemeente-amsterdam.atlassian.net/browse/AM-1253
+    'react/set-state-in-effect': 'warn', // TODO: Fix occurrences and remove rule/set rule to 'error' https://gemeente-amsterdam.atlassian.net/browse/AM-1253
+    'react/purity': 'warn', // TODO: Fix occurrences and remove rule/set rule to 'error' https://gemeente-amsterdam.atlassian.net/browse/AM-1253
+    'react/static-components': 'warn', // TODO: Fix occurrences and remove rule/set rule to 'error' https://gemeente-amsterdam.atlassian.net/browse/AM-1253
+    'react/refs': 'warn', // TODO: Fix occurrences and remove rule/set rule to 'error' https://gemeente-amsterdam.atlassian.net/browse/AM-1253
     'typescript/no-unsafe-assignment': 'error',
     'typescript/no-empty-function': 'warn',
     'typescript/no-meaningless-void-operator': 'off',
@@ -32,6 +37,10 @@ export default defineConfig({
     'sonarjs/todo-tag': 'off',
     'sonarjs/no-selector-parameter': 'off',
     'sonarjs/void-use': 'off',
+    'sonarjs/prefer-specific-assertions': 'warn',
+    'sonarjs/no-redundant-optional': 'warn',
+    'sonarjs/parameterized-tests': 'warn',
+    'sonarjs/assertions-in-tests': 'warn',
     'sonarjs/deprecation': 'off',
     'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits
     'eslint/no-async-promise-executor': 'warn',

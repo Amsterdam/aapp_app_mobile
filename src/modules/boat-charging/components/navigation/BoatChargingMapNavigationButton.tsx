@@ -18,7 +18,7 @@ export const BoatChargingMapNavigationButton = () => {
         selectChargingPoint(session.location.id)
       }
     })
-  }, [session?.location.id, navigate, selectChargingPoint])
+  }, [session, navigate, selectChargingPoint])
 
   return (
     <NavigationButton
