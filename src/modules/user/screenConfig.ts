@@ -105,7 +105,7 @@ export const screenConfig: StackNavigationRoutes<
     component: RemoveAllDataPermissionsScreen,
     name: UserRouteName.removeAllDataPermissions,
     options: {
-      headerShown: false,
+      headerTitle: 'Meldingen',
     },
     screenType: 'default',
   },
