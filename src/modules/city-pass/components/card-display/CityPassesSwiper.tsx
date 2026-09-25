@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native'
 import type {CityPassPass} from '@/modules/city-pass/types'
-import type {CarouselRenderItemInfo} from 'react-native-reanimated-carousel/lib/typescript/types'
+import type {CarouselRenderItemInfo} from 'react-native-reanimated-carousel'
 import {Carousel} from '@/components/ui/carousel/Carousel'
 import {Basic} from '@/components/ui/carousel/pagination/PaginationBasic'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -40,15 +40,15 @@ export const CityPassesSwiper = () => {
       <Carousel<CityPassPass>
         data={cityPasses}
         defaultIndex={startIndex}
-        mode="parallax"
-        modeConfig={{
-          parallaxScrollingScale: 1,
-          parallaxScrollingOffset: getParallaxScrollingOffset(
+        layout={{
+          type: 'parallax',
+          scale: 1,
+          offset: getParallaxScrollingOffset(
             width,
             passWidth,
             NEXT_CARD_VISIBLE_FRACTION_OF_AVAILABLE_SPACE,
           ),
-          parallaxAdjacentItemScale: 1,
+          adjacentScale: 1,
         }}
         onProgressChange={onProgressChange}
         ref={ref}
