@@ -126,7 +126,7 @@ module.exports = {
                   'Get the internet state from the internet redux slice.',
               },
               {
-                name: 'react-native-date-picker',
+                name: '@expo/ui/community/datetime-picker',
                 importNames: ['default'],
                 message: 'Import DatePicker from @/components/ui/forms',
               },

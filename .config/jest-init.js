@@ -76,7 +76,7 @@ NativeModules.RNCNetInfo = {
   addListener: jest.fn(),
   removeListeners: jest.fn(),
 }
-
+jest.mock('@expo/ui/community/datetime-picker', () => ({}))
 jest.mock('expo-screen-orientation', () => ({}))
 jest.mock('expo-secure-store', () => ({}))
 jest.mock('expo-local-authentication', () => ({}))

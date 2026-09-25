@@ -155,6 +155,10 @@ PODS:
     - ExpoModulesCore
   - ExpoSharing (56.0.17):
     - ExpoModulesCore
+  - ExpoUI (56.0.26):
+    - ExpoModulesCore
+    - ExpoModulesWorklets
+    - React-RCTFabric
   - FBLazyVector (0.85.3)
   - Firebase (12.10.0):
     - Firebase/Core (= 12.10.0)
@@ -1760,28 +1764,6 @@ PODS:
     - Yoga
   - react-native-build-config (0.3.2):
     - React
-  - react-native-date-picker (5.0.13):
-    - hermes-engine
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-Core-prebuilt
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - ReactNativeDependencies
-    - Yoga
   - react-native-geolocation-service (5.3.1):
     - React
   - react-native-get-random-values (1.11.0):
@@ -2875,6 +2857,7 @@ DEPENDENCIES:
   - ExpoScreenOrientation (from `../node_modules/expo-screen-orientation/ios`)
   - ExpoSecureStore (from `../node_modules/expo-secure-store/ios`)
   - ExpoSharing (from `../node_modules/expo-sharing/ios`)
+  - "ExpoUI (from `../node_modules/@expo/ui/ios`)"
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - Firebase
   - FirebaseCore
@@ -2925,7 +2908,6 @@ DEPENDENCIES:
   - react-native-barcode-creator (from `../node_modules/react-native-barcode-creator`)
   - react-native-block-screenshot (from `../react-native-block-screenshot`)
   - react-native-build-config (from `../node_modules/react-native-build-config`)
-  - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-keyboard-controller (from `../node_modules/react-native-keyboard-controller`)
@@ -3050,6 +3032,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-secure-store/ios"
   ExpoSharing:
     :path: "../node_modules/expo-sharing/ios"
+  ExpoUI:
+    :path: "../node_modules/@expo/ui/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   hermes-engine:
@@ -3137,8 +3121,6 @@ EXTERNAL SOURCES:
     :path: "../react-native-block-screenshot"
   react-native-build-config:
     :path: "../node_modules/react-native-build-config"
-  react-native-date-picker:
-    :path: "../node_modules/react-native-date-picker"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-get-random-values:
@@ -3278,6 +3260,7 @@ SPEC CHECKSUMS:
   ExpoScreenOrientation: 75ebc86da7f64e94d34d10a743acbd75f9814dd6
   ExpoSecureStore: f1bd083c1b7b8d4142013ffcc0082d377d9f49f4
   ExpoSharing: 6209517626cce7f02b3bb31ccd92b9d4087c3bee
+  ExpoUI: 15c5293922df464aefcfb528396c4db211795322
   FBLazyVector: 24e62c765683b8d89006a88a2c8f5cf019f0074d
   Firebase: 99f203d3a114c6ba591f3b32263a9626e450af65
   FirebaseAnalytics: ef2970f65f3a2807e8f47a49cf3b8719d53e9fce
@@ -3292,7 +3275,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: a24e58982ab3ba2f64d79613e027fe7f57e88539
   GoogleMaps: 0608099d4870cac8754bdba9b6953db543432438
   GoogleUtilities: 4e0c2ad9fa0d0d18b5c4df8bf57b461cba35b0bb
-  hermes-engine: 887a4ed7b01908dede158d69feb79352fa0383ef
+  hermes-engine: a9252ff827cfcaf75e540b56e51acbf41bbf6fbc
   Messaging-InApp-Core: 0fce52f6c73ed4359ddefd537bd63f302094e08d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   NitroModules: 36c5d6bb6a3e21e38b1a3f47f5049d0d4a6d04b9
@@ -3306,7 +3289,7 @@ SPEC CHECKSUMS:
   React: e2dc35338068bbd299c66f043ae0d7f25de8499e
   React-callinvoker: 28b25d21b124c26cebaea713ba7d801b9351dc48
   React-Core: 02ed7d2ffb70437bdf2aba074a13078a7b0b9ff0
-  React-Core-prebuilt: 82ab984411c6ea066c621b1e207b0f66cdaddbff
+  React-Core-prebuilt: d5679040a1eb49f090f02a0418ca7c8a4a02a3e7
   React-CoreModules: b3a5a42dadcde3b5d47b325bd912eb2ced89e146
   React-cxxreact: fe8f88dda044e5905e99a00f41b7a874c3908716
   React-debug: 92944dc4d89f56d640e75498266cbde557a48189
@@ -3338,7 +3321,6 @@ SPEC CHECKSUMS:
   react-native-barcode-creator: 106d2a479005d559898b5d99434056beb94d9a8f
   react-native-block-screenshot: d9bc0ab1631ec7a437954331173c4587ad056a68
   react-native-build-config: aa6044b0daf7c1a4a12cde21928b80adb972243a
-  react-native-date-picker: 11c5a0b2a0a54a213d6bb4067bf3df4962c714d4
   react-native-geolocation-service: 32b2c2a3b91e70ce2a8d0c684801aaeb0a07e0ec
   react-native-get-random-values: d16467cf726c618e9c7a8c3c39c31faa2244bbba
   react-native-keyboard-controller: d4796248609d4c03cd6b5f73a9fd083d7c5f33d6
@@ -3381,7 +3363,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 25c9c516839be2c5e3d3344f95dc7da5f7e63fc2
   ReactCodegen: c8f81e6c6f762dcf442a6203a1fb58f7dafc8014
   ReactCommon: 7dfc3250793bf36cf221096ff59e1179e13eef7f
-  ReactNativeDependencies: fb648244bc61e8a0c3c945a610b132f871c0cf41
+  ReactNativeDependencies: 99d6d3962d4f5a5476c12fb661f11a15deb33cf2
   RestartNewArch: 229b04862634bfcf903b0988d336e6559b2fe7e3
   RNBootSplash: dcf4ccd62104bee81893e3d8c342860a491d3204
   RNCAsyncStorage: 2ad919e88b8bc2cd80e8697ce66d04d006743283
