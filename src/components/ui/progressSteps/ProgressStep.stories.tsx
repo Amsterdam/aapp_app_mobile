@@ -14,7 +14,9 @@ const meta = {
       <Canvas
         highlight
         maxWidth="480px">
-        <View style={styles.storyContainer}>{Story()}</View>
+        <View style={styles.storyContainer}>
+          <Story />
+        </View>
       </Canvas>
     ),
   ],
@@ -113,7 +115,7 @@ export const ExpandedTimelineItem: Story = {
     ),
     isExpanded: true,
     progressStatus: 'active',
-    progressStatusNextItem: undefined,
+    progressStatusNextItem: 'planned',
     variant: 'primary',
     numberIndicator: undefined,
   },
