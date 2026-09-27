@@ -3,7 +3,7 @@ import {type ReactNode, useState, useEffect} from 'react'
 type DelayedRenderProps = {
   children: ReactNode
   delay: number
-  fallback: ReactNode
+  fallback?: ReactNode
   show: boolean
 }
 
@@ -20,7 +20,7 @@ type DelayedRenderProps = {
 export const DelayedRender = ({
   children,
   delay,
-  fallback = <></>,
+  fallback = null,
   show,
 }: DelayedRenderProps) => {
   const [shouldRender, setShouldRender] = useState(false)

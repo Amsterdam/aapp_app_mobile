@@ -32,7 +32,7 @@ const shouldDelayRetry = (status: FetchBaseQueryError['status'] | undefined) =>
   status === HTTP_STATUS_BAD_GATEWAY
 
 const logRequestResult = (
-  status: number,
+  status: FetchBaseQueryError['status'] | undefined,
   requestInfo: string,
   error: FetchBaseQueryError | undefined,
 ) => {
@@ -126,9 +126,7 @@ const dynamicBaseQuery: BaseQueryFn<
 
       const {error, meta} = result
 
-      const status =
-        meta?.response?.status ??
-        (typeof error?.status === 'number' ? error.status : 0)
+      const status = meta?.response?.status ?? error?.status ?? 0
 
       logRequestResult(status, requestInfo, error)
 
