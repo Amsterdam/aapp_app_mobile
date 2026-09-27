@@ -88,17 +88,21 @@ export const notificationApi = baseApi.injectEndpoints({
             ),
           )
         },
-        afterError: (_error, {dispatch}) => {
-          dispatch(
-            updateGETNotificationSubscription(
-              notificationSubscriptionType,
-              false,
-              false,
-            ),
-          )
-          dispatch(
-            notificationApi.util.invalidateTags(['NotificationSubscriptions']),
-          )
+        afterError: (_error, {dispatch}, _failRetry, final) => {
+          if (final) {
+            dispatch(
+              updateGETNotificationSubscription(
+                notificationSubscriptionType,
+                false,
+                false,
+              ),
+            )
+            dispatch(
+              notificationApi.util.invalidateTags([
+                'NotificationSubscriptions',
+              ]),
+            )
+          }
         },
       }),
       onQueryStarted: ({notificationSubscriptionType}, {dispatch}) => {
@@ -129,17 +133,21 @@ export const notificationApi = baseApi.injectEndpoints({
             ),
           )
         },
-        afterError: (_error, {dispatch}) => {
-          dispatch(
-            updateGETNotificationSubscription(
-              notificationSubscriptionType,
-              true,
-              false,
-            ),
-          )
-          dispatch(
-            notificationApi.util.invalidateTags(['NotificationSubscriptions']),
-          )
+        afterError: (_error, {dispatch}, _failRetry, final) => {
+          if (final) {
+            dispatch(
+              updateGETNotificationSubscription(
+                notificationSubscriptionType,
+                true,
+                false,
+              ),
+            )
+            dispatch(
+              notificationApi.util.invalidateTags([
+                'NotificationSubscriptions',
+              ]),
+            )
+          }
         },
       }),
 

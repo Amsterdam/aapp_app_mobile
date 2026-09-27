@@ -1,3 +1,4 @@
+import {type BaseQueryApi} from '@reduxjs/toolkit/query'
 import {
   BaseQueryFn,
   createApi,
@@ -22,6 +23,28 @@ import {TimeOutDuration} from '@/types/api'
 import {sleep} from '@/utils/sleep'
 import {VERSION_NUMBER} from '@/utils/version'
 
+const HTTP_STATUS_NOT_FOUND = 404
+const HTTP_STATUS_BAD_GATEWAY = 502
+
+const shouldDelayRetry = (status: FetchBaseQueryError['status'] | undefined) =>
+  status === 'FETCH_ERROR' ||
+  status === 'TIMEOUT_ERROR' ||
+  status === HTTP_STATUS_BAD_GATEWAY
+
+const logRequestResult = (
+  status: number,
+  requestInfo: string,
+  error: FetchBaseQueryError | undefined,
+) => {
+  if (error) {
+    devError(
+      `Request failed (${status}): ${requestInfo}, ${JSON.stringify(error.data)}`,
+    )
+  } else {
+    devInfo(`Request success: ${requestInfo}`)
+  }
+}
+
 const prepareHeaders: PrepareHeaders = (headers, {getState}) => {
   const state = getState() as RootState
 
@@ -40,37 +63,44 @@ const prepareHeaders: PrepareHeaders = (headers, {getState}) => {
   return headers
 }
 
+type DynamicBaseQueryArguments = FetchArgs & {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  afterError?: AfterBaseQueryErrorFn<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  afterSuccess?: AfterBaseQuerySuccessFn<any>
+  prepareHeaders?: PrepareHeaders
+  slug: ApiSlug
+}
+
 const dynamicBaseQuery: BaseQueryFn<
-  FetchArgs & {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    afterError?: AfterBaseQueryErrorFn<any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    afterSuccess?: AfterBaseQuerySuccessFn<any>
-    prepareHeaders?: PrepareHeaders
-    slug: ApiSlug
-  },
+  DynamicBaseQueryArguments,
   unknown,
-  FetchBaseQueryError
-> = async (args, baseQueryApi, extraOptions) =>
-  retry(
-    async () => {
+  FetchBaseQueryError,
+  object
+> = async (args, baseQueryApi, extraOptions) => {
+  const retryingBaseQuery = retry(
+    async (
+      requestArguments: DynamicBaseQueryArguments,
+      retryBaseQueryApi: BaseQueryApi,
+      retryExtraOptions: unknown,
+    ) => {
       const {
         slug,
         afterError,
         afterSuccess,
-        prepareHeaders: argsPrepareHeaders = headers => headers,
+        prepareHeaders: argsPrepareHeaders = (headers: Headers) => headers,
         method,
         url,
         // oxlint-disable-next-line typescript/no-unsafe-assignment
         body,
-      } = args
+      } = requestArguments
 
       // this prevents sending post requests with an empty body, which causes issues with the firewall when sending from android
       const newBody: unknown = method === 'POST' ? (body ?? {}) : body
 
-      const baseUrl = selectApi(slug)(baseQueryApi.getState() as RootState)
+      const baseUrl = selectApi(slug)(retryBaseQueryApi.getState() as RootState)
 
-      const requestInfo = `${baseQueryApi.endpoint}: ${method ?? 'GET'} ${baseUrl}${url}`
+      const requestInfo = `${retryBaseQueryApi.endpoint}: ${method ?? 'GET'} ${baseUrl}${url}`
 
       devInfo(`Request started: ${requestInfo}`)
 
@@ -80,50 +110,55 @@ const dynamicBaseQuery: BaseQueryFn<
           prepareHeaders(
             await argsPrepareHeaders(headers, {
               ...api,
-              dispatch: baseQueryApi.dispatch,
+              dispatch: retryBaseQueryApi.dispatch,
             }),
             {
               ...api,
-              dispatch: baseQueryApi.dispatch,
+              dispatch: retryBaseQueryApi.dispatch,
             },
           ),
         timeout: TimeOutDuration.long,
-      })({...args, body: newBody}, baseQueryApi, extraOptions)
+      })(
+        {...requestArguments, body: newBody},
+        retryBaseQueryApi,
+        retryExtraOptions as never,
+      )
 
       const {error, meta} = result
 
-      const status = meta?.response?.status ?? error?.status ?? 0
+      const status =
+        meta?.response?.status ??
+        (typeof error?.status === 'number' ? error.status : 0)
+
+      logRequestResult(status, requestInfo, error)
 
       if (error) {
-        devError(
-          `Request failed (${status}): ${requestInfo}, ${JSON.stringify(error.data)}`,
-        )
+        await afterError?.(result, retryBaseQueryApi, retry.fail, false)
       } else {
-        devInfo(`Request success: ${requestInfo}`)
+        await afterSuccess?.(result, retryBaseQueryApi)
       }
 
-      if (error) {
-        await afterError?.(result, baseQueryApi, retry.fail)
-      } else {
-        await afterSuccess?.(result, baseQueryApi)
+      if (status === HTTP_STATUS_NOT_FOUND) {
+        // retry.fail(error)
       }
 
-      if (status === 404) {
-        retry.fail(error)
-      }
-
-      if (
-        error?.status === 'FETCH_ERROR' ||
-        error?.status === 'TIMEOUT_ERROR' ||
-        error?.status === 502
-      ) {
+      if (shouldDelayRetry(error?.status)) {
         await sleep(100)
       }
 
       return result
     },
     {maxRetries: 2},
-  )(args, baseQueryApi, extraOptions as never)
+  )
+
+  const result = await retryingBaseQuery(args, baseQueryApi, extraOptions)
+
+  if (result.error) {
+    await args.afterError?.(result, baseQueryApi, () => null, true)
+  }
+
+  return result
+}
 
 export const baseApi = createApi({
   baseQuery: dynamicBaseQuery,
