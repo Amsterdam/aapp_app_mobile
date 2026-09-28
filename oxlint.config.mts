@@ -42,6 +42,7 @@ export default defineConfig({
     'amsterdam/jsx-prefer-coerced-and-over-null-ternary': 'error',
     'amsterdam/todo-comment-requires-ticket': 'warn',
     'amsterdam/todo-comment-for-current-branch-must-be-resolved': 'error',
+    'amsterdam/no-mixed-async-styles': 'warn',
     'no-process-env': 'error',
     'no-shadow': 'error',
     'no-void': ['error', {allowAsStatement: true}],
