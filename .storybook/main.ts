@@ -118,8 +118,8 @@ const config: StorybookConfig = {
             replacement: require.resolve('./mocks/application-insights-web'),
           },
           {
-            find: 'react-native-date-picker',
-            replacement: require.resolve('./mocks/react-native-date-picker'),
+            find: '@expo/ui/community/datetime-picker',
+            replacement: require.resolve('./mocks/expo-datetime-picker'),
           },
           {
             find: 'expo-clipboard',
