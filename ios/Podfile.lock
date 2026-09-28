@@ -2063,7 +2063,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - react-native-webview (13.17.0):
+  - react-native-webview (16.0.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -3386,7 +3386,7 @@ SPEC CHECKSUMS:
   react-native-piwik-pro-sdk: 5a42b96784aca6d94b0e734d87c239754027c073
   react-native-safe-area-context: 0dd5d7db903a6289e798e934356cd80cf23a31d3
   react-native-salesforce-messaging-in-app: 971e8a9471b74bf7ac9073c21e461dc376b06c59
-  react-native-webview: 4b1217071d94a56a6f749e25c751e51a1cec25b6
+  react-native-webview: 560e16c7f9dbafcf1732fda7eb3eae9e0ce581d4
   React-NativeModulesApple: 2b658272ca69df0694cf5d54f9510aa7c33977bc
   React-networking: 6be0b80e18e710dd30e77b04838ec46666a7bb78
   React-oscompat: cea7c66df8076bd97e95885d7f584b86afffde41
