@@ -137,7 +137,7 @@ const dynamicBaseQuery: BaseQueryFn<
       }
 
       if (status === HTTP_STATUS_NOT_FOUND) {
-        // retry.fail(error)
+        retry.fail(error)
       }
 
       if (shouldDelayRetry(error?.status)) {
