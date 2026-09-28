@@ -59,7 +59,7 @@ export const WebView = ({
       : url
 
   return (
-    <WebViewRN
+    <WebViewRN<unknown>
       containerStyle={!!grow && styles.grow}
       nestedScrollEnabled
       ref={ref}
