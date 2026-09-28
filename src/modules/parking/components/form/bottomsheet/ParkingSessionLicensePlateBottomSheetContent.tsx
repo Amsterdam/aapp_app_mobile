@@ -1,4 +1,5 @@
-import {useController} from 'react-hook-form'
+import {useController, useFormContext} from 'react-hook-form'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {ParkingSessionAddLicensePlate} from '@/modules/parking/components/form/ParkingSessionAddLicensePlate'
@@ -10,6 +11,8 @@ import {ParkingLicensePlate} from '@/modules/parking/types'
 
 export const ParkingSessionLicensePlateBottomSheetContent = () => {
   const currentPermit = useCurrentParkingPermit()
+  const {watch} = useFormContext<ParkingSessionFormValues>()
+  const vehicle_id = watch('licensePlate.vehicle_id')
 
   const {
     field: {onChange},
@@ -21,7 +24,7 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
 
   return (
     <Box grow>
-      <ParkingSessionLicensePlateFormProvider>
+      <ParkingSessionLicensePlateFormProvider defaultValues={{vehicle_id}}>
         <Column
           grow={1}
           gutter="lg">
