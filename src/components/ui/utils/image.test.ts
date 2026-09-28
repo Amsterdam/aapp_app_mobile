@@ -38,7 +38,7 @@ describe('sortSourcesByWidthAscending', () => {
 
 describe('getUriForWidth', () => {
   test('handle empty array', () => {
-    expect(getUriForWidth(100, [])).toBe(undefined)
+    expect(getUriForWidth(100, [])).toBeUndefined()
   })
   test('get first item larger than the width param, sorted input', () => {
     expect(
@@ -120,7 +120,7 @@ describe('getUriForWidth', () => {
           width: 220,
         },
       ]),
-    ).toBe(undefined)
+    ).toBeUndefined()
   })
   test('all items narrower than the width param, then get the widest', () => {
     expect(

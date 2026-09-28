@@ -18,7 +18,7 @@ export const ParkingChooseLicensePlateButton = () => {
 
   return (
     <SelectButtonControlled<
-      {licensePlate?: SessionFieldValues['licensePlate']},
+      Pick<SessionFieldValues, 'licensePlate'>,
       'licensePlate'
     >
       accessibilityLabel={licensePlate =>

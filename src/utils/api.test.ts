@@ -1,23 +1,14 @@
 import {isApiAuthorizationError, generateRequestUrl} from '@/utils/api'
 
 describe('isApiAuthorizationError', () => {
-  it('returns true for errors with status 401', () => {
-    const error = {status: 401, data: null}
+  it.each([[401], [403], [404]])(
+    'returns true for errors with status %s',
+    status => {
+      const error = {status, data: null}
 
-    expect(isApiAuthorizationError(error)).toBe(true)
-  })
-
-  it('returns true for errors with status 403', () => {
-    const error = {status: 403, data: null}
-
-    expect(isApiAuthorizationError(error)).toBe(true)
-  })
-
-  it('returns true for errors with status 404', () => {
-    const error = {status: 404, data: null}
-
-    expect(isApiAuthorizationError(error)).toBe(true)
-  })
+      expect(isApiAuthorizationError(error)).toBe(true)
+    },
+  )
 
   it('returns false for errors with status outside of 401, 403, and 404', () => {
     const error = {status: 500, data: null}

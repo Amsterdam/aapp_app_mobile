@@ -3,7 +3,7 @@ import {EmailButton} from '@/components/ui/buttons/EmailButton'
 import {StoreProvider} from '@/providers/store.provider'
 
 it('EmailButton renders correctly', () => {
-  render(
+  const {getByTestId} = render(
     <StoreProvider>
       <EmailButton
         email="test"
@@ -11,4 +11,6 @@ it('EmailButton renders correctly', () => {
       />
     </StoreProvider>,
   )
+
+  expect(getByTestId('EmailButton')).toBeTruthy()
 })

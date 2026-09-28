@@ -8,9 +8,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
 import {setHeaderHeight, useScreen} from '@/store/slices/screen'
 
-type BackgroundColorProp = {
-  backgroundColor?: HeaderProps['backgroundColor']
-}
+type BackgroundColorProp = Pick<HeaderProps, 'backgroundColor'>
 
 type Props = {
   children: ReactNode

@@ -38,10 +38,11 @@ export default defineConfig({
     'sonarjs/no-selector-parameter': 'off',
     'sonarjs/void-use': 'off',
     'sonarjs/prefer-specific-assertions': 'warn',
-    'sonarjs/no-redundant-optional': 'warn',
+    'sonarjs/no-redundant-optional': 'off',
     'sonarjs/parameterized-tests': 'warn',
     'sonarjs/assertions-in-tests': 'warn',
     'sonarjs/deprecation': 'off',
+    'sonarjs/synchronous-suite-callback': 'warn',
     'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits
     'eslint/no-async-promise-executor': 'warn',
     'amsterdam/named-component-props': 'warn',

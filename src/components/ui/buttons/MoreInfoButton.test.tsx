@@ -3,7 +3,7 @@ import {MoreInfoButton} from '@/components/ui/buttons/MoreInfoButton'
 import {StoreProvider} from '@/providers/store.provider'
 
 it('MoreInfoButton renders correctly', () => {
-  render(
+  const {getByText} = render(
     <StoreProvider>
       <MoreInfoButton
         testID="MoreInfoButton"
@@ -11,4 +11,6 @@ it('MoreInfoButton renders correctly', () => {
       />
     </StoreProvider>,
   )
+
+  expect(getByText('Meer informatie')).toBeTruthy()
 })

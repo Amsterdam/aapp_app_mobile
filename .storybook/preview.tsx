@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import {NavigationContainer} from '@react-navigation/native'
 import {
   Title,

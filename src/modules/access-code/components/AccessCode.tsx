@@ -45,7 +45,6 @@ export const AccessCode = ({
               styles.item,
               index === accessCode.length ? styles.active : undefined,
             ]}>
-            {/* eslint-disable-next-line sonarjs/different-types-comparison */}
             {!!(accessCode[index] !== undefined || isCodeEntered) && ( // Just `accessCode[index]` excludes 0 value
               <Icon
                 name="asterisk"

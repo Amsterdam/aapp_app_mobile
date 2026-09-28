@@ -11,12 +11,12 @@ describe('getAccessibleFollowingText', () => {
     expect(getAccessibleFollowingText(true, 2)).toBe('2 Berichten')
   })
   it('handles a non-followed project with zero recent articles', () => {
-    expect(getAccessibleFollowingText(false, 0)).toBe(undefined)
+    expect(getAccessibleFollowingText(false, 0)).toBeUndefined()
   })
   it('handles a non-followed project with one recent article (which should not occur)', () => {
-    expect(getAccessibleFollowingText(false, 1)).toBe(undefined)
+    expect(getAccessibleFollowingText(false, 1)).toBeUndefined()
   })
   it('handles a non-followed project with multiple recent articles (which should not occur)', () => {
-    expect(getAccessibleFollowingText(false, 2)).toBe(undefined)
+    expect(getAccessibleFollowingText(false, 2)).toBeUndefined()
   })
 })

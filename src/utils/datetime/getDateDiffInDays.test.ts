@@ -36,6 +36,6 @@ describe('getDateDiffInDays', () => {
     const invalidDate = 'invalid-date'
     const result = getDateDiffInDays(invalidDate)
 
-    expect(result).toBe(NaN) // Invalid date should result in NaN
+    expect(result).toBeNaN() // Invalid date should result in NaN
   })
 })

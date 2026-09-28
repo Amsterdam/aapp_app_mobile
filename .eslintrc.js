@@ -48,7 +48,7 @@ module.exports = {
         'sonarjs/prefer-specific-assertions': 'warn',
         'sonarjs/parameterized-tests': 'warn',
         'sonarjs/assertions-in-tests': 'warn',
-        'sonarjs/no-redundant-optional': 'warn',
+        'sonarjs/no-redundant-optional': 'off',
         'sonarjs/synchronous-suite-callback': 'off', // TODO: eslint-plugin-sonarjs@4.2.1 uses sourceCode.getRange, which is unavailable in ESLint 8. Remove this line when new version of plugin is available and error is resolved.
         'sonarjs/aws-restricted-ip-admin-access': 'off',
         'sonarjs/deprecation': 'off',
@@ -287,6 +287,7 @@ module.exports = {
         'amsterdam/no-relative-file-import': 'off',
         'storybook/no-stories-of': 'error',
         'storybook/no-title-property-in-meta': 'error',
+        'react-refresh/only-export-components': 'off',
       },
     },
     {

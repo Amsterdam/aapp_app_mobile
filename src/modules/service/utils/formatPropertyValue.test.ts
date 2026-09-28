@@ -30,9 +30,9 @@ describe('formatPropertyValue', () => {
       null,
     )
 
-    expect(valueString).toBe(null)
-    expect(valuePrice).toBe(null)
-    expect(valueImage).toBe(null)
+    expect(valueString).toBeNull()
+    expect(valuePrice).toBeNull()
+    expect(valueImage).toBeNull()
   })
 
   it('returns the base value formatted as price when type is price and base value is number.', () => {
@@ -53,7 +53,7 @@ describe('formatPropertyValue', () => {
     )
 
     expect(valueString).toBe('test')
-    expect(valueNull).toBe(null)
+    expect(valueNull).toBeNull()
     expect(valueNumber1).toBe('€\u00A00,50')
     expect(valueNumber2).toBe('Gratis')
     expect(valueNumber3).toBe('€\u00A099.999.999,00')

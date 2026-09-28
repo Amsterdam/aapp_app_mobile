@@ -2,9 +2,7 @@ import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingRouteName} from '@/modules/parking/routes'
 
-type Props = {
-  variant?: ButtonProps['variant']
-}
+type Props = Pick<ButtonProps, 'variant'>
 
 export const ParkingAddMoneyButton = ({variant}: Props) => {
   const {navigate} = useNavigation()

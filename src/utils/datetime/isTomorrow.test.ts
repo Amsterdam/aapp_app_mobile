@@ -18,16 +18,13 @@ describe('isTomorrow', () => {
     expect(isTomorrow(dayjs('2026-06-02T01:01:00.000Z'), baseDate)).toBe(true)
   })
 
-  it('returns false when the date is the same calendar day as the base date', () => {
+  it.each([
+    ['the same calendar day as the base date', '2026-06-01T23:59:59.000Z'],
+    ['more than one day after the base date', '2026-06-03T08:00:00.000Z'],
+  ])('returns false when the date is %s', (_, date) => {
     const baseDate = dayjs('2026-06-01T08:00:00.000Z')
 
-    expect(isTomorrow('2026-06-01T23:59:59.000Z', baseDate)).toBe(false)
-  })
-
-  it('returns false when the date is more than one day after the base date', () => {
-    const baseDate = dayjs('2026-06-01T08:00:00.000Z')
-
-    expect(isTomorrow('2026-06-03T08:00:00.000Z', baseDate)).toBe(false)
+    expect(isTomorrow(date, baseDate)).toBe(false)
   })
 
   it('returns false for an invalid string date', () => {

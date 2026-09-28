@@ -3,7 +3,7 @@ import {Tag} from '@/components/ui/text/Tag'
 import {StoreProvider} from '@/providers/store.provider'
 
 it('Tag renders correctly', () => {
-  render(
+  const {getByTestId} = render(
     <StoreProvider>
       <Tag
         label="Label"
@@ -11,4 +11,6 @@ it('Tag renders correctly', () => {
       />
     </StoreProvider>,
   )
+
+  expect(getByTestId('Tag')).toBeTruthy()
 })

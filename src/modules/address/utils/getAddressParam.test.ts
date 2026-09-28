@@ -5,7 +5,7 @@ describe('getAddressParam', () => {
   test('should return an undefined address and no coordinates when address is not provided', () => {
     const result = getAddressParam()
 
-    expect(result).toEqual(undefined)
+    expect(result).toBeUndefined()
   })
   test('should return address query arg with addresLine1 when coordinates are not provided', () => {
     const result = getAddressParam({

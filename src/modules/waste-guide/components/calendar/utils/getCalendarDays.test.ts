@@ -23,7 +23,7 @@ describe('getCalendarDays', () => {
   ])(
     'should return the correct amount of days based on the number provided ($days), with a minimum of 1',
     ({days, expectedLength}) => {
-      expect(getCalendarDays(days).length).toBe(expectedLength)
+      expect(getCalendarDays(days)).toHaveLength(expectedLength)
     },
   )
 

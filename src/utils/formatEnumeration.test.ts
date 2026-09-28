@@ -16,13 +16,13 @@ describe('formatEnumeration', () => {
     expect(formatEnumeration('Maandag')).toEqual('Maandag')
   })
   it('passed null', () => {
-    expect(formatEnumeration(null)).toEqual(null)
+    expect(formatEnumeration(null)).toBeNull()
   })
   it('passed empty string', () => {
-    expect(formatEnumeration('')).toEqual(null)
+    expect(formatEnumeration('')).toBeNull()
   })
   it('passed empty array', () => {
-    expect(formatEnumeration([])).toEqual(null)
+    expect(formatEnumeration([])).toBeNull()
   })
   it('passed array with 3 items', () => {
     expect(formatEnumeration(['Maandag', 'woensdag', 'vrijdag'])).toEqual(
