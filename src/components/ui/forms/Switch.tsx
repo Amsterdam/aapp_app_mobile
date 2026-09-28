@@ -5,6 +5,7 @@ import {
   type SwitchChangeEvent,
 } from 'react-native'
 import {Switch as SwitchRN} from 'react-native-gesture-handler'
+import {DelayedRender} from '@/components/features/DelayedRender'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
 import {Column} from '@/components/ui/layout/Column'
@@ -79,18 +80,23 @@ export const Switch = ({
           labelPosition={labelPosition}>
           <Column>
             <Row gutter="sm">
-              {loading ? (
+              <DelayedRender
+                delay={200}
+                fallback={
+                  hasLoadingPlaceholder ? (
+                    <Size
+                      height={24}
+                      width={24}
+                    />
+                  ) : null
+                }
+                show={loading}>
                 <Icon
                   name="spinner"
                   size="lg"
                   testID={`${testID}Icon`}
                 />
-              ) : hasLoadingPlaceholder ? (
-                <Size
-                  height={24}
-                  width={24}
-                />
-              ) : null}
+              </DelayedRender>
 
               <SwitchRN
                 accessibilityElementsHidden

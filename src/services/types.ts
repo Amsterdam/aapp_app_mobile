@@ -35,6 +35,7 @@ export type AfterBaseQueryErrorFn<T = unknown> = (
   result: QueryReturnValue<T, FetchBaseQueryError, FetchBaseQueryMeta>,
   api: RTKQueryAPI,
   failRetry: (e?: unknown) => void,
+  final?: boolean,
 ) => void | Promise<void>
 
 export type WithDummy<T> = T & {dummy?: boolean}
