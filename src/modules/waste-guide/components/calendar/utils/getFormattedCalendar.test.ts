@@ -41,7 +41,7 @@ describe('getFormattedCalendar', () => {
     const [, days] = Object.entries(weeks)[0]
 
     expect(days.some(day => day?.date())).toBeTruthy()
-    expect(days.length).toBe(7)
+    expect(days).toHaveLength(7)
   })
 
   it('should return the months and weeks in the right order', () => {

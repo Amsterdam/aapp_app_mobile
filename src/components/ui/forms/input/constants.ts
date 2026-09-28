@@ -79,7 +79,6 @@ export const fieldTypeToKeyboardType = {
   [FieldType.tel]: 'phone-pad',
   [FieldType.text]: 'default',
   [FieldType.url]: 'url',
-  // eslint-disable-next-line sonarjs/no-hardcoded-passwords
   [FieldType.password]: 'visible-password',
 } as const satisfies Record<FieldType, KeyboardTypeOptions>
 

@@ -25,9 +25,7 @@ export const useAllModulesLogout = () => {
             resolve =>
               module
                 .logout(dispatch, store.getState())
-                // eslint-disable-next-line sonarjs/no-nested-functions
                 .then(ok => resolve({ok, module: module.slug}))
-                // eslint-disable-next-line sonarjs/no-nested-functions
                 .catch(error =>
                   resolve({
                     ok: false,

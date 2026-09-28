@@ -74,7 +74,7 @@ describe('getWasteCalendarListSections', () => {
   it('returns eventsToday for today', () => {
     const {eventsToday} = getWasteCalendarListSections(calendar)
 
-    expect(eventsToday.length).toBe(2)
+    expect(eventsToday).toHaveLength(2)
     expect(eventsToday[0].date).toBe(today.format('YYYY-MM-DD'))
   })
 
@@ -84,6 +84,6 @@ describe('getWasteCalendarListSections', () => {
     )
     const {eventsToday} = getWasteCalendarListSections(calendarNoToday)
 
-    expect(eventsToday.length).toBe(0)
+    expect(eventsToday).toHaveLength(0)
   })
 })

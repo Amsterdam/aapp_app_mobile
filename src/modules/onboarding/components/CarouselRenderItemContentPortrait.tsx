@@ -8,15 +8,15 @@ import {CarouselRenderItemContentText} from '@/modules/onboarding/components/Car
 import {CarouselRenderItemNotificationSettings} from '@/modules/onboarding/components/CarouselRenderItemNotificationSettings'
 
 type Props = {
-  contentButton?: CarouselItemVariant['contentButton']
   icon: CarouselItemVariant['icon']
-  showNotificationPermissionSettings?: CarouselItemVariant['showNotificationPermissionSettings']
   testID: CarouselItemVariant['testID']
-  text?: CarouselItemVariant['text']
   title: CarouselItemVariant['title']
   useText: CarouselItemVariant['useText']
   variant: string
-}
+} & Pick<
+  CarouselItemVariant,
+  'contentButton' | 'text' | 'showNotificationPermissionSettings'
+>
 
 export const CarouselRenderItemContentPortrait = ({
   icon,

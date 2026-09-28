@@ -1,3 +1,5 @@
+/* eslint-disable sonarjs/no-nested-functions */
+
 import {useEffect, useMemo, useRef, useState} from 'react'
 import {EmitterSubscription, EventSubscription} from 'react-native'
 import SalesforceMessagingInApp, {
@@ -138,11 +140,10 @@ export const useCreateChat = ({
       void createCoreClient({developerName, organizationId, url}).then(() => {
         void retrieveRemoteConfiguration().then(setRemoteConfiguration, () => {
           retrieveRemoteConfiguration()
-            // eslint-disable-next-line sonarjs/no-nested-functions
             .then(setRemoteConfiguration, () => {
               setError({message: 'Failed to retrieve remote configuration'})
             })
-            // eslint-disable-next-line sonarjs/no-nested-functions
+
             .catch(err =>
               trackException(
                 ExceptionLogKey.chatRetrieveRemoteConfiguration,
@@ -179,7 +180,6 @@ export const useCreateChat = ({
                 message.format ===
                 ConversationEntryFormat.deliveryAcknowledgement
               ) {
-                // eslint-disable-next-line sonarjs/no-nested-functions
                 setMessages(oldMessages =>
                   oldMessages.map(m =>
                     m.entryId ===
@@ -197,7 +197,6 @@ export const useCreateChat = ({
               } else if (
                 message.format === ConversationEntryFormat.readAcknowledgement
               ) {
-                // eslint-disable-next-line sonarjs/no-nested-functions
                 setMessages(oldMessages =>
                   oldMessages.map(m =>
                     m.entryId ===
@@ -208,7 +207,7 @@ export const useCreateChat = ({
                 )
               } else {
                 // check if the message is already in the list and update it, otherwise add it
-                // eslint-disable-next-line sonarjs/no-nested-functions
+
                 setMessages(oldMessages =>
                   oldMessages.some(m => m.entryId === message.entryId)
                     ? oldMessages.map(oldMessage =>
@@ -223,7 +222,6 @@ export const useCreateChat = ({
               if (
                 message.format === ConversationEntryFormat.participantChanged
               ) {
-                // eslint-disable-next-line sonarjs/no-nested-functions
                 message.operations.forEach(({participant, type}) => {
                   if (type === ParticipantChangedOperationType.add) {
                     setParticipants(currentParticipants => [
@@ -267,7 +265,6 @@ export const useCreateChat = ({
               const message: ConversationEntry = inMessage as ConversationEntry
               // console.log('Updated message received:', message)
 
-              // eslint-disable-next-line sonarjs/no-nested-functions
               setMessages(oldMessages =>
                 oldMessages.map(oldMessage =>
                   oldMessage.entryId === message.entryId ? message : oldMessage,

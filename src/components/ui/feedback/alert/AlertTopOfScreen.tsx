@@ -10,9 +10,7 @@ import {useAlert} from '@/store/slices/alert'
 import {getAccessibleLabel} from '@/utils/accessibility/getAccessibleLabel'
 import {isEmptyObject} from '@/utils/object'
 
-type Props = {
-  inset?: AlertBaseProps['inset']
-}
+type Props = Pick<AlertBaseProps, 'inset'>
 
 export const AlertTopOfScreen = ({inset = 'md'}: Props) => {
   const isReduceMotionEnabled = useIsReduceMotionEnabled()

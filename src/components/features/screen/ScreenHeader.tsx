@@ -3,9 +3,7 @@ import {HeaderProps} from '@/components/features/header/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 
-type Props = {
-  options?: HeaderProps['options']
-}
+type Props = Pick<HeaderProps, 'options'>
 
 export const ScreenHeader = ({options}: Props) => {
   const navigation = useNavigation()

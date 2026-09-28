@@ -1,15 +1,22 @@
-// eslint-disable-next-line no-restricted-imports
-import ReanimatedCarousel from 'react-native-reanimated-carousel'
-import type {PanGesture} from 'react-native-gesture-handler'
-import type {TCarouselProps} from 'react-native-reanimated-carousel'
-import type {TParallaxModeProps} from 'react-native-reanimated-carousel/lib/typescript/layouts/parallax'
+import {
+  Carousel as ReanimatedCarousel,
+  type CarouselPanGesture,
+  type CarouselProps,
+  type CarouselRef,
+} from 'react-native-reanimated-carousel'
+import type {RefObject} from 'react'
 
 type Props<T> = Pick<
-  TCarouselProps<T>,
-  'data' | 'defaultIndex' | 'ref' | 'onProgressChange' | 'renderItem' | 'style'
-> & {width: number} & TParallaxModeProps
+  CarouselProps<T>,
+  | 'data'
+  | 'defaultIndex'
+  | 'layout'
+  | 'onProgressChange'
+  | 'renderItem'
+  | 'style'
+> & {width: number} & {ref?: RefObject<CarouselRef | null>}
 
-const onConfigurePanGesture = (panGesture: PanGesture) => {
+const onConfigurePanGesture = (panGesture: CarouselPanGesture) => {
   'worklet'
   panGesture.activeOffsetX([-10, 10])
 }
@@ -21,26 +28,22 @@ export const Carousel = <T,>({
   ref,
   data,
   defaultIndex,
-  modeConfig,
+  layout,
   style,
   onProgressChange,
   renderItem,
   width,
-  mode,
 }: Props<T>) => (
   <ReanimatedCarousel<T>
     data={data}
     defaultIndex={defaultIndex}
+    layout={layout}
     loop={false}
-    mode={mode}
-    modeConfig={modeConfig}
     onConfigurePanGesture={onConfigurePanGesture}
     onProgressChange={onProgressChange}
-    pagingEnabled
     ref={ref}
     renderItem={renderItem}
-    snapEnabled
+    snapMode="page"
     style={[{width}, style]}
-    vertical={false}
   />
 )

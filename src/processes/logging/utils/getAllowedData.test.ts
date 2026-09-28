@@ -21,17 +21,11 @@ describe('Log allowlist', () => {
     ).toStrictEqual({error: 'Not found'}))
 
   it('No data object', () =>
-    expect(getAllowedData(ExceptionLogKey.coordinates)).toStrictEqual(
-      undefined,
-    ))
+    expect(getAllowedData(ExceptionLogKey.coordinates)).toBeUndefined())
 
   it('Empty data object', () =>
-    expect(getAllowedData(ExceptionLogKey.coordinates, {})).toStrictEqual(
-      undefined,
-    ))
+    expect(getAllowedData(ExceptionLogKey.coordinates, {})).toBeUndefined())
 
   it('Empty allowlist', () =>
-    expect(getAllowedData(ExceptionLogKey.openMailUrl, {})).toStrictEqual(
-      undefined,
-    ))
+    expect(getAllowedData(ExceptionLogKey.openMailUrl, {})).toBeUndefined())
 })

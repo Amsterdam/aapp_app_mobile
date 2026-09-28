@@ -22,29 +22,16 @@ describe('eventIsThisWeekend', () => {
     jest.useRealTimers()
   })
 
-  it('returns true when an event takes place on Friday', () => {
-    jest.setSystemTime(new Date('2026-07-06T12:00:00.000Z')) // Monday
-
-    expect(eventIsThisWeekend(baseEvent)).toBe(true)
-  })
-
-  it('returns true when an event takes place on Saturday', () => {
-    jest.setSystemTime(new Date('2026-07-06T12:00:00.000Z')) // Monday
-
-    const event = {
-      ...baseEvent,
-      date_start: '2026-07-11T10:00:00.000Z',
-    }
-
-    expect(eventIsThisWeekend(event)).toBe(true)
-  })
-
-  it('returns true when an event takes place on Sunday', () => {
+  it.each([
+    ['Friday', baseEvent.date_start],
+    ['Saturday', '2026-07-11T10:00:00.000Z'],
+    ['Sunday', '2026-07-12T10:00:00.000Z'],
+  ])('returns true when an event takes place on %s', (_, date_start) => {
     jest.setSystemTime(new Date('2026-07-06T12:00:00.000Z')) // Monday
 
     const event = {
       ...baseEvent,
-      date_start: '2026-07-12T10:00:00.000Z',
+      date_start,
     }
 
     expect(eventIsThisWeekend(event)).toBe(true)

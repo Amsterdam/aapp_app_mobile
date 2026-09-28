@@ -8,7 +8,6 @@ import {type LogProps, PiwikAction} from '@/processes/piwik/types'
 
 export type InlineLinkProps = {
   children: ReactNode
-  emphasis?: PhraseProps['emphasis']
   isExternal?: boolean
   isInverse?: boolean
   onPress: () => void

@@ -4,9 +4,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {AmsterdamLogoSvg} from '@/modules/home/components/AmsterdamLogoSvg'
 import {HeaderNavigation} from '@/modules/home/components/HeaderNavigation'
 
-type Props = {
-  options?: HeaderProps['options']
-}
+type Props = Pick<HeaderProps, 'options'>
 
 export const HeaderForHome = ({options}: Props) => (
   <HeaderBase disableHorizontalInsets={options?.disableHorizontalInsets}>
