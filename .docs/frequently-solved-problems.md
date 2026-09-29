@@ -86,3 +86,11 @@ If we get emails with this ITMS-91053 error, we can run a scan script to find th
 - https://github.com/Wooder/ios_17_required_reason_api_scanner
 
 Then we should report the issue (if necessary) and when fixed, update the offending package.
+
+## Module imports between mini projects
+
+Files inside `/src/modules/<module-name>/` are not allowed to import files from another module folder.
+
+- This is now enforced by the ESLint rule `amsterdam/no-cross-module-import`.
+- Cross-module imports are allowed only through a module's public entrypoints in an `exports` directory in the root of a module and in `routes.ts`.
+- Shared code outside a module folder can still be imported (for example from `@/components` or `@/modules/generated`).

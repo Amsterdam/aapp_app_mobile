@@ -53,6 +53,7 @@ export default defineConfig({
     'amsterdam/todo-comment-requires-ticket': 'warn',
     'amsterdam/todo-comment-for-current-branch-must-be-resolved': 'error',
     'amsterdam/no-mixed-async-styles': 'warn',
+    'amsterdam/no-cross-module-import': 'warn', // TODO: should be set to error
     'no-process-env': 'error',
     'no-shadow': 'error',
     'no-void': ['error', {allowAsStatement: true}],
