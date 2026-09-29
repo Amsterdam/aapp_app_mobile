@@ -24,7 +24,7 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
   return (
     <Box grow>
       <ParkingSessionLicensePlateFormProvider
-        defaultValues={watch('licensePlate')}>
+        defaultValues={{vehicle_id: watch('licensePlate')?.vehicle_id}}>
         <Column
           grow={1}
           gutter="lg">

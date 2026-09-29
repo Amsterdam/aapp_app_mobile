@@ -39,10 +39,7 @@ export const ParkingSessionAddLicensePlateName = ({
     }
   }, [setValue, savedLicensePlate])
 
-  if (
-    licensePlates.length >= MAX_LICENSE_PLATES &&
-    licensePlateId !== savedLicensePlate?.vehicle_id
-  ) {
+  if (licensePlates.length >= MAX_LICENSE_PLATES && !savedLicensePlate) {
     return (
       <>
         <Gutter />

@@ -35,12 +35,12 @@ export const ParkingSessionAddLicensePlateSubmitButton = ({
 
   const onSubmit = useCallback(
     async (licensePlate: ParkingLicensePlate) => {
+      const existingLicensePlate = licensePlates?.find(
+        ({vehicle_id}) => vehicle_id === licensePlate.vehicle_id,
+      )
+
       try {
         if (licensePlate.visitor_name) {
-          const existingLicensePlate = licensePlates?.find(
-            ({vehicle_id}) => vehicle_id === licensePlate.vehicle_id,
-          )
-
           if (!existingLicensePlate) {
             await saveLicensePlate({
               vehicle_id: licensePlate.vehicle_id,
@@ -57,18 +57,21 @@ export const ParkingSessionAddLicensePlateSubmitButton = ({
           }
         }
 
-        setLicensePlate(licensePlate)
+        setLicensePlate({
+          ...existingLicensePlate,
+          ...licensePlate,
+        })
+
+        close()
+        reset()
       } catch (error) {
         devError(error)
 
         trackException(
           ExceptionLogKey.parkingLicensePlate,
           'ParkingSessionAddLicensePlateSubmitButton.tsx',
-          {licensePlate, error},
+          {error},
         )
-      } finally {
-        close()
-        reset()
       }
     },
     [
