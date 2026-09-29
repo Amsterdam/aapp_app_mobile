@@ -29,12 +29,12 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
           grow={1}
           gutter="lg">
           {!forced_license_plate_list && <ParkingSessionAddLicensePlate />}
+          <ParkingSessionSelectLicensePlate setLicensePlate={onChange} />
           {!forced_license_plate_list && (
             <ParkingSessionAddLicensePlateSubmitButton
               setLicensePlate={onChange}
             />
           )}
-          <ParkingSessionSelectLicensePlate setLicensePlate={onChange} />
         </Column>
       </ParkingSessionLicensePlateFormProvider>
     </Box>

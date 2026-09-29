@@ -33,7 +33,7 @@ export const ParkingVehicleIdTextInput = ({
       },
     }}
     testID={testID}
-    textTransform={text => text.replace(/[^a-zA-Z0-9]/g, '')}
+    textTransform={text => text.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()}
     {...textInputProps}
   />
 )

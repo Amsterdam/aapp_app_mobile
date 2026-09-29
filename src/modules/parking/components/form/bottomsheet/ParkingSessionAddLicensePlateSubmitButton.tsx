@@ -89,7 +89,6 @@ export const ParkingSessionAddLicensePlateSubmitButton = ({
       label="Gereed"
       onPress={handleSubmit(onSubmit)}
       testID="ParkingSessionAddLicensePlateSubmitButton"
-      variant="secondary"
     />
   )
 }
