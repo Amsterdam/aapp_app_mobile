@@ -6,6 +6,7 @@ import {StorybookConfig} from '@storybook/react-native-web-vite'
 import {mergeConfig} from 'vite'
 import svgr from 'vite-plugin-svgr'
 import alias from '../.config/alias.js'
+import {parkingAlias} from './mocks/parking/alias.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -129,6 +130,7 @@ const config: StorybookConfig = {
             find: 'expo-modules-core',
             replacement: require.resolve('./mocks/expo-modules-core'),
           },
+          ...parkingAlias,
           ...aliases,
         ],
       },

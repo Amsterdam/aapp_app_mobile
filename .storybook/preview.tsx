@@ -13,6 +13,14 @@ import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 import {DeviceProvider} from '../src/providers/device.provider'
 import {StoreProvider} from '../src/providers/store.provider'
 import {baseColor} from '../src/themes/tokens/base-color'
+import {
+  BottomSheetStorybookProvider,
+  type BottomSheetStorybookParameters,
+} from './mocks/bottom-sheet'
+import {
+  ParkingStorybookProvider,
+  type ParkingStorybookParameters,
+} from './mocks/parking'
 import {devLog} from '@/processes/development'
 import {AppInsightsProvider} from '@/providers/appinsights.provider'
 
@@ -20,6 +28,12 @@ import './preview.css'
 
 const MainDecorator = (Story: FC, context: StoryContext) => {
   const theme = context.globals.theme as 'dark' | 'light'
+  const bottomSheetStorybookParameters = context.parameters.bottomSheet as
+    | BottomSheetStorybookParameters
+    | undefined
+  const parkingStorybookParameters = context.parameters.parking as
+    | ParkingStorybookParameters
+    | undefined
 
   devLog(`TODO: process storybook ${theme} theme switching and inject into app. For example:
 
@@ -35,15 +49,19 @@ const MainDecorator = (Story: FC, context: StoryContext) => {
 }`)
 
   return (
-    <AppInsightsProvider>
-      <NavigationContainer>
-        <StoreProvider>
-          <DeviceProvider>
-            <Story />
-          </DeviceProvider>
-        </StoreProvider>
-      </NavigationContainer>
-    </AppInsightsProvider>
+    <BottomSheetStorybookProvider parameters={bottomSheetStorybookParameters}>
+      <ParkingStorybookProvider parameters={parkingStorybookParameters}>
+        <AppInsightsProvider>
+          <NavigationContainer>
+            <StoreProvider>
+              <DeviceProvider>
+                <Story />
+              </DeviceProvider>
+            </StoreProvider>
+          </NavigationContainer>
+        </AppInsightsProvider>
+      </ParkingStorybookProvider>
+    </BottomSheetStorybookProvider>
   )
 }
 
