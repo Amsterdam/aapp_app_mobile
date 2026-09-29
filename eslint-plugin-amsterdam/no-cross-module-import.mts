@@ -1,4 +1,3 @@
-import fs from 'node:fs'
 import path from 'node:path'
 import {TSESLint, TSESTree} from '@typescript-eslint/utils'
 import moduleVisitorImport from 'eslint-module-utils/moduleVisitor'
@@ -52,30 +51,11 @@ const isStringLiteral = (
 
 const toUnixPath = (value: string): string => value.replaceAll('\\\\', '/')
 
-const getModuleNames = (sourceModulesDirectoryPath: string): Set<string> => {
-  if (!fs.existsSync(sourceModulesDirectoryPath)) {
-    return new Set()
-  }
-
-  const folderNames = fs
-    .readdirSync(sourceModulesDirectoryPath)
-    .filter(folderName => {
-      const folderPath = path.join(sourceModulesDirectoryPath, folderName)
-
-      return (
-        fs.existsSync(folderPath) &&
-        fs.statSync(folderPath).isDirectory() &&
-        fs.existsSync(path.join(folderPath, 'index.ts'))
-      )
-    })
-
-  return new Set(folderNames)
-}
+const nonModuleFolders = new Set(['generated', 'utils'])
 
 const getSourceModuleName = (
   filePath: string,
   sourceModulesDirectoryPath: string,
-  moduleNames: Set<string>,
 ): string | null => {
   const relativePath = path.relative(sourceModulesDirectoryPath, filePath)
 
@@ -85,7 +65,7 @@ const getSourceModuleName = (
 
   const [possibleModuleName] = relativePath.split(path.sep)
 
-  if (moduleNames.has(possibleModuleName)) {
+  if (!nonModuleFolders.has(possibleModuleName)) {
     return possibleModuleName
   }
 
@@ -170,12 +150,10 @@ export const rule = createRule<NoOptions, MessageIds>({
           sourceDirectoryPath,
           'modules',
         )
-        const moduleNames = getModuleNames(sourceModulesDirectoryPath)
 
         const sourceModuleName = getSourceModuleName(
           currentFilePath,
           sourceModulesDirectoryPath,
-          moduleNames,
         )
 
         if (!sourceModuleName) {
@@ -195,7 +173,6 @@ export const rule = createRule<NoOptions, MessageIds>({
         const targetModuleName = getSourceModuleName(
           resolvedImportPath,
           sourceModulesDirectoryPath,
-          moduleNames,
         )
 
         if (!targetModuleName || sourceModuleName === targetModuleName) {
