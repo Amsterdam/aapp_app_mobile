@@ -106,7 +106,10 @@ const isAllowedModulePublicImport = (
     resolvedImportPath,
   )
 
-  if (relativeImportPath.startsWith('..') || path.isAbsolute(relativeImportPath)) {
+  if (
+    relativeImportPath.startsWith('..') ||
+    path.isAbsolute(relativeImportPath)
+  ) {
     return false
   }
 
@@ -129,7 +132,7 @@ const resolveImportPath = (
   }
 
   if (sourceValue.startsWith('@/')) {
-    return path.resolve(sourceDirectoryPath, sourceValue.replace('@/',''))
+    return path.resolve(sourceDirectoryPath, sourceValue.replace('@/', ''))
   }
 
   return null
@@ -163,7 +166,10 @@ export const rule = createRule<NoOptions, MessageIds>({
 
         const packageDirectoryPath = path.dirname(packageJsonFilePath)
         const sourceDirectoryPath = path.join(packageDirectoryPath, 'src')
-        const sourceModulesDirectoryPath = path.join(sourceDirectoryPath, 'modules')
+        const sourceModulesDirectoryPath = path.join(
+          sourceDirectoryPath,
+          'modules',
+        )
         const moduleNames = getModuleNames(sourceModulesDirectoryPath)
 
         const sourceModuleName = getSourceModuleName(
