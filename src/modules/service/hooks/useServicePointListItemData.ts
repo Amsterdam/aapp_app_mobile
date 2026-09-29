@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   ServiceDetailPropertyType,
@@ -7,7 +7,7 @@ import {
   type ServicePointFeature,
 } from '@/modules/service/types'
 import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
-import {getFormattedDistanceToPoint} from '@/modules/service/utils/getFormattedDistanceToPoint'
+import {getFormattedDistanceToPoint} from '@/utils/transform/getFormattedDistanceToPoint'
 
 export const useServicePointListItemData = (
   servicePoint: ServicePointFeature,

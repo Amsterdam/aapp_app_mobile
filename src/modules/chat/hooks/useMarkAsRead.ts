@@ -5,7 +5,7 @@ import {
   ConversationEntryFormat,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
-import {useChat} from '@/modules/chat/slice'
+import {useChat} from '@/modules/chat/exports/useChat'
 import {devError} from '@/processes/development'
 
 export const useMarkAsRead = (messages: ConversationEntry[]) => {

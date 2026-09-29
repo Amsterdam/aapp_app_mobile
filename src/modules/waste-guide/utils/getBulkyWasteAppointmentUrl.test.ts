@@ -1,4 +1,4 @@
-import {Address} from '@/modules/address/types'
+import {Address} from '@/modules/address/exports/types'
 import {getBulkyWasteAppointmentUrl} from '@/modules/waste-guide/utils/getBulkyWasteAppointmentUrl'
 
 describe('getBulkyWasteAppointmentUrl', () => {

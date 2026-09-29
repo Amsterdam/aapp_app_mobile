@@ -1,4 +1,4 @@
-import type {Address} from '@/modules/address/types'
+import type {Address} from '@/modules/address/exports/types'
 import type {FeatureProperties} from '@/modules/service/types'
 import {getLegendEntryLabel} from '@/modules/service/utils/getLegendEntryLabel'
 

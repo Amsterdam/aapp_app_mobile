@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   BULKY_WASTE_APPOINTMENT,

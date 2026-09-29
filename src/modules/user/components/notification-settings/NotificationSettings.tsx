@@ -9,7 +9,10 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useModules} from '@/hooks/useModules'
-import {setAlwaysShowAddress, setLocationType} from '@/modules/address/slice'
+import {
+  setAlwaysShowAddress,
+  setLocationType,
+} from '@/modules/address/exports/state'
 import {Module} from '@/modules/types'
 import {NotificationSetting} from '@/modules/user/components/notification-settings/NotificationSetting'
 import {

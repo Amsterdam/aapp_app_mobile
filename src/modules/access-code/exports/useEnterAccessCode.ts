@@ -1,9 +1,9 @@
 import {useCallback, useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useGetSecureAccessCode} from '@/modules/access-code/exports/useGetSecureAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
-import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {
   selectAttemptsLeft,
   selectCodeEntered,

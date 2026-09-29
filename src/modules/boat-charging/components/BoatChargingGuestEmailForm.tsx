@@ -15,7 +15,7 @@ import {
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const BoatChargingGuestEmailForm = () => {
   const navigation = useNavigation()

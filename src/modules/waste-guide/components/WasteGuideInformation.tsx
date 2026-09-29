@@ -2,7 +2,7 @@ import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const WasteGuideInformation = () => (
   <>

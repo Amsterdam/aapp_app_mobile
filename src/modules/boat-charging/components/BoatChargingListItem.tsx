@@ -6,13 +6,13 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {type BoatChargingPointFeature} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {getFormattedDistanceToPoint} from '@/modules/service/utils/getFormattedDistanceToPoint'
 import {useTheme} from '@/themes/useTheme'
+import {getFormattedDistanceToPoint} from '@/utils/transform/getFormattedDistanceToPoint'
 
 type Props = {
   item: BoatChargingPointFeature

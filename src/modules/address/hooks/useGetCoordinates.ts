@@ -5,7 +5,7 @@ import Geolocation, {GeoOptions} from 'react-native-geolocation-service'
 import {requestLocationAccuracy} from 'react-native-permissions'
 import type {Coordinates} from '@/types/location'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {HighAccuracyPurposeKey} from '@/modules/address/types'
+import {HighAccuracyPurposeKey} from '@/modules/address/exports/types'
 
 import {
   ExceptionLogKey,

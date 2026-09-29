@@ -1,7 +1,7 @@
 import {ReactNode} from 'react'
 import {StyleSheet} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
-import {useChat} from '@/modules/chat/slice'
+import {useChat} from '@/modules/chat/exports/useChat'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {

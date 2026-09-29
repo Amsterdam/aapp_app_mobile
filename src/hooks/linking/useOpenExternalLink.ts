@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import type {RedirectKey} from '@/modules/redirects/types'
+import type {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 

@@ -1,4 +1,4 @@
-import type {Address} from '@/modules/address/types'
+import type {Address} from '@/modules/address/exports/types'
 import type {Coordinates} from '@/types/location'
 
 export type ImageSource = {

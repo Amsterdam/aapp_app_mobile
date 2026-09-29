@@ -3,7 +3,7 @@ import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const FeedbackScreen = () => (

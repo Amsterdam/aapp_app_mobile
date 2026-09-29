@@ -6,7 +6,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {
   getAddressLine1,
   getAddressLine2,
-} from '@/modules/address/utils/addDerivedAddressFields'
+} from '@/modules/address/exports/utils/addDerivedAddressFields'
 
 type Props = {
   recyclePoint: WasteGuideRecyclePoint

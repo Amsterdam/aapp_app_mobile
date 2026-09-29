@@ -1,6 +1,6 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {useModules} from '@/hooks/useModules'
-import {useChat} from '@/modules/chat/slice'
+import {useChat} from '@/modules/chat/exports/useChat'
 import {type ContactOption} from '@/modules/contact/data/contact'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 

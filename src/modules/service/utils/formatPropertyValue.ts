@@ -1,7 +1,7 @@
 import {
   getAddressLine1,
   getAddressLine2,
-} from '@/modules/address/utils/addDerivedAddressFields'
+} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {
   ServiceDetailPropertyType,
   type PropertiesPropertyValue,

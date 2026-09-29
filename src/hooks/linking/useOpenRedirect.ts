@@ -1,10 +1,10 @@
 import {useCallback} from 'react'
 import {Alert} from 'react-native'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
+import {useGetRedirectUrlsQuery} from '@/services/redirect.service'
 
 export const useOpenRedirect = () => {
   const openWebUrl = useOpenWebUrl()

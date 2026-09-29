@@ -1,6 +1,6 @@
 import type {IconProps} from '@/components/ui/media/Icon'
-import {type Address, type LocationType} from '@/modules/address/types'
-import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
+import {type Address, type LocationType} from '@/modules/address/exports/types'
+import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/exports/utils/getAddressLineWithCityIfNotAmsterdam'
 
 export const getAddressSwitchIcon = (
   locationType?: LocationType,

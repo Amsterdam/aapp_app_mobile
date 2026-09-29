@@ -1,6 +1,6 @@
-import type {Address} from '@/modules/address/types'
+import type {Address} from '@/modules/address/exports/types'
 import type {Coordinates} from '@/types/location'
-import {getFormattedDistanceToPoint} from '@/modules/service/utils/getFormattedDistanceToPoint'
+import {getFormattedDistanceToPoint} from '@/utils/transform/getFormattedDistanceToPoint'
 
 describe('getFormattedDistanceToPoint', () => {
   const address: Partial<Address> = {

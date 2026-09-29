@@ -1,4 +1,4 @@
-import type {Address} from '@/modules/address/types'
+import type {Address} from '@/modules/address/exports/types'
 import type {
   ALL_DATES_LABEL,
   TODAY_LABEL,

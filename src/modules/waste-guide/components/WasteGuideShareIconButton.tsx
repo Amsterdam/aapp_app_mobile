@@ -1,10 +1,10 @@
 import {ShareIconButton} from '@/components/features/ShareIconButton'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
-import {Address} from '@/modules/address/types'
+import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
+import {Address} from '@/modules/address/exports/types'
 import {
   getAddressLine1,
   getAddressLine2,
-} from '@/modules/address/utils/addDerivedAddressFields'
+} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 const WASTE_GUIDE_BASE_URL = 'https://www.amsterdam.nl/afval/afvalinformatie/'

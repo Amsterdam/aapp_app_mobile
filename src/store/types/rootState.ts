@@ -1,6 +1,6 @@
 import type {ProductTourState} from '@/components/features/product-tour/slice'
 import type {AccessCodeState} from '@/modules/access-code/slice'
-import type {AddressState} from '@/modules/address/types'
+import type {AddressState} from '@/modules/address/exports/types'
 import type {BoatChargingState} from '@/modules/boat-charging/slice'
 import type {ChatState} from '@/modules/chat/slice'
 import type {CityPassState} from '@/modules/city-pass/slice'

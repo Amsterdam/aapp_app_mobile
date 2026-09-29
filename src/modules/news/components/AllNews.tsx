@@ -1,7 +1,7 @@
+import {NewsletterSignup} from '@/components/features/NewsletterSignup'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {NewsletterSignup} from '@/modules/contact/components/NewsletterSignup'
 import {NewsDashboardHighlightedArticle} from '@/modules/news/components/NewsDashboardHighlightedArticle'
 import {NewsList} from '@/modules/news/components/NewsList'
 

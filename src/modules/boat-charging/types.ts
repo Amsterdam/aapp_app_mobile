@@ -1,4 +1,4 @@
-import type {Address} from '@/modules/address/types'
+import type {Address} from '@/modules/address/exports/types'
 import type {PaginationQueryArgs} from '@/types/api'
 import type {Feature, Point} from 'geojson'
 

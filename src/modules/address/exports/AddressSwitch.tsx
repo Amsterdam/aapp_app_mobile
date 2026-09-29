@@ -9,11 +9,11 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressSwitchSaveMyAddress} from '@/modules/address/components/AddressSwitchSaveMyAddress'
+import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
+import {HighAccuracyPurposeKey} from '@/modules/address/exports/types'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressRouteName} from '@/modules/address/routes'
 import {setAlwaysShowAddress} from '@/modules/address/slice'
-import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {
   getAddressSwitchAccessibilityLabel,
   getAddressSwitchIcon,

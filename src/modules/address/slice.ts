@@ -7,7 +7,7 @@ import {
   AddressState,
   HighAccuracyPurposeKey,
   LocationType,
-} from '@/modules/address/types'
+} from '@/modules/address/exports/types'
 import {selectIsPermissionGranted} from '@/store/slices/permissions'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'

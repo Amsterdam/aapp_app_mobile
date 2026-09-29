@@ -3,7 +3,11 @@ import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Icon} from '@/components/ui/media/Icon'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
-import {Address, AddressList, BaseAddress} from '@/modules/address/types'
+import {
+  Address,
+  AddressList,
+  BaseAddress,
+} from '@/modules/address/exports/types'
 
 type NumberSearchResultProps = {
   bagList?: AddressList

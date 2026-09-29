@@ -1,9 +1,9 @@
+import {NewsletterSignup} from '@/components/features/NewsletterSignup'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ContextSwitchButton} from '@/components/ui/buttons/ContextSwitchButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {NewsletterSignup} from '@/modules/contact/components/NewsletterSignup'
 import {NewsList} from '@/modules/news/components/NewsList'
 import {useSelectedDistrict} from '@/modules/news/hooks/useSelectedDistrict'
 

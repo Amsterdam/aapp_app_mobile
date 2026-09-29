@@ -4,12 +4,12 @@ import {
   ConversationEntryFormat,
   RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
+import {useChat} from '@/modules/chat/exports/useChat'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useIsChatEnded} from '@/modules/chat/hooks/useIsChatEnded'
 import {useMarkAsRead} from '@/modules/chat/hooks/useMarkAsRead'
 import {useSubmitRemoteConfiguration} from '@/modules/chat/hooks/useSubmitRemoteConfiguration'
 import {ChatContext} from '@/modules/chat/providers/chat.context'
-import {useChat} from '@/modules/chat/slice'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 

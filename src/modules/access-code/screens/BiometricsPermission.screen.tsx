@@ -10,7 +10,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
+import {useAccessCodeBiometrics} from '@/modules/access-code/exports/useAccessCodeBiometrics'
 
 const TEST_ID = 'BiometricsPermissionScreen'
 

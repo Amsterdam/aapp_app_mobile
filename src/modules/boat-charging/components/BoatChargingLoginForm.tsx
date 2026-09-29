@@ -10,7 +10,7 @@ import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
 import {alerts} from '@/modules/boat-charging/alerts'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {useAlert} from '@/store/slices/alert'
 
 type FormValues = {

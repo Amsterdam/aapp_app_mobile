@@ -1,5 +1,5 @@
 import {AboutBlock} from '@/modules/city-pass/types'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const DEFAULT_PASS_WIDTH = 312
 export const CITY_PASS_HEIGHT = 520

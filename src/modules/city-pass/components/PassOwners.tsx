@@ -13,7 +13,7 @@ import {CityPassCardSkeleton} from '@/modules/city-pass/components/card-display/
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetCityPasses} from '@/modules/city-pass/hooks/useGetCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 type Props = {
   logout: () => void

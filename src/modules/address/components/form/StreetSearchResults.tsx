@@ -3,8 +3,8 @@ import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Icon} from '@/components/ui/media/Icon'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
+import {BaseAddress, Address} from '@/modules/address/exports/types'
 import {useGetAddressFormList} from '@/modules/address/hooks/useGetAddressFormList'
-import {BaseAddress, Address} from '@/modules/address/types'
 
 type StreetSearchResultsProps = {
   onPressResult: (item: Address | BaseAddress) => void

@@ -6,8 +6,8 @@ import {ErrorFigure} from '@/components/ui/media/errors/ErrorFigure'
 import {Title} from '@/components/ui/text/Title'
 import {ChatAnimatedContentWrapper} from '@/modules/chat/components/ChatAnimatedContentWrapper'
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'
+import {useChat} from '@/modules/chat/exports/useChat'
 import {useChatContext} from '@/modules/chat/providers/chat.context'
-import {useChat} from '@/modules/chat/slice'
 
 type Props = {
   children?: ReactNode

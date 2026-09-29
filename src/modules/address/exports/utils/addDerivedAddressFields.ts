@@ -1,4 +1,4 @@
-import {Address} from '@/modules/address/types'
+import {Address} from '@/modules/address/exports/types'
 
 /**
  * Formats the address fields into:

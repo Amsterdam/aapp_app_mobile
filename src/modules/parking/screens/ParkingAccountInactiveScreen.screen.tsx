@@ -7,7 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 type Props = NavigationProps<ParkingRouteName.accountInactive>
 

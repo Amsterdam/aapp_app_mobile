@@ -1,6 +1,6 @@
 import {Column} from '@/components/ui/layout/Column'
-import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
-import {HighAccuracyPurposeKey} from '@/modules/address/types'
+import {AddressSwitch} from '@/modules/address/exports/AddressSwitch'
+import {HighAccuracyPurposeKey} from '@/modules/address/exports/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const BurningGuideAddress = () => (
