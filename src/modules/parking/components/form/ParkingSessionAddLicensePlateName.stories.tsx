@@ -37,7 +37,6 @@ const meta = {
       </FormDecorator>
     ),
   ],
-  tags: ['!autodocs'],
 } satisfies Meta<typeof ParkingSessionAddLicensePlateName>
 
 export default meta

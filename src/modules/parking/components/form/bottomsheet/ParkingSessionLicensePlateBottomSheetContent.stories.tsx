@@ -27,7 +27,6 @@ const meta = {
       isOpen: true,
     },
   },
-  tags: ['!autodocs'],
 } satisfies Meta<typeof ParkingSessionLicensePlateBottomSheetContent>
 
 export default meta
