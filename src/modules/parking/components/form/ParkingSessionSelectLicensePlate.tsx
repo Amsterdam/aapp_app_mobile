@@ -65,6 +65,9 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
             return (
               <TopTaskButton
                 accessibilityLabel={`Kenteken ${title}`}
+                accessibilityState={{
+                  selected: licensePlateId === licensePlate.vehicle_id,
+                }}
                 gutter="sm"
                 icon={{
                   size: 'ml',
