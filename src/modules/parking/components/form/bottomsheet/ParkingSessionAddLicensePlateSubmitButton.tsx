@@ -1,12 +1,15 @@
-import {useEffect} from 'react'
+import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
-import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
-import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
-import {useAddLicensePlateMutation} from '@/modules/parking/service'
+import {useLicensePlateMutations} from '@/modules/parking/hooks/useLicensePlateMutations'
 import {ParkingLicensePlate} from '@/modules/parking/types'
+import {devError} from '@/processes/development'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 
 type Props = {
   setLicensePlate: (
@@ -18,76 +21,75 @@ export const ParkingSessionAddLicensePlateSubmitButton = ({
   setLicensePlate,
 }: Props) => {
   const {close} = useBottomSheet()
+  const {handleSubmit, reset} = useFormContext<ParkingLicensePlate>()
   const {
-    clearErrors,
-    handleSubmit,
-    reset,
-    setError,
-    formState: {errors},
-    watch,
-  } = useFormContext<ParkingLicensePlate>()
-  const currentPermit = useCurrentParkingPermit()
-  const [addLicensePlate] = useAddLicensePlateMutation()
+    saveLicensePlate,
+    editLicensePlate,
+    isLoadingAddLicensePlate,
+    isLoadingEditLicensePlate,
+    isErrorAddLicensePlate,
+    isErrorEditLicensePlate,
+  } = useLicensePlateMutations()
   const {licensePlates} = useGetLicensePlates()
-  const vehicleIdInput = watch('vehicle_id')
+  const trackException = useTrackException()
 
-  const onSubmit = handleSubmit((licensePlate: ParkingLicensePlate) => {
-    if (errors.root?.localError?.type === 'isLicensePlateDuplicate') {
-      return
-    }
+  const onSubmit = useCallback(
+    async (licensePlate: ParkingLicensePlate) => {
+      try {
+        if (licensePlate.visitor_name) {
+          const existingLicensePlate = licensePlates?.find(
+            ({vehicle_id}) => vehicle_id === licensePlate.vehicle_id,
+          )
 
-    const {vehicle_id, visitor_name} = licensePlate
+          if (!existingLicensePlate) {
+            await saveLicensePlate({
+              vehicle_id: licensePlate.vehicle_id,
+              visitor_name: licensePlate.visitor_name,
+            })
+          } else if (
+            existingLicensePlate.visitor_name !== licensePlate.visitor_name
+          ) {
+            await editLicensePlate({
+              id: existingLicensePlate.id,
+              vehicle_id: existingLicensePlate.vehicle_id,
+              visitor_name: licensePlate.visitor_name,
+            })
+          }
+        }
 
-    if (visitor_name) {
-      void addLicensePlate({
-        report_code: currentPermit.report_code.toString(),
-        vehicle_id,
-        visitor_name,
-      })
-        .unwrap()
-        .then(result => {
-          setLicensePlate({
-            id: result.id,
-            vehicle_id: result.vehicle_id,
-            visitor_name: result.visitor_name,
-          })
-          close()
-        })
-    } else {
-      setLicensePlate({vehicle_id: vehicle_id.toUpperCase()})
-      close()
-    }
+        setLicensePlate(licensePlate)
+      } catch (error) {
+        devError(error)
 
-    reset()
-  })
-
-  useEffect(() => {
-    if (licensePlates?.some(lp => lp.vehicle_id === vehicleIdInput)) {
-      setError('root.localError', {
-        type: 'isLicensePlateDuplicate',
-      })
-    } else {
-      clearErrors('root.localError')
-    }
-  }, [clearErrors, licensePlates, setError, vehicleIdInput])
+        trackException(
+          ExceptionLogKey.parkingLicensePlate,
+          'ParkingSessionAddLicensePlateSubmitButton.tsx',
+          {licensePlate, error},
+        )
+      } finally {
+        close()
+        reset()
+      }
+    },
+    [
+      licensePlates,
+      close,
+      trackException,
+      reset,
+      setLicensePlate,
+      saveLicensePlate,
+      editLicensePlate,
+    ],
+  )
 
   return (
-    <>
-      {errors.root?.localError?.type === 'isLicensePlateDuplicate' && (
-        <>
-          <AlertWarning
-            testID="ParkingSessionAddLicensePlateDuplicateAlert"
-            text="Dit kenteken is al opgeslagen in Mijn kentekens."
-            title="Kenteken bestaat al"
-          />
-        </>
-      )}
-      <Button
-        label="Gereed"
-        onPress={onSubmit}
-        testID="ParkingSessionAddLicensePlateSubmitButton"
-        variant="secondary"
-      />
-    </>
+    <Button
+      isError={isErrorAddLicensePlate || isErrorEditLicensePlate}
+      isLoading={isLoadingAddLicensePlate || isLoadingEditLicensePlate}
+      label="Gereed"
+      onPress={handleSubmit(onSubmit)}
+      testID="ParkingSessionAddLicensePlateSubmitButton"
+      variant="secondary"
+    />
   )
 }

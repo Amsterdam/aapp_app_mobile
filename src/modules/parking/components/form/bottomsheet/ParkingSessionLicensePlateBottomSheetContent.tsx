@@ -12,7 +12,6 @@ import {ParkingLicensePlate} from '@/modules/parking/types'
 export const ParkingSessionLicensePlateBottomSheetContent = () => {
   const currentPermit = useCurrentParkingPermit()
   const {watch} = useFormContext<ParkingSessionFormValues>()
-  const vehicle_id = watch('licensePlate.vehicle_id')
 
   const {
     field: {onChange},
@@ -24,7 +23,8 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
 
   return (
     <Box grow>
-      <ParkingSessionLicensePlateFormProvider defaultValues={{vehicle_id}}>
+      <ParkingSessionLicensePlateFormProvider
+        defaultValues={watch('licensePlate')}>
         <Column
           grow={1}
           gutter="lg">
