@@ -7,11 +7,14 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingSessionAddLicensePlateName} from '@/modules/parking/components/form/ParkingSessionAddLicensePlateName'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingSessionAddLicensePlate = () => {
   const {isOpen} = useBottomSheet()
   const [isVisitorNameVisible, setIsVisitorNameVisible] = useState(false)
   const {licensePlates, isLoading} = useGetLicensePlates()
+  const parkingAccount = useParkingAccount()
 
   useEffect(() => {
     if (!isOpen) {
@@ -35,15 +38,19 @@ export const ParkingSessionAddLicensePlate = () => {
         label="Uw kenteken"
         testID="ParkingAddLicensePlateFormLicensePlateInputField"
       />
-      <Switch
-        accessibilityLabel="Toevoegen aan Mijn kentekens"
-        label={<Phrase>Toevoegen aan Mijn kentekens</Phrase>}
-        onChange={() => setIsVisitorNameVisible(!isVisitorNameVisible)}
-        testID="ParkingSessionAddLicensePlateSaveSwitch"
-        value={isVisitorNameVisible}
-      />
-      {!!isVisitorNameVisible && (
-        <ParkingSessionAddLicensePlateName licensePlates={licensePlates} />
+      {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
+        <>
+          <Switch
+            accessibilityLabel="Toevoegen aan Mijn kentekens"
+            label={<Phrase>Toevoegen aan Mijn kentekens</Phrase>}
+            onChange={() => setIsVisitorNameVisible(!isVisitorNameVisible)}
+            testID="ParkingSessionAddLicensePlateSaveSwitch"
+            value={isVisitorNameVisible}
+          />
+          {!!isVisitorNameVisible && (
+            <ParkingSessionAddLicensePlateName licensePlates={licensePlates} />
+          )}
+        </>
       )}
     </Column>
   )

@@ -7,11 +7,13 @@ import {ParkingSessionLicensePlateFormProvider} from '@/modules/parking/componen
 import {ParkingSessionSelectLicensePlate} from '@/modules/parking/components/form/ParkingSessionSelectLicensePlate'
 import {ParkingSessionAddLicensePlateSubmitButton} from '@/modules/parking/components/form/bottomsheet/ParkingSessionAddLicensePlateSubmitButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {ParkingLicensePlate} from '@/modules/parking/types'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingSessionLicensePlateBottomSheetContent = () => {
   const currentPermit = useCurrentParkingPermit()
   const {watch} = useFormContext<ParkingSessionFormValues>()
+  const parkingAccount = useParkingAccount()
 
   const {
     field: {onChange},
@@ -28,12 +30,16 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
         <Column
           grow={1}
           gutter="lg">
-          {!forced_license_plate_list && <ParkingSessionAddLicensePlate />}
-          <ParkingSessionSelectLicensePlate setLicensePlate={onChange} />
           {!forced_license_plate_list && (
-            <ParkingSessionAddLicensePlateSubmitButton
-              setLicensePlate={onChange}
-            />
+            <>
+              <ParkingSessionAddLicensePlate />
+              <ParkingSessionAddLicensePlateSubmitButton
+                setLicensePlate={onChange}
+              />
+            </>
+          )}
+          {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
+            <ParkingSessionSelectLicensePlate setLicensePlate={onChange} />
           )}
         </Column>
       </ParkingSessionLicensePlateFormProvider>
