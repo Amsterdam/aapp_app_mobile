@@ -92,6 +92,7 @@ export const Switch = ({
                 }
                 show={loading}>
                 <Icon
+                  color="link"
                   name="spinner"
                   size="lg"
                   testID={`${testID}Icon`}
