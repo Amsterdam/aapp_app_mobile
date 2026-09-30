@@ -318,17 +318,26 @@ const LiRenderer: CustomBlockRenderer = props => {
       <Row>
         <LiMarker />
         <Column flex={1}>
-          {props.tnode.children.length > 0 ||
-          props.tnode.children?.[0]?.tagName ? (
-            <TNodeChildrenRenderer {...props} />
-          ) : (
-            <AccessibleText
-              accessibilityLabel={getTNodeAccessibleLabel(tnode)}
-              style={style}>
-              <HideFromAccessibility>
-                <TNodeChildrenRenderer {...props} />
-              </HideFromAccessibility>
-            </AccessibleText>
+          {props.tnode.children.map(child =>
+            child?.tagName ? (
+              <TNodeChildrenRenderer
+                {...props}
+                key={child.nodeIndex}
+                tnode={child}
+              />
+            ) : (
+              <AccessibleText
+                accessibilityLabel={getTNodeAccessibleLabel(child)}
+                key={child.nodeIndex}
+                style={style}>
+                <HideFromAccessibility>
+                  <TNodeChildrenRenderer
+                    {...props}
+                    tnode={child}
+                  />
+                </HideFromAccessibility>
+              </AccessibleText>
+            ),
           )}
         </Column>
       </Row>
