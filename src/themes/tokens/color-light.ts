@@ -411,7 +411,7 @@ export const lightColorTokens = {
   switch: {
     thumb: {
       disabled: {
-        background: baseColor.primary.white,
+        background: baseColor.neutral.grey2,
       },
       enabled: {
         background: baseColor.primary.white,
@@ -419,7 +419,7 @@ export const lightColorTokens = {
     },
     track: {
       off: {
-        background: baseColor.primary.white,
+        background: baseColor.neutral.grey3,
       },
       on: {
         background: baseColor.primary.blue,
