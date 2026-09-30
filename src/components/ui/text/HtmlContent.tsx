@@ -19,6 +19,7 @@ import {
   View,
   type ViewProps,
 } from 'react-native'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -317,11 +318,18 @@ const LiRenderer: CustomBlockRenderer = props => {
       <Row>
         <LiMarker />
         <Column flex={1}>
-          <AccessibleText
-            accessibilityLabel={getTNodeAccessibleLabel(tnode)}
-            style={style}>
+          {props.tnode.children.length > 0 ||
+          props.tnode.children?.[0]?.tagName ? (
             <TNodeChildrenRenderer {...props} />
-          </AccessibleText>
+          ) : (
+            <AccessibleText
+              accessibilityLabel={getTNodeAccessibleLabel(tnode)}
+              style={style}>
+              <HideFromAccessibility>
+                <TNodeChildrenRenderer {...props} />
+              </HideFromAccessibility>
+            </AccessibleText>
+          )}
         </Column>
       </Row>
     )

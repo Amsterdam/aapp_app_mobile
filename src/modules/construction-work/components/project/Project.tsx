@@ -91,12 +91,14 @@ export const Project = ({id}: Props) => {
               <SingleSelectable accessibilityRole="header">
                 {!!title && (
                   <Title
+                    accessible={false}
                     testID="ConstructionWorkProjectTitle"
                     text={title}
                   />
                 )}
                 {!!subtitle && (
                   <Title
+                    accessible={false}
                     level="h4"
                     testID="ConstructionWorkProjectSubtitle"
                     text={subtitle}

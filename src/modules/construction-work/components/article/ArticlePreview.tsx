@@ -79,12 +79,15 @@ export const ArticlePreview = ({
               <View style={styles.horizontalLine} />
               {!!isNewAndUnreadArticle && (
                 <Tag
+                  accessible={false}
                   label="Nieuw"
                   testID={`${testID}Tag`}
                   variant="warning"
                 />
               )}
-              <Paragraph testID={`${testID}DateLabel`}>
+              <Paragraph
+                accessible={false}
+                testID={`${testID}DateLabel`}>
                 {formatDateToDisplay(article.publication_date)}
               </Paragraph>
             </Row>
@@ -92,6 +95,7 @@ export const ArticlePreview = ({
           <Box insetHorizontal="md">
             <Column gutter="sm">
               <Title
+                accessible={false}
                 color="link"
                 level="h5"
                 testID={`${testID}Title`}
@@ -99,6 +103,7 @@ export const ArticlePreview = ({
               />
               <View style={styles.image}>
                 <LazyImage
+                  accessible={false}
                   aspectRatio="extraWide"
                   missingSourceFallback={
                     <FigureWithFacadesBackground

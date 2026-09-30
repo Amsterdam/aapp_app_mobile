@@ -116,9 +116,11 @@ export const ProjectFollow = ({
         <SingleSelectable
           accessibilityLabel={`${followers.toString()}, ${followersPhrase}`}>
           <Phrase
+            accessible={false}
             testID="ConstructionWorkProjectFollowersText"
             variant="small">
             <Phrase
+              accessible={false}
               emphasis="strong"
               testID="ConstructionWorkProjectFollowersNumber"
               variant="small">

@@ -36,7 +36,12 @@ export const Project = memo(
       )
 
       return [
-        `${getAccessibleFollowingText(!!followed, unreadLength ?? 0)}, ${getAccessibleDistanceText(meter)}`,
+        [
+          getAccessibleFollowingText(!!followed, unreadLength ?? 0),
+          getAccessibleDistanceText(meter),
+        ]
+          .filter(Boolean)
+          .join(', '),
         unreadLength,
       ]
     }, [followed, meter, readArticles, recent_articles, showTraits])

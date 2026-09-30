@@ -75,13 +75,16 @@ export const ProjectCard = memo(
             </>
           )}
           <Title
+            accessible={false}
             color="link"
             level="h4"
             testID="ConstructionWorkProjectCardTitle"
             text={title}
           />
           {!!subtitle && (
-            <Paragraph testID="ConstructionWorkProjectCardSubtitle">
+            <Paragraph
+              accessible={false}
+              testID="ConstructionWorkProjectCardSubtitle">
               {subtitle}
             </Paragraph>
           )}
