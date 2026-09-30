@@ -26,6 +26,7 @@ const getTextFragments = (children: ReactNode): string[] => {
     const props = children.props as {
       accessibilityLabel?: string
       children?: ReactNode
+      content?: unknown
       label?: unknown
       text?: unknown
       title?: unknown
@@ -47,6 +48,11 @@ const getTextFragments = (children: ReactNode): string[] => {
         typeof props.title === 'number'
       ) {
         fragments.push(String(props.title))
+      } else if (
+        typeof props.content === 'string' ||
+        typeof props.content === 'number'
+      ) {
+        fragments.push(String(props.content))
       }
 
       fragments.push(...getTextFragments(props.children))
