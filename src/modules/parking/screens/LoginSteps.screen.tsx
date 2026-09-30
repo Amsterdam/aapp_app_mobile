@@ -1,12 +1,13 @@
 import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
+import type {NavigationProps} from '@/app/navigation/types'
+import type {ParkingRouteName} from '@/modules/parking/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useGetSecureAccessCode} from '@/modules/access-code/exports/useGetSecureAccessCode'
 import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
@@ -15,8 +16,10 @@ import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {SecureItemKey} from '@/utils/secureStorage'
 
-export const LoginStepsScreen = () => {
-  const {navigate} = useNavigation()
+export const LoginStepsScreen = ({
+  navigation,
+}: NavigationProps<ParkingRouteName.loginSteps>) => {
+  const {navigate} = navigation
   const {item: securePermitHolder, isLoading: isLoadingSecurePermitHolder} =
     useGetSecureItem(SecureItemKey.parkingPermitHolder)
   const {item: secureVisitor, isLoading: isLoadingSecureVisitor} =
