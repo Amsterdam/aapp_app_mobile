@@ -1,7 +1,7 @@
 import {AccessCode} from '@/modules/access-code/components/AccessCode'
+import {useEnterAccessCode} from '@/modules/access-code/exports/useEnterAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
-import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 
 export const EnterAccessCode = () => {
   const {codeLength} = useAccessCode()

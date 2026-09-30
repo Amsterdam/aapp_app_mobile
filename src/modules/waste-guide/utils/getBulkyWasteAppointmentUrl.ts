@@ -1,4 +1,4 @@
-import {Address} from '@/modules/address/types'
+import {Address} from '@/modules/address/exports/types'
 
 /**
  * If we have an address, we return the URL with a query string, e.g. `?GUID=1016EM,1,,`, `?GUID=1016EM,1,A,` or `?GUID=1017GM,30,,1`

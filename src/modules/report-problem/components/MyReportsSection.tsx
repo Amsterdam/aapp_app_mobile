@@ -4,7 +4,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Track} from '@/components/ui/layout/Track'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const MyReportsSection = () => (
   <Column gutter="md">

@@ -4,7 +4,7 @@ import {
   AddressList,
   type Address,
   type PostalArea,
-} from '@/modules/address/types'
+} from '@/modules/address/exports/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'

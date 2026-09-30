@@ -3,7 +3,7 @@ import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {usePendingScreen} from '@/hooks/navigation/usePendingScreen'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useAccessCodeGate} from '@/modules/access-code/hooks/useAccessCodeGate'
+import {useAccessCodeGate} from '@/modules/access-code/exports/useAccessCodeGate'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {
   cityPassScreenConfig,

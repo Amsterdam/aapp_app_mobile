@@ -1,7 +1,7 @@
 import {ReactNode, useMemo} from 'react'
 import {Gesture, GestureDetector} from 'react-native-gesture-handler'
 import {scheduleOnRN} from 'react-native-worklets'
-import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
+import {useEnterAccessCode} from '@/modules/access-code/exports/useEnterAccessCode'
 
 type Props = {
   children: ReactNode

@@ -1,6 +1,6 @@
 import type {IconProps} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {ApiError} from '@/types/api'
 
 export enum CityPassEndpointName {

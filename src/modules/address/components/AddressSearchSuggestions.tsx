@@ -1,6 +1,10 @@
 import {Column} from '@/components/ui/layout/Column'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
-import {BaseAddress, Address, AddressList} from '@/modules/address/types'
+import {
+  BaseAddress,
+  Address,
+  AddressList,
+} from '@/modules/address/exports/types'
 import {getSuggestionLabel} from '@/modules/address/utils/getSuggestionLabel'
 import {addressPronounce} from '@/utils/accessibility/addressPronounce'
 

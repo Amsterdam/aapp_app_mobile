@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
 import {useBiometrics} from '@/hooks/useBiometrics'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
-import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
-import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
+import {useAccessCodeBiometrics} from '@/modules/access-code/exports/useAccessCodeBiometrics'
+import {useEnterAccessCode} from '@/modules/access-code/exports/useEnterAccessCode'
 import {AccessCodeType} from '@/modules/access-code/types'
 
 export const AuthenticateWithCodeOrBiometrics = () => {

@@ -2,7 +2,7 @@ import {AccessibilityProps} from 'react-native'
 import type {IconProps} from '@/components/ui/media/Icon'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {type TestProps} from '@/components/ui/types'
-import {BaseAddress, Address} from '@/modules/address/types'
+import {BaseAddress, Address} from '@/modules/address/exports/types'
 
 type Props<AddressType extends Address | BaseAddress> = {
   address: AddressType

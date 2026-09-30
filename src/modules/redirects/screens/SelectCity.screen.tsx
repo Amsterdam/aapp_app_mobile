@@ -8,8 +8,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
-import {RedirectKey} from '@/modules/redirects/types'
 
 type Props = NavigationProps<RedirectsRouteName.selectCity>
 

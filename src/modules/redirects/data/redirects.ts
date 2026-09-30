@@ -1,7 +1,7 @@
 import type {SvgIconName} from '@/components/ui/media/svgIcons'
 import {type TestProps} from '@/components/ui/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
-import {RedirectKey} from '@/modules/redirects/types'
 
 type RedirectResponse = {
   iconName: SvgIconName

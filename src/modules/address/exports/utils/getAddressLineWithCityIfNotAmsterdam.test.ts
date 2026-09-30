@@ -1,5 +1,5 @@
-import {AddressCity, type Address} from '@/modules/address/types'
-import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/utils/getAddressLineWithCityIfNotAmsterdam'
+import {AddressCity, type Address} from '@/modules/address/exports/types'
+import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/exports/utils/getAddressLineWithCityIfNotAmsterdam'
 
 describe('getAddressLineWithCityIfNotAmsterdam', () => {
   it('returns empty string if address is undefined', () => {

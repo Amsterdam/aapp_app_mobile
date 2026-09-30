@@ -1,7 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {useCallback} from 'react'
-import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ChatVisibility} from '@/modules/chat/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
@@ -88,7 +85,7 @@ export const chatSlice = createSlice({
   },
 })
 
-const {
+export const {
   closeChat,
   openChat,
   minimizeChat,
@@ -106,68 +103,11 @@ export const selectChatIsOpen = (state: RootState) =>
 export const selectChatVisibility = (state: RootState) =>
   state[ReduxKey.chat].visibility
 
-const selectChatMinimizedHeight = (state: RootState) =>
+export const selectChatMinimizedHeight = (state: RootState) =>
   state[ReduxKey.chat].minimizedHeight
 
-const selectChatConversationId = (state: RootState) =>
+export const selectChatConversationId = (state: RootState) =>
   state[ReduxKey.chat].conversationId
 
-const selectChatHeaderHeight = (state: RootState) =>
+export const selectChatHeaderHeight = (state: RootState) =>
   state[ReduxKey.chat].headerHeight
-
-export const useChat = () => {
-  const isOpen = useSelector(selectChatIsOpen)
-  const headerHeight = useSelector(selectChatHeaderHeight)
-  const conversationId = useSelector(selectChatConversationId)
-  const visibility = useSelector(selectChatVisibility)
-  const isMaximized = visibility === ChatVisibility.maximized
-  const isMinimized = visibility === ChatVisibility.minimized
-  const minimizedHeight = useSelector(selectChatMinimizedHeight)
-  const dispatch = useDispatch()
-
-  const open = useCallback(() => dispatch(openChat()), [dispatch])
-  const close = useCallback(() => dispatch(closeChat()), [dispatch])
-  const maximize = useCallback(() => dispatch(maximizeChat()), [dispatch])
-  const minimize = useCallback(() => dispatch(minimizeChat()), [dispatch])
-  const setConversationId = useCallback(
-    (newConversationId: string | undefined) =>
-      dispatch(setChatConversationId(newConversationId)),
-    [dispatch],
-  )
-  const setHeaderHeight = useCallback(
-    (height: number) => dispatch(setChatHeaderHeight(height)),
-    [dispatch],
-  )
-
-  const setMinimizedHeight = useCallback(
-    (height: number) => dispatch(setHeightMinimized(height)),
-    [dispatch],
-  )
-  const toggleIsOpen = useCallback(
-    () => dispatch(toggleChatIsOpen()),
-    [dispatch],
-  )
-  const toggleVisibility = useCallback(
-    () => dispatch(toggleChatVisibility()),
-    [dispatch],
-  )
-
-  return {
-    close,
-    conversationId,
-    headerHeight,
-    isMaximized,
-    isMinimized,
-    isOpen,
-    open,
-    maximize,
-    minimize,
-    minimizedHeight,
-    setConversationId,
-    setMinimizedHeight,
-    setHeaderHeight,
-    toggleIsOpen,
-    toggleVisibility,
-    visibility,
-  }
-}

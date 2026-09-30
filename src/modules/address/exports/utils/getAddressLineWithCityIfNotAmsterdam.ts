@@ -1,5 +1,5 @@
-import {AddressCity, type Address} from '@/modules/address/types'
-import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
+import {AddressCity, type Address} from '@/modules/address/exports/types'
+import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 
 export const getAddressLineWithCityIfNotAmsterdam = (address?: Address) => {
   const addressLine1 = getAddressLine1(address)

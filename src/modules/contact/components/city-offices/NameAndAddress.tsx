@@ -7,7 +7,7 @@ import {Title} from '@/components/ui/text/Title'
 import {
   getAddressLine1,
   getAddressLine2,
-} from '@/modules/address/utils/addDerivedAddressFields'
+} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {CityOffice} from '@/modules/contact/types'
 
 type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>

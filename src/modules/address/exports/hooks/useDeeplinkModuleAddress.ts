@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {

@@ -1,8 +1,8 @@
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
 import {PopupMenuOrientation} from '@/components/ui/menus/types'
+import {useChat} from '@/modules/chat/exports/useChat'
 import {useChatMenuItems} from '@/modules/chat/hooks/useChatMenuItems'
-import {useChat} from '@/modules/chat/slice'
 
 export const ChatMenu = () => {
   const {headerHeight} = useChat()

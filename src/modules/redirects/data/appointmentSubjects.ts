@@ -1,4 +1,4 @@
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 type Link = {
   label: string

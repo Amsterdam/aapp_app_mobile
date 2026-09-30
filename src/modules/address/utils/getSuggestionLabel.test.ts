@@ -1,4 +1,4 @@
-import {Address, type BaseAddress} from '@/modules/address/types'
+import {Address, type BaseAddress} from '@/modules/address/exports/types'
 import {
   getSuggestionLabel,
   getSuggestionLabelForNumber,

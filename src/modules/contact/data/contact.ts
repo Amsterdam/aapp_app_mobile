@@ -4,7 +4,7 @@ import {RootStackParams} from '@/app/navigation/types'
 import {TopTaskButtonProps} from '@/components/ui/buttons/TopTaskButton'
 import {type TestProps} from '@/components/ui/types'
 import {ContactRouteName} from '@/modules/contact/routes'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
 export type ContactOption = {

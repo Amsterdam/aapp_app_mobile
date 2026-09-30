@@ -1,5 +1,9 @@
-import {Address, AddressCity, BaseAddress} from '@/modules/address/types'
-import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
+import {
+  Address,
+  AddressCity,
+  BaseAddress,
+} from '@/modules/address/exports/types'
+import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 
 export const getSuggestionLabelForStreetOrAddress = (
   address: Address | BaseAddress,

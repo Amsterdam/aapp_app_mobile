@@ -12,7 +12,7 @@ import {LicensePlateListItem} from '@/modules/parking/components/license-plates/
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useLicensePlatesQuery} from '@/modules/parking/service'
 import {PermitType} from '@/modules/parking/types'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const ParkingMyLicensePlates = () => {
   const currentPermit = useCurrentParkingPermit()

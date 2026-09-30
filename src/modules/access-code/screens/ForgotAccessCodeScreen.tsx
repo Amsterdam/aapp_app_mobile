@@ -7,7 +7,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
-import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
+import {useEnterAccessCode} from '@/modules/access-code/exports/useEnterAccessCode'
 import {useRestartLogin} from '@/modules/access-code/hooks/useRestartLogin'
 
 type Props = {

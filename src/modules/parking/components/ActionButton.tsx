@@ -2,7 +2,7 @@ import {ActionButton as ActionButtonBase} from '@/components/ui/buttons/ActionBu
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {useGetSecureAccessCode} from '@/modules/access-code/exports/useGetSecureAccessCode'
 import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {clientModule as parkingModule} from '@/modules/parking'

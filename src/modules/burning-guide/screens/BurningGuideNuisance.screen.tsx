@@ -8,7 +8,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {BurningGuideRouteName} from '@/modules/burning-guide/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 
 type Props = NavigationProps<BurningGuideRouteName.burningGuideNuisance>

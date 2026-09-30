@@ -1,5 +1,5 @@
 import type {ModuleClientConfig} from '@/modules/types'
-import {setLocationType} from '@/modules/address/slice'
+import {setLocationType} from '@/modules/address/exports/state'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const onNotificationEvent: ModuleClientConfig['onNotificationEvent'] = (

@@ -24,7 +24,7 @@ import {
 } from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 import {getLoginFailedAlert} from '@/modules/parking/utils/getLoginFailedAlert'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {devError} from '@/processes/development'
 import {
   ExceptionLogKey,

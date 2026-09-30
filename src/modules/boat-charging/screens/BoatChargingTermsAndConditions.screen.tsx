@@ -19,7 +19,7 @@ import {
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
 import {setLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 const AGREED_TO_TERMS_ERROR_MESSAGE =
   'Ga akkoord gaan met de voorwaarden om verder te gaan.'

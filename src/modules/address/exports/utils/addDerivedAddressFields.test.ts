@@ -1,8 +1,8 @@
-import {AddressCity, type Address} from '@/modules/address/types'
+import {AddressCity, type Address} from '@/modules/address/exports/types'
 import {
   getAddressLine1,
   getAddressLine2,
-} from '@/modules/address/utils/addDerivedAddressFields'
+} from '@/modules/address/exports/utils/addDerivedAddressFields'
 
 describe('getAddressLine1', () => {
   test('should format street, number, and addition letter into address line 1', () => {

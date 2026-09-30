@@ -4,7 +4,7 @@ import type {
   Address,
   AddressCity,
   HighAccuracyPurposeKey,
-} from '@/modules/address/types'
+} from '@/modules/address/exports/types'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'

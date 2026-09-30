@@ -1,4 +1,4 @@
-import type {Address, LocationType} from '@/modules/address/types'
+import type {Address, LocationType} from '@/modules/address/exports/types'
 import {
   getAddressSwitchAccessibilityLabel,
   getAddressSwitchIcon,

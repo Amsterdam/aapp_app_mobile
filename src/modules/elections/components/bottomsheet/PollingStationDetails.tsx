@@ -14,7 +14,7 @@ import {PollingStationDetailsCategories} from '@/modules/elections/components/Po
 import {useSelectedPollingStation} from '@/modules/elections/hooks/useSelectedPollingStation'
 import {resetSelectedPollingStationId} from '@/modules/elections/slice'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
-import {RedirectKey} from '@/modules/redirects/types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const PollingStationDetails = () => {
   const dispatch = useDispatch()

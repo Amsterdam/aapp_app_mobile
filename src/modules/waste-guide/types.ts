@@ -1,4 +1,4 @@
-import type {Address} from '@/modules/address/types'
+import type {Address} from '@/modules/address/exports/types'
 import type {ExceptionDate, VisitingHour} from '@/modules/contact/types'
 
 export enum WasteGuideEndpointName {

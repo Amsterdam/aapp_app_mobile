@@ -1,4 +1,4 @@
-import {AddressCity} from '@/modules/address/types'
+import {AddressCity} from '@/modules/address/exports/types'
 import {
   ChargingPointStatus,
   NRGStatus,

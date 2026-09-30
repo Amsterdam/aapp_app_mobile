@@ -1,5 +1,5 @@
-import {Address} from '@/modules/address/types'
-import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
+import {Address} from '@/modules/address/exports/types'
+import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 
 export const getAddressParam = (address?: Address) => {
   if (address?.coordinates) {
