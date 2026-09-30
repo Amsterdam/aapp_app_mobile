@@ -66,5 +66,10 @@
     "npx tsc": true,
     "npx eslint": true,
     "npx oxlint": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.tsx": "${capture}.ts, ${basename}.stories.tsx, ${basename}.docs.mdx, ${basename}.test.tsx",
+    "*.ts": "${capture}.js, ${basename}.test.ts"
   }
 }
