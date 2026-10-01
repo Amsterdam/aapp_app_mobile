@@ -6,9 +6,13 @@ const injectCommas = (...fragments: (string | undefined | null)[]) =>
   fragments.filter(fragment => fragment).join(', ')
 
 export const accessibleText = (...fragments: (string | undefined | null)[]) =>
-  abbreviationsPronounce(injectCommas(...fragments)).replace(/\d{5,}/g, match =>
-    match.split('').join(', '),
-  )
+  abbreviationsPronounce(injectCommas(...fragments))
+    .replaceAll(/\d{5,}/g, match => match.split('').join(', '))
+    .replaceAll(/ {2,}/g, ' ')
+    .replaceAll(', , ', ', ')
+    .replaceAll(' , ', ', ')
+    .replaceAll(', :', ':')
+    .replaceAll(':,', ':')
 
 const getTextFragments = (children: ReactNode): string[] => {
   if (typeof children === 'string' || typeof children === 'number') {
