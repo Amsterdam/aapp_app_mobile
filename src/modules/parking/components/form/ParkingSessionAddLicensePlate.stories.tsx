@@ -10,8 +10,14 @@ const formDecorator = (Story: FC) => (
 )
 
 const meta = {
+  argTypes: {},
   component: ParkingSessionAddLicensePlate,
   decorators: [formDecorator],
+  parameters: {
+    bottomSheet: {
+      isOpen: true,
+    },
+  },
 } satisfies Meta<typeof ParkingSessionAddLicensePlate>
 
 export default meta

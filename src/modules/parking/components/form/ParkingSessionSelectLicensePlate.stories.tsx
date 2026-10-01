@@ -8,6 +8,11 @@ const meta = {
       action: 'setLicensePlate',
     },
   },
+  parameters: {
+    bottomSheet: {
+      isOpen: true,
+    },
+  },
 } satisfies Meta<typeof ParkingSessionSelectLicensePlate>
 
 export default meta

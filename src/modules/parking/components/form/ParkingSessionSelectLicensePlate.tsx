@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import {useFormContext} from 'react-hook-form'
 import {StyleSheet, View} from 'react-native'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
@@ -17,6 +18,8 @@ type Props = {
 export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
   const {close} = useBottomSheet()
   const styles = createStyles()
+  const {watch} = useFormContext<ParkingLicensePlate>()
+  const licensePlateId = watch('vehicle_id')
 
   const {licensePlates, isLoading} = useGetLicensePlates()
 
@@ -49,26 +52,40 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
     <View style={styles.container}>
       <Column gutter="sm">
         <Title
-          level="h3"
+          level="h5"
           text="Mijn kentekens"
         />
         {activeLicensePlates.length === 0 && (
           <Phrase>U heeft nog geen kentekens opgeslagen.</Phrase>
         )}
-        {activeLicensePlates?.map(licensePlate => {
-          const title = `${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`
+        <Column>
+          {activeLicensePlates?.map(licensePlate => {
+            const title = `${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`
 
-          return (
-            <TopTaskButton
-              accessibilityLabel={`Kenteken ${title}`}
-              icon={{name: 'car'}}
-              key={licensePlate.vehicle_id}
-              onPress={() => onPress(licensePlate)}
-              testID="ParkingSessionSelectLicensePlateTopTaskButton"
-              title={title}
-            />
-          )
-        })}
+            return (
+              <TopTaskButton
+                accessibilityLabel={`Kenteken ${title}`}
+                accessibilityState={{
+                  selected: licensePlateId === licensePlate.vehicle_id,
+                }}
+                gutter="sm"
+                icon={{
+                  size: 'ml',
+                  name:
+                    licensePlateId === licensePlate.vehicle_id
+                      ? 'check-mark-bold'
+                      : 'empty',
+                }}
+                insetHorizontal="no"
+                insetVertical="no"
+                key={licensePlate.vehicle_id}
+                onPress={() => onPress(licensePlate)}
+                testID="ParkingSessionSelectLicensePlateTopTaskButton"
+                title={title}
+              />
+            )
+          })}
+        </Column>
       </Column>
     </View>
   )

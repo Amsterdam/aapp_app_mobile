@@ -1,21 +1,20 @@
 import {useEffect, useState} from 'react'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {Switch} from '@/components/ui/forms/Switch'
-import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {alerts} from '@/modules/parking/alerts'
+import {ParkingSessionAddLicensePlateName} from '@/modules/parking/components/form/ParkingSessionAddLicensePlateName'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
-import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingSessionAddLicensePlate = () => {
   const {isOpen} = useBottomSheet()
   const [isVisitorNameVisible, setIsVisitorNameVisible] = useState(false)
   const {licensePlates, isLoading} = useGetLicensePlates()
+  const parkingAccount = useParkingAccount()
 
   useEffect(() => {
     if (!isOpen) {
@@ -39,31 +38,20 @@ export const ParkingSessionAddLicensePlate = () => {
         label="Uw kenteken"
         testID="ParkingAddLicensePlateFormLicensePlateInputField"
       />
-      <Switch
-        accessibilityLabel="Toevoegen aan Mijn kentekens"
-        label={<Phrase>Toevoegen aan Mijn kentekens</Phrase>}
-        onChange={() => setIsVisitorNameVisible(!isVisitorNameVisible)}
-        testID="ParkingSessionAddLicensePlateSaveSwitch"
-        value={isVisitorNameVisible}
-      />
-      {!!isVisitorNameVisible &&
-        ((licensePlates?.length ?? 0) >= MAX_LICENSE_PLATES ? (
-          <>
-            <Gutter />
-            <AlertBase
-              {...alerts.maxLicensePlatesWarning}
-              hasCloseIcon={false}
-            />
-          </>
-        ) : (
-          <TextInputField
-            hasClearButton={false}
-            label="Naam"
-            name="visitor_name"
-            rules={{required: 'Vul een naam in'}}
-            testID="ParkingAddLicensePlateFormNameInputField"
+      {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
+        <>
+          <Switch
+            accessibilityLabel="Toevoegen aan Mijn kentekens"
+            label={<Phrase>Toevoegen aan Mijn kentekens</Phrase>}
+            onChange={() => setIsVisitorNameVisible(!isVisitorNameVisible)}
+            testID="ParkingSessionAddLicensePlateSaveSwitch"
+            value={isVisitorNameVisible}
           />
-        ))}
+          {!!isVisitorNameVisible && (
+            <ParkingSessionAddLicensePlateName licensePlates={licensePlates} />
+          )}
+        </>
+      )}
     </Column>
   )
 }

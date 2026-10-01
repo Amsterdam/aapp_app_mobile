@@ -9,6 +9,11 @@ const meta = {
       <Story />
     </ParkingSessionFormProvider>
   ),
+  parameters: {
+    bottomSheet: {
+      isOpen: true,
+    },
+  },
 } satisfies Meta<typeof ParkingSessionStartTimeBottomSheetContent>
 
 export default meta
