@@ -30,14 +30,15 @@ export const ParkingSessionAddLicensePlateName = ({
   )
 
   useEffect(() => {
-    if (savedLicensePlate) {
-      setValue('visitor_name', savedLicensePlate?.visitor_name)
-    }
-
-    return () => {
-      setValue('visitor_name', '')
-    }
+    setValue('visitor_name', savedLicensePlate?.visitor_name)
   }, [setValue, savedLicensePlate])
+
+  useEffect(
+    () => () => {
+      setValue('visitor_name', '')
+    },
+    [setValue],
+  )
 
   if (licensePlates.length >= MAX_LICENSE_PLATES && !savedLicensePlate) {
     return (
