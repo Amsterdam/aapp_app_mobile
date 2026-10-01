@@ -1,5 +1,5 @@
 import {use} from 'react'
-import {MapViewSwitchContext} from '@/components/features/map/providers/MapViewSwitchContext'
+import {MapViewSwitchContext} from '@/components/features/map/providers/MapViewSwitch.context'
 
 export const useMapViewSwitch = () => {
   const context = use(MapViewSwitchContext)

@@ -66,5 +66,16 @@
     "npx tsc": true,
     "npx eslint": true,
     "npx oxlint": true
-  }
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js, ${basename}.*.ts",
+    "*.mts": "${capture}.js, ${basename}.*.mts, ${basename}.*.ts",
+    "*.tsx": "${capture}.ts, ${capture}.*.tsx, ${capture}.*.mdx, ${basename}.*.tsx, ${basename}.*.ts, ${basename}.*.mdx",
+    "*.context.tsx": "${capture}.provider.tsx, ${capture}.provider.ts",
+    "*.context.ts": "${capture}.provider.tsx, ${capture}.provider.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock"
+  },
+  "explorer.fileNesting.expand": false
 }

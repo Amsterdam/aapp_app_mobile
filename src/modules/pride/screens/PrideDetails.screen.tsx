@@ -1,6 +1,6 @@
 import type {NavigationProps} from '@/app/navigation/types'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
-import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
+import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitch.provider'
 import {MapFocus} from '@/components/features/map/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {usePrideEvents} from '@/modules/pride/hooks/usePrideEvents'
