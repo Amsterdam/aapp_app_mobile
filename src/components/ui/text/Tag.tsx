@@ -10,6 +10,7 @@ type Variant = keyof Theme['color']['tag']
 type PaddingVertical = keyof Pick<SpacingTokens, 'no' | 'xs'>
 
 type BaseProps = {
+  accessible?: boolean
   paddingVertical?: PaddingVertical
   variant?: Variant
 } & TestProps
@@ -19,6 +20,7 @@ type NodeProps = {children: Exclude<ReactNode, string>; label?: never}
 type Props = BaseProps & (LabelProps | NodeProps)
 
 export const Tag = ({
+  accessible,
   children,
   label,
   variant = 'default',
@@ -31,7 +33,11 @@ export const Tag = ({
     <View
       style={styles.tag}
       testID={testID}>
-      {label ? <Paragraph>{label}</Paragraph> : children}
+      {label ? (
+        <Paragraph accessible={accessible}>{label}</Paragraph>
+      ) : (
+        children
+      )}
     </View>
   )
 }

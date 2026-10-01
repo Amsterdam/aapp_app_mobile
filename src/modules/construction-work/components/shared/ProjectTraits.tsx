@@ -34,6 +34,7 @@ export const ProjectTraits = memo(
           {!!followed &&
             (unreadArticlesLength ? (
               <Trait
+                accessible={false}
                 label={simplur`${[unreadArticlesLength]} Bericht[|en]`}
                 testID="ConstructionWorkProjectArticlesTrait">
                 <Badge
@@ -44,6 +45,7 @@ export const ProjectTraits = memo(
               </Trait>
             ) : (
               <Trait
+                accessible={false}
                 iconName="check-mark"
                 label="Volgend"
                 testID="ConstructionWorkProjectFollowingTrait"
@@ -52,6 +54,7 @@ export const ProjectTraits = memo(
           {!!distanceText && (
             <Trait
               accessibilityLabel={distanceA11yText}
+              accessible={false}
               iconName="map-marker"
               label={distanceText}
               testID="ConstructionWorkProjectMetersTrait"
