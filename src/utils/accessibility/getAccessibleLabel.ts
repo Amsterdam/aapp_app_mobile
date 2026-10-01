@@ -8,8 +8,11 @@ const injectCommas = (...fragments: (string | undefined | null)[]) =>
 export const accessibleText = (...fragments: (string | undefined | null)[]) =>
   abbreviationsPronounce(injectCommas(...fragments))
     .replaceAll(/\d{5,}/g, match => match.split('').join(', '))
-    .replaceAll(' , ', ', ')
     .replaceAll('  ', ' ')
+    .replaceAll(', , ', ', ')
+    .replaceAll(' , ', ', ')
+    .replaceAll(', :', ':')
+    .replaceAll(':,', ':')
 
 const getTextFragments = (children: ReactNode): string[] => {
   if (typeof children === 'string' || typeof children === 'number') {
