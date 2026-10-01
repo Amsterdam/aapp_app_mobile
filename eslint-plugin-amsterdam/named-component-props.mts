@@ -400,8 +400,8 @@ export const rule = createRule<Options, MessageIds>({
     fixable: 'code',
     messages,
     schema: [],
+    defaultOptions: [],
   },
-  defaultOptions: [],
   create: context => ({
     ArrowFunctionExpression: node => {
       reportIfCombinedPropsAnnotation(node, context)

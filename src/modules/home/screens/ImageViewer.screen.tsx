@@ -5,19 +5,18 @@ import {
   type EdgeInsets,
 } from 'react-native-safe-area-context'
 import type {NavigationProps} from '@/app/navigation/types'
+import type {HomeRouteName} from '@/modules/home/routes'
 import type {Theme} from '@/themes/themes'
 import {ImageViewer} from '@/components/features/image-viewer/ImageViewer'
 import {Screen} from '@/components/features/screen/Screen'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {type HomeRouteName} from '@/modules/home/routes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = NavigationProps<HomeRouteName.imageViewer>
 
-export const ImageViewerScreen = ({route}: Props) => {
-  const {goBack} = useNavigation()
+export const ImageViewerScreen = ({route, navigation}: Props) => {
+  const {goBack} = navigation
   const {top, right} = useSafeAreaInsets()
 
   const styles = useThemable(createStyles(top, right))

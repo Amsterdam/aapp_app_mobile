@@ -1,3 +1,5 @@
+import type {NavigationProps} from '@/app/navigation/types'
+import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
@@ -6,15 +8,14 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
 
-export const BoatChargingGuestEmailConfirmScreen = () => {
-  const navigation = useNavigation()
+type Props = NavigationProps<BoatChargingRouteName.guestEmailConfirm>
 
+export const BoatChargingGuestEmailConfirmScreen = ({navigation}: Props) => {
   const {
     onPress,
     form: {handleSubmit, watch, setValue},

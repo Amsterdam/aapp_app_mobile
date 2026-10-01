@@ -115,8 +115,8 @@ export const rule = createRule<NoOptions, MessageIds>({
     fixable: 'code',
     schema: [],
     messages,
+    defaultOptions: [],
   },
-  defaultOptions: [],
   create: context => ({
     Property: node => {
       if (!isFixtureProperty(node) || !isRuleTesterRunCall(node.parent)) {

@@ -58,8 +58,8 @@ export const rule = createRule<NoOptions, MessageIds>({
     messages,
     fixable: 'code',
     schema: [],
+    defaultOptions: [],
   },
-  defaultOptions: [],
   create: context =>
     moduleVisitor(
       (source: Node) => {

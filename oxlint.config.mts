@@ -51,6 +51,7 @@ export default defineConfig({
     'amsterdam/jsx-strict-logical-expression': 'error',
     'amsterdam/jsx-prefer-coerced-and-over-null-ternary': 'error',
     'amsterdam/todo-comment-requires-ticket': 'warn',
+    'amsterdam/no-navigation-hooks-in-screens': 'error',
     'amsterdam/todo-comment-for-current-branch-must-be-resolved': 'error',
     'amsterdam/no-mixed-async-styles': 'warn',
     'amsterdam/no-cross-module-import': 'warn', // TODO: should be set to error

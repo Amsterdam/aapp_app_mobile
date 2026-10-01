@@ -31,8 +31,8 @@ export const rule = createRule<NoOptions, MessageIds>({
     messages,
     fixable: 'code',
     schema: [],
+    defaultOptions: [],
   },
-  defaultOptions: [],
   create: context => ({
     JSXSpreadAttribute: node => {
       if (node.argument.type !== TSESTree.AST_NODE_TYPES.ObjectExpression) {

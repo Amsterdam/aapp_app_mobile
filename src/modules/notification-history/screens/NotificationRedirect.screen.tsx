@@ -8,15 +8,13 @@ import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {HomeRouteName} from '@/modules/home/routes'
 
 type Props = NavigationProps<NotificationHistoryRouteName.NotificationRedirect>
 
-export const NotificationRedirectScreen = ({route}: Props) => {
+export const NotificationRedirectScreen = ({route, navigation}: Props) => {
   const {title, body, url} = route.params ?? {}
-  const navigation = useNavigation()
 
   return (
     <Screen testID="NotificationRedirectScreen">

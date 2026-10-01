@@ -33,8 +33,8 @@ export const rule = createRule<NoOptions, MessageIds>({
     fixable: 'code',
     messages,
     schema: [],
+    defaultOptions: [],
   },
-  defaultOptions: [],
 
   create: context => {
     const {sourceCode} = context

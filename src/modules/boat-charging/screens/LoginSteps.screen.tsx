@@ -1,5 +1,7 @@
 import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
+import type {NavigationProps} from '@/app/navigation/types'
+import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -7,7 +9,6 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureAccessCode} from '@/modules/access-code/exports/useGetSecureAccessCode'
 import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
@@ -15,8 +16,10 @@ import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
-export const LoginStepsScreen = () => {
-  const {navigate} = useNavigation()
+type Props = NavigationProps<BoatChargingRouteName.loginSteps>
+
+export const LoginStepsScreen = ({navigation}: Props) => {
+  const {navigate} = navigation
   const {isLoggedIn} = useIsLoggedIn()
   const {accessCode, isLoading} = useGetSecureAccessCode()
   const isStepsComplete = isLoggedIn && accessCode

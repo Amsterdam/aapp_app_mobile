@@ -28,8 +28,8 @@ export const rule = createRule<NoOptions, MessageIds>({
     },
     schema: [],
     messages,
+    defaultOptions: [],
   },
-  defaultOptions: [],
   create: context => ({
     Program: () => {
       for (const comment of context.sourceCode.getAllComments()) {
