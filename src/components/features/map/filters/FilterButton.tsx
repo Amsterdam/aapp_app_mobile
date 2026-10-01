@@ -1,4 +1,4 @@
-import type {Filter} from '@/components/features/map/providers/MapFiltersProvider'
+import type {Filter} from '@/components/features/map/providers/MapFilters.provider'
 import {Button} from '@/components/ui/buttons/Button'
 
 type Props = {

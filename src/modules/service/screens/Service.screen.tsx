@@ -1,6 +1,6 @@
 import type {NavigationProps} from '@/app/navigation/types'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
-import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
+import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitch.provider'
 import {Screen} from '@/components/features/screen/Screen'
 import {ServiceHeaderButton} from '@/modules/service/components/ServiceHeaderButton'
 import {ServicePointView} from '@/modules/service/components/ServicePointView'

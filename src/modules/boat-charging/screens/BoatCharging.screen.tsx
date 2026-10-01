@@ -1,5 +1,5 @@
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
-import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
+import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitch.provider'
 import {Screen} from '@/components/features/screen/Screen'
 import {BoatChargingView} from '@/modules/boat-charging/components/BoatChargingView'
 import {bottomsheetVariants} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'

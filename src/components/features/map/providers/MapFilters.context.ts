@@ -1,5 +1,5 @@
 import {createContext} from 'react'
-import type {Filter} from '@/components/features/map/providers/MapFiltersProvider'
+import type {Filter} from '@/components/features/map/providers/MapFilters.provider'
 import type {ServiceMapResponseIcon} from '@/modules/service/types'
 
 export const MapFiltersContext = createContext<{

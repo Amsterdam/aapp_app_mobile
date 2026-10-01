@@ -1,7 +1,7 @@
 import type {NavigationProps} from '@/app/navigation/types'
 import type {KingsdayRouteName} from '@/modules/kingsday/routes'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
-import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitchProvider'
+import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitch.provider'
 import {MapFocus} from '@/components/features/map/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {ServiceHeaderButton} from '@/modules/service/components/ServiceHeaderButton'

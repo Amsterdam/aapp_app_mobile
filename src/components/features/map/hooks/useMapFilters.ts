@@ -1,5 +1,5 @@
 import {use} from 'react'
-import {MapFiltersContext} from '@/components/features/map/providers/MapFiltersContext'
+import {MapFiltersContext} from '@/components/features/map/providers/MapFilters.context'
 
 export const useMapFilters = () => {
   const context = use(MapFiltersContext)

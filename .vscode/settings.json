@@ -69,7 +69,11 @@
   },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
-    "*.tsx": "${capture}.ts, ${basename}.stories.tsx, ${basename}.docs.mdx, ${basename}.test.tsx",
-    "*.ts": "${capture}.js, ${basename}.test.ts"
-  }
+    "*.ts": "${capture}.js, ${basename}.*.ts",
+    "*.mts": "${capture}.js, ${basename}.*.mts, ${basename}.test.ts",
+    "*.tsx": "${capture}.ts, ${basename}.*.tsx, ${basename}.*.ts, ${basename}.docs.mdx",
+    "*.context.tsx": "${capture}.provider.tsx, ${capture}.provider.ts",
+    "*.context.ts": "${capture}.provider.tsx, ${capture}.provider.ts"
+  },
+  "explorer.fileNesting.expand": false
 }

@@ -1,7 +1,7 @@
 import {useIsFocused} from '@react-navigation/native'
 import {type ComponentProps} from 'react'
 import {MapViewSwitchView} from '@/components/features/map/MapViewSwitchView'
-import {MapFiltersProvider} from '@/components/features/map/providers/MapFiltersProvider'
+import {MapFiltersProvider} from '@/components/features/map/providers/MapFilters.provider'
 import {BoatChargingList} from '@/modules/boat-charging/components/BoatChargingList'
 import {BoatChargingMap} from '@/modules/boat-charging/components/BoatChargingMap'
 import {mapFilters} from '@/modules/boat-charging/constants/filters'
