@@ -7,7 +7,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetSecureAccessCode} from '@/modules/access-code/exports/useGetSecureAccessCode'
 import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
@@ -22,7 +21,7 @@ import {RedirectErrorCodes} from '@/types/mijnAmsterdam'
 
 type Props = NavigationProps<CityPassRouteName.loginSteps>
 
-export const LoginStepsScreen = ({route}: Props) => {
+export const LoginStepsScreen = ({route, navigation}: Props) => {
   const {
     accessToken: deeplinkAccessToken,
     errorCode,
@@ -31,7 +30,7 @@ export const LoginStepsScreen = ({route}: Props) => {
     refreshToken: deeplinkRefreshToken,
   } = route.params || {}
 
-  const {navigate} = useNavigation()
+  const {navigate} = navigation
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isCityPassOwnerRegistered && accessCode
