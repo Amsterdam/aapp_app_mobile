@@ -10,6 +10,12 @@ const filename = path.resolve(
 ruleTester.run('no-navigation-hooks-in-screens', rule, {
   valid: [
     {
+      code: `export const NonScreenComponent = () => {
+ const navigation = useNavigation()
+     }`,
+      filename: filename.replace('.screen.tsx', '.tsx'),
+    },
+    {
       code: `export const ExampleScreen = ({route, navigation}: Props) => {
     }`,
       filename,
@@ -43,7 +49,7 @@ const route = useRoute()
       filename,
       errors: [
         {
-          messageId: 'noHooksInScreens',
+          messageId: 'noNavigationHooksInScreens',
           data: {hook: 'useRoute'},
         },
       ],
@@ -55,7 +61,33 @@ const navigation = useNavigation()
       filename,
       errors: [
         {
-          messageId: 'noHooksInScreens',
+          messageId: 'noNavigationHooksInScreens',
+          data: {hook: 'useNavigation'},
+        },
+      ],
+    },
+    {
+      code: `export const ExampleScreen = () => { 
+return doSomething(useRoute()) 
+    }`,
+      filename,
+      errors: [
+        {
+          messageId: 'noNavigationHooksInScreens',
+          data: {hook: 'useRoute'},
+        },
+      ],
+    },
+    {
+      code: `export const ExampleScreen = () => { 
+if (enabled) { 
+  const navigation = useNavigation() 
+} 
+    }`,
+      filename,
+      errors: [
+        {
+          messageId: 'noNavigationHooksInScreens',
           data: {hook: 'useNavigation'},
         },
       ],
@@ -67,20 +99,8 @@ const navigation = useNavigation()
       filename,
       errors: [
         {
-          messageId: 'noHooksInScreens',
+          messageId: 'noNavigationHooksInScreens',
           data: {hook: 'useNavigation'},
-        },
-      ],
-    },
-    {
-      code: `export function ExampleScreen() {
-const route = useRoute()
-    }`,
-      filename,
-      errors: [
-        {
-          messageId: 'noHooksInScreens',
-          data: {hook: 'useRoute'},
         },
       ],
     },
@@ -89,7 +109,7 @@ const route = useRoute()
       filename,
       errors: [
         {
-          messageId: 'noHooksInScreens',
+          messageId: 'noNavigationHooksInScreens',
           data: {hook: 'useRoute'},
         },
       ],
@@ -99,7 +119,7 @@ const route = useRoute()
       filename,
       errors: [
         {
-          messageId: 'noHooksInScreens',
+          messageId: 'noNavigationHooksInScreens',
           data: {hook: 'useNavigation'},
         },
       ],
@@ -109,7 +129,7 @@ const route = useRoute()
       filename,
       errors: [
         {
-          messageId: 'noHooksInScreens',
+          messageId: 'noNavigationHooksInScreens',
           data: {hook: 'useNavigation'},
         },
       ],
@@ -119,7 +139,7 @@ const route = useRoute()
       filename,
       errors: [
         {
-          messageId: 'noHooksInScreens',
+          messageId: 'noNavigationHooksInScreens',
           data: {hook: 'useNavigation'},
         },
       ],
@@ -129,7 +149,7 @@ const route = useRoute()
       filename,
       errors: [
         {
-          messageId: 'noHooksInScreens',
+          messageId: 'noNavigationHooksInScreens',
           data: {hook: 'useRoute'},
         },
       ],
