@@ -1,5 +1,6 @@
 import {Children, isValidElement, type ReactNode} from 'react'
 import {abbreviationsPronounce} from '@/utils/accessibility/abbreviationsPronounce'
+import {stripHtmlTags} from '@/utils/accessibility/stripHtmlTags'
 
 const injectCommas = (...fragments: (string | undefined | null)[]) =>
   fragments.filter(fragment => fragment).join(', ')
@@ -26,6 +27,7 @@ const getTextFragments = (children: ReactNode): string[] => {
     const props = children.props as {
       accessibilityLabel?: string
       children?: ReactNode
+      content?: unknown
       label?: unknown
       text?: unknown
       title?: unknown
@@ -47,6 +49,11 @@ const getTextFragments = (children: ReactNode): string[] => {
         typeof props.title === 'number'
       ) {
         fragments.push(String(props.title))
+      } else if (
+        typeof props.content === 'string' ||
+        typeof props.content === 'number'
+      ) {
+        fragments.push(stripHtmlTags(String(props.content)))
       }
 
       fragments.push(...getTextFragments(props.children))
