@@ -149,8 +149,8 @@ export const rule = createRule<NoOptions, MessageIds>({
     },
     schema: [],
     messages,
+    defaultOptions: [],
   },
-  defaultOptions: [],
   create: context => {
     const currentBranchTicketCodes = getCurrentBranchTicketCodes(
       context.settings,
