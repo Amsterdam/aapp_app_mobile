@@ -73,7 +73,7 @@ jobs:
         run: npm run typescript
 
       - name: Run Linter
-        run: npm run lint
+        run: npm run lint-ci
 
       - name: Run Formatter
         run: npm run format

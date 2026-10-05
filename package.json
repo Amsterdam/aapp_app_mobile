@@ -22,6 +22,7 @@
     "ios:deeplink:construction-work-editor": "npx uri-scheme open \"amsterdam://construction-work-editor\" --ios",
     "lint": "oxlint && eslint . --ext .js,.jsx,.ts,.tsx,.json",
     "lint:fix": "oxlint --fix && eslint . --ext .js,.jsx,.ts,.tsx,.json --fix",
+    "lint-ci": "oxlint -f github && eslint . --ext .js,.jsx,.ts,.tsx,.json",
     "postinstall": "patch-package",
     "prepare": "husky",
     "start": "expo start",
