@@ -73,7 +73,7 @@ jobs:
         run: npm run typescript
 
       - name: Run Linter
-        run: npm run lint-ci
+        run: npx oxlint -f github
 
       - name: Run Formatter
         run: npm run format
