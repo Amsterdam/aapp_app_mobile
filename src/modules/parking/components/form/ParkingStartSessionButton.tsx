@@ -67,8 +67,7 @@ export const ParkingStartSessionButton = () => {
       clearErrors('root.serverError')
       const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId
 
-      // TODO:
-      // check if the limit of current active parking sessions is not reached
+      // TODO: check if the limit of current active parking sessions is not reached
       if (vehicleId) {
         return startSession({
           parking_session: {
