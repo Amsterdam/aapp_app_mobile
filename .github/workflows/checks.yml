@@ -72,11 +72,11 @@ jobs:
       - name: Run Type Check
         run: npm run typescript
 
-      - name: Run Oxlint
-        run: npx oxlint -f github
-
       - name: Run Eslint
         run: npx eslint . --ext .js,.jsx,.ts,.tsx,.json
+
+      - name: Run Oxlint
+        run: npx oxlint -f github
 
       - name: Run Formatter
         run: npm run format
