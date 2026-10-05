@@ -21,6 +21,7 @@ export const ReportProblemTypesBottomSheetContent = () => (
           'kapotte verkeerslichten, lantaarnpalen en klokken',
           'overlast van verkeer',
           'overlast van mensen',
+          'sociaal onveilige plek',
         ]}
         testID="ReportProblemScreenProblemTypesList"
       />
