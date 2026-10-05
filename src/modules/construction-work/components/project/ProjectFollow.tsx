@@ -1,14 +1,11 @@
 import {useCallback} from 'react'
 import simplur from 'simplur'
-import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
-import {Tip, TipText} from '@/components/features/product-tour/types'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {Placement} from '@/components/ui/types'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {
@@ -87,32 +84,24 @@ export const ProjectFollow = ({
         />
       )}
       <Row gutter="md">
-        <ProductTourTipWrapper
-          extraSpace="md"
-          placement={Placement.below}
-          testID="ConstructionWorkProjectFollowButtonTooltip"
-          tipSlug={Tip.constructionWorkProjectFollowButton}>
-          <FollowButton
-            accessibilityHint={TipText.constructionWorkProjectFollowButton}
-            accessibilityLabel={
-              isProjectFollowed ? 'Ontvolg dit project' : 'Volg dit project'
-            }
-            disabled={
-              isUpdatingFollow || isUpdatingUnfollow || isFetchingProject
-            }
-            followed={isProjectFollowed}
-            isLoading={
-              isUpdatingFollow || isUpdatingUnfollow || isFetchingProject
-            }
-            logDimensions={{
-              [PiwikDimension.contentId]: projectId.toString(),
-              [PiwikDimension.contentTitle]: projectTitle,
-            }}
-            logName={`ConstructionWorkProject${isProjectFollowed ? 'Unfollow' : 'Follow'}Button`}
-            onPress={onPressFollowButton}
-            testID={`ConstructionWorkProject${isProjectFollowed ? 'Unfollow' : 'Follow'}Button`}
-          />
-        </ProductTourTipWrapper>
+        <FollowButton
+          accessibilityHint="Volg een project en blijf op de hoogte van onze werkzaamheden"
+          accessibilityLabel={
+            isProjectFollowed ? 'Ontvolg dit project' : 'Volg dit project'
+          }
+          disabled={isUpdatingFollow || isUpdatingUnfollow || isFetchingProject}
+          followed={isProjectFollowed}
+          isLoading={
+            isUpdatingFollow || isUpdatingUnfollow || isFetchingProject
+          }
+          logDimensions={{
+            [PiwikDimension.contentId]: projectId.toString(),
+            [PiwikDimension.contentTitle]: projectTitle,
+          }}
+          logName={`ConstructionWorkProject${isProjectFollowed ? 'Unfollow' : 'Follow'}Button`}
+          onPress={onPressFollowButton}
+          testID={`ConstructionWorkProject${isProjectFollowed ? 'Unfollow' : 'Follow'}Button`}
+        />
         <SingleSelectable
           accessibilityLabel={`${followers.toString()}, ${followersPhrase}`}>
           <Phrase
