@@ -27,6 +27,11 @@ export const ParkingChooseLicensePlateButton = () => {
           : 'Kies kenteken'
       }
       bottomSheetVariant={ParkingSessionBottomSheetVariant.licensePlate}
+      defaultValue={
+        activeParkingSessions?.[0].vehicle_id
+          ? {vehicle_id: activeParkingSessions[0].vehicle_id}
+          : undefined
+      }
       disabled={isLoading || isError}
       icon={{
         size: 'lgx',
