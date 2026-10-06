@@ -26,12 +26,11 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(createStyles(insets))
   const {iconName, isEnrolled, useBiometrics} = useAccessCodeBiometrics()
-  const {addDigit, removeDigit} = useAccessCode()
+  const {addDigit, removeDigit, codeLength} = useAccessCode()
   const accessibilityAnnounce = useAccessibilityAnnounce()
   const {codeEntered} = useEnterAccessCode()
   const {codeSet} = useSetAccessCode()
   const {codeConfirmed} = useConfirmAccessCode()
-  const {codeLength} = useAccessCode()
 
   useLockScreen(OrientationLock.PORTRAIT_UP)
 
