@@ -53,6 +53,7 @@ export const AccessCodeKeyBoardKey = ({
 }
 
 const WIDTH = 115
+
 const HEIGHT = 44
 
 const createStyles = ({color, shadow: {customKeyboardButton}, text}: Theme) => {
