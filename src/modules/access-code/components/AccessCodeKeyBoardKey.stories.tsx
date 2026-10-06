@@ -3,7 +3,7 @@ import {
   useSafeAreaInsets,
   type EdgeInsets,
 } from 'react-native-safe-area-context'
-import {AccessCodeKeyBoardKey} from './AccessCodeKeyBoardKeyButton'
+import {AccessCodeKeyBoardKey} from './AccessCodeKeyBoardKey'
 import type {Theme} from '@/themes/themes'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Box} from '@/components/ui/containers/Box'
