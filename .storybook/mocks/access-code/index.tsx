@@ -1,7 +1,7 @@
 import {createContext, type PropsWithChildren, useContext, useMemo} from 'react'
 
 export type AccessCodeStorybookParameters = {
-  addDigit?: () => void
+  addDigit: () => void
   codeConfirmed?: number[]
   codeEntered?: number[]
   codeLength?: number
@@ -9,15 +9,21 @@ export type AccessCodeStorybookParameters = {
   error?: null
   iconName?: string
   isEnrolled?: boolean
-  onAccessCodeEntered?: () => void
-  removeDigit?: () => void
-  resetError?: () => void
+  onAccessCodeEntered: () => void
+  removeDigit: () => void
+  resetError: () => void
   useBiometrics?: boolean
 }
 
-const AccessCodeStorybookContext = createContext<AccessCodeStorybookParameters>(
-  {},
-)
+const initialState: AccessCodeStorybookParameters = {
+  addDigit: () => undefined,
+  onAccessCodeEntered: () => undefined,
+  removeDigit: () => undefined,
+  resetError: () => undefined,
+}
+
+const AccessCodeStorybookContext =
+  createContext<AccessCodeStorybookParameters>(initialState)
 
 export const AccessCodeStorybookProvider = ({
   children,
@@ -25,7 +31,10 @@ export const AccessCodeStorybookProvider = ({
 }: PropsWithChildren<{
   parameters?: AccessCodeStorybookParameters
 }>) => {
-  const storybookParameters = useMemo(() => parameters ?? {}, [parameters])
+  const storybookParameters = useMemo(
+    () => parameters ?? initialState,
+    [parameters],
+  )
 
   return (
     <AccessCodeStorybookContext.Provider value={storybookParameters}>

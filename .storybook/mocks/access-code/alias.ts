@@ -14,11 +14,11 @@ export const accessCodeAlias = [
     replacement: path.resolve(__dirname, './index.tsx'),
   },
   {
-    find: '@/modules/access-code/hooks/useEnterAccessCode',
+    find: '@/modules/access-code/exports/useEnterAccessCode',
     replacement: path.resolve(__dirname, './index.tsx'),
   },
   {
-    find: '@/modules/access-code/hooks/useAccessCodeBiometrics',
+    find: '@/modules/access-code/exports/useAccessCodeBiometrics',
     replacement: path.resolve(__dirname, './index.tsx'),
   },
   {

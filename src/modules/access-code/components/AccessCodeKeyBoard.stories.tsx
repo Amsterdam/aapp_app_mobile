@@ -9,10 +9,7 @@ export default {
       codeLength: 5,
       codeConfirmed: [1, 1, 1, 1, 2],
       codeSet: [1, 1, 1, 1, 2],
-
-      iconName: 'face-id',
-      isEnrolled: true,
-      useBiometrics: true,
+      codeEntered: [1, 1, 1, 1, 2],
     },
     controls: {
       exclude: ['onPressAuthenticate'],
@@ -26,5 +23,18 @@ type Story = StoryObj<typeof AccessCodeKeyBoard>
 export const Default: Story = {
   args: {
     type: AccessCodeType.codeEntered,
+  },
+}
+
+export const WithBiometrics: Story = {
+  args: {
+    type: AccessCodeType.codeEntered,
+  },
+  parameters: {
+    accessCode: {
+      iconName: 'face-id',
+      isEnrolled: true,
+      useBiometrics: true,
+    },
   },
 }

@@ -77,9 +77,9 @@ export const WithLoadingPlaceholder: StoryObj<typeof Switch> = {
 
 export const ErrorState: StoryObj<typeof Switch> = {
   render: args => {
-    const form = useForm<{testSwitchField: boolean}>()
-
-    form.setError('testSwitchField', {message: 'Test error'})
+    const form = useForm<{testSwitchField: boolean}>({
+      errors: {testSwitchField: {message: 'Test error', type: 'validate'}},
+    })
 
     return (
       <FormProvider {...form}>

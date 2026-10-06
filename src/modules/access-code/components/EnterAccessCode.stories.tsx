@@ -1,18 +1,18 @@
-import {ConfirmAccessCode} from './ConfirmAccessCode'
+import {EnterAccessCode} from './EnterAccessCode'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
-  component: ConfirmAccessCode,
+  component: EnterAccessCode,
   parameters: {
     accessCode: {
       codeLength: 5,
-      codeConfirmed: [1, 1, 1, 1, 2],
+      codeEntered: [1, 1, 1, 1, 2],
     },
   },
-  render: () => <ConfirmAccessCode key="ConfirmAccessCode" />,
-} satisfies Meta<typeof ConfirmAccessCode>
+  render: () => <EnterAccessCode key="EnterAccessCode" />,
+} satisfies Meta<typeof EnterAccessCode>
 
-type Story = StoryObj<typeof ConfirmAccessCode>
+type Story = StoryObj<typeof EnterAccessCode>
 
 export const Default: Story = {}
 export const ErrorState: Story = {
