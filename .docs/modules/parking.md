@@ -61,7 +61,7 @@ W -- No --> Y{Does this session require payment during start?}
 Y -- Yes --> Z[Browser checkout opens]
 Z --> AA[User completes or cancels payment]
 AA --> AB{Did payment complete?}
-AB -- Yes --> AC[App confirms the order, users returns to parking dashboard in order to re-enter start session flow]
+AB -- Yes --> AC[App confirms the order and returns the user to the parking dashboard]
 AB -- No --> AD[User returns without a started session]
 Y -- No --> AE[App starts the session immediately and returns to the overview]
 ```
