@@ -16,45 +16,41 @@ import {ParkingRouteName} from '@/modules/parking/routes'
 
 type Props = NavigationProps<ParkingRouteName.startSession>
 
-export const ParkingStartSessionScreen = ({route}: Props) => {
-  const {params} = route || {}
-
-  return (
-    <CurrentPermitProvider>
-      <ParkingSessionFormProvider
-        defaultValues={{
-          licensePlate: params?.licensePlate,
-          startTime: params?.defaultStartTime,
-        }}>
-        <Screen
-          bottomSheet={<ParkingSessionBottomSheet />}
-          keyboardAware
-          stickyFooter={
-            <Box
-              insetBottom="smd"
-              insetHorizontal="md">
-              <ParkingSessionSubmitButton />
-            </Box>
-          }
-          testID="ParkingStartSessionScreen">
-          <Box>
-            <Column gutter="xl">
-              <Column gutter="lg">
-                <ParkingChooseLicensePlateButton />
-                <ParkingSessionChooseParkingMachine
-                  selectedParkingMachineId={params?.parkingMachineId}
-                />
-
-                <ParkingPermitNotYetActiveNotice />
-                <ParkingSessionChooseTime />
-
-                <ParkingMaxSessionsWarning />
-              </Column>
-              <ParkingReceipt />
-            </Column>
+export const ParkingStartSessionScreen = ({route: {params}}: Props) => (
+  <CurrentPermitProvider>
+    <ParkingSessionFormProvider
+      defaultValues={{
+        licensePlate: params?.licensePlate,
+        startTime: params?.defaultStartTime,
+      }}>
+      <Screen
+        bottomSheet={<ParkingSessionBottomSheet />}
+        keyboardAware
+        stickyFooter={
+          <Box
+            insetBottom="smd"
+            insetHorizontal="md">
+            <ParkingSessionSubmitButton />
           </Box>
-        </Screen>
-      </ParkingSessionFormProvider>
-    </CurrentPermitProvider>
-  )
-}
+        }
+        testID="ParkingStartSessionScreen">
+        <Box>
+          <Column gutter="xl">
+            <Column gutter="lg">
+              <ParkingChooseLicensePlateButton />
+              <ParkingSessionChooseParkingMachine
+                selectedParkingMachineId={params?.parkingMachineId}
+              />
+
+              <ParkingPermitNotYetActiveNotice />
+              <ParkingSessionChooseTime />
+
+              <ParkingMaxSessionsWarning />
+            </Column>
+            <ParkingReceipt />
+          </Column>
+        </Box>
+      </Screen>
+    </ParkingSessionFormProvider>
+  </CurrentPermitProvider>
+)
