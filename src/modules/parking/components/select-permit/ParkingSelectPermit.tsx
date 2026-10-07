@@ -32,7 +32,7 @@ export const ParkingSelectPermit = () => {
       <Column gutter="lg">
         <Column gutter="sm">
           {Object.values(parkingAccounts).some(
-            acc => acc.scope === ParkingPermitScope.permitHolder,
+            account => account.scope === ParkingPermitScope.permitHolder,
           ) && (
             <Title
               level="h4"

@@ -27,18 +27,18 @@ export const ParkingAccountLink = ({account}: Props) => {
 
   return (
     <NavigationButton
-      accessibilityLabel={`Meldcode ${account.reportCode}, ${secureAccount?.name ?? 'Naam toevoegen'}`}
+      accessibilityLabel={`Meldcode ${reportCode}, ${secureAccount?.name ?? 'Naam toevoegen'}`}
       chevronSize="ml"
-      description={secureAccount?.name ? account.reportCode : 'Naam toevoegen'}
+      description={secureAccount?.name ? reportCode : 'Naam toevoegen'}
       emphasis="default"
-      key={account.reportCode}
+      key={reportCode}
       onPress={() => {
         navigate(ParkingRouteName.account, {
-          reportCode: account.reportCode,
+          reportCode,
         })
       }}
-      testID={`ParkingAccountsByScope-${account.reportCode}NavigationButton`}
-      title={secureAccount?.name ?? account.reportCode}
+      testID={`ParkingAccountsByScope-${reportCode}NavigationButton`}
+      title={secureAccount?.name ?? reportCode}
     />
   )
 }
