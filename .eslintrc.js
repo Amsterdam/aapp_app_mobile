@@ -5,7 +5,6 @@ module.exports = {
     'typescript-sort-keys',
     'jest',
     'sonarjs',
-    'amsterdam',
     'react-refresh',
     'depend',
   ],
@@ -52,9 +51,6 @@ module.exports = {
         'sonarjs/aws-restricted-ip-admin-access': 'off',
         'sonarjs/deprecation': 'off',
         'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits
-        'amsterdam/todo-comment-requires-ticket': 'warn',
-        'amsterdam/no-navigation-hooks-in-screens': 'error',
-        'amsterdam/no-mixed-async-styles': 'warn',
         'no-process-env': 'error',
         'depend/ban-dependencies': 'warn',
         '@typescript-eslint/no-empty-function': 'warn',
@@ -190,8 +186,6 @@ module.exports = {
         ],
         'no-extra-semi': 'off',
         'prettier/prettier': 'off',
-        'react/jsx-no-explicit-spread': 'off',
-        'amsterdam/jsx-no-explicit-spread': 'error',
         'padding-line-between-statements': [
           'warn',
           {
@@ -226,11 +220,6 @@ module.exports = {
         'plugin:typescript-sort-keys/recommended',
       ],
       rules: {
-        'amsterdam/named-component-props': 'warn',
-        'amsterdam/no-relative-file-import': 'warn',
-        'amsterdam/no-type-import-for-function-component': 'warn',
-        'amsterdam/jsx-strict-logical-expression': 'error',
-        'amsterdam/jsx-prefer-coerced-and-over-null-ternary': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/restrict-template-expressions': 'error',
@@ -253,19 +242,12 @@ module.exports = {
         'sonarjs/no-undefined-argument': 'off',
       },
     },
-    {
-      files: ['eslint-plugin-amsterdam/*.test.ts'],
-      rules: {
-        'amsterdam/prefer-multiline-eslint-test-strings': 'warn',
-      },
-    },
     // Storybook config folder and stories
     {
       files: ['.storybook/**/*', '*.stories.tsx'],
       rules: {
         'no-restricted-imports': 'off',
         'sonarjs/no-identical-functions': 'off',
-        'amsterdam/no-relative-file-import': 'off',
         'storybook/no-stories-of': 'error',
         'storybook/no-title-property-in-meta': 'error',
         'react-refresh/only-export-components': 'off',
@@ -277,7 +259,6 @@ module.exports = {
         'react-native-salesforce-messaging-in-app/**/*.tsx',
       ],
       rules: {
-        'amsterdam/no-relative-file-import': 'off',
         'no-restricted-imports': 'off',
         'react-refresh/only-export-components': 'off',
       },

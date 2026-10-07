@@ -45,6 +45,7 @@ export default defineConfig({
     'sonarjs/synchronous-suite-callback': 'warn',
     'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits
     'eslint/no-async-promise-executor': 'warn',
+    'amsterdam/jsx-no-explicit-spread': 'error',
     'amsterdam/named-component-props': 'warn',
     'amsterdam/no-relative-file-import': 'warn',
     'amsterdam/no-type-import-for-function-component': 'warn',
