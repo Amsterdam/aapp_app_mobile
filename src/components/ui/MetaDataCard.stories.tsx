@@ -1,6 +1,6 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {MetaDataCard} from './MetaDataCard'
 import {Phrase} from './text/Phrase'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta = {
   component: MetaDataCard,

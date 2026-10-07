@@ -1,8 +1,8 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {UserRouteName} from '../../routes'
 import {screenConfig} from '../../screenConfig'
 import {RemoveAllDataScreen} from './RemoveAllData.screen'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
-import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 
 const Stack = createStackNavigator()
 

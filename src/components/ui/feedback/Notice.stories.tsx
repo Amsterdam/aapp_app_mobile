@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
-import {Notice} from '@/components/ui/feedback/Notice'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
+import {Notice} from '@/components/ui/feedback/Notice'
 
 const meta = {
   component: Notice,

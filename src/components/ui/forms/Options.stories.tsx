@@ -1,7 +1,7 @@
-import {Options, Option as OptionType} from './Options'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {LayoutOrientation} from '@/components/ui/types'
 import {QuestionType} from '@/modules/survey/types'
+import {Options, Option as OptionType} from './Options'
 
 const meta = {
   argTypes: {

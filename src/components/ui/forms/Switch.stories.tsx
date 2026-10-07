@@ -1,6 +1,6 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Text} from 'react-native'
 import {Switch} from './Switch'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: Switch,

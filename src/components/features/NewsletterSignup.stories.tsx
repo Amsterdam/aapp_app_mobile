@@ -1,5 +1,5 @@
-import {NewsletterSignup} from './NewsletterSignup'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {NewsletterSignup} from './NewsletterSignup'
 
 export default {
   component: NewsletterSignup,

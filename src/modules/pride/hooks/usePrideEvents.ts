@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
-import type {PrideEvent} from '@/modules/pride/types'
 import {usePrideEventsQuery} from '@/modules/pride/service'
+import type {PrideEvent} from '@/modules/pride/types'
 import {useServiceOverviewQuery} from '@/modules/service/service'
 import {ServiceModuleSource} from '@/modules/service/types'
 

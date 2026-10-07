@@ -1,17 +1,15 @@
 /**
  * this component is comes from react-native-reanimated-carousel v4, but as that provided some problems it is currently copied and adjusted here
  */
-
-import React from 'react'
+import type {PropsWithChildren} from 'react'
 import {StyleSheet, View} from 'react-native'
+import type {ViewProps, ViewStyle} from 'react-native'
 import Animated, {
   Extrapolation,
   interpolate,
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated'
-import type {PropsWithChildren} from 'react'
-import type {ViewProps, ViewStyle} from 'react-native'
 
 export type DotStyle = Omit<ViewStyle, 'width' | 'height'> & {
   height?: number
@@ -29,7 +27,7 @@ type Props = PropsWithChildren<{
 }> &
   ViewProps
 
-export const PaginationItem: React.FC<Props> = props => {
+export const PaginationItem = (props: Props) => {
   const {
     animValue,
     dotStyle,

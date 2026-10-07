@@ -1,11 +1,11 @@
 import {type PropsWithChildren} from 'react'
-import type {SvgIconName} from '@/components/ui/media/svgIcons'
-import type {TestProps} from '@/components/ui/types'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import type {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Title} from '@/components/ui/text/Title'
+import type {TestProps} from '@/components/ui/types'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const MetaDataCard = ({

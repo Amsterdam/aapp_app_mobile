@@ -1,5 +1,4 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import type {BoatChargingSessionCostBreakdownItem} from '@/modules/boat-charging/types'
 import {Divider} from '@/components/ui/Divider'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -11,6 +10,7 @@ import {BoatChargingHistorySessionCostDetailsInfoRow} from '@/modules/boat-charg
 import {boatChargingCostItemTypeMap} from '@/modules/boat-charging/constants/boatChargingCostItemTypeMap'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {useBoatChargingSessionCostBreakdownQuery} from '@/modules/boat-charging/service'
+import type {BoatChargingSessionCostBreakdownItem} from '@/modules/boat-charging/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingSessionCostBreakdown = () => {

@@ -1,5 +1,5 @@
-import {MoreInfoButton} from './MoreInfoButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {MoreInfoButton} from './MoreInfoButton'
 
 export default {
   component: MoreInfoButton,

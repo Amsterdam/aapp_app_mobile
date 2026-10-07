@@ -1,7 +1,7 @@
+import type {StoreEnhancer} from '@reduxjs/toolkit'
 /* eslint-disable @typescript-eslint/no-require-imports */
 import {Platform} from 'react-native'
 import {getDeviceNameSync} from 'react-native-device-info'
-import type {StoreEnhancer} from '@reduxjs/toolkit'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 
 const isBundleLoadedFromServer = () => {

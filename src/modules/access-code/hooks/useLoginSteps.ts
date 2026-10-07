@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useUnsetCode} from '@/modules/access-code/hooks/useUnsetCode'
@@ -8,6 +7,7 @@ import {
   setLoginStepsActive,
 } from '@/modules/access-code/slice'
 import {AccessCodeType} from '@/modules/access-code/types'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const useLoginSteps = (module: ModuleSlug) => {
   const isLoginStepsActive = useSelector(state =>

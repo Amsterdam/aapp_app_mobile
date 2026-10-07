@@ -1,7 +1,7 @@
-import {ChargingPointStatus} from '../types'
-import {BoatChargingSocketStatusTag} from './BoatChargingSocketStatusTag'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Column} from '@/components/ui/layout/Column'
+import {ChargingPointStatus} from '../types'
+import {BoatChargingSocketStatusTag} from './BoatChargingSocketStatusTag'
 
 const meta = {
   component: BoatChargingSocketStatusTag,

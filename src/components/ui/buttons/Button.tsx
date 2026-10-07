@@ -1,6 +1,5 @@
 import {useCallback, useState} from 'react'
 import {FlexStyle, GestureResponderEvent, StyleSheet, Text} from 'react-native'
-import type {SpacingTokens} from '@/themes/tokens/size'
 import {ButtonIcon} from '@/components/ui/buttons/ButtonIcon'
 import {
   PressableBaseProps,
@@ -10,6 +9,7 @@ import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
 import {type IconProps} from '@/components/ui/media/Icon'
 import {Theme} from '@/themes/themes'
+import type {SpacingTokens} from '@/themes/tokens/size'
 import {useTheme} from '@/themes/useTheme'
 
 export type ButtonVariant =

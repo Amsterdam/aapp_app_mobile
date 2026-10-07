@@ -1,7 +1,7 @@
-import type {TestProps} from '@/components/ui/types'
 import type {ComponentProps} from 'react'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {MapMarkerBase} from '@/components/features/map/marker/MarkerBase'
+import type {TestProps} from '@/components/ui/types'
 
 const ICON_SIZE = 24
 

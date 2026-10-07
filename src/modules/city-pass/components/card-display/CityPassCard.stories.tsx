@@ -1,5 +1,5 @@
-import {CityPassCard} from './CityPassCard'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {CityPassCard} from './CityPassCard'
 
 export default {
   component: CityPassCard,

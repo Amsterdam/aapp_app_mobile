@@ -1,11 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import type {EntriesWithImports, ImportsCodeGenConfigItem} from '../types.mts'
 import {buildImport} from './buildImport.mts'
 import {generateOutputData} from './generateOutputData.mts'
 import {getAvailableImports} from './getAvailableImports.mts'
 import {getRootDirectories} from './getRootDirectories.mts'
 import {toImportPath} from './toImportPath.mts'
-import type {EntriesWithImports, ImportsCodeGenConfigItem} from '../types.mts'
 
 export const generateImportsOutput = ({
   inputDir,

@@ -1,11 +1,11 @@
-import type {
-  ServiceMapResponse,
-  ServiceMapResponseFilter,
-} from '@/modules/service/types'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
+import type {
+  ServiceMapResponse,
+  ServiceMapResponseFilter,
+} from '@/modules/service/types'
 
 type Props = {
   icons: ServiceMapResponse['icons_to_include']

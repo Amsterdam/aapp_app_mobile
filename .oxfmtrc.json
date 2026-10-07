@@ -10,6 +10,11 @@
   "trailingComma": "all",
   "printWidth": 80,
   "sortPackageJson": false,
+  "sortImports": {
+    "newlinesBetween": false,
+    "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+    "order": "asc"
+  },
   "ignorePatterns": [
     "react-native-block-screenshot/lib",
     "react-native-salesforce-messaging-in-app/lib",

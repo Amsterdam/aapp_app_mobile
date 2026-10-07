@@ -1,5 +1,4 @@
 import {Linking} from 'react-native'
-import type {TestProps} from '@/components/ui/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,6 +6,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
+import type {TestProps} from '@/components/ui/types'
 
 type Props = TestProps
 

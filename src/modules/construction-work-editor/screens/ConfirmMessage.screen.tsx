@@ -14,7 +14,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {alerts} from '@/modules/construction-work-editor/alerts'
 import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
 import {
@@ -30,6 +29,7 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/service'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 import {escapeHtml} from '@/utils/escapeHtml'

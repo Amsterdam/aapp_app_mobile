@@ -1,5 +1,5 @@
-import type {ServiceMapResponseIcon} from '@/modules/service/types'
 import {CustomMarker} from '@/components/features/map/marker/CustomMarker'
+import type {ServiceMapResponseIcon} from '@/modules/service/types'
 
 type Props = {
   icon: ServiceMapResponseIcon

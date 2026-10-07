@@ -1,6 +1,5 @@
 import {addons} from 'storybook/manager-api'
 import {create} from 'storybook/theming'
-
 import './preview.css'
 
 const theme = create({

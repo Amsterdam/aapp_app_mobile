@@ -1,5 +1,5 @@
-import type {BoatChargingSession} from '@/modules/boat-charging/types'
 import {NRGStatus, SessionStatus} from '@/modules/boat-charging/types'
+import type {BoatChargingSession} from '@/modules/boat-charging/types'
 import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
 
 const createSession = (

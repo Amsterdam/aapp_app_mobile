@@ -1,9 +1,9 @@
 import {Button} from '@/components/ui/buttons/Button'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
+import {List} from '@/components/ui/text/list/List'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {List} from '@/components/ui/text/list/List'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingLogoutButton} from '@/modules/parking/components/logout/ParkingLogoutButton'
 import {

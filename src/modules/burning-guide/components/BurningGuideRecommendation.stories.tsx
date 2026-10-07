@@ -1,6 +1,6 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {BurningGuideCodeVariant} from '../types'
 import {BurningGuideRecommendation} from './BurningGuideRecommendation'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta = {
   component: BurningGuideRecommendation,

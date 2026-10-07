@@ -1,12 +1,12 @@
-import {StyleSheet, View} from 'react-native'
-import type {IconProps} from '@/components/ui/media/Icon'
-import type {Theme} from '@/themes/themes'
 import type {ReactElement, Ref} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {Pressable, type PressableProps} from '@/components/ui/buttons/Pressable'
 import {config} from '@/components/ui/config'
 import {Badge, type BadgeProps} from '@/components/ui/feedback/Badge'
 import {Row} from '@/components/ui/layout/Row'
+import type {IconProps} from '@/components/ui/media/Icon'
 import {IconSize} from '@/components/ui/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {

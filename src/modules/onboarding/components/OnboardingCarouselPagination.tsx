@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native'
 import {type SharedValue} from 'react-native-reanimated'
-import type {Theme} from '@/themes/themes'
 import {Basic} from '@/components/ui/carousel/pagination/PaginationBasic'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props<T extends Record<string, unknown>> = {

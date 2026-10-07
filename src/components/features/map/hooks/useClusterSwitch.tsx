@@ -1,17 +1,17 @@
 import {useCallback, isValidElement, useMemo} from 'react'
+import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
+import {GroupedClusterMarker} from '@/components/features/map/clusters/GroupedClusterMarker'
+import {useMap} from '@/components/features/map/hooks/useMap'
+import {useIsMarkerSelected} from '@/components/features/map/MapSelectionContext'
+import {
+  MapMarkerVariant,
+  MapMarkerVariants,
+} from '@/components/features/map/marker/MapMarkerVariants'
 import type {
   ClusterProperties,
   MarkerProperties,
   ClusterItem,
 } from '@/components/features/map/types'
-import {useIsMarkerSelected} from '@/components/features/map/MapSelectionContext'
-import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
-import {GroupedClusterMarker} from '@/components/features/map/clusters/GroupedClusterMarker'
-import {useMap} from '@/components/features/map/hooks/useMap'
-import {
-  MapMarkerVariant,
-  MapMarkerVariants,
-} from '@/components/features/map/marker/MapMarkerVariants'
 import {isNearlyEqualFloat} from '@/components/features/map/utils/isNearlyEqualFloat'
 import {devError} from '@/processes/development'
 import {

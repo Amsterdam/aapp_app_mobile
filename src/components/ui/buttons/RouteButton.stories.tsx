@@ -1,5 +1,5 @@
-import {RouteButton} from './RouteButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {RouteButton} from './RouteButton'
 
 const meta = {
   component: RouteButton,

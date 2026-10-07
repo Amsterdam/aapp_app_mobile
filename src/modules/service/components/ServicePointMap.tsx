@@ -1,9 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import type {Feature} from 'geojson'
 import {useMemo, useState} from 'react'
 import {type Region} from 'react-native-maps'
-import type {Service} from '@/modules/service/types'
-import type {Feature} from 'geojson'
-import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {
   DEFAULT_CLUSTER_OPTIONS,
@@ -13,12 +11,14 @@ import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {useInitialRegion} from '@/components/features/map/hooks/useInitialRegion'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {LineString} from '@/components/features/map/line-string/LineString'
+import {MapBase} from '@/components/features/map/MapBase'
 import {Polygons} from '@/components/features/map/polygon/Polygons'
 import {ControlVariant, MapFocus} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
+import type {Service} from '@/modules/service/types'
 
 type Props = {
   focusType?: MapFocus

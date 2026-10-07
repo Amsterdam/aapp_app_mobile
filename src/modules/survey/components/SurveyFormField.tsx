@@ -1,9 +1,9 @@
 import {pascalCase} from 'pascal-case'
 import {useFormContext} from 'react-hook-form'
 import {View} from 'react-native'
-import type {TestProps} from '@/components/ui/types'
-import {OptionsControlled} from '@/components/ui/forms/OptionsControlled'
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
+import {OptionsControlled} from '@/components/ui/forms/OptionsControlled'
+import type {TestProps} from '@/components/ui/types'
 import {SurveyConditionalFormField} from '@/modules/survey/components/SurveyConditionalFormField'
 import {
   choiceTypes,

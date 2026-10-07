@@ -2,13 +2,13 @@ import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductT
 import {Tip} from '@/components/features/product-tour/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Placement} from '@/components/ui/types'
-import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
-import {ParkingPermitSwitcher} from '@/modules/parking/components/ParkingPermitSwitcher'
 import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
 import {ParkingPaymentByVisitorButton} from '@/modules/parking/components/dashboard/ParkingPaymentByVisitorButton'
 import {ParkingPermitBalance} from '@/modules/parking/components/dashboard/ParkingPermitBalance'
 import {ParkingPermitSessions} from '@/modules/parking/components/dashboard/ParkingPermitSessions'
 import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
+import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
+import {ParkingPermitSwitcher} from '@/modules/parking/components/ParkingPermitSwitcher'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 
 export const ParkingDashboard = () => {

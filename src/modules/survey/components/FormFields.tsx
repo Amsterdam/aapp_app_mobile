@@ -1,5 +1,5 @@
-import type {Question} from '@/modules/survey/types'
 import {SurveyFormField} from '@/modules/survey/components/SurveyFormField'
+import type {Question} from '@/modules/survey/types'
 
 type Props = {
   questions?: Question[]

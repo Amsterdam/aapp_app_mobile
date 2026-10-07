@@ -12,9 +12,9 @@ import Animated, {
   useSharedValue,
   type SharedValue,
 } from 'react-native-reanimated'
+import {LAYOUT_DEBOUNCE_DURATION_MS} from '@/components/features/bottom-sheet/constants'
 import type {TestProps} from '@/components/ui/types'
 import type {Theme} from '@/themes/themes'
-import {LAYOUT_DEBOUNCE_DURATION_MS} from '@/components/features/bottom-sheet/constants'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {

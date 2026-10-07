@@ -1,5 +1,5 @@
-import {FollowButton} from './FollowButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {FollowButton} from './FollowButton'
 
 export default {
   component: FollowButton,

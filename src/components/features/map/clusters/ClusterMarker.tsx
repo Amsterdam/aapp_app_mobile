@@ -1,8 +1,8 @@
 import {View, StyleSheet} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import {ClusterMarkerWrapper} from '@/components/features/map/clusters/ClusterMarkerWrapper'
 import {calculateClusterDimensions} from '@/components/features/map/utils/calculateClusterDimensions'
 import {Phrase} from '@/components/ui/text/Phrase'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 const DEFAULT_OUTER_PADDING = 12

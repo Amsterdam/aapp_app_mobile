@@ -1,9 +1,9 @@
-import type {TestProps} from '@/components/ui/types'
-import type {CarouselItemVariant} from '@/modules/onboarding/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {DigiDButton} from '@/components/ui/buttons/DigiDButton'
 import {Track} from '@/components/ui/layout/Track'
+import type {TestProps} from '@/components/ui/types'
 import {useCloseOnboarding} from '@/modules/onboarding/hooks/useCloseOnboarding'
+import type {CarouselItemVariant} from '@/modules/onboarding/types'
 
 type Props = {
   button: CarouselItemVariant['button']

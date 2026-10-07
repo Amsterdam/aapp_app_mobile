@@ -1,5 +1,5 @@
-import {ImageFallback} from './ImageFallback'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ImageFallback} from './ImageFallback'
 
 const meta = {
   component: ImageFallback,

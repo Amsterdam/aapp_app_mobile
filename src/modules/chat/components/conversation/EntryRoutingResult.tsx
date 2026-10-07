@@ -5,8 +5,8 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {LoadingDots} from '@/modules/chat/components/LoadingDots'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
+import {LoadingDots} from '@/modules/chat/components/LoadingDots'
 import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {getWaitingTimePhrase} from '@/modules/chat/utils/getWaitingTimePhrase'
 

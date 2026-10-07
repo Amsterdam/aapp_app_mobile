@@ -1,6 +1,5 @@
 import {StyleSheet, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import type {Theme} from '@/themes/themes'
 import {MapBase} from '@/components/features/map/MapBase'
 import {
   MapMarkerVariant,
@@ -15,6 +14,7 @@ import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetActiveRecyclePoint} from '@/modules/waste-guide/hooks/useGetActiveRecyclePoint'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 export const WasteGuideRecyclePointMap = () => {

@@ -1,6 +1,6 @@
-import {FigureWithFacadesBackground} from './FigureWithFacadesBackground'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import HouseholdWasteToContainerImage from '@/modules/waste-guide/assets/images/household-waste-to-container.svg'
+import {FigureWithFacadesBackground} from './FigureWithFacadesBackground'
 
 const meta = {
   component: FigureWithFacadesBackground,

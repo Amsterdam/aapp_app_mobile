@@ -1,8 +1,6 @@
 import {useMemo} from 'react'
 import {FlatList, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
-import type {Theme} from '@/themes/themes'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
   ConditionType,
@@ -17,8 +15,10 @@ import {AddressSwitch} from '@/modules/address/exports/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
 import {BoatChargingEmptyList} from '@/modules/boat-charging/components/BoatChargingEmptyList'
 import {BoatChargingListItem} from '@/modules/boat-charging/components/BoatChargingListItem'
+import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {layoutStyles} from '@/styles/layoutStyles'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 

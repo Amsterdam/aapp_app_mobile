@@ -1,5 +1,5 @@
-import {FilterButton} from './FilterButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {FilterButton} from './FilterButton'
 
 const FILTER = {
   filter_key: 'aapp_is_toilet',

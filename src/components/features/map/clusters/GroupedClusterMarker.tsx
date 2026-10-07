@@ -1,10 +1,10 @@
 import {useMemo} from 'react'
+import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
+import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import type {
   ClusterProperties,
   ClusterItem,
 } from '@/components/features/map/types'
-import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
-import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {getClusterChildren} from '@/components/features/map/utils/getClusterChildren'
 
 type Layer = NonNullable<ReturnType<typeof useMapFilters>['layers']>[number]

@@ -1,8 +1,8 @@
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useAccessCodeBiometrics} from '@/modules/access-code/exports/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/exports/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/exports/useGetSecureAccessCode'
 import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export enum AccessCodeGateStateName {
   accessCode = 'accessCode',

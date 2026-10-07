@@ -6,14 +6,13 @@
  */
 
 import {StyleSheet, View, type StyleProp, type ViewStyle} from 'react-native'
-
-import type {TestProps} from '@/components/ui/types'
 import type {SharedValue} from 'react-native-reanimated'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {
   type DotStyle,
   PaginationItem,
 } from '@/components/ui/carousel/pagination/PaginationItem'
+import type {TestProps} from '@/components/ui/types'
 
 export type BasicProps<T extends object = object> = {
   accessibilityLabel?: string

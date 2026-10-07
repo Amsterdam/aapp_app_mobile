@@ -1,9 +1,14 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
-import {ParkingTransactionHistoryHeaderButton} from '@/modules/parking/components/ParkingTransactionHistoryHeaderButton'
 import {AddLicensePlateHeaderButton} from '@/modules/parking/components/license-plates/AddLicensePlateHeaderButton'
+import {ParkingTransactionHistoryHeaderButton} from '@/modules/parking/components/ParkingTransactionHistoryHeaderButton'
 import {ParkingRouteName, ModuleStackParams} from '@/modules/parking/routes'
+import {ParkingAccountScreen} from '@/modules/parking/screens/accounts/ParkingAccount.screen'
+import {ParkingAccountsScreen} from '@/modules/parking/screens/accounts/ParkingAccounts.screen'
 import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.screen'
 import {ChangeLicensePlateScreen} from '@/modules/parking/screens/ChangeLicensePlate.screen'
+import {ParkingLogoutScreen} from '@/modules/parking/screens/logout/ParkingLogout.screen'
+import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
+import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
 import {ParkingAccountInactiveScreen} from '@/modules/parking/screens/ParkingAccountInactiveScreen.screen'
 import {ParkingActiveSessionsScreen} from '@/modules/parking/screens/ParkingActiveSessions.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
@@ -17,11 +22,6 @@ import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.scr
 import {ParkingSessionHistoryScreen} from '@/modules/parking/screens/ParkingSessionHistory.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
 import {ParkingVisitorExtendSessionScreen} from '@/modules/parking/screens/ParkingVisitorExtendSession.screen'
-import {ParkingAccountScreen} from '@/modules/parking/screens/accounts/ParkingAccount.screen'
-import {ParkingAccountsScreen} from '@/modules/parking/screens/accounts/ParkingAccounts.screen'
-import {ParkingLogoutScreen} from '@/modules/parking/screens/logout/ParkingLogout.screen'
-import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
-import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
 
 export type ParkingScreenConfigRoutes = Exclude<
   ParkingRouteName,

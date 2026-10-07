@@ -1,6 +1,6 @@
-import {run} from './run.mts'
 import type {CodeGenConfig} from '../types.mts'
+import {run} from './run.mts'
 
 export const lintAll = (config: CodeGenConfig) => {
-  run('npx', ['eslint', '--fix', ...config.map(({output}) => output)])
+  run('npx', ['oxlint', '--fix', ...config.map(({output}) => output)])
 }

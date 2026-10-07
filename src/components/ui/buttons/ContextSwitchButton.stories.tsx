@@ -1,5 +1,5 @@
-import {ContextSwitchButton} from './ContextSwitchButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ContextSwitchButton} from './ContextSwitchButton'
 
 const meta = {
   component: ContextSwitchButton,

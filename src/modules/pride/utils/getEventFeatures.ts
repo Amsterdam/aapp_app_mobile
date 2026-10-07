@@ -1,4 +1,3 @@
-import type {ServicePointFeature} from '@/modules/service/types'
 import {
   EVENTS_FILTER_KEY,
   EVENTS_FILTER_VALUE,
@@ -8,6 +7,7 @@ import {
 } from '@/modules/pride/constants'
 import {formatMeta} from '@/modules/pride/utils/formatMeta'
 import {getEventsSeparatedByLocation} from '@/modules/pride/utils/getEventsSeparatedByLocation'
+import type {ServicePointFeature} from '@/modules/service/types'
 
 export const getEventFeatures = (
   eventsSeparatedByLocation: ReturnType<typeof getEventsSeparatedByLocation>,

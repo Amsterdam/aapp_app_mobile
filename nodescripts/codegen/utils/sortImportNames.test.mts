@@ -1,5 +1,5 @@
-import {sortImportNames} from './sortImportNames.mts'
 import type {ImportConfig} from '../types.mts'
+import {sortImportNames} from './sortImportNames.mts'
 
 describe('sortImportNames', () => {
   const wrap = (name: string): ImportConfig => ({import: name})

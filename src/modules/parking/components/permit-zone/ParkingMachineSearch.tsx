@@ -5,7 +5,6 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {SearchField} from '@/components/ui/forms/SearchField'
 import {Column} from '@/components/ui/layout/Column'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-
 import {ParkingMachineSearchResults} from '@/modules/parking/components/permit-zone/ParkingMachineSearchResults'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'

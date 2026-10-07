@@ -1,4 +1,10 @@
-import React, {useState, ReactNode, ReactElement} from 'react'
+import {
+  useState,
+  ReactNode,
+  ReactElement,
+  Children,
+  isValidElement,
+} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Column} from '@/components/ui/layout/Column'
@@ -33,7 +39,7 @@ export const Tabs = ({children, grow = 0, testID}: TabsProps) => {
   const [activeTab, setActiveTab] = useState(0)
 
   const styles = useThemable(createStyles)
-  const childrenArray = React.Children.toArray(children).filter(child =>
+  const childrenArray = Children.toArray(children).filter(child =>
     isChildElementTab(child),
   )
 
@@ -68,7 +74,7 @@ export const Tabs = ({children, grow = 0, testID}: TabsProps) => {
           ))}
         </Row>
       </View>
-      {React.Children.toArray(children)[activeTab]}
+      {Children.toArray(children)[activeTab]}
     </Column>
   )
 }
@@ -78,7 +84,7 @@ const Tab = ({children}: TabProps) => <>{children}</>
 Tabs.Tab = Tab
 
 const isChildElementTab = (child: ReactNode): child is ReactElement<TabProps> =>
-  React.isValidElement(child) && child.type === Tab
+  isValidElement(child) && child.type === Tab
 
 const createStyles = ({color, size, border}: Theme) =>
   StyleSheet.create({

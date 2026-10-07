@@ -1,9 +1,9 @@
 import {ReactNode, useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
-import type {ParkingLicensePlateBase} from '@/modules/parking/types'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingSessionContext} from '@/modules/parking/hooks/useParkingSession'
 import {ParkingSession} from '@/modules/parking/types'
+import type {ParkingLicensePlateBase} from '@/modules/parking/types'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {

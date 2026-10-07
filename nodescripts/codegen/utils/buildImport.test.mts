@@ -1,5 +1,5 @@
-import {buildImport} from './buildImport.mts'
 import type {ImportConfig} from '../types.mts'
+import {buildImport} from './buildImport.mts'
 
 describe('buildImport', () => {
   it('handles default import only', () => {

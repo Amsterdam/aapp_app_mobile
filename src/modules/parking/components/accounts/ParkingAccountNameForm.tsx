@@ -1,5 +1,4 @@
 import {FormProvider, useForm} from 'react-hook-form'
-import type {ParkingAccount} from '@/modules/parking/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
@@ -7,6 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAddSecureParkingAccountName} from '@/modules/parking/hooks/useAddSecureParkingAccountName'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
+import type {ParkingAccount} from '@/modules/parking/types'
 import {devLog} from '@/processes/development'
 
 type ParkingAccountNameFormValues = {

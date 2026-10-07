@@ -1,5 +1,5 @@
-import {LayoutRectangle, type AccessibilityProps, View} from 'react-native'
 import type {ReactNode, Ref} from 'react'
+import {LayoutRectangle, type AccessibilityProps, View} from 'react-native'
 import {Placement, type TestProps} from '@/components/ui/types'
 import {SpacingTokens} from '@/themes/tokens/size'
 

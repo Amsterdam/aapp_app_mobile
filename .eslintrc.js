@@ -1,7 +1,6 @@
 module.exports = {
   root: true,
   plugins: [
-    'import-x',
     'prefer-arrow-functions',
     'typescript-sort-keys',
     'jest',
@@ -79,24 +78,6 @@ module.exports = {
           },
         ],
         'react-native/no-single-element-style-arrays': 'warn',
-        'import-x/no-default-export': 'error',
-        'import-x/order': [
-          'warn',
-          {
-            groups: [
-              'builtin',
-              'external',
-              'internal',
-              'parent',
-              'sibling',
-              'index',
-              'type',
-            ],
-            alphabetize: {
-              order: 'asc',
-            },
-          },
-        ],
         '@typescript-eslint/no-magic-numbers': [
           'off',
           {
@@ -106,7 +87,6 @@ module.exports = {
             ignoreTypeIndexes: true,
           },
         ],
-        'import-x/prefer-default-export': 'off',
         'no-shadow': 'off',
         '@typescript-eslint/no-shadow': ['error'],
         'no-void': ['error', {allowAsStatement: true}],
@@ -283,7 +263,6 @@ module.exports = {
     {
       files: ['.storybook/**/*', '*.stories.tsx'],
       rules: {
-        'import-x/no-default-export': 'off',
         'no-restricted-imports': 'off',
         'sonarjs/no-identical-functions': 'off',
         'amsterdam/no-relative-file-import': 'off',
@@ -298,7 +277,6 @@ module.exports = {
         'react-native-salesforce-messaging-in-app/**/*.tsx',
       ],
       rules: {
-        'import-x/no-default-export': 'off',
         'amsterdam/no-relative-file-import': 'off',
         'no-restricted-imports': 'off',
         'react-refresh/only-export-components': 'off',

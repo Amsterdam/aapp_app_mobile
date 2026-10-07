@@ -1,12 +1,12 @@
-import {StyleSheet, View} from 'react-native'
-import type {ListItem} from '@/modules/burning-guide/types'
-import type {Theme} from '@/themes/themes'
 import type {PropsWithChildren} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {BurningGuideForecastListItem} from '@/modules/burning-guide/components/BurningGuideForecastListItem'
+import type {ListItem} from '@/modules/burning-guide/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {list: ListItem[]}

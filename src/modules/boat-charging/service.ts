@@ -1,4 +1,3 @@
-import type {Paginated} from '@/types/api'
 import type {
   QueryReturnValue,
   FetchBaseQueryError,
@@ -25,6 +24,7 @@ import {baseApi} from '@/services/baseApi'
 import {INFINITE_QUERY_OPTIONS} from '@/services/constants'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
+import type {Paginated} from '@/types/api'
 
 export const boatChargingApi = baseApi.injectEndpoints({
   endpoints: builder => ({

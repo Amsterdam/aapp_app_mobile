@@ -1,8 +1,6 @@
 import {useMemo} from 'react'
 import {SimpleGrid} from 'react-native-super-grid'
 import type {RoutesAcceptingParams} from '@/app/navigation/types'
-import type {Service, ServiceModuleSource} from '@/modules/service/types'
-import type {Theme} from '@/themes/themes'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {
@@ -10,7 +8,9 @@ import {
   type ServicesGridItemColorScheme,
 } from '@/modules/service/components/ServicesGridItem'
 import {useServiceOverviewQuery} from '@/modules/service/service'
+import type {Service, ServiceModuleSource} from '@/modules/service/types'
 import {getServiceGridItemColors} from '@/modules/service/utils/getServiceGridItemColors'
+import type {Theme} from '@/themes/themes'
 
 const MIN_WIDTH = 150
 

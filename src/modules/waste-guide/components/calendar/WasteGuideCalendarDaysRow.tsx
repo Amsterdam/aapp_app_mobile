@@ -1,8 +1,8 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import type {SpacingTokens} from '@/themes/tokens/size'
 import {Row} from '@/components/ui/layout/Row'
 import {Theme} from '@/themes/themes'
+import type {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {

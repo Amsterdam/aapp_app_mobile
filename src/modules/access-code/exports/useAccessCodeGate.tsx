@@ -1,6 +1,5 @@
 import {TransitionPresets} from '@react-navigation/stack'
 import {useCallback, type ReactNode} from 'react'
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {
   type RootStackParams,
@@ -20,6 +19,7 @@ import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeI
 import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 enum AccessCodeGateRouteName {
   fallback = 'AccessCodeGateFallback',

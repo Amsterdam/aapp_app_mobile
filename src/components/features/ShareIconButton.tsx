@@ -1,7 +1,7 @@
 import {Platform, Share} from 'react-native'
-import type {TestProps} from '@/components/ui/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
+import type {TestProps} from '@/components/ui/types'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 

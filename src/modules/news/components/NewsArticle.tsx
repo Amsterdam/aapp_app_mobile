@@ -1,4 +1,3 @@
-import type {NewsArticleBase} from '@/modules/news/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,6 +6,7 @@ import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNewsArticle} from '@/modules/news/hooks/useNewsArticle'
+import type {NewsArticleBase} from '@/modules/news/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {

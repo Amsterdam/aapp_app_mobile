@@ -1,6 +1,4 @@
 import {StyleSheet, View} from 'react-native'
-import type {Module} from '@/modules/types'
-import type {Theme} from '@/themes/themes'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -15,6 +13,8 @@ import {
   type Notification,
   NotificationModuleSlug,
 } from '@/modules/notification-history/types'
+import type {Module} from '@/modules/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {formatHistoryDateTime} from '@/utils/datetime/formatHistoryDateTime'
 

@@ -1,7 +1,7 @@
-import type {TestProps} from '@/components/ui/types'
-import type {Coordinates} from '@/types/location'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
+import type {TestProps} from '@/components/ui/types'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
+import type {Coordinates} from '@/types/location'
 
 type Props = {
   accessibilityLabel?: string

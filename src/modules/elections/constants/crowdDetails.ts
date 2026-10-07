@@ -1,6 +1,6 @@
 import type {SvgIconName} from '@/components/ui/media/svgIcons'
-import type {Theme} from '@/themes/themes'
 import {ElectionsState} from '@/modules/elections/types'
+import type {Theme} from '@/themes/themes'
 
 export const crowdStateMap: Record<
   ElectionsState,

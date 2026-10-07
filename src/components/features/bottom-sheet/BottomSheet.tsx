@@ -3,7 +3,6 @@ import {useEffect, useMemo, useState, type FC, type ReactNode} from 'react'
 import {StyleSheet, View, Platform, useWindowDimensions} from 'react-native'
 import {useSharedValue} from 'react-native-reanimated'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import type {Theme} from '@/themes/themes'
 import {BackgroundComponent} from '@/components/features/bottom-sheet/BackgroundComponent'
 import {BottomSheetBackdrop} from '@/components/features/bottom-sheet/BottomSheetBackdrop'
 import {BottomSheetCloseButton} from '@/components/features/bottom-sheet/BottomSheetCloseButton'
@@ -15,6 +14,7 @@ import {useToggleBottomSheet} from '@/components/features/bottom-sheet/hooks/use
 import {BottomSheetPresenceContext} from '@/components/features/bottom-sheet/providers/bottomSheetPresence.context'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 export type BottomSheetProps = {

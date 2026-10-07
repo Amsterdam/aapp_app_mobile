@@ -4,9 +4,9 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
+import {List} from '@/components/ui/text/list/List'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {List} from '@/components/ui/text/list/List'
 import {UserRouteName} from '@/modules/user/routes'
 
 type Props = NavigationProps<UserRouteName.about>

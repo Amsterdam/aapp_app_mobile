@@ -1,5 +1,5 @@
-import {useMemo} from 'react'
 import type {FeatureCollection, Geometry} from 'geojson'
+import {useMemo} from 'react'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 
 export enum ConditionType {

@@ -1,6 +1,6 @@
+import {Button, type ButtonProps} from '@/components/ui/buttons/Button'
 import type {TestProps} from '@/components/ui/types'
 import type {CarouselItemButton} from '@/modules/onboarding/types'
-import {Button, type ButtonProps} from '@/components/ui/buttons/Button'
 
 type Props = CarouselItemButton & TestProps & ButtonProps
 export const CarouselRenderItemContentButton = ({

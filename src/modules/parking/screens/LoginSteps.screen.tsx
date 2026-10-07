@@ -1,7 +1,6 @@
 import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
 import type {NavigationProps} from '@/app/navigation/types'
-import type {ParkingRouteName} from '@/modules/parking/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -14,6 +13,7 @@ import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import type {ParkingRouteName} from '@/modules/parking/routes'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const LoginStepsScreen = ({

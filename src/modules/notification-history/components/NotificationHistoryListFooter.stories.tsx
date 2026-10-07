@@ -1,5 +1,5 @@
-import {NotificationHistoryListFooter} from './NotificationHistoryListFooter'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {NotificationHistoryListFooter} from './NotificationHistoryListFooter'
 
 const meta = {
   component: NotificationHistoryListFooter,

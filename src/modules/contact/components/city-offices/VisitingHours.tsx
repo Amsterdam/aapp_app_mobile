@@ -1,7 +1,7 @@
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
-import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
+import {Title} from '@/components/ui/text/Title'
 import {CityOffice, VisitingHour} from '@/modules/contact/types'
 import {getGroupedOpeningHours} from '@/modules/contact/utils/getGroupedOpeningHours'
 

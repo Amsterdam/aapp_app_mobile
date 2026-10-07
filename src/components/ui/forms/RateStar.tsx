@@ -1,6 +1,6 @@
-import type {PressableProps} from '@/components/ui/buttons/Pressable'
 import type {GestureResponderEvent} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
+import type {PressableProps} from '@/components/ui/buttons/Pressable'
 import {Icon} from '@/components/ui/media/Icon'
 
 type RateStarProps = {

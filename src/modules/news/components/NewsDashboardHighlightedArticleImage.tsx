@@ -1,8 +1,8 @@
 import {StyleSheet, View} from 'react-native'
-import type {NewsArticleBase} from '@/modules/news/types'
-import type {Theme} from '@/themes/themes'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {LiveblogTag} from '@/modules/news/components/liveblog/LiveblogTag'
+import type {NewsArticleBase} from '@/modules/news/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {

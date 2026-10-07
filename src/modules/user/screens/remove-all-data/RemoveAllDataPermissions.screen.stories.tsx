@@ -1,13 +1,13 @@
-import {useEffect} from 'react'
-import {UserRouteName} from '../../routes'
-import {screenConfig} from '../../screenConfig'
-import {RemoveAllDataPermissionsScreen} from './RemoveAllDataPermissions.screen'
-import type {MetaArgs} from '@/storybook/types'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {useEffect} from 'react'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {setPermission} from '@/store/slices/permissions'
+import type {MetaArgs} from '@/storybook/types'
 import {Permissions} from '@/types/permissions'
+import {UserRouteName} from '../../routes'
+import {screenConfig} from '../../screenConfig'
+import {RemoveAllDataPermissionsScreen} from './RemoveAllDataPermissions.screen'
 
 const Stack = createStackNavigator()
 

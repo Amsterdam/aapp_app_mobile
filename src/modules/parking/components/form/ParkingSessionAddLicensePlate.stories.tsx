@@ -1,7 +1,7 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {FC} from 'react'
 import {ParkingSessionAddLicensePlate} from './ParkingSessionAddLicensePlate'
 import {ParkingSessionLicensePlateFormProvider} from './ParkingSessionLicensePlateFormProvider'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const formDecorator = (Story: FC) => (
   <ParkingSessionLicensePlateFormProvider>

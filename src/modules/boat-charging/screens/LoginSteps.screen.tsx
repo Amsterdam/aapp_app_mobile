@@ -1,7 +1,6 @@
 import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
 import type {NavigationProps} from '@/app/navigation/types'
-import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -13,6 +12,7 @@ import {useGetSecureAccessCode} from '@/modules/access-code/exports/useGetSecure
 import {useLoginSteps} from '@/modules/access-code/hooks/useLoginSteps'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
+import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
