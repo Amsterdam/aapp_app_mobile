@@ -8,6 +8,7 @@ import type {
 } from 'geojson'
 import type {Address} from '@/modules/address/exports/types'
 import type {EmptyObject} from '@/types/utils'
+
 export enum ServiceEndpointName {
   service = 'service',
   serviceOverview = 'serviceOverview',

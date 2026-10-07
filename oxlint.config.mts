@@ -7,8 +7,9 @@ const sonarjsRecommendedLegacyRules = getRulesFromPluginConfig(
   'recommended-legacy',
 )
 
+// oxlint-disable-next-line import/no-default-export
 export default defineConfig({
-  plugins: ['typescript', 'unicorn', 'oxc', 'react'],
+  plugins: ['typescript', 'unicorn', 'oxc', 'react', 'import'],
   jsPlugins: [
     './eslint-plugin-amsterdam/index.mts',
     'eslint-plugin-storybook',
@@ -57,7 +58,9 @@ export default defineConfig({
     'no-process-env': 'error',
     'no-shadow': 'error',
     'no-void': ['error', {allowAsStatement: true}],
+    'import/namespace': 'off',
     'import/no-default-export': 'error',
+    'import/newline-after-import': 'error',
     'no-restricted-imports': [
       'error',
       {
