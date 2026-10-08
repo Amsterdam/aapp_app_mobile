@@ -38,6 +38,7 @@ export const AlertNavigateButton = ({
       if (isCrossStackTo(params)) {
         const [route, props] = params
 
+        // @ts-expect-error this is correct, but since the amount of modules is to high typescript cannot handle this
         navigateTo(route, {...props}) // Navigate cross-Stack to screen with associated params
       }
 

@@ -30,6 +30,7 @@ export const AccessCodeScreen = ({navigation}: Props) => {
   const onForgotCode = useCallback(() => {
     setIsForgotCode(true)
     // The module's stack automatically redirects user to forgot code screen.
+    // @ts-expect-error this is correct, but since the amount of modules is to high typescript cannot handle this
     navigation.popTo(currentModule)
   }, [currentModule, navigation, setIsForgotCode])
 

@@ -28,6 +28,7 @@ export const ModuleTitle = ({moduleSlug, noNavigate, testID}: Props) => {
     />
   ) : (
     <PressableBase
+      // @ts-expect-error this is correct, but since the amount of modules is to high typescript cannot handle this
       onPress={() => navigate(moduleSlug)}
       testID={testID}>
       <Row gutter="xs">
