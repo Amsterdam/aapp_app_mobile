@@ -1,9 +1,9 @@
-import {Paragraph} from '@/components/ui/text/Paragraph'
+import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 
 export const InactiveModuleMessage = () => (
-  <Paragraph
-    color="negative"
-    variant="small">
-    Dit onderdeel werkt nu niet.
-  </Paragraph>
+  <ErrorMessage
+    testID="InactiveModuleMessageErrorMessage"
+    text="Dit onderdeel werkt nu niet."
+    variant="small"
+  />
 )

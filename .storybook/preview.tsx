@@ -16,6 +16,10 @@ import {DeviceProvider} from '@/providers/device.provider'
 import {StoreProvider} from '@/providers/store.provider'
 import {baseColor} from '@/themes/tokens/base-color'
 import {
+  AccessCodeStorybookProvider,
+  type AccessCodeStorybookParameters,
+} from './mocks/access-code'
+import {
   BottomSheetStorybookProvider,
   type BottomSheetStorybookParameters,
 } from './mocks/bottom-sheet'
@@ -27,6 +31,9 @@ import './preview.css'
 
 const MainDecorator = (Story: FC, context: StoryContext) => {
   const theme = context.globals.theme as 'dark' | 'light'
+  const accessCodeStoryBookParameters = context.parameters.accessCode as
+    | AccessCodeStorybookParameters
+    | undefined
   const bottomSheetStorybookParameters = context.parameters.bottomSheet as
     | BottomSheetStorybookParameters
     | undefined
@@ -48,19 +55,21 @@ const MainDecorator = (Story: FC, context: StoryContext) => {
 }`)
 
   return (
-    <BottomSheetStorybookProvider parameters={bottomSheetStorybookParameters}>
-      <ParkingStorybookProvider parameters={parkingStorybookParameters}>
-        <AppInsightsProvider>
-          <NavigationContainer>
-            <StoreProvider>
-              <DeviceProvider>
-                <Story />
-              </DeviceProvider>
-            </StoreProvider>
-          </NavigationContainer>
-        </AppInsightsProvider>
-      </ParkingStorybookProvider>
-    </BottomSheetStorybookProvider>
+    <AccessCodeStorybookProvider parameters={accessCodeStoryBookParameters}>
+      <BottomSheetStorybookProvider parameters={bottomSheetStorybookParameters}>
+        <ParkingStorybookProvider parameters={parkingStorybookParameters}>
+          <AppInsightsProvider>
+            <NavigationContainer>
+              <StoreProvider>
+                <DeviceProvider>
+                  <Story />
+                </DeviceProvider>
+              </StoreProvider>
+            </NavigationContainer>
+          </AppInsightsProvider>
+        </ParkingStorybookProvider>
+      </BottomSheetStorybookProvider>
+    </AccessCodeStorybookProvider>
   )
 }
 
