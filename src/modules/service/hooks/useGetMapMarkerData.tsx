@@ -1,16 +1,16 @@
 import {useMemo} from 'react'
-import type {MarkerProperties} from '@/components/features/map/types'
-import type {
-  ServicePointFeature,
-  ServiceMapResponse,
-} from '@/modules/service/types'
 import {
   ConditionType,
   useGetFilteredFeatures,
 } from '@/components/features/map/hooks/useGetFilteredFeatures'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
+import type {MarkerProperties} from '@/components/features/map/types'
 import {ServicePointCustomMarker} from '@/modules/service/components/ServicePointCustomMarker'
+import type {
+  ServicePointFeature,
+  ServiceMapResponse,
+} from '@/modules/service/types'
 
 export const useGetMapMarkerData = (
   features: ServicePointFeature[],

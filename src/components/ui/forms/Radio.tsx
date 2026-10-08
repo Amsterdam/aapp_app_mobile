@@ -1,6 +1,6 @@
-import {Circle, Svg} from 'react-native-svg'
 import type {ReactNode} from 'react'
 import type {GestureResponderEvent} from 'react-native'
+import {Circle, Svg} from 'react-native-svg'
 import {
   PressableBase,
   PressableBaseProps,

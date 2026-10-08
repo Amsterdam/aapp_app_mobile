@@ -1,5 +1,5 @@
-import {ListItemMarker} from './ListItemMarker'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ListItemMarker} from './ListItemMarker'
 
 const meta = {
   component: ListItemMarker,

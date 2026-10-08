@@ -1,5 +1,5 @@
-import {ConfirmAccessCode} from './ConfirmAccessCode'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ConfirmAccessCode} from './ConfirmAccessCode'
 
 export default {
   component: ConfirmAccessCode,

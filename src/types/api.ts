@@ -5,13 +5,13 @@ import {
   type FetchBaseQueryError,
   type InfiniteQueryDefinition,
 } from '@reduxjs/toolkit/query'
-import type {ApiSlug} from '@/environment'
 import type {
   ApiEndpointInfiniteQuery,
   TypedUseInfiniteQuery,
   TypedUseInfiniteQueryState,
   TypedUseInfiniteQuerySubscription,
 } from '@reduxjs/toolkit/query/react'
+import type {ApiSlug} from '@/environment'
 
 type Links = {
   next: {href: string}

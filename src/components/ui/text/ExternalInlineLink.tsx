@@ -4,6 +4,7 @@ import {
   type ExternalLinkProps,
   useOpenExternalLink,
 } from '@/hooks/linking/useOpenExternalLink'
+
 type Props = ExternalLinkProps &
   Omit<InlineLinkProps, 'onPress' | 'isExternal' | 'accessibilityRole'>
 

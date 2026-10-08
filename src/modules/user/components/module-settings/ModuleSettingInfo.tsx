@@ -1,12 +1,12 @@
-import type {TestProps} from '@/components/ui/types'
-import type {Theme} from '@/themes/themes'
 import type {ReactNode} from 'react'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import type {TestProps} from '@/components/ui/types'
 import {InactiveModuleMessage} from '@/modules/user/components/module-settings/InactiveModuleMessage'
+import type {Theme} from '@/themes/themes'
 
 export type ModuleSettingInfoProps = {
   description: string

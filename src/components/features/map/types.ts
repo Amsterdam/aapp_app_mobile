@@ -1,7 +1,7 @@
-import type {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
-import type {IconProps} from '@/components/ui/media/Icon'
 import type {ReactElement} from 'react'
 import type {Supercluster} from 'react-native-clusterer'
+import type {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVariants'
+import type {IconProps} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
 
 export enum ControlVariant {

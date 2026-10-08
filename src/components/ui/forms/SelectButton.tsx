@@ -1,9 +1,9 @@
 import {FieldError} from 'react-hook-form'
 import {AccessibilityProps} from 'react-native'
-import type {IconProps} from '@/components/ui/media/Icon'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Column} from '@/components/ui/layout/Column'
+import type {IconProps} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'
 

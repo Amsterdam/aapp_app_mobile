@@ -1,11 +1,11 @@
 import {memo} from 'react'
 import {View, type ViewProps} from 'react-native'
 import simplur from 'simplur'
-import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Trait} from '@/components/ui/feedback/Trait'
 import {Row} from '@/components/ui/layout/Row'
 import {Project} from '@/modules/construction-work/types/api'
+import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import {getDistance} from '@/modules/construction-work/utils/getDistance'
 
 export type ProjectTraitsProps = {

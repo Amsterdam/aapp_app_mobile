@@ -1,6 +1,6 @@
-import {generateOutputData} from './generateOutputData.mts'
-import type {EntriesWithImports, ImportConfig} from '../types.mts'
 import type {Dirent} from 'node:fs'
+import type {EntriesWithImports, ImportConfig} from '../types.mts'
+import {generateOutputData} from './generateOutputData.mts'
 
 describe('generateOutputData', () => {
   it('should generate output for spreadArray', () => {

@@ -9,13 +9,13 @@ import {
   type TextInputProps,
   View,
 } from 'react-native'
-import type {TestProps} from '@/components/ui/types'
-import type {Theme} from '@/themes/themes'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
+import type {TestProps} from '@/components/ui/types'
 import {useSearchField} from '@/hooks/useSearchField'
 import {usePiwikTrackSearchFromProps} from '@/processes/piwik/hooks/usePiwikTrackSearchFromProps'
 import {PiwikDimension} from '@/processes/piwik/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 export type SearchFieldProps = TestProps & TextInputProps

@@ -1,20 +1,20 @@
 import {useMemo, useState} from 'react'
-import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 import type {Region} from 'react-native-maps'
-import {MapBase} from '@/components/features/map/MapBase'
-import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
   ConditionType,
   useGetFilteredFeatures,
 } from '@/components/features/map/hooks/useGetFilteredFeatures'
+import {MapBase} from '@/components/features/map/MapBase'
+import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {BoatChargingMapSelectionEffect} from '@/modules/boat-charging/components/BoatChargingMapSelectionEffect'
 import {BoatChargingMarker} from '@/modules/boat-charging/components/BoatChargingMarker'
 import {useSelectedBoatChargingPointId} from '@/modules/boat-charging/slice'
+import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {

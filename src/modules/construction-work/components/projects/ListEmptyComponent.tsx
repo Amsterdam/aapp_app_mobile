@@ -1,7 +1,7 @@
-import type {TestProps} from '@/components/ui/types'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import type {TestProps} from '@/components/ui/types'
 
 type Props = {
   isLoading: boolean

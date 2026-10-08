@@ -1,5 +1,4 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import type {Service} from '@/modules/service/types'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,6 +6,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {ServiceMapLayerSwitch} from '@/modules/service/components/ServiceMapLayerSwitch'
 import {useServiceQuery} from '@/modules/service/service'
+import type {Service} from '@/modules/service/types'
 
 type Props = {id: Service['id']}
 

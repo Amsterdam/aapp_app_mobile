@@ -2,6 +2,7 @@ import {useCallback} from 'react'
 import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
 import {ParkingPermitScope, ParkingAccountLogin} from '@/modules/parking/types'
 import {SecureItemKey, getSecureItem} from '@/utils/secureStorage'
+
 const getKey = (scope: ParkingPermitScope) =>
   scope === ParkingPermitScope.permitHolder
     ? SecureItemKey.parkingPermitHolder

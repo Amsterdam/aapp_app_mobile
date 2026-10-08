@@ -1,8 +1,8 @@
 import {useMemo} from 'react'
 import {type LatLng} from 'react-native-maps'
-import type {IconSize} from '@/components/ui/types'
 import {TravelingArrowMarker} from '@/components/features/map/marker/TravelingArrowMarker'
 import {distanceBetween} from '@/components/features/map/utils/getArrowsAlongPolyLine'
+import type {IconSize} from '@/components/ui/types'
 
 type Props = {
   coordinates: LatLng[]

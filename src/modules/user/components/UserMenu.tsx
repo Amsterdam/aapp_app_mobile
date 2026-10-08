@@ -1,5 +1,4 @@
 import {View} from 'react-native'
-import type {UserMenuSection} from '@/modules/user/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -12,6 +11,7 @@ import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {AppInfoCopyButtons} from '@/modules/user/components/AppInfoCopyButtons'
 import {UserRouteName} from '@/modules/user/routes'
+import type {UserMenuSection} from '@/modules/user/types'
 
 const accessCodeSection: UserMenuSection = {
   title: 'Beveiliging',

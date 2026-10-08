@@ -1,8 +1,8 @@
+import type {Dayjs} from 'dayjs'
 import type {
   BurningGuideApiResponse,
   ListItem,
 } from '@/modules/burning-guide/types'
-import type {Dayjs} from 'dayjs'
 import {getTimeZones} from '@/modules/burning-guide/utils/getTimeZones'
 import {mapAdviceToVariant} from '@/modules/burning-guide/utils/mapAdviceToVariant'
 

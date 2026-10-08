@@ -99,5 +99,5 @@ const config: Config = {
   },
 }
 
-// eslint-disable-next-line import-x/no-default-export
+// oxlint-disable-next-line import-x/no-default-export
 export default config

@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputField'
@@ -14,6 +13,7 @@ import {
 } from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 

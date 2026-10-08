@@ -1,10 +1,10 @@
+import type {RefObject} from 'react'
 import {
   Carousel as ReanimatedCarousel,
   type CarouselPanGesture,
   type CarouselProps,
   type CarouselRef,
 } from 'react-native-reanimated-carousel'
-import type {RefObject} from 'react'
 
 type Props<T> = Pick<
   CarouselProps<T>,

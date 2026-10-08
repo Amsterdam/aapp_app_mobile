@@ -1,10 +1,10 @@
-import {StyleSheet, View} from 'react-native'
-import {ProgressStep} from './ProgressStep'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {StyleSheet, View} from 'react-native'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {Canvas} from '@/storybook/components'
+import {ProgressStep} from './ProgressStep'
 
 const meta = {
   component: ProgressStep,

@@ -1,6 +1,5 @@
 import {Linking} from 'react-native'
 import {RESULTS} from 'react-native-permissions'
-import type {CarouselItem} from '@/modules/onboarding/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -10,6 +9,7 @@ import {useMyAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useIsLoggedIn} from '@/modules/mijn-amsterdam/hooks/useIsLoggedIn'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
+import type {CarouselItem} from '@/modules/onboarding/types'
 import {
   selectIsPermissionGranted,
   selectPermissions,

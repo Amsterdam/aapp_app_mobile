@@ -1,5 +1,5 @@
-import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 import {SearchFieldControlled} from '@/components/ui/forms/SearchFieldControlled'
+import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 
 export const StreetSearchField = () => (
   <SearchFieldControlled<AddressSearchFields, 'street'>

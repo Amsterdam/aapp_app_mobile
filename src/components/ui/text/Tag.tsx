@@ -1,9 +1,9 @@
-import {StyleSheet, View} from 'react-native'
-import type {TestProps} from '@/components/ui/types'
-import type {SpacingTokens} from '@/themes/tokens/size'
 import type {ReactNode} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import type {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
+import type {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 type Variant = keyof Theme['color']['tag']

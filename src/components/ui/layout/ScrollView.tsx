@@ -1,9 +1,9 @@
+import type {ReactNode, Ref} from 'react'
 import {
   ScrollView as RNScrollView,
   type ScrollViewProps as RNScrollViewProps,
 } from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import type {ReactNode, Ref} from 'react'
 import {layoutStyles} from '@/styles/layoutStyles'
 
 export type ScrollViewProps = {

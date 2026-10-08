@@ -1,6 +1,6 @@
-import {ClusterMarker} from './ClusterMarker'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Row} from '@/components/ui/layout/Row'
+import {ClusterMarker} from './ClusterMarker'
 
 const meta = {
   component: ClusterMarker,

@@ -1,11 +1,6 @@
 import {useCallback} from 'react'
 import {useWindowDimensions} from 'react-native'
 import {useClusterer, type Supercluster} from 'react-native-clusterer'
-import type {
-  ClusterItem,
-  ClusterProperties,
-  MarkerProperties,
-} from '@/components/features/map/types'
 import type {MapMarkerProps, Region} from 'react-native-maps'
 import {ClusterSwitch} from '@/components/features/map/clusters/ClusterSwitch'
 import {
@@ -13,6 +8,11 @@ import {
   DEFAULT_CLUSTER_OPTIONS,
 } from '@/components/features/map/constants'
 import {useFilterOutPointsOutsideNetherlands} from '@/components/features/map/hooks/useFilterOutPointsOutsideNetherlands'
+import type {
+  ClusterItem,
+  ClusterProperties,
+  MarkerProperties,
+} from '@/components/features/map/types'
 
 export type ClustererProps = {
   clusterOptions?: Supercluster.Options<

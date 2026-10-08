@@ -1,5 +1,5 @@
-import {View} from 'react-native'
 import type {Ref} from 'react'
+import {View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {PopupMenuItem} from '@/components/ui/menus/types'

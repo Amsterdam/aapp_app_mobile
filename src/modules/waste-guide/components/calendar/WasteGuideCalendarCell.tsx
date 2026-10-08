@@ -1,6 +1,6 @@
+import type {PropsWithChildren} from 'react'
 import {StyleSheet, View} from 'react-native'
 import type {Theme} from '@/themes/themes'
-import type {PropsWithChildren} from 'react'
 import {useThemable} from '@/themes/useThemable'
 
 export const WasteGuideCalendarCell = ({

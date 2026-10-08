@@ -1,6 +1,6 @@
 import {Platform} from 'react-native'
-import type {TestProps} from '@/components/ui/types'
 import {Button} from '@/components/ui/buttons/Button'
+import type {TestProps} from '@/components/ui/types'
 
 type Props = {
   accessibilityLabel?: string

@@ -5,8 +5,8 @@ import {
   useMemo,
   useEffect,
 } from 'react'
-import type {ServiceMapResponseIcon} from '@/modules/service/types'
 import {MapFiltersContext} from '@/components/features/map/providers/MapFilters.context'
+import type {ServiceMapResponseIcon} from '@/modules/service/types'
 
 export type Filter = {
   filter_key: string

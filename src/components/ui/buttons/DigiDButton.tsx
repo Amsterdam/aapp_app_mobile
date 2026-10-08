@@ -1,4 +1,3 @@
-import type {TestProps} from '@/components/ui/types'
 import type {GestureResponderEvent} from 'react-native'
 import DigiD from '@/assets/icons/digid.svg'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
@@ -6,6 +5,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import type {TestProps} from '@/components/ui/types'
 
 type Props = {
   isLoading?: boolean

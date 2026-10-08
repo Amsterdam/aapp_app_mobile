@@ -1,6 +1,6 @@
-import {Pressable} from './Pressable'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Pressable} from './Pressable'
 
 export default {
   component: Pressable,

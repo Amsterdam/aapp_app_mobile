@@ -1,7 +1,7 @@
 import {useMemo, type PropsWithChildren} from 'react'
-import type {WasteGuideCalendarEvent} from '@/modules/waste-guide/types'
 import {getCalendarEventsByDate} from '@/modules/waste-guide/components/calendar/utils/getCalendarEventsByDate'
 import {EventsByDateContext} from '@/modules/waste-guide/providers/EventsByDateContext'
+import type {WasteGuideCalendarEvent} from '@/modules/waste-guide/types'
 
 export const EventsByDateProvider = ({
   children,

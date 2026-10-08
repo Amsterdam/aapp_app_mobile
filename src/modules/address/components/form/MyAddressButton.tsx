@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
-import type {TestProps} from '@/components/ui/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
+import type {TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AddressTopTaskButton} from '@/modules/address/components/form/AddressTopTaskButton'
 import {type Address} from '@/modules/address/exports/types'

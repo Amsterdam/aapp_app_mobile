@@ -1,4 +1,3 @@
-import type {WasteGuideRecyclePoint} from '@/modules/waste-guide/types'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,6 +6,7 @@ import {
   getAddressLine1,
   getAddressLine2,
 } from '@/modules/address/exports/utils/addDerivedAddressFields'
+import type {WasteGuideRecyclePoint} from '@/modules/waste-guide/types'
 
 type Props = {
   recyclePoint: WasteGuideRecyclePoint

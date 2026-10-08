@@ -1,4 +1,3 @@
-import type {LiveblogResponse} from '@/modules/news/types'
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -6,6 +5,7 @@ import {Title} from '@/components/ui/text/Title'
 import {LiveblogItemSeparator} from '@/modules/news/components/liveblog/LiveblogItemSeparator'
 import {LiveblogNotificationToggleBox} from '@/modules/news/components/liveblog/LiveblogNotificationToggleBox'
 import {LiveblogUpdateStatus} from '@/modules/news/components/liveblog/LiveblogUpdateStatus'
+import type {LiveblogResponse} from '@/modules/news/types'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 type Props = {

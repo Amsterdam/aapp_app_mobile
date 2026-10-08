@@ -1,9 +1,9 @@
-import type {ElectionsIconNames} from '@/modules/elections/constants/icons'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import type {ElectionsIconNames} from '@/modules/elections/constants/icons'
 import {ElectionsCategory} from '@/modules/elections/types'
 
 type Props = {

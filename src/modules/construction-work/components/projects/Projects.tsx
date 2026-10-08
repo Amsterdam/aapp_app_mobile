@@ -1,5 +1,4 @@
 import {useCallback, useState} from 'react'
-import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import type {FlatGridProps} from 'react-native-super-grid'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
@@ -7,15 +6,16 @@ import {AddressSwitch} from '@/modules/address/exports/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
 import {HighAccuracyPurposeKey} from '@/modules/address/exports/types'
 import {getAddressParam} from '@/modules/address/exports/utils/getAddressParam'
+import {config} from '@/modules/construction-work/components/projects/config'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
-import {config} from '@/modules/construction-work/components/projects/config'
 import {constructionWorkApi} from '@/modules/construction-work/service'
 import {
   type ProjectsItem,
   type ProjectsQueryArgs,
   ConstructionWorkEndpointName,
 } from '@/modules/construction-work/types/api'
+import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'

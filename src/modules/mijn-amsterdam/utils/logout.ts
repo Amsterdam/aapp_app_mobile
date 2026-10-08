@@ -1,4 +1,3 @@
-import type {RootState} from '@/store/types/rootState'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {mijnAmsterdamApi} from '@/modules/mijn-amsterdam/service'
 import {
@@ -6,6 +5,7 @@ import {
   selectIsLoggedIn,
 } from '@/modules/mijn-amsterdam/slice'
 import {devError} from '@/processes/development'
+import type {RootState} from '@/store/types/rootState'
 
 export const logout = async (dispatch: ReduxDispatch, state: RootState) => {
   try {

@@ -1,6 +1,6 @@
-import type {PressableBaseProps} from '@/components/ui/buttons/PressableBase'
 import type {GestureResponderEvent} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
+import type {PressableBaseProps} from '@/components/ui/buttons/PressableBase'
 
 type Props = {
   isSelected: boolean

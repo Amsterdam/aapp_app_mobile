@@ -1,5 +1,5 @@
-import type {Paginated} from '@/types/api'
 import type {InfiniteQueryConfigOptions} from '@reduxjs/toolkit/query'
+import type {Paginated} from '@/types/api'
 
 export const INFINITE_QUERY_OPTIONS: InfiniteQueryConfigOptions<
   Paginated<unknown>,

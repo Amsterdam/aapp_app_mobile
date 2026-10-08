@@ -1,6 +1,6 @@
-import type {Address, BaseAddress} from '@/modules/address/exports/types'
 import {NumberSearchAnimation} from '@/modules/address/components/form/NumberSearchAnimation'
 import {NumberSearchResult} from '@/modules/address/components/form/NumberSearchResult'
+import type {Address, BaseAddress} from '@/modules/address/exports/types'
 import {useGetAddressFormList} from '@/modules/address/hooks/useGetAddressFormList'
 
 type Props = {

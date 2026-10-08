@@ -1,13 +1,13 @@
 import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
 } from '@/modules/boat-charging/types'
-import type {RootState} from '@/store/types/rootState'
-import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
+import type {RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export type BoatChargingState = {

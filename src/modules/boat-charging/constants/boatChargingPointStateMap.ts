@@ -1,5 +1,5 @@
-import type {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import type {ComponentProps} from 'react'
+import type {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {SvgIconsConfig} from '@/components/ui/media/svgIcons'
 import {boatChargingSvgIcons} from '@/modules/boat-charging/constants/icons'
 import {BoatChargingPointState} from '@/modules/boat-charging/types'

@@ -1,5 +1,5 @@
-import {ErrorMessage} from './ErrorMessage'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ErrorMessage} from './ErrorMessage'
 
 const meta = {
   component: ErrorMessage,

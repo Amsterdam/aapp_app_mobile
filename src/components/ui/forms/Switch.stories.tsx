@@ -1,8 +1,8 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {FormProvider, useForm} from 'react-hook-form'
 import {Text} from 'react-native'
 import {Switch} from './Switch'
 import {SwitchField} from './SwitchField'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: Switch,

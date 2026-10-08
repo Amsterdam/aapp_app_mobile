@@ -1,10 +1,10 @@
 import {StyleSheet} from 'react-native'
-import type {TestProps} from '@/components/ui/types'
 import {FilterButton} from '@/components/features/map/filters/FilterButton'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
+import type {TestProps} from '@/components/ui/types'
 
 type Props = TestProps
 

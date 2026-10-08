@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect, type ReactNode} from 'react'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   waitBeforeShow?: number
 }
 

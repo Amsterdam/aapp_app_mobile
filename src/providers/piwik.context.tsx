@@ -1,5 +1,5 @@
-import {createContext} from 'react'
 import type {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
+import {createContext} from 'react'
 
 export type PiwikContextType = PiwikProSdkType | null | undefined
 

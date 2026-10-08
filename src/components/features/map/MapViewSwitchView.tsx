@@ -1,7 +1,7 @@
-import type {EmptyObject} from '@/types/utils'
 import type {ComponentType} from 'react'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
 import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitch.context'
+import type {EmptyObject} from '@/types/utils'
 
 type ViewComponent<P extends object = EmptyObject> = ComponentType<P>
 

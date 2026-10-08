@@ -1,8 +1,8 @@
-import {ParkingSessionFormProvider} from '../ParkingSessionFormProvider'
-import {ParkingSessionLicensePlateBottomSheetContent} from './ParkingSessionLicensePlateBottomSheetContent'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {permitMock} from '@/modules/parking/mocks/permit.mock'
+import {ParkingSessionFormProvider} from '../ParkingSessionFormProvider'
+import {ParkingSessionLicensePlateBottomSheetContent} from './ParkingSessionLicensePlateBottomSheetContent'
 
 const maximumLicensePlates = Array.from(
   {length: MAX_LICENSE_PLATES},

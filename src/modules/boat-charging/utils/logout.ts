@@ -1,5 +1,4 @@
 import type {ReduxDispatch} from '@/hooks/redux/types'
-import type {RootState} from '@/store/types/rootState'
 import {tagTypes} from '@/modules/boat-charging/constants'
 import {boatChargingApi} from '@/modules/boat-charging/service'
 import {
@@ -8,6 +7,7 @@ import {
 } from '@/modules/boat-charging/slice'
 import {signOutFromOpenIdConnect} from '@/modules/boat-charging/utils/openIdConnect'
 import {devError} from '@/processes/development'
+import type {RootState} from '@/store/types/rootState'
 
 export const logout = async (dispatch: ReduxDispatch, state: RootState) => {
   try {

@@ -1,10 +1,10 @@
+import type {ReactNode} from 'react'
 import {StyleSheet} from 'react-native'
 import {useKeyboardHandler} from 'react-native-keyboard-controller'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated'
-import type {ReactNode} from 'react'
 import {HANDLE_HEIGHT} from '@/components/features/bottom-sheet/constants'
 
 type Props = {

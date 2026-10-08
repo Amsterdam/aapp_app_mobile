@@ -1,5 +1,5 @@
-import {ParkingPermitSessions} from './ParkingPermitSessions'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ParkingPermitSessions} from './ParkingPermitSessions'
 
 const meta = {
   component: ParkingPermitSessions,

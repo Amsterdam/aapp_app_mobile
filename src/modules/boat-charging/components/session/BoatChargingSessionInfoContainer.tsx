@@ -1,5 +1,5 @@
-import {StyleSheet, View} from 'react-native'
 import type {ComponentType} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {BoatChargingSessionInfoContainerCharging} from '@/modules/boat-charging/components/session/BoatChargingSessionInfoContainerCharging'

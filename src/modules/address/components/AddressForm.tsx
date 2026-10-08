@@ -1,19 +1,19 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
-import type {
-  Address,
-  AddressCity,
-  HighAccuracyPurposeKey,
-} from '@/modules/address/exports/types'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/address/alerts'
-import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {AddressSearchResults} from '@/modules/address/components/form/AddressSearchResults'
 import {LocationTopTaskButton} from '@/modules/address/components/form/LocationTopTaskButton'
 import {MyAddressButton} from '@/modules/address/components/form/MyAddressButton'
+import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
+import type {
+  Address,
+  AddressCity,
+  HighAccuracyPurposeKey,
+} from '@/modules/address/exports/types'
 import {useGetAddressFormList} from '@/modules/address/hooks/useGetAddressFormList'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'

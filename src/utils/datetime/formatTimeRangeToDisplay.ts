@@ -1,6 +1,6 @@
+import type {DurationUnitType} from 'dayjs/plugin/duration'
 import simplur from 'simplur'
 import type {Dayjs} from '@/utils/datetime/dayjs'
-import type {DurationUnitType} from 'dayjs/plugin/duration'
 import {processDateInput} from '@/utils/datetime/isDayjsOrDate'
 
 export type Options = {

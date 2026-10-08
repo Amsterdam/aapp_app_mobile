@@ -1,5 +1,5 @@
-import type {CarouselItemVariant} from '@/modules/onboarding/types'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import type {CarouselItemVariant} from '@/modules/onboarding/types'
 
 export const CarouselRenderItemContentText = ({
   text,

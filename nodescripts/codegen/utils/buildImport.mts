@@ -1,5 +1,5 @@
-import {sortImportNames} from './sortImportNames.mts'
 import type {ImportConfig} from '../types.mts'
+import {sortImportNames} from './sortImportNames.mts'
 
 export const buildImport = (
   index: number,

@@ -1,6 +1,5 @@
 import {type Ref, useCallback, useEffect, useImperativeHandle} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
-import type {AddProjectWarningQueryArgs} from '@/modules/construction-work-editor/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
@@ -18,6 +17,7 @@ import {
   setMainImageDescription,
   setMessage,
 } from '@/modules/construction-work-editor/messageDraftSlice'
+import type {AddProjectWarningQueryArgs} from '@/modules/construction-work-editor/types'
 
 const maxCharacters = {
   title: 100,

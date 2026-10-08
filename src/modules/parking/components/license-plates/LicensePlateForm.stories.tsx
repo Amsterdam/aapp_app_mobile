@@ -1,5 +1,5 @@
-import {LicensePlateForm} from './LicensePlateForm'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {LicensePlateForm} from './LicensePlateForm'
 
 const meta = {
   component: LicensePlateForm,

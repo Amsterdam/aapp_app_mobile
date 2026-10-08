@@ -2,6 +2,8 @@
 
 import {useEffect, useMemo, useRef, useState} from 'react'
 import {EmitterSubscription, EventSubscription} from 'react-native'
+import {useTrackException} from '@/processes/logging/hooks/useTrackException'
+import {ExceptionLogKey} from '@/processes/logging/types'
 import SalesforceMessagingInApp, {
   ConversationEntryFormat,
   ConversationEntrySenderRole,
@@ -21,8 +23,6 @@ import SalesforceMessagingInApp, {
   SessionStatus,
 } from './NativeSalesforceMessagingInApp'
 import {useListenerStatus} from './useListenerStatus'
-import {useTrackException} from '@/processes/logging/hooks/useTrackException'
-import {ExceptionLogKey} from '@/processes/logging/types'
 
 export const createCoreClient = ({
   developerName,

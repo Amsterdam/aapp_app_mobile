@@ -1,5 +1,5 @@
-import {ParkingSessionSelectLicensePlate} from './ParkingSessionSelectLicensePlate'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ParkingSessionSelectLicensePlate} from './ParkingSessionSelectLicensePlate'
 
 const meta = {
   component: ParkingSessionSelectLicensePlate,

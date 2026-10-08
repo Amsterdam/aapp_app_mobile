@@ -1,8 +1,8 @@
-import {useMemo} from 'react'
-import type {EmptyObject} from '@/types/utils'
 import type {FeatureCollection} from 'geojson'
+import {useMemo} from 'react'
 import {convertGeometryToPoint} from '@/components/features/map/utils/convertGeometryToPoint'
 import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFromCoords'
+import type {EmptyObject} from '@/types/utils'
 
 export const useInitialRegion = <
   T extends FeatureCollection | EmptyObject = EmptyObject,

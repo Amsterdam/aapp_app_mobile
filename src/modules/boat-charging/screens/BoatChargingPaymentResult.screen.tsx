@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import type {NavigationProps} from '@/app/navigation/types'
-import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useRedirectAfterPayment} from '@/modules/boat-charging/hooks/useRedirectAfterPayment'
+import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 
 type Props = NavigationProps<BoatChargingRouteName.paymentResult>
 

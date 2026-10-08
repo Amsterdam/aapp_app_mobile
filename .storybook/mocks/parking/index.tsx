@@ -1,11 +1,11 @@
 import {createContext, type ReactNode, useContext, useMemo} from 'react'
+import {licensePlatesMock} from '@/modules/parking/mocks/licensePlates.mock'
+import {permitMock} from '@/modules/parking/mocks/permit.mock'
 import type {
   LicensePlatesEndpointResponse,
   ParkingLicensePlate,
   ParkingPermit,
 } from '@/modules/parking/types'
-import {licensePlatesMock} from '@/modules/parking/mocks/licensePlates.mock'
-import {permitMock} from '@/modules/parking/mocks/permit.mock'
 
 type LicensePlateMutationOverrides = {
   deleteLicensePlate?: (

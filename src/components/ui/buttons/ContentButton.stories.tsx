@@ -1,7 +1,7 @@
-import {ContentButton} from './ContentButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {LiveblogTag} from '@/modules/news/components/liveblog/LiveblogTag'
 import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
+import {ContentButton} from './ContentButton'
 
 const meta = {
   argTypes: pressableArgTypes,

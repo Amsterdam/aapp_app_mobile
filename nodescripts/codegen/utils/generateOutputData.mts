@@ -1,5 +1,5 @@
-import type {EntriesWithImports, ImportConfig} from '../types.mts'
 import type {Dirent} from 'node:fs'
+import type {EntriesWithImports, ImportConfig} from '../types.mts'
 
 const generateOutputDataSpreadArray = (
   exportName: string | undefined,

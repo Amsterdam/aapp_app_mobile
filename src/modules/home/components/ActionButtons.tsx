@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import {Row} from '@/components/ui/layout/Row'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {useModules} from '@/hooks/useModules'
 import {actionButtons} from '@/modules/generated/actionButtons.generated'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {mergeComponentsWithEnabledModules} from '@/utils/mergeComponentsWithEnabledModules'
 

@@ -4,8 +4,8 @@ import {
   useSafeAreaInsets,
   type EdgeInsets,
 } from 'react-native-safe-area-context'
-import {Triangle} from '@/components/ui/feedback/Triangle'
 import {PointerDimension} from '@/components/ui/feedback/tooltip/types'
+import {Triangle} from '@/components/ui/feedback/Triangle'
 import {Center} from '@/components/ui/layout/Center'
 import {Direction, Placement} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'

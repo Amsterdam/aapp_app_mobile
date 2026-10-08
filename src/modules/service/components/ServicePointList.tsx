@@ -2,9 +2,6 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import {FlatList, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import type {Service, ServicePointFeature} from '@/modules/service/types'
-import type {Theme} from '@/themes/themes'
-import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
   ConditionType,
@@ -15,6 +12,7 @@ import {
   useMapControlsToggleBottomSheetButton,
 } from '@/components/features/map/hooks/useMapControlsToggleBottomSheetButton'
 import {useMapFilters} from '@/components/features/map/hooks/useMapFilters'
+import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {convertGeometryToPoint} from '@/components/features/map/utils/convertGeometryToPoint'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -27,7 +25,9 @@ import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ServicePointEmptyList} from '@/modules/service/components/ServicePointEmptyList'
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
 import {useServiceQuery} from '@/modules/service/service'
+import type {Service, ServicePointFeature} from '@/modules/service/types'
 import {layoutStyles} from '@/styles/layoutStyles'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 

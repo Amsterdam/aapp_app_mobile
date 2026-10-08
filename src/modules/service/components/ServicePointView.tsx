@@ -1,14 +1,14 @@
-import {useCallback, type ComponentProps} from 'react'
-import type {MapFocus} from '@/components/features/map/types'
-import type {Service} from '@/modules/service/types'
 import type {Feature} from 'geojson'
+import {useCallback, type ComponentProps} from 'react'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {MapViewSwitchView} from '@/components/features/map/MapViewSwitchView'
+import type {MapFocus} from '@/components/features/map/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {ServiceMapBottomSheetVariant} from '@/modules/service/components/bottomsheet/bottomsheetVariants'
 import {ServicePointList} from '@/modules/service/components/ServicePointList'
 import {ServicePointMap} from '@/modules/service/components/ServicePointMap'
-import {ServiceMapBottomSheetVariant} from '@/modules/service/components/bottomsheet/bottomsheetVariants'
 import {setSelectedServicePointId} from '@/modules/service/slice'
+import type {Service} from '@/modules/service/types'
 
 type Props = {
   focusType?: MapFocus

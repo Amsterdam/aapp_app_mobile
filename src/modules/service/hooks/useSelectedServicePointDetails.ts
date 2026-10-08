@@ -1,12 +1,12 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import type {MarkerProperties} from '@/components/features/map/types'
-import type {Coordinates} from '@/types/location'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useServiceQuery} from '@/modules/service/service'
 import {selectSelectedServicePointId} from '@/modules/service/slice'
 import {ServiceFeatureProperty, type Service} from '@/modules/service/types'
 import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
+import type {Coordinates} from '@/types/location'
 
 type SelectedServicePointDetails = {
   coordinates?: Coordinates

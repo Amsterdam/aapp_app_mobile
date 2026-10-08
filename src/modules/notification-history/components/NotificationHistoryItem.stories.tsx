@@ -1,8 +1,8 @@
-import {NotificationHistoryItem} from './NotificationHistoryItem'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {SvgIconsConfig} from '@/components/ui/media/svgIcons'
 import {SvgIconVariant} from '@/components/ui/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {NotificationHistoryItem} from './NotificationHistoryItem'
 
 const slug = ModuleSlug['construction-work']
 

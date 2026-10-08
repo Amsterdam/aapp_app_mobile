@@ -1,6 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import type {BoatChargingLocation} from '@/modules/boat-charging/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
@@ -19,6 +18,7 @@ import {
   useBoatChargingLocationDetailsQuery,
   useBoatChargingSettingsQuery,
 } from '@/modules/boat-charging/service'
+import type {BoatChargingLocation} from '@/modules/boat-charging/types'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'

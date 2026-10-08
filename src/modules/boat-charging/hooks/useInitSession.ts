@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -16,6 +15,7 @@ import {
   selectBoatChargingLoggedInUsername,
   selectLastApprovedTermsVersionWhileLoggedIn,
 } from '@/modules/boat-charging/slice'
+import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {useAlert} from '@/store/slices/alert'
 import {validateEmail} from '@/utils/validate'
 

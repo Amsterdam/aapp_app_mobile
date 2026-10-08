@@ -1,5 +1,4 @@
 import type {NavigationProps} from '@/app/navigation/types'
-import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
@@ -12,6 +11,7 @@ import {
   BoatChargingInitSessionStep,
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
+import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 
 type Props = NavigationProps<BoatChargingRouteName.guestEmailConfirm>
 

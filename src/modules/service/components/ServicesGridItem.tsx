@@ -1,13 +1,13 @@
 import {pascalCase} from 'pascal-case'
 import {StyleSheet, View} from 'react-native'
 import type {RoutesAcceptingParams} from '@/app/navigation/types'
-import type {Service} from '@/modules/service/types'
-import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import type {Service} from '@/modules/service/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 export type ServicesGridItemColorScheme = keyof Theme['color']['serviceGrid']

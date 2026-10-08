@@ -1,5 +1,4 @@
 import {getItemAsync, deleteItemAsync, setItemAsync} from 'expo-secure-store'
-
 import {appInsights} from '@/providers/appinsights.provider'
 
 export enum SecureItemKey {

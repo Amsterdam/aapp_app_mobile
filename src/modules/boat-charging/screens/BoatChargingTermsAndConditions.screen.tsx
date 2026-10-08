@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -19,6 +18,7 @@ import {
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
 import {setLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
+import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 const AGREED_TO_TERMS_ERROR_MESSAGE =

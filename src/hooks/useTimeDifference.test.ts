@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import {skipToken} from '@reduxjs/toolkit/query'
 import {renderHook} from '@testing-library/react-native'
-import type {Dayjs} from '@/utils/datetime/dayjs'
 import {useTimeDifference} from '@/hooks/useTimeDifference'
 import {useGetServerTimeQuery} from '@/services/bridge.service'
+import type {Dayjs} from '@/utils/datetime/dayjs'
 import {isLocalTimeSameAsServerTime} from '@/utils/datetime/isLocalTimeSameAsServerTime'
 
 jest.mock('@/services/bridge.service', () => ({

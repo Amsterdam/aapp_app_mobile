@@ -1,12 +1,12 @@
 import {memo, useMemo} from 'react'
-import type {ReadArticle} from '@/modules/construction-work/slice'
-import type {ProjectsListItem} from '@/modules/construction-work/types/project'
-import type {LogProps} from '@/processes/piwik/types'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
+import type {ReadArticle} from '@/modules/construction-work/slice'
+import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
+import type {LogProps} from '@/processes/piwik/types'
 
 type ListItemProps = {
   onPress: (id: number, isDummyItem?: boolean) => void

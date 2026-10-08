@@ -1,7 +1,7 @@
 import {useMemo} from 'react'
-import type {MarkerProperties} from '@/components/features/map/types'
 import type {Supercluster} from 'react-native-clusterer'
 import {NETHERLANDS_OUTER_BOX} from '@/components/features/map/constants'
+import type {MarkerProperties} from '@/components/features/map/types'
 
 export const useFilterOutPointsOutsideNetherlands = (
   points: Supercluster.PointFeature<MarkerProperties>[],

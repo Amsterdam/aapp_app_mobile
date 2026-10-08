@@ -1,16 +1,16 @@
+import type {RefObject} from 'react'
 import {Controller, type UseControllerProps} from 'react-hook-form'
 import {type TextInputProps} from 'react-native'
 import {TextInput as TextInputRN} from 'react-native-gesture-handler'
-import type {RefObject} from 'react'
 import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
-import {TextInput} from '@/components/ui/forms/input/TextInput'
 import {
   fieldTypeRules,
   fieldTypeToInputMode,
   fieldTypeToKeyboardType,
   getTextTransform,
 } from '@/components/ui/forms/input/constants'
+import {TextInput} from '@/components/ui/forms/input/TextInput'
 import {
   FieldType,
   TextInputSharedProps,

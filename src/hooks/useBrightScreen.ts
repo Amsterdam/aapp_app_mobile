@@ -1,5 +1,4 @@
 import {getBrightnessAsync, setBrightnessAsync} from 'expo-brightness'
-
 import {useEffect} from 'react'
 
 export const useBrightScreen = (enabled = true) => {

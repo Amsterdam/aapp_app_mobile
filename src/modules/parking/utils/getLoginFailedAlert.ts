@@ -1,6 +1,6 @@
-import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import type {SerializedError} from '@reduxjs/toolkit'
 import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
+import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import {alerts} from '@/modules/parking/alerts'
 
 export const getLoginFailedAlert = (
