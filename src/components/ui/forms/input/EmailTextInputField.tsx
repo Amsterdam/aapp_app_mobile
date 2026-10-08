@@ -28,6 +28,7 @@ export const EmailTextInputField = <TName extends string>({
     autoCapitalize="none"
     autoComplete="email"
     autoCorrect={false}
+    disabled={disabled}
     importantForAutofill="yes"
     inputMode="email"
     keyboardType="email-address"
