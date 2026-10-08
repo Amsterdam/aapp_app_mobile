@@ -23,3 +23,22 @@ export const Default: Story = {
     onPress: () => null,
   },
 }
+
+export const ErrorState: Story = {
+  parameters: {
+    controls: {
+      exclude: ['error'],
+    },
+  },
+  args: {
+    icon: {name: 'warning'},
+    testID: 'testIdErrorStateButton',
+    text: 'Text',
+    title: 'Title',
+    error: {
+      message: 'Kies een andere optie',
+      type: 'validate',
+    },
+    onPress: () => null,
+  },
+}

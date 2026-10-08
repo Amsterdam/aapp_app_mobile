@@ -1,5 +1,7 @@
+import {FormProvider, useForm} from 'react-hook-form'
 import {Text} from 'react-native'
 import {Switch} from './Switch'
+import {SwitchField} from './SwitchField'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
@@ -7,6 +9,9 @@ export default {
   argTypes: {
     onValueChange: {
       action: 'onValueChange',
+    },
+    label: {
+      control: 'text',
     },
   },
 } satisfies Meta<typeof Switch>
@@ -67,5 +72,27 @@ export const WithLoadingPlaceholder: StoryObj<typeof Switch> = {
     value: false,
     loading: false,
     hasLoadingPlaceholder: true,
+  },
+}
+
+export const ErrorState: StoryObj<typeof Switch> = {
+  render: args => {
+    const form = useForm<{testSwitchField: boolean}>({
+      errors: {testSwitchField: {message: 'Test error', type: 'validate'}},
+    })
+
+    return (
+      <FormProvider {...form}>
+        <SwitchField
+          {...args}
+          name="testSwitchField"
+        />
+      </FormProvider>
+    )
+  },
+  args: {
+    label: <Text>Ik ga akkoord met de voorwaarden</Text>,
+    labelPosition: 'start',
+    value: true,
   },
 }

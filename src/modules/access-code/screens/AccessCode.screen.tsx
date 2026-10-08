@@ -3,7 +3,6 @@ import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {AuthenticateWithCodeOrBiometrics} from '@/modules/access-code/components/AuthenticateWithCodeOrBiometrics'
@@ -42,26 +41,28 @@ export const AccessCodeScreen = ({navigation}: Props) => {
       stickyFooter={<AuthenticateWithCodeOrBiometrics />}
       testID="AccessCodeScreen"
       withBottomInset={false}>
-      <Center grow>
-        <Box>
-          <Column gutter="lg">
-            <Title
-              level="h2"
-              testID="AccessCodeScreenTitle"
-              text="Voer uw toegangscode in"
+      <Box grow>
+        <Column
+          align="center"
+          grow={1}
+          gutter="lg"
+          shrink={1}>
+          <Title
+            level="h2"
+            testID="AccessCodeScreenTitle"
+            text="Voer uw toegangscode in"
+          />
+          <EnterAccessCode />
+          {!!shouldShowForgotCodeButton && (
+            <Button
+              label="Toegangscode vergeten"
+              onPress={onForgotCode}
+              testID="AccessCodeForgotButton"
+              variant="tertiary"
             />
-            <EnterAccessCode />
-            {!!shouldShowForgotCodeButton && (
-              <Button
-                label="Toegangscode vergeten"
-                onPress={onForgotCode}
-                testID="AccessCodeForgotButton"
-                variant="tertiary"
-              />
-            )}
-          </Column>
-        </Box>
-      </Center>
+          )}
+        </Column>
+      </Box>
     </Screen>
   )
 }
