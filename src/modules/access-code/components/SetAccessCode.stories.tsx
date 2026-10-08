@@ -1,5 +1,5 @@
-import {SetAccessCode} from './SetAccessCode'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {SetAccessCode} from './SetAccessCode'
 
 export default {
   component: SetAccessCode,
