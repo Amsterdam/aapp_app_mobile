@@ -54,6 +54,7 @@ export const NotificationSetting = ({
                 // @ts-expect-error - This is a valid navigation route, but somehow it does not understand the params type
                 navigation.navigate(...loginRoute)
               } else {
+                // @ts-expect-error this is correct, but since the amount of modules is to high typescript cannot handle this
                 navigation.navigate(slug, loginRoute)
               }
             }}
