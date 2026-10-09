@@ -136,6 +136,7 @@ export type PiwikCategory = ModuleSlug | 'general'
 export enum PiwikAction {
   accessibilityAction = 'accessibilityAction',
   accessibilityChange = 'accessibilityChange',
+  appStateChange = 'appStateChange',
   blur = 'blur',
   buttonPress = 'buttonPress',
   deviceInfoChange = 'deviceInfoChange',
