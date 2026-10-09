@@ -1,5 +1,6 @@
 import {type ReactNode} from 'react'
 import {AppInsights} from '@/app/init/AppInsights'
+import {AppStateListener} from '@/app/init/AppStateListener'
 import {CheckPermissions} from '@/app/init/CheckPermissions'
 import {DeviceRegistration} from '@/app/init/DeviceRegistration'
 import {DisplayNotificationOnForeground} from '@/app/init/DisplayNotificationOnForeground'
@@ -16,6 +17,7 @@ export const Init = ({children}: Props) => {
 
   return (
     <>
+      <AppStateListener />
       <AppInsights />
       <CheckPermissions />
       <DisplayNotificationOnForeground />
