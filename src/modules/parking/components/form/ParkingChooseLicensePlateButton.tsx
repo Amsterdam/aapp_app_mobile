@@ -35,13 +35,13 @@ export const ParkingChooseLicensePlateButton = () => {
       disabled={isLoading || isError}
       icon={{
         size: 'lgx',
-        name: isLoading && permit?.no_endtime ? 'spinner' : 'car',
+        name: isLoading ? 'spinner' : 'car',
       }}
       name="licensePlate"
       rules={{
         required: 'Kies een kenteken',
         validate: newVehicle => {
-          if (activeParkingSessions?.length && permit?.no_endtime) {
+          if (activeParkingSessions?.length) {
             return (
               activeParkingSessions?.[0].vehicle_id !==
                 newVehicle?.vehicle_id || 'Dit kenteken is al actief'

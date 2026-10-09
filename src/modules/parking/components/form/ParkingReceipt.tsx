@@ -2,34 +2,30 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
-import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {alerts} from '@/modules/parking/alerts'
+import {ParkingReceiptErrors} from '@/modules/parking/components/form/ParkingReceiptErrors'
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetRemainingBalance} from '@/modules/parking/hooks/useGetRemainingBalance'
-import {
-  useAccountDetailsQuery,
-  useSessionReceiptQuery,
-} from '@/modules/parking/service'
+import {useRemainingTimeBalanceError} from '@/modules/parking/hooks/useRemainingTimeBalanceError'
+import {useRemainingWalletBalanceError} from '@/modules/parking/hooks/useRemainingWalletBalanceError'
+import {useSessionReceiptQuery} from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
 import {getDateForCostCalculation} from '@/modules/parking/utils/getDateForCostCalculation'
+import {getReceiptTexts} from '@/modules/parking/utils/getReceiptTexts'
 import {Dayjs} from '@/utils/datetime/dayjs'
-import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
-import {formatNumber} from '@/utils/formatNumber'
 
-const ROOT_LOCAL_ERROR_KEY = 'root.localError'
-
-// eslint-disable-next-line sonarjs/cognitive-complexity
 export const ParkingReceipt = () => {
+  const parkingAccount = useParkingAccount()
+  const currentPermit = useCurrentParkingPermit()
+  const {isOpen} = useBottomSheet()
+
   const {
-    clearErrors,
-    setError,
     setValue,
     watch,
     formState: {errors},
@@ -43,6 +39,7 @@ export const ParkingReceipt = () => {
     startTime: Dayjs
     visitorVehicleId?: string
   }>()
+
   const {
     endTime,
     originalEndTime,
@@ -53,14 +50,6 @@ export const ParkingReceipt = () => {
     startTime,
   } = watch()
 
-  const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111'
-  const parkingAccount = useParkingAccount()
-  const isPermitHolder =
-    parkingAccount?.scope === ParkingPermitScope.permitHolder
-  const isVisitor = parkingAccount?.scope === ParkingPermitScope.visitor
-
-  const currentPermit = useCurrentParkingPermit()
-  const {isOpen} = useBottomSheet()
   const {isEndTimeBeforeOriginal, calculatedEndTime, calculatedStartTime} =
     getDateForCostCalculation({
       endTime,
@@ -75,110 +64,58 @@ export const ParkingReceipt = () => {
     (parking_machine || !currentPermit.can_select_zone) &&
     endTime?.isAfter(startTime)
 
-  const queryParams =
+  const {data, isLoading} = useSessionReceiptQuery(
     isAllDataEntered && !isOpen
       ? {
           report_code: currentPermit.report_code.toString(),
           end_date_time: calculatedEndTime?.toJSON(),
           parking_machine,
           start_date_time: calculatedStartTime?.toJSON(),
-          vehicle_id: vehicleId,
+          vehicle_id: licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111',
           ps_right_id,
         }
-      : skipToken
+      : skipToken,
+  )
 
-  const {data, isLoading} = useSessionReceiptQuery(queryParams)
-
-  const {isLoading: isLoadingAccount, data: accountData} =
-    useAccountDetailsQuery()
+  const cost =
+    isEndTimeBeforeOriginal && data?.costs.value
+      ? -data?.costs.value
+      : data?.costs.value
 
   const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
     startTime,
     endTime,
     originalEndTime,
     parking_machine,
-    isEndTimeBeforeOriginal && data?.costs?.value
-      ? -data?.costs?.value
-      : data?.costs?.value,
+    cost,
   )
 
-  const {parking_time, parking_cost} = data ?? {}
-  const possiblyNegativePrefix = isEndTimeBeforeOriginal ? '-' : ''
-  const parkingTimeText = parking_time
-    ? `${possiblyNegativePrefix}${formatSecondsTimeRangeToDisplay(
-        parking_time,
-        {
-          format: 'short',
-        },
-      )}`
-    : '-'
-  const parkingCostText = parking_cost
-    ? `${possiblyNegativePrefix}${formatNumber(data?.costs?.value, data?.costs.currency)}`
-    : '-'
-
-  const remainingTimeBalanceText = formatSecondsTimeRangeToDisplay(
+  const {
+    parkingCostText,
+    parkingTimeText,
+    remainingTimeBalanceText,
+    remainingWalletBalanceText,
+  } = getReceiptTexts({
+    ...data,
+    isEndTimeBeforeOriginal,
     remainingTimeBalance,
-    {
-      format: 'short',
-    },
-  )
-
-  const remainingWalletBalanceText =
-    typeof remainingWalletBalance === 'number'
-      ? formatNumber(remainingWalletBalance, 'EUR')
-      : 'Onbekend'
+    remainingWalletBalance,
+  })
 
   const remainingTimeBalanceError =
-    currentPermit.time_balance_applicable &&
-    remainingTimeBalance &&
-    remainingTimeBalance < 0
+    useRemainingTimeBalanceError(remainingTimeBalance)
 
-  const remainingWalletBalanceError =
-    isPermitHolder &&
-    currentPermit.money_balance_applicable &&
-    typeof remainingWalletBalance === 'number' &&
-    accountData?.wallet?.balance !== 0 &&
-    remainingWalletBalance < 0
+  const remainingWalletBalanceError = useRemainingWalletBalanceError(
+    remainingWalletBalance,
+  )
 
   useEffect(() => {
-    if (remainingTimeBalanceError) {
-      setError(ROOT_LOCAL_ERROR_KEY, {
-        type: 'isTimeBalanceInsufficient',
-      })
-    } else if (errors.root?.localError?.type === 'isTimeBalanceInsufficient') {
-      clearErrors(ROOT_LOCAL_ERROR_KEY)
+    if (parkingAccount?.scope === ParkingPermitScope.visitor) {
+      setValue('amount', data?.costs.value)
     }
-  }, [
-    clearErrors,
-    errors.root?.localError?.type,
-    remainingTimeBalanceError,
-    setError,
-  ])
+  }, [parkingAccount, data, setValue])
 
-  useEffect(() => {
-    if (remainingWalletBalanceError) {
-      setError(ROOT_LOCAL_ERROR_KEY, {
-        type: 'isWalletBalanceInsufficient',
-      })
-    } else if (
-      errors.root?.localError?.type === 'isWalletBalanceInsufficient'
-    ) {
-      clearErrors(ROOT_LOCAL_ERROR_KEY)
-    }
-  }, [
-    clearErrors,
-    errors.root?.localError?.type,
-    remainingWalletBalanceError,
-    setError,
-  ])
-
-  useEffect(() => {
-    if (isVisitor) {
-      setValue('amount', data?.costs?.value)
-    }
-  }, [isVisitor, data?.costs?.value, setValue])
-
-  if (isLoading || isLoadingAccount) {
+  if (isLoading) {
     return (
       <PleaseWait
         showFeedback
@@ -187,13 +124,15 @@ export const ParkingReceipt = () => {
     )
   }
 
+  if (errors.root?.serverError?.message === 'SSP_BAD_REQUEST') {
+    return <SomethingWentWrong testID="ParkingReceiptSomethingWentWrong" />
+  }
+
   if (
     !currentPermit.time_balance_applicable &&
     !currentPermit.money_balance_applicable
   ) {
-    return errors.root?.serverError?.message === 'SSP_BAD_REQUEST' ? (
-      <SomethingWentWrong testID="ParkingReceiptSomethingWentWrong" />
-    ) : null
+    return null
   }
 
   return (
@@ -250,42 +189,27 @@ export const ParkingReceipt = () => {
             </ParkingReceiptItem>
           )}
 
-          {!!currentPermit.money_balance_applicable && !!isPermitHolder && (
-            <ParkingReceiptItem>
-              <Phrase
-                accessible={false}
-                color={remainingWalletBalanceError ? 'negative' : undefined}>
-                Resterend geldsaldo
-              </Phrase>
-              <Phrase
-                accessible={false}
-                color={remainingWalletBalanceError ? 'negative' : undefined}>
-                {remainingWalletBalanceText}
-              </Phrase>
-            </ParkingReceiptItem>
-          )}
+          {!!currentPermit.money_balance_applicable &&
+            parkingAccount?.scope === ParkingPermitScope.permitHolder && (
+              <ParkingReceiptItem>
+                <Phrase
+                  accessible={false}
+                  color={remainingWalletBalanceError ? 'negative' : undefined}>
+                  Resterend geldsaldo
+                </Phrase>
+                <Phrase
+                  accessible={false}
+                  color={remainingWalletBalanceError ? 'negative' : undefined}>
+                  {remainingWalletBalanceText}
+                </Phrase>
+              </ParkingReceiptItem>
+            )}
         </Column>
       </Column>
-      {(!!remainingTimeBalanceError ||
-        errors.root?.serverError?.message ===
-          'SSP_TIME_BALANCE_INSUFFICIENT') && (
-        <AlertNegative
-          {...alerts[
-            isPermitHolder
-              ? 'insufficientTimeBalanceFailed'
-              : 'insufficientTimeBalanceVisitorFailed'
-          ]}
-        />
-      )}
-      {(!!remainingWalletBalanceError ||
-        errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW') && (
-        <AlertNegative {...alerts.insufficientMoneyBalanceFailed} />
-      )}
-      {errors.root?.serverError &&
-        errors.root?.serverError?.message !== 'SSP_TIME_BALANCE_INSUFFICIENT' &&
-        errors.root?.serverError?.message !== 'SSP_BALANCE_TOO_LOW' && (
-          <SomethingWentWrong testID="ParkingReceiptSomethingWentWrong" />
-        )}
+      <ParkingReceiptErrors
+        remainingTimeBalanceError={remainingTimeBalanceError}
+        remainingWalletBalanceError={remainingWalletBalanceError}
+      />
     </Column>
   )
 }

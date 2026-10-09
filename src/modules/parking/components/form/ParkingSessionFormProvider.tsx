@@ -23,29 +23,17 @@ const getDefaultValues = ({
   extendVisitorSession,
   parkingSession,
 }: Omit<Props, 'children' | 'defaultValues'> & Props['defaultValues']) => {
-  if (extendVisitorSession && parkingSession) {
-    return {
-      licensePlate: {
-        vehicle_id: parkingSession.vehicle_id,
-        visitor_name: parkingSession.visitor_name,
-      },
-      startTime: dayjs(parkingSession.end_date_time),
-      originalStartTime: dayjs(parkingSession.start_date_time),
-      endTime: dayjs(parkingSession.end_date_time),
-      originalEndTime: dayjs(parkingSession.end_date_time),
-      parking_machine: parkingSession.parking_machine,
-      ps_right_id: parkingSession.ps_right_id,
-      report_code: parkingSession.report_code,
-    }
-  }
-
   if (parkingSession) {
     return {
       licensePlate: {
         vehicle_id: parkingSession.vehicle_id,
         visitor_name: parkingSession.visitor_name,
       },
-      startTime: dayjs(parkingSession.start_date_time),
+      startTime: dayjs(
+        extendVisitorSession
+          ? parkingSession.end_date_time
+          : parkingSession.start_date_time,
+      ),
       originalStartTime: dayjs(parkingSession.start_date_time),
       endTime: dayjs(parkingSession.end_date_time),
       originalEndTime: dayjs(parkingSession.end_date_time),

@@ -63,7 +63,7 @@ export const useGetRemainingBalance = (
     () =>
       cost && typeof parkingAccount?.wallet?.balance === 'number'
         ? parkingAccount?.wallet?.balance - cost
-        : parkingAccount?.wallet?.balance,
+        : (parkingAccount?.wallet?.balance ?? undefined),
     [cost, parkingAccount?.wallet?.balance],
   )
 

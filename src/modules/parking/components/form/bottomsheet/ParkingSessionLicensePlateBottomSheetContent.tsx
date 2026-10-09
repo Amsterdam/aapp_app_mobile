@@ -25,7 +25,7 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
 
   return (
     <Box grow>
-      <ParkingSessionLicensePlateFormProvider
+      <ParkingSessionLicensePlateFormProvider // Nested form inside ParkingSessionFormProvider
         defaultValues={{vehicle_id: watch('licensePlate')?.vehicle_id}}>
         <Column
           grow={1}
