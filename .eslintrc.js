@@ -42,6 +42,7 @@ module.exports = {
         'sonarjs/no-misleading-array-reverse': 'off', // not (yet) supported in Hermes
         'sonarjs/no-ignored-exceptions': 'off', // does not (yet) detect a correct catch implementation
         'sonarjs/no-nested-conditional': 'off',
+        'sonarjs/no-commented-code': 'off',
         'sonarjs/todo-tag': 'off',
         'sonarjs/no-selector-parameter': 'off',
         'sonarjs/void-use': 'off',
