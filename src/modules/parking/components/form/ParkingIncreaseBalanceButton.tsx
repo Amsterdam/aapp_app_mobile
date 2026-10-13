@@ -5,6 +5,7 @@ import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import type {ParkingIncreaseBalanceFormValues} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
 import {
   useAccountDetailsQuery,
   useIncreaseBalanceMutation,
@@ -12,20 +13,17 @@ import {
 import {setWalletBalanceIncreaseStartBalance} from '@/modules/parking/slice'
 import {ParkingApiLocale} from '@/modules/parking/types'
 
-type FieldValues = {
-  amount?: number
-}
-
 export const ParkingIncreaseBalanceButton = () => {
   const dispatch = useDispatch()
-  const {handleSubmit, formState} = useFormContext()
+  const {handleSubmit, formState} =
+    useFormContext<ParkingIncreaseBalanceFormValues>()
   const [increaseBalance] = useIncreaseBalanceMutation()
   const {data} = useAccountDetailsQuery()
 
   const navigation = useNavigation<ParkingRouteName>()
   const openWebUrl = useOpenWebUrl()
   const onSubmit = useCallback(
-    ({amount}: FieldValues) => {
+    ({amount}: ParkingIncreaseBalanceFormValues) => {
       if (amount) {
         dispatch(
           setWalletBalanceIncreaseStartBalance(

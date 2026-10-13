@@ -5,24 +5,19 @@ import {Column} from '@/components/ui/layout/Column'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/parking/alerts'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {useEditSessionMutation} from '@/modules/parking/service'
 import {useAlert} from '@/store/slices/alert'
-import {Dayjs} from '@/utils/datetime/dayjs'
-
-type FieldValues = {
-  amount?: number
-  endTime?: Dayjs
-  licensePlate: {
-    vehicle_id: string
-    visitor_name?: string
-  }
-  ps_right_id: number
-  report_code: string
-  startTime: Dayjs
-}
+import type {NonOptional} from '@/types/utils'
 
 export const ParkingEditSessionButtons = () => {
-  const {handleSubmit, formState} = useFormContext<FieldValues>()
+  const {handleSubmit, formState} =
+    useFormContext<
+      NonOptional<
+        ParkingSessionFormValues,
+        'report_code' | 'ps_right_id' | 'licensePlate'
+      >
+    >()
   const [editSession, {isLoading}] = useEditSessionMutation()
 
   const navigation = useNavigation()
@@ -37,7 +32,10 @@ export const ParkingEditSessionButtons = () => {
       ps_right_id,
       amount,
       licensePlate: {vehicle_id},
-    }: FieldValues) => {
+    }: NonOptional<
+      ParkingSessionFormValues,
+      'report_code' | 'ps_right_id' | 'licensePlate'
+    >) => {
       if (endTime && startTime.isBefore(endTime)) {
         return editSession({
           parking_session: {

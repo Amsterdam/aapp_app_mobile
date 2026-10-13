@@ -8,6 +8,7 @@ import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import type {ManageVisitorIncreaseTimeBalanceFormValues} from '@/modules/parking/providers/ManageVisitorIncreaseTimeBalanceFormProvider'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 
 type Props = {
@@ -66,7 +67,7 @@ export const ManageVisitorTimeAddOnBottomSheet = ({isNegative}: Props) => {
   const currentPermit = useCurrentParkingPermit()
   const {
     field: {value: time, onChange},
-  } = useController<{time?: number}>({
+  } = useController<ManageVisitorIncreaseTimeBalanceFormValues>({
     name: 'time',
   })
   const {close} = use(BottomSheetContext)

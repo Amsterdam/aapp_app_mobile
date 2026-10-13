@@ -1,4 +1,5 @@
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
+import type {ManageVisitorIncreaseTimeBalanceFormValues} from '@/modules/parking/providers/ManageVisitorIncreaseTimeBalanceFormProvider'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 
 type Props = {
@@ -9,7 +10,7 @@ export const ManageVisitorChooseTimeAddOn = ({isNegative}: Props) => {
   const operator = isNegative ? '-' : '+'
 
   return (
-    <SelectButtonControlled<{time?: number}, 'time'>
+    <SelectButtonControlled<ManageVisitorIncreaseTimeBalanceFormValues, 'time'>
       icon={{name: 'clock', size: 'lgx'}}
       name="time"
       rules={{

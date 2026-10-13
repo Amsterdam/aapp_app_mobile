@@ -8,6 +8,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/parking/alerts'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import type {ManageVisitorIncreaseTimeBalanceFormValues} from '@/modules/parking/providers/ManageVisitorIncreaseTimeBalanceFormProvider'
 import {useManageVisitorTimeBalanceMutation} from '@/modules/parking/service'
 import {useAlert} from '@/store/slices/alert'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
@@ -16,13 +17,10 @@ type Props = {
   isNegative?: boolean
 }
 
-type FieldValues = {
-  time?: number
-}
-
 export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
   const currentPermit = useCurrentParkingPermit()
-  const {handleSubmit, watch} = useFormContext<FieldValues>()
+  const {handleSubmit, watch} =
+    useFormContext<ManageVisitorIncreaseTimeBalanceFormValues>()
   const {goBack} = useNavigation()
   const {setAlert} = useAlert()
   const operator = isNegative ? '-' : '+'
@@ -31,22 +29,26 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
 
   const [updateTimeBalance] = useManageVisitorTimeBalanceMutation()
 
-  const onSubmit = handleSubmit(async ({time: timeFieldValue}: FieldValues) => {
-    if (!timeFieldValue) {
-      return
-    }
+  const onSubmit = handleSubmit(
+    async ({
+      time: timeFieldValue,
+    }: ManageVisitorIncreaseTimeBalanceFormValues) => {
+      if (!timeFieldValue) {
+        return
+      }
 
-    await updateTimeBalance({
-      report_code: currentPermit.report_code.toString(),
-      seconds_to_transfer: isNegative ? -timeFieldValue : timeFieldValue,
-    })
-      .unwrap()
-      .then(() => {
-        goBack()
-        setAlert(alerts.adjustTimeBalanceSuccess)
+      await updateTimeBalance({
+        report_code: currentPermit.report_code.toString(),
+        seconds_to_transfer: isNegative ? -timeFieldValue : timeFieldValue,
       })
-      .catch(() => setAlert(alerts.adjustTimeBalanceFailed))
-  })
+        .unwrap()
+        .then(() => {
+          goBack()
+          setAlert(alerts.adjustTimeBalanceSuccess)
+        })
+        .catch(() => setAlert(alerts.adjustTimeBalanceFailed))
+    },
+  )
 
   if (!currentPermit.visitor_account) {
     return null

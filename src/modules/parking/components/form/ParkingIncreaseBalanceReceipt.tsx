@@ -7,11 +7,12 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
+import type {ParkingIncreaseBalanceFormValues} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingIncreaseBalanceReceipt = () => {
-  const {watch} = useFormContext<{amount?: number}>()
+  const {watch} = useFormContext<ParkingIncreaseBalanceFormValues>()
   const amount = watch('amount')
 
   const {

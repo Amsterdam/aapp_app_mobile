@@ -15,20 +15,26 @@ export const useGetParkingSessions = (
   const parkingAccount = useParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
 
+  const isPermitHolderSessionsActive =
+    !!currentPermit && parkingAccount?.scope === ParkingPermitScope.permitHolder
+
+  const isVisitorSessionsActive =
+    parkingAccount?.scope === ParkingPermitScope.visitor && !!visitorVehicleId
+
   const {
-    data: parkingSessionsInfinite,
+    currentData: parkingSessionsInfinite,
     isLoading: isLoadingParkingSessions,
     isError: isParkingSessionsError,
     refetch: refetchParkingSessions,
   } = useParkingSessionsInfiniteQuery(
-    currentPermit && parkingAccount?.scope === ParkingPermitScope.permitHolder
+    isPermitHolderSessionsActive
       ? {
           report_code: currentPermit.report_code.toString(),
           status,
           page_size: 100,
         }
       : skipToken,
-    {initialPageParam: 1, ...options},
+    {initialPageParam: 1, refetchOnMountOrArgChange: true, ...options},
   )
   const parkingSessions = parkingSessionsInfinite?.pages[0]
 
@@ -38,24 +44,31 @@ export const useGetParkingSessions = (
     isError: isVisitorParkingSessionsError,
     refetch: refetchVisitorParkingSessions,
   } = useVisitorParkingSessionsQuery(
-    parkingAccount?.scope === ParkingPermitScope.visitor && visitorVehicleId
+    isVisitorSessionsActive
       ? {
           vehicle_id: visitorVehicleId,
           report_code: currentPermit.report_code.toString(),
           status,
         }
       : skipToken,
-    options,
+    {refetchOnMountOrArgChange: true, ...options},
   )
 
+  if (isVisitorSessionsActive) {
+    return {
+      isLoading: isLoadingVisitorParkingSessions,
+      isError: isVisitorParkingSessionsError,
+      parkingSessions: visitorParkingSessions?.[status],
+      page: undefined,
+      refetch: refetchVisitorParkingSessions,
+    }
+  }
+
   return {
-    isLoading: isLoadingParkingSessions || isLoadingVisitorParkingSessions,
-    isError: isParkingSessionsError || isVisitorParkingSessionsError,
-    parkingSessions:
-      parkingSessions?.result || visitorParkingSessions?.[status],
+    isLoading: isLoadingParkingSessions,
+    isError: isParkingSessionsError,
+    parkingSessions: parkingSessions?.result,
     page: parkingSessions?.page,
-    refetch: visitorVehicleId
-      ? refetchVisitorParkingSessions
-      : refetchParkingSessions,
+    refetch: refetchParkingSessions,
   }
 }

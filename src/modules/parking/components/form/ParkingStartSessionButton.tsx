@@ -6,26 +6,15 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingAddMoneyButton} from '@/modules/parking/components/ParkingAddMoneyButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useStartSessionMutation} from '@/modules/parking/service'
-import {useVisitorVehicleId} from '@/modules/parking/slice'
-import type {ParkingLicensePlateBase} from '@/modules/parking/types'
 import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
 import {useAlert} from '@/store/slices/alert'
 import {Duration} from '@/types/duration'
-import {Dayjs} from '@/utils/datetime/dayjs'
-
-export type SessionFieldValues = {
-  amount?: number
-  endTime?: Dayjs
-  licensePlate?: ParkingLicensePlateBase
-  parking_machine?: string
-  parking_machine_favorite?: boolean
-  startTime: Dayjs
-  vehicle_id?: string
-}
+import type {NonOptional} from '@/types/utils'
 
 export const ParkingStartSessionButton = () => {
   const {
@@ -33,9 +22,8 @@ export const ParkingStartSessionButton = () => {
     clearErrors,
     formState: {isSubmitting, errors},
     setError,
-  } = useFormContext<SessionFieldValues>()
+  } = useFormContext<NonOptional<ParkingSessionFormValues, 'licensePlate'>>()
   const {report_code, permit_type} = useCurrentParkingPermit()
-  const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
   const [startSession, {isLoading}] = useStartSessionMutation()
   const navigation = useNavigation()
@@ -62,13 +50,25 @@ export const ParkingStartSessionButton = () => {
       licensePlate,
       parking_machine,
       parking_machine_favorite,
-      vehicle_id: visitorVehicleId,
-    }: SessionFieldValues) => {
+    }: NonOptional<ParkingSessionFormValues, 'licensePlate'>) => {
       clearErrors('root.serverError')
-      const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId
 
       // TODO: check if the limit of current active parking sessions is not reached
-      if (vehicleId) {
+      if (licensePlate?.vehicle_id) {
+        const paymentData = amount
+          ? {
+              balance: {
+                amount,
+                currency: 'EUR',
+              },
+              redirect: {
+                merchant_return_url:
+                  'amsterdam://parking/start-session-and-increase-balance/return',
+              },
+              locale: 'nl',
+            }
+          : {}
+
         return startSession({
           parking_session: {
             end_date_time: endTime?.toJSON(),
@@ -76,29 +76,13 @@ export const ParkingStartSessionButton = () => {
             parking_machine_favorite: !!parking_machine_favorite,
             report_code: report_code.toString(),
             start_date_time: startTime.toJSON(),
-            vehicle_id: vehicleId,
+            vehicle_id: licensePlate?.vehicle_id,
           },
-          ...(amount
-            ? {
-                balance: {
-                  amount,
-                  currency: 'EUR',
-                },
-                redirect: {
-                  merchant_return_url:
-                    'amsterdam://parking/start-session-and-increase-balance/return',
-                },
-                locale: 'nl',
-              }
-            : {}),
+          ...paymentData,
         })
           .unwrap()
           .then(
             result => {
-              if (visitorVehicleId) {
-                setVisitorVehicleId(visitorVehicleId)
-              }
-
               if (result.redirect_url) {
                 openWebUrl(result.redirect_url)
               } else {
@@ -160,7 +144,6 @@ export const ParkingStartSessionButton = () => {
       report_code,
       registerDeviceIfPermitted,
       navigation,
-      setVisitorVehicleId,
       openWebUrl,
       setAlert,
       openSurveyBottomsheet,
