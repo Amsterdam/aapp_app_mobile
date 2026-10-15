@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {Share} from 'react-native'
-import simplur from 'simplur'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {ShareButton} from '@/components/ui/buttons/ShareButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -31,7 +30,7 @@ import {
 } from '@/modules/boat-charging/slice'
 import {ChargingPointStatus} from '@/modules/boat-charging/types'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
-import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailableAndAllEvses'
+import {getSocketStatusAndAvailabilitySentence} from '@/modules/boat-charging/utils/getSocketStatusAndAvailabilitySentence'
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 import {coordinatesToDDM} from '@/utils/transform/coordinatesToDDM'
@@ -79,10 +78,10 @@ export const BoatChargingPointDetails = () => {
     return [maxKw, rate].filter(Boolean).join(' - ')
   }, [location, vat_fraction])
 
-  const {availableEvses, evses} = useAvailableAndAllEvses(
-    location?.charging_stations ?? [],
-  )
   const {reset} = useNewSessionFormContext()
+
+  const socketAvailabilitySentence =
+    getSocketStatusAndAvailabilitySentence(location)
 
   if (isLoading) {
     return (
@@ -104,10 +103,6 @@ export const BoatChargingPointDetails = () => {
 
   const {address, status} = location
   const formattedCoordinates = coordinatesToDDM(address.coordinates)
-
-  const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[evses.length]}`
-  const availableSocketsSentence = `${availableEvses.length} van ${evses.length} ${pluralizedSockets} vrij`
-  const socketsSentenceMalfunction = `${evses.length} ${pluralizedSockets}`
 
   return (
     <Box
@@ -148,11 +143,7 @@ export const BoatChargingPointDetails = () => {
               size={size.spacing.md}
               testID="BoatChargingPointDetailsCustomIcon"
             />
-            <Phrase>
-              {status === ChargingPointStatus.OPERATIVE
-                ? availableSocketsSentence
-                : socketsSentenceMalfunction}
-            </Phrase>
+            <Phrase>{socketAvailabilitySentence}</Phrase>
           </Row>
           {!!details && <Phrase color="secondary">{details}</Phrase>}
         </Column>

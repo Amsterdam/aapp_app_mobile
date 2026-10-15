@@ -1,17 +1,10 @@
 import {Size} from '@/components/ui/layout/Size'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Tag} from '@/components/ui/text/Tag'
+import {mapStatusToLabel} from '@/modules/boat-charging/constants/mapStatusToLabel'
 import {ChargingPointStatus} from '@/modules/boat-charging/types'
 
 const SIZE = 60
-
-const STATUS_MAP: Record<ChargingPointStatus, string> = {
-  [ChargingPointStatus.OPERATIVE]: 'Vrij',
-  [ChargingPointStatus.OCCUPIED]: 'Bezet',
-  [ChargingPointStatus.INOPERATIVE]: 'Storing',
-  [ChargingPointStatus.OFFLINE]: 'Storing',
-  [ChargingPointStatus.UNKNOWN]: 'Storing',
-}
 
 type Props = {
   status: ChargingPointStatus
@@ -28,7 +21,7 @@ export const BoatChargingSocketStatusTag = ({status}: Props) => (
         allowFontScaling={false}
         color="inverse"
         textAlign="center">
-        {STATUS_MAP[status]}
+        {mapStatusToLabel[status]}
       </Phrase>
     </Size>
   </Tag>

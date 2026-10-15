@@ -34,11 +34,11 @@ export type BoatChargingLocationDetailsResponse = BoatChargingLocation & {
     id: string
     parking_time_price_per_hour: number
   }
-  total_sockets: number
 }
 
 export type BoatChargingLocation = {
   address: Address
+  available_sockets: number
   id: string
   max_kw: number | null
   name: string
