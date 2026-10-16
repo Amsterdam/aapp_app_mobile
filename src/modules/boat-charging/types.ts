@@ -3,6 +3,7 @@ import type {Address} from '@/modules/address/exports/types'
 import type {PaginationQueryArgs} from '@/types/api'
 
 export enum BoatChargingEndpointName {
+  addVignet = 'boatChargingAddVignet',
   boatChargingCancelSession = 'boatChargingCancelSession',
   boatChargingInitSession = 'boatChargingInitSession',
   boatChargingLocationDetails = 'boatChargingLocationDetails',
@@ -16,6 +17,9 @@ export enum BoatChargingEndpointName {
   boatChargingStartSession = 'boatChargingStartSession',
   boatChargingStopSession = 'boatChargingStopSession',
   boatChargingTerms = 'boatChargingTerms',
+  deleteVignet = 'boatChargingDeleteVignet',
+  editVignet = 'boatChargingEditVignet',
+  vignettes = 'boatChargingVignettes',
 }
 
 export type BoatChargingPointFeature = Feature<Point, BoatChargingLocation>
@@ -247,4 +251,12 @@ export type NewSessionFormValues = {
   didVerifyEmail?: boolean
   email?: string
   selectedSocket?: BoatChargingSelectSocketFormSelectedSocket
+}
+
+export type Vignet = {
+  boat_name?: string
+  expiration_date: string
+  id: number
+  postal_code: string
+  vignette_number: string
 }

@@ -17,6 +17,7 @@ import {
   type BoatChargingSettings,
   type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
+  type Vignet,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -198,6 +199,54 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['BoatChargingSessions', 'BoatChargingLocations'],
     }),
+    [BoatChargingEndpointName.vignettes]: builder.query<Array<Vignet>, void>({
+      query: () => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/vignettes',
+        method: 'GET',
+        headers: deviceIdHeader,
+      }),
+      providesTags: ['BoatChargingVignettes'],
+    }),
+    [BoatChargingEndpointName.addVignet]: builder.mutation<
+      Vignet,
+      Pick<Vignet, 'postal_code' | 'vignette_number'>
+    >({
+      query: body => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/vignettes',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['BoatChargingVignettes'],
+    }),
+    [BoatChargingEndpointName.deleteVignet]: builder.mutation<
+      void,
+      Vignet['id']
+    >({
+      query: vignetId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/vignettes/${vignetId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['BoatChargingVignettes'],
+    }),
+    [BoatChargingEndpointName.editVignet]: builder.mutation<
+      Vignet,
+      Pick<Vignet, 'postal_code' | 'vignette_number'> & {vignetId: Vignet['id']}
+    >({
+      query: ({vignetId, ...body}) => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/vignettes/${vignetId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['BoatChargingVignettes'],
+    }),
   }),
   overrideExisting: false,
 })
@@ -216,4 +265,8 @@ export const {
   useBoatChargingStartSessionMutation,
   useBoatChargingStopSessionMutation,
   useBoatChargingSessionCostBreakdownQuery,
+  useBoatChargingVignettesQuery,
+  useBoatChargingAddVignetMutation,
+  useBoatChargingDeleteVignetMutation,
+  useBoatChargingEditVignetMutation,
 } = boatChargingApi

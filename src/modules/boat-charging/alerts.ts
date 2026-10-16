@@ -45,6 +45,18 @@ export const alerts = {
     title: 'Inloggen is mislukt',
     testID: 'BoatChargingLoginFailedAlert',
   },
+  vignetInvalidFailed: {
+    variant: AlertVariant.negative,
+    text: 'Dit vignet is niet geldig.',
+    title: 'Niet geldig',
+    testID: 'BoatChargingVignetInvalidAlert',
+  },
+  vignetDeleteFailed: {
+    variant: AlertVariant.negative,
+    text: 'Het vignet is niet verwijderd. Probeer het later nog eens.',
+    title: 'Er ging iets mis',
+    testID: 'BoatChargingVignetDeleteAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts

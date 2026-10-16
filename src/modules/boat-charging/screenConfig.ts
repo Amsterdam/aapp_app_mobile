@@ -1,4 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {BoatChargingAddVignetHeaderButton} from '@/modules/boat-charging/components/vignettes/BoatChargingAddVignetHeaderButton'
 import {
   BoatChargingRouteName,
   type ModuleStackParams,
@@ -12,8 +13,10 @@ import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatCha
 import {BoatChargingHistorySessionDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingHistorySessionDetails.screen'
 import {BoatChargingLocationDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingLocationDetails.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
+import {BoatChargingMyVignettesScreen} from '@/modules/boat-charging/screens/BoatChargingMyVignettes.screen'
 import {BoatChargingPaymentResultScreen} from '@/modules/boat-charging/screens/BoatChargingPaymentResult.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
+import {BoatChargingVignetScreen} from '@/modules/boat-charging/screens/BoatChargingVignet.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
@@ -99,6 +102,21 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.paymentResult,
     options: {
       headerTitle: 'Laadsessie',
+    },
+  },
+  [BoatChargingRouteName.myVignettes]: {
+    component: BoatChargingMyVignettesScreen,
+    name: BoatChargingRouteName.myVignettes,
+    options: {
+      headerTitle: 'Mijn vignetten',
+      SideComponent: BoatChargingAddVignetHeaderButton,
+    },
+  },
+  [BoatChargingRouteName.vignet]: {
+    component: BoatChargingVignetScreen,
+    name: BoatChargingRouteName.vignet,
+    options: {
+      headerShown: false,
     },
   },
 }
