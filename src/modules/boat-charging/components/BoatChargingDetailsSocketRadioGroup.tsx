@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {BoatChargingSocketRadioLabel} from '@/modules/boat-charging/components/BoatChargingSocketRadioLabel'
 import {
   ChargingPointStatus,
+  type BoatChargingLocation,
   type BoatChargingSelectSocketFormValues,
   type ChargingStation,
 } from '@/modules/boat-charging/types'
@@ -12,11 +13,13 @@ import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailabl
 type Props = {
   chargingStations: ChargingStation[]
   hasActiveSession: boolean
+  locationId: BoatChargingLocation['id']
 }
 
 export const BoatChargingDetailsSocketRadioGroup = ({
   hasActiveSession,
   chargingStations = [],
+  locationId,
 }: Props) => {
   const form = useFormContext<BoatChargingSelectSocketFormValues>()
 
@@ -50,6 +53,7 @@ export const BoatChargingDetailsSocketRadioGroup = ({
                 />
               ),
               value: {
+                locationId,
                 stationId: station.id,
                 socketNumber: evse_id,
               },

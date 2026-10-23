@@ -10,7 +10,6 @@ export const BoatChargingChooseVignetFormSubmitButton = () => {
   const {onPress, form} = useInitSession(
     BoatChargingInitSessionStep.chooseVignet,
   )
-  const {getValues} = form
 
   const onSubmit = useCallback(
     ({vignet, ...values}: NewSessionFormValues) => {
@@ -22,7 +21,9 @@ export const BoatChargingChooseVignetFormSubmitButton = () => {
         })
       }
 
-      void onPress({...values, vignet})
+      void onPress({...values, vignet}).then(() =>
+        form.setValue('isVignetVerified', false),
+      )
     },
     [form, onPress],
   )
@@ -30,7 +31,7 @@ export const BoatChargingChooseVignetFormSubmitButton = () => {
   return (
     <Button
       label="Kies vignet"
-      onPress={() => onSubmit(getValues())}
+      onPress={() => onSubmit(form.getValues())}
       testID="BoatChargingChooseVignetSubmitButton"
     />
   )

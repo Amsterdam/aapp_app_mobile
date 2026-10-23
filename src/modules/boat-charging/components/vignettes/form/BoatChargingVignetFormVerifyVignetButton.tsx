@@ -2,7 +2,8 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
-import {alerts, type Alerts} from '@/modules/boat-charging/alerts'
+import {alerts} from '@/modules/boat-charging/alerts'
+import {vignetInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {type BoatChargingVignetFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
 import {
@@ -13,17 +14,6 @@ import {
 import {type Vignet, VignetInvalidReasons} from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
-
-const reasonToAlertMap: Record<
-  Exclude<VignetInvalidReasons, VignetInvalidReasons.mismatch>,
-  Alerts
-> = {
-  [VignetInvalidReasons.notFound]: 'vignetInvalidFailed',
-  [VignetInvalidReasons.cancelled]: 'vignetInvalidFailed',
-  [VignetInvalidReasons.expired]: 'vignetExpiredFailed',
-  [VignetInvalidReasons.onlyEnvironmentTypeAllowed]:
-    'vignetNotApplicableFailed',
-}
 
 type Props = {
   onVerified: (vignet: Omit<Vignet, 'id'>) => void
@@ -72,7 +62,7 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
                 return
               }
 
-              const alertKey = reasonToAlertMap[reason]
+              const alertKey = vignetInvalidReasonToAlertMap[reason]
 
               setAlert(alerts[alertKey])
 

@@ -13,54 +13,60 @@ import {validateEmail} from '@/utils/validate'
 
 export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
   const store = useStore()
-  const {data: terms} = useBoatChargingTermsQuery()
   const {isLoggedIn} = useIsLoggedIn()
-  const {data: vignettes} = useBoatChargingVignettesQuery(undefined, {
+  const {
+    data: terms,
+    isLoading: isLoadingTerms,
+    isError: isErrorTerms,
+  } = useBoatChargingTermsQuery()
+  const {
+    data: vignettes,
+    isLoading: isLoadingVignettes,
+    isError: isErrorVignettes,
+  } = useBoatChargingVignettesQuery(undefined, {
     skip: !isLoggedIn,
   })
 
-  const loggedInNextStep = useCallback(() => {
-    const state = store.getState()
-    const lastApprovedTermsVersionFromState =
-      selectLastApprovedTermsVersionWhileLoggedIn(state)
+  const loggedInNextStep = useCallback(
+    (params: NewSessionFormValues) => {
+      const state = store.getState()
+      const lastApprovedTermsVersionFromState =
+        selectLastApprovedTermsVersionWhileLoggedIn(state)
 
-    if (
-      step === BoatChargingInitSessionStep.selectSocket ||
-      step === BoatChargingInitSessionStep.guestEmail
-    ) {
-      if (vignettes?.length) {
-        return BoatChargingRouteName.chooseVignet
-      } else {
-        return BoatChargingRouteName.verifyVignet
+      const {vignet} = params
+
+      if (!vignet) {
+        if (vignettes?.length) {
+          return BoatChargingRouteName.chooseVignet
+        } else {
+          return BoatChargingRouteName.verifyVignet
+        }
       }
-    }
 
-    if (terms?.version !== lastApprovedTermsVersionFromState) {
-      return BoatChargingRouteName.termsAndConditions
-    }
+      if (terms?.version !== lastApprovedTermsVersionFromState) {
+        return BoatChargingRouteName.termsAndConditions
+      }
 
-    if (step !== BoatChargingInitSessionStep.confirmSession) {
-      return BoatChargingRouteName.confirmSession
-    }
-  }, [step, store, terms?.version, vignettes])
+      if (step !== BoatChargingInitSessionStep.confirmSession) {
+        return BoatChargingRouteName.confirmSession
+      }
+    },
+    [step, store, terms?.version, vignettes],
+  )
 
   const guestNextStep = useCallback(
     (params: NewSessionFormValues) => {
-      const {approvedTerms, email} = params
+      const {approvedTerms, email, vignet} = params
 
-      if (
-        !email ||
-        validateEmail(email) !== true ||
-        step === BoatChargingInitSessionStep.selectSocket
-      ) {
+      if (!email || validateEmail(email) !== true) {
         return BoatChargingRouteName.guestEmail
       }
 
-      if (step === BoatChargingInitSessionStep.guestEmail) {
+      if (!vignet) {
         return BoatChargingRouteName.verifyVignet
       }
 
-      if (!approvedTerms || step === BoatChargingInitSessionStep.verifyVignet) {
+      if (!approvedTerms) {
         return BoatChargingRouteName.termsAndConditions
       }
 
@@ -71,9 +77,15 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
     [step],
   )
 
-  return useCallback(
+  const getNextStep = useCallback(
     (params: NewSessionFormValues) =>
-      isLoggedIn ? loggedInNextStep() : guestNextStep(params),
+      isLoggedIn ? loggedInNextStep(params) : guestNextStep(params),
     [guestNextStep, loggedInNextStep, isLoggedIn],
   )
+
+  return {
+    getNextStep,
+    isLoading: isLoadingTerms || isLoadingVignettes,
+    isError: isErrorTerms || isErrorVignettes,
+  }
 }

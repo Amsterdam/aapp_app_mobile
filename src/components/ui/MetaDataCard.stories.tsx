@@ -18,3 +18,11 @@ export const Default: Story = {
     testID: 'MetaDataCard',
   },
 }
+
+export const WithoutIcon: Story = {
+  args: {
+    title: 'Laadtijd',
+    children: <Phrase>2 uur en 30 minuten</Phrase>,
+    testID: 'MetaDataCard',
+  },
+}

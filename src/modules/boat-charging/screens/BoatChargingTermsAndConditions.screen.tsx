@@ -61,14 +61,8 @@ export const BoatChargingTermsAndConditionsScreen = () => {
       stickyFooter={
         <Box>
           <Button
-            icon={{
-              name: 'lightning',
-              color: 'inverse',
-              size: 'ml',
-              isFilled: true,
-            }}
             isLoading={isLoading}
-            label="Betalen en laden"
+            label="Bevestigen"
             onPress={isError ? refetch : handleSubmit(onSubmit)}
             testID="BoatChargingTermsAndConditionsScreenSubmitButton"
           />

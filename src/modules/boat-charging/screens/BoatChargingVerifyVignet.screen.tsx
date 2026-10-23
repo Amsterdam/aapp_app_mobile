@@ -17,7 +17,8 @@ export const BoatChargingVerifyVignetScreen = () => {
   const onVerified = useCallback(
     (vignet: Omit<Vignet, 'id'>) => {
       setValue('vignet', vignet)
-      void onPress({...getValues(), vignet})
+      setValue('isVignetVerified', true)
+      void onPress({...getValues(), vignet, isVignetVerified: true})
     },
     [onPress, getValues, setValue],
   )

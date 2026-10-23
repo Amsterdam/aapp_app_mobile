@@ -158,6 +158,7 @@ export type BoatChargingSessionInitRequest = {
   return_url: string
   socket_number: string
   station_id: string
+  vignet: Pick<Vignet, 'vignette_number' | 'postal_code'> //TODO: correct request body when endpoint is updated https://gemeente-amsterdam.atlassian.net/browse/AM-1348
 }
 
 export type BoatChargingSessionInitResponse = {
@@ -196,6 +197,7 @@ export type BoatChargingSelectSocketFormValues = {
 }
 
 export type BoatChargingSelectSocketFormSelectedSocket = {
+  locationId: BoatChargingLocation['id']
   socketNumber: string
   stationId: string
 }
@@ -250,6 +252,11 @@ export enum BoatChargingCostBreakdownItemType {
 export type NewSessionFormValues = {
   approvedTerms?: boolean
   email?: string
+  /**
+   * Depending on how the vignet is selected during session initialization, verification needs to happen at a different moment during the flow.
+   * This property is used at session confirmation to check if verification has been done already, and if so, is skipped.
+   */
+  isVignetVerified?: boolean
   selectedSocket?: BoatChargingSelectSocketFormSelectedSocket
   vignet?: Omit<Vignet, 'id'> | null // null is required to allow proper 'reset' using form.setValue('vignet', null). `undefined` Is not supported as a cleared value for a controlled field.
 }
