@@ -10,6 +10,7 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {
   useBoatChargingTermsQuery,
   useBoatChargingInitSessionMutation,
+  useBoatChargingVignettesQuery,
 } from '@/modules/boat-charging/service'
 import {
   selectBoatChargingLoggedInUsername,
@@ -22,15 +23,25 @@ import {useAlert} from '@/store/slices/alert'
 export enum BoatChargingInitSessionStep {
   guestEmail = 2,
   verifyVignet = 3,
+  chooseVignet = 4,
   selectSocket = 1,
-  termsAndConditions = 4,
-  confirmSession = 5,
+  termsAndConditions = 5,
+  confirmSession = 6,
 }
 
 export const useInitSession = (step: BoatChargingInitSessionStep) => {
   const form = useNewSessionFormContext()
-
-  const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
+  const {isLoggedIn} = useIsLoggedIn()
+  const {
+    data: terms,
+    isLoading: isLoadingTerms,
+    isError: isErrorTerms,
+    refetch,
+  } = useBoatChargingTermsQuery()
+  const {isLoading: isLoadingVignettes, isError: isErrorVignettes} =
+    useBoatChargingVignettesQuery(undefined, {
+      skip: !isLoggedIn,
+    })
   const [
     initSession,
     {isLoading: isInitSessionLoading, isError: isInitSessionError},
@@ -38,7 +49,6 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
   const lastApprovedTermsVersion = useSelector(
     selectLastApprovedTermsVersionWhileLoggedIn,
   )
-  const {isLoggedIn} = useIsLoggedIn()
   const navigation = useNavigation()
   const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
   const openWebUrl = useOpenWebUrl()
@@ -102,11 +112,11 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
     onPress,
     mustApproveTerms:
       !isLoggedIn || terms?.version !== lastApprovedTermsVersion,
-    disabled: isLoading || isInitSessionLoading,
-    isLoading: isLoading || isInitSessionLoading,
-    isError: isError || isInitSessionError,
+    disabled: isLoadingTerms || isLoadingVignettes || isInitSessionLoading,
+    isLoading: isLoadingTerms || isLoadingVignettes || isInitSessionLoading,
+    isError: isErrorTerms || isErrorVignettes || isInitSessionError,
     refetch,
     form,
-    shouldRefetchTerms: isError,
+    shouldRefetchTerms: isErrorTerms,
   }
 }

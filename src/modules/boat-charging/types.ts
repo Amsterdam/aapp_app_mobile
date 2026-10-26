@@ -251,7 +251,7 @@ export type NewSessionFormValues = {
   approvedTerms?: boolean
   email?: string
   selectedSocket?: BoatChargingSelectSocketFormSelectedSocket
-  vignet?: Omit<Vignet, 'id'>
+  vignet?: Omit<Vignet, 'id'> | null // null is required to allow proper 'reset' using form.setValue('vignet', null). `undefined` Is not supported as a cleared value for a controlled field.
 }
 
 export type Vignet = {

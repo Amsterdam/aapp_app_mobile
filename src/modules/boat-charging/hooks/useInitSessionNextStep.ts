@@ -3,7 +3,10 @@ import {useStore} from '@/hooks/redux/useStore'
 import {BoatChargingInitSessionStep} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
+import {
+  useBoatChargingTermsQuery,
+  useBoatChargingVignettesQuery,
+} from '@/modules/boat-charging/service'
 import {selectLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {validateEmail} from '@/utils/validate'
@@ -12,6 +15,9 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
   const store = useStore()
   const {data: terms} = useBoatChargingTermsQuery()
   const {isLoggedIn} = useIsLoggedIn()
+  const {data: vignettes} = useBoatChargingVignettesQuery(undefined, {
+    skip: !isLoggedIn,
+  })
 
   const loggedInNextStep = useCallback(() => {
     const state = store.getState()
@@ -22,7 +28,11 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
       step === BoatChargingInitSessionStep.selectSocket ||
       step === BoatChargingInitSessionStep.guestEmail
     ) {
-      return BoatChargingRouteName.verifyVignet
+      if (vignettes?.length) {
+        return BoatChargingRouteName.chooseVignet
+      } else {
+        return BoatChargingRouteName.verifyVignet
+      }
     }
 
     if (terms?.version !== lastApprovedTermsVersionFromState) {
@@ -32,7 +42,7 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
     if (step !== BoatChargingInitSessionStep.confirmSession) {
       return BoatChargingRouteName.confirmSession
     }
-  }, [step, store, terms?.version])
+  }, [step, store, terms?.version, vignettes])
 
   const guestNextStep = useCallback(
     (params: NewSessionFormValues) => {

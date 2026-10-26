@@ -7,7 +7,7 @@ Boat charging lets users reserve a socket, complete the required payment and con
 ## Business rules
 
 1. Guests must provide a valid email address, but do not need to confirm it separately.
-2. Guests and logged in users must verify the boat's vignette before starting a session.
+2. Guests and logged in users without saved vignettes must enter and verify the boat's vignette before starting a session. Logged in users with saved vignettes must choose one, or enter and verify a different vignette instead.
 3. Users must approve the terms and conditions before proceeding. Logged in users who already approved the latest version are not asked to accept them again.
 4. Both guests and logged in users review and confirm the session before payment checkout opens.
 5. All prices shown to users in the boat-charging flow must be inclusive of VAT, including location rates, start fees, session history amounts, and cost breakdowns.
@@ -18,26 +18,31 @@ Boat charging lets users reserve a socket, complete the required payment and con
 
 ## Start session flow
 
-Before payment, users verify the boat's vignette, approve the terms when required, and review and confirm the session. Guests provide a valid email address; email confirmation is not part of the flow. Logged in users can skip terms acceptance when they have already approved the latest version.
+Before payment, users choose a saved vignette or enter and verify a vignette, approve the terms when required, and review and confirm the session. Guests provide a valid email address and always follow vignette verification; email confirmation is not part of the flow. Logged in users with saved vignettes are offered vignette selection instead of verification, but can choose to enter and verify a different vignette. Logged in users can skip terms acceptance when they have already approved the latest version.
 
 ### Flow
 
-This diagram shows the primary user journey. Users who are not logged in can choose between logging in and continuing as a guest. Both paths include vignette verification and session confirmation; logged in users with the latest terms already approved can skip terms acceptance.
+This diagram shows the primary user journey. Users who are not logged in can choose between logging in and continuing as a guest. After login, users follow the same saved-vignette selection or verification path as users who were already logged in. Both vignette paths lead to terms acceptance when required, followed by session confirmation.
 
 ```mermaid
 flowchart TD
 A[User selects a location] --> B[User selects a socket]
 B --> C{Is the user logged in?}
 C -- No --> D{User chooses login or guest}
-C -- Yes --> E[User verifies the boat's vignette]
+C -- Yes --> W{Does the user have saved vignettes?}
 D -- Login --> F[User logs in]
 D -- Guest --> G[User enters a valid email address]
 F --> H{Is an access code already set?}
 H -- No --> I[User sets an access code]
-H -- Yes --> E
-I --> E
+H -- Yes --> W
+I --> W
+W -- No --> E[User enters and verifies the boat's vignette]
+W -- Yes --> X{User chooses a saved or different vignette}
+X -- Saved vignette --> Y[User selects and confirms a saved vignette]
+X -- Different vignette --> E
 G --> E
 E --> J{Are the required terms approved?}
+Y --> J
 J -- No --> K[User accepts the terms and conditions]
 J -- Yes --> L[User reviews and confirms the session]
 K --> L

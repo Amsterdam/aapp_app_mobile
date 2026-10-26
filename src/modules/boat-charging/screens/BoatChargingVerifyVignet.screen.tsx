@@ -25,6 +25,7 @@ export const BoatChargingVerifyVignetScreen = () => {
   return (
     <Screen
       hasStickyAlert
+      keyboardAware
       scroll
       testID="BoatChargingVerifyVignetScreen">
       <Box grow>

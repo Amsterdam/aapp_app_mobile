@@ -7,6 +7,7 @@ import type {
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
+  chooseVignet = 'BoatChargingChooseVignet',
   confirmSession = 'BoatChargingConfirmSession',
   createAccount = 'BoatChargingCreateAccount',
   createAccountConfirm = 'BoatChargingCreateAccountConfirm',
@@ -50,6 +51,7 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.myVignettes]: undefined
   [BoatChargingRouteName.vignet]: undefined | {vignetId: Vignet['id']}
   [BoatChargingRouteName.verifyVignet]: undefined
+  [BoatChargingRouteName.chooseVignet]: undefined
   [BoatChargingRouteName.createAccount]: undefined
   [BoatChargingRouteName.createAccountConfirm]: undefined
 }
