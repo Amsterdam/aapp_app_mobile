@@ -8,8 +8,12 @@ import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputFie
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {alerts} from '@/modules/boat-charging/alerts'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {selectBoatChargingSignUpUsername} from '@/modules/boat-charging/slice'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {useAlert} from '@/store/slices/alert'
 
@@ -20,7 +24,13 @@ type FormValues = {
 
 export const BoatChargingLoginForm = () => {
   const {signIn} = useOpenIdConnectAuth()
-  const form = useForm<FormValues>()
+  const signUpUsername = useSelector(selectBoatChargingSignUpUsername)
+
+  const form = useForm<FormValues>({
+    defaultValues: {
+      username: signUpUsername ?? '',
+    },
+  })
   const passwordInputReference = useRef<TextInputRN>(null)
 
   const {resetAlert, setAlert} = useAlert()
@@ -37,6 +47,8 @@ export const BoatChargingLoginForm = () => {
     },
     [resetAlert, setAlert, signIn],
   )
+
+  const {navigate} = useNavigation()
 
   return (
     <FormProvider {...form}>
@@ -75,9 +87,9 @@ export const BoatChargingLoginForm = () => {
               testID="BoatChargingLoginFormForgotPasswordButton"
               variant="tertiary"
             />
-            <ExternalLinkButton
+            <Button
               label="Account aanmaken"
-              redirectKey={RedirectKey.boatChargingCreateAccount}
+              onPress={() => navigate(BoatChargingRouteName.createAccount)}
               testID="BoatChargingLoginFormCreateAccountButton"
               variant="tertiary"
             />

@@ -8,6 +8,12 @@ describe('isObjectWithKeys', () => {
 
     expect(isObjectWithKeys(value, keys)).toBe(true)
   })
+  it('should return true for a valid object with extra properties', () => {
+    const value = {a: 'test', b: 123, c: true}
+    const keys = {a: 'string', b: 'number'} as const
+
+    expect(isObjectWithKeys(value, keys)).toBe(true)
+  })
   it('should return true for a valid object with array', () => {
     const value = {a: 'test', b: 123}
     const keys = {a: ['string', 'number'] as Primitives[], b: 'number'} as const

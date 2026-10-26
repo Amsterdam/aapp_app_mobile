@@ -8,6 +8,8 @@ import type {
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
   confirmSession = 'BoatChargingConfirmSession',
+  createAccount = 'BoatChargingCreateAccount',
+  createAccountConfirm = 'BoatChargingCreateAccountConfirm',
   forgotAccessCode = 'BoatChargingForgotAccessCode',
   guestEmail = 'BoatChargingGuestEmail',
   help = 'BoatChargingHelp',
@@ -48,4 +50,6 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.myVignettes]: undefined
   [BoatChargingRouteName.vignet]: undefined | {vignetId: Vignet['id']}
   [BoatChargingRouteName.verifyVignet]: undefined
+  [BoatChargingRouteName.createAccount]: undefined
+  [BoatChargingRouteName.createAccountConfirm]: undefined
 }

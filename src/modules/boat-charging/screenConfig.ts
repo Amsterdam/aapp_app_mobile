@@ -6,6 +6,8 @@ import {
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
+import {BoatChargingCreateAccountScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccount.screen'
+import {BoatChargingCreateAccountConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccountConfirm.screen'
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatChargingHistory.screen'
@@ -124,6 +126,20 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.vignet,
     options: {
       headerShown: false,
+    },
+  },
+  [BoatChargingRouteName.createAccount]: {
+    component: BoatChargingCreateAccountScreen,
+    name: BoatChargingRouteName.createAccount,
+    options: {
+      headerTitle: 'Account aanmaken',
+    },
+  },
+  [BoatChargingRouteName.createAccountConfirm]: {
+    component: BoatChargingCreateAccountConfirmScreen,
+    name: BoatChargingRouteName.createAccountConfirm,
+    options: {
+      headerTitle: 'Account aanmaken',
     },
   },
 }

@@ -1,6 +1,5 @@
 import {ModuleTitle} from '@/components/features/ModuleTitle'
 import {Button} from '@/components/ui/buttons/Button'
-import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -8,7 +7,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {UserRouteName} from '@/modules/user/routes'
 
 export const Account = () => {
@@ -51,10 +49,14 @@ export const Account = () => {
               }
               testID="UserAccountBoatChargingLoginButton"
             />
-            <ExternalLinkButton
+            <Button
               label="Account aanmaken"
-              redirectKey={RedirectKey.boatChargingCreateAccount}
-              testID="BoatChargingLoginFormCreateAccountButton"
+              onPress={() =>
+                navigate(ModuleSlug['boat-charging'], {
+                  screen: BoatChargingRouteName.createAccount,
+                })
+              }
+              testID="UserAccountBoatChargingCreateAccountButton"
               variant="tertiary"
             />
           </>

@@ -1,13 +1,11 @@
 import type {NavigateTo} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
-import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 type Props = {pendingScreen: NavigateTo; text: string; title: string}
 
@@ -38,10 +36,13 @@ export const BoatChargingLoginRegister = ({
           }}
           testID="BoatChargingLoginRegisterLoginButton"
         />
-        <ExternalLinkButton
+        <Button
           label="Account aanmaken"
-          redirectKey={RedirectKey.boatChargingCreateAccount}
-          testID="BoatChargingLoginRegisterExternalLinkButton"
+          onPress={() => {
+            setPendingScreen(pendingScreen)
+            navigate(BoatChargingRouteName.createAccount)
+          }}
+          testID="BoatChargingLoginRegisterCreateAccountButton"
           variant="tertiary"
         />
       </Column>
