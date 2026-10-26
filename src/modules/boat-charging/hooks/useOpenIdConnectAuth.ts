@@ -11,7 +11,7 @@ import {
   selectBoatChargingAccessTokenExpiration,
   selectBoatChargingLoggedInUsername,
   removeAccount,
-  setBoatChargingSignUpUsername,
+  setBoatChargingTemporaryUsername,
 } from '@/modules/boat-charging/slice'
 import {
   getStoredOpenIdConnectSession,
@@ -88,7 +88,7 @@ export const useOpenIdConnectAuth = () => {
               username,
               openIdConnectConfig,
             )
-            dispatch(setBoatChargingSignUpUsername(username))
+            dispatch(setBoatChargingTemporaryUsername(username))
             navigate(BoatChargingRouteName.createAccountConfirm)
           } else {
             devError('Unhandled next step:', result.nextStep)

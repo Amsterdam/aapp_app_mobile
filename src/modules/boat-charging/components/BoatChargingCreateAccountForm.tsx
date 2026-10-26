@@ -13,7 +13,7 @@ import {alerts} from '@/modules/boat-charging/alerts'
 import {PASSWORD_RULES} from '@/modules/boat-charging/constants/passwordRules'
 import {useOpenIdConnect} from '@/modules/boat-charging/hooks/useOpenIdConnect'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {setBoatChargingSignUpUsername} from '@/modules/boat-charging/slice'
+import {setBoatChargingTemporaryUsername} from '@/modules/boat-charging/slice'
 import {signUpWithOpenIdConnect} from '@/modules/boat-charging/utils/openIdConnect'
 import {useAlert} from '@/store/slices/alert'
 import {isObjectWithKeys} from '@/utils/isObjectWithKeys'
@@ -36,16 +36,18 @@ export const BoatChargingCreateAccountForm = () => {
         try {
           await signUpWithOpenIdConnect(username, password, openIdConnectConfig)
 
-          dispatch(setBoatChargingSignUpUsername(username))
+          dispatch(setBoatChargingTemporaryUsername(username))
           navigate(BoatChargingRouteName.createAccountConfirm)
         } catch (error) {
           if (isObjectWithKeys(error, {name: 'string'})) {
             if (error.name === 'UsernameExistsException') {
-              dispatch(setBoatChargingSignUpUsername(username))
+              dispatch(setBoatChargingTemporaryUsername(username))
               setAlert(alerts.usernameExistsFailed)
             } else {
               setAlert(alerts.createAccountFailed)
             }
+          } else {
+            throw error
           }
         }
       } else {

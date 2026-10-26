@@ -9,6 +9,8 @@ import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/B
 import {BoatChargingChooseVignetScreen} from '@/modules/boat-charging/screens/BoatChargingChooseVignet.screen'
 import {BoatChargingCreateAccountScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccount.screen'
 import {BoatChargingCreateAccountConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccountConfirm.screen'
+import {BoatChargingForgotPasswordScreen} from '@/modules/boat-charging/screens/BoatChargingForgotPassword.screen'
+import {BoatChargingForgotPasswordNewPasswordScreen} from '@/modules/boat-charging/screens/BoatChargingForgotPasswordNewPassword.screen'
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatChargingHistory.screen'
@@ -148,6 +150,20 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.createAccountConfirm,
     options: {
       headerTitle: 'Account aanmaken',
+    },
+  },
+  [BoatChargingRouteName.forgotPassword]: {
+    component: BoatChargingForgotPasswordScreen,
+    name: BoatChargingRouteName.forgotPassword,
+    options: {
+      headerTitle: 'Wachtwoord vergeten',
+    },
+  },
+  [BoatChargingRouteName.forgotPasswordNewPassword]: {
+    component: BoatChargingForgotPasswordNewPasswordScreen,
+    name: BoatChargingRouteName.forgotPasswordNewPassword,
+    options: {
+      headerTitle: 'Nieuw wachtwoord',
     },
   },
 }

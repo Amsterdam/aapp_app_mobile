@@ -16,41 +16,47 @@ export const alerts = {
       label: 'Inloggen',
     },
   },
-  createAccountConfirmFailed: {
+  checkConfirmCodeFailed: {
     variant: AlertVariant.negative,
     text: 'Er is iets misgegaan. Probeer het opnieuw.',
     title: 'Bevestigingscode controleren is mislukt',
-    testID: 'BoatChargingCreateAccountFailedAlert',
+    testID: 'BoatChargingCheckConfirmCodeFailedAlert',
   },
-  createAccountCodeExpiredFailed: {
+  confirmCodeExpiredFailed: {
     variant: AlertVariant.negative,
     text: 'De bevestigingscode is verlopen. Er is een nieuwe code gestuurd. Probeer het opnieuw.',
     title: 'Bevestigingscode is niet geldig',
-    testID: 'BoatChargingCreateAccountFailedAlert',
+    testID: 'BoatChargingConfirmCodeExpiredFailedAlert',
   },
-  createAccountCodeMismatchFailed: {
+  confirmCodeMismatchFailed: {
     variant: AlertVariant.negative,
     text: 'De bevestigingscode klopt niet. Probeer het opnieuw.',
     title: 'Bevestigingscode is ongeldig',
-    testID: 'BoatChargingCreateAccountCodeMismatchFailedAlert',
+    testID: 'BoatChargingConfirmCodeMismatchFailedAlert',
   },
-  createAccountResendConfirmFailed: {
+  resendConfirmCodeFailed: {
     variant: AlertVariant.negative,
     text: 'Er is iets misgegaan. Probeer het opnieuw.',
     title: 'Bevestigingscode opnieuw sturen is mislukt',
-    testID: 'BoatChargingCreateAccountFailedAlert',
+    testID: 'BoatChargingResendConfirmCodeFailedAlert',
   },
-  createAccountResendConfirmSuccess: {
+  resendConfirmCodeSuccess: {
     variant: AlertVariant.positive,
     text: 'De bevestigingscode is opnieuw verstuurd.',
     title: 'Bevestigingscode opnieuw gestuurd',
-    testID: 'BoatChargingCreateAccountResendConfirmSuccessAlert',
+    testID: 'BoatChargingResendConfirmCodeSuccessAlert',
   },
   createAccountFailed: {
     variant: AlertVariant.negative,
     text: 'Er is iets misgegaan. Probeer het opnieuw.',
     title: 'Account aanmaken is mislukt',
     testID: 'BoatChargingCreateAccountFailedAlert',
+  },
+  forgotPasswordFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    title: 'Nieuw wachtwoord aanvragen is mislukt',
+    testID: 'BoatChargingForgotPasswordFailedAlert',
   },
   paymentFailed: {
     title: 'Betaling mislukt',

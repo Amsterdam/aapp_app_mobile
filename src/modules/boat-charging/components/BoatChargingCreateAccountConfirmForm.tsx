@@ -11,7 +11,7 @@ import {alerts} from '@/modules/boat-charging/alerts'
 import {useOpenIdConnect} from '@/modules/boat-charging/hooks/useOpenIdConnect'
 import {useStoreSession} from '@/modules/boat-charging/hooks/useStoreSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {selectBoatChargingSignUpUsername} from '@/modules/boat-charging/slice'
+import {selectBoatChargingTemporaryUsername} from '@/modules/boat-charging/slice'
 import {
   resendSignUpCodeWithOpenIdConnect,
   confirmSignUpWithOpenIdConnect,
@@ -29,7 +29,7 @@ type FormValues = {
 export const BoatChargingCreateAccountConfirmForm = () => {
   const {openIdConnectConfig} = useOpenIdConnect()
   const {resetAlert, setAlert} = useAlert()
-  const username = useSelector(selectBoatChargingSignUpUsername)
+  const username = useSelector(selectBoatChargingTemporaryUsername)
 
   const storeSession = useStoreSession()
   const navigation = useNavigation()
@@ -37,26 +37,26 @@ export const BoatChargingCreateAccountConfirmForm = () => {
   const [isResendingCode, setIsResendingCode] = useState(false)
   const resendSignUpCode = useCallback(async () => {
     if (!username) {
-      setAlert(alerts.createAccountConfirmFailed)
+      setAlert(alerts.checkConfirmCodeFailed)
       navigation.goBack()
     } else if (openIdConnectConfig) {
       try {
         setIsResendingCode(true)
         await resendSignUpCodeWithOpenIdConnect(username, openIdConnectConfig)
 
-        setAlert(alerts.createAccountResendConfirmSuccess)
+        setAlert(alerts.resendConfirmCodeSuccess)
       } catch (error) {
         devError(
           'Error resending sign up code: ',
           isObjectWithKeys(error, {name: 'string'}) ? error.name : '',
           error,
         )
-        setAlert(alerts.createAccountResendConfirmFailed)
+        setAlert(alerts.resendConfirmCodeFailed)
       } finally {
         setIsResendingCode(false)
       }
     } else {
-      setAlert(alerts.createAccountResendConfirmFailed)
+      setAlert(alerts.resendConfirmCodeFailed)
     }
   }, [navigation, openIdConnectConfig, setAlert, username])
 
@@ -72,11 +72,11 @@ export const BoatChargingCreateAccountConfirmForm = () => {
               if (session) {
                 storeSession(session)
               } else {
-                setAlert(alerts.createAccountConfirmFailed)
+                setAlert(alerts.checkConfirmCodeFailed)
               }
             } catch (errorDuringSessionRetrieval) {
               devError(errorDuringSessionRetrieval)
-              setAlert(alerts.createAccountConfirmFailed)
+              setAlert(alerts.checkConfirmCodeFailed)
             }
 
             break
@@ -89,23 +89,23 @@ export const BoatChargingCreateAccountConfirmForm = () => {
 
           case 'ExpiredCodeException': {
             await resendSignUpCode()
-            setAlert(alerts.createAccountCodeExpiredFailed)
+            setAlert(alerts.confirmCodeExpiredFailed)
             break
           }
 
           case 'CodeMismatchException': {
-            setAlert(alerts.createAccountCodeMismatchFailed)
+            setAlert(alerts.confirmCodeMismatchFailed)
             break
           }
 
           default: {
             devError('Unknown case: ', error.name, error)
-            setAlert(alerts.createAccountConfirmFailed)
+            setAlert(alerts.checkConfirmCodeFailed)
             break
           }
         }
       } else {
-        setAlert(alerts.createAccountConfirmFailed)
+        setAlert(alerts.checkConfirmCodeFailed)
       }
     },
     [navigation, openIdConnectConfig, resendSignUpCode, setAlert, storeSession],
@@ -114,7 +114,7 @@ export const BoatChargingCreateAccountConfirmForm = () => {
   const confirmSignUp = useCallback(
     async (confirmationCode: string) => {
       if (!username) {
-        setAlert(alerts.createAccountConfirmFailed)
+        setAlert(alerts.checkConfirmCodeFailed)
         navigation.goBack()
       } else if (openIdConnectConfig) {
         try {
@@ -131,7 +131,7 @@ export const BoatChargingCreateAccountConfirmForm = () => {
           if (session) {
             storeSession(session)
           } else {
-            setAlert(alerts.createAccountConfirmFailed)
+            setAlert(alerts.checkConfirmCodeFailed)
             navigation.navigate(BoatChargingRouteName.login)
           }
         } catch (error) {
