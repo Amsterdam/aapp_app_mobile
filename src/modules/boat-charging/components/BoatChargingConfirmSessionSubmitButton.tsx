@@ -24,12 +24,12 @@ export const BoatChargingConfirmSessionSubmitButton = () => {
   ] = useBoatChargingVerifyVignetMutation()
 
   const onSubmit = useCallback(
-    async ({vignet, isVignetVerified, ...values}: NewSessionFormValues) => {
+    async ({vignet, ...values}: NewSessionFormValues) => {
       if (!vignet) {
         return
       }
 
-      if (!isVignetVerified) {
+      if (!vignet.verified) {
         try {
           const {status, reason} = await verifyVignet(vignet).unwrap()
 
@@ -39,7 +39,7 @@ export const BoatChargingConfirmSessionSubmitButton = () => {
             return
           }
 
-          form.setValue('isVignetVerified', true)
+          form.setValue('vignet.verified', true)
         } catch (error) {
           devError(error)
 
@@ -49,7 +49,7 @@ export const BoatChargingConfirmSessionSubmitButton = () => {
         }
       }
 
-      return onPress({...values, isVignetVerified: true, vignet})
+      return onPress({...values, vignet})
     },
     [verifyVignet, onPress, setAlert, form],
   )

@@ -18,9 +18,16 @@ import {
   useBoatChargingSettingsQuery,
   useBoatChargingVignettesQuery,
 } from '@/modules/boat-charging/service'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+import type {
+  BaseVignet,
+  NewSessionFormValues,
+  Vignet,
+} from '@/modules/boat-charging/types'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {formatNumber} from '@/utils/formatNumber'
+
+const isVignet = (vignet?: BaseVignet | Vignet | null): vignet is Vignet =>
+  !!vignet && 'id' in vignet
 
 export const BoatChargingConfirmSessionDetails = () => {
   const form = useFormContext<NewSessionFormValues>()
@@ -97,7 +104,7 @@ export const BoatChargingConfirmSessionDetails = () => {
         testID="BoatChargingConfirmSessionVignetMetaDataCard"
         title="Vignet">
         <Phrase>{vignet?.vignette_number}</Phrase>
-        {!!vignet?.boat_name && (
+        {isVignet(vignet) && !!vignet.boat_name && (
           <Phrase color="secondary">{vignet?.boat_name}</Phrase>
         )}
         {/* TODO: change this component to the new InlineLink component. https://gemeente-amsterdam.atlassian.net/browse/AM-1132 */}

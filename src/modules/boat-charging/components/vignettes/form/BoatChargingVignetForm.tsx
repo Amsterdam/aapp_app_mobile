@@ -1,3 +1,4 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -18,13 +19,17 @@ import {BoatChargingVignetPostalCodeFormInput} from '@/modules/boat-charging/com
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingVignetFormProvider} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
-import type {NewSessionFormValues, Vignet} from '@/modules/boat-charging/types'
+import type {
+  BaseVignet,
+  NewSessionFormValues,
+  Vignet,
+} from '@/modules/boat-charging/types'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = {
-  onVerified?: (vignet: Omit<Vignet, 'id'>) => void
+  onVerified?: (vignet: BaseVignet) => void
   vignetId?: Vignet['id']
 }
 
@@ -38,7 +43,7 @@ export const BoatChargingVignetForm = ({vignetId, onVerified}: Props) => {
     data: vignettes,
     isLoading: isLoadingVignettes,
     isError: isErrorVignettes,
-  } = useBoatChargingVignettesQuery()
+  } = useBoatChargingVignettesQuery(isLoggedIn ? undefined : skipToken)
 
   const existingVignet = useMemo(
     () => vignettes?.find(vignet => vignet.id === vignetId),

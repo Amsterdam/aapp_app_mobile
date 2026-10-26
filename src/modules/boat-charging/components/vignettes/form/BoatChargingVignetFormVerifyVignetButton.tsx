@@ -11,12 +11,15 @@ import {
   useBoatChargingVerifyVignetMutation,
   useBoatChargingVignettesQuery,
 } from '@/modules/boat-charging/service'
-import {type Vignet, VignetInvalidReasons} from '@/modules/boat-charging/types'
+import {
+  type BaseVignet,
+  VignetInvalidReasons,
+} from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = {
-  onVerified: (vignet: Omit<Vignet, 'id'>) => void
+  onVerified: (vignet: BaseVignet) => void
 }
 
 export const BoatChargingVignetFormVerifyVignetButton = ({
@@ -52,7 +55,7 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
       void verifyVignet(vignet)
         .unwrap()
         .then(
-          ({status, reason, expiration_date}) => {
+          ({status, reason}) => {
             if (status === 'invalid') {
               if (reason === VignetInvalidReasons.mismatch) {
                 setError('postalCode', {
@@ -77,7 +80,7 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
               void addVignet(vignet).unwrap().catch(devError) // This call should not block the flow and only fail silently
             }
 
-            onVerified({...vignet, expiration_date})
+            onVerified(vignet)
           },
           error => {
             devError(error)

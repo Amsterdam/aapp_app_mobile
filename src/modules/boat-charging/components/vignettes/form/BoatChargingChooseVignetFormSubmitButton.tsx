@@ -21,9 +21,7 @@ export const BoatChargingChooseVignetFormSubmitButton = () => {
         })
       }
 
-      void onPress({...values, vignet}).then(() =>
-        form.setValue('isVignetVerified', false),
-      )
+      void onPress({...values, vignet})
     },
     [form, onPress],
   )

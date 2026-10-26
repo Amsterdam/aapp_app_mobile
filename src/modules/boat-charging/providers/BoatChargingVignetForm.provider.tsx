@@ -1,12 +1,12 @@
 import {useEffect, type PropsWithChildren} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
-import type {Vignet} from '@/modules/boat-charging/types'
+import type {BaseVignet} from '@/modules/boat-charging/types'
 import {useAlert} from '@/store/slices/alert'
 
 export type BoatChargingVignetFormValues = {
-  postalCode: Vignet['postal_code']
+  postalCode: BaseVignet['postal_code']
   saveToMyVignettes?: boolean
-  vignetNumber: Vignet['vignette_number']
+  vignetNumber: BaseVignet['vignette_number']
 }
 
 type Props = PropsWithChildren<{

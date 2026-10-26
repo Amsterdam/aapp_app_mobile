@@ -66,7 +66,12 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         email,
         name: email,
         return_url: 'amsterdam://boat-charging/payment',
-        vignet,
+        ...('id' in vignet && vignet.id
+          ? {vignette_id: vignet.id}
+          : {
+              vignette_number: vignet.vignette_number,
+              postal_code: vignet.postal_code,
+            }),
       })
         .unwrap()
         .then(
