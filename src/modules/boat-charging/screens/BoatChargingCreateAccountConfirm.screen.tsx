@@ -22,6 +22,7 @@ export const BoatChargingCreateAccountConfirmScreen = ({navigation}: Props) => {
   return (
     <Screen
       hasStickyAlert
+      keyboardAware
       testID="BoatChargingCreateAccountConfirmScreen">
       <Box grow>
         <BoatChargingCreateAccountConfirmForm />
