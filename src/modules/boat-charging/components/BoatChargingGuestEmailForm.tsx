@@ -1,6 +1,5 @@
 import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
-import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputField'
 import {Column} from '@/components/ui/layout/Column'
@@ -17,7 +16,6 @@ import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const BoatChargingGuestEmailForm = () => {
   const navigation = useNavigation()
@@ -80,9 +78,12 @@ export const BoatChargingGuestEmailForm = () => {
           testID="BoatChargingGuestEmailFormSubmitButton"
         />
 
-        <ExternalLinkButton
+        <Button
           label="Account aanmaken"
-          redirectKey={RedirectKey.boatChargingCreateAccount}
+          onPress={() => {
+            setPendingScreen([BoatChargingRouteName.verifyVignet])
+            navigation.navigate(BoatChargingRouteName.createAccount)
+          }}
           testID="BoatChargingGuestEmailFormCreateAccountButton"
           variant="tertiary"
         />

@@ -5,6 +5,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
+import type {ParkingIncreaseBalanceFormValues} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
 import {formatNumber} from '@/utils/formatNumber'
 
 const options = [2.5, 5.0, 10.0, 15.0, 20, 50, 100].map(value => ({
@@ -15,7 +16,7 @@ const options = [2.5, 5.0, 10.0, 15.0, 20, 50, 100].map(value => ({
 export const ParkingSessionAmountBottomSheetContent = () => {
   const {
     field: {value: amount, onChange},
-  } = useController<{amount?: number}>({
+  } = useController<ParkingIncreaseBalanceFormValues>({
     name: 'amount',
   })
   const {close} = useBottomSheet()

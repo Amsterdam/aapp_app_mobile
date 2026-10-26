@@ -2,13 +2,12 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {Dayjs} from 'dayjs'
 import {useMemo} from 'react'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {
-  useAccountDetailsQuery,
-  useZoneByMachineQuery,
-} from '@/modules/parking/service'
+import {useZoneByMachineQuery} from '@/modules/parking/service'
+import type {ParkingAccountDetails} from '@/modules/parking/types'
 import {getRemainingTimeBalance} from '@/modules/parking/utils/getRemainingTimeBalance'
 
 export const useGetRemainingBalance = (
+  parkingAccount: ParkingAccountDetails | undefined,
   startTime?: Dayjs,
   endTime?: Dayjs,
   originalEndTime?: Dayjs,
@@ -16,7 +15,6 @@ export const useGetRemainingBalance = (
   cost?: number,
 ) => {
   const currentPermit = useCurrentParkingPermit()
-  const {data: parkingAccount} = useAccountDetailsQuery()
   const {data: parkingMachine} = useZoneByMachineQuery(
     parkingMachineId
       ? {machineId: parkingMachineId, report_code: currentPermit?.report_code}
@@ -63,7 +61,7 @@ export const useGetRemainingBalance = (
     () =>
       cost && typeof parkingAccount?.wallet?.balance === 'number'
         ? parkingAccount?.wallet?.balance - cost
-        : parkingAccount?.wallet?.balance,
+        : (parkingAccount?.wallet?.balance ?? undefined),
     [cost, parkingAccount?.wallet?.balance],
   )
 

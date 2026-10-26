@@ -1,14 +1,19 @@
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
-import {ParkingSessionFormProvider} from '../ParkingSessionFormProvider'
+import {FormProvider, useForm} from 'react-hook-form'
+import type {ParkingIncreaseBalanceFormValues} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
 import {ParkingSessionAmountBottomSheetContent} from './ParkingSessionAmountBottomSheetContent'
 
 const meta = {
   component: ParkingSessionAmountBottomSheetContent,
-  decorators: Story => (
-    <ParkingSessionFormProvider>
-      <Story />
-    </ParkingSessionFormProvider>
-  ),
+  decorators: Story => {
+    const form = useForm<ParkingIncreaseBalanceFormValues>()
+
+    return (
+      <FormProvider {...form}>
+        <Story />
+      </FormProvider>
+    )
+  },
   parameters: {
     bottomSheet: {
       isOpen: true,

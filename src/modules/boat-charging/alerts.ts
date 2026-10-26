@@ -2,9 +2,56 @@ import {
   AlertsRecord,
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const alerts = {
+  usernameExistsFailed: {
+    variant: AlertVariant.negative,
+    text: 'Deze gebruikersnaam bestaat al.',
+    title: 'Account aanmaken is mislukt',
+    testID: 'BoatChargingUsernameExistsFailedAlert',
+    navigateTo: {
+      params: [BoatChargingRouteName.login],
+      label: 'Inloggen',
+    },
+  },
+  createAccountConfirmFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    title: 'Bevestigingscode controleren is mislukt',
+    testID: 'BoatChargingCreateAccountFailedAlert',
+  },
+  createAccountCodeExpiredFailed: {
+    variant: AlertVariant.negative,
+    text: 'De bevestigingscode is verlopen. Er is een nieuwe code gestuurd. Probeer het opnieuw.',
+    title: 'Bevestigingscode is niet geldig',
+    testID: 'BoatChargingCreateAccountFailedAlert',
+  },
+  createAccountCodeMismatchFailed: {
+    variant: AlertVariant.negative,
+    text: 'De bevestigingscode klopt niet. Probeer het opnieuw.',
+    title: 'Bevestigingscode is ongeldig',
+    testID: 'BoatChargingCreateAccountCodeMismatchFailedAlert',
+  },
+  createAccountResendConfirmFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    title: 'Bevestigingscode opnieuw sturen is mislukt',
+    testID: 'BoatChargingCreateAccountFailedAlert',
+  },
+  createAccountResendConfirmSuccess: {
+    variant: AlertVariant.positive,
+    text: 'De bevestigingscode is opnieuw verstuurd.',
+    title: 'Bevestigingscode opnieuw gestuurd',
+    testID: 'BoatChargingCreateAccountResendConfirmSuccessAlert',
+  },
+  createAccountFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    title: 'Account aanmaken is mislukt',
+    testID: 'BoatChargingCreateAccountFailedAlert',
+  },
   paymentFailed: {
     title: 'Betaling mislukt',
     variant: AlertVariant.negative,

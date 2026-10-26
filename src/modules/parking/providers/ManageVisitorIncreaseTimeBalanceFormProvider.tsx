@@ -5,10 +5,12 @@ type Props = {
   children: ReactNode
 }
 
+export type ManageVisitorIncreaseTimeBalanceFormValues = {time?: number}
+
 export const ManageVisitorIncreaseTimeBalanceFormProvider = ({
   children,
 }: Props) => {
-  const form = useForm()
+  const form = useForm<ManageVisitorIncreaseTimeBalanceFormValues>()
 
   return <FormProvider {...form}>{children}</FormProvider>
 }

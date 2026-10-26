@@ -7,7 +7,7 @@ type Props = {
   defaultValues?: Partial<ParkingLicensePlate>
 }
 
-export const ParkingSessionLicensePlateFormProvider = ({
+export const ParkingLicensePlateFormProvider = ({
   children,
   defaultValues,
 }: Props) => {

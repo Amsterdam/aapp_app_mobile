@@ -14,6 +14,7 @@ export const BoatChargingVignetScreen = ({route}: Props) => (
         ? 'Vignet wijzigen'
         : 'Vignet toevoegen',
     }}
+    keyboardAware
     scroll
     testID="BoatChargingVignetScreen">
     <Box grow>

@@ -6,6 +6,7 @@ export enum EventLogKey {
   nativeStartup = 'Native startup',
 }
 export enum ExceptionLogKey {
+  boatChargingUnhandledNextStep = 'Boat charging unhandled next step',
   chatCreateConversationClient = 'Chat create conversation client failed',
   chatPickImageFromLibrary = 'Chat pick image from library failed',
   chatPickPDF = 'Chat pick PDF document failed',

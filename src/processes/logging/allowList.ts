@@ -1,6 +1,7 @@
 import {ExceptionLogKey} from '@/processes/logging/types'
 
 export const allowList = {
+  [ExceptionLogKey.boatChargingUnhandledNextStep]: ['nextStep'],
   [ExceptionLogKey.chatCreateConversationClient]: ['error'],
   [ExceptionLogKey.chatSendImageFromCamera]: ['error'],
   [ExceptionLogKey.chatSendImageFromLibrary]: ['error'],

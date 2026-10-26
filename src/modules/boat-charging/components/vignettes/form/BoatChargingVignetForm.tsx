@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -39,7 +38,7 @@ export const BoatChargingVignetForm = ({vignetId, onVerified}: Props) => {
     data: vignettes,
     isLoading: isLoadingVignettes,
     isError: isErrorVignettes,
-  } = useBoatChargingVignettesQuery(vignetId ? undefined : skipToken)
+  } = useBoatChargingVignettesQuery()
 
   const existingVignet = useMemo(
     () => vignettes?.find(vignet => vignet.id === vignetId),
@@ -112,7 +111,7 @@ export const BoatChargingVignetForm = ({vignetId, onVerified}: Props) => {
                 <BoatChargingVignetFormEditVignetButton
                   onError={onError}
                   onSuccess={onSuccess}
-                  vignetId={existingVignet.id}
+                  vignet={existingVignet}
                 />
                 <BoatChargingVignetFormDeleteVignetButton
                   onError={onError}
@@ -124,6 +123,7 @@ export const BoatChargingVignetForm = ({vignetId, onVerified}: Props) => {
               <BoatChargingVignetFormAddVignetButton
                 onError={onError}
                 onSuccess={onSuccess}
+                vignettes={vignettes}
               />
             )}
           </>

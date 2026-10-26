@@ -18,6 +18,7 @@ export type BoatChargingState = {
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
+  signUpUsername?: string
 }
 
 const initialState: BoatChargingState = {}
@@ -62,6 +63,12 @@ export const boatChargingSlice = createSlice({
     ) => {
       state.loggedInUsername = payload
     },
+    setBoatChargingSignUpUsername: (
+      state,
+      {payload}: PayloadAction<string>,
+    ) => {
+      state.signUpUsername = payload
+    },
     setBoatChargingOpenIdConnectConfig: (
       state,
       {payload}: PayloadAction<BoatChargingOIDCConfigResponse>,
@@ -98,6 +105,7 @@ export const {
   resetSelectedBoatChargingPointId,
   setAccessToken,
   removeAccount,
+  setBoatChargingSignUpUsername,
   setBoatChargingOpenIdConnectConfig,
   setBoatChargingLoggedInUsername,
   setLastApprovedTermsVersionWhileLoggedIn,
@@ -122,6 +130,10 @@ export const selectBoatChargingOpenIdConnectConfig = (
 export const selectBoatChargingLoggedInUsername = (
   state: RootState,
 ): string | undefined => state[ReduxKey.boatCharging].loggedInUsername
+
+export const selectBoatChargingSignUpUsername = (
+  state: RootState,
+): string | undefined => state[ReduxKey.boatCharging].signUpUsername
 
 export const selectBoatChargingLastGuestSessionId = (
   state: RootState,

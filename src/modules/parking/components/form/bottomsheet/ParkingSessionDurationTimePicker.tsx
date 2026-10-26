@@ -14,6 +14,7 @@ import {Tabs} from '@/components/ui/Tabs'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingPermit} from '@/modules/parking/types'
 import type {Dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
@@ -24,17 +25,15 @@ type Props = {
   minimumEndTime?: Dayjs
 }
 
-type FieldValues = {endTime?: Dayjs; startTime: Dayjs}
-
 export const ParkingSessionDurationTimePicker = ({
   currentPermit,
   minimumEndTime,
 }: Props) => {
-  const {watch} = useFormContext<FieldValues>()
+  const {watch} = useFormContext<ParkingSessionFormValues>()
   const startTime = watch('startTime')
   const {
     field: {value: endTime, onChange},
-  } = useController<FieldValues, 'endTime'>({
+  } = useController<ParkingSessionFormValues, 'endTime'>({
     name: 'endTime',
   })
 
