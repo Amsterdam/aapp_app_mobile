@@ -24,7 +24,7 @@ export const boatChargingCostItemTypeMap: Record<
   }
 > = {
   [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
-    label: 'Kleeftarief',
+    label: 'Na 24 uur',
     details: getItemString,
   },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
