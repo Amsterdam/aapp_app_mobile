@@ -127,6 +127,7 @@ export const alerts = {
     testID: 'BoatChargingVignetAlreadyInUseAlert',
   },
   vignetVerificationErrorFailed: {
+    variant: AlertVariant.negative,
     title: 'Vignet controleren is niet gelukt',
     text: 'Probeer het opnieuw.',
     testID: 'BoatChargingVignetVerificationFailedAlert',

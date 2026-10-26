@@ -6,6 +6,7 @@ import type {
 import {setBoatChargingOpenIdConnectConfig} from '@/modules/boat-charging/slice'
 import {
   BoatChargingEndpointName,
+  type BaseVignet,
   type BoatChargingGeoJSON,
   type BoatChargingLocationDetailsResponse,
   type BoatChargingOIDCConfigResponse,
@@ -209,10 +210,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       providesTags: ['BoatChargingVignettes'],
     }),
-    [BoatChargingEndpointName.addVignet]: builder.mutation<
-      Vignet,
-      Pick<Vignet, 'postal_code' | 'vignette_number'>
-    >({
+    [BoatChargingEndpointName.addVignet]: builder.mutation<Vignet, BaseVignet>({
       query: body => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
@@ -236,7 +234,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
     }),
     [BoatChargingEndpointName.editVignet]: builder.mutation<
       Vignet,
-      Pick<Vignet, 'postal_code' | 'vignette_number'> & {vignetId: Vignet['id']}
+      BaseVignet & {vignetId: Vignet['id']}
     >({
       query: ({vignetId, ...body}) => ({
         prepareHeaders,
@@ -249,7 +247,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
     }),
     [BoatChargingEndpointName.verifyVignet]: builder.mutation<
       BoatChargingVerifyVignetResponse,
-      Pick<Vignet, 'postal_code' | 'vignette_number'>
+      BaseVignet
     >({
       query: body => ({
         prepareHeaders,

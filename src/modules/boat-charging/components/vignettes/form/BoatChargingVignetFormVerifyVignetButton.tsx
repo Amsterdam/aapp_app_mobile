@@ -2,7 +2,8 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
-import {alerts, type Alerts} from '@/modules/boat-charging/alerts'
+import {alerts} from '@/modules/boat-charging/alerts'
+import {vignetInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {type BoatChargingVignetFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
 import {
@@ -10,23 +11,15 @@ import {
   useBoatChargingVerifyVignetMutation,
   useBoatChargingVignettesQuery,
 } from '@/modules/boat-charging/service'
-import {type Vignet, VignetInvalidReasons} from '@/modules/boat-charging/types'
+import {
+  type BaseVignet,
+  VignetInvalidReasons,
+} from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 
-const reasonToAlertMap: Record<
-  Exclude<VignetInvalidReasons, VignetInvalidReasons.mismatch>,
-  Alerts
-> = {
-  [VignetInvalidReasons.notFound]: 'vignetInvalidFailed',
-  [VignetInvalidReasons.cancelled]: 'vignetInvalidFailed',
-  [VignetInvalidReasons.expired]: 'vignetExpiredFailed',
-  [VignetInvalidReasons.onlyEnvironmentTypeAllowed]:
-    'vignetNotApplicableFailed',
-}
-
 type Props = {
-  onVerified: (vignet: Omit<Vignet, 'id'>) => void
+  onVerified: (vignet: BaseVignet) => void
 }
 
 export const BoatChargingVignetFormVerifyVignetButton = ({
@@ -62,7 +55,7 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
       void verifyVignet(vignet)
         .unwrap()
         .then(
-          ({status, reason, expiration_date}) => {
+          ({status, reason}) => {
             if (status === 'invalid') {
               if (reason === VignetInvalidReasons.mismatch) {
                 setError('postalCode', {
@@ -72,7 +65,7 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
                 return
               }
 
-              const alertKey = reasonToAlertMap[reason]
+              const alertKey = vignetInvalidReasonToAlertMap[reason]
 
               setAlert(alerts[alertKey])
 
@@ -87,7 +80,7 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
               void addVignet(vignet).unwrap().catch(devError) // This call should not block the flow and only fail silently
             }
 
-            onVerified({...vignet, expiration_date})
+            onVerified(vignet)
           },
           error => {
             devError(error)

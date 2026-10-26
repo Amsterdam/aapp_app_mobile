@@ -6,7 +6,7 @@ import {
   BoatChargingInitSessionStep,
   useInitSession,
 } from '@/modules/boat-charging/hooks/useInitSession'
-import type {Vignet} from '@/modules/boat-charging/types'
+import type {BaseVignet} from '@/modules/boat-charging/types'
 
 export const BoatChargingVerifyVignetScreen = () => {
   const {
@@ -15,9 +15,11 @@ export const BoatChargingVerifyVignetScreen = () => {
   } = useInitSession(BoatChargingInitSessionStep.verifyVignet)
 
   const onVerified = useCallback(
-    (vignet: Omit<Vignet, 'id'>) => {
-      setValue('vignet', vignet)
-      void onPress({...getValues(), vignet})
+    (vignet: BaseVignet) => {
+      const verifiedVignet = {...vignet, verified: true}
+
+      setValue('vignet', verifiedVignet)
+      void onPress({...getValues(), vignet: verifiedVignet})
     },
     [onPress, getValues, setValue],
   )

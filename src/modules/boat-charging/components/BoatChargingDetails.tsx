@@ -109,6 +109,7 @@ export const BoatChargingDetails = ({id}: Props) => {
           <BoatChargingDetailsSocketRadioGroup
             chargingStations={location.charging_stations}
             hasActiveSession={!!activeSessions?.length}
+            locationId={id}
           />
           {!!form.formState.errors.root?.message && (
             <ErrorMessage

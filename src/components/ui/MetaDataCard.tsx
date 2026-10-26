@@ -15,7 +15,7 @@ export const MetaDataCard = ({
   title,
 }: PropsWithChildren<
   {
-    iconName: SvgIconName
+    iconName?: SvgIconName
     title: string
   } & TestProps
 >) => (
@@ -23,11 +23,13 @@ export const MetaDataCard = ({
     <Row
       gutter="sm"
       valign="start">
-      <Icon
-        name={iconName}
-        size="lg"
-        testID={`ParkingSessionDetails${capitalizeString(iconName)}Icon`}
-      />
+      {!!iconName && (
+        <Icon
+          name={iconName}
+          size="lg"
+          testID={`ParkingSessionDetails${capitalizeString(iconName)}Icon`}
+        />
+      )}
       <Column
         gutter="xxs"
         halign="start"
