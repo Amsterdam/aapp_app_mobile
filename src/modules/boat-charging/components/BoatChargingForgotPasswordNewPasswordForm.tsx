@@ -137,7 +137,7 @@ export const BoatChargingForgotPasswordNewPasswordForm = () => {
       try {
         await confirmResetPassword(confirmationCode, password)
       } catch {
-        setAlert(alerts.createAccountFailed)
+        setAlert(alerts.checkConfirmCodeFailed)
       }
     },
     [resetAlert, setAlert, confirmResetPassword],
