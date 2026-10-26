@@ -56,7 +56,7 @@ export const BoatChargingCreateAccountConfirmForm = () => {
         setIsResendingCode(false)
       }
     } else {
-      throw new Error('OpenID Connect config is not available')
+      setAlert(alerts.createAccountResendConfirmFailed)
     }
   }, [navigation, openIdConnectConfig, setAlert, username])
 
