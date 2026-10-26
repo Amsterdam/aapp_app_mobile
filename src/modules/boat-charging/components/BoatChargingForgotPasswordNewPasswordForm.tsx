@@ -202,7 +202,7 @@ export const BoatChargingForgotPasswordNewPasswordForm = () => {
         <Column gutter="md">
           <Button
             isLoading={form.formState.isSubmitting}
-            label="Bevestigen"
+            label="Wachtwoord opslaan"
             onPress={form.handleSubmit(handleForgotPasswordConfirm)}
             testID="BoatChargingForgotPasswordNewPasswordSubmitButton"
           />
