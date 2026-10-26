@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback} from 'react'
+import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -11,6 +11,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
+import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {
@@ -49,7 +50,7 @@ export const BoatChargingConfirmSessionDetails = () => {
   const {
     data: locationDetails,
     isLoading: isLoadingLocationDetails,
-    isError: isLoadingLocationError,
+    isError: isErrorLocationDetails,
   } = useBoatChargingLocationDetailsQuery(
     selectedSocket?.locationId ? selectedSocket.locationId : skipToken,
   )
@@ -75,15 +76,35 @@ export const BoatChargingConfirmSessionDetails = () => {
     }
   }, [vignettes, navigation, form])
 
-  if (isLoadingLocationDetails || isLoadingSettings) {
-    return <PleaseWait testID="BoatChargingConfirmSessionDetailsPleaseWait" />
-  }
+  const {
+    vat_fraction,
+    standard_fine,
+    pre_authorization_amount,
+    session_expiry_hours,
+  } = settingsServerData || {}
 
-  if (isLoadingLocationError || isErrorSettings) {
-    return (
-      <SomethingWentWrong testID="BoatChargingConfirmSessionDetailsSomethingWentWrong" />
-    )
-  }
+  const vatFraction = vat_fraction ?? VAT_FRACTION_FALLBACK
+
+  const infoRows = useMemo(
+    () =>
+      Object.entries({
+        Stroomtarief: locationDetails?.tariff
+          ? `${formatNumber(locationDetails?.tariff.energy_price_per_kwh * vatFraction, 'EUR', {maximumFractionDigits: 4})} per kWh`
+          : undefined,
+        Starttarief: locationDetails?.tariff
+          ? formatNumber(
+              locationDetails?.tariff.flat_fee_price * vatFraction,
+              'EUR',
+              {maximumFractionDigits: 4},
+            )
+          : undefined,
+        [session_expiry_hours ? `Na ${session_expiry_hours} uur` : '']:
+          standard_fine
+            ? `${formatNumber(standard_fine, 'EUR')} per uur`
+            : undefined,
+      }).filter(([key, value]) => !!key && !!value),
+    [locationDetails, vatFraction, standard_fine, session_expiry_hours],
+  )
 
   return (
     <Column gutter="lg">
@@ -95,18 +116,22 @@ export const BoatChargingConfirmSessionDetails = () => {
             .filter(Boolean)
             .join('-')}
         </Phrase>
-        <Phrase color="secondary">
-          {getAddressLine1(locationDetails?.address)}
-        </Phrase>
+        {!!locationDetails?.address && (
+          <Phrase color="secondary">
+            {getAddressLine1(locationDetails?.address)}
+          </Phrase>
+        )}
       </MetaDataCard>
 
-      <MetaDataCard
-        testID="BoatChargingConfirmSessionVignetMetaDataCard"
-        title="Vignet">
-        <Phrase>{vignet?.vignette_number}</Phrase>
-        {isVignet(vignet) && !!vignet.boat_name && (
-          <Phrase color="secondary">{vignet?.boat_name}</Phrase>
-        )}
+      <Column>
+        <MetaDataCard
+          testID="BoatChargingConfirmSessionVignetMetaDataCard"
+          title="Vignet">
+          <Phrase>{vignet?.vignette_number}</Phrase>
+          {isVignet(vignet) && !!vignet.boat_name && (
+            <Phrase color="secondary">{vignet?.boat_name}</Phrase>
+          )}
+        </MetaDataCard>
         {/* TODO: change this component to the new InlineLink component. https://gemeente-amsterdam.atlassian.net/browse/AM-1132 */}
         <NavigationButton
           chevronSize="md"
@@ -118,13 +143,15 @@ export const BoatChargingConfirmSessionDetails = () => {
           testID="BoatChargingConfirmSessionVignetNavigationButton"
           title="Wijzigen"
         />
-      </MetaDataCard>
+      </Column>
 
       {!!email && !isLoggedIn && (
-        <MetaDataCard
-          testID="BoatChargingConfirmSessionEmailAddressMetaDataCard"
-          title="E-mailadres">
-          <Phrase>{email}</Phrase>
+        <Column>
+          <MetaDataCard
+            testID="BoatChargingConfirmSessionEmailAddressMetaDataCard"
+            title="E-mailadres">
+            <Phrase>{email}</Phrase>
+          </MetaDataCard>
           {/* TODO: change this component to the new InlineLink component. https://gemeente-amsterdam.atlassian.net/browse/AM-1132 */}
           <NavigationButton
             chevronSize="md"
@@ -136,36 +163,30 @@ export const BoatChargingConfirmSessionDetails = () => {
             testID="BoatChargingConfirmSessionEmailAddressNavigationButton"
             title="Wijzigen"
           />
-        </MetaDataCard>
+        </Column>
       )}
 
-      {!!locationDetails && (
+      <Column>
         <MetaDataCard
           testID="BoatChargingConfirmSessionCostsMetaDataCard"
           title="Kosten">
-          <Phrase>
-            Stroomtarief{' '}
-            {formatNumber(locationDetails.tariff.energy_price_per_kwh, 'EUR')}{' '}
-            per kWh
-          </Phrase>
-          <Phrase>
-            Starttarief{' '}
-            {formatNumber(locationDetails.tariff.flat_fee_price, 'EUR')}
-          </Phrase>
-          {!!settingsServerData?.standard_fine && (
-            <Phrase>
-              Na 24 uur {formatNumber(settingsServerData.standard_fine, 'EUR')}{' '}
-              per uur
-            </Phrase>
-          )}
+          {infoRows?.map(row => (
+            <Phrase key={row[0]}>{row.join(' ')}</Phrase>
+          ))}
         </MetaDataCard>
-      )}
+        {(!!isLoadingLocationDetails || !!isLoadingSettings) && (
+          <PleaseWait testID="BoatChargingConfirmSessionDetailsPleaseWait" />
+        )}
+        {(!!isErrorLocationDetails || !!isErrorSettings) && (
+          <SomethingWentWrong testID="BoatChargingConfirmSessionDetailsSomethingWentWrong" />
+        )}
+      </Column>
 
-      {!!settingsServerData?.pre_authorization_amount && (
+      {!!pre_authorization_amount && (
         <Paragraph color="secondary">
           We reserveren tijdelijk{' '}
-          {formatNumber(settingsServerData?.pre_authorization_amount, 'EUR')} op
-          uw rekening. Het restbedrag storten we terug na het laden.
+          {formatNumber(pre_authorization_amount, 'EUR')} op uw rekening. Het
+          restbedrag storten we terug na het laden.
         </Paragraph>
       )}
 
