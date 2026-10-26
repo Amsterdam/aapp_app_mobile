@@ -3,6 +3,7 @@ import {useStore} from '@/hooks/redux/useStore'
 import {BoatChargingInitSessionStep} from '@/modules/boat-charging/hooks/useInitSession'
 import {useInitSessionNextStep} from '@/modules/boat-charging/hooks/useInitSessionNextStep'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
+import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {
   useBoatChargingTermsQuery,
@@ -10,6 +11,10 @@ import {
 } from '@/modules/boat-charging/service'
 import {selectLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
 import type {NewSessionFormValues, Vignet} from '@/modules/boat-charging/types'
+
+jest.mock('@/modules/boat-charging/hooks/useNewSessionForm', () => ({
+  useNewSessionFormContext: jest.fn(),
+}))
 
 jest.mock('@/hooks/redux/useStore', () => ({
   useStore: jest.fn(),
@@ -29,6 +34,8 @@ jest.mock('@/modules/boat-charging/slice', () => ({
 }))
 
 const useStoreMock = jest.mocked(useStore)
+const useNewSessionFormContextMock = jest.mocked(useNewSessionFormContext)
+const setValueMock = jest.fn()
 const useIsLoggedInMock = jest.mocked(useIsLoggedIn)
 const useBoatChargingTermsQueryMock = jest.mocked(useBoatChargingTermsQuery)
 const useBoatChargingVignettesQueryMock = jest.mocked(
@@ -62,6 +69,9 @@ describe('useInitSessionNextStep/loggedIn', () => {
     lastApprovedTermsVersion = 1
     vignettes = []
 
+    useNewSessionFormContextMock.mockReturnValue({
+      setValue: setValueMock,
+    } as never)
     useStoreMock.mockReturnValue({getState: jest.fn()} as never)
     useIsLoggedInMock.mockImplementation(() => ({isLoggedIn: true}) as never)
     useBoatChargingTermsQueryMock.mockImplementation(
@@ -114,14 +124,42 @@ describe('useInitSessionNextStep/loggedIn', () => {
     BoatChargingInitSessionStep.confirmSession,
     BoatChargingInitSessionStep.verifyVignet,
   ])(
-    'routes logged-in users at step %s to vignette selection, when they have vignettes connected to their account',
+    'routes logged-in users at step %s to vignette selection, when they have 2 or more vignettes connected to their account',
     step => {
-      vignettes = [vignet]
+      vignettes = [
+        vignet,
+        {
+          vignette_number: 'MA123456',
+          postal_code: '1234AB',
+          id: 2,
+          expiration_date: new Date().toISOString(),
+        },
+      ]
       const {result} = renderHook(() => useInitSessionNextStep(step))
 
       expect(result.current.getNextStep(params)).toBe(
         BoatChargingRouteName.chooseVignet,
       )
+    },
+  )
+
+  it.each([
+    BoatChargingInitSessionStep.selectSocket,
+    BoatChargingInitSessionStep.guestEmail,
+    BoatChargingInitSessionStep.termsAndConditions,
+    BoatChargingInitSessionStep.confirmSession,
+    BoatChargingInitSessionStep.verifyVignet,
+  ])(
+    'routes logged-in users at step %s to confirm session, when they have only 1 vignet connected to their account and all other params are set.',
+    step => {
+      vignettes = [vignet]
+      const {result} = renderHook(() => useInitSessionNextStep(step))
+
+      expect(result.current.getNextStep(params)).toBe(
+        BoatChargingRouteName.confirmSession,
+      )
+      expect(setValueMock).toHaveBeenCalledTimes(1)
+      expect(setValueMock).toHaveBeenCalledWith('vignet', vignet)
     },
   )
 
