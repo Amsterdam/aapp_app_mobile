@@ -63,10 +63,12 @@ export const BoatChargingConfirmSessionSubmitButton = () => {
         isFilled: true,
       }}
       isError={isError || isErrorVerifyVignet}
-      isLoading={isLoading || isLoadingVerifyVignet}
+      isLoading={
+        isLoading || isLoadingVerifyVignet || form.formState.isSubmitting
+      }
       label="Betalen en laden"
       onPress={form.handleSubmit(onSubmit)}
-      testID="BoatChargingTermsAndConditionsScreenSubmitButton"
+      testID="BoatChargingConfirmSessionSubmitButton"
     />
   )
 }

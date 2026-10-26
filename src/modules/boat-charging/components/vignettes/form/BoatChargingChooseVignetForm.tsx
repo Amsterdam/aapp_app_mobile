@@ -41,14 +41,14 @@ export const BoatChargingChooseVignetForm = () => {
     )
 
   useFocusAndForegroundEffect(() => {
-    if (!isLoading && vignettes && !vignettes.length) {
+    if (!isLoading && !isError && vignettes && !vignettes.length) {
       /**
        * When a user does not have vignettes connected to their account and they arrive on this route
        * from the pendingScreen set in @see BoatChargingGuestEmailForm we forward and replace to verifyVignet screen.
        * */
       navigation.replace(BoatChargingRouteName.verifyVignet)
     }
-  }, [isLoading, vignettes, navigation])
+  }, [isLoading, isError, vignettes, navigation])
 
   if (isLoading) {
     return <PleaseWait testID="BoatChargingChooseVignetFormPleaseWait" />
