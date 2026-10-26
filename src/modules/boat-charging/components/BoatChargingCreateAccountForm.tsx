@@ -80,7 +80,7 @@ export const BoatChargingCreateAccountForm = () => {
             laadgeschiedenis te bekijken.
           </Paragraph>
           <EmailTextInputField<'username'>
-            label="Gebruikersnaam"
+            label="E-mailadres"
             name="username"
             onSubmitEditing={() => passwordInputReference.current?.focus()}
             required
