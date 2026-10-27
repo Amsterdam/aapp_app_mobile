@@ -15,6 +15,7 @@ import {
   Platform,
   ScaledSize,
   StyleSheet,
+  Text,
   TextStyle,
   View,
   type ViewProps,
@@ -330,7 +331,7 @@ const LiRenderer: CustomBlockRenderer = props => {
                 accessibilityLabel={getTNodeAccessibleLabel(child)}
                 key={child.nodeIndex}
                 style={style}>
-                <HideFromAccessibility>
+                <HideFromAccessibility Element={Text}>
                   <TNodeChildrenRenderer
                     {...props}
                     tnode={child}
