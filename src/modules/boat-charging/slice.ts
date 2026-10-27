@@ -68,7 +68,7 @@ export const boatChargingSlice = createSlice({
     },
     setBoatChargingTemporaryUsername: (
       state,
-      {payload}: PayloadAction<string>,
+      {payload}: PayloadAction<string | undefined>,
     ) => {
       state.temporaryUsername = payload
     },

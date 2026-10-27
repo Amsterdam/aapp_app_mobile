@@ -83,6 +83,7 @@ export const useOpenIdConnectAuth = () => {
 
           if (result.isSignedIn) {
             storeSession(result.session)
+            dispatch(setBoatChargingTemporaryUsername(undefined))
           } else if (result.nextStep === 'CONFIRM_SIGN_UP') {
             await resendSignUpCodeWithOpenIdConnect(
               username,
