@@ -13,6 +13,7 @@ import type {
   ClusterProperties,
   MarkerProperties,
 } from '@/components/features/map/types'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export type ClustererProps = {
   clusterOptions?: Supercluster.Options<
@@ -21,6 +22,7 @@ export type ClustererProps = {
   >
   data: Supercluster.PointFeature<MarkerProperties>[]
   mapDimensions?: {height: number; width: number}
+  moduleSlug: ModuleSlug
   region?: Region
   shouldGroup?: boolean
 } & Omit<MapMarkerProps, 'coordinate'>
@@ -32,6 +34,7 @@ const getItemKey = (item: ClusterItem) =>
 
 export const Clusterer = ({
   data,
+  moduleSlug,
   region = AMSTERDAM_REGION,
   mapDimensions,
   shouldGroup = false,
@@ -64,10 +67,11 @@ export const Clusterer = ({
         getChildren={getChildren}
         item={item}
         key={getItemKey(item)}
+        moduleSlug={moduleSlug}
         shouldGroup={shouldGroup}
       />
     ),
-    [getChildren, shouldGroup],
+    [getChildren, shouldGroup, moduleSlug],
   )
 
   return points.map(renderItem)

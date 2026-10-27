@@ -1,7 +1,10 @@
 import type {Feature} from 'geojson'
-import {useMemo} from 'react'
+import {useCallback, useMemo} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {ServiceMapBottomSheetVariant} from '@/modules/service/exports/bottomsheetVariants'
 import type {
   ServiceLineStringFeature,
   ServiceMapResponse,
@@ -17,10 +20,21 @@ export const useGetMapData = (
   onMapElementPress: (id: Feature['id']) => void,
 ) => {
   const {data: geojson, icons_to_include: icons} = service || {}
-
+  const {open} = useBottomSheet()
   const selectedServicePointId = useSelector(selectSelectedServicePointId)
 
-  useSetMapSelection(selectedServicePointId)
+  useSetMapSelection(
+    ModuleSlug.service,
+    selectedServicePointId,
+    useCallback(
+      id => {
+        if (id) {
+          open(ServiceMapBottomSheetVariant.servicePointDetails)
+        }
+      },
+      [open],
+    ),
+  )
 
   const [polygonFeatures = [], pointFeatures = [], lineStringFeatures = []] =
     useMemo(() => {

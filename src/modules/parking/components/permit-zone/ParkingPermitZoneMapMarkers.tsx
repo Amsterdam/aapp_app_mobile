@@ -1,4 +1,5 @@
-import {memo, useMemo, useRef} from 'react'
+import {memo, useCallback, useMemo, useRef} from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {
   Clusterer,
   type ClustererProps,
@@ -10,6 +11,8 @@ import {
 } from '@/components/features/map/marker/MapMarkerVariants'
 import {Marker} from '@/components/features/map/marker/Marker'
 import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {PermitZoneMapBottomSheetVariant} from '@/modules/parking/components/permit-zone/bottomsheet/bottomsheetVariants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
@@ -26,6 +29,7 @@ export const ParkingPermitZoneMapMarkers = memo(() => {
     usePermitMapContext()
 
   const {data: parkingMachines} = useParkingMachinesQuery()
+  const {open} = useBottomSheet()
 
   const onSelectRef = useRef(onSelectParkingMachine)
 
@@ -62,12 +66,24 @@ export const ParkingPermitZoneMapMarkers = memo(() => {
     parking_machine_favorite,
   )
 
-  useSetMapSelection(selectedParkingMachineId)
+  useSetMapSelection(
+    ModuleSlug.parking,
+    selectedParkingMachineId,
+    useCallback(
+      id => {
+        if (id) {
+          open(PermitZoneMapBottomSheetVariant.parkingMachine)
+        }
+      },
+      [open],
+    ),
+  )
 
   return (
     <>
       <Clusterer
         data={data}
+        moduleSlug={ModuleSlug.parking}
         region={region}
         zIndex={MarkerZIndex.cluster}
       />

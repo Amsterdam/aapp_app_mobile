@@ -117,6 +117,7 @@ export const ServicePointMap = ({
             : HIGH_DATA_COUNT_CLUSTER_OPTIONS
         }
         data={points}
+        moduleSlug={ModuleSlug.service}
         region={region}
         shouldGroup
       />

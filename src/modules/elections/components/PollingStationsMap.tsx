@@ -1,5 +1,6 @@
-import {useState} from 'react'
+import {useCallback, useState} from 'react'
 import type {Region} from 'react-native-maps'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {MapBase} from '@/components/features/map/MapBase'
 import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
@@ -7,6 +8,7 @@ import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVarian
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {PollingStationsBottomSheetVariant} from '@/modules/elections/components/bottomsheet/bottomsheetVariants'
 import {useSelectedPollingStationId} from '@/modules/elections/slice'
 import {ElectionsState, PollingStation} from '@/modules/elections/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -33,8 +35,20 @@ export const PollingStationsMap = ({
 }: Props) => {
   const selectedPollingStationId = useSelectedPollingStationId()
   const [region, setRegion] = useState<Region | undefined>()
+  const {open} = useBottomSheet()
 
-  useSetMapSelection(String(selectedPollingStationId))
+  useSetMapSelection(
+    ModuleSlug.elections,
+    String(selectedPollingStationId),
+    useCallback(
+      id => {
+        if (id) {
+          open(PollingStationsBottomSheetVariant.pollingStationDetails)
+        }
+      },
+      [open],
+    ),
+  )
 
   if (isLoading) {
     return (
@@ -80,6 +94,8 @@ export const PollingStationsMap = ({
             coordinates: [position.lng, position.lat],
           },
         }))}
+
+        moduleSlug={ModuleSlug.elections}
         region={region}
       />
     </MapBase>

@@ -13,6 +13,7 @@ import type {
   ClusterItem,
 } from '@/components/features/map/types'
 import {isNearlyEqualFloat} from '@/components/features/map/utils/isNearlyEqualFloat'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {devError} from '@/processes/development'
 import {
   ExceptionLogKey,
@@ -20,6 +21,7 @@ import {
 } from '@/processes/logging/hooks/useTrackException'
 
 export const useClusterSwitch = (
+  moduleSlug: ModuleSlug,
   item: ClusterItem,
   getChildren: (clusterId: number) => ClusterItem[],
   shouldGroup: boolean = false,
@@ -35,7 +37,7 @@ export const useClusterSwitch = (
     ]
   }, [item])
 
-  const isSelected = useIsMarkerSelected(markerProps?.id)
+  const isSelected = useIsMarkerSelected(moduleSlug, markerProps?.id)
 
   const variant = isSelected
     ? MapMarkerVariant.selectedPin

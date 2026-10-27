@@ -1,9 +1,16 @@
-import {useCallback, useEffect, useSyncExternalStore} from 'react'
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useSyncExternalStore,
+} from 'react'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Listener = () => void
 type MarkerID = string | number | undefined
 
-let currentSelectedId: MarkerID
+const currentSelectedIdMap = new Map<ModuleSlug, MarkerID>()
+
 const listeners = new Set<Listener>()
 
 const subscribe = (listener: Listener) => {
@@ -14,14 +21,22 @@ const subscribe = (listener: Listener) => {
   }
 }
 
-const getSnapshot = () => currentSelectedId
+const getSnapshot = (moduleSlug: ModuleSlug) =>
+  currentSelectedIdMap.get(moduleSlug)
 
-export const setMapSelection = (id: MarkerID) => {
+const setMapSelection = (moduleSlug: ModuleSlug, id: MarkerID) => {
+  const currentSelectedId = currentSelectedIdMap.get(moduleSlug)
+
   if (currentSelectedId === id) {
     return
   }
 
-  currentSelectedId = id
+  if (id === undefined) {
+    currentSelectedIdMap.delete(moduleSlug)
+  } else {
+    currentSelectedIdMap.set(moduleSlug, id)
+  }
+
   listeners.forEach(l => l())
 }
 
@@ -30,20 +45,49 @@ export const setMapSelection = (id: MarkerID) => {
  * so selecting a marker only re-renders 2 ClusterSwitch instances (old + new)
  * instead of all visible markers.
  */
-export const useIsMarkerSelected = (markerId: MarkerID): boolean =>
+export const useIsMarkerSelected = (
+  /**
+   * Each map instance that relies on this hook keeps track of its own current selected ID. Instances are differentiated using ModuleSlug.
+   */
+  moduleSlug: ModuleSlug,
+  /**
+   * The id that needs to be marked as selected.
+   */
+  markerId: MarkerID,
+): boolean =>
   useSyncExternalStore(
     subscribe,
 
     useCallback(
-      () => markerId != null && getSnapshot() === markerId,
-      [markerId],
+      () => markerId != null && getSnapshot(moduleSlug) === markerId,
+      [markerId, moduleSlug],
     ),
   )
 
-export const useSetMapSelection = (id: MarkerID) => {
-  useEffect(() => {
-    setMapSelection(id)
+export const useSetMapSelection = (
+  /**
+   * Each map instance that relies on this hook keeps track of its own current selected ID. Instances are differentiated using ModuleSlug.
+   */
+  moduleSlug: ModuleSlug,
+  /**
+   * The id that needs to be marked as selected.
+   */
+  id: MarkerID,
+  /**
+   * Called after synchronizing the selection on mount and when the ID or module
+   * changes, including an explicit undefined ID. Unmount cleanup is not a
+   * selection event, and changing the callback alone does not trigger it.
+   */
+  onMapSelection?: (id?: MarkerID) => void,
+) => {
+  const notifyMapSelection = useEffectEvent((selectedId: MarkerID) => {
+    onMapSelection?.(selectedId)
+  })
 
-    return () => setMapSelection(undefined)
-  }, [id])
+  useEffect(() => {
+    setMapSelection(moduleSlug, id)
+    notifyMapSelection(id)
+  }, [id, moduleSlug])
+
+  useEffect(() => () => setMapSelection(moduleSlug, undefined), [moduleSlug])
 }
