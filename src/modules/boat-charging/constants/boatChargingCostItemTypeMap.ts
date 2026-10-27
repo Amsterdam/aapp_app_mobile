@@ -2,6 +2,7 @@ import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {
   BoatChargingCostBreakdownItemType,
   BoatChargingSessionCostBreakdownItem,
+  type BoatChargingSettings,
 } from '@/modules/boat-charging/types'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
@@ -13,7 +14,9 @@ const getItemString = (
 ) =>
   `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price * (vat_fraction ?? VAT_FRACTION_FALLBACK), 'EUR', {maximumFractionDigits: 4})} per uur`
 
-export const boatChargingCostItemTypeMap: Record<
+export const boatChargingCostItemTypeMap = (
+  settings: BoatChargingSettings | undefined,
+): Record<
   BoatChargingCostBreakdownItemType,
   {
     details: (
@@ -22,9 +25,9 @@ export const boatChargingCostItemTypeMap: Record<
     ) => string
     label: string
   }
-> = {
+> => ({
   [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
-    label: 'Na 24 uur',
+    label: `Na ${settings?.session_expiry_hours ?? 24} uur`,
     details: getItemString,
   },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
@@ -44,4 +47,4 @@ export const boatChargingCostItemTypeMap: Record<
     label: 'Starttarief',
     details: () => 'Eenmalig',
   },
-}
+})

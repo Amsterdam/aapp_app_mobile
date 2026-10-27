@@ -180,7 +180,6 @@ export enum SessionLengthStatus {
  */
 export type BoatChargingSettings = {
   pre_authorization_amount: number | null
-  session_cleanup_enabled: boolean | null
   session_expiry_hours: number | null
   session_expiry_warning_hours: number | null
   standard_fine: number | null
