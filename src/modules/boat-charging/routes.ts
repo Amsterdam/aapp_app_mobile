@@ -12,6 +12,8 @@ export enum BoatChargingRouteName {
   createAccount = 'BoatChargingCreateAccount',
   createAccountConfirm = 'BoatChargingCreateAccountConfirm',
   forgotAccessCode = 'BoatChargingForgotAccessCode',
+  forgotPassword = 'BoatChargingForgotPassword',
+  forgotPasswordNewPassword = 'BoatChargingForgotPasswordNewPassword',
   guestEmail = 'BoatChargingGuestEmail',
   help = 'BoatChargingHelp',
   history = 'BoatChargingHistory',
@@ -54,4 +56,6 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.chooseVignet]: undefined
   [BoatChargingRouteName.createAccount]: undefined
   [BoatChargingRouteName.createAccountConfirm]: undefined
+  [BoatChargingRouteName.forgotPassword]: undefined
+  [BoatChargingRouteName.forgotPasswordNewPassword]: undefined
 }

@@ -18,7 +18,10 @@ export type BoatChargingState = {
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
-  signUpUsername?: string
+  /**
+   * Used in sign up flow and forgot password flow, this username cannot be considered as logged in
+   */
+  temporaryUsername?: string
 }
 
 const initialState: BoatChargingState = {}
@@ -63,11 +66,11 @@ export const boatChargingSlice = createSlice({
     ) => {
       state.loggedInUsername = payload
     },
-    setBoatChargingSignUpUsername: (
+    setBoatChargingTemporaryUsername: (
       state,
-      {payload}: PayloadAction<string>,
+      {payload}: PayloadAction<string | undefined>,
     ) => {
-      state.signUpUsername = payload
+      state.temporaryUsername = payload
     },
     setBoatChargingOpenIdConnectConfig: (
       state,
@@ -105,7 +108,7 @@ export const {
   resetSelectedBoatChargingPointId,
   setAccessToken,
   removeAccount,
-  setBoatChargingSignUpUsername,
+  setBoatChargingTemporaryUsername,
   setBoatChargingOpenIdConnectConfig,
   setBoatChargingLoggedInUsername,
   setLastApprovedTermsVersionWhileLoggedIn,
@@ -131,9 +134,9 @@ export const selectBoatChargingLoggedInUsername = (
   state: RootState,
 ): string | undefined => state[ReduxKey.boatCharging].loggedInUsername
 
-export const selectBoatChargingSignUpUsername = (
+export const selectBoatChargingTemporaryUsername = (
   state: RootState,
-): string | undefined => state[ReduxKey.boatCharging].signUpUsername
+): string | undefined => state[ReduxKey.boatCharging].temporaryUsername
 
 export const selectBoatChargingLastGuestSessionId = (
   state: RootState,

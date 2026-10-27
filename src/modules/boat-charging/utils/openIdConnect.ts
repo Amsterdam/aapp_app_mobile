@@ -1,6 +1,7 @@
 import {Amplify} from 'aws-amplify'
 import {
   confirmSignUp,
+  confirmResetPassword,
   fetchAuthSession,
   getCurrentUser,
   resendSignUpCode,
@@ -8,6 +9,7 @@ import {
   signOut,
   signUp,
   autoSignIn,
+  resetPassword,
   type AuthSession,
   type AuthUser,
 } from 'aws-amplify/auth'
@@ -208,4 +210,30 @@ export const autoSignInWithOpenIdConnect = async (
   initBoatChargingOpenIdConnectConfig(config)
 
   return autoSignIn()
+}
+
+export const resetPasswordWithOpenIdConnect = async (
+  username: string,
+  config: BoatChargingOIDCConfigResponse,
+) => {
+  initBoatChargingOpenIdConnectConfig(config)
+
+  return resetPassword({
+    username,
+  })
+}
+
+export const confirmResetPasswordWithOpenIdConnect = async (
+  username: string,
+  newPassword: string,
+  confirmationCode: string,
+  config: BoatChargingOIDCConfigResponse,
+) => {
+  initBoatChargingOpenIdConnectConfig(config)
+
+  return confirmResetPassword({
+    username,
+    newPassword,
+    confirmationCode,
+  })
 }

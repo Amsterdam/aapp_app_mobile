@@ -1,9 +1,7 @@
 export enum RedirectKey {
   acknowledgeChild = 'acknowledgeChild',
   birth = 'birth',
-  boatChargingCreateAccount = 'boatChargingCreateAccount',
   boatChargingFAQ = 'boatChargingFAQ',
-  boatChargingForgotPassword = 'boatChargingForgotPassword',
   boatChargingRequestVignet = 'boatChargingRequestVignet',
   boatChargingTermsAndConditions = 'boatChargingTermsAndConditions',
   boatChargingVignetInfo = 'boatChargingVignetInfo',
