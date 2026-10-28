@@ -7,6 +7,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {PopupMenuItem} from '@/components/ui/menus/types'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
+import {useMenu} from '@/store/slices/menu'
 
 type Props = PopupMenuItem & {
   ref: Ref<View>
@@ -21,6 +22,7 @@ export const PopUpMenuItem = ({
   color = 'link',
 }: Props) => {
   const {openRedirect, isLoading, isError} = useOpenRedirect()
+  const {close} = useMenu()
 
   if (isLoading || isError) {
     return null
@@ -28,7 +30,15 @@ export const PopUpMenuItem = ({
 
   return (
     <Pressable
-      onPress={() => (redirectKey ? openRedirect(redirectKey) : onPress?.())}
+      onPress={() => {
+        close()
+
+        if (redirectKey) {
+          openRedirect(redirectKey)
+        } else {
+          onPress?.()
+        }
+      }}
       ref={ref}
       testID={testID}>
       <Box
