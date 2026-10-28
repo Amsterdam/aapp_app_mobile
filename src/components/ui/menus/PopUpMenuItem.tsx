@@ -24,7 +24,7 @@ export const PopUpMenuItem = ({
   const {openRedirect, isLoading, isError} = useOpenRedirect()
   const {close} = useMenu()
 
-  if (isLoading || isError) {
+  if (redirectKey && (isLoading || isError)) {
     return null
   }
 
