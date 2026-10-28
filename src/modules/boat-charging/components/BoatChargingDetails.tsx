@@ -12,7 +12,6 @@ import {BoatChargingDetailsInfoRows} from '@/modules/boat-charging/components/Bo
 import {BoatChargingDetailsSocketRadioGroup} from '@/modules/boat-charging/components/BoatChargingDetailsSocketRadioGroup'
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
 import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
-import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {
   useBoatChargingLocationDetailsQuery,
@@ -36,12 +35,6 @@ export const BoatChargingDetails = ({id}: Props) => {
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken, {
     pollingInterval: REFETCH_INTERVAL,
   })
-
-  const {
-    activeSessions,
-    isLoading: isLoadingSessions,
-    isError: isErrorSessions,
-  } = useBoatChargingSessions()
 
   const {data: settingsServerData} = useBoatChargingSettingsQuery()
 
@@ -67,7 +60,7 @@ export const BoatChargingDetails = ({id}: Props) => {
 
   const form = useNewSessionFormContext()
 
-  if (isLoadingLocation || isLoadingSessions) {
+  if (isLoadingLocation) {
     return (
       <PleaseWait
         showFeedback
@@ -76,7 +69,7 @@ export const BoatChargingDetails = ({id}: Props) => {
     )
   }
 
-  if (isErrorLocation || isErrorSessions || !location) {
+  if (isErrorLocation || !location) {
     return <SomethingWentWrong testID="BoatChargingDetailsSomethingWentWrong" />
   }
 
@@ -108,7 +101,6 @@ export const BoatChargingDetails = ({id}: Props) => {
 
           <BoatChargingDetailsSocketRadioGroup
             chargingStations={location.charging_stations}
-            hasActiveSession={!!activeSessions?.length}
             locationId={id}
           />
           {!!form.formState.errors.root?.message && (
