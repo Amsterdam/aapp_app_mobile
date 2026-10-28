@@ -30,6 +30,8 @@ export const PopUpMenuItem = ({
 
   return (
     <Pressable
+      accessibilityHint={redirectKey ? 'Opent in webbrowser.' : undefined}
+      accessibilityRole={redirectKey ? 'link' : 'button'}
       onPress={() => {
         close()
 
