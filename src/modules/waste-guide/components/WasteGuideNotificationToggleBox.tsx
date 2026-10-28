@@ -1,6 +1,7 @@
 import {NotificationSubscriptionToggleBox} from '@/components/features/NotificationSubscriptionToggleBox'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useLocationType, useMyAddress} from '@/modules/address/slice'
+import {useLocationType} from '@/modules/address/exports/hooks/useLocationType'
+import {useMyAddress} from '@/modules/address/exports/hooks/useMyAddress'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {selectContract} from '@/modules/waste-guide/slice'

@@ -1,8 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {type PropsWithChildren, useMemo} from 'react'
 import {MapFiltersProvider} from '@/components/features/map/providers/MapFilters.provider'
+import type {Service} from '@/modules/service/exports/types'
 import {useServiceQuery} from '@/modules/service/service'
-import type {Service} from '@/modules/service/types'
 
 export const ServiceMapFiltersProvider = ({
   children,

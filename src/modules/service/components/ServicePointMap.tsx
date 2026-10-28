@@ -16,9 +16,9 @@ import {Polygons} from '@/components/features/map/polygon/Polygons'
 import {ControlVariant, MapFocus} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import type {Service} from '@/modules/service/exports/types'
 import {useGetMapData} from '@/modules/service/hooks/useGetMapData'
 import {useServiceQuery} from '@/modules/service/service'
-import type {Service} from '@/modules/service/types'
 
 type Props = {
   focusType?: MapFocus

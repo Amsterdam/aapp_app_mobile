@@ -1,4 +1,4 @@
-import {ExceptionDate, VisitingHour} from '@/modules/contact/types'
+import type {VisitingHour, ExceptionDate} from '@/types/openingTimes'
 
 export const day = {
   monday: '2022-08-29',

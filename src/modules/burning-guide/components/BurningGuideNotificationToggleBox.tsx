@@ -1,6 +1,7 @@
 import {NotificationSubscriptionToggleBox} from '@/components/features/NotificationSubscriptionToggleBox'
 import {Box} from '@/components/ui/containers/Box'
-import {useLocationType, useMyAddress} from '@/modules/address/slice'
+import {useLocationType} from '@/modules/address/exports/hooks/useLocationType'
+import {useMyAddress} from '@/modules/address/exports/hooks/useMyAddress'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {NotificationSubscriptionType} from '@/services/notification.service'
 

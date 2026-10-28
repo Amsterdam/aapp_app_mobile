@@ -1,6 +1,6 @@
-import {VisitingHour, ExceptionDate} from '@/modules/contact/types'
-import {getNextOpening} from '@/modules/contact/utils/getNextOpening'
+import type {VisitingHour, ExceptionDate} from '@/types/openingTimes'
 import {dayjs} from '@/utils/datetime/dayjs'
+import {getNextOpening} from '@/utils/openingTimes/getNextOpening'
 
 describe('getNextOpening', () => {
   const baseDate = '2025-09-05' // Friday

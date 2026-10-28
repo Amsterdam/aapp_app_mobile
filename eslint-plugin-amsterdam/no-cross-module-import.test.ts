@@ -24,6 +24,10 @@ ruleTester.run('no-cross-module-import', rule, {
       filename: moduleFileName,
     },
     {
+      code: "import type {Module} from '@/modules/types'",
+      filename: moduleFileName,
+    },
+    {
       code: "import {BottomSheetSurvey} from '@/modules/survey/exports/BottomSheetSurvey'",
       filename: moduleFileName,
     },

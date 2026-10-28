@@ -6,8 +6,8 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {KingsdayRouteName} from '@/modules/kingsday/routes'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
-import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
-import {ServiceModuleSource} from '@/modules/service/types'
+import {ServicesGrid} from '@/modules/service/exports/ServicesGrid'
+import {ServiceModuleSource} from '@/modules/service/exports/types'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const KingsdayOverviewScreen = () => (

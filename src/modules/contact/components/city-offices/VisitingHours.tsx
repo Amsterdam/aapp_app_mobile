@@ -2,8 +2,9 @@ import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {List} from '@/components/ui/text/list/List'
 import {Title} from '@/components/ui/text/Title'
-import {CityOffice, VisitingHour} from '@/modules/contact/types'
-import {getGroupedOpeningHours} from '@/modules/contact/utils/getGroupedOpeningHours'
+import type {CityOffice} from '@/modules/contact/types'
+import type {VisitingHour} from '@/types/openingTimes'
+import {getGroupedOpeningHours} from '@/utils/openingTimes/getGroupedOpeningHours'
 
 type Props = {
   visitingHours: VisitingHour[]

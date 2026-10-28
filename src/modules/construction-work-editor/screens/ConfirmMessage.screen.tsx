@@ -29,7 +29,7 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/service'
-import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import ProjectWarningFallbackImage from '@/modules/construction-work/exports/project-warning-fallback.svg'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 import {escapeHtml} from '@/utils/escapeHtml'
@@ -37,7 +37,8 @@ import {escapeHtml} from '@/utils/escapeHtml'
 type Props = NavigationProps<ConstructionWorkEditorRouteName.confirmMessage>
 
 // Escape HTML and convert newlines to <br /> tags
-const encodeBody = (input: string) => escapeHtml(input).replace(/\n/g, '<br />')
+const encodeBody = (input: string) =>
+  escapeHtml(input).replaceAll('\n', '<br />')
 
 export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()

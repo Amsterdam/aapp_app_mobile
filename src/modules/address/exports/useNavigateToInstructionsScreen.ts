@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {PermissionInstructionScreenParams} from '@/modules/home/exports/PermissionInstructionScreenParams'
 import {HomeModalName} from '@/modules/home/routes'
-import {PermissionInstructionScreenParams} from '@/modules/home/types'
 import {Permissions} from '@/types/permissions'
 
 const navigationParams: Record<

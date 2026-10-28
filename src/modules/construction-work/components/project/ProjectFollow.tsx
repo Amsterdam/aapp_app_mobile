@@ -7,7 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {useNavigateToInstructionsScreen} from '@/modules/address/exports/useNavigateToInstructionsScreen'
 import {
   useProjectFollowMutation,
   useProjectUnfollowMutation,

@@ -5,10 +5,10 @@ import {MapFocus} from '@/components/features/map/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {usePrideEvents} from '@/modules/pride/hooks/usePrideEvents'
 import {PrideRouteName} from '@/modules/pride/routes'
-import {createBottomsheetVariants} from '@/modules/service/components/bottomsheet/bottomsheetVariants'
-import {ServiceHeaderButton} from '@/modules/service/components/ServiceHeaderButton'
-import {ServicePointView} from '@/modules/service/components/ServicePointView'
-import {ServiceMapFiltersProvider} from '@/modules/service/providers/ServiceMapFiltersProvider'
+import {createBottomsheetVariants} from '@/modules/service/exports/bottomsheetVariants'
+import {ServiceHeaderButton} from '@/modules/service/exports/ServiceHeaderButton'
+import {ServiceMapFiltersProvider} from '@/modules/service/exports/ServiceMapFiltersProvider'
+import {ServicePointView} from '@/modules/service/exports/ServicePointView'
 
 type Props = NavigationProps<PrideRouteName.details>
 

@@ -1,4 +1,4 @@
-import {VisitingHour} from '@/modules/contact/types'
+import type {VisitingHour} from '@/types/openingTimes'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {weekDays} from '@/utils/datetime/weekDays'
 

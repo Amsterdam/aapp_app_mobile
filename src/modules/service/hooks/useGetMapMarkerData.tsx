@@ -10,7 +10,7 @@ import {ServicePointCustomMarker} from '@/modules/service/components/ServicePoin
 import type {
   ServicePointFeature,
   ServiceMapResponse,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
 
 export const useGetMapMarkerData = (
   features: ServicePointFeature[],

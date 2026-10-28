@@ -1,14 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useMyAddress} from '@/modules/address/exports/hooks/useMyAddress'
 import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
-import {
-  addRecentAddress,
-  setModuleCustomAddress,
-  useMyAddress,
-} from '@/modules/address/slice'
+import {addRecentAddress, setModuleCustomAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const useDeeplinkModuleAddress = (

@@ -7,8 +7,8 @@ import {
   HighAccuracyPurposeKey,
   type Address,
 } from '@/modules/address/exports/types'
+import {useNavigateToInstructionsScreen} from '@/modules/address/exports/useNavigateToInstructionsScreen'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/exports/utils/getAddressLineWithCityIfNotAmsterdam'
-import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useLocation} from '@/modules/address/slice'

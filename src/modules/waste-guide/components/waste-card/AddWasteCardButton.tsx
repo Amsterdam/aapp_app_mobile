@@ -3,8 +3,8 @@ import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAddress'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {useGetWasteCardQuery} from '@/modules/waste-container/exports/useGetWasteCardQuery'
 import {WasteContainerRouteName} from '@/modules/waste-container/routes'
-import {useGetWasteCardQuery} from '@/modules/waste-container/service'
 
 export const AddWasteCardButton = () => {
   const {navigate} = useNavigation()

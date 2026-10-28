@@ -5,7 +5,7 @@ import {
   type ServiceMapResponse,
   type ServiceModuleSource,
   type ServiceOverviewResponse,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
 import {baseApi} from '@/services/baseApi'
 
 export const serviceApi = baseApi.injectEndpoints({

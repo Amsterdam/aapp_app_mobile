@@ -1,5 +1,5 @@
 import type {ServicesGridItemColorScheme} from '@/modules/service/components/ServicesGridItem'
-import type {Service} from '@/modules/service/types'
+import type {Service} from '@/modules/service/exports/types'
 import {getServiceGridItemColors} from '@/modules/service/utils/getServiceGridItemColors'
 
 describe('getServiceGridItemColors', () => {

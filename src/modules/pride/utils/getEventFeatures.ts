@@ -7,7 +7,7 @@ import {
 } from '@/modules/pride/constants'
 import {formatMeta} from '@/modules/pride/utils/formatMeta'
 import {getEventsSeparatedByLocation} from '@/modules/pride/utils/getEventsSeparatedByLocation'
-import type {ServicePointFeature} from '@/modules/service/types'
+import type {ServicePointFeature} from '@/modules/service/exports/types'
 
 export const getEventFeatures = (
   eventsSeparatedByLocation: ReturnType<typeof getEventsSeparatedByLocation>,

@@ -1,4 +1,4 @@
-import {VisitingHour, ExceptionDate} from '@/modules/contact/types'
+import type {VisitingHour, ExceptionDate} from '@/types/openingTimes'
 import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 // Helper to check if an opening time should be returned

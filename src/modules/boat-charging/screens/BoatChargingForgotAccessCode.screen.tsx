@@ -1,5 +1,5 @@
 import type {NavigationProps} from '@/app/navigation/types'
-import {ForgotAccessCodeScreen} from '@/modules/access-code/screens/ForgotAccessCodeScreen'
+import {ForgotAccessCodeScreen} from '@/modules/access-code/exports/ForgotAccessCode.screen'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 

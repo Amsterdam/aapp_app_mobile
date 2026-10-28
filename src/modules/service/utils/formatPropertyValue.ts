@@ -5,7 +5,7 @@ import {
 import {
   ServiceDetailPropertyType,
   type PropertiesPropertyValue,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const formatPropertyValue = (

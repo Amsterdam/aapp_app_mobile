@@ -1,5 +1,5 @@
 import {convertGeometryToPoint} from '@/components/features/map/utils/convertGeometryToPoint'
-import type {ServiceGeoJSON} from '@/modules/service/types'
+import type {ServiceGeoJSON} from '@/modules/service/exports/types'
 
 const features: Record<string, ServiceGeoJSON['features'][number]> = {
   point: {

@@ -4,11 +4,11 @@ import {Row} from '@/components/ui/layout/Row'
 import type {TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AddressTopTaskButton} from '@/modules/address/components/form/AddressTopTaskButton'
+import {useMyAddress} from '@/modules/address/exports/hooks/useMyAddress'
 import {type Address} from '@/modules/address/exports/types'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/exports/utils/getAddressLineWithCityIfNotAmsterdam'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
-import {useMyAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {

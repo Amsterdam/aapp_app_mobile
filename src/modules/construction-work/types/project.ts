@@ -1,9 +1,9 @@
 import type {TestProps} from '@/components/ui/types'
+import type {ProjectsItem} from '@/modules/construction-work/exports/ProjectsItem'
 import type {
   ProjectContact,
   ProjectSection,
   ProjectTimeline,
-  ProjectsItem,
 } from '@/modules/construction-work/types/api'
 import type {WithDummy} from '@/services/types'
 

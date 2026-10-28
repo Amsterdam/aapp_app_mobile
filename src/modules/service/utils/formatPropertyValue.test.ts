@@ -1,4 +1,4 @@
-import {ServiceDetailPropertyType} from '@/modules/service/types'
+import {ServiceDetailPropertyType} from '@/modules/service/exports/types'
 import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 
 describe('formatPropertyValue', () => {

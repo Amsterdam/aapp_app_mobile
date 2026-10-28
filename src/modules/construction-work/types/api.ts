@@ -1,6 +1,7 @@
 /* eslint-disable sonarjs/redundant-type-aliases */
 
 import {ProgressStatus} from '@/components/ui/progressSteps/types'
+import type {ProjectsItem} from '@/modules/construction-work/exports/ProjectsItem'
 import {
   AddressQueryArgs,
   ApiImage,
@@ -181,10 +182,6 @@ export type ProjectWarningResponse = ArticleWarning
 // /projects
 
 export type ProjectsQueryArgs = PaginationQueryArgs & AddressQueryArgs
-
-export type ProjectsItem = ProjectBase & {
-  recent_articles: ArticleStub[]
-}
 
 export type ProjectsResponse = Paginated<ProjectsItem>
 
