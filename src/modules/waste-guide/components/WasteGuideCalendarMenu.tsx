@@ -68,21 +68,21 @@ export const WasteGuideCalendarMenu = () => {
 
   const menuItems = useMemo(
     () =>
-      [
-        !!webCalUrl &&
-          !!wasteGuideCalendarSubscribeFeatureFlag && {
-            color: 'default',
-            label: 'Toevoegen aan agenda',
-            onPress: onPressAddToCalendar,
-            testID: 'WasteGuideAddToCalendarButton',
+      (
+        [
+          !!webCalUrl &&
+            !!wasteGuideCalendarSubscribeFeatureFlag && {
+              label: 'Toevoegen aan agenda',
+              onPress: onPressAddToCalendar,
+              testID: 'WasteGuideAddToCalendarButton',
+            },
+          !!pdfUrl && {
+            label: 'Download als PDF',
+            onPress: onPressDownloadAsPdf,
+            testID: 'WasteGuideDownloadAsPdfButton',
           },
-        !!pdfUrl && {
-          color: 'default',
-          label: 'Download als PDF',
-          onPress: onPressDownloadAsPdf,
-          testID: 'WasteGuideDownloadAsPdfButton',
-        },
-      ].filter((item): item is PopupMenuItem => Boolean(item)),
+        ] as (PopupMenuItem | false)[]
+      ).filter((item): item is PopupMenuItem => Boolean(item)),
     [
       webCalUrl,
       pdfUrl,

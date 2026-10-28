@@ -1,12 +1,21 @@
 import {TestProps} from '@/components/ui/types'
+import type {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {Theme} from '@/themes/themes'
 
 export type PopupMenuItem = {
-  color: keyof Theme['color']['text']
+  /**
+   * @default 'link'
+   */
+  color?: keyof Theme['color']['text']
   id?: string
   label: string
-  onPress: () => void
-} & TestProps
+} & Or<
+  {
+    onPress: () => void
+  },
+  {redirectKey: RedirectKey}
+> &
+  TestProps
 
 export enum PopupMenuOrientation {
   left = 'left',

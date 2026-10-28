@@ -22,7 +22,6 @@ export const useChatMenuItems = () => {
     const menuItems: PopupMenuItem[] = []
 
     menuItems.push({
-      color: 'link',
       label: 'Chat downloaden',
       onPress: () => {
         closeMenu()
@@ -35,7 +34,6 @@ export const useChatMenuItems = () => {
 
     if (!isLoading && !isError) {
       menuItems.push({
-        color: 'link',
         label: 'Privacy',
         onPress: () => {
           closeMenu()

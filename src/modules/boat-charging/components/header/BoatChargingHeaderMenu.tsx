@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/menus/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const BoatChargingHeaderMenu = () => {
   const navigation = useNavigation<BoatChargingRouteName>()
@@ -13,16 +14,19 @@ export const BoatChargingHeaderMenu = () => {
   const menuItems: PopupMenuItem[] = useMemo(
     () => [
       {
-        color: 'default',
         label: 'Laadgeschiedenis',
         onPress: () => navigation.navigate(BoatChargingRouteName.history),
         testID: 'BoatChargingHeaderMenuHistoryButton',
       },
       {
-        color: 'default',
         label: 'Mijn vignetten',
         onPress: () => navigation.navigate(BoatChargingRouteName.myVignettes),
         testID: 'BoatChargingHeaderMenuMyVignettesButton',
+      },
+      {
+        label: 'Meer over boot laden',
+        redirectKey: RedirectKey.boatChargingInfo,
+        testID: 'BoatChargingHeaderMenuMoreAboutBoatChargingButton',
       },
     ],
     [navigation],
