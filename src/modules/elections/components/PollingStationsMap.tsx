@@ -1,6 +1,5 @@
-import {useCallback, useState} from 'react'
+import {useState} from 'react'
 import type {Region} from 'react-native-maps'
-import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {MapBase} from '@/components/features/map/MapBase'
 import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
@@ -35,19 +34,13 @@ export const PollingStationsMap = ({
 }: Props) => {
   const selectedPollingStationId = useSelectedPollingStationId()
   const [region, setRegion] = useState<Region | undefined>()
-  const {open} = useBottomSheet()
 
   useSetMapSelection(
     ModuleSlug.elections,
-    String(selectedPollingStationId),
-    useCallback(
-      id => {
-        if (id) {
-          open(PollingStationsBottomSheetVariant.pollingStationDetails)
-        }
-      },
-      [open],
-    ),
+    selectedPollingStationId !== undefined
+      ? String(selectedPollingStationId)
+      : undefined,
+    PollingStationsBottomSheetVariant.pollingStationDetails,
   )
 
   if (isLoading) {
@@ -95,7 +88,7 @@ export const PollingStationsMap = ({
           },
         }))}
 
-        moduleSlug={ModuleSlug.elections}
+        mapIdentifier={ModuleSlug.elections}
         region={region}
       />
     </MapBase>

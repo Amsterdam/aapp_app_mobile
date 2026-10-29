@@ -20,7 +20,9 @@ type SelectedServicePointDetails = {
 }
 
 export const useSelectedServicePointDetails = (serviceId: Service['id']) => {
-  const selectedServicePointId = useSelector(selectSelectedServicePointId)
+  const selectedServicePointId = useSelector(state =>
+    selectSelectedServicePointId(state, serviceId),
+  )
 
   const {data} = useServiceQuery(serviceId || skipToken)
 

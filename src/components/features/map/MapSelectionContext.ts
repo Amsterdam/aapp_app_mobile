@@ -4,40 +4,54 @@ import {
   useEffectEvent,
   useSyncExternalStore,
 } from 'react'
+import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Listener = () => void
 type MarkerID = string | number | undefined
 
-const currentSelectedIdMap = new Map<ModuleSlug, MarkerID>()
+export type MapIdentifier = ModuleSlug | `${ModuleSlug}${'.'}${string | number}`
 
-const listeners = new Set<Listener>()
+const currentSelectedIdMap = new Map<string, MarkerID>()
 
-const subscribe = (listener: Listener) => {
+const listenerMap = new Map<string, Set<Listener>>()
+
+const subscribe = (listener: Listener, mapIdentifier: MapIdentifier) => {
+  let listeners = listenerMap.get(mapIdentifier)
+
+  if (!listeners) {
+    listeners = new Set<Listener>()
+    listenerMap.set(mapIdentifier, listeners)
+  }
+
   listeners.add(listener)
 
   return () => {
     listeners.delete(listener)
+
+    if (listeners.size === 0) {
+      listenerMap.delete(mapIdentifier)
+    }
   }
 }
 
-const getSnapshot = (moduleSlug: ModuleSlug) =>
-  currentSelectedIdMap.get(moduleSlug)
+const getSnapshot = (mapIdentifier: MapIdentifier) =>
+  currentSelectedIdMap.get(mapIdentifier)
 
-const setMapSelection = (moduleSlug: ModuleSlug, id: MarkerID) => {
-  const currentSelectedId = currentSelectedIdMap.get(moduleSlug)
+const setMapSelection = (mapIdentifier: MapIdentifier, id: MarkerID) => {
+  const currentSelectedId = currentSelectedIdMap.get(mapIdentifier)
 
   if (currentSelectedId === id) {
     return
   }
 
   if (id === undefined) {
-    currentSelectedIdMap.delete(moduleSlug)
+    currentSelectedIdMap.delete(mapIdentifier)
   } else {
-    currentSelectedIdMap.set(moduleSlug, id)
+    currentSelectedIdMap.set(mapIdentifier, id)
   }
 
-  listeners.forEach(l => l())
+  listenerMap.get(mapIdentifier)?.forEach(listener => listener())
 }
 
 /**
@@ -47,28 +61,30 @@ const setMapSelection = (moduleSlug: ModuleSlug, id: MarkerID) => {
  */
 export const useIsMarkerSelected = (
   /**
-   * Each map instance that relies on this hook keeps track of its own current selected ID. Instances are differentiated using ModuleSlug.
+   * Each map instance that relies on this hook keeps track of its own current selected ID. Instances are differentiated using ModuleSlug and additional specifier.
    */
-  moduleSlug: ModuleSlug,
+  mapIdentifier: MapIdentifier,
   /**
    * The id that needs to be marked as selected.
    */
   markerId: MarkerID,
 ): boolean =>
   useSyncExternalStore(
-    subscribe,
-
     useCallback(
-      () => markerId != null && getSnapshot(moduleSlug) === markerId,
-      [markerId, moduleSlug],
+      listener => subscribe(listener, mapIdentifier),
+      [mapIdentifier],
+    ),
+    useCallback(
+      () => markerId != null && getSnapshot(mapIdentifier) === markerId,
+      [markerId, mapIdentifier],
     ),
   )
 
 export const useSetMapSelection = (
   /**
-   * Each map instance that relies on this hook keeps track of its own current selected ID. Instances are differentiated using ModuleSlug.
+   * Each map instance that relies on this hook keeps track of its own current selected ID. Instances are differentiated using ModuleSlug and additional specifier.
    */
-  moduleSlug: ModuleSlug,
+  mapIdentifier: MapIdentifier,
   /**
    * The id that needs to be marked as selected.
    */
@@ -77,17 +93,34 @@ export const useSetMapSelection = (
    * Called after synchronizing the selection on mount and when the ID or module
    * changes, including an explicit undefined ID. Unmount cleanup is not a
    * selection event, and changing the callback alone does not trigger it.
+   *
+   * If a string is passed, opens that bottom-sheet variant when an ID is selected.
+   * Clearing the selection does not open or close the sheet. Changing the variant
+   * alone does not open it; the latest variant is used for the next selection.
    */
-  onMapSelection?: (id?: MarkerID) => void,
+  onMapSelection?: ((id?: MarkerID) => void) | string,
 ) => {
+  const {open} = useBottomSheet()
+
   const notifyMapSelection = useEffectEvent((selectedId: MarkerID) => {
+    if (typeof onMapSelection === 'string') {
+      if (selectedId !== undefined) {
+        open(onMapSelection)
+      }
+
+      return
+    }
+
     onMapSelection?.(selectedId)
   })
 
   useEffect(() => {
-    setMapSelection(moduleSlug, id)
+    setMapSelection(mapIdentifier, id)
     notifyMapSelection(id)
-  }, [id, moduleSlug])
+  }, [id, mapIdentifier])
 
-  useEffect(() => () => setMapSelection(moduleSlug, undefined), [moduleSlug])
+  useEffect(
+    () => () => setMapSelection(mapIdentifier, undefined),
+    [mapIdentifier],
+  )
 }

@@ -1,5 +1,4 @@
-import {memo, useCallback, useMemo, useRef} from 'react'
-import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
+import {memo, useMemo, useRef} from 'react'
 import {
   Clusterer,
   type ClustererProps,
@@ -29,7 +28,6 @@ export const ParkingPermitZoneMapMarkers = memo(() => {
     usePermitMapContext()
 
   const {data: parkingMachines} = useParkingMachinesQuery()
-  const {open} = useBottomSheet()
 
   const onSelectRef = useRef(onSelectParkingMachine)
 
@@ -69,21 +67,14 @@ export const ParkingPermitZoneMapMarkers = memo(() => {
   useSetMapSelection(
     ModuleSlug.parking,
     selectedParkingMachineId,
-    useCallback(
-      id => {
-        if (id) {
-          open(PermitZoneMapBottomSheetVariant.parkingMachine)
-        }
-      },
-      [open],
-    ),
+    PermitZoneMapBottomSheetVariant.parkingMachine,
   )
 
   return (
     <>
       <Clusterer
         data={data}
-        moduleSlug={ModuleSlug.parking}
+        mapIdentifier={ModuleSlug.parking}
         region={region}
         zIndex={MarkerZIndex.cluster}
       />

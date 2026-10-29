@@ -2,7 +2,10 @@ import {useCallback, isValidElement, useMemo} from 'react'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
 import {GroupedClusterMarker} from '@/components/features/map/clusters/GroupedClusterMarker'
 import {useMap} from '@/components/features/map/hooks/useMap'
-import {useIsMarkerSelected} from '@/components/features/map/MapSelectionContext'
+import {
+  useIsMarkerSelected,
+  type MapIdentifier,
+} from '@/components/features/map/MapSelectionContext'
 import {
   MapMarkerVariant,
   MapMarkerVariants,
@@ -13,7 +16,6 @@ import type {
   ClusterItem,
 } from '@/components/features/map/types'
 import {isNearlyEqualFloat} from '@/components/features/map/utils/isNearlyEqualFloat'
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {devError} from '@/processes/development'
 import {
   ExceptionLogKey,
@@ -21,7 +23,10 @@ import {
 } from '@/processes/logging/hooks/useTrackException'
 
 export const useClusterSwitch = (
-  moduleSlug: ModuleSlug,
+  /**
+   * Identifier used for storing and keeping track of marker selected states
+   */
+  mapIdentifier: MapIdentifier,
   item: ClusterItem,
   getChildren: (clusterId: number) => ClusterItem[],
   shouldGroup: boolean = false,
@@ -37,7 +42,7 @@ export const useClusterSwitch = (
     ]
   }, [item])
 
-  const isSelected = useIsMarkerSelected(moduleSlug, markerProps?.id)
+  const isSelected = useIsMarkerSelected(mapIdentifier, markerProps?.id)
 
   const variant = isSelected
     ? MapMarkerVariant.selectedPin

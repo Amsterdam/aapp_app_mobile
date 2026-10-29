@@ -1,13 +1,16 @@
 import {useMemo} from 'react'
 import {useClusterSwitch} from '@/components/features/map/hooks/useClusterSwitch'
+import type {MapIdentifier} from '@/components/features/map/MapSelectionContext'
 import {Marker} from '@/components/features/map/marker/Marker'
 import type {ClusterItem} from '@/components/features/map/types'
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {
   getChildren: (clusterId: number) => ClusterItem[]
   item: ClusterItem
-  moduleSlug: ModuleSlug
+  /**
+   * Identifier used for storing and keeping track of marker selected states
+   */
+  mapIdentifier: MapIdentifier
   shouldGroup?: boolean
 }
 
@@ -15,10 +18,10 @@ export const ClusterSwitch = ({
   item,
   shouldGroup,
   getChildren,
-  moduleSlug,
+  mapIdentifier,
 }: Props) => {
   const {id, MarkerContent, handlePress} = useClusterSwitch(
-    moduleSlug,
+    mapIdentifier,
     item,
     getChildren,
     shouldGroup,

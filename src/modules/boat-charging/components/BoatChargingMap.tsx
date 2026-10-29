@@ -1,6 +1,5 @@
-import {useCallback, useMemo, useState} from 'react'
+import {useMemo, useState} from 'react'
 import type {Region} from 'react-native-maps'
-import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {MapFilters} from '@/components/features/map/filters/MapFilters'
 import {
@@ -33,20 +32,12 @@ export const BoatChargingMap = ({
   onChargingPointPress,
 }: Props) => {
   const selectedBoatChargingPointId = useSelectedBoatChargingPointId()
-  const {open} = useBottomSheet()
   const [region, setRegion] = useState<Region | undefined>()
 
   useSetMapSelection(
     ModuleSlug['boat-charging'],
     selectedBoatChargingPointId,
-    useCallback(
-      id => {
-        if (id) {
-          open(BoatChargingBottomSheetVariant.boatChargingPointDetails)
-        }
-      },
-      [open],
-    ),
+    BoatChargingBottomSheetVariant.boatChargingPointDetails,
   )
 
   const chargingPointFeatures = useMemo(
@@ -95,7 +86,7 @@ export const BoatChargingMap = ({
       <BoatChargingMapSelectionEffect geojson={geojson} />
       <Clusterer
         data={filteredFeatures}
-        moduleSlug={ModuleSlug['boat-charging']}
+        mapIdentifier={ModuleSlug['boat-charging']}
         region={region}
       />
     </MapBase>
