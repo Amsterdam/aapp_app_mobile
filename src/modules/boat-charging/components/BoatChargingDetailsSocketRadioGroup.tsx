@@ -12,12 +12,10 @@ import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailabl
 
 type Props = {
   chargingStations: ChargingStation[]
-  hasActiveSession: boolean
   locationId: BoatChargingLocation['id']
 }
 
 export const BoatChargingDetailsSocketRadioGroup = ({
-  hasActiveSession,
   chargingStations = [],
   locationId,
 }: Props) => {
@@ -25,18 +23,15 @@ export const BoatChargingDetailsSocketRadioGroup = ({
 
   const {availableEvses, evses} = useAvailableAndAllEvses(chargingStations)
 
-  const selectableEvses = hasActiveSession ? [] : availableEvses
-
   return (
     <Column gutter="md">
       {!!evses.length && (
         <RadioGroupControlled
           {...form}
-          disabledStyle={!selectableEvses.length ? 'none' : 'hidden'}
+          disabledStyle={!availableEvses.length ? 'none' : 'hidden'}
           name="selectedSocket"
           options={evses.map(({station, name, evse_id, status}) => {
             const disabled =
-              hasActiveSession ||
               station.status !== ChargingPointStatus.OPERATIVE ||
               status !== ChargingPointStatus.OPERATIVE
 

@@ -3,7 +3,6 @@ import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
@@ -25,11 +24,6 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: Props) => {
     isLoading: isLoadingLocationDetails,
     isError: isErrorLocationDetails,
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
-  const {
-    activeSessions,
-    isLoading: isLoadingSessions,
-    isError: isErrorSessions,
-  } = useBoatChargingSessions()
 
   const {onPress, isLoading, isError, disabled} = useInitSession(
     BoatChargingInitSessionStep.selectSocket,
@@ -53,21 +47,11 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: Props) => {
   const showSubmitButton = useMemo(
     () =>
       !isLoadingLocationDetails &&
-      !isLoadingSessions &&
       !isErrorLocationDetails &&
-      !isErrorSessions &&
-      !activeSessions?.length &&
       location?.charging_stations.some(
         socket => socket.status === ChargingPointStatus.OPERATIVE,
       ),
-    [
-      activeSessions,
-      location,
-      isLoadingLocationDetails,
-      isLoadingSessions,
-      isErrorLocationDetails,
-      isErrorSessions,
-    ],
+    [location, isLoadingLocationDetails, isErrorLocationDetails],
   )
 
   if (!showSubmitButton) {
