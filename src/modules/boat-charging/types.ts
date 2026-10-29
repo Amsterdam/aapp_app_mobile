@@ -126,6 +126,7 @@ export type BoatChargingOIDCConfigResponse = {
 }
 
 export type BoatChargingSession = {
+  boat_name?: Vignet['boat_name']
   created_date_time: string
   currency: 'EUR'
   email: string
@@ -141,6 +142,7 @@ export type BoatChargingSession = {
   status: SessionStatus
   stop_reason?: BoatChargingStopReason
   total_cost: number
+  vignette_number?: Vignet['vignette_number']
 }
 
 export type BoatChargingSessionsEndpointRequest = {
