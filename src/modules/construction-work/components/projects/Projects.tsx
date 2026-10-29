@@ -9,9 +9,9 @@ import {getAddressParam} from '@/modules/address/exports/utils/getAddressParam'
 import {config} from '@/modules/construction-work/components/projects/config'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
+import type {ProjectsItem} from '@/modules/construction-work/exports/ProjectsItem'
 import {constructionWorkApi} from '@/modules/construction-work/service'
 import {
-  type ProjectsItem,
   type ProjectsQueryArgs,
   ConstructionWorkEndpointName,
 } from '@/modules/construction-work/types/api'

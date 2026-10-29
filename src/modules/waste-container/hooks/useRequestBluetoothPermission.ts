@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {isAndroidVersionBelow12} from '@/modules/waste-guide/utils/isAndroidVersionBelow12'
 import {Permissions} from '@/types/permissions'
+import {isAndroidVersionBelow12} from '@/utils/isAndroidVersionBelow12'
 
 export const useRequestBluetoothPermission = () => {
   const {requestPermission: requestBluetoothPermission} = usePermission(

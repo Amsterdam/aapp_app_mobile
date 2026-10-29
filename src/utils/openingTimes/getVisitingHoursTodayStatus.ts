@@ -1,4 +1,4 @@
-import {ExceptionDate, VisitingHour} from '@/modules/contact/types'
+import type {ExceptionDate, VisitingHour} from '@/types/openingTimes'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 type OpeningAndClosing = {

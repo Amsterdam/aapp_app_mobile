@@ -7,7 +7,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
-import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
+import {useAccessCodePendingScreen} from '@/modules/access-code/exports/useAccessCodePendingScreen'
 import {
   BoatChargingInitSessionStep,
   useInitSession,

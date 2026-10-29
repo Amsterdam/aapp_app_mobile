@@ -1,5 +1,5 @@
 import type {ImageProps} from '@/components/ui/media/Image'
-import type {PermissionInstructionScreenParams} from '@/modules/home/types'
+import type {PermissionInstructionScreenParams} from '@/modules/home/exports/PermissionInstructionScreenParams'
 
 export enum HomeRouteName {
   admin = 'Admin',

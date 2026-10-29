@@ -1,6 +1,6 @@
 import {CityOffice} from '@/modules/contact/types'
-import {getUpcomingExceptionDescriptions} from '@/modules/contact/utils/getUpcomingExceptionDescriptions'
 import {dayjs} from '@/utils/datetime/dayjs'
+import {getUpcomingExceptionDescriptions} from '@/utils/openingTimes/getUpcomingExceptionDescriptions'
 
 describe('getUpcomingExceptionDescriptions', () => {
   const today = dayjs().startOf('day')

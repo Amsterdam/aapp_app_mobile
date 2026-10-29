@@ -7,9 +7,9 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ServicePointDetailsProperties} from '@/modules/service/components/ServicePointDetailsProperties'
+import {type Service} from '@/modules/service/exports/types'
 import {useSelectedServicePointDetails} from '@/modules/service/hooks/useSelectedServicePointDetails'
 import {resetSelectedServicePointId} from '@/modules/service/slice'
-import {type Service} from '@/modules/service/types'
 
 type Props = {id: Service['id']}
 

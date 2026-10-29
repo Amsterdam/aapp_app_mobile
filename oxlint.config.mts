@@ -55,7 +55,7 @@ export default defineConfig({
     'amsterdam/no-navigation-hooks-in-screens': 'error',
     'amsterdam/todo-comment-for-current-branch-must-be-resolved': 'error',
     'amsterdam/no-mixed-async-styles': 'warn',
-    'amsterdam/no-cross-module-import': 'warn', // TODO: should be set to error
+    'amsterdam/no-cross-module-import': 'error',
     'no-process-env': 'error',
     'no-shadow': 'error',
     'no-void': ['error', {allowAsStatement: true}],

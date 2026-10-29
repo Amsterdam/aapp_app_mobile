@@ -1,9 +1,9 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ExceptionDate, VisitingHour} from '@/modules/contact/types'
-import {getNextOpening} from '@/modules/contact/utils/getNextOpening'
-import {getVisitingHoursTodayStatus} from '@/modules/contact/utils/getVisitingHoursTodayStatus'
+import type {VisitingHour, ExceptionDate} from '@/types/openingTimes'
+import {getNextOpening} from '@/utils/openingTimes/getNextOpening'
+import {getVisitingHoursTodayStatus} from '@/utils/openingTimes/getVisitingHoursTodayStatus'
 
 type Props = {
   visitingHours: VisitingHour[]

@@ -9,6 +9,7 @@ import {AddressSearchResults} from '@/modules/address/components/form/AddressSea
 import {LocationTopTaskButton} from '@/modules/address/components/form/LocationTopTaskButton'
 import {MyAddressButton} from '@/modules/address/components/form/MyAddressButton'
 import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
+import {useMyAddress} from '@/modules/address/exports/hooks/useMyAddress'
 import type {
   Address,
   AddressCity,
@@ -22,7 +23,6 @@ import {
   addAddress,
   addRecentAddress,
   setModuleCustomAddress,
-  useMyAddress,
 } from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {useAlert} from '@/store/slices/alert'

@@ -1,6 +1,6 @@
 import dayjs, {Dayjs} from 'dayjs'
-import {ExceptionDate, VisitingHour} from '@/modules/contact/types'
-import {getVisitingHoursTodayStatus} from '@/modules/contact/utils/getVisitingHoursTodayStatus'
+import type {VisitingHour, ExceptionDate} from '@/types/openingTimes'
+import {getVisitingHoursTodayStatus} from '@/utils/openingTimes/getVisitingHoursTodayStatus'
 
 describe('getVisitingHoursTodayStatus', () => {
   const baseDate = '2025-09-05' // Friday

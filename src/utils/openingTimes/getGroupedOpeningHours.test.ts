@@ -1,5 +1,5 @@
-import {VisitingHour} from '@/modules/contact/types'
-import {getGroupedOpeningHours} from '@/modules/contact/utils/getGroupedOpeningHours'
+import type {VisitingHour} from '@/types/openingTimes'
+import {getGroupedOpeningHours} from '@/utils/openingTimes/getGroupedOpeningHours'
 
 describe('getGroupedOpeningHours', () => {
   it('groups days with the same opening and closing times', () => {

@@ -1,5 +1,5 @@
 import type {Address} from '@/modules/address/exports/types'
-import type {FeatureProperties} from '@/modules/service/types'
+import type {FeatureProperties} from '@/modules/service/exports/types'
 import {getLegendEntryLabel} from '@/modules/service/utils/getLegendEntryLabel'
 
 describe('getLegendEntryLabel', () => {

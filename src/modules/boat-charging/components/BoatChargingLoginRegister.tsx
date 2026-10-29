@@ -4,7 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useAccessCodePendingScreen} from '@/modules/access-code/hooks/useAccessCodePendingScreen'
+import {useAccessCodePendingScreen} from '@/modules/access-code/exports/useAccessCodePendingScreen'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 
 type Props = {pendingScreen: NavigateTo; text: string; title: string}

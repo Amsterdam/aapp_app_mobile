@@ -10,7 +10,7 @@ import {Title} from '@/components/ui/text/Title'
 import type {TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {useNavigateToInstructionsScreen} from '@/modules/address/exports/useNavigateToInstructionsScreen'
 import {Permissions} from '@/types/permissions'
 
 type Props = {

@@ -5,7 +5,7 @@ import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointC
 import type {
   ServiceMapResponse,
   ServiceMapResponseFilter,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
 
 type Props = {
   icons: ServiceMapResponse['icons_to_include']

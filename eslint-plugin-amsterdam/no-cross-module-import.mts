@@ -51,7 +51,13 @@ const isStringLiteral = (
 
 const toUnixPath = (value: string): string => value.replaceAll('\\\\', '/')
 
-const nonModuleFolders = new Set(['generated', 'utils'])
+const nonModuleFolders = new Set([
+  'generated',
+  'utils',
+  'types',
+  'stacks',
+  'modules',
+])
 
 const getSourceModuleName = (
   filePath: string,

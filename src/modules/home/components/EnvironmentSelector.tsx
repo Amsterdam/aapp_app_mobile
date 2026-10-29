@@ -10,7 +10,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useStore} from '@/hooks/redux/useStore'
 import {useModules} from '@/hooks/useModules'
-import {setShouldShowOnboarding} from '@/modules/onboarding/slice'
+import {setShouldShowOnboarding} from '@/modules/onboarding/exports/state'
 import {devError, devLog, isDevApp} from '@/processes/development'
 import {persistor} from '@/store/persistor'
 import {

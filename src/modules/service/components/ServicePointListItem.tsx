@@ -5,12 +5,12 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
-import {useServicePointListItemData} from '@/modules/service/hooks/useServicePointListItemData'
 import type {
   ServiceMapResponse,
   ServiceMapResponseIcon,
   ServicePointFeature,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
+import {useServicePointListItemData} from '@/modules/service/hooks/useServicePointListItemData'
 
 type Props = {
   icon?: ServiceMapResponseIcon

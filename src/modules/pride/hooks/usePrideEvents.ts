@@ -1,8 +1,8 @@
 import {useCallback} from 'react'
 import {usePrideEventsQuery} from '@/modules/pride/service'
 import type {PrideEvent} from '@/modules/pride/types'
-import {useServiceOverviewQuery} from '@/modules/service/service'
-import {ServiceModuleSource} from '@/modules/service/types'
+import {ServiceModuleSource} from '@/modules/service/exports/types'
+import {useServiceOverviewQuery} from '@/modules/service/exports/useServiceOverviewQuery'
 
 export const usePrideEvents = () => {
   const {data: serviceMaps} = useServiceOverviewQuery(ServiceModuleSource.pride)

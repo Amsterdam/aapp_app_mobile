@@ -1,6 +1,6 @@
 import {type Address, AddressCity} from '@/modules/address/exports/types'
 import type {ParkingMachine} from '@/modules/parking/types'
-import type {ServicePointFeature} from '@/modules/service/types'
+import type {ServicePointFeature} from '@/modules/service/exports/types'
 import type {Coordinates} from '@/types/location'
 import {sortByDistanceToAddress} from '@/utils/sort/sortByDistanceToAddress'
 

@@ -7,8 +7,11 @@ import {
   ServicesGridItem,
   type ServicesGridItemColorScheme,
 } from '@/modules/service/components/ServicesGridItem'
+import type {
+  Service,
+  ServiceModuleSource,
+} from '@/modules/service/exports/types'
 import {useServiceOverviewQuery} from '@/modules/service/service'
-import type {Service, ServiceModuleSource} from '@/modules/service/types'
 import {getServiceGridItemColors} from '@/modules/service/utils/getServiceGridItemColors'
 import type {Theme} from '@/themes/themes'
 

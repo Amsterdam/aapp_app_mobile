@@ -24,8 +24,11 @@ import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAdd
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {ServicePointEmptyList} from '@/modules/service/components/ServicePointEmptyList'
 import {ServicePointListItem} from '@/modules/service/components/ServicePointListItem'
+import type {
+  Service,
+  ServicePointFeature,
+} from '@/modules/service/exports/types'
 import {useServiceQuery} from '@/modules/service/service'
-import type {Service, ServicePointFeature} from '@/modules/service/types'
 import {layoutStyles} from '@/styles/layoutStyles'
 import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'

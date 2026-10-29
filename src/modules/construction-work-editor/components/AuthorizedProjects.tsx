@@ -12,8 +12,8 @@ import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor
 import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useRegisterConstructionWorkEditor'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {useGetProjectsQuery} from '@/modules/construction-work-editor/service'
-import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
-import {ProjectsItem} from '@/modules/construction-work/types/api'
+import {ProjectCard} from '@/modules/construction-work/exports/ProjectCard'
+import type {ProjectsItem} from '@/modules/construction-work/exports/ProjectsItem'
 import {useTheme} from '@/themes/useTheme'
 
 type ListItemProps = {

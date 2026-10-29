@@ -5,7 +5,7 @@ import {
   ServiceDetailPropertyType,
   type ServiceMapResponse,
   type ServicePointFeature,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
 import {formatPropertyValue} from '@/modules/service/utils/formatPropertyValue'
 import {getFormattedDistanceToPoint} from '@/utils/transform/getFormattedDistanceToPoint'
 

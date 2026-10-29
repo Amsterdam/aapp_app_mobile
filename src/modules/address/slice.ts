@@ -172,8 +172,6 @@ export const selectCustomAddress =
 
 export const useRecentAddresses = () => useSelector(selectRecentAddresses)
 
-export const useMyAddress = () => useSelector(selectMyAddress)
-
 export const useLocation = () => ({
   locationFetchRequested: useSelector(selectLocationFetchRequested),
   getLocationIsError: useSelector(selectGetLocationIsError),
@@ -223,6 +221,3 @@ export const selectLocationType =
     // Otherwise, return address
     return undefined
   }
-
-export const useLocationType = (moduleSlug: ModuleSlug) =>
-  useSelector(selectLocationType(moduleSlug))

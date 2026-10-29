@@ -6,7 +6,7 @@ import {
   useEffect,
 } from 'react'
 import {MapFiltersContext} from '@/components/features/map/providers/MapFilters.context'
-import type {ServiceMapResponseIcon} from '@/modules/service/types'
+import type {ServiceMapResponseIcon} from '@/modules/service/exports/types'
 
 export type Filter = {
   filter_key: string

@@ -4,8 +4,8 @@ import {MapLegend} from '@/components/features/map/MapLegend'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
+import type {Service, ServiceFeature} from '@/modules/service/exports/types'
 import {useServiceQuery} from '@/modules/service/service'
-import type {Service, ServiceFeature} from '@/modules/service/types'
 import {getLegendEntryLabel} from '@/modules/service/utils/getLegendEntryLabel'
 
 type Props = {id: Service['id']}
