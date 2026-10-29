@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import type {MarkerProperties} from '@/components/features/map/types'
-import type {Service} from '@/modules/service/types'
+import type {Service} from '@/modules/service/exports/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
