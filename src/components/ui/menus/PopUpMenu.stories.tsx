@@ -5,13 +5,11 @@ import {PopupMenuItem, PopupMenuOrientation} from './types'
 
 const menuItems: PopupMenuItem[] = [
   {
-    color: 'link',
     label: 'Chat downloaden',
     onPress: () => null,
     testID: 'ChatMenuPressableDownloadChatItem',
   },
   {
-    color: 'link',
     label: 'Privacy',
     onPress: () => null,
     testID: 'ChatMenuPressableChatPrivacyItem',

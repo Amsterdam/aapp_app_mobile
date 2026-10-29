@@ -47,24 +47,17 @@ export const PopUpMenu = ({menuItems, orientation, topInset}: Props) => {
       exiting={FadeOut.duration(theme.duration.transition.short)}
       style={sheetStyles.container}>
       <View>
-        {menuItems.map((item, index) => {
-          const {color, label, onPress, testID} = item
-
-          return (
-            <PopUpMenuItem
-              color={color}
-              key={testID}
-              label={label}
-              onPress={onPress}
-              ref={ref => {
-                if (index === 0) {
-                  setAccessibilityFocus(ref)
-                }
-              }}
-              testID={testID}
-            />
-          )
-        })}
+        {menuItems.map((item, index) => (
+          <PopUpMenuItem
+            {...item}
+            key={item.testID}
+            ref={ref => {
+              if (index === 0) {
+                setAccessibilityFocus(ref)
+              }
+            }}
+          />
+        ))}
       </View>
     </Animated.View>
   ) : null
