@@ -1,13 +1,20 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {LoadingBar} from '@/components/ui/feedback/LoadingBar'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {Size} from '@/components/ui/layout/Size'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {BoatChargingSessionBottomsheetVariants} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
-import {useBoatChargingStopSessionMutation} from '@/modules/boat-charging/service'
+import {
+  useBoatChargingSessionCostBreakdownQuery,
+  useBoatChargingStopSessionMutation,
+} from '@/modules/boat-charging/service'
 import {NRGStatus, SessionLengthStatus} from '@/modules/boat-charging/types'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
@@ -19,20 +26,24 @@ export const BoatChargingSessionInfoContainerCharging = () => {
     lastUpdated,
     chargingTimeVeryShortString,
     sessionLengthStatus,
-    settings,
   } = useBoatChargingSession()
-  const {toggle} = useBottomSheet()
+
+  const {open} = useBottomSheet()
+
   const [, {isLoading: isLoadingStopSession}] =
     useBoatChargingStopSessionMutation({
       fixedCacheKey: `boat-charging-stop-session:${session?.id}`,
     })
+
+  const {data: costBreakdown, isLoading} =
+    useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken)
 
   const isStopping =
     session?.nrg_status === NRGStatus.Stopping || isLoadingStopSession
 
   const kwh = session?.kwh ?? 0
   const currency = session?.currency ?? 'EUR'
-  const totalCost = session?.total_cost ?? 0
+  const totalCost = costBreakdown?.total_incl_vat ?? 0
 
   return (
     <>
@@ -61,7 +72,7 @@ export const BoatChargingSessionInfoContainerCharging = () => {
           halign="center">
           <PressableBase
             hitSlop={16}
-            onPress={() => toggle()}
+            onPress={() => open(BoatChargingSessionBottomsheetVariants.costs)}
             testID="BoatChargingSessionEstimatedCostButton">
             <Row gutter="xs">
               <Phrase
@@ -76,24 +87,41 @@ export const BoatChargingSessionInfoContainerCharging = () => {
               />
             </Row>
           </PressableBase>
-          <Title
-            level="h3"
-            text={
-              settings?.vat_fraction
-                ? formatNumber(totalCost * settings.vat_fraction, currency)
-                : `${formatNumber(totalCost, currency)} ex btw`
-            }
-          />
+          {isLoading ? (
+            <Size height={32}>
+              <PleaseWait testID="BoatChargingSessionTotalCostsPleaseWait" />
+            </Size>
+          ) : (
+            <Title
+              level="h3"
+              text={formatNumber(totalCost, currency)}
+            />
+          )}
         </Column>
         <Column
           basis={1}
           flex={1}
           halign="center">
-          <Phrase
-            color="secondary"
-            variant="small">
-            Laadtijd
-          </Phrase>
+          <PressableBase
+            hitSlop={16}
+            onPress={() =>
+              open(BoatChargingSessionBottomsheetVariants.chargingTime)
+            }
+            testID="BoatChargingSessionChargingTimeButton">
+            <Row gutter="xs">
+              <Phrase
+                color="secondary"
+                variant="small">
+                Laadtijd
+              </Phrase>
+              <Icon
+                color="secondary"
+                name="chevron-down"
+                size="sm"
+              />
+            </Row>
+          </PressableBase>
+
           <Row
             gutter="sm"
             valign="center">
