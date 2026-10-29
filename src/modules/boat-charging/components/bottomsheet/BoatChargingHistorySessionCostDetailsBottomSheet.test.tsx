@@ -2,6 +2,7 @@ import {render} from '@testing-library/react-native'
 import type {ComponentProps} from 'react'
 import {BoatChargingSessionCostBreakdownItems} from '@/modules/boat-charging/components/BoatChargingSessionCostBreakdown'
 import {boatChargingCostItemTypeMap} from '@/modules/boat-charging/constants/boatChargingCostItemTypeMap'
+import type {BoatChargingSettings} from '@/modules/boat-charging/types'
 import {
   BoatChargingCostBreakdownItemType,
   type BoatChargingSessionCostBreakdownItem,
@@ -44,6 +45,14 @@ const ITEMS: Record<
   },
 }
 
+const SETTINGS: BoatChargingSettings = {
+  vat_fraction: 21.0,
+  session_expiry_hours: 24,
+  session_expiry_warning_hours: 20,
+  standard_fine: 1,
+  pre_authorization_amount: 50,
+}
+
 const ITEMS_ARRAY = Object.values(ITEMS)
 
 const renderComponent = (
@@ -57,7 +66,10 @@ const renderComponent = (
 
 describe('BoatChargingSessionCostBreakdownItems', () => {
   it('maps each item type to the expected row props for typical values', () => {
-    const {getAllByTestId, getByText} = renderComponent({items: ITEMS_ARRAY})
+    const {getAllByTestId, getByText} = renderComponent({
+      items: ITEMS_ARRAY,
+      settings: SETTINGS,
+    })
 
     const infoRows = getAllByTestId(
       `BoatChargingHistorySessionCostDetailsInfoRow`,
@@ -67,18 +79,20 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
 
     ITEMS_ARRAY.forEach((item, index) => {
       expect(infoRows[index]).toContainElement(
-        getByText(boatChargingCostItemTypeMap[item.type].label),
+        getByText(boatChargingCostItemTypeMap(SETTINGS)[item.type].label),
       )
 
       expect(infoRows[index]).toContainElement(
-        getByText(boatChargingCostItemTypeMap[item.type].details(item)),
+        getByText(
+          boatChargingCostItemTypeMap(SETTINGS)[item.type].details(item),
+        ),
       )
     })
   })
 
   it('renders no rows for an empty items list', () => {
-    renderComponent({items: []})
-    const {queryAllByTestId} = renderComponent({items: []})
+    renderComponent({items: [], settings: SETTINGS})
+    const {queryAllByTestId} = renderComponent({items: [], settings: SETTINGS})
 
     const infoRows = queryAllByTestId(
       `BoatChargingHistorySessionCostDetailsInfoRow`,
@@ -90,6 +104,7 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
   it('only renders rows if they have costs', () => {
     const {queryAllByTestId} = renderComponent({
       items: ITEMS_ARRAY.map(item => ({...item, cost_incl_vat: 0})),
+      settings: SETTINGS,
     })
 
     const infoRows = queryAllByTestId(
@@ -106,7 +121,10 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
       {...ITEMS.TIME, cost_incl_vat: 0},
       {...ITEMS.FLAT, cost_incl_vat: 0},
     ]
-    const {queryAllByTestId, queryByText} = renderComponent({items})
+    const {queryAllByTestId, queryByText} = renderComponent({
+      items,
+      settings: SETTINGS,
+    })
 
     const infoRows = queryAllByTestId(
       'BoatChargingHistorySessionCostDetailsInfoRow',
@@ -118,11 +136,13 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
       BoatChargingCostBreakdownItemType.TIME,
       BoatChargingCostBreakdownItemType.FLAT,
     ].forEach(type => {
-      expect(queryByText(boatChargingCostItemTypeMap[type].label)).toBeNull()
+      expect(
+        queryByText(boatChargingCostItemTypeMap(SETTINGS)[type].label),
+      ).toBeNull()
 
       expect(
         queryByText(
-          boatChargingCostItemTypeMap[type].details(
+          boatChargingCostItemTypeMap(SETTINGS)[type].details(
             items.find(item => item.type === type)!,
           ),
         ),
@@ -134,12 +154,12 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
       BoatChargingCostBreakdownItemType.PARKING_TIME,
     ].forEach(type => {
       expect(
-        queryByText(boatChargingCostItemTypeMap[type].label),
+        queryByText(boatChargingCostItemTypeMap(SETTINGS)[type].label),
       ).not.toBeNull()
 
       expect(
         queryByText(
-          boatChargingCostItemTypeMap[type].details(
+          boatChargingCostItemTypeMap(SETTINGS)[type].details(
             items.find(item => item.type === type)!,
           ),
         ),
