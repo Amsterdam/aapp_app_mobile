@@ -75,9 +75,9 @@ export const Account = () => {
                     <Phrase emphasis="strong">Meldingen staan uit</Phrase>
                   </Row>
                   <InlineLink
-                    isExternal
                     onPress={() => Linking.openSettings()}
-                    testID="UserAccountMijnAmsterdamOpenSettingsLink">
+                    testID="UserAccountMijnAmsterdamOpenSettingsLink"
+                    variant="external">
                     Ga naar Instellingen
                   </InlineLink>
                 </Column>

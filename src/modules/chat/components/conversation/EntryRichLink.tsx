@@ -4,7 +4,7 @@ import {
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
-import {Phrase} from '@/components/ui/text/Phrase'
+import {InlineLink} from '@/components/ui/text/InlineLink'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {getDomainName} from '@/utils/getDomainName'
@@ -26,35 +26,28 @@ export const EntryRichLink = ({message}: Props) => {
 
   return (
     <ChatMessageEntry message={message}>
-      <PressableBase /* TODO: replace this by InlineLink once https://github.com/facebook/react-native/issues/48387 is fixed. */
+      <PressableBase /* Added because of https://github.com/facebook/react-native/issues/48387. */
         onPressOut={onPress}
         testID="ChatMessageRichLinkTitleLink">
-        <Phrase
-          color={
-            message.sender.role === ConversationEntrySenderRole.user
-              ? 'inverse'
-              : 'link'
-          }
-          emphasis="strong"
+        <InlineLink
+          isInverse={message.sender.role === ConversationEntrySenderRole.user}
+          onPress={onPress}
           testID="ChatMessageRichLinkTitle"
-          underline>
+          variant="external">
           {title}
-        </Phrase>
+        </InlineLink>
       </PressableBase>
       {!!domain && (
         <PressableBase
           onPressOut={onPress}
           testID="ChatMessageRichLinkUrlLink">
-          <Phrase
-            color={
-              message.sender.role === ConversationEntrySenderRole.user
-                ? 'inverse'
-                : 'link'
-            }
+          <InlineLink
+            isInverse={message.sender.role === ConversationEntrySenderRole.user}
+            onPress={onPress}
             testID="ChatMessageRichLinkUrlPhrase"
-            underline>
+            variant="external">
             {domain}
-          </Phrase>
+          </InlineLink>
         </PressableBase>
       )}
     </ChatMessageEntry>
