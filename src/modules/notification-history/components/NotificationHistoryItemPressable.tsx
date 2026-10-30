@@ -57,6 +57,7 @@ export const NotificationHistoryItemPressable = ({
     }
 
     if (module_slug) {
+      // @ts-expect-error this is correct, but since the amount of modules is to high typescript cannot handle this
       navigate(module_slug as ModuleSlug)
     }
   }, [

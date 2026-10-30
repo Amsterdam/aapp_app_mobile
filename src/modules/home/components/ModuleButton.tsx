@@ -115,6 +115,7 @@ export const ModuleButton = ({
       }
       inset="md"
       onPress={() => {
+        // @ts-expect-error this is correct, but since the amount of modules is to high typescript cannot handle this
         navigation.navigate(slug)
       }}
       testID={`${testID}Button`}

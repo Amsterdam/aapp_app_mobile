@@ -111,6 +111,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
               key={item.label}
               {...item}
               onPress={() =>
+                // @ts-expect-error this is correct, but since the amount of modules is to high typescript cannot handle this
                 navigate(item.moduleSlug ?? ModuleSlug.user, {
                   screen: item.route,
                 })

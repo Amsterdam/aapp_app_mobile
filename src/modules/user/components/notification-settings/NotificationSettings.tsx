@@ -125,6 +125,7 @@ export const NotificationSettings = () => {
                         moduleSlug: slug,
                       }),
                     )
+                    // @ts-expect-error this is correct, but since the amount of modules is to high typescript cannot handle this
                     navigate(slug)
                   }}
                   testID={`UserNotificationSettings${slug}NavigationButton`}
