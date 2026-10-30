@@ -27,11 +27,11 @@ export const BoatChargingActiveSessionsList = () => {
     )
   }
 
-  return activeSessions.map(({id}) => (
+  return activeSessions.map(session => (
     <BoatChargingSessionProvider
-      id={id}
-      key={id}>
-      <BoatChargingActiveSessionsListItem />
+      id={session.id}
+      key={session.id}>
+      <BoatChargingActiveSessionsListItem session={session} />
     </BoatChargingSessionProvider>
   ))
 }

@@ -4,9 +4,14 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import type {BoatChargingSession} from '@/modules/boat-charging/types'
 import {getSessionStatusText} from '@/modules/boat-charging/utils/getSessionStatusText'
 
-export const BoatChargingActiveSessionsListItem = () => {
+type Props = {session: BoatChargingSession}
+
+export const BoatChargingActiveSessionsListItem = ({
+  session: sessionFromList,
+}: Props) => {
   const {navigate} = useNavigation()
   const {session, isPluggedIn, chargingTimeVeryShortString} =
     useBoatChargingSession()
@@ -23,11 +28,13 @@ export const BoatChargingActiveSessionsListItem = () => {
     [session, isPluggedIn, chargingTimeVeryShortString],
   )
 
-  if (!session) {
+  const resolvedSession = session ?? sessionFromList
+
+  if (!resolvedSession) {
     return null
   }
 
-  const {id, vignette_number, boat_name} = session
+  const {id, vignette_number, boat_name} = resolvedSession
 
   return (
     <TopTaskButton

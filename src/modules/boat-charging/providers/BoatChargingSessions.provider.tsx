@@ -3,6 +3,7 @@ import {BoatChargingSessionsContext} from '@/modules/boat-charging/hooks/useBoat
 import {useGuestSessions} from '@/modules/boat-charging/hooks/useGuestSessions'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useBoatChargingSessionsInfiniteQuery} from '@/modules/boat-charging/service'
+import {SessionStatus} from '@/modules/boat-charging/types'
 import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
 
 type Props = {
@@ -25,7 +26,7 @@ export const BoatChargingSessionsProvider = ({children}: Props) => {
     isLoading: isLoadingLoggedInSessions,
     isError: isErrorLoggedInSessions,
   } = useBoatChargingSessionsInfiniteQuery(
-    {},
+    {status: SessionStatus.ACTIVE},
     {
       skip: !isLoggedIn,
       pollingInterval: isLoggedIn ? POLLING_INTERVAL : 0,
