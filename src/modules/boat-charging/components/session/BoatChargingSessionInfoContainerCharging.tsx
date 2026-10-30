@@ -36,14 +36,16 @@ export const BoatChargingSessionInfoContainerCharging = () => {
     })
 
   const {data: costBreakdown, isLoading} =
-    useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken)
+    useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken, {
+      pollingInterval: session?.id ? 5000 : 0,
+    })
 
   const isStopping =
     session?.nrg_status === NRGStatus.Stopping || isLoadingStopSession
 
   const kwh = session?.kwh ?? 0
   const currency = session?.currency ?? 'EUR'
-  const totalCost = costBreakdown?.total_incl_vat ?? 0
+  const totalCost = costBreakdown?.total_incl_vat
 
   return (
     <>
@@ -94,7 +96,11 @@ export const BoatChargingSessionInfoContainerCharging = () => {
           ) : (
             <Title
               level="h3"
-              text={formatNumber(totalCost, currency)}
+              text={
+                totalCost
+                  ? formatNumber(totalCost, currency)
+                  : 'Niet beschikbaar'
+              }
             />
           )}
         </Column>
