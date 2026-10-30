@@ -25,7 +25,9 @@ export const BoatChargingSessionCostBreakdown = () => {
     data: costBreakdown,
     isLoading,
     isError,
-  } = useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken)
+  } = useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken, {
+    pollingInterval: session?.id ? 5000 : 0,
+  })
 
   return (
     <Column gutter="lg">
