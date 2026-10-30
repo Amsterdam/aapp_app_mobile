@@ -7,6 +7,7 @@ import type {
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
+  activeSessions = 'BoatChargingActiveSessions',
   chooseVignet = 'BoatChargingChooseVignet',
   confirmSession = 'BoatChargingConfirmSession',
   createAccount = 'BoatChargingCreateAccount',
@@ -41,6 +42,7 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.activeSessionDetails]: {
     id: BoatChargingSession['id']
   }
+  [BoatChargingRouteName.activeSessions]: undefined
   [BoatChargingRouteName.historySessionDetails]: {
     id: BoatChargingSession['id']
   }

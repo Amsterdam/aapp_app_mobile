@@ -14,7 +14,7 @@ import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatCharg
 import {
   addCompletedSessionSeenId,
   selectCompletedSessionSeenIds,
-  setLastGuestSessionId,
+  removeGuestSessionId,
 } from '@/modules/boat-charging/slice'
 import {
   BoatChargingStopReason,
@@ -33,7 +33,7 @@ export const BoatChargingHistorySessionDetails = () => {
 
   useBeforeRemove(() => {
     if (session?.status === SessionStatus.COMPLETED) {
-      dispatch(setLastGuestSessionId(undefined))
+      dispatch(removeGuestSessionId(session.id))
     }
   })
 

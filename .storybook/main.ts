@@ -7,6 +7,7 @@ import {mergeConfig} from 'vite'
 import svgr from 'vite-plugin-svgr'
 import alias from '../.config/alias.js'
 import {accessCodeAlias} from './mocks/access-code/alias.ts'
+import {boatChargingAlias} from './mocks/boat-charging/alias.ts'
 import {parkingAlias} from './mocks/parking/alias.ts'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -137,6 +138,7 @@ const config: StorybookConfig = {
           },
           ...parkingAlias,
           ...accessCodeAlias,
+          ...boatChargingAlias,
           ...aliases,
         ],
       },
