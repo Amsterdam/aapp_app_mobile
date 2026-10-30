@@ -6,7 +6,10 @@ import {
 } from '@/hooks/linking/useOpenExternalLink'
 
 type Props = ExternalLinkProps &
-  Omit<InlineLinkProps, 'onPress' | 'isExternal' | 'accessibilityRole'>
+  Omit<
+    InlineLinkProps,
+    'onPress' | 'isExternal' | 'accessibilityRole' | 'variant' | 'actionIcon'
+  >
 
 export const ExternalInlineLink = ({
   redirectKey,
@@ -21,10 +24,9 @@ export const ExternalInlineLink = ({
   return (
     <InlineLink
       accessibilityHint={`${accessibilityHint ? accessibilityHint + '. ' : ''}Opent in ${redirectKey || url?.startsWith('http') ? 'webbrowser' : 'andere app'}.`}
-      accessibilityRole="link"
-      isExternal
       onPress={onPress}
       testID={testID}
+      variant="external"
       {...props}>
       {children}
     </InlineLink>

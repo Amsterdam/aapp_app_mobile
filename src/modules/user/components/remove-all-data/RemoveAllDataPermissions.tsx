@@ -48,10 +48,10 @@ export const RemoveAllDataPermissions = () => {
           </Column>
           {!!hasPermission && (
             <InlineLink
-              isExternal
               onPress={() => Linking.openSettings()}
               testID="RemoveAllDataPermissionsInlineLink"
-              textAlign="center">
+              textAlign="center"
+              variant="external">
               Ga naar instellingen
             </InlineLink>
           )}

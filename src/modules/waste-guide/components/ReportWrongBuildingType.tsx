@@ -23,9 +23,9 @@ export const ReportWrongBuildingType = ({testID}: Props) => {
         wrap>
         <Phrase testID={`${testID}Phrase`}>Klopt dit niet?</Phrase>
         <InlineLink
-          isExternal
           onPress={() => openWebUrl(WRONG_WASTE_GUIDE_INFO_REACTION_FORM_URL)}
-          testID={`${testID}Link`}>
+          testID={`${testID}Link`}
+          variant="external">
           Geef het door
         </InlineLink>
       </Row>

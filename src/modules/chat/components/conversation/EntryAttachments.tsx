@@ -62,8 +62,8 @@ export const EntryAttachments = ({message}: Props) => {
               {isAgent ? (
                 <InlineLink
                   accessibilityLabel={`Bijlage gedeeld door ${message.senderDisplayName}. Dubbeltik om bijlage te downloaden.`}
+                  actionIcon={{name: 'download'}}
                   ellipsizeMode="middle"
-                  emphasis="strong"
                   isInverse={isUser}
                   numberOfLines={1}
                   onPress={() => {
@@ -72,7 +72,8 @@ export const EntryAttachments = ({message}: Props) => {
                       fileName: attachment.name,
                     })
                   }}
-                  testID="ChatEntryAttachmentsInlineLink">
+                  testID="ChatEntryAttachmentsInlineLink"
+                  variant="action">
                   {attachment.name}
                 </InlineLink>
               ) : (
