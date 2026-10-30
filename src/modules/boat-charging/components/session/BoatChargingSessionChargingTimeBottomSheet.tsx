@@ -24,7 +24,7 @@ export const BoatChargingSessionChargingTimeBottomSheet = () => {
         {!!isLoading && !isError && !data && (
           <PleaseWait testID="BoatChargingSessionChargingTimeBottomSheetPleaseWait" />
         )}
-        {!!isError && !isLoading && !data && (
+        {!!isError && !isLoading && (
           <SomethingWentWrong testID="BoatChargingSessionChargingTimeBottomSheetSomethingWentWrong" />
         )}
 
