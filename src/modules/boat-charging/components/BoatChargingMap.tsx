@@ -13,6 +13,7 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {BoatChargingMapSelectionEffect} from '@/modules/boat-charging/components/BoatChargingMapSelectionEffect'
 import {BoatChargingMarker} from '@/modules/boat-charging/components/BoatChargingMarker'
+import {BoatChargingBottomSheetVariant} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
 import {useSelectedBoatChargingPointId} from '@/modules/boat-charging/slice'
 import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -33,7 +34,11 @@ export const BoatChargingMap = ({
   const selectedBoatChargingPointId = useSelectedBoatChargingPointId()
   const [region, setRegion] = useState<Region | undefined>()
 
-  useSetMapSelection(selectedBoatChargingPointId)
+  useSetMapSelection(
+    ModuleSlug['boat-charging'],
+    selectedBoatChargingPointId,
+    BoatChargingBottomSheetVariant.boatChargingPointDetails,
+  )
 
   const chargingPointFeatures = useMemo(
     () =>
@@ -81,6 +86,7 @@ export const BoatChargingMap = ({
       <BoatChargingMapSelectionEffect geojson={geojson} />
       <Clusterer
         data={filteredFeatures}
+        mapIdentifier={ModuleSlug['boat-charging']}
         region={region}
       />
     </MapBase>

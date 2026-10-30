@@ -7,6 +7,7 @@ import {MapMarkerVariant} from '@/components/features/map/marker/MapMarkerVarian
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {PollingStationsBottomSheetVariant} from '@/modules/elections/components/bottomsheet/bottomsheetVariants'
 import {useSelectedPollingStationId} from '@/modules/elections/slice'
 import {ElectionsState, PollingStation} from '@/modules/elections/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -34,7 +35,13 @@ export const PollingStationsMap = ({
   const selectedPollingStationId = useSelectedPollingStationId()
   const [region, setRegion] = useState<Region | undefined>()
 
-  useSetMapSelection(String(selectedPollingStationId))
+  useSetMapSelection(
+    ModuleSlug.elections,
+    selectedPollingStationId !== undefined
+      ? String(selectedPollingStationId)
+      : undefined,
+    PollingStationsBottomSheetVariant.pollingStationDetails,
+  )
 
   if (isLoading) {
     return (
@@ -80,6 +87,8 @@ export const PollingStationsMap = ({
             coordinates: [position.lng, position.lat],
           },
         }))}
+
+        mapIdentifier={ModuleSlug.elections}
         region={region}
       />
     </MapBase>

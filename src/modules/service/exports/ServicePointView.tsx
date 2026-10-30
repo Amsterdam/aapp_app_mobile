@@ -18,6 +18,7 @@ type Props = {
 export const ServicePointView = (props: Props) => {
   const dispatch = useDispatch()
   const {open} = useBottomSheet()
+  const {id: serviceId} = props
 
   const onMapElementPress = useCallback(
     (id: Feature['id']) => {
@@ -25,10 +26,10 @@ export const ServicePointView = (props: Props) => {
         return
       }
 
-      dispatch(setSelectedServicePointId(id))
+      dispatch(setSelectedServicePointId({servicePointId: id, serviceId}))
       open(ServiceMapBottomSheetVariant.servicePointDetails)
     },
-    [dispatch, open],
+    [dispatch, open, serviceId],
   )
 
   return (

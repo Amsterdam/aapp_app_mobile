@@ -41,7 +41,7 @@ export const ServicePointMap = ({
   } = useServiceQuery(serviceId || skipToken)
   const {
     data: {lineStrings, polygons, points},
-  } = useGetMapData(service, onMapElementPress)
+  } = useGetMapData(service, serviceId, onMapElementPress)
 
   const {icons_to_include, data} = service || {}
 
@@ -117,6 +117,7 @@ export const ServicePointMap = ({
             : HIGH_DATA_COUNT_CLUSTER_OPTIONS
         }
         data={points}
+        mapIdentifier={`${ModuleSlug.service}.${serviceId}`}
         region={region}
         shouldGroup
       />

@@ -10,6 +10,8 @@ import {
 } from '@/components/features/map/marker/MapMarkerVariants'
 import {Marker} from '@/components/features/map/marker/Marker'
 import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
+import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {PermitZoneMapBottomSheetVariant} from '@/modules/parking/components/permit-zone/bottomsheet/bottomsheetVariants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
@@ -62,12 +64,17 @@ export const ParkingPermitZoneMapMarkers = memo(() => {
     parking_machine_favorite,
   )
 
-  useSetMapSelection(selectedParkingMachineId)
+  useSetMapSelection(
+    ModuleSlug.parking,
+    selectedParkingMachineId,
+    PermitZoneMapBottomSheetVariant.parkingMachine,
+  )
 
   return (
     <>
       <Clusterer
         data={data}
+        mapIdentifier={ModuleSlug.parking}
         region={region}
         zIndex={MarkerZIndex.cluster}
       />
