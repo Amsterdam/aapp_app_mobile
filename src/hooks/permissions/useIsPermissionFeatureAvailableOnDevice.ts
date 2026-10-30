@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import {check, Permission} from 'react-native-permissions'
-import {isAndroidVersionBelow12} from '@/modules/waste-guide/utils/isAndroidVersionBelow12'
+import {isAndroidVersionBelow12} from '@/utils/isAndroidVersionBelow12'
 
 export const useIsPermissionFeatureAvailableOnDevice = (
   permission: Permission,

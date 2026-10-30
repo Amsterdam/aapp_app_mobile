@@ -2,6 +2,7 @@ import {ReactNode} from 'react'
 import {View, ViewProps} from 'react-native'
 
 type Props = {
+  Element?: React.ElementType
   children: ReactNode
   hide?: boolean
 } & ViewProps
@@ -12,12 +13,13 @@ type Props = {
 export const HideFromAccessibility = ({
   children,
   hide = true,
+  Element = View,
   ...viewProps
 }: Props) => (
-  <View
+  <Element
     accessibilityElementsHidden={hide}
     importantForAccessibility={hide ? 'no-hide-descendants' : 'auto'}
     {...viewProps}>
     {children}
-  </View>
+  </Element>
 )

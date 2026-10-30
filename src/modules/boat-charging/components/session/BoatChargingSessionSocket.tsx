@@ -1,7 +1,7 @@
-import type {BoatChargingSession} from '@/modules/boat-charging/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import type {BoatChargingSession} from '@/modules/boat-charging/types'
 
 type Props = {
   socketNumber?: BoatChargingSession['socket_number']

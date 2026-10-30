@@ -1,105 +1,63 @@
 import {useCallback} from 'react'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {useStore} from '@/hooks/redux/useStore'
 import {alerts} from '@/modules/boat-charging/alerts'
+import {useInitSessionNextStep} from '@/modules/boat-charging/hooks/useInitSessionNextStep'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {
-  useBoatChargingTermsQuery,
-  useBoatChargingInitSessionMutation,
-} from '@/modules/boat-charging/service'
-import {
-  selectBoatChargingLoggedInUsername,
-  selectLastApprovedTermsVersionWhileLoggedIn,
-} from '@/modules/boat-charging/slice'
+import {useBoatChargingInitSessionMutation} from '@/modules/boat-charging/service'
+import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
-import {validateEmail} from '@/utils/validate'
 
 export enum BoatChargingInitSessionStep {
   guestEmail = 2,
-  guestEmailConfirm = 3,
+  verifyVignet = 3,
+  chooseVignet = 4,
   selectSocket = 1,
-  termsAndConditions = 4,
+  termsAndConditions = 5,
+  confirmSession = 6,
 }
 
 export const useInitSession = (step: BoatChargingInitSessionStep) => {
   const form = useNewSessionFormContext()
+  const navigation = useNavigation()
+  const openWebUrl = useOpenWebUrl()
+  const {setAlert} = useAlert()
+  const {isLoggedIn, username: loggedInUsername} = useIsLoggedIn()
+  const {getNextStep, isError, isLoading} = useInitSessionNextStep(step)
 
-  const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
   const [
     initSession,
     {isLoading: isInitSessionLoading, isError: isInitSessionError},
   ] = useBoatChargingInitSessionMutation()
-  const lastApprovedTermsVersion = useSelector(
-    selectLastApprovedTermsVersionWhileLoggedIn,
-  )
-  const {isLoggedIn} = useIsLoggedIn()
-  const navigation = useNavigation()
-  const {navigate} = navigation
-  const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
-  const openWebUrl = useOpenWebUrl()
-  const store = useStore()
-  const {setAlert} = useAlert()
 
   const onPress = useCallback(
     (params: NewSessionFormValues) => {
-      const state = store.getState()
-      let email = params.email
-      const {selectedSocket, approvedTerms, didVerifyEmail} = params
+      const {vignet, selectedSocket} = params
+      const email = isLoggedIn ? loggedInUsername : params.email
       const {socketNumber, stationId} = selectedSocket || {}
-      const lastApprovedTermsVersionFromState =
-        selectLastApprovedTermsVersionWhileLoggedIn(state)
 
-      if (!socketNumber || !stationId) {
-        navigation.replace(BoatChargingRouteName.map)
+      const nextStep = getNextStep(params)
+
+      if (nextStep) {
+        navigation.navigate(nextStep)
 
         return Promise.resolve()
       }
 
-      if (isLoggedIn) {
-        if (!loggedInUsername) {
-          return Promise.resolve()
-        }
+      if (!email || !socketNumber || !stationId || !vignet) {
+        devError('Missing params in session initialization request', {
+          email,
+          socketNumber,
+          stationId,
+          vignet,
+        })
 
-        email = loggedInUsername
+        navigation.replace(BoatChargingRouteName.map)
 
-        if (terms?.version !== lastApprovedTermsVersionFromState) {
-          navigate(BoatChargingRouteName.termsAndConditions)
-
-          return Promise.resolve()
-        }
-      } else {
-        if (
-          !email ||
-          validateEmail(email) !== true ||
-          step === BoatChargingInitSessionStep.selectSocket
-        ) {
-          navigate(BoatChargingRouteName.guestEmail)
-
-          return Promise.resolve()
-        }
-
-        if (
-          !didVerifyEmail ||
-          step === BoatChargingInitSessionStep.guestEmail
-        ) {
-          navigate(BoatChargingRouteName.guestEmailConfirm)
-
-          return Promise.resolve()
-        }
-
-        if (
-          !approvedTerms ||
-          step === BoatChargingInitSessionStep.guestEmailConfirm
-        ) {
-          navigate(BoatChargingRouteName.termsAndConditions)
-
-          return Promise.resolve()
-        }
+        return Promise.resolve()
       }
 
       return initSession({
@@ -108,6 +66,12 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         email,
         name: email,
         return_url: 'amsterdam://boat-charging/payment',
+        ...('id' in vignet && vignet.id
+          ? {vignette_id: vignet.id}
+          : {
+              vignette_number: vignet.vignette_number,
+              postal_code: vignet.postal_code,
+            }),
       })
         .unwrap()
         .then(
@@ -120,28 +84,21 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         )
     },
     [
-      initSession,
       isLoggedIn,
       loggedInUsername,
-      navigate,
+      initSession,
       navigation,
+      getNextStep,
       openWebUrl,
       setAlert,
-      step,
-      store,
-      terms?.version,
     ],
   )
 
   return {
     onPress,
-    mustApproveTerms:
-      !isLoggedIn || terms?.version !== lastApprovedTermsVersion,
     disabled: isLoading || isInitSessionLoading,
     isLoading: isLoading || isInitSessionLoading,
     isError: isError || isInitSessionError,
-    refetch,
     form,
-    shouldRefetchTerms: isError,
   }
 }

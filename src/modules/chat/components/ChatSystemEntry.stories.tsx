@@ -1,5 +1,5 @@
-import {ChatSystemEntry} from './ChatSystemEntry'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ChatSystemEntry} from './ChatSystemEntry'
 
 const meta = {
   component: ChatSystemEntry,

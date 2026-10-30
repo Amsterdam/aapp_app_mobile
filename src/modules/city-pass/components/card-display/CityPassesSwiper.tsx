@@ -1,5 +1,4 @@
 import {StyleSheet, View} from 'react-native'
-import type {CityPassPass} from '@/modules/city-pass/types'
 import type {CarouselRenderItemInfo} from 'react-native-reanimated-carousel'
 import {Carousel} from '@/components/ui/carousel/Carousel'
 import {Basic} from '@/components/ui/carousel/pagination/PaginationBasic'
@@ -12,6 +11,7 @@ import {
 } from '@/modules/city-pass/constants'
 import {useGetCityPasses} from '@/modules/city-pass/hooks/useGetCityPasses'
 import {selectStartIndex} from '@/modules/city-pass/slice'
+import type {CityPassPass} from '@/modules/city-pass/types'
 import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'

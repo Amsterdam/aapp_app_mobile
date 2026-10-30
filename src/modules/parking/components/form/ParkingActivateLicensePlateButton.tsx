@@ -3,13 +3,15 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/parking/alerts'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {useActivateSessionMutation} from '@/modules/parking/service'
+import {ParkingSessionStatus} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
+import type {NonOptional} from '@/types/utils'
 
-type FieldValues = {
-  licensePlate: {vehicle_id: string; visitor_name: string}
-}
+type FieldValues = NonOptional<ParkingSessionFormValues, 'licensePlate'>
 
 export const ParkingActivateLicensePlateButton = () => {
   const {goBack} = useNavigation()
@@ -17,6 +19,13 @@ export const ParkingActivateLicensePlateButton = () => {
   const {setAlert} = useAlert()
 
   const [activateSession, {isLoading}] = useActivateSessionMutation()
+
+  const {
+    parkingSessions: activeParkingSessions,
+    isLoading: activeParkingSessionsLoading,
+  } = useGetParkingSessions(ParkingSessionStatus.active, {
+    skip: !currentPermit?.no_endtime,
+  })
 
   const {
     handleSubmit,
@@ -27,8 +36,12 @@ export const ParkingActivateLicensePlateButton = () => {
   const {report_code} = currentPermit
 
   const onSubmit = useCallback(
-    ({licensePlate}: FieldValues) =>
-      activateSession({
+    ({licensePlate}: FieldValues) => {
+      if (activeParkingSessions?.[0].vehicle_id === licensePlate.vehicle_id) {
+        return
+      }
+
+      return activateSession({
         report_code: report_code.toString(),
         vehicle_id: licensePlate.vehicle_id,
       })
@@ -56,13 +69,21 @@ export const ParkingActivateLicensePlateButton = () => {
               type: 'value',
             })
           },
-        ),
-    [activateSession, report_code, goBack, setAlert, setError],
+        )
+    },
+    [
+      activateSession,
+      report_code,
+      activeParkingSessions,
+      goBack,
+      setAlert,
+      setError,
+    ],
   )
 
   return (
     <Button
-      disabled={isSubmitting || isLoading}
+      disabled={isSubmitting || isLoading || activeParkingSessionsLoading}
       icon={{name: 'parking-start'}}
       isLoading={isLoading}
       label="Activeer kenteken"

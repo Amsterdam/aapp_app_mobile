@@ -1,4 +1,3 @@
-import type {Paginated} from '@/types/api'
 import type {
   QueryReturnValue,
   FetchBaseQueryError,
@@ -7,6 +6,7 @@ import type {
 import {setBoatChargingOpenIdConnectConfig} from '@/modules/boat-charging/slice'
 import {
   BoatChargingEndpointName,
+  type BaseVignet,
   type BoatChargingGeoJSON,
   type BoatChargingLocationDetailsResponse,
   type BoatChargingOIDCConfigResponse,
@@ -18,6 +18,8 @@ import {
   type BoatChargingSettings,
   type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
+  type BoatChargingVerifyVignetResponse,
+  type Vignet,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -25,6 +27,7 @@ import {baseApi} from '@/services/baseApi'
 import {INFINITE_QUERY_OPTIONS} from '@/services/constants'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
+import type {Paginated} from '@/types/api'
 
 export const boatChargingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -198,6 +201,62 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['BoatChargingSessions', 'BoatChargingLocations'],
     }),
+    [BoatChargingEndpointName.vignettes]: builder.query<Array<Vignet>, void>({
+      query: () => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/vignettes',
+        method: 'GET',
+      }),
+      providesTags: ['BoatChargingVignettes'],
+    }),
+    [BoatChargingEndpointName.addVignet]: builder.mutation<Vignet, BaseVignet>({
+      query: body => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/vignettes',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['BoatChargingVignettes'],
+    }),
+    [BoatChargingEndpointName.deleteVignet]: builder.mutation<
+      void,
+      Vignet['id']
+    >({
+      query: vignetId => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/vignettes/${vignetId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['BoatChargingVignettes'],
+    }),
+    [BoatChargingEndpointName.editVignet]: builder.mutation<
+      Vignet,
+      BaseVignet & {vignetId: Vignet['id']}
+    >({
+      query: ({vignetId, ...body}) => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: `/vignettes/${vignetId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['BoatChargingVignettes'],
+    }),
+    [BoatChargingEndpointName.verifyVignet]: builder.mutation<
+      BoatChargingVerifyVignetResponse,
+      BaseVignet
+    >({
+      query: body => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/vignettes/verify',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
   overrideExisting: false,
 })
@@ -216,4 +275,9 @@ export const {
   useBoatChargingStartSessionMutation,
   useBoatChargingStopSessionMutation,
   useBoatChargingSessionCostBreakdownQuery,
+  useBoatChargingVignettesQuery,
+  useBoatChargingAddVignetMutation,
+  useBoatChargingDeleteVignetMutation,
+  useBoatChargingEditVignetMutation,
+  useBoatChargingVerifyVignetMutation,
 } = boatChargingApi

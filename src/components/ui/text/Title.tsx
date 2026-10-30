@@ -1,8 +1,8 @@
 import {type Ref, useMemo} from 'react'
 import {StyleSheet, Text, type TextProps, type TextStyle} from 'react-native'
+import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import type {TestProps} from '@/components/ui/types'
 import type {Theme} from '@/themes/themes'
-import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {TitleTokensPerLevel} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
 

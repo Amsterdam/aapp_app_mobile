@@ -1,11 +1,11 @@
-import type {RootState} from '@/store/types/rootState'
 import {type ReduxDispatch} from '@/hooks/redux/types'
-import {mijnAmsterdamApi} from '@/modules/mijn-amsterdam/service'
+import {mijnAmsterdamApi} from '@/modules/mijn-amsterdam-new/service'
 import {
-  mijnAmsterdamSlice,
+  mijnAmsterdamNewSlice,
   selectIsLoggedIn,
-} from '@/modules/mijn-amsterdam/slice'
+} from '@/modules/mijn-amsterdam-new/slice'
 import {devError} from '@/processes/development'
+import type {RootState} from '@/store/types/rootState'
 
 export const logout = async (dispatch: ReduxDispatch, state: RootState) => {
   try {
@@ -17,7 +17,7 @@ export const logout = async (dispatch: ReduxDispatch, state: RootState) => {
       ).unwrap()
     }
 
-    dispatch(mijnAmsterdamSlice.actions.reset())
+    dispatch(mijnAmsterdamNewSlice.actions.reset())
 
     return true
   } catch (error) {

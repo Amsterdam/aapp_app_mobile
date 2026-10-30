@@ -1,7 +1,7 @@
-import type {EVSEWithStation} from '@/modules/boat-charging/types'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {BoatChargingSocketStatusTag} from '@/modules/boat-charging/components/BoatChargingSocketStatusTag'
+import type {EVSEWithStation} from '@/modules/boat-charging/types'
 
 type Props = {disabled?: boolean} & Pick<EVSEWithStation, 'name' | 'status'>
 

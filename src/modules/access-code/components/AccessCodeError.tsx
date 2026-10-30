@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {Paragraph} from '@/components/ui/text/Paragraph'
+import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 
 type Props = {
@@ -13,5 +13,10 @@ export const AccessCodeError = ({error}: Props) => {
     accessibilityAnnounce(error)
   })
 
-  return <Paragraph color="negative">{error}</Paragraph>
+  return (
+    <ErrorMessage
+      testID="AccessCodeErrorErrorMessage"
+      text={error}
+    />
+  )
 }

@@ -7,7 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useLockScreen} from '@/hooks/useLockScreen'
-import {AccessCodeKeyBoardKey} from '@/modules/access-code/components/AccessCodeKeyboardKey'
+import {AccessCodeKeyBoardKey} from '@/modules/access-code/components/AccessCodeKeyBoardKey'
 import {useAccessCodeBiometrics} from '@/modules/access-code/exports/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/exports/useEnterAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
@@ -26,12 +26,11 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(createStyles(insets))
   const {iconName, isEnrolled, useBiometrics} = useAccessCodeBiometrics()
-  const {addDigit, removeDigit} = useAccessCode()
+  const {addDigit, removeDigit, codeLength} = useAccessCode()
   const accessibilityAnnounce = useAccessibilityAnnounce()
   const {codeEntered} = useEnterAccessCode()
   const {codeSet} = useSetAccessCode()
   const {codeConfirmed} = useConfirmAccessCode()
-  const {codeLength} = useAccessCode()
 
   useLockScreen(OrientationLock.PORTRAIT_UP)
 

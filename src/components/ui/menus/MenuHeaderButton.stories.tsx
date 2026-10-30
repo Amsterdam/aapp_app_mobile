@@ -1,5 +1,5 @@
-import {MenuHeaderButton} from './MenuHeaderButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {MenuHeaderButton} from './MenuHeaderButton'
 
 const meta = {
   component: MenuHeaderButton,

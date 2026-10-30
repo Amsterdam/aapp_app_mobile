@@ -1,7 +1,6 @@
 import {useCallback} from 'react'
 import {Alert, Linking} from 'react-native'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
-
 import {
   ExceptionLogKey,
   useTrackException,

@@ -1,0 +1,127 @@
+import type {
+  Feature,
+  Geometry,
+  LineString,
+  MultiPolygon,
+  Point,
+  Polygon,
+} from 'geojson'
+import type {Address} from '@/modules/address/exports/types'
+import type {EmptyObject} from '@/types/utils'
+
+export enum ServiceEndpointName {
+  service = 'service',
+  serviceOverview = 'serviceOverview',
+}
+
+export enum ServiceModuleSource {
+  kingsday = 'koningsdag',
+  pride = 'pride',
+  service = 'handig-in-de-stad',
+  waste = 'waste',
+}
+
+export type Service = {
+  /**
+   * Svg path data
+   */
+  icon: string
+  id: string
+  title: string
+}
+
+export type ServiceOverviewResponse = Service[]
+
+export type PropertiesPropertyValue =
+  | string
+  | number
+  | boolean
+  | null
+  | Address
+  | Array<{key: string; value: string}>
+  | undefined
+
+export type FeatureProperties = {
+  /**
+   * Optional custom icon reference, used in conjunction with icons_to_include
+   */
+  aapp_icon_type?: string
+  /**
+   * Subtitle of service point
+   */
+  aapp_subtitle?: string
+  /**
+   * Title of service point
+   */
+  aapp_title: string
+} & Record<string, PropertiesPropertyValue>
+
+export type ServiceLineStringFeature = ServiceFeature<LineString>
+export type ServicePolygonFeature = ServiceFeature<Polygon | MultiPolygon>
+export type ServicePointFeature = ServiceFeature<Point>
+
+export type ServiceFeature<G extends Geometry = Geometry> = Feature<
+  G,
+  FeatureProperties
+>
+
+export type ServiceGeoJSON<G extends Geometry = Geometry> = {
+  features: Array<ServiceFeature<G>>
+  type: 'FeatureCollection'
+}
+
+export type ServiceMapResponseFilter<
+  K extends keyof FeatureProperties = keyof FeatureProperties,
+> = {
+  filter_key: K
+  filter_value: FeatureProperties[K]
+  label: string
+}
+export type ServiceMapResponseIcon = {
+  circle_color: string
+  colors?: string[]
+  path: string
+  path_color: string
+}
+
+type ServiceMapResponseIcons = Record<string, ServiceMapResponseIcon>
+
+export type ServiceMapResponse = {
+  data: ServiceGeoJSON | EmptyObject
+  filters: ServiceMapResponseFilter[]
+  /**
+   * A mapping of icons to use within custom markers
+   */
+  icons_to_include?: ServiceMapResponseIcons
+  layers: (ServiceMapResponseFilter & {icon_label: string})[]
+  /**
+   * These are used to match against the specific service feature properties to determine which properties are shown in the list view
+   */
+  list_property: {key: string; type: string}
+  /**
+   * These are used to match against the specific service feature properties to determine which properties are shown in bottom sheet details list
+   */
+  properties_to_include: {
+    icon: string | null
+    label: string | null
+    property_key: string
+    property_type: ServiceDetailPropertyType
+  }[]
+}
+
+export enum ServiceDetailPropertyType {
+  address = 'address',
+  image = 'image',
+  keyValueTable = 'key_value_table',
+  keyValueTableDivided = 'key_value_table_divided',
+  malfunction = 'malfunction',
+  price = 'price',
+  string = 'string',
+}
+
+export type ServiceFeatureProperty = {
+  icon: string | null
+  label: string | null
+  type: ServiceDetailPropertyType
+  value: string | number | boolean | null
+}

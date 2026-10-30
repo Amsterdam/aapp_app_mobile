@@ -2,9 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 // include this line for mocking react-native-gesture-handler
 import 'react-native-gesture-handler/jestSetup'
-
 import {NativeModules} from 'react-native'
-
 import mockRNDeviceInfo from 'react-native-device-info/jest/react-native-device-info-mock'
 
 jest.mock('react-native-device-info', () => mockRNDeviceInfo)

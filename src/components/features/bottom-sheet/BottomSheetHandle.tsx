@@ -6,12 +6,12 @@ import {
   withSpring,
   type SharedValue,
 } from 'react-native-reanimated'
-import type {Theme} from '@/themes/themes'
 import {
   ANDROID_TIMING_CONFIG,
   HANDLE_INDICATOR,
   IOS_SPRING_CONFIG,
 } from '@/components/features/bottom-sheet/constants'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {

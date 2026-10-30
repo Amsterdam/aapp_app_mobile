@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native'
-import type {CarouselItem} from '@/modules/onboarding/types'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,6 +6,7 @@ import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {CarouselRenderItemButtons} from '@/modules/onboarding/components/CarouselRenderItemButtons'
 import {CarouselRenderItemContentLandscape} from '@/modules/onboarding/components/CarouselRenderItemContentLandscape'
 import {CarouselRenderItemContentPortrait} from '@/modules/onboarding/components/CarouselRenderItemContentPortrait'
+import type {CarouselItem} from '@/modules/onboarding/types'
 
 type Props = {
   isLastItem: boolean

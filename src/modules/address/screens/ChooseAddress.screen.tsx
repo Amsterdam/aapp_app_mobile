@@ -1,6 +1,5 @@
 import {FormProvider, useForm} from 'react-hook-form'
 import type {NavigationProps} from '@/app/navigation/types'
-import type {AddressRouteName} from '@/modules/address/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {
@@ -8,6 +7,7 @@ import {
   type AddressSearchFields,
 } from '@/modules/address/components/AddressForm'
 import {AddressSearchField} from '@/modules/address/components/form/AddressSearchField'
+import type {AddressRouteName} from '@/modules/address/routes'
 
 type Props = NavigationProps<AddressRouteName.chooseAddress>
 

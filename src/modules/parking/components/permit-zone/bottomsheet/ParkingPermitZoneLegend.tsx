@@ -1,13 +1,13 @@
 import {useMemo} from 'react'
-import type {IconSize} from '@/components/ui/types'
-import type {PermitZoneFeatureProperties} from '@/modules/parking/types'
 import {
   MapLegend,
   type MapLegendItem,
 } from '@/components/features/map/MapLegend'
+import type {IconSize} from '@/components/ui/types'
 import {ParkingPermitZoneLegendRect} from '@/modules/parking/components/permit-zone/ParkingPermitZoneLegendRect'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitZonesQuery} from '@/modules/parking/service'
+import type {PermitZoneFeatureProperties} from '@/modules/parking/types'
 import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
 import {hasEqualValues} from '@/utils/object'
 

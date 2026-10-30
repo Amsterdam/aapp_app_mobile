@@ -2,7 +2,7 @@ import {
   ServiceDetailPropertyType,
   type ServiceMapResponse,
   type ServiceMapResponseIcon,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
 
 export const ALL_TYPES_LABEL = 'Alle types'
 export const ALL_DATES_LABEL = 'Alle dagen'

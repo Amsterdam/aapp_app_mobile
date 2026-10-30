@@ -1,4 +1,3 @@
-import type {QueryReturnValue} from '@/services/types'
 import {DeviatingApiSlug} from '@/environment'
 import {setIsLoggedIn} from '@/modules/mijn-amsterdam-new/slice'
 import {
@@ -7,6 +6,7 @@ import {
 } from '@/modules/mijn-amsterdam-new/types'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
+import type {QueryReturnValue} from '@/services/types'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 

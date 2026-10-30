@@ -1,5 +1,5 @@
-import type {PaymentZone} from '@/modules/parking/types'
 import type {Dayjs} from 'dayjs'
+import type {PaymentZone} from '@/modules/parking/types'
 import {getPaymentZoneDay} from '@/modules/parking/utils/paymentZone'
 import {dayjs} from '@/utils/datetime/dayjs'
 

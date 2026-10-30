@@ -4,20 +4,17 @@ import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControll
 import {Column} from '@/components/ui/layout/Column'
 import {useInterval} from '@/hooks/useInterval'
 import {useTimeDifference} from '@/hooks/useTimeDifference'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {TimeDifferenceNotice} from '@/modules/parking/components/TimeDifferenceNotice'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingSession} from '@/modules/parking/hooks/useParkingSession'
 import {getPermitStartDateString} from '@/modules/parking/utils/getPermitStartDateString'
-import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
+import {dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 export const ParkingChooseStartTimeButton = () => {
-  const {setValue, watch} = useFormContext<{
-    endTime?: Dayjs
-    originalEndTime?: Dayjs
-    startTime: Dayjs
-  }>()
+  const {setValue, watch} = useFormContext<ParkingSessionFormValues>()
   const {endTime, originalEndTime, startTime: startTimeField} = watch()
   const {startTimeRef, userHasEditedStart} = useParkingSession()
   const {started_at} = useCurrentParkingPermit()
@@ -69,7 +66,7 @@ export const ParkingChooseStartTimeButton = () => {
   return (
     <Column gutter="md">
       <TimeDifferenceNotice />
-      <SelectButtonControlled<{startTime: Dayjs}, 'startTime'>
+      <SelectButtonControlled<ParkingSessionFormValues, 'startTime'>
         bottomSheetVariant={ParkingSessionBottomSheetVariant.startTime}
         icon={{name: 'clock', size: 'lgx'}}
         name="startTime"

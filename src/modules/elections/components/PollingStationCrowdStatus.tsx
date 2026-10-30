@@ -1,9 +1,9 @@
-import type {PollingStation} from '@/modules/elections/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import type {PollingStation} from '@/modules/elections/types'
 import {getPollingStationCrowdDetails} from '@/modules/elections/utils/getPollingStationCrowdDetails'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 

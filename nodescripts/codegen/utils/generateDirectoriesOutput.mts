@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import {getRootDirectories} from './getRootDirectories.mts'
 import type {CodeGenConfigItem} from '../types.mts'
+import {getRootDirectories} from './getRootDirectories.mts'
 
 export const generateDirectoriesOutput = ({
   inputDir,

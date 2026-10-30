@@ -1,5 +1,5 @@
-import type {Coordinates} from '@/types/location'
 import {useLocation} from '@/modules/address/slice'
+import type {Coordinates} from '@/types/location'
 import {getGoogleMapsDirectionsUrl} from '@/utils/getGoogleMapsDirectionsUrl'
 
 export const useGetGoogleMapsDirectionsUrl = (

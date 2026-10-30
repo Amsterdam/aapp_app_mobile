@@ -1,9 +1,9 @@
-import type {ListItem} from '@/modules/burning-guide/types'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Row} from '@/components/ui/layout/Row'
 import {Size} from '@/components/ui/layout/Size'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {BurningGuideRecommendationTag} from '@/modules/burning-guide/components/BurningGuideRecommendationTag'
+import type {ListItem} from '@/modules/burning-guide/types'
 
 type ListItemProps = Omit<ListItem, 'id'>
 

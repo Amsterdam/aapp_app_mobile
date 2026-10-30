@@ -1,7 +1,6 @@
 import {type FC} from 'react'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
-import {ParkingSessionAmountBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionAmountBottomSheetContent'
 import {ParkingSessionEndTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionEndTimeBottomSheetContent'
 import {ParkingSessionLicensePlateBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionLicensePlateBottomSheetContent'
 import {ParkingSessionStartTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionStartTimeBottomSheetContent'
@@ -14,8 +13,6 @@ const variantMap: Record<ParkingSessionBottomSheetVariant, FC> = {
     ParkingSessionStartTimeBottomSheetContent,
   [ParkingSessionBottomSheetVariant.endTime]:
     ParkingSessionEndTimeBottomSheetContent,
-  [ParkingSessionBottomSheetVariant.amount]:
-    ParkingSessionAmountBottomSheetContent,
 }
 
 export const ParkingSessionBottomSheet = () => {
@@ -23,10 +20,7 @@ export const ParkingSessionBottomSheet = () => {
 
   return (
     <BottomSheet
-      scroll={
-        variant !== ParkingSessionBottomSheetVariant.startTime &&
-        variant !== ParkingSessionBottomSheetVariant.endTime
-      }
+      scroll={variant === ParkingSessionBottomSheetVariant.licensePlate}
       testID="ParkingSessionBottomSheet"
       variants={variantMap}
     />

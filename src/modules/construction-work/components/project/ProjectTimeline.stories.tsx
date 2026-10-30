@@ -1,5 +1,5 @@
-import {ProjectTimeline} from './ProjectTimeline'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ProjectTimeline} from './ProjectTimeline'
 
 export default {
   component: ProjectTimeline,

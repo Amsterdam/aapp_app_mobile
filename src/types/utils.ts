@@ -42,3 +42,11 @@ declare const $Empty: unique symbol
 export type EmptyObject = {
   readonly [$Empty]?: never
 }
+
+/**
+ * A type util that takes a Base type and one or more keys, and forces the
+ * values associated with those keys in Base to be required and NonNullable.
+ */
+export type NonOptional<Base, Key extends keyof Base> = Omit<Base, Key> & {
+  [Property in Key]-?: NonNullable<Base[Property]>
+}

@@ -1,7 +1,7 @@
 import fs from 'node:fs'
+import type {Dirent} from 'node:fs'
 import path from 'node:path'
 import type {ImportConfig} from '../types.mts'
-import type {Dirent} from 'node:fs'
 
 /**
  * checks and returns which imports are available in the given directory

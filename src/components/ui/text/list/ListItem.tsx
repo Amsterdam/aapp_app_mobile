@@ -1,8 +1,8 @@
 import {ReactNode} from 'react'
 import {Row} from '@/components/ui/layout/Row'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {ListMarkerProp} from '@/components/ui/text/list/types'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
 
 type Props = {

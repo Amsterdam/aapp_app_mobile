@@ -1,4 +1,5 @@
 import Svg, {SvgProps, Circle, Path} from 'react-native-svg'
+
 export const WasteCardBluetoothSvg = (props: SvgProps) => (
   <Svg
     fill="none"

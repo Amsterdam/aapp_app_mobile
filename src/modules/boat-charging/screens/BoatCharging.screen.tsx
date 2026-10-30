@@ -4,6 +4,7 @@ import {Screen} from '@/components/features/screen/Screen'
 import {BoatChargingView} from '@/modules/boat-charging/components/BoatChargingView'
 import {bottomsheetVariants} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
 import {BoatChargingHeaderButtons} from '@/modules/boat-charging/components/header/BoatChargingHeaderButtons'
+import {BoatChargingHeaderMenu} from '@/modules/boat-charging/components/header/BoatChargingHeaderMenu'
 import {BoatChargingSessionBar} from '@/modules/boat-charging/components/session/BoatChargingSessionBar'
 import {BoatChargingSessionsProvider} from '@/modules/boat-charging/providers/BoatChargingSessions.provider'
 
@@ -24,7 +25,12 @@ export const BoatChargingScreen = () => (
           SideComponent: BoatChargingHeaderButtons,
         }}
         scroll={false}
-        stickyHeader={<BoatChargingSessionBar />}
+        stickyHeader={
+          <>
+            <BoatChargingSessionBar />
+            <BoatChargingHeaderMenu />
+          </>
+        }
         testID="BoatChargingScreen"
         withBottomInset={false}>
         <BoatChargingView />

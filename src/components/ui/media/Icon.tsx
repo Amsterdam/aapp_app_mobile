@@ -85,7 +85,8 @@ export const Icon = ({
     : {[SvgIconVariant.default]: {path}}
 
   const icon =
-    iconVariants?.[isFilled ? SvgIconVariant.filled : SvgIconVariant.default]
+    iconVariants?.[isFilled ? SvgIconVariant.filled : SvgIconVariant.default] ??
+    iconVariants?.default
 
   const {
     Wrapper = Fragment,

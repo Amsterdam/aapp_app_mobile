@@ -1,15 +1,15 @@
 import {useEffect, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
-import type {
-  LicensePlatesEndpointResponse,
-  ParkingLicensePlate,
-} from '@/modules/parking/types'
-import {Notice} from '@/components/ui/feedback/Notice'
 import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
+import {Notice} from '@/components/ui/feedback/Notice'
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {alerts} from '@/modules/parking/alerts'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
+import type {
+  LicensePlatesEndpointResponse,
+  ParkingLicensePlate,
+} from '@/modules/parking/types'
 
 type Props = {
   licensePlates: LicensePlatesEndpointResponse | undefined

@@ -12,12 +12,13 @@ import {
 } from '@/modules/pride/types'
 import {getEventFeatures} from '@/modules/pride/utils/getEventFeatures'
 import {getEventsSeparatedByLocation} from '@/modules/pride/utils/getEventsSeparatedByLocation'
-import {serviceApi} from '@/modules/service/service'
 import {
   ServiceEndpointName,
   type Service,
   type ServiceMapResponse,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
+// oxlint-disable-next-line amsterdam/no-cross-module-import
+import {serviceApi} from '@/modules/service/service'
 import {devError} from '@/processes/development'
 import {baseApi} from '@/services/baseApi'
 import {hasEqualValues} from '@/utils/object'
@@ -34,6 +35,7 @@ export const prideApi = baseApi.injectEndpoints({
         url: '/pride/events',
       }),
 
+      // TODO: replace this with an adjusted response from the backend
       onQueryStarted: async (arg, {dispatch, queryFulfilled}) => {
         if (!arg.serviceId) {
           return

@@ -1,9 +1,9 @@
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {List} from '@/components/ui/text/list/List'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {List} from '@/components/ui/text/list/List'
 
 export const PrivacyStatementScreen = () => (
   <Screen testID="AboutPrivacyStatementScreen">

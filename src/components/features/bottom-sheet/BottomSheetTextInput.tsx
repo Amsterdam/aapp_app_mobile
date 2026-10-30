@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {TextInput as TextInputRN} from 'react-native-gesture-handler'
-import type {TextInputProps} from '@/components/ui/forms/input/types'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
+import type {TextInputProps} from '@/components/ui/forms/input/types'
 
 export const BottomSheetTextInput = ({
   autoFocus,

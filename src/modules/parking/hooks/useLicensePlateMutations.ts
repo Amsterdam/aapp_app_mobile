@@ -1,10 +1,10 @@
 import {useCallback, useState} from 'react'
-import type {ParkingLicensePlate} from '@/modules/parking/types'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   useAddLicensePlateMutation,
   useRemoveLicensePlateMutation,
 } from '@/modules/parking/service'
+import type {ParkingLicensePlate} from '@/modules/parking/types'
 import {devError} from '@/processes/development'
 
 export const useLicensePlateMutations = () => {

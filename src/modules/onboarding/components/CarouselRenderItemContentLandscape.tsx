@@ -1,5 +1,4 @@
 import {View} from 'react-native'
-import type {CarouselItemVariant} from '@/modules/onboarding/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -7,6 +6,7 @@ import {Title} from '@/components/ui/text/Title'
 import {CarouselRenderItemContentButton} from '@/modules/onboarding/components/CarouselRenderItemContentButton'
 import {CarouselRenderItemContentText} from '@/modules/onboarding/components/CarouselRenderItemContentText'
 import {CarouselRenderItemNotificationSettings} from '@/modules/onboarding/components/CarouselRenderItemNotificationSettings'
+import type {CarouselItemVariant} from '@/modules/onboarding/types'
 
 type Props = {
   icon: CarouselItemVariant['icon']

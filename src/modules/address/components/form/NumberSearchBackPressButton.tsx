@@ -1,6 +1,6 @@
 import {useFormContext} from 'react-hook-form'
-import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 import {Button} from '@/components/ui/buttons/Button'
+import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 
 export const NumberSearchBackPressButton = () => {
   const {watch, setValue} = useFormContext<AddressSearchFields>()

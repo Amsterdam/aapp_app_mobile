@@ -8,7 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useAccessCodeBiometrics} from '@/modules/access-code/exports/useAccessCodeBiometrics'
-import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {useNavigateToInstructionsScreen} from '@/modules/address/exports/useNavigateToInstructionsScreen'
 import {Permissions} from '@/types/permissions'
 
 const TEST_ID = 'UserBiometricsScreen'

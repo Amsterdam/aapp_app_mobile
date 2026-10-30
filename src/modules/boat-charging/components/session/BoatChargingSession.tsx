@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
-import {Divider} from '@/components/ui/Divider'
 import {Box} from '@/components/ui/containers/Box'
+import {Divider} from '@/components/ui/Divider'
 import {Notice} from '@/components/ui/feedback/Notice'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'

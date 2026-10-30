@@ -1,6 +1,7 @@
 import {ReactNode} from 'react'
 import type {NavigateTo} from '@/app/navigation/types'
 import {TestProps} from '@/components/ui/types'
+import type {ExternalLinkProps} from '@/hooks/linking/useOpenExternalLink'
 
 export enum AlertVariant {
   information = 'information',
@@ -11,6 +12,7 @@ export enum AlertVariant {
 
 export type AlertProps = {
   children?: ReactNode
+  externalLink?: {label: string} & ExternalLinkProps
   hasCloseIcon?: boolean
   hasIcon?: boolean
   /**

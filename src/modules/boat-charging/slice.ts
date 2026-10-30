@@ -1,13 +1,13 @@
 import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
 } from '@/modules/boat-charging/types'
-import type {RootState} from '@/store/types/rootState'
-import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
+import type {RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export type BoatChargingState = {
@@ -18,6 +18,10 @@ export type BoatChargingState = {
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
+  /**
+   * Used in sign up flow and forgot password flow, this username cannot be considered as logged in
+   */
+  temporaryUsername?: string
 }
 
 const initialState: BoatChargingState = {}
@@ -62,6 +66,12 @@ export const boatChargingSlice = createSlice({
     ) => {
       state.loggedInUsername = payload
     },
+    setBoatChargingTemporaryUsername: (
+      state,
+      {payload}: PayloadAction<string | undefined>,
+    ) => {
+      state.temporaryUsername = payload
+    },
     setBoatChargingOpenIdConnectConfig: (
       state,
       {payload}: PayloadAction<BoatChargingOIDCConfigResponse>,
@@ -98,6 +108,7 @@ export const {
   resetSelectedBoatChargingPointId,
   setAccessToken,
   removeAccount,
+  setBoatChargingTemporaryUsername,
   setBoatChargingOpenIdConnectConfig,
   setBoatChargingLoggedInUsername,
   setLastApprovedTermsVersionWhileLoggedIn,
@@ -122,6 +133,10 @@ export const selectBoatChargingOpenIdConnectConfig = (
 export const selectBoatChargingLoggedInUsername = (
   state: RootState,
 ): string | undefined => state[ReduxKey.boatCharging].loggedInUsername
+
+export const selectBoatChargingTemporaryUsername = (
+  state: RootState,
+): string | undefined => state[ReduxKey.boatCharging].temporaryUsername
 
 export const selectBoatChargingLastGuestSessionId = (
   state: RootState,

@@ -9,11 +9,9 @@ import {downloadChat} from '@/modules/chat/utils/downloadChat'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
-import {useMenu} from '@/store/slices/menu'
 
 export const useChatMenuItems = () => {
   const {close} = useChat()
-  const {close: closeMenu} = useMenu()
   const {addDownloadedTranscriptId, ready, sessionStatus} = useChatContext()
   const trackException = useTrackException()
   const {isLoading, isError, openRedirect} = useOpenRedirect()
@@ -22,10 +20,8 @@ export const useChatMenuItems = () => {
     const menuItems: PopupMenuItem[] = []
 
     menuItems.push({
-      color: 'link',
       label: 'Chat downloaden',
       onPress: () => {
-        closeMenu()
         void downloadChat().then(
           entryId => entryId && addDownloadedTranscriptId(entryId),
         )
@@ -35,10 +31,8 @@ export const useChatMenuItems = () => {
 
     if (!isLoading && !isError) {
       menuItems.push({
-        color: 'link',
         label: 'Privacy',
         onPress: () => {
-          closeMenu()
           openRedirect(RedirectKey.chatPrivacy)
         },
         testID: 'ChatMenuPressableChatPrivacyMenuItem',
@@ -50,8 +44,6 @@ export const useChatMenuItems = () => {
         color: 'destructive',
         label: 'Chat stoppen',
         onPress: () => {
-          closeMenu()
-
           if (ready) {
             void endConversation().catch(error =>
               trackException(
@@ -75,7 +67,6 @@ export const useChatMenuItems = () => {
     sessionStatus,
     addDownloadedTranscriptId,
     close,
-    closeMenu,
     isError,
     isLoading,
     openRedirect,

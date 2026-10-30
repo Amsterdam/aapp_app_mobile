@@ -1,5 +1,4 @@
 import {StyleSheet, View} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -13,6 +12,7 @@ import {
   type ListItem,
 } from '@/modules/burning-guide/types'
 import {mapVariantToRecommendationTitle} from '@/modules/burning-guide/utils/mapVariantToRecommendationTitle'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {

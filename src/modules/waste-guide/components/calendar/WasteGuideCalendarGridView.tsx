@@ -1,12 +1,12 @@
 import {useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
-import type {WasteGuideCalendarEvent} from '@/modules/waste-guide/types'
 import {Box} from '@/components/ui/containers/Box'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
+import {getFormattedCalendar} from '@/modules/waste-guide/components/calendar/utils/getFormattedCalendar'
 import {WasteGuideCalendarMonth} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarMonth'
 import {WasteGuideCalendarWeekdays} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarWeekdays'
-import {getFormattedCalendar} from '@/modules/waste-guide/components/calendar/utils/getFormattedCalendar'
 import {EventsByDateProvider} from '@/modules/waste-guide/providers/EventsByDateProvider'
+import type {WasteGuideCalendarEvent} from '@/modules/waste-guide/types'
 
 const TOTAL_WEEKS = 6
 

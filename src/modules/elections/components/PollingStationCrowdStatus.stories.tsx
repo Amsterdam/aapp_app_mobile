@@ -1,6 +1,6 @@
-import {PollingStationCrowdStatus} from './PollingStationCrowdStatus'
-import type {PollingStation} from '../types'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import type {PollingStation} from '../types'
+import {PollingStationCrowdStatus} from './PollingStationCrowdStatus'
 
 const meta = {
   component: PollingStationCrowdStatus,

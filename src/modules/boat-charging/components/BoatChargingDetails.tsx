@@ -1,6 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import type {BoatChargingLocation} from '@/modules/boat-charging/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
@@ -13,12 +12,12 @@ import {BoatChargingDetailsInfoRows} from '@/modules/boat-charging/components/Bo
 import {BoatChargingDetailsSocketRadioGroup} from '@/modules/boat-charging/components/BoatChargingDetailsSocketRadioGroup'
 import {BoatChargingHelpNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingHelpNavigationButton'
 import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
-import {useBoatChargingSessions} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {
   useBoatChargingLocationDetailsQuery,
   useBoatChargingSettingsQuery,
 } from '@/modules/boat-charging/service'
+import type {BoatChargingLocation} from '@/modules/boat-charging/types'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
@@ -36,12 +35,6 @@ export const BoatChargingDetails = ({id}: Props) => {
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken, {
     pollingInterval: REFETCH_INTERVAL,
   })
-
-  const {
-    activeSessions,
-    isLoading: isLoadingSessions,
-    isError: isErrorSessions,
-  } = useBoatChargingSessions()
 
   const {data: settingsServerData} = useBoatChargingSettingsQuery()
 
@@ -67,7 +60,7 @@ export const BoatChargingDetails = ({id}: Props) => {
 
   const form = useNewSessionFormContext()
 
-  if (isLoadingLocation || isLoadingSessions) {
+  if (isLoadingLocation) {
     return (
       <PleaseWait
         showFeedback
@@ -76,7 +69,7 @@ export const BoatChargingDetails = ({id}: Props) => {
     )
   }
 
-  if (isErrorLocation || isErrorSessions || !location) {
+  if (isErrorLocation || !location) {
     return <SomethingWentWrong testID="BoatChargingDetailsSomethingWentWrong" />
   }
 
@@ -108,7 +101,7 @@ export const BoatChargingDetails = ({id}: Props) => {
 
           <BoatChargingDetailsSocketRadioGroup
             chargingStations={location.charging_stations}
-            hasActiveSession={!!activeSessions?.length}
+            locationId={id}
           />
           {!!form.formState.errors.root?.message && (
             <ErrorMessage

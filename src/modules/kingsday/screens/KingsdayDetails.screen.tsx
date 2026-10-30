@@ -1,13 +1,13 @@
 import type {NavigationProps} from '@/app/navigation/types'
-import type {KingsdayRouteName} from '@/modules/kingsday/routes'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitch.provider'
 import {MapFocus} from '@/components/features/map/types'
 import {Screen} from '@/components/features/screen/Screen'
-import {ServiceHeaderButton} from '@/modules/service/components/ServiceHeaderButton'
-import {ServicePointView} from '@/modules/service/components/ServicePointView'
-import {createBottomsheetVariants} from '@/modules/service/components/bottomsheet/bottomsheetVariants'
-import {ServiceMapFiltersProvider} from '@/modules/service/providers/ServiceMapFiltersProvider'
+import type {KingsdayRouteName} from '@/modules/kingsday/routes'
+import {createBottomsheetVariants} from '@/modules/service/exports/bottomsheetVariants'
+import {ServiceHeaderButton} from '@/modules/service/exports/ServiceHeaderButton'
+import {ServiceMapFiltersProvider} from '@/modules/service/exports/ServiceMapFiltersProvider'
+import {ServicePointView} from '@/modules/service/exports/ServicePointView'
 
 type Props = NavigationProps<KingsdayRouteName.details>
 

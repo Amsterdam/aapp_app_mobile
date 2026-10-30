@@ -1,10 +1,10 @@
 import type {LayoutOrientation} from '@/components/ui/types'
 
 export enum ConditionEquation {
-  'contains' = 'contains',
-  'equal' = 'equal',
-  'not_contains' = 'not_contains',
-  'not_equal' = 'not_equal',
+  contains = 'contains',
+  equal = 'equal',
+  not_contains = 'not_contains',
+  not_equal = 'not_equal',
 }
 
 export enum QuestionType {
@@ -23,8 +23,8 @@ export enum QuestionType {
 }
 
 export enum ConditionType {
-  'and' = 'and',
-  'or' = 'or',
+  and = 'and',
+  or = 'or',
 }
 
 export type Condition = {

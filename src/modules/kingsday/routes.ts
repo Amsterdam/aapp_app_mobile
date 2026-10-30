@@ -1,4 +1,4 @@
-import type {Service} from '@/modules/service/types'
+import type {Service} from '@/modules/service/exports/types'
 
 export enum KingsdayRouteName {
   details = 'KingsdayDetails',

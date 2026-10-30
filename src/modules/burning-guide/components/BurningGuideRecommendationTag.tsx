@@ -1,10 +1,10 @@
 import {StyleSheet, View} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import {Box} from '@/components/ui/containers/Box'
 import {Size} from '@/components/ui/layout/Size'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {BurningGuideCodeVariant} from '@/modules/burning-guide/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type FontSize = Extract<keyof Theme['text']['fontSize'], 'body' | 'small'>

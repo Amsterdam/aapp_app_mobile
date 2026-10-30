@@ -1,11 +1,11 @@
-import {StyleSheet} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import type {ReactNode} from 'react'
+import {StyleSheet} from 'react-native'
 import {
   PressableBase,
   type PressableBaseProps,
 } from '@/components/ui/buttons/PressableBase'
 import {Box, type BoxProps} from '@/components/ui/containers/Box'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type PressableVariant =

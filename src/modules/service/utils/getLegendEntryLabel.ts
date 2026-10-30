@@ -1,7 +1,7 @@
 import type {
   FeatureProperties,
   PropertiesPropertyValue,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
 
 /**
  * This set contains various keys that identify service states that take precedence in the legend entry naming over aapp_title and aapp_subtitle

@@ -2,10 +2,10 @@
 import {useNetInfo} from '@react-native-community/netinfo'
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import type {CityPass, CityPassPass} from '@/modules/city-pass/types'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCityPasses'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
+import type {CityPass, CityPassPass} from '@/modules/city-pass/types'
 
 /**
  * Either returns the city passes that are stored locally in Secure Storage, or retrieved remotely from the query.

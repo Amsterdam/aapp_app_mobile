@@ -1,5 +1,4 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import type {BoatChargingSessionCostBreakdownItem} from '@/modules/boat-charging/types'
 import {Divider} from '@/components/ui/Divider'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -11,6 +10,10 @@ import {BoatChargingHistorySessionCostDetailsInfoRow} from '@/modules/boat-charg
 import {boatChargingCostItemTypeMap} from '@/modules/boat-charging/constants/boatChargingCostItemTypeMap'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {useBoatChargingSessionCostBreakdownQuery} from '@/modules/boat-charging/service'
+import type {
+  BoatChargingSessionCostBreakdownItem,
+  BoatChargingSettings,
+} from '@/modules/boat-charging/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingSessionCostBreakdown = () => {
@@ -37,6 +40,7 @@ export const BoatChargingSessionCostBreakdown = () => {
         <>
           <BoatChargingSessionCostBreakdownItems
             items={costBreakdown.items}
+            settings={settings}
             vat_fraction={vat_fraction}
           />
 
@@ -74,25 +78,30 @@ export const BoatChargingSessionCostBreakdown = () => {
 
 type Props = {
   items: BoatChargingSessionCostBreakdownItem[]
+  settings: BoatChargingSettings | undefined
   vat_fraction?: number | null
 }
 export const BoatChargingSessionCostBreakdownItems = ({
   items,
   vat_fraction,
+  settings,
 }: Props) => (
   <Column gutter="sm">
-    {items.map(item =>
-      !item.cost_incl_vat ? null : (
+    {items.map(item => {
+      if (!item.cost_incl_vat) {
+        return null
+      }
+
+      const {details, label} = boatChargingCostItemTypeMap(settings)[item.type]
+
+      return (
         <BoatChargingHistorySessionCostDetailsInfoRow
-          details={boatChargingCostItemTypeMap[item.type].details(
-            item,
-            vat_fraction,
-          )}
+          details={details(item, vat_fraction)}
           key={item.type}
-          label={boatChargingCostItemTypeMap[item.type].label}
+          label={label}
           value={formatNumber(item.cost_incl_vat, 'EUR')}
         />
-      ),
-    )}
+      )
+    })}
   </Column>
 )

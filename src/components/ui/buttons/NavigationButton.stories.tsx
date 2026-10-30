@@ -1,5 +1,5 @@
-import {NavigationButton} from './NavigationButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {NavigationButton} from './NavigationButton'
 
 export default {
   component: NavigationButton,

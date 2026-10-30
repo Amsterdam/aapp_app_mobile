@@ -1,9 +1,9 @@
 import {useFormContext} from 'react-hook-form'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingSession} from '@/modules/parking/hooks/useParkingSession'
-import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 export const ParkingChooseEndTimeButton = () => {
@@ -11,7 +11,7 @@ export const ParkingChooseEndTimeButton = () => {
 
   const {no_endtime = false} = currentPermit
 
-  const {watch} = useFormContext<{endTime?: Dayjs; startTime: Dayjs}>()
+  const {watch} = useFormContext<ParkingSessionFormValues>()
   const startTime = watch('startTime')
   const {startTimeRef} = useParkingSession()
 
@@ -20,7 +20,7 @@ export const ParkingChooseEndTimeButton = () => {
   }
 
   return (
-    <SelectButtonControlled<{endTime?: Dayjs}, 'endTime'>
+    <SelectButtonControlled<ParkingSessionFormValues, 'endTime'>
       bottomSheetVariant={ParkingSessionBottomSheetVariant.endTime}
       icon={{name: 'clock', size: 'lgx'}}
       name="endTime"

@@ -1,5 +1,5 @@
-import {ParkingLoginForm} from './ParkingLoginForm'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ParkingLoginForm} from './ParkingLoginForm'
 
 const meta = {
   component: ParkingLoginForm,

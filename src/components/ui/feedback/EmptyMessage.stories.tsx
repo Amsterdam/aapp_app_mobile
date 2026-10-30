@@ -1,5 +1,5 @@
-import {EmptyMessage} from './EmptyMessage'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {EmptyMessage} from './EmptyMessage'
 
 export default {
   component: EmptyMessage,

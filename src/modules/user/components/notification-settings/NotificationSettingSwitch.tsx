@@ -1,6 +1,4 @@
 import {useCallback, useState, type ReactNode} from 'react'
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
-import type {NotificationType} from '@/modules/user/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Notice} from '@/components/ui/feedback/Notice'
 import {Switch} from '@/components/ui/forms/Switch'
@@ -10,11 +8,13 @@ import {
   NOTIFICATION_ON_ERROR_MESSAGE,
   NOTIFICATION_OFF_ERROR_MESSAGE,
 } from '@/constants/notifications'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {
   useDeleteDisabledPushModuleMutation,
   useAddDisabledPushTypeMutation,
   useDeleteDisabledPushTypeMutation,
 } from '@/modules/user/service'
+import type {NotificationType} from '@/modules/user/types'
 
 type Props = {
   isDisabled: boolean

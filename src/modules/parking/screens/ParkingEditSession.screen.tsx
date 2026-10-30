@@ -2,7 +2,7 @@ import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {TimeDifferenceNotice} from '@/modules/parking/components/TimeDifferenceNotice'
+import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingEditSessionButtons} from '@/modules/parking/components/form/ParkingEditSessionButtons'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
@@ -10,8 +10,8 @@ import {
   ParkingSessionFormProvider,
   type ParkingSessionFormValues,
 } from '@/modules/parking/components/form/ParkingSessionFormProvider'
-import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingFixedFormField} from '@/modules/parking/components/session/ParkingFixedFormField'
+import {TimeDifferenceNotice} from '@/modules/parking/components/TimeDifferenceNotice'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'

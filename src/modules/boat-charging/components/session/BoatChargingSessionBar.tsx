@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
 import {Pressable, StyleSheet} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -14,6 +13,7 @@ import {BoatChargingSessionProvider} from '@/modules/boat-charging/providers/Boa
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {selectBoatChargingLastGuestSessionId} from '@/modules/boat-charging/slice'
 import {NRGStatus} from '@/modules/boat-charging/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 const getStatusText = (

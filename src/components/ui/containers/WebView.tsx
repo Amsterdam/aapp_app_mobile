@@ -1,9 +1,9 @@
+import type {Ref} from 'react'
 import {Platform, StyleSheet} from 'react-native'
 import {
   WebView as WebViewRN,
   type WebViewProps as WebViewRNProps,
 } from 'react-native-webview'
-import type {Ref} from 'react'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {type TestProps} from '@/components/ui/types'

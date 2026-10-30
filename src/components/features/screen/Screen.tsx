@@ -1,8 +1,8 @@
 import {type ReactNode} from 'react'
-import type {ScreenBackgroundOverlayProps} from '@/components/ui/containers/ScreenBackgroundOverlay'
 import {HeaderProps} from '@/components/features/header/types'
 import {type Tip} from '@/components/features/product-tour/types'
 import {ScreenBase} from '@/components/features/screen/ScreenBase'
+import type {ScreenBackgroundOverlayProps} from '@/components/ui/containers/ScreenBackgroundOverlay'
 import {type TestProps} from '@/components/ui/types'
 import {useRoute} from '@/hooks/navigation/useRoute'
 

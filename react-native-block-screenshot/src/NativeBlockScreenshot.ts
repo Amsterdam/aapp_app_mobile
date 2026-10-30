@@ -21,5 +21,4 @@ export interface Spec extends TurboModule {
   removeListeners: (count: number) => void
 }
 
-// eslint-disable-next-line import-x/no-default-export
 export default TurboModuleRegistry.getEnforcing<Spec>('BlockScreenshot')

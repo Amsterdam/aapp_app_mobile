@@ -1,22 +1,17 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
-import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {SwitchField} from '@/components/ui/forms/SwitchField'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useZoneByMachineQuery} from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, type ParkingMachine} from '@/modules/parking/types'
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
-
-type FieldValues = Pick<
-  SessionFieldValues,
-  'parking_machine' | 'startTime' | 'parking_machine_favorite'
->
 
 type Props = {
   selectedParkingMachineId?: ParkingMachine['id']
@@ -31,7 +26,7 @@ export const ParkingSessionChooseParkingMachine = ({
     watch,
     setValue,
     formState: {errors},
-  } = useFormContext<FieldValues>()
+  } = useFormContext<ParkingSessionFormValues>()
   const parkingAccount = useParkingAccount()
   const currentPermit = useCurrentParkingPermit()
   const startTime = watch('startTime')
@@ -63,7 +58,7 @@ export const ParkingSessionChooseParkingMachine = ({
 
   return (
     <Column gutter="md">
-      <SelectButtonControlled<{parking_machine: string}, 'parking_machine'>
+      <SelectButtonControlled<ParkingSessionFormValues, 'parking_machine'>
         accessibilityLabel={`Parkeerautomaat ${selectedParkingMachineId}. Betaald parkeren, van ${machineDetailsLabel}.`}
         icon={{name: 'map-marker', size: 'lgx'}}
         name="parking_machine"

@@ -3,4 +3,5 @@ export const tagTypes = [
   'BoatChargingLocationDetails' as const,
   'BoatChargingSessions' as const,
   'BoatChargingOpenIdConnectConfig' as const,
+  'BoatChargingVignettes' as const,
 ]

@@ -1,5 +1,5 @@
-import {ParkingPlannedSessionsSummary} from './ParkingPlannedSessionsSummary'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ParkingPlannedSessionsSummary} from './ParkingPlannedSessionsSummary'
 
 const meta = {
   component: ParkingPlannedSessionsSummary,

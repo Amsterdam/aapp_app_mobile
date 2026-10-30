@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
-import type {SecureCityPass, CityPassPass} from '@/modules/city-pass/types'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
+import type {SecureCityPass, CityPassPass} from '@/modules/city-pass/types'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 const transformResponse = (cityPasses: SecureCityPass[]): CityPassPass[] =>

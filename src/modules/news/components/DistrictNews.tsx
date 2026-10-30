@@ -1,5 +1,5 @@
-import {NewsletterSignup} from '@/components/features/NewsletterSignup'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
+import {NewsletterSignup} from '@/components/features/NewsletterSignup'
 import {ContextSwitchButton} from '@/components/ui/buttons/ContextSwitchButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'

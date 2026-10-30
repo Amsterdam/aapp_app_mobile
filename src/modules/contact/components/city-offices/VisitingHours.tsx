@@ -1,9 +1,10 @@
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
-import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
-import {CityOffice, VisitingHour} from '@/modules/contact/types'
-import {getGroupedOpeningHours} from '@/modules/contact/utils/getGroupedOpeningHours'
+import {Title} from '@/components/ui/text/Title'
+import type {CityOffice} from '@/modules/contact/types'
+import type {VisitingHour} from '@/types/openingTimes'
+import {getGroupedOpeningHours} from '@/utils/openingTimes/getGroupedOpeningHours'
 
 type Props = {
   visitingHours: VisitingHour[]

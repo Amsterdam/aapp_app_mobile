@@ -1,5 +1,5 @@
-import {CopyButton} from './CopyButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {CopyButton} from './CopyButton'
 
 const meta = {
   component: CopyButton,

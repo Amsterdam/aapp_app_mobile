@@ -7,9 +7,9 @@ const sonarjsRecommendedLegacyRules = getRulesFromPluginConfig(
   'recommended-legacy',
 )
 
-// eslint-disable-next-line import-x/no-default-export
+// oxlint-disable-next-line import/no-default-export
 export default defineConfig({
-  plugins: ['typescript', 'unicorn', 'oxc', 'react'],
+  plugins: ['typescript', 'unicorn', 'oxc', 'react', 'import'],
   jsPlugins: [
     './eslint-plugin-amsterdam/index.mts',
     'eslint-plugin-storybook',
@@ -45,6 +45,7 @@ export default defineConfig({
     'sonarjs/synchronous-suite-callback': 'warn',
     'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits
     'eslint/no-async-promise-executor': 'warn',
+    'amsterdam/jsx-no-explicit-spread': 'error',
     'amsterdam/named-component-props': 'warn',
     'amsterdam/no-relative-file-import': 'warn',
     'amsterdam/no-type-import-for-function-component': 'warn',
@@ -54,10 +55,13 @@ export default defineConfig({
     'amsterdam/no-navigation-hooks-in-screens': 'error',
     'amsterdam/todo-comment-for-current-branch-must-be-resolved': 'error',
     'amsterdam/no-mixed-async-styles': 'warn',
-    'amsterdam/no-cross-module-import': 'warn', // TODO: should be set to error
+    'amsterdam/no-cross-module-import': 'error',
     'no-process-env': 'error',
     'no-shadow': 'error',
     'no-void': ['error', {allowAsStatement: true}],
+    'import/namespace': 'off',
+    'import/no-default-export': 'error',
+    'import/newline-after-import': 'error',
     'no-restricted-imports': [
       'error',
       {
@@ -161,6 +165,7 @@ export default defineConfig({
         'react-native-salesforce-messaging-in-app/**/*',
       ],
       rules: {
+        'import/no-default-export': 'off',
         'amsterdam/no-relative-file-import': 'off',
         'no-restricted-imports': 'off',
       },
@@ -168,7 +173,7 @@ export default defineConfig({
     {
       files: ['.storybook/**/*', '*.stories.tsx'],
       rules: {
-        'import-x/no-default-export': 'off',
+        'import/no-default-export': 'off',
         'no-restricted-imports': 'off',
         'sonarjs/no-identical-functions': 'off',
         'amsterdam/no-relative-file-import': 'off',

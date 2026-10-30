@@ -1,8 +1,8 @@
 import {useCallback, useEffect} from 'react'
-import type {ParkingAccount} from '@/modules/parking/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAddSecureParkingAccountName} from '@/modules/parking/hooks/useAddSecureParkingAccountName'
 import {parkingSlice, useParkingAccounts} from '@/modules/parking/slice'
+import type {ParkingAccount} from '@/modules/parking/types'
 
 /**
  * This hook transfers Parking V1 account.name entries from the Redux Store to Secure Storage

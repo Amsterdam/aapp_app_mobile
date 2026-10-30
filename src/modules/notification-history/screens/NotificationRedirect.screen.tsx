@@ -1,5 +1,4 @@
 import type {NavigationProps} from '@/app/navigation/types'
-import type {NotificationHistoryRouteName} from '@/modules/notification-history/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
@@ -10,6 +9,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {HomeRouteName} from '@/modules/home/routes'
+import type {NotificationHistoryRouteName} from '@/modules/notification-history/routes'
 
 type Props = NavigationProps<NotificationHistoryRouteName.NotificationRedirect>
 

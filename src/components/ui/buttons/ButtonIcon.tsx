@@ -1,7 +1,7 @@
 import type {ButtonVariant} from '@/components/ui/buttons/Button'
+import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import type {SvgIconName} from '@/components/ui/media/svgIcons'
 import type {TestProps} from '@/components/ui/types'
-import {Icon, type IconProps} from '@/components/ui/media/Icon'
 
 type Props = {
   icon?: IconProps

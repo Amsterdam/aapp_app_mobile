@@ -7,18 +7,17 @@ import {Title} from '@/components/ui/text/Title'
 import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {ParkingSessionDateTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDateTime'
 import {ParkingSessionDurationTimePicker} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDurationTimePicker'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
-import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
-
-type FieldValues = {endTime?: Dayjs; originalEndTime?: Dayjs; startTime: Dayjs}
+import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingSessionEndTimeBottomSheetContent = () => {
-  const {watch} = useFormContext<FieldValues>()
+  const {watch} = useFormContext<ParkingSessionFormValues>()
   const {
     field: {value: endTime, onChange},
-  } = useController<FieldValues, 'endTime'>({
+  } = useController<ParkingSessionFormValues, 'endTime'>({
     name: 'endTime',
   })
   const {close} = useBottomSheet()

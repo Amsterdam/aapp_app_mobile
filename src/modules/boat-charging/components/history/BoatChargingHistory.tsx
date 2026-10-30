@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, type SectionListProps} from 'react-native'
-import type {WithDummyAndPage} from '@/services/types'
 import {Divider} from '@/components/ui/Divider'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -20,6 +19,7 @@ import {
   SessionStatus,
   type BoatChargingLocation,
 } from '@/modules/boat-charging/types'
+import type {WithDummyAndPage} from '@/services/types'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
 import {

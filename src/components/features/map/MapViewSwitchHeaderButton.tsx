@@ -1,10 +1,10 @@
 import {useMemo} from 'react'
-import type {SvgIconName} from '@/components/ui/media/svgIcons'
-import type {TestProps} from '@/components/ui/types'
 import {useMapViewSwitch} from '@/components/features/map/hooks/useMapViewSwitch'
 import {MapViewVariant} from '@/components/features/map/providers/MapViewSwitch.context'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
+import type {SvgIconName} from '@/components/ui/media/svgIcons'
+import type {TestProps} from '@/components/ui/types'
 
 export const MapViewSwitchHeaderButton = ({testID}: TestProps) => {
   const {toggleViewType, viewType, variant} = useMapViewSwitch()

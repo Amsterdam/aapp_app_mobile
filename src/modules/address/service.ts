@@ -1,4 +1,3 @@
-import type {Coordinates} from '@/types/location'
 import {GlobalApiSlug} from '@/environment'
 import {
   AddressList,
@@ -9,6 +8,7 @@ import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
+import type {Coordinates} from '@/types/location'
 import {generateRequestUrl} from '@/utils/api'
 
 type SharedParams = {rows?: number}

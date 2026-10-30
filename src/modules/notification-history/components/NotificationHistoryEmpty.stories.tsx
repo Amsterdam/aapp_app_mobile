@@ -1,5 +1,5 @@
-import {NotificationHistoryEmpty} from './NotificationHistoryEmpty'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {NotificationHistoryEmpty} from './NotificationHistoryEmpty'
 
 const meta = {
   component: NotificationHistoryEmpty,

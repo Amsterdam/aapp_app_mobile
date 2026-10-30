@@ -1,10 +1,10 @@
-import {FC} from 'react'
-import {ParkingSessionAddLicensePlateName} from './ParkingSessionAddLicensePlateName'
-import {ParkingSessionLicensePlateFormProvider} from './ParkingSessionLicensePlateFormProvider'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {FC} from 'react'
 import {Column} from '@/components/ui/layout/Column'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {licensePlatesMock} from '@/modules/parking/mocks/licensePlates.mock'
+import {ParkingLicensePlateFormProvider} from './ParkingLicensePlateFormProvider'
+import {ParkingSessionAddLicensePlateName} from './ParkingSessionAddLicensePlateName'
 
 const maximumLicensePlates = Array.from(
   {length: MAX_LICENSE_PLATES},
@@ -18,14 +18,14 @@ const maximumLicensePlates = Array.from(
 type FormDecoratorProps = {
   children: React.ReactNode
   defaultValues?: React.ComponentProps<
-    typeof ParkingSessionLicensePlateFormProvider
+    typeof ParkingLicensePlateFormProvider
   >['defaultValues']
 }
 
 const FormDecorator = ({children, defaultValues}: FormDecoratorProps) => (
-  <ParkingSessionLicensePlateFormProvider defaultValues={defaultValues}>
+  <ParkingLicensePlateFormProvider defaultValues={defaultValues}>
     {children}
-  </ParkingSessionLicensePlateFormProvider>
+  </ParkingLicensePlateFormProvider>
 )
 
 const meta = {

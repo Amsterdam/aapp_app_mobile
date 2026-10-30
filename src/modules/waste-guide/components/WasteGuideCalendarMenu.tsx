@@ -14,13 +14,11 @@ import {useSelectedAddress} from '@/modules/address/exports/hooks/useSelectedAdd
 import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {selectApi} from '@/store/slices/environment'
-import {useMenu} from '@/store/slices/menu'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {saveFile} from '@/utils/saveFile'
 
 export const WasteGuideCalendarMenu = () => {
   const {address} = useSelectedAddress(ModuleSlug['waste-guide'])
-  const {close} = useMenu()
   const openWebUrl = useOpenWebUrl()
   const addressLine1 = getAddressLine1(address)
 
@@ -40,8 +38,6 @@ export const WasteGuideCalendarMenu = () => {
     : undefined
 
   const onPressAddToCalendar = useCallback(() => {
-    close()
-
     if (!webCalUrl) {
       return
     }
@@ -51,11 +47,9 @@ export const WasteGuideCalendarMenu = () => {
         ? webCalUrl
         : `https://www.google.com/calendar/render?cid=${encodeURIComponent(webCalUrl)}`,
     )
-  }, [close, openWebUrl, webCalUrl])
+  }, [openWebUrl, webCalUrl])
 
   const onPressDownloadAsPdf = useCallback(() => {
-    close()
-
     if (!pdfUrl) {
       return
     }
@@ -64,25 +58,25 @@ export const WasteGuideCalendarMenu = () => {
       downloadUri: pdfUrl,
       fileName: `Afvalkalender_${dayjs().format('DD-MM-YYYY')}_${addressLine1.replaceAll(' ', '_')}.pdf`,
     })
-  }, [close, pdfUrl, addressLine1])
+  }, [pdfUrl, addressLine1])
 
   const menuItems = useMemo(
     () =>
-      [
-        !!webCalUrl &&
-          !!wasteGuideCalendarSubscribeFeatureFlag && {
-            color: 'default',
-            label: 'Toevoegen aan agenda',
-            onPress: onPressAddToCalendar,
-            testID: 'WasteGuideAddToCalendarButton',
+      (
+        [
+          !!webCalUrl &&
+            !!wasteGuideCalendarSubscribeFeatureFlag && {
+              label: 'Toevoegen aan agenda',
+              onPress: onPressAddToCalendar,
+              testID: 'WasteGuideAddToCalendarButton',
+            },
+          !!pdfUrl && {
+            label: 'Download als PDF',
+            onPress: onPressDownloadAsPdf,
+            testID: 'WasteGuideDownloadAsPdfButton',
           },
-        !!pdfUrl && {
-          color: 'default',
-          label: 'Download als PDF',
-          onPress: onPressDownloadAsPdf,
-          testID: 'WasteGuideDownloadAsPdfButton',
-        },
-      ].filter((item): item is PopupMenuItem => Boolean(item)),
+        ] as (PopupMenuItem | false)[]
+      ).filter((item): item is PopupMenuItem => Boolean(item)),
     [
       webCalUrl,
       pdfUrl,

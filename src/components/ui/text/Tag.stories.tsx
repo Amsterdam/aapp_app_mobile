@@ -1,8 +1,8 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {LiveblogDot} from '@/modules/news/components/liveblog/LiveblogDot'
 import {Row} from '../layout/Row'
 import {Phrase} from './Phrase'
 import {Tag} from './Tag'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
-import {LiveblogDot} from '@/modules/news/components/liveblog/LiveblogDot'
 
 const meta = {
   component: Tag,

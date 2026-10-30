@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import type {BoatChargingPaymentResultStatus} from '@/modules/boat-charging/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/boat-charging/alerts'
@@ -7,6 +6,7 @@ import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {setLastGuestSessionId} from '@/modules/boat-charging/slice'
+import type {BoatChargingPaymentResultStatus} from '@/modules/boat-charging/types'
 import {useAlert} from '@/store/slices/alert'
 
 export const useRedirectAfterPayment = () => {

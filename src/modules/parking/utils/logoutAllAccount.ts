@@ -1,8 +1,8 @@
 import type {ReduxDispatch} from '@/hooks/redux/types'
-import type {RootState} from '@/store/types/rootState'
 import {parkingSlice, selectParkingAccounts} from '@/modules/parking/slice'
 import {logout} from '@/modules/parking/utils/logout'
 import {devError} from '@/processes/development'
+import type {RootState} from '@/store/types/rootState'
 
 export const logoutAllAccounts = async (
   dispatch: ReduxDispatch,

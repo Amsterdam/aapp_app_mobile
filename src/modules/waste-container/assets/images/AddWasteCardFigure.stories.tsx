@@ -1,5 +1,5 @@
-import {AddWasteCardFigure} from './AddWasteCardFigure'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {AddWasteCardFigure} from './AddWasteCardFigure'
 
 const meta = {
   component: AddWasteCardFigure,

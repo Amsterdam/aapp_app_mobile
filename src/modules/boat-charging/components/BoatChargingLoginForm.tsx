@@ -2,15 +2,17 @@ import {useCallback, useRef} from 'react'
 import {FormProvider, useForm, type SubmitHandler} from 'react-hook-form'
 import type {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
-import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputField'
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {alerts} from '@/modules/boat-charging/alerts'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
-import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {selectBoatChargingTemporaryUsername} from '@/modules/boat-charging/slice'
 import {useAlert} from '@/store/slices/alert'
 
 type FormValues = {
@@ -20,7 +22,13 @@ type FormValues = {
 
 export const BoatChargingLoginForm = () => {
   const {signIn} = useOpenIdConnectAuth()
-  const form = useForm<FormValues>()
+  const signUpUsername = useSelector(selectBoatChargingTemporaryUsername)
+
+  const form = useForm<FormValues>({
+    defaultValues: {
+      username: signUpUsername ?? '',
+    },
+  })
   const passwordInputReference = useRef<TextInputRN>(null)
 
   const {resetAlert, setAlert} = useAlert()
@@ -37,6 +45,8 @@ export const BoatChargingLoginForm = () => {
     },
     [resetAlert, setAlert, signIn],
   )
+
+  const {navigate} = useNavigation()
 
   return (
     <FormProvider {...form}>
@@ -69,15 +79,15 @@ export const BoatChargingLoginForm = () => {
             testID="BoatChargingLoginFormSubmitButton"
           />
           <Column gutter="sm">
-            <ExternalLinkButton
+            <Button
               label="Wachtwoord vergeten?"
-              redirectKey={RedirectKey.boatChargingForgotPassword}
+              onPress={() => navigate(BoatChargingRouteName.forgotPassword)}
               testID="BoatChargingLoginFormForgotPasswordButton"
               variant="tertiary"
             />
-            <ExternalLinkButton
+            <Button
               label="Account aanmaken"
-              redirectKey={RedirectKey.boatChargingCreateAccount}
+              onPress={() => navigate(BoatChargingRouteName.createAccount)}
               testID="BoatChargingLoginFormCreateAccountButton"
               variant="tertiary"
             />

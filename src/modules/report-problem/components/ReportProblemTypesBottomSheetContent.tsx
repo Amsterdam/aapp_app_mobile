@@ -1,7 +1,7 @@
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
+import {Title} from '@/components/ui/text/Title'
 
 export const ReportProblemTypesBottomSheetContent = () => (
   <Box>

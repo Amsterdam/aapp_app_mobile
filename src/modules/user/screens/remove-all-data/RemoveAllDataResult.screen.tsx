@@ -1,13 +1,13 @@
 import {useCallback} from 'react'
 import RNRestart from 'react-native-restart-newarch'
 import type {NavigationProps} from '@/app/navigation/types'
-import type {UserRouteName} from '@/modules/user/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {RemoveAllDataResult} from '@/modules/user/components/remove-all-data/RemoveAllDataResult'
 import {useRemoveAllData} from '@/modules/user/hooks/useRemoveAllData'
+import type {UserRouteName} from '@/modules/user/routes'
 
 type Props = NavigationProps<UserRouteName.removeAllDataResult>
 

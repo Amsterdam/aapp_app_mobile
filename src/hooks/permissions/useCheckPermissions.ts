@@ -14,7 +14,6 @@ import {
 } from '@/processes/logging/hooks/useTrackException'
 import {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 import {CustomDimensions, PiwikAction} from '@/processes/piwik/types'
-
 import {setPermission} from '@/store/slices/permissions'
 import {
   ALL_PERMISSIONS_WITH_LOG_DIMENSION,

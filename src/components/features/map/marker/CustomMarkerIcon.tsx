@@ -1,3 +1,4 @@
+import type {ComponentType, PropsWithChildren} from 'react'
 import Svg, {
   Circle,
   Defs,
@@ -7,7 +8,6 @@ import Svg, {
   Stop,
 } from 'react-native-svg'
 import type {TestProps} from '@/components/ui/types'
-import type {ComponentType, PropsWithChildren} from 'react'
 import {ExceptionLogKey} from '@/processes/logging/hooks/useTrackException'
 import {useTrackRenderException} from '@/processes/logging/hooks/useTrackRenderException'
 import {themes} from '@/themes/themes'

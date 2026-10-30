@@ -1,6 +1,6 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {StyleSheet, View} from 'react-native'
 import {MapMarkerSelectedPin} from './SelectedPin'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const styles = StyleSheet.create({
   wrapper: {

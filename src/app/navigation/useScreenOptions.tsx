@@ -3,6 +3,7 @@ import {StatusBar} from 'react-native'
 import {Header} from '@/components/features/header/Header'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
+
 export type CustomScreenOptions = {
   /**
    * Determines if the card should be placed below the status bar

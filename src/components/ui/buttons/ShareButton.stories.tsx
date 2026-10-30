@@ -1,5 +1,5 @@
-import {ShareButton} from './ShareButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ShareButton} from './ShareButton'
 
 const meta = {
   component: ShareButton,

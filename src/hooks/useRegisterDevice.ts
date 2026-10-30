@@ -1,7 +1,6 @@
 import {getMessaging, getToken} from '@react-native-firebase/messaging'
 import {useCallback} from 'react'
 import {usePermission} from '@/hooks/permissions/usePermission'
-
 import {
   ExceptionLogKey,
   useTrackException,

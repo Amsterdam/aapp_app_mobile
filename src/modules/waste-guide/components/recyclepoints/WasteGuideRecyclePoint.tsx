@@ -2,13 +2,13 @@ import {Button} from '@/components/ui/buttons/Button'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
+import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {getGroupedOpeningHours} from '@/modules/contact/utils/getGroupedOpeningHours'
 import {WasteGuideRecyclePointTopTaskButton} from '@/modules/waste-guide/components/recyclepoints/WasteGuideRecyclePointTopTaskButton'
 import {useGetActiveRecyclePoint} from '@/modules/waste-guide/hooks/useGetActiveRecyclePoint'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
+import {getGroupedOpeningHours} from '@/utils/openingTimes/getGroupedOpeningHours'
 
 export const WasteGuideRecyclePoint = () => {
   const {navigate} = useNavigation()

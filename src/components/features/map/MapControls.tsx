@@ -1,8 +1,8 @@
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {useMapControlsOptions} from '@/components/features/map/hooks/useMapControlsOptions'
+import {MapControlsButton} from '@/components/features/map/MapControlsButton'
 import {type ControlVariant} from '@/components/features/map/types'
 import {Column} from '@/components/ui/layout/Column'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 type Props = {
   moduleSlug: ModuleSlug

@@ -1,5 +1,5 @@
-import {BottomSheetKeyValueTable} from './BottomSheetKeyValueTable'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {BottomSheetKeyValueTable} from './BottomSheetKeyValueTable'
 
 const meta = {
   component: BottomSheetKeyValueTable,

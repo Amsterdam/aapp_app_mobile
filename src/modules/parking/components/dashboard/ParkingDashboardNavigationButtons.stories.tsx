@@ -1,5 +1,5 @@
-import {ParkingDashboardNavigationButtons} from './ParkingDashboardNavigationButtons'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ParkingDashboardNavigationButtons} from './ParkingDashboardNavigationButtons'
 
 const meta = {
   component: ParkingDashboardNavigationButtons,

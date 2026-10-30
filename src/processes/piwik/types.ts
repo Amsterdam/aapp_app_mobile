@@ -3,8 +3,8 @@ import {
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {AccessibilityChangeEventName} from 'react-native'
-import type {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import type {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 
 export type Piwik = {
   ready: boolean
@@ -136,6 +136,7 @@ export type PiwikCategory = ModuleSlug | 'general'
 export enum PiwikAction {
   accessibilityAction = 'accessibilityAction',
   accessibilityChange = 'accessibilityChange',
+  appStateChange = 'appStateChange',
   blur = 'blur',
   buttonPress = 'buttonPress',
   deviceInfoChange = 'deviceInfoChange',

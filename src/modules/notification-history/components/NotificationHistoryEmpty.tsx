@@ -1,4 +1,5 @@
 import {EmptyList} from '@/components/features/EmptyList'
+
 export const NotificationHistoryEmpty = () => (
   <EmptyList
     testID="NotificationHistoryEmptyList"

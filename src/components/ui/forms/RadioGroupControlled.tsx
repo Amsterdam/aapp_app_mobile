@@ -1,3 +1,4 @@
+import type {ReactNode} from 'react'
 import {
   type FieldPath,
   type FieldValues,
@@ -5,7 +6,6 @@ import {
   useController,
   UseControllerProps,
 } from 'react-hook-form'
-import type {ReactNode} from 'react'
 import {
   RadioGroup,
   type RadioGroupProps,

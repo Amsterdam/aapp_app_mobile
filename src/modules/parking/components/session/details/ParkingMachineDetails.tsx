@@ -1,11 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import type {ParkingSessionProps} from '@/modules/parking/components/session/details/ParkingSessionDetails'
-import {MetaDataCard} from '@/components/ui/MetaDataCard'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {MetaDataCard} from '@/components/ui/MetaDataCard'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
+import type {ParkingSessionProps} from '@/modules/parking/components/session/details/ParkingSessionDetails'
 import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,

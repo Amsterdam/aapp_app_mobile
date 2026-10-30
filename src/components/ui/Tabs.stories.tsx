@@ -1,6 +1,6 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Tabs} from './Tabs'
 import {Phrase} from './text/Phrase'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta = {
   component: Tabs,

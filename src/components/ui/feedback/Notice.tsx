@@ -1,8 +1,8 @@
 import {StyleSheet, View} from 'react-native'
-import type {Theme} from '@/themes/themes'
 import {Box} from '@/components/ui/containers/Box'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Phrase} from '@/components/ui/text/Phrase'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {

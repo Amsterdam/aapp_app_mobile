@@ -1,5 +1,5 @@
-import {EmailButton} from './EmailButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {EmailButton} from './EmailButton'
 
 export default {
   component: EmailButton,

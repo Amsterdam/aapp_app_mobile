@@ -1,8 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import type {NewsArticleBase} from '@/modules/news/types'
 import type {ReactNode} from 'react'
 import {NewsArticleContext} from '@/modules/news/hooks/useNewsArticle'
 import {useNewsArticleQuery} from '@/modules/news/service'
+import type {NewsArticleBase} from '@/modules/news/types'
 
 type Props = {
   children: ReactNode

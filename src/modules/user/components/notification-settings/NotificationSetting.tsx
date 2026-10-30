@@ -1,13 +1,13 @@
-import type {Module} from '@/modules/types'
-import type {NotificationModule} from '@/modules/user/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useIsLoggedIn} from '@/modules/generated/useIsLoggedIn.generated'
+import type {Module} from '@/modules/types'
 import {NotificationSettingSwitch} from '@/modules/user/components/notification-settings/NotificationSettingSwitch'
 import {useGetDisabledPushTypesQuery} from '@/modules/user/service'
+import type {NotificationModule} from '@/modules/user/types'
 
 type Props = {
   isDisabled: boolean

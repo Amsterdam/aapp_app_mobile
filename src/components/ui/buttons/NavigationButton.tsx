@@ -1,9 +1,6 @@
 import {pascalCase} from 'pascal-case'
 import {ReactNode} from 'react'
 import {TextProps} from 'react-native'
-import type {TestProps} from '@/components/ui/types'
-import type {Theme} from '@/themes/themes'
-import type {TitleTokensPerLevel} from '@/themes/tokens/text'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -12,7 +9,10 @@ import {MainAxisAlignment} from '@/components/ui/layout/types'
 import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import type {TestProps} from '@/components/ui/types'
+import type {Theme} from '@/themes/themes'
 import {SpacingTokens} from '@/themes/tokens/size'
+import type {TitleTokensPerLevel} from '@/themes/tokens/text'
 
 type Props = {
   Icon?: ReactNode

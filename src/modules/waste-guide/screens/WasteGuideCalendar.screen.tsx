@@ -1,6 +1,6 @@
 import {Screen} from '@/components/features/screen/Screen'
-import {WasteGuideCalendarMenu} from '@/modules/waste-guide/components/WasteGuideCalendarMenu'
 import {WasteGuideCalendar} from '@/modules/waste-guide/components/calendar/WasteGuideCalendar'
+import {WasteGuideCalendarMenu} from '@/modules/waste-guide/components/WasteGuideCalendarMenu'
 
 export const WasteGuideCalendarScreen = () => (
   <Screen

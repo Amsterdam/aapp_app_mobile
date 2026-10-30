@@ -1,5 +1,5 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ScrollView, StyleSheet, Text, View} from 'react-native'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {formatDateTime} from '@/utils/datetime/formatDateTime'

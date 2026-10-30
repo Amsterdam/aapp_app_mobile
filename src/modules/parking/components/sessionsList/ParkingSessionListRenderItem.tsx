@@ -1,9 +1,9 @@
 import {memo} from 'react'
-import type {ParkingSessionOrDummy} from '@/modules/parking/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
+import type {ParkingSessionOrDummy} from '@/modules/parking/types'
 
 type Props = {
   item: ParkingSessionOrDummy

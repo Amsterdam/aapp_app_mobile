@@ -1,7 +1,5 @@
 import {useState, useCallback} from 'react'
 import {FlatList, StyleSheet, type FlatListProps} from 'react-native'
-import type {WithDummy} from '@/services/types'
-import type {Theme} from '@/themes/themes'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
@@ -13,6 +11,8 @@ import {
   type NewsArticlesQueryArgs,
   type NewsArticlesType,
 } from '@/modules/news/types'
+import type {WithDummy} from '@/services/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = NewsArticlesType & {

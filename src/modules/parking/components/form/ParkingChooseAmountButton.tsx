@@ -1,10 +1,10 @@
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
-import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
+import type {ParkingIncreaseBalanceFormValues} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingChooseAmountButton = () => (
-  <SelectButtonControlled<{amount?: number}, 'amount'>
-    bottomSheetVariant={ParkingSessionBottomSheetVariant.amount}
+  <SelectButtonControlled<ParkingIncreaseBalanceFormValues, 'amount'>
+    bottomSheetVariant="amount"
     icon={{name: 'euro-coins', size: 'lgx'}}
     name="amount"
     rules={{

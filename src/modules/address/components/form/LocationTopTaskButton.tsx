@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {StatefulTopTaskButton} from '@/components/ui/buttons/StatefulTopTaskButton'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -8,11 +7,12 @@ import {
   HighAccuracyPurposeKey,
   type Address,
 } from '@/modules/address/exports/types'
+import {useNavigateToInstructionsScreen} from '@/modules/address/exports/useNavigateToInstructionsScreen'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/exports/utils/getAddressLineWithCityIfNotAmsterdam'
-import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useLocation} from '@/modules/address/slice'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {type LogProps} from '@/processes/piwik/types'
 import {Permissions} from '@/types/permissions'
 

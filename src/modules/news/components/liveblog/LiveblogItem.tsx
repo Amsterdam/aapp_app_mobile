@@ -1,8 +1,8 @@
-import type {LiveblogItem as LiveblogItemType} from '@/modules/news/types'
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import type {LiveblogItem as LiveblogItemType} from '@/modules/news/types'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 

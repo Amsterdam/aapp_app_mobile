@@ -11,7 +11,7 @@ import {ServicePointDetailsImage} from '@/modules/service/components/ServicePoin
 import {
   ServiceDetailPropertyType,
   type ServiceFeatureProperty,
-} from '@/modules/service/types'
+} from '@/modules/service/exports/types'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'
 
 type Props = {

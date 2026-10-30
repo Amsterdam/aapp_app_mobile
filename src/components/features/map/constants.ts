@@ -1,5 +1,5 @@
-import type {ClusterOptions} from '@/components/features/map/types'
 import type {Region} from 'react-native-maps'
+import type {ClusterOptions} from '@/components/features/map/types'
 
 export const AMSTERDAM_REGION: Region = {
   latitude: 52.3753,

@@ -1,8 +1,8 @@
 import {useFormContext} from 'react-hook-form'
 import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
-import type {Address, BaseAddress} from '@/modules/address/exports/types'
 import {NumberSearchResults} from '@/modules/address/components/form/NumberSearchResults'
 import {StreetSearchResults} from '@/modules/address/components/form/StreetSearchResults'
+import type {Address, BaseAddress} from '@/modules/address/exports/types'
 
 type Props = {
   onPressResult: (address: Address) => void

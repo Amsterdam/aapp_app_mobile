@@ -1,7 +1,7 @@
-import type {WithDummy} from '@/services/types'
-import type {EmptyObject} from '@/types/utils'
 import type {FeatureCollection, Polygon} from 'geojson'
+import type {WithDummy} from '@/services/types'
 import {Paginated, PaginationQueryArgs} from '@/types/api'
+import type {EmptyObject} from '@/types/utils'
 
 // Routes
 export enum ParkingEndpointName {

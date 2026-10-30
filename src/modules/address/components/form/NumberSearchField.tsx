@@ -1,7 +1,7 @@
-import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 import {SearchFieldControlled} from '@/components/ui/forms/SearchFieldControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 import {NumberSearchBackPressButton} from '@/modules/address/components/form/NumberSearchBackPressButton'
 
 export const NumberSearchField = () => (

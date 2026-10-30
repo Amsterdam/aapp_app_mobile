@@ -1,8 +1,3 @@
-import type {
-  ServiceMapResponse,
-  ServiceMapResponseIcon,
-  ServicePointFeature,
-} from '@/modules/service/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -10,6 +5,11 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {ServicePointCustomIcon} from '@/modules/service/components/ServicePointCustomIcon'
+import type {
+  ServiceMapResponse,
+  ServiceMapResponseIcon,
+  ServicePointFeature,
+} from '@/modules/service/exports/types'
 import {useServicePointListItemData} from '@/modules/service/hooks/useServicePointListItemData'
 
 type Props = {

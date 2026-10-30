@@ -1,5 +1,5 @@
-import type {Paginated, PaginationQueryArgs} from '@/types/api'
 import type {ImageURISource} from 'react-native'
+import type {Paginated, PaginationQueryArgs} from '@/types/api'
 
 export type NewsArticleBase = {
   id: number

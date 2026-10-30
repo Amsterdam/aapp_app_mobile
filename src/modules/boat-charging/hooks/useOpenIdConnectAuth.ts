@@ -1,22 +1,29 @@
 import {useCallback, useMemo} from 'react'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useAsync} from '@/hooks/useAsync'
-import {useBoatChargingOpenIdConnectConfigQuery} from '@/modules/boat-charging/service'
+import {useOpenIdConnect} from '@/modules/boat-charging/hooks/useOpenIdConnect'
+import {useStoreSession} from '@/modules/boat-charging/hooks/useStoreSession'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {
   selectBoatChargingAccessToken,
   selectBoatChargingAccessTokenExpiration,
-  setAccessToken,
-  selectBoatChargingOpenIdConnectConfig,
   selectBoatChargingLoggedInUsername,
-  setBoatChargingLoggedInUsername,
   removeAccount,
+  setBoatChargingTemporaryUsername,
 } from '@/modules/boat-charging/slice'
 import {
   getStoredOpenIdConnectSession,
   signOutFromOpenIdConnect,
   signInWithOpenIdConnect,
+  resendSignUpCodeWithOpenIdConnect,
 } from '@/modules/boat-charging/utils/openIdConnect'
+import {devError} from '@/processes/development'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const useOpenIdConnectAuth = () => {
@@ -25,9 +32,10 @@ export const useOpenIdConnectAuth = () => {
   const accessTokenExpiration = useSelector(
     selectBoatChargingAccessTokenExpiration,
   )
-  const {isLoading, isError} = useBoatChargingOpenIdConnectConfigQuery()
-  const openIdConnectConfig = useSelector(selectBoatChargingOpenIdConnectConfig)
+  const storeSession = useStoreSession()
+  const {isLoading, isError, openIdConnectConfig, isReady} = useOpenIdConnect()
   const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
+  const {navigate} = useNavigation()
 
   const isAuthenticated = useMemo(() => Boolean(accessToken), [accessToken])
 
@@ -55,52 +63,53 @@ export const useOpenIdConnectAuth = () => {
           return
         }
 
-        const {
-          accessTokenExpirationInSeconds,
-          accessToken: restoredAccessToken,
-          username: restoredUsername,
-        } = storedSession
-
-        dispatch(setBoatChargingLoggedInUsername(restoredUsername))
-
-        dispatch(
-          setAccessToken({
-            accessToken: restoredAccessToken,
-            accessTokenExpiration: accessTokenExpirationInSeconds,
-          }),
-        )
+        storeSession(storedSession)
       } catch {
         dispatch(removeAccount())
       }
     }
-  }, [dispatch, openIdConnectConfig])
+  }, [dispatch, openIdConnectConfig, storeSession])
+  const trackException = useTrackException()
 
   const signIn = useCallback(
     async (username: string, password: string) => {
       if (openIdConnectConfig) {
-        const {
-          accessToken: openIdConnectAccessToken,
-          accessTokenExpirationInSeconds,
-        } = await signInWithOpenIdConnect(
-          username,
-          password,
-          openIdConnectConfig,
-        )
+        try {
+          const result = await signInWithOpenIdConnect(
+            username,
+            password,
+            openIdConnectConfig,
+          )
 
-        dispatch(
-          setAccessToken({
-            accessToken: openIdConnectAccessToken,
-            accessTokenExpiration: accessTokenExpirationInSeconds,
-          }),
-        )
-        dispatch(setBoatChargingLoggedInUsername(username))
+          if (result.isSignedIn) {
+            storeSession(result.session)
+            dispatch(setBoatChargingTemporaryUsername(undefined))
+          } else if (result.nextStep === 'CONFIRM_SIGN_UP') {
+            await resendSignUpCodeWithOpenIdConnect(
+              username,
+              openIdConnectConfig,
+            )
+            dispatch(setBoatChargingTemporaryUsername(username))
+            navigate(BoatChargingRouteName.createAccountConfirm)
+          } else {
+            devError('Unhandled next step:', result.nextStep)
+            trackException(
+              ExceptionLogKey.boatChargingUnhandledNextStep,
+              'useOpenIdConnectAuth.ts',
+              {
+                nextStep: result.nextStep,
+              },
+            )
+          }
+        } catch (error) {
+          devError(error)
+          throw new Error('Sign in failed')
+        }
       } else {
-        return Promise.reject(
-          new Error('OpenID Connect config is not available'),
-        )
+        throw new Error('OpenID Connect config is not available')
       }
     },
-    [dispatch, openIdConnectConfig],
+    [dispatch, navigate, openIdConnectConfig, storeSession, trackException],
   )
 
   const signOut = useCallback(async () => {
@@ -116,9 +125,9 @@ export const useOpenIdConnectAuth = () => {
     isAuthenticated,
     signIn,
     signOut,
-    isLoading: isLoading && !openIdConnectConfig,
-    isError: isError && !openIdConnectConfig,
-    isReady: !!openIdConnectConfig,
+    isLoading,
+    isError,
+    isReady,
     username: loggedInUsername,
   }
 }

@@ -2,13 +2,19 @@ import type {
   BoatChargingLocation,
   BoatChargingSession,
   BoatChargingPaymentResultStatus,
+  Vignet,
 } from '@/modules/boat-charging/types'
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
+  chooseVignet = 'BoatChargingChooseVignet',
+  confirmSession = 'BoatChargingConfirmSession',
+  createAccount = 'BoatChargingCreateAccount',
+  createAccountConfirm = 'BoatChargingCreateAccountConfirm',
   forgotAccessCode = 'BoatChargingForgotAccessCode',
+  forgotPassword = 'BoatChargingForgotPassword',
+  forgotPasswordNewPassword = 'BoatChargingForgotPasswordNewPassword',
   guestEmail = 'BoatChargingGuestEmail',
-  guestEmailConfirm = 'BoatChargingGuestEmailConfirm',
   help = 'BoatChargingHelp',
   history = 'BoatChargingHistory',
   historySessionDetails = 'BoatChargingHistorySessionDetails',
@@ -16,8 +22,11 @@ export enum BoatChargingRouteName {
   login = 'BoatChargingLogin',
   loginSteps = 'BoatChargingLoginSteps',
   map = 'BoatChargingMap',
+  myVignettes = 'BoatChargingMyVignettes',
   paymentResult = 'BoatChargingPaymentResult',
   termsAndConditions = 'BoatChargingTermsAndConditions',
+  verifyVignet = 'BoatChargingVerifyVignet',
+  vignet = 'BoatChargingVignet',
 }
 
 export type ModuleStackParams = {
@@ -26,7 +35,6 @@ export type ModuleStackParams = {
     id: BoatChargingLocation['id']
   }
   [BoatChargingRouteName.guestEmail]: undefined
-  [BoatChargingRouteName.guestEmailConfirm]: undefined
   [BoatChargingRouteName.help]: undefined
   [BoatChargingRouteName.history]: undefined
   [BoatChargingRouteName.login]: undefined
@@ -41,4 +49,13 @@ export type ModuleStackParams = {
     paymentStatus: BoatChargingPaymentResultStatus
     sessionId: BoatChargingSession['id']
   }
+  [BoatChargingRouteName.confirmSession]: undefined
+  [BoatChargingRouteName.myVignettes]: undefined
+  [BoatChargingRouteName.vignet]: undefined | {vignetId: Vignet['id']}
+  [BoatChargingRouteName.verifyVignet]: undefined
+  [BoatChargingRouteName.chooseVignet]: undefined
+  [BoatChargingRouteName.createAccount]: undefined
+  [BoatChargingRouteName.createAccountConfirm]: undefined
+  [BoatChargingRouteName.forgotPassword]: undefined
+  [BoatChargingRouteName.forgotPasswordNewPassword]: undefined
 }

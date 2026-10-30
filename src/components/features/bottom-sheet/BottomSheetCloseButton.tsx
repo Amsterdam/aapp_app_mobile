@@ -1,9 +1,9 @@
 import {StyleSheet, View} from 'react-native'
-import type {TestProps} from '@/components/ui/types'
-import type {Theme} from '@/themes/themes'
 import {useBottomSheetHandler} from '@/components/features/bottom-sheet/hooks/useBottomSheetHandler'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
+import type {TestProps} from '@/components/ui/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 export const BottomSheetCloseButton = ({testID}: TestProps) => {

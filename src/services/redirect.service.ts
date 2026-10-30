@@ -1,5 +1,5 @@
-import type {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import type {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {RedirectEndpointName} from '@/modules/redirects/types'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'

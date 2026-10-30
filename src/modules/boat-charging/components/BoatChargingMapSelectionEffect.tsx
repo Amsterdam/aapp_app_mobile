@@ -1,8 +1,8 @@
 import {useEffect, useMemo} from 'react'
-import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 import {AMSTERDAM_REGION} from '@/components/features/map/constants'
 import {useMap} from '@/components/features/map/hooks/useMap'
 import {useSelectedBoatChargingPointId} from '@/modules/boat-charging/slice'
+import type {BoatChargingGeoJSON} from '@/modules/boat-charging/types'
 
 type Props = {
   geojson?: BoatChargingGeoJSON

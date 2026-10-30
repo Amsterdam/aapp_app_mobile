@@ -1,6 +1,6 @@
+import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
 import type {RedirectErrorCodes} from '@/types/mijnAmsterdam'
 import type {LoginResult} from '@/types/navigation'
-import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
 
 export enum CityPassRouteName {
   budget = 'Budget',

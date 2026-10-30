@@ -1,5 +1,5 @@
-import {OrderedListItemMarker} from './OrderedListItemMarker'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {OrderedListItemMarker} from './OrderedListItemMarker'
 
 const meta = {
   component: OrderedListItemMarker,

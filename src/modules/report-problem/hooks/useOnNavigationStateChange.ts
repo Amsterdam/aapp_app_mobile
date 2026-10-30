@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
+import type {WebViewNavigation} from 'react-native-webview'
 import type {StackNavigationProp} from '@/app/navigation/types'
 import type {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import type {WebViewNavigation} from 'react-native-webview'
 import {PiwikAction} from '@/processes/piwik/types'
 
 const ReportProblemEndUrlPath = '/incident/bedankt'

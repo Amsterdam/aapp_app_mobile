@@ -1,11 +1,11 @@
 import {useCallback} from 'react'
-import type {NewsArticleBase} from '@/modules/news/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {NewsDashboardHighlightedArticleImage} from '@/modules/news/components/NewsDashboardHighlightedArticleImage'
 import {NewsRouteName} from '@/modules/news/routes'
+import type {NewsArticleBase} from '@/modules/news/types'
 
 type Props = NewsArticleBase
 

@@ -1,13 +1,14 @@
 import {StyleSheet, View} from 'react-native'
-import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
+import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertNavigateButton} from '@/components/ui/feedback/alert/AlertNavigateButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
@@ -33,6 +34,7 @@ export const AlertBase = ({
   hasIcon = false,
   text,
   navigateTo,
+  externalLink,
   title,
   variant = AlertVariant.information,
 }: AlertBaseProps) => {
@@ -98,6 +100,13 @@ export const AlertBase = ({
               {...navigateTo}
               testID={testID}
             />
+          )}
+          {!!externalLink && (
+            <ExternalInlineLink
+              {...externalLink}
+              testID="AlertExternalLink">
+              {externalLink.label}
+            </ExternalInlineLink>
           )}
         </View>
         {!!hasCloseIcon && (

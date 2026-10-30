@@ -4,6 +4,7 @@ import {Linking} from 'react-native'
 import {ModuleTitle} from '@/components/features/ModuleTitle'
 import {Button} from '@/components/ui/buttons/Button'
 import {DigiDButton} from '@/components/ui/buttons/DigiDButton'
+import {Notice} from '@/components/ui/feedback/Notice'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -20,7 +21,6 @@ import {useIsLoggedIn} from '@/modules/mijn-amsterdam-new/hooks/useIsLoggedIn'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam-new/hooks/useLoginMijnAmsterdam'
 import {UserRouteName} from '@/modules/user/routes'
 import {Permissions} from '@/types/permissions'
-import {Notice} from '@/components/ui/feedback/Notice'
 
 export const Account = () => {
   const {navigate} = useNavigation()

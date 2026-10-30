@@ -1,8 +1,8 @@
 import {StyleSheet} from 'react-native'
 import Svg, {Rect} from 'react-native-svg'
-import type {PermitZoneFeatureProperties} from '@/modules/parking/types'
 import {IconSize} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import type {PermitZoneFeatureProperties} from '@/modules/parking/types'
 import {getPermitZoneFeatureProperties} from '@/modules/parking/utils/getPermitZoneFeatureProperties'
 
 const SIZE = 'lg'

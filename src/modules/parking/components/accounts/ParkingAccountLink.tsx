@@ -1,9 +1,9 @@
-import type {ParkingAccount} from '@/modules/parking/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import type {ParkingAccount} from '@/modules/parking/types'
 
 type Props = {
   account: ParkingAccount

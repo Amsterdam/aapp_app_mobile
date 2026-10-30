@@ -1,10 +1,10 @@
-import type {RootState} from '@/store/types/rootState'
 import {
   selectBoatChargingAccessToken,
   selectBoatChargingAccessTokenExpiration,
 } from '@/modules/boat-charging/slice'
 import {refreshAccessToken} from '@/modules/boat-charging/utils/refreshAccessToken'
 import {PrepareHeaders} from '@/services/types'
+import type {RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const prepareHeaders: PrepareHeaders = async (

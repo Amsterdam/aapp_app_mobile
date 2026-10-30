@@ -1,5 +1,5 @@
-import type {Dayjs} from '@/utils/datetime/dayjs'
 import {getCalendarDays} from '@/modules/waste-guide/components/calendar/utils/getCalendarDays'
+import type {Dayjs} from '@/utils/datetime/dayjs'
 
 /**
  * Week in which the week number is defined by number (0 - 52/53) and contains an array of length 7 with `Dayjs | null`.

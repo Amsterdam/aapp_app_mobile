@@ -1,9 +1,15 @@
 import {Amplify} from 'aws-amplify'
 import {
+  confirmSignUp,
+  confirmResetPassword,
   fetchAuthSession,
   getCurrentUser,
+  resendSignUpCode,
   signIn,
   signOut,
+  signUp,
+  autoSignIn,
+  resetPassword,
   type AuthSession,
   type AuthUser,
 } from 'aws-amplify/auth'
@@ -107,10 +113,15 @@ export const signInWithOpenIdConnect = async (
   username: string,
   password: string,
   config: BoatChargingOIDCConfigResponse,
-): Promise<BoatChargingOpenIdConnectTokens> => {
+): Promise<
+  Or<
+    {isSignedIn: true; session: BoatChargingOpenIdConnectTokens},
+    {isSignedIn: false; nextStep: string}
+  >
+> => {
   initBoatChargingOpenIdConnectConfig(config)
 
-  await signIn({
+  const {isSignedIn, nextStep} = await signIn({
     username,
     password,
     options: {
@@ -118,9 +129,16 @@ export const signInWithOpenIdConnect = async (
     },
   })
 
+  if (!isSignedIn) {
+    return {isSignedIn: false, nextStep: nextStep.signInStep}
+  }
+
   const session = await fetchAuthSession()
 
-  return sessionFromAuthSession(session, username)
+  return {
+    isSignedIn,
+    session: sessionFromAuthSession(session, username),
+  }
 }
 
 export const refreshOpenIdConnectAccessToken = async (
@@ -141,4 +159,81 @@ export const signOutFromOpenIdConnect = async (
   initBoatChargingOpenIdConnectConfig(config)
 
   return signOut()
+}
+
+export const signUpWithOpenIdConnect = async (
+  username: string,
+  password: string,
+  config: BoatChargingOIDCConfigResponse,
+) => {
+  initBoatChargingOpenIdConnectConfig(config)
+
+  return signUp({
+    username,
+    password,
+    options: {
+      autoSignIn: {
+        authFlowType: 'USER_SRP_AUTH',
+      },
+      userAttributes: {},
+    },
+  })
+}
+
+export const confirmSignUpWithOpenIdConnect = async (
+  username: string,
+  confirmationCode: string,
+  config: BoatChargingOIDCConfigResponse,
+) => {
+  initBoatChargingOpenIdConnectConfig(config)
+
+  return confirmSignUp({
+    username,
+    confirmationCode,
+  })
+}
+
+export const resendSignUpCodeWithOpenIdConnect = async (
+  username: string,
+  config: BoatChargingOIDCConfigResponse,
+) => {
+  initBoatChargingOpenIdConnectConfig(config)
+
+  return resendSignUpCode({
+    username,
+  })
+}
+
+export const autoSignInWithOpenIdConnect = async (
+  config: BoatChargingOIDCConfigResponse,
+) => {
+  initBoatChargingOpenIdConnectConfig(config)
+
+  return autoSignIn()
+}
+
+export const resetPasswordWithOpenIdConnect = async (
+  username: string,
+  config: BoatChargingOIDCConfigResponse,
+) => {
+  initBoatChargingOpenIdConnectConfig(config)
+
+  return resetPassword({
+    username,
+  })
+}
+
+export const confirmResetPasswordWithOpenIdConnect = async (
+  username: string,
+  newPassword: string,
+  confirmationCode: string,
+  config: BoatChargingOIDCConfigResponse,
+) => {
+  initBoatChargingOpenIdConnectConfig(config)
+
+  return confirmResetPassword({
+    username,
+    newPassword,
+    confirmationCode,
+  })
 }

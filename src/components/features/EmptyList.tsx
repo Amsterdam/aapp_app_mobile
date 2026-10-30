@@ -1,8 +1,8 @@
-import type {TestProps} from '@/components/ui/types'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import type {TestProps} from '@/components/ui/types'
 
 type Props = {
   text?: string

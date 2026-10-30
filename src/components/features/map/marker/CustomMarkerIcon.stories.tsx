@@ -1,10 +1,10 @@
-import {CustomMarkerIcon} from './CustomMarkerIcon'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {BoatChargingPointState} from '@/modules/boat-charging/types'
 import {themes} from '@/themes/themes'
+import {CustomMarkerIcon} from './CustomMarkerIcon'
 
 const meta = {
   component: CustomMarkerIcon,

@@ -1,6 +1,6 @@
 import {StyleSheet, View, type GestureResponderEvent} from 'react-native'
-import type {PressableBaseProps} from '@/components/ui/buttons/PressableBase'
 import {Pressable} from '@/components/ui/buttons/Pressable'
+import type {PressableBaseProps} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {Icon} from '@/components/ui/media/Icon'

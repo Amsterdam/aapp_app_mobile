@@ -1,5 +1,4 @@
 export enum ParkingSessionBottomSheetVariant {
-  amount = 'amount',
   endTime = 'endTime',
   licensePlate = 'licensePlate',
   startTime = 'startTime',

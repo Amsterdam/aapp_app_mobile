@@ -1,7 +1,7 @@
-import {IconButton} from './IconButton'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Icon} from '@/components/ui/media/Icon'
 import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
+import {IconButton} from './IconButton'
 
 const meta = {
   component: IconButton,

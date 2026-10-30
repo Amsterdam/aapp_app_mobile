@@ -1,13 +1,13 @@
+import type {Feature} from 'geojson'
 import {useMemo} from 'react'
+import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
+import {useSelector} from '@/hooks/redux/useSelector'
 import type {
   ServiceLineStringFeature,
   ServiceMapResponse,
   ServicePointFeature,
   ServicePolygonFeature,
-} from '@/modules/service/types'
-import type {Feature} from 'geojson'
-import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
-import {useSelector} from '@/hooks/redux/useSelector'
+} from '@/modules/service/exports/types'
 import {useGetMapMarkerData} from '@/modules/service/hooks/useGetMapMarkerData'
 import {useGetMapPolygonData} from '@/modules/service/hooks/useGetMapPolygonData'
 import {selectSelectedServicePointId} from '@/modules/service/slice'

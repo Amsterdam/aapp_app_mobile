@@ -1,5 +1,5 @@
-import type {PushNotification} from '@/types/notification'
 import {clientModules} from '@/modules/modules'
+import type {PushNotification} from '@/types/notification'
 
 export const resolveModulePathFromNotification = (
   pushNotification: PushNotification,

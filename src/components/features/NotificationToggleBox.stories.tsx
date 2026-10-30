@@ -1,6 +1,6 @@
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {action} from 'storybook/actions'
 import {NotificationToggleBox} from './NotificationToggleBox'
-import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta = {
   component: NotificationToggleBox,

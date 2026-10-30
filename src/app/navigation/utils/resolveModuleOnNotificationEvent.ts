@@ -1,6 +1,6 @@
 import type {ReduxDispatch} from '@/hooks/redux/types'
-import type {PushNotification} from '@/types/notification'
 import {clientModules} from '@/modules/modules'
+import type {PushNotification} from '@/types/notification'
 
 /**
  * Resolves to a notification event handler if provided by the module it is sent from.

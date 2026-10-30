@@ -2,9 +2,9 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {ServicesGrid} from '@/modules/service/components/ServicesGrid'
+import {ServicesGrid} from '@/modules/service/exports/ServicesGrid'
+import {ServiceModuleSource} from '@/modules/service/exports/types'
 import {ServiceRouteName} from '@/modules/service/routes'
-import {ServiceModuleSource} from '@/modules/service/types'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const ServiceHomeScreen = () => (

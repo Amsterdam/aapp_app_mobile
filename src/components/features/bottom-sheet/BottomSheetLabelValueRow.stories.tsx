@@ -1,5 +1,5 @@
-import {BottomSheetLabelValueRow} from './BottomSheetLabelValueRow'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {BottomSheetLabelValueRow} from './BottomSheetLabelValueRow'
 
 const meta = {
   component: BottomSheetLabelValueRow,

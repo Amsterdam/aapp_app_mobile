@@ -1,7 +1,7 @@
 import {useMemo} from 'react'
-import type {ClusterItem} from '@/components/features/map/types'
 import {useClusterSwitch} from '@/components/features/map/hooks/useClusterSwitch'
 import {Marker} from '@/components/features/map/marker/Marker'
+import type {ClusterItem} from '@/components/features/map/types'
 
 type Props = {
   getChildren: (clusterId: number) => ClusterItem[]

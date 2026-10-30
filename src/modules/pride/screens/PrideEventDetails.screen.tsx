@@ -1,6 +1,5 @@
 import {useMemo} from 'react'
 import type {NavigationProps} from '@/app/navigation/types'
-import type {PrideRouteName} from '@/modules/pride/routes'
 import {Screen} from '@/components/features/screen/Screen'
 import {RouteButton} from '@/components/ui/buttons/RouteButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -14,6 +13,7 @@ import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {usePrideEvents} from '@/modules/pride/hooks/usePrideEvents'
+import type {PrideRouteName} from '@/modules/pride/routes'
 import {formatMeta} from '@/modules/pride/utils/formatMeta'
 
 type Props = NavigationProps<PrideRouteName.eventDetails>

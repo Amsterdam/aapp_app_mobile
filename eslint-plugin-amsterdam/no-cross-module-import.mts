@@ -2,9 +2,9 @@ import path from 'node:path'
 import {TSESLint, TSESTree} from '@typescript-eslint/utils'
 import moduleVisitorImport from 'eslint-module-utils/moduleVisitor'
 import pkgUpImport from 'eslint-module-utils/pkgUp'
+import type {Literal, Node} from 'estree'
 import {createRule} from './utils/createRule.mts'
 import type {NoOptions} from './utils/noOptions'
-import type {Literal, Node} from 'estree'
 
 type ModuleVisitor = (
   visitor: (source: Node, importer: unknown) => unknown,
@@ -51,7 +51,13 @@ const isStringLiteral = (
 
 const toUnixPath = (value: string): string => value.replaceAll('\\\\', '/')
 
-const nonModuleFolders = new Set(['generated', 'utils'])
+const nonModuleFolders = new Set([
+  'generated',
+  'utils',
+  'types',
+  'stacks',
+  'modules',
+])
 
 const getSourceModuleName = (
   filePath: string,

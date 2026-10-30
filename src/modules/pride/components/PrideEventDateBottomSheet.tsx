@@ -1,5 +1,4 @@
 import {useFormContext} from 'react-hook-form'
-import type {PrideEventFormValues} from '@/modules/pride/types'
 import {useBottomSheet} from '@/components/features/bottom-sheet/hooks/useBottomSheet'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -17,6 +16,7 @@ import {
   TOMORROW_LABEL,
 } from '@/modules/pride/constants'
 import {usePrideEvents} from '@/modules/pride/hooks/usePrideEvents'
+import type {PrideEventFormValues} from '@/modules/pride/types'
 import {dayjs, dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 const options = [

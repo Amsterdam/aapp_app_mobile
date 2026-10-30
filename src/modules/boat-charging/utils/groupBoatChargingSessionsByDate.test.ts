@@ -35,6 +35,7 @@ const createBoatChargingSession = (
     },
     status: ChargingPointStatus.OPERATIVE,
     total_sockets: 2,
+    available_sockets: 2,
   },
   nrg_status: NRGStatus.Completed,
   socket_number: '1',

@@ -1,9 +1,9 @@
 import {useCallback} from 'react'
-import type {ModuleSlug} from '@/modules/generated/slugs.generated'
-import type {ModuleClientConfig} from '@/modules/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useStore} from '@/hooks/redux/useStore'
+import type {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {clientModules} from '@/modules/modules'
+import type {ModuleClientConfig} from '@/modules/types'
 
 export const useAllModulesLogout = () => {
   const store = useStore()

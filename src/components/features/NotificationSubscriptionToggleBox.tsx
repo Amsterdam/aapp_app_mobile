@@ -1,6 +1,6 @@
 import {useCallback, useState} from 'react'
-import type {TestProps} from '@/components/ui/types'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
+import type {TestProps} from '@/components/ui/types'
 import {
   NOTIFICATION_ON_ERROR_MESSAGE,
   NOTIFICATION_OFF_ERROR_MESSAGE,

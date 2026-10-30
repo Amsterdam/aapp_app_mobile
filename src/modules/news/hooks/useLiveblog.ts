@@ -1,8 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useEffect, useState} from 'react'
-import type {LiveblogItem, NewsArticleBase} from '@/modules/news/types'
 import {useInterval} from '@/hooks/useInterval'
 import {useNewsLiveblogQuery} from '@/modules/news/service'
+import type {LiveblogItem, NewsArticleBase} from '@/modules/news/types'
 import {sortByDateDescending} from '@/modules/news/utils/sortByDateDescending'
 
 const REFETCH_INTERVAL = 10 * 1000

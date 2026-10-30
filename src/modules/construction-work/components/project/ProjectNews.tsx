@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'

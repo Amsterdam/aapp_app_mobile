@@ -1,8 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {renderHook, waitFor} from '@testing-library/react-native'
+import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import type {Paginated, PaginationQueryArgs} from '@/types/api'
 import type {ApiEndpointInfinite} from '@/types/api'
-import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 
 type TestItem = {
   dummy?: boolean

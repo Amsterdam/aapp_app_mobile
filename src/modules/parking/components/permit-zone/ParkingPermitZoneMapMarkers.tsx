@@ -1,10 +1,9 @@
 import {memo, useMemo, useRef} from 'react'
-import type {ParkingMachine} from '@/modules/parking/types'
-import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {
   Clusterer,
   type ClustererProps,
 } from '@/components/features/map/clusters/Clusterer'
+import {useSetMapSelection} from '@/components/features/map/MapSelectionContext'
 import {
   MapMarkerVariants,
   MapMarkerVariant,
@@ -14,6 +13,7 @@ import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
+import type {ParkingMachine} from '@/modules/parking/types'
 
 enum MarkerZIndex {
   cluster,

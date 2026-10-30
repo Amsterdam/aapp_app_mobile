@@ -4,11 +4,11 @@ import {
   type FieldValues,
   type UseControllerProps,
 } from 'react-hook-form'
-import type {TestProps} from '@/components/ui/types'
 import {
   SearchField,
   type SearchFieldProps,
 } from '@/components/ui/forms/SearchField'
+import type {TestProps} from '@/components/ui/types'
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,

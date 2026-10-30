@@ -9,9 +9,9 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated'
 import {runOnJS} from 'react-native-worklets'
-import type {IconSize} from '@/components/ui/types'
 import {getPositionAlongPolyline} from '@/components/features/map/utils/getPositionAlongPolyline'
 import {Icon} from '@/components/ui/media/Icon'
+import type {IconSize} from '@/components/ui/types'
 
 type Props = {
   coords: LatLng[]

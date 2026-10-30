@@ -1,3 +1,4 @@
+// oxlint-disable-next-line import/newline-after-import
 import {decode} from 'base-64'
 global.atob = decode
 import {jwtDecode} from 'jwt-decode'

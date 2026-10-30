@@ -1,5 +1,6 @@
 import type {Address} from '@/modules/address/exports/types'
 import type {Coordinates} from '@/types/location'
+import type {ExceptionDate, VisitingHour} from '@/types/openingTimes'
 
 export type ImageSource = {
   description: string
@@ -47,23 +48,4 @@ export type CityOffice = {
     regular: VisitingHour[]
   }
   visitingHoursContent?: string
-}
-
-export type VisitingHour = {
-  dayOfWeek: number
-} & OpeningAndClosingTimes
-
-export type ExceptionDate = {
-  date: string
-  description: string | null
-} & Partial<OpeningAndClosingTimes>
-
-export type OpeningAndClosingTimes = {
-  closing: HoursAndMinutes
-  opening: HoursAndMinutes
-}
-
-export type HoursAndMinutes = {
-  hours: number
-  minutes: number
 }

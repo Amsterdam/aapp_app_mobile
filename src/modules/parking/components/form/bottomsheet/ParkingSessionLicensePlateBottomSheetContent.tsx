@@ -1,14 +1,14 @@
 import {useController, useFormContext} from 'react-hook-form'
-import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {ParkingSessionAddLicensePlate} from '@/modules/parking/components/form/ParkingSessionAddLicensePlate'
-import {ParkingSessionLicensePlateFormProvider} from '@/modules/parking/components/form/ParkingSessionLicensePlateFormProvider'
-import {ParkingSessionSelectLicensePlate} from '@/modules/parking/components/form/ParkingSessionSelectLicensePlate'
 import {ParkingSessionAddLicensePlateSubmitButton} from '@/modules/parking/components/form/bottomsheet/ParkingSessionAddLicensePlateSubmitButton'
+import {ParkingLicensePlateFormProvider} from '@/modules/parking/components/form/ParkingLicensePlateFormProvider'
+import {ParkingSessionAddLicensePlate} from '@/modules/parking/components/form/ParkingSessionAddLicensePlate'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
+import {ParkingSessionSelectLicensePlate} from '@/modules/parking/components/form/ParkingSessionSelectLicensePlate'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingAccount} from '@/modules/parking/slice'
-import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
+import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingSessionLicensePlateBottomSheetContent = () => {
   const currentPermit = useCurrentParkingPermit()
@@ -17,7 +17,7 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
 
   const {
     field: {onChange},
-  } = useController<{licensePlate?: ParkingLicensePlate}, 'licensePlate'>({
+  } = useController<ParkingSessionFormValues, 'licensePlate'>({
     name: 'licensePlate',
   })
 
@@ -25,11 +25,11 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
 
   return (
     <Box grow>
-      <ParkingSessionLicensePlateFormProvider
-        defaultValues={{vehicle_id: watch('licensePlate')?.vehicle_id}}>
-        <Column
-          grow={1}
-          gutter="lg">
+      <Column
+        grow={1}
+        gutter="lg">
+        <ParkingLicensePlateFormProvider // Nested form inside ParkingSessionFormProvider
+          defaultValues={{vehicle_id: watch('licensePlate')?.vehicle_id}}>
           {!forced_license_plate_list && (
             <>
               <ParkingSessionAddLicensePlate />
@@ -41,8 +41,8 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
           {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
             <ParkingSessionSelectLicensePlate setLicensePlate={onChange} />
           )}
-        </Column>
-      </ParkingSessionLicensePlateFormProvider>
+        </ParkingLicensePlateFormProvider>
+      </Column>
     </Box>
   )
 }

@@ -1,5 +1,4 @@
 import {useMemo} from 'react'
-import type {ParkingMachine} from '@/modules/parking/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -8,6 +7,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import type {ParkingMachine} from '@/modules/parking/types'
 
 type Props = {
   onPress: (parkingMachineId: ParkingMachine['id']) => void

@@ -1,6 +1,6 @@
-import type {ModuleClientConfig, CoreModuleConfig} from '@/modules/types'
 import {clientModules as clientModulesGenerated} from '@/modules/generated/clientModules.generated'
 import {coreModules as coreModulesGenerated} from '@/modules/generated/coreModules.generated'
+import type {ModuleClientConfig, CoreModuleConfig} from '@/modules/types'
 
 /**
  * Core Modules don't have a server part and are always loaded.
