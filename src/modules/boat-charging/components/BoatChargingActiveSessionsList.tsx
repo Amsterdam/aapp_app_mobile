@@ -12,7 +12,7 @@ export const BoatChargingActiveSessionsList = () => {
     return <PleaseWait testID="BoatChargingActiveSessionsPleaseWait" />
   }
 
-  if (isError) {
+  if (isError && !activeSessions?.length) {
     return (
       <SomethingWentWrong testID="BoatChargingActiveSessionsSomethingWentWrong" />
     )
