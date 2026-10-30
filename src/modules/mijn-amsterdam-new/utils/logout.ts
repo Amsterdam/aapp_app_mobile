@@ -1,21 +1,20 @@
 import {type ReduxDispatch} from '@/hooks/redux/types'
-import {mijnAmsterdamApi} from '@/modules/mijn-amsterdam-new/service'
 import {
   mijnAmsterdamNewSlice,
-  selectIsLoggedIn,
+  setIsLoggedIn,
 } from '@/modules/mijn-amsterdam-new/slice'
 import {devError} from '@/processes/development'
+import {deleteSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
 import type {RootState} from '@/store/types/rootState'
+import {removeSecureItems, SecureItemKey} from '@/utils/secureStorage'
 
-export const logout = async (dispatch: ReduxDispatch, state: RootState) => {
+export const logout = async (dispatch: ReduxDispatch, _state: RootState) => {
   try {
-    const isLoggedIn = selectIsLoggedIn(state)
-
-    if (isLoggedIn) {
-      await dispatch(
-        mijnAmsterdamApi.endpoints.mijnAmsterdamLogout.initiate(),
-      ).unwrap()
-    }
+    await removeSecureItems([SecureItemKey.mijnAmsterdamAccessToken])
+    dispatch(
+      deleteSecureItemUpdatedTimestamp(SecureItemKey.mijnAmsterdamAccessToken),
+    )
+    dispatch(setIsLoggedIn({isLoggedIn: false, profileName: 'uitloggen'}))
 
     dispatch(mijnAmsterdamNewSlice.actions.reset())
 

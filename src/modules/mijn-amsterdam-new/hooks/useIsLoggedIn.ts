@@ -1,15 +1,19 @@
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useGetMijnAmsterdamLoginStatusQuery} from '@/modules/mijn-amsterdam-new/service'
-import {
-  selectIsLoggedIn,
-  selectProfileName,
-} from '@/modules/mijn-amsterdam-new/slice'
+import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
+import {selectIsLoggedIn} from '@/modules/mijn-amsterdam-new/slice'
+import {SecureItemKey} from '@/utils/secureStorage'
 
 export const useIsLoggedIn = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
-  const profileName = useSelector(selectProfileName)
 
-  const {isLoading, refetch} = useGetMijnAmsterdamLoginStatusQuery()
+  const {item, isLoading} = useGetSecureItem(
+    SecureItemKey.mijnAmsterdamAccessToken,
+  )
 
-  return {isLoggedIn, isLoading, profileName, refetch}
+  return {
+    isLoggedIn: !!item && isLoggedIn,
+    isLoading,
+    profileName: undefined,
+    refetch: () => null,
+  }
 }

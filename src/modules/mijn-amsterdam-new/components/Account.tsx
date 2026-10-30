@@ -94,7 +94,7 @@ export const Account = () => {
               onPress={() =>
                 navigate(ModuleSlug.user, {
                   screen: UserRouteName.logoutModule,
-                  params: {slug: ModuleSlug['mijn-amsterdam']},
+                  params: {slug: ModuleSlug['mijn-amsterdam-new']},
                 })
               }
               testID="UserAccountMijnAmsterdamLogoutButton"

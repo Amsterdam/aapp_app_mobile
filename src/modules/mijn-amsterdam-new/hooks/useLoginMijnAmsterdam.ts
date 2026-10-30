@@ -3,6 +3,7 @@ import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
+import {useIsLoggedIn} from '@/modules/mijn-amsterdam-new/hooks/useIsLoggedIn'
 import {
   selectCodeVerifier,
   setCodeVerifier,
@@ -12,17 +13,20 @@ import {generatePkceCodeVerifier, SHA256Base64url} from '@/utils/encryption'
 
 export const useLoginMijnAmsterdam = () => {
   const dispatch = useDispatch()
+  const {isLoggedIn} = useIsLoggedIn()
 
   useEffect(() => {
-    dispatch(setCodeVerifier(generatePkceCodeVerifier()))
-  }, [dispatch])
+    if (!isLoggedIn) {
+      dispatch(setCodeVerifier(generatePkceCodeVerifier()))
+    }
+  }, [dispatch, isLoggedIn])
   const codeVerifier = useSelector(selectCodeVerifier)
   const loginUrl = useUrlForEnv(loginMijnAmsterdamExternalLinks)
   const openWebUrl = useOpenWebUrl()
 
   return useCallback(() => {
     if (codeVerifier) {
-      openWebUrl(loginUrl + '?codeChallenge=' + SHA256Base64url(codeVerifier))
+      openWebUrl(`${loginUrl}?codeChallenge=${SHA256Base64url(codeVerifier)}`)
     }
   }, [loginUrl, openWebUrl, codeVerifier])
 }

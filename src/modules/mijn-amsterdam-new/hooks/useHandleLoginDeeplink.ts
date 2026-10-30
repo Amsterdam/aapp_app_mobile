@@ -10,7 +10,10 @@ import {
   mijnAmsterdamApi,
   useGetMijnAmsterdamAccessTokenMutation,
 } from '@/modules/mijn-amsterdam-new/service'
-import {selectCodeVerifier} from '@/modules/mijn-amsterdam-new/slice'
+import {
+  selectCodeVerifier,
+  setIsLoggedIn,
+} from '@/modules/mijn-amsterdam-new/slice'
 import {devError} from '@/processes/development'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
@@ -42,30 +45,31 @@ export const useHandleLoginDeeplink = (
     if (loginResult === LoginResult.success) {
       void requestPermission()
 
-      await getMijnAmsterdamAccessToken({
-        authorizationCode: authorizationCode as string,
-        codeVerifier: codeVerifier as string,
-      })
-        .unwrap()
-        .then(async result => {
-          await setSecureItem(
-            SecureItemKey.mijnAmsterdamAccessToken,
-            result.session.value,
-          )
+      try {
+        const result = await getMijnAmsterdamAccessToken({
+          authorizationCode: authorizationCode as string,
+          codeVerifier: codeVerifier as string,
+        }).unwrap()
 
-          if (!fromOnboarding) {
-            setAlert(alerts.loginSuccess)
-          }
+        await setSecureItem(
+          SecureItemKey.mijnAmsterdamAccessToken,
+          result.session.value,
+        )
 
-          dispatch(mijnAmsterdamApi.util.invalidateTags(['MijnAmsterdam']))
-        })
-        .catch(error => {
-          devError('Error fetching access token:', error)
-          setAlert(alerts.loginFailed)
-        })
+        if (!fromOnboarding) {
+          setAlert(alerts.loginSuccess)
+        }
+
+        dispatch(setIsLoggedIn({isLoggedIn: true, profileName: 'hoi'}))
+        dispatch(mijnAmsterdamApi.util.invalidateTags(['MijnAmsterdam']))
+      } catch (error) {
+        devError('Error fetching access token:', error)
+        setAlert(alerts.loginFailed)
+      }
     } else if (loginResult === LoginResult.failed) {
       if (!fromOnboarding) {
         setAlert(alerts.loginFailed)
+        dispatch(setIsLoggedIn({isLoggedIn: false, profileName: 'test'}))
       }
 
       trackException(ExceptionLogKey.deepLink, 'useHandleLoginDeeplink.ts')
