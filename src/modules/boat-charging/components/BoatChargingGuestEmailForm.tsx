@@ -1,9 +1,9 @@
 import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
-import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
@@ -45,20 +45,15 @@ export const BoatChargingGuestEmailForm = () => {
       <Column gutter="lg">
         <Row gutter="sm">
           <Paragraph>Heeft u al een account?</Paragraph>
-          {/* TODO: change this component to the new InlineLink component. https://gemeente-amsterdam.atlassian.net/browse/AM-1132 */}
-          <NavigationButton
-            chevronSize="md"
-            emphasis="default"
-            horizontallyAlign="start"
-            insetHorizontal="no"
-            insetVertical="no"
+          <InlineLink
             onPress={() => {
               setPendingScreen([BoatChargingRouteName.chooseVignet])
               navigation.navigate(BoatChargingRouteName.login)
             }}
             testID="BoatChargingGuestEmailFormLoginNavigationButton"
-            title="Inloggen"
-          />
+            variant="internal">
+            Inloggen
+          </InlineLink>
         </Row>
 
         <EmailTextInputField<'email'>

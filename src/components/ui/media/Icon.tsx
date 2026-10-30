@@ -79,7 +79,7 @@ export const Icon = ({
   size = 'md',
   testID,
   'logging-label': loggingLabel,
-  containerPhraseVariant = 'body',
+  containerPhraseVariant,
   ...rest
 }: Props) => {
   const {color: colorTokens} = useTheme()
@@ -142,20 +142,23 @@ export const Icon = ({
 }
 
 const createStyles =
-  (fontScale: number, variant: PhraseProps['variant'] = 'body') =>
+  (fontScale: number, containerPhraseVariant: PhraseProps['variant']) =>
   ({text}: Theme) =>
     StyleSheet.create({
-      container: {
-        paddingBottom:
-          Platform.OS === 'ios'
-            ? (text.lineHeight[variant] - text.fontSize[variant]) *
-              0.5 *
-              fontScale
-            : undefined,
-        transform: [
-          {
-            translateY: Platform.OS === 'ios' ? 2 : 12 * fontScale - 9,
-          },
-        ],
-      },
+      container: containerPhraseVariant
+        ? {
+            paddingBottom:
+              Platform.OS === 'ios'
+                ? (text.lineHeight[containerPhraseVariant] -
+                    text.fontSize[containerPhraseVariant]) *
+                  0.5 *
+                  fontScale
+                : undefined,
+            transform: [
+              {
+                translateY: Platform.OS === 'ios' ? 2 : 12 * fontScale - 9,
+              },
+            ],
+          }
+        : {},
     })
