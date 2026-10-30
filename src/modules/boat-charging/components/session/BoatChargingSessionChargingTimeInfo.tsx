@@ -46,18 +46,21 @@ export const BoatChargingSessionChargingTimeInfo = ({
       </Phrase>
     </Column>
 
-    {!!session_expiry_hours && !!standard_fine && vat_fraction && (
+    {!!session_expiry_hours && (
       <Column gutter="xs">
         <Title
           level="h5"
           text="Maximale laadtijd"
         />
         <Phrase>{session_expiry_hours} uur</Phrase>
-        <Paragraph>
-          Uw boot mag maximaal {session_expiry_hours} uur laden. Daarna betaalt
-          u {formatNumber(standard_fine * vat_fraction, 'EUR')} per uur. Ook als
-          u maar een deel van een uur gebruikt, betaalt u voor het hele uur.
-        </Paragraph>
+        {!!standard_fine && !!vat_fraction && (
+          <Paragraph>
+            Uw boot mag maximaal {session_expiry_hours} uur laden. Daarna
+            betaalt u {formatNumber(standard_fine * vat_fraction, 'EUR')} per
+            uur. Ook als u maar een deel van een uur gebruikt, betaalt u voor
+            het hele uur.
+          </Paragraph>
+        )}
       </Column>
     )}
   </Column>
