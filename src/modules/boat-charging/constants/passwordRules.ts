@@ -10,3 +10,6 @@ export const PASSWORD_RULES: Record<string, Validate<string, FieldValues>> = {
   upperCase: value =>
     /[A-Z]/.test(value) || 'Wachtwoord moet een hoofdletter bevatten',
 }
+
+export const PASSWORD_RULES_TEXT =
+  'Gebruik minimaal 8 tekens met een kleine letter, hoofdletter, cijfer en speciaal teken.'

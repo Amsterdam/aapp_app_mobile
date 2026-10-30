@@ -10,7 +10,10 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/boat-charging/alerts'
-import {PASSWORD_RULES} from '@/modules/boat-charging/constants/passwordRules'
+import {
+  PASSWORD_RULES,
+  PASSWORD_RULES_TEXT,
+} from '@/modules/boat-charging/constants/passwordRules'
 import {useOpenIdConnect} from '@/modules/boat-charging/hooks/useOpenIdConnect'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {setBoatChargingTemporaryUsername} from '@/modules/boat-charging/slice'
@@ -92,6 +95,7 @@ export const BoatChargingCreateAccountForm = () => {
             autoCapitalize="none"
             autoCorrect={false}
             fieldType={FieldType.password}
+            inputInstructions={PASSWORD_RULES_TEXT}
             label="Wachtwoord"
             name="password"
             onSubmitEditing={() =>
