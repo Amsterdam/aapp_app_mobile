@@ -16,6 +16,7 @@ export const useLoginMijnAmsterdam = () => {
   const {isLoggedIn} = useIsLoggedIn()
 
   useEffect(() => {
+    //added this to make sure that login, logout and login again flow is working
     if (!isLoggedIn) {
       dispatch(setCodeVerifier(generatePkceCodeVerifier()))
     }
