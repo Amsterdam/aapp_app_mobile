@@ -20,6 +20,7 @@ import {useIsLoggedIn} from '@/modules/mijn-amsterdam-new/hooks/useIsLoggedIn'
 import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam-new/hooks/useLoginMijnAmsterdam'
 import {UserRouteName} from '@/modules/user/routes'
 import {Permissions} from '@/types/permissions'
+import {Notice} from '@/components/ui/feedback/Notice'
 
 export const Account = () => {
   const {navigate} = useNavigation()
@@ -45,11 +46,15 @@ export const Account = () => {
   return (
     <Column gutter="smd">
       <ModuleTitle
-        moduleSlug={ModuleSlug['mijn-amsterdam']}
+        moduleSlug={ModuleSlug['mijn-amsterdam-new']}
         noNavigate
         testID="UserAccountMijnAmsterdamModuleTitle"
       />
       <Column gutter="lg">
+        <Notice
+          text="Nieuwe variant van de inlog voor P&H test"
+          variant="information"
+        />
         {isLoggedIn ? (
           <>
             <Column gutter="smd">
