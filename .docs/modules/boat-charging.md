@@ -15,6 +15,9 @@ Boat charging lets users reserve a socket, complete the required payment and con
 7. The session has separate in-progress phases for starting and stopping so the user can see whether the charging point is still processing a command.
 8. Cancelling and stopping are different actions. A session that has not started charging yet can still be cancelled, while an active charging session must be stopped.
 9. If the start command fails, the session remains recoverable. The user is told to unplug and try again, or to cancel the session instead.
+10. Users can manage several charging sessions simultaneously. The status bar opens the session directly when there is one session, or an overview when there are several. The overview identifies each session by location and available boat details and shows its current status.
+11. Guest sessions are remembered on the device across app restarts, including sessions started before multiple-session support was introduced. Removing one session must not remove any others.
+12. Guests have no session history. A stopped guest session remains accessible through the status bar and overview until the user views and leaves its receipt.
 
 ## Start session flow
 

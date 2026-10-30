@@ -1,4 +1,5 @@
 import {boatChargingSvgIcons} from '@/modules/boat-charging/constants/icons'
+import {migrationManifest} from '@/modules/boat-charging/migrations'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {
   boatChargingSlice,
@@ -13,7 +14,7 @@ const persistWhitelist: (keyof BoatChargingState)[] = [
   'selectedBoatChargingPointId',
   'openIdConnectConfig',
   'lastApprovedTermsVersionWhileLoggedIn',
-  'lastGuestSessionId',
+  'guestSessionIds',
 ]
 
 export const clientModule = createClientModule({
@@ -27,7 +28,8 @@ export const clientModule = createClientModule({
   reduxConfigs: [
     {
       key: ReduxKey.boatCharging,
-      persistVersion: 0,
+      migrations: migrationManifest,
+      persistVersion: 1,
       slice: boatChargingSlice,
       persistWhitelist,
     },
