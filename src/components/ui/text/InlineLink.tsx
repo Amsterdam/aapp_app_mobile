@@ -19,7 +19,6 @@ type ConfigurableIconProps = Omit<IconProps, 'size' | 'path' | 'color'>
 
 export type InlineLinkProps = {
   children: ReactNode
-  flexShrink?: number
   /**
    * Inverts the color when set to true.
    */
@@ -32,7 +31,11 @@ export type InlineLinkProps = {
 } & TestProps &
   Pick<
     PhraseProps,
-    'ellipsizeMode' | 'numberOfLines' | 'logging-label' | 'textAlign'
+    | 'ellipsizeMode'
+    | 'flexShrink'
+    | 'logging-label'
+    | 'numberOfLines'
+    | 'textAlign'
   > &
   AccessibilityProps &
   LogProps &
