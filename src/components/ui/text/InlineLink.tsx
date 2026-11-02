@@ -84,10 +84,6 @@ export const InlineLink = ({
 
   const icon = VARIANT_ICON_MAP[variant]
 
-  if (!icon) {
-    return null
-  }
-
   const {placement = 'end'} = icon
 
   const iconProps = variant === 'action' ? (actionIcon ?? icon) : icon
