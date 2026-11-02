@@ -1,6 +1,7 @@
 ---
-agent: 'agent'
+name: unit-test
 description: 'Write unit tests with Jest for the selected function.'
+disable-model-invocation: true
 ---
 
 Write unit tests with Jest for this function.
