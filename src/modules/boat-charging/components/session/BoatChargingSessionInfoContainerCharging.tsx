@@ -15,7 +15,11 @@ import {
   useBoatChargingSessionCostBreakdownQuery,
   useBoatChargingStopSessionMutation,
 } from '@/modules/boat-charging/service'
-import {NRGStatus, SessionLengthStatus} from '@/modules/boat-charging/types'
+import {
+  NRGStatus,
+  SessionLengthStatus,
+  SessionStatus,
+} from '@/modules/boat-charging/types'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
@@ -37,7 +41,8 @@ export const BoatChargingSessionInfoContainerCharging = () => {
 
   const {data: costBreakdown, isLoading} =
     useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken, {
-      pollingInterval: session?.id ? 5000 : 0,
+      pollingInterval:
+        session?.id && session.status === SessionStatus.ACTIVE ? 5000 : 0,
     })
 
   const isStopping =
