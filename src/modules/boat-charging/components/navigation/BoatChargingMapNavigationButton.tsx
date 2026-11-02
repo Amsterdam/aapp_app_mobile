@@ -25,6 +25,7 @@ export const BoatChargingMapNavigationButton = () => {
       emphasis="default"
       horizontallyAlign="start"
       insetHorizontal="no"
+      insetVertical="no"
       onPress={onPress}
       testID="BoatChargingMapNavigationButton"
       title="Bekijk op kaart"
