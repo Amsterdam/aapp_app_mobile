@@ -30,10 +30,6 @@ export type PhraseProps = {
    */
   textAlign?: TextStyle['textAlign']
   /**
-   * Whether the phrase is underlined. Use this for a link only.
-   */
-  underline?: boolean
-  /**
    * Which variation of a phrase to display.
    */
   variant?: ParagraphVariants
@@ -51,7 +47,6 @@ export const Phrase = ({
   emphasis = 'default',
   flexShrink = 1,
   opacity = 1,
-  underline = false,
   variant = 'body',
   testID,
   'logging-label': loggingLabel,
@@ -65,11 +60,10 @@ export const Phrase = ({
         emphasis,
         flexShrink,
         opacity,
-        underline,
         variant,
         textAlign,
       }),
-    [color, emphasis, flexShrink, opacity, underline, variant, textAlign],
+    [color, emphasis, flexShrink, opacity, variant, textAlign],
   )
   const styles = useThemable(createdStyles)
 
@@ -91,19 +85,12 @@ const createStyles =
     emphasis,
     flexShrink,
     opacity,
-    underline,
     variant,
     textAlign,
   }: Required<
     Pick<
       PhraseProps,
-      | 'color'
-      | 'emphasis'
-      | 'flexShrink'
-      | 'opacity'
-      | 'underline'
-      | 'variant'
-      | 'textAlign'
+      'color' | 'emphasis' | 'flexShrink' | 'opacity' | 'variant' | 'textAlign'
     >
   >) =>
   ({color, text}: Theme) =>
@@ -115,7 +102,6 @@ const createStyles =
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant],
         opacity,
-        textDecorationLine: underline ? 'underline' : 'none',
         textAlign,
       },
     })

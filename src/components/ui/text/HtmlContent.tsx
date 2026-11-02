@@ -382,16 +382,16 @@ const ARenderer: CustomMixedRenderer = props => {
       ]}
       accessibilityLabel={getTNodeAccessibleLabel(tnode)}
       accessibilityRole="link"
-      isExternal
       onAccessibilityAction={event => {
         if (event.nativeEvent.actionName === 'open') {
           openUrl(href)
         }
       }}
       onPress={() => openUrl(href)}
+      phraseVariant={isInCaption ? 'small' : 'body'}
       screenReaderFocusable={true}
       testID="HtmlRendererAInlineLink"
-      variant={isInCaption ? 'small' : 'body'}>
+      variant="external">
       <TNodeChildrenRenderer {...props} />
     </InlineLink>
   )
