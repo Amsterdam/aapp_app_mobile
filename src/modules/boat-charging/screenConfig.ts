@@ -6,6 +6,7 @@ import {
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
+import {BoatChargingActiveSessionsScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSessions.screen'
 import {BoatChargingChooseVignetScreen} from '@/modules/boat-charging/screens/BoatChargingChooseVignet.screen'
 import {BoatChargingConfirmSession} from '@/modules/boat-charging/screens/BoatChargingConfirmSession.screen'
 import {BoatChargingCreateAccountScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccount.screen'
@@ -100,6 +101,13 @@ export const screenConfig: StackNavigationRoutes<
     screenType: 'settings',
     options: {
       headerShown: false,
+    },
+  },
+  [BoatChargingRouteName.activeSessions]: {
+    component: BoatChargingActiveSessionsScreen,
+    name: BoatChargingRouteName.activeSessions,
+    options: {
+      headerTitle: 'Actieve laadsessies',
     },
   },
   [BoatChargingRouteName.historySessionDetails]: {

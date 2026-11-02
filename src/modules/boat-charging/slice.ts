@@ -5,6 +5,7 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
+  BoatChargingSession,
 } from '@/modules/boat-charging/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import type {RootState} from '@/store/types/rootState'
@@ -13,8 +14,8 @@ import {dayjs} from '@/utils/datetime/dayjs'
 export type BoatChargingState = {
   accessToken?: {accessToken: string; accessTokenExpiration: string}
   completedSessionSeenIds?: string[]
+  guestSessionIds?: Array<BoatChargingSession['id']>
   lastApprovedTermsVersionWhileLoggedIn?: number
-  lastGuestSessionId?: string
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
@@ -84,11 +85,23 @@ export const boatChargingSlice = createSlice({
     ) => {
       state.lastApprovedTermsVersionWhileLoggedIn = version
     },
-    setLastGuestSessionId: (
+    addGuestSessionId: (
       state,
-      {payload: sessionId}: PayloadAction<string | undefined>,
+      {payload: sessionId}: PayloadAction<BoatChargingSession['id']>,
     ) => {
-      state.lastGuestSessionId = sessionId
+      if (!state.guestSessionIds?.includes(sessionId)) {
+        state.guestSessionIds = [...(state.guestSessionIds ?? []), sessionId]
+      }
+    },
+    removeGuestSessionId: (
+      state,
+      {payload: sessionId}: PayloadAction<BoatChargingSession['id']>,
+    ) => {
+      if (state.guestSessionIds?.includes(sessionId)) {
+        state.guestSessionIds = state.guestSessionIds.filter(
+          guestSessionId => guestSessionId !== sessionId,
+        )
+      }
     },
     addCompletedSessionSeenId: (
       state,
@@ -112,7 +125,8 @@ export const {
   setBoatChargingOpenIdConnectConfig,
   setBoatChargingLoggedInUsername,
   setLastApprovedTermsVersionWhileLoggedIn,
-  setLastGuestSessionId,
+  addGuestSessionId,
+  removeGuestSessionId,
   addCompletedSessionSeenId,
 } = boatChargingSlice.actions
 
@@ -138,9 +152,8 @@ export const selectBoatChargingTemporaryUsername = (
   state: RootState,
 ): string | undefined => state[ReduxKey.boatCharging].temporaryUsername
 
-export const selectBoatChargingLastGuestSessionId = (
-  state: RootState,
-): string | undefined => state[ReduxKey.boatCharging].lastGuestSessionId
+export const selectBoatChargingGuestSessionIds = (state: RootState) =>
+  state[ReduxKey.boatCharging].guestSessionIds
 
 export const useSelectedBoatChargingPointId = () =>
   useSelector(selectSelectedBoatChargingPointId)

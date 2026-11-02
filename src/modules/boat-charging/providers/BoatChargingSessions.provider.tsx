@@ -1,38 +1,61 @@
 import {useMemo, type ReactNode} from 'react'
 import {BoatChargingSessionsContext} from '@/modules/boat-charging/hooks/useBoatChargingSessions'
+import {useGuestSessions} from '@/modules/boat-charging/hooks/useGuestSessions'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useBoatChargingSessionsInfiniteQuery} from '@/modules/boat-charging/service'
+import {SessionStatus} from '@/modules/boat-charging/types'
 import {getActiveSessions} from '@/modules/boat-charging/utils/getActiveSessions'
 
 type Props = {
   children: ReactNode
-  shouldPollSessions?: boolean
 }
 
-export const BoatChargingSessionsProvider = ({
-  children,
-  shouldPollSessions = true,
-}: Props) => {
+const POLLING_INTERVAL = 30000
+
+export const BoatChargingSessionsProvider = ({children}: Props) => {
   const {isLoggedIn} = useIsLoggedIn()
 
-  const {data, isLoading, isError} = useBoatChargingSessionsInfiniteQuery(
-    {},
+  const {
+    sessions: guestSessions,
+    isLoading: isLoadingGuestSessions,
+    isError: isErrorGuestSessions,
+  } = useGuestSessions(isLoggedIn)
+
+  const {
+    data,
+    isLoading: isLoadingLoggedInSessions,
+    isError: isErrorLoggedInSessions,
+  } = useBoatChargingSessionsInfiniteQuery(
+    {status: SessionStatus.ACTIVE},
     {
       skip: !isLoggedIn,
-      pollingInterval: shouldPollSessions && isLoggedIn ? 30000 : 0,
+      pollingInterval: isLoggedIn ? POLLING_INTERVAL : 0,
       initialPageParam: 1,
     },
   )
 
-  const activeSessions = getActiveSessions(data?.pages[0].result)
+  const loggedInSessions = useMemo(
+    () => getActiveSessions(data?.pages[0].result) || [],
+    [data?.pages],
+  )
 
   const value = useMemo(
     () => ({
-      activeSessions,
-      isLoading,
-      isError,
+      activeSessions: isLoggedIn ? loggedInSessions : guestSessions,
+      isLoading: isLoggedIn
+        ? isLoadingLoggedInSessions
+        : isLoadingGuestSessions,
+      isError: isLoggedIn ? isErrorLoggedInSessions : isErrorGuestSessions,
     }),
-    [activeSessions, isLoading, isError],
+    [
+      guestSessions,
+      isErrorGuestSessions,
+      isErrorLoggedInSessions,
+      isLoadingGuestSessions,
+      isLoadingLoggedInSessions,
+      isLoggedIn,
+      loggedInSessions,
+    ],
   )
 
   return (

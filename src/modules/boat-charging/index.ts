@@ -13,7 +13,7 @@ const persistWhitelist: (keyof BoatChargingState)[] = [
   'selectedBoatChargingPointId',
   'openIdConnectConfig',
   'lastApprovedTermsVersionWhileLoggedIn',
-  'lastGuestSessionId',
+  'guestSessionIds',
 ]
 
 export const clientModule = createClientModule({
