@@ -8,7 +8,7 @@ import {
 type Props = ExternalLinkProps &
   Omit<
     InlineLinkProps,
-    'onPress' | 'isExternal' | 'accessibilityRole' | 'variant' | 'actionIcon'
+    'onPress' | 'accessibilityRole' | 'variant' | 'actionIcon'
   >
 
 export const ExternalInlineLink = ({
