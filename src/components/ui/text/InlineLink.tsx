@@ -65,7 +65,7 @@ export const InlineLink = ({
   children,
   isInverse,
   onPress,
-  phraseVariant,
+  phraseVariant = 'body',
   logAction = PiwikAction.buttonPress,
   testID,
   variant = 'internal',
