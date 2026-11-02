@@ -40,8 +40,8 @@ export const BoatChargingLoginForm = () => {
 
       try {
         await signIn(username, password)
-      } catch (err) {
-        devError(err)
+      } catch (error) {
+        devError(error)
         setAlert(alerts.loginFailed)
       }
     },
