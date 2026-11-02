@@ -18,8 +18,8 @@ export const alerts = {
   },
   checkConfirmCodeFailed: {
     variant: AlertVariant.negative,
-    text: 'Er is iets misgegaan. Probeer het opnieuw.',
-    title: 'Bevestigingscode controleren is mislukt',
+    text: 'Probeer het opnieuw.',
+    title: 'Bevestigingscode kon niet worden gecontroleerd',
     testID: 'BoatChargingCheckConfirmCodeFailedAlert',
   },
   confirmCodeExpiredFailed: {
@@ -30,31 +30,30 @@ export const alerts = {
   },
   confirmCodeMismatchFailed: {
     variant: AlertVariant.negative,
-    text: 'De bevestigingscode klopt niet. Probeer het opnieuw.',
-    title: 'Bevestigingscode is ongeldig',
+    text: 'Controleer de code of vraag een nieuwe aan.',
+    title: 'Bevestigingscode is niet geldig',
     testID: 'BoatChargingConfirmCodeMismatchFailedAlert',
   },
   resendConfirmCodeFailed: {
     variant: AlertVariant.negative,
-    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    text: 'Probeer het opnieuw.',
     title: 'Bevestigingscode opnieuw sturen is mislukt',
     testID: 'BoatChargingResendConfirmCodeFailedAlert',
   },
   resendConfirmCodeSuccess: {
     variant: AlertVariant.positive,
-    text: 'De bevestigingscode is opnieuw verstuurd.',
-    title: 'Bevestigingscode opnieuw gestuurd',
+    title: 'De bevestigingscode is opnieuw verstuurd',
     testID: 'BoatChargingResendConfirmCodeSuccessAlert',
   },
   createAccountFailed: {
     variant: AlertVariant.negative,
-    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    text: 'Probeer het opnieuw.',
     title: 'Account aanmaken is mislukt',
     testID: 'BoatChargingCreateAccountFailedAlert',
   },
   forgotPasswordFailed: {
     variant: AlertVariant.negative,
-    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    text: 'Probeer het opnieuw.',
     title: 'Nieuw wachtwoord aanvragen is mislukt',
     testID: 'BoatChargingForgotPasswordFailedAlert',
   },
