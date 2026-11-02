@@ -13,6 +13,7 @@ import {alerts} from '@/modules/boat-charging/alerts'
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {selectBoatChargingTemporaryUsername} from '@/modules/boat-charging/slice'
+import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 
 type FormValues = {
@@ -39,7 +40,8 @@ export const BoatChargingLoginForm = () => {
 
       try {
         await signIn(username, password)
-      } catch {
+      } catch (err) {
+        devError(err)
         setAlert(alerts.loginFailed)
       }
     },
@@ -54,7 +56,7 @@ export const BoatChargingLoginForm = () => {
         <Column gutter="xl">
           <Column gutter="lg">
             <EmailTextInputField<'username'>
-              label="Gebruikersnaam"
+              label="E-mailadres"
               name="username"
               onSubmitEditing={() => passwordInputReference.current?.focus()}
               required
