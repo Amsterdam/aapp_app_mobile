@@ -20,9 +20,9 @@ export const ServicePointDetails = ({id: serviceId}: Props) => {
 
   useEffect(
     () => () => {
-      dispatch(resetSelectedServicePointId())
+      dispatch(resetSelectedServicePointId(serviceId))
     },
-    [dispatch],
+    [dispatch, serviceId],
   )
 
   if (!servicePointDetails) {

@@ -8,6 +8,7 @@ import {
   DEFAULT_CLUSTER_OPTIONS,
 } from '@/components/features/map/constants'
 import {useFilterOutPointsOutsideNetherlands} from '@/components/features/map/hooks/useFilterOutPointsOutsideNetherlands'
+import type {MapIdentifier} from '@/components/features/map/MapSelectionContext'
 import type {
   ClusterItem,
   ClusterProperties,
@@ -21,6 +22,10 @@ export type ClustererProps = {
   >
   data: Supercluster.PointFeature<MarkerProperties>[]
   mapDimensions?: {height: number; width: number}
+  /**
+   * Identifier used for storing and keeping track of marker selected states
+   */
+  mapIdentifier: MapIdentifier
   region?: Region
   shouldGroup?: boolean
 } & Omit<MapMarkerProps, 'coordinate'>
@@ -32,6 +37,7 @@ const getItemKey = (item: ClusterItem) =>
 
 export const Clusterer = ({
   data,
+  mapIdentifier,
   region = AMSTERDAM_REGION,
   mapDimensions,
   shouldGroup = false,
@@ -64,10 +70,11 @@ export const Clusterer = ({
         getChildren={getChildren}
         item={item}
         key={getItemKey(item)}
+        mapIdentifier={mapIdentifier}
         shouldGroup={shouldGroup}
       />
     ),
-    [getChildren, shouldGroup],
+    [getChildren, shouldGroup, mapIdentifier],
   )
 
   return points.map(renderItem)
