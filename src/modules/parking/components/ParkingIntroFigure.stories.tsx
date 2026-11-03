@@ -3,6 +3,7 @@ import {ParkingIntroFigure} from './ParkingIntroFigure'
 
 const meta = {
   component: ParkingIntroFigure,
+  tags: ['!autodocs'],
 } satisfies Meta<typeof ParkingIntroFigure>
 
 export default meta

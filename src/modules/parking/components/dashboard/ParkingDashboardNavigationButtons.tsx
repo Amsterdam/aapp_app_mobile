@@ -17,6 +17,13 @@ export const ParkingDashboardNavigationButtons = () => {
         <>
           <NavigationButton
             onPress={() => {
+              navigate(ParkingRouteName.parkingPlannedSessions)
+            }}
+            testID="ParkingPlannedSessionsButton"
+            title="Geplande parkeersessies"
+          />
+          <NavigationButton
+            onPress={() => {
               navigate(ParkingRouteName.parkingSessionTransactions)
             }}
             testID="ParkingParkingHistoryButton"

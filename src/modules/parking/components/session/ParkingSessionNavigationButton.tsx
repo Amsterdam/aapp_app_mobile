@@ -7,13 +7,11 @@ import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   type ParkingSession,
   type VisitorParkingSession,
-  ParkingSessionStatus,
 } from '@/modules/parking/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {getParkingSessionDurationDescription} from '@/modules/parking/utils/getParkingSessionDurationDescription'
+import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
-import {isToday} from '@/utils/datetime/isToday'
-
-const DATE_FORMAT = 'D MMMM, HH.mm'
+import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
 type Props = {
   parkingSession: ParkingSession | VisitorParkingSession
@@ -44,7 +42,7 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
   )
   const description = useMemo(
     () =>
-      getDescription(
+      getParkingSessionDurationDescription(
         parkingSession,
         currentPermit.max_session_length_in_days,
         currentPermit.no_endtime,
@@ -59,10 +57,13 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
   return (
     <NavigationButton
       accessibilityLabel={accessibilityLabel}
+      chevronColor="secondary"
+      chevronSize="ml"
       description={description}
       icon={{name: 'car'}}
       insetHorizontal="no"
       insetVertical="no"
+      isDescriptionBelowIcon={false}
       onPress={() => {
         navigate(ParkingRouteName.parkingSession, {parkingSession})
       }}
@@ -84,37 +85,9 @@ const getAccessibilityLabel = (
     start_date_time,
     end_date_time,
   )
-  const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
-  const startDateTimeString = `${dayjs(start_date_time).format(DATE_FORMAT)} uur`
+  const startTimeString = formatTimeToDisplay(start_date_time)
+  const startDateTimeString = formatDateTimeToDisplay(start_date_time)
   const timeLabel = `Starttijd ${startTimeString} ${noEndTime || maxSessionLengthInDays > 1 ? startDateTimeString : 'Parkeertijd ' + remainingTimeStringLong}`
 
   return `Kenteken ${title}. ${timeLabel}`
-}
-
-const getDescription = (
-  parkingSession: Props['parkingSession'],
-  maxSessionLengthInDays: number,
-  noEndTime: boolean,
-) => {
-  const {start_date_time, end_date_time, status} = parkingSession
-
-  if (status === ParkingSessionStatus.active) {
-    const isEndDateToday = isToday(end_date_time)
-
-    return noEndTime
-      ? `Actief sinds ${dayjs(start_date_time).format(isEndDateToday ? 'HH.mm' : DATE_FORMAT)} uur`
-      : `Tot ${dayjs(end_date_time).format(isEndDateToday ? 'HH.mm' : DATE_FORMAT)} uur`
-  }
-
-  const startDateTimeString = `${dayjs(start_date_time).format(DATE_FORMAT)} uur`
-  const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
-  const isEndDateSameAsStart = dayjs(end_date_time).isSame(
-    dayjs(start_date_time),
-    'day',
-  )
-  const endTimeString = `${dayjs(end_date_time).format(isEndDateSameAsStart ? 'HH.mm' : DATE_FORMAT)} uur`
-
-  return noEndTime || maxSessionLengthInDays > 1
-    ? `${startDateTimeString}`
-    : `Van ${startTimeString} tot ${endTimeString}`
 }

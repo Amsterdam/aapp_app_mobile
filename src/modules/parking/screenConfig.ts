@@ -114,7 +114,7 @@ export const parkingScreenConfig: StackNavigationRoutes<
     component: ParkingPlannedSessionsScreen,
     name: ParkingRouteName.parkingPlannedSessions,
     options: {
-      headerTitle: 'Gepland',
+      headerTitle: 'Geplande parkeersessies',
     },
   },
   [ParkingRouteName.parkingSessionTransactions]: {

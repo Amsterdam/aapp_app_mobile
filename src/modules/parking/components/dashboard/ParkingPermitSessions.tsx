@@ -4,7 +4,6 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingDashboardPermitSessionsChooseVisitorLicensePlate} from '@/modules/parking/components/dashboard/ParkingDashboardPermitSessionsChooseVisitorLicensePlate'
 import {ParkingActiveSessionsSummary} from '@/modules/parking/components/session/ParkingActiveSessionsSummary'
-import {ParkingPlannedSessionsSummary} from '@/modules/parking/components/session/ParkingPlannedSessionsSummary'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
@@ -12,8 +11,7 @@ import {getPermitStartDateString} from '@/modules/parking/utils/getPermitStartDa
 
 export const ParkingPermitSessions = () => {
   const {visitorVehicleId} = useVisitorVehicleId()
-  const {no_endtime, isPermitStartedAtInFuture, started_at} =
-    useCurrentParkingPermit()
+  const {isPermitStartedAtInFuture, started_at} = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()
 
   return (
@@ -40,12 +38,7 @@ export const ParkingPermitSessions = () => {
               <ParkingDashboardPermitSessionsChooseVisitorLicensePlate />
             )}
             {(parkingAccount?.scope === ParkingPermitScope.permitHolder ||
-              !!visitorVehicleId) && (
-              <>
-                <ParkingActiveSessionsSummary />
-                {!no_endtime && <ParkingPlannedSessionsSummary />}
-              </>
-            )}
+              !!visitorVehicleId) && <ParkingActiveSessionsSummary />}
           </>
         )}
       </Column>
