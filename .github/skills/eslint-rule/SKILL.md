@@ -1,6 +1,7 @@
 ---
-agent: 'agent'
+name: eslint-rule
 description: 'Create a new custom ESLint rule and matching tests in eslint-plugin-amsterdam.'
+disable-model-invocation: true
 ---
 
 Create a complete, minimal ESLint rule in eslint-plugin-amsterdam from the user's plain-language rule description.

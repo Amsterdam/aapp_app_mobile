@@ -1,6 +1,7 @@
 ---
-agent: 'agent'
+name: component-stories
 description: 'Create a Storybook .stories.tsx file and matching .docs.mdx file for a component.'
+disable-model-invocation: true
 ---
 
 Create a complete Storybook setup for the selected component:
