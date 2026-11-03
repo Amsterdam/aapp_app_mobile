@@ -25,13 +25,11 @@ export const BoatChargingActiveSessionsListItem = ({session}: Props) => {
     [session, isPluggedIn, chargingTimeVeryShortString],
   )
 
-  const resolvedSession = session
-
-  if (!resolvedSession) {
+  if (!session) {
     return null
   }
 
-  const {id, vignette_number, boat_name} = resolvedSession
+  const {id, vignette_number, boat_name} = session
 
   return (
     <TopTaskButton
