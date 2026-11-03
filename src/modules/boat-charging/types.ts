@@ -237,7 +237,7 @@ export type BoatChargingSessionCostBreakdownResponse = {
 export type BoatChargingSessionCostBreakdownItem = {
   cost_incl_vat: number
   type: BoatChargingCostBreakdownItemType
-  unit_price: number
+  unit_price_incl_vat: number
   volume: number
 }
 
