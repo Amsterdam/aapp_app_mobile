@@ -44,4 +44,6 @@ export const generateImportsOutput = ({
 
   fs.mkdirSync(outputDir, {recursive: true})
   fs.writeFileSync(outputPath, outputData)
+
+  return output
 }

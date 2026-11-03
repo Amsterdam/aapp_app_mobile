@@ -5,14 +5,10 @@ import {generateImportsOutput} from './generateImportsOutput.mts'
 
 export const generate = (configItem: CodeGenConfigItem) => {
   if (configItem.type === 'directories') {
-    generateDirectoriesOutput(configItem)
-
-    return
+    return generateDirectoriesOutput(configItem)
   } else if (configItem.type === 'copy') {
-    generateCopyOutput(configItem)
-
-    return
+    return generateCopyOutput(configItem)
   }
 
-  generateImportsOutput(configItem)
+  return generateImportsOutput(configItem)
 }

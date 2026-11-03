@@ -1,6 +1,5 @@
-import type {CodeGenConfig} from '../types.mts'
 import {run} from './run.mts'
 
-export const formatAll = (config: CodeGenConfig) => {
-  run('npx', ['oxfmt', ...config.map(({output}) => output)])
+export const formatAll = (adjustedFiles: string[]) => {
+  run('npx', ['oxfmt', ...adjustedFiles])
 }

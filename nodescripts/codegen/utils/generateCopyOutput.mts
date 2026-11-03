@@ -8,8 +8,9 @@ export const generateCopyOutput = ({
   output,
   match,
   stub,
-}: Extract<CodeGenConfigItem, {type: 'copy'}>) => {
-  for (const matchingDirectory of findMatchingDirectories(inputDir, match)) {
+}: Extract<CodeGenConfigItem, {type: 'copy'}>) =>
+  findMatchingDirectories(inputDir, match).map(matchingDirectory => {
     copyStubIfMissing(stub, join(matchingDirectory, output))
-  }
-}
+
+    return join(matchingDirectory, output)
+  })
