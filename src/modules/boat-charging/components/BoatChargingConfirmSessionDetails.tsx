@@ -1,12 +1,12 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
-import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {MetaDataCard} from '@/components/ui/MetaDataCard'
 import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
+import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -132,17 +132,12 @@ export const BoatChargingConfirmSessionDetails = () => {
             <Phrase color="secondary">{vignet?.boat_name}</Phrase>
           )}
         </MetaDataCard>
-        {/* TODO: change this component to the new InlineLink component. https://gemeente-amsterdam.atlassian.net/browse/AM-1132 */}
-        <NavigationButton
-          chevronSize="md"
-          emphasis="default"
-          horizontallyAlign="start"
-          insetHorizontal="no"
-          insetVertical="no"
+        <InlineLink
           onPress={onNavigateToChangeVignet}
           testID="BoatChargingConfirmSessionVignetNavigationButton"
-          title="Wijzigen"
-        />
+          variant="internal">
+          Wijzigen
+        </InlineLink>
       </Column>
 
       {!!email && !isLoggedIn && (
@@ -152,17 +147,12 @@ export const BoatChargingConfirmSessionDetails = () => {
             title="E-mailadres">
             <Phrase>{email}</Phrase>
           </MetaDataCard>
-          {/* TODO: change this component to the new InlineLink component. https://gemeente-amsterdam.atlassian.net/browse/AM-1132 */}
-          <NavigationButton
-            chevronSize="md"
-            emphasis="default"
-            horizontallyAlign="start"
-            insetHorizontal="no"
-            insetVertical="no"
+          <InlineLink
             onPress={() => navigation.popTo(BoatChargingRouteName.guestEmail)}
             testID="BoatChargingConfirmSessionEmailAddressNavigationButton"
-            title="Wijzigen"
-          />
+            variant="internal">
+            Wijzigen
+          </InlineLink>
         </Column>
       )}
 

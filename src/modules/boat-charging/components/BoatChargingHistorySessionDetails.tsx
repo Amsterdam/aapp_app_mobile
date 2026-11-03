@@ -14,7 +14,7 @@ import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatCharg
 import {
   addCompletedSessionSeenId,
   selectCompletedSessionSeenIds,
-  setLastGuestSessionId,
+  removeGuestSessionId,
 } from '@/modules/boat-charging/slice'
 import {
   BoatChargingStopReason,
@@ -33,7 +33,7 @@ export const BoatChargingHistorySessionDetails = () => {
 
   useBeforeRemove(() => {
     if (session?.status === SessionStatus.COMPLETED) {
-      dispatch(setLastGuestSessionId(undefined))
+      dispatch(removeGuestSessionId(session.id))
     }
   })
 
@@ -91,12 +91,15 @@ export const BoatChargingHistorySessionDetails = () => {
     kwh,
     total_cost,
     currency,
+    vignette_number,
+    boat_name,
   } = session
 
   return (
     <Column gutter="xl">
       <Column gutter="lg">
         <Title text={location.name} />
+
         <MetaDataCard
           iconName="power-plug"
           testID="BoatChargingHistorySessionDetailsSocketCard"
@@ -105,6 +108,17 @@ export const BoatChargingHistorySessionDetails = () => {
             {station_id}-{socket_number}
           </Phrase>
         </MetaDataCard>
+
+        {!!vignette_number && (
+          <MetaDataCard
+            iconName="boat"
+            testID="BoatChargingHistorySessionDetailsVignetCard"
+            title="Vignet">
+            <Phrase>{vignette_number}</Phrase>
+            <Phrase color="secondary">{boat_name}</Phrase>
+          </MetaDataCard>
+        )}
+
         <MetaDataCard
           iconName="euro-coins"
           testID="BoatChargingHistorySessionDetailsTotalCostCard"
@@ -127,12 +141,14 @@ export const BoatChargingHistorySessionDetails = () => {
             variant="tertiary"
           />
         </MetaDataCard>
+
         <MetaDataCard
           iconName="lightning"
           testID="BoatChargingHistorySessionDetailsChargedCard"
           title="Geladen">
           <Phrase>{formatKWH(kwh)}</Phrase>
         </MetaDataCard>
+
         <MetaDataCard
           iconName="clock"
           testID="BoatChargingHistorySessionDetailsChargingTimeCard"
@@ -147,6 +163,7 @@ export const BoatChargingHistorySessionDetails = () => {
             </Phrase>
           )}
         </MetaDataCard>
+
         <Column gutter="smd">
           <Phrase
             color="secondary"

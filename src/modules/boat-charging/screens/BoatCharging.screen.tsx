@@ -2,7 +2,7 @@ import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {MapViewSwitchProvider} from '@/components/features/map/providers/MapViewSwitch.provider'
 import {Screen} from '@/components/features/screen/Screen'
 import {BoatChargingView} from '@/modules/boat-charging/components/BoatChargingView'
-import {bottomsheetVariants} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
+import {boatChargingMapBottomsheetVariants} from '@/modules/boat-charging/components/bottomsheet/bottomsheetVariants'
 import {BoatChargingHeaderButtons} from '@/modules/boat-charging/components/header/BoatChargingHeaderButtons'
 import {BoatChargingHeaderMenu} from '@/modules/boat-charging/components/header/BoatChargingHeaderMenu'
 import {BoatChargingSessionBar} from '@/modules/boat-charging/components/session/BoatChargingSessionBar'
@@ -15,8 +15,8 @@ export const BoatChargingScreen = () => (
         bottomSheet={
           <BottomSheet
             scroll
-            testID="BoatChargingPointBottomSheet"
-            variants={bottomsheetVariants}
+            testID="BoatChargingMapBottomSheet"
+            variants={boatChargingMapBottomsheetVariants}
             withCloseButton
           />
         }

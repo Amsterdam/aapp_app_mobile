@@ -10,9 +10,10 @@ import {BoatChargingHistorySessionCostDetailsInfoRow} from '@/modules/boat-charg
 import {boatChargingCostItemTypeMap} from '@/modules/boat-charging/constants/boatChargingCostItemTypeMap'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {useBoatChargingSessionCostBreakdownQuery} from '@/modules/boat-charging/service'
-import type {
-  BoatChargingSessionCostBreakdownItem,
-  BoatChargingSettings,
+import {
+  SessionStatus,
+  type BoatChargingSessionCostBreakdownItem,
+  type BoatChargingSettings,
 } from '@/modules/boat-charging/types'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -25,7 +26,10 @@ export const BoatChargingSessionCostBreakdown = () => {
     data: costBreakdown,
     isLoading,
     isError,
-  } = useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken)
+  } = useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken, {
+    pollingInterval:
+      session?.id && session.status === SessionStatus.ACTIVE ? 5000 : 0,
+  })
 
   return (
     <Column gutter="lg">

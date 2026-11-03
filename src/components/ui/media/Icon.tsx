@@ -1,5 +1,5 @@
 import {ComponentType, Fragment} from 'react'
-import {View} from 'react-native'
+import {Platform, StyleSheet, View} from 'react-native'
 import {Path, Svg, type FillRule} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {
@@ -7,12 +7,14 @@ import {
   SvgIconsConfig,
   type SvgIconConfig,
 } from '@/components/ui/media/svgIcons'
+import type {PhraseProps} from '@/components/ui/text/Phrase'
 import {IconSize, SvgIconVariant, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {devError} from '@/processes/development'
 import {useTrackRenderException} from '@/processes/logging/hooks/useTrackRenderException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 import {useTheme} from '@/themes/useTheme'
 
 type AdditionalIconConfig = {
@@ -65,18 +67,26 @@ type ExternalIconProps = Omit<IconProps, 'name' | 'isFilled' | 'path'> & {
 
 const DEFAULT_VIEW_BOX = '0 0 24 24'
 
-type Props = IconProps | ExternalIconProps
+type Props = (IconProps | ExternalIconProps) & {
+  /**
+   * Add this property if the icon is used inside a text component to align it properly with the text.
+   */
+  containerPhraseVariant?: PhraseProps['variant']
+}
 
 export const Icon = ({
   color = 'default',
   size = 'md',
   testID,
   'logging-label': loggingLabel,
+  containerPhraseVariant,
   ...rest
 }: Props) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
+
+  const styles = useThemable(createStyles(fontScale, containerPhraseVariant))
 
   const {name, path, isFilled = false} = rest
 
@@ -110,6 +120,7 @@ export const Icon = ({
   return (
     <View
       logging-label={loggingLabel}
+      style={styles.container}
       testID={testID}>
       <Wrapper>
         <Svg
@@ -129,3 +140,25 @@ export const Icon = ({
     </View>
   )
 }
+
+const createStyles =
+  (fontScale: number, containerPhraseVariant: PhraseProps['variant']) =>
+  ({text}: Theme) =>
+    StyleSheet.create({
+      container: containerPhraseVariant
+        ? {
+            paddingBottom:
+              Platform.OS === 'ios'
+                ? (text.lineHeight[containerPhraseVariant] -
+                    text.fontSize[containerPhraseVariant]) *
+                  0.5 *
+                  fontScale
+                : undefined,
+            transform: [
+              {
+                translateY: Platform.OS === 'ios' ? 2 : 12 * fontScale - 9,
+              },
+            ],
+          }
+        : {},
+    })
