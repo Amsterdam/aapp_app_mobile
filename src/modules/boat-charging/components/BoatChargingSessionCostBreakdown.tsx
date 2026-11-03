@@ -29,6 +29,7 @@ export const BoatChargingSessionCostBreakdown = () => {
   } = useBoatChargingSessionCostBreakdownQuery(session?.id ?? skipToken, {
     pollingInterval:
       session?.id && session.status === SessionStatus.ACTIVE ? 5000 : 0,
+    refetchOnMountOrArgChange: true,
   })
 
   return (
