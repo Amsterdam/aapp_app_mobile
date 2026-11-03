@@ -302,3 +302,12 @@ export type BoatChargingVerifyVignetResponse = Or<
   },
   {reason: VignetInvalidReasons; status: 'invalid'}
 >
+
+export enum BoatChargingInitSessionStep {
+  guestEmail = 2,
+  verifyVignet = 3,
+  chooseVignet = 4,
+  selectSocket = 1,
+  termsAndConditions = 5,
+  confirmSession = 6,
+}

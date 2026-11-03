@@ -3,12 +3,10 @@ import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {
-  BoatChargingInitSessionStep,
-  useInitSession,
-} from '@/modules/boat-charging/hooks/useInitSession'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {
+  BoatChargingInitSessionStep,
   ChargingPointStatus,
   type BoatChargingSelectSocketFormValues,
   type NewSessionFormValues,

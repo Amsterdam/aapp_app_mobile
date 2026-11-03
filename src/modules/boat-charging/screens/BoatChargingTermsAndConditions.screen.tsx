@@ -11,14 +11,14 @@ import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {
-  BoatChargingInitSessionStep,
-  useInitSession,
-} from '@/modules/boat-charging/hooks/useInitSession'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
 import {setLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+import {
+  BoatChargingInitSessionStep,
+  type NewSessionFormValues,
+} from '@/modules/boat-charging/types'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 const AGREED_TO_TERMS_ERROR_MESSAGE =

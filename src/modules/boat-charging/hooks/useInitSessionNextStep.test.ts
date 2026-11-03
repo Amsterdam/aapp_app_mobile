@@ -1,6 +1,5 @@
 import {renderHook} from '@testing-library/react-native'
 import {useStore} from '@/hooks/redux/useStore'
-import {BoatChargingInitSessionStep} from '@/modules/boat-charging/hooks/useInitSession'
 import {useInitSessionNextStep} from '@/modules/boat-charging/hooks/useInitSessionNextStep'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
@@ -10,7 +9,11 @@ import {
   useBoatChargingVignettesQuery,
 } from '@/modules/boat-charging/service'
 import {selectLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
-import type {NewSessionFormValues, Vignet} from '@/modules/boat-charging/types'
+import {
+  BoatChargingInitSessionStep,
+  type NewSessionFormValues,
+  type Vignet,
+} from '@/modules/boat-charging/types'
 
 jest.mock('@/modules/boat-charging/hooks/useNewSessionForm', () => ({
   useNewSessionFormContext: jest.fn(),
