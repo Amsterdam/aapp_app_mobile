@@ -48,6 +48,7 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: Props) => {
     () =>
       !isLoadingLocationDetails &&
       !isErrorLocationDetails &&
+      location?.status === ChargingPointStatus.OPERATIVE &&
       location?.charging_stations.some(
         socket => socket.status === ChargingPointStatus.OPERATIVE,
       ),

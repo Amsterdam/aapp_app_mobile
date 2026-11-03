@@ -9,12 +9,9 @@ import {getSessionStatusText} from '@/modules/boat-charging/utils/getSessionStat
 
 type Props = {session: BoatChargingSession}
 
-export const BoatChargingActiveSessionsListItem = ({
-  session: sessionFromList,
-}: Props) => {
+export const BoatChargingActiveSessionsListItem = ({session}: Props) => {
   const {navigate} = useNavigation()
-  const {session, isPluggedIn, chargingTimeVeryShortString} =
-    useBoatChargingSession()
+  const {isPluggedIn, chargingTimeVeryShortString} = useBoatChargingSession()
 
   const {address, statusText} = useMemo(
     () => ({
@@ -28,7 +25,7 @@ export const BoatChargingActiveSessionsListItem = ({
     [session, isPluggedIn, chargingTimeVeryShortString],
   )
 
-  const resolvedSession = session ?? sessionFromList
+  const resolvedSession = session
 
   if (!resolvedSession) {
     return null
