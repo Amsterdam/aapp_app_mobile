@@ -16,31 +16,31 @@ const ITEMS: Record<
   [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
     cost_incl_vat: 20,
     type: BoatChargingCostBreakdownItemType.STANDARD_FINE,
-    unit_price: 10,
+    unit_price_incl_vat: 10,
     volume: 2,
   },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
     cost_incl_vat: 1.85,
     type: BoatChargingCostBreakdownItemType.ENERGY,
-    unit_price: 0.5,
+    unit_price_incl_vat: 0.5,
     volume: 3.7,
   },
   [BoatChargingCostBreakdownItemType.TIME]: {
     cost_incl_vat: 2.5,
     type: BoatChargingCostBreakdownItemType.TIME,
-    unit_price: 1.25,
+    unit_price_incl_vat: 1.25,
     volume: 2,
   },
   [BoatChargingCostBreakdownItemType.PARKING_TIME]: {
     cost_incl_vat: 0.75,
     type: BoatChargingCostBreakdownItemType.PARKING_TIME,
-    unit_price: 0.75,
+    unit_price_incl_vat: 0.75,
     volume: 1 / 60,
   },
   [BoatChargingCostBreakdownItemType.FLAT]: {
     cost_incl_vat: 1,
     type: BoatChargingCostBreakdownItemType.FLAT,
-    unit_price: 0,
+    unit_price_incl_vat: 0,
     volume: 0,
   },
 }

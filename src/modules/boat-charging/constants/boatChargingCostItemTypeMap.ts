@@ -1,4 +1,3 @@
-import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {
   BoatChargingCostBreakdownItemType,
   BoatChargingSessionCostBreakdownItem,
@@ -8,11 +7,8 @@ import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
-const getItemString = (
-  item: BoatChargingSessionCostBreakdownItem,
-  vat_fraction?: number | null,
-) =>
-  `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price * (vat_fraction ?? VAT_FRACTION_FALLBACK), 'EUR', {maximumFractionDigits: 4})} per uur`
+const getItemString = (item: BoatChargingSessionCostBreakdownItem) =>
+  `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price_incl_vat, 'EUR', {maximumFractionDigits: 4})} per uur`
 
 export const boatChargingCostItemTypeMap = (
   settings: BoatChargingSettings | undefined,
@@ -32,8 +28,8 @@ export const boatChargingCostItemTypeMap = (
   },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
     label: 'Stroom',
-    details: (item, vat_fraction) =>
-      `${formatKWH(item.volume)} × ${formatNumber(item.unit_price * (vat_fraction ?? VAT_FRACTION_FALLBACK), 'EUR', {maximumFractionDigits: 4})} per kWh`,
+    details: item =>
+      `${formatKWH(item.volume)} × ${formatNumber(item.unit_price_incl_vat, 'EUR', {maximumFractionDigits: 4})} per kWh`,
   },
   [BoatChargingCostBreakdownItemType.TIME]: {
     label: 'Laadtijd',
