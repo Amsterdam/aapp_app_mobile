@@ -25,6 +25,7 @@ export const clientModule = createClientModule({
       parse: {adres: (address: string) => decodeURIComponent(address)},
       alias: [ModuleSlug['waste-guide']],
     },
+    [WasteGuideRouteName.wasteGuideFraction]: '/afvalwijzer/:fractionCode',
   },
   icons: fractionIconConfig,
   onNotificationEvent,

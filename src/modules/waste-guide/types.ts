@@ -31,15 +31,15 @@ export type WasteGuideCalendarEvent = {
 
 export type WasteType = {
   alert: string
-  button_text: string
+  button_text: string | null
   code: FractionCode
   curb_rules: string
-  days_array: string[]
-  frequency: string
+  days_array: string[] | null
+  frequency: string | null
   how: string
   info_link?: string
   label: string
-  next_date: string
+  next_date: string | null
   note: string
   url: string
   where: string
