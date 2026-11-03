@@ -9,6 +9,7 @@ import type {ConstructionWorkEditorState} from '@/modules/construction-work-edit
 import type {ConstructionWorkState} from '@/modules/construction-work/slice'
 import type {ContactState} from '@/modules/contact/slice'
 import type {ElectionsState} from '@/modules/elections/slice'
+import type {MijnAmsterdamState as MijnAmsterdamNewState} from '@/modules/mijn-amsterdam-new/slice'
 import type {MijnAmsterdamState} from '@/modules/mijn-amsterdam/slice'
 import type {NewsState} from '@/modules/news/slice'
 import type {OnboardingState} from '@/modules/onboarding/slice'
@@ -46,6 +47,7 @@ export type RootState = {
   [ReduxKey.menu]: MenuState
   [ReduxKey.messageDraft]: MessageDraftState
   [ReduxKey.mijnAmsterdam]: MijnAmsterdamState
+  [ReduxKey.mijnAmsterdamNew]: MijnAmsterdamNewState
   [ReduxKey.modules]: ModulesState
   [ReduxKey.news]: NewsState
   [ReduxKey.onboarding]: OnboardingState
