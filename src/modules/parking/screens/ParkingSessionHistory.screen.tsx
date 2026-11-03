@@ -6,7 +6,8 @@ export const ParkingSessionHistoryScreen = () => (
   <CurrentPermitProvider>
     <Screen
       scroll={false}
-      testID="ParkingSessionHistoryScreen">
+      testID="ParkingSessionHistoryScreen"
+      withBottomInset={false}>
       <ParkingSessionHistory />
     </Screen>
   </CurrentPermitProvider>
