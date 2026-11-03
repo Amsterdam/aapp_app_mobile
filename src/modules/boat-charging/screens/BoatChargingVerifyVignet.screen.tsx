@@ -2,11 +2,11 @@ import {useCallback} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {BoatChargingVignetForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetForm'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {
   BoatChargingInitSessionStep,
-  useInitSession,
-} from '@/modules/boat-charging/hooks/useInitSession'
-import type {BaseVignet} from '@/modules/boat-charging/types'
+  type BaseVignet,
+} from '@/modules/boat-charging/types'
 
 export const BoatChargingVerifyVignetScreen = () => {
   const {

@@ -7,12 +7,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
-import {
-  BoatChargingInitSessionStep,
-  useInitSession,
-} from '@/modules/boat-charging/hooks/useInitSession'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
+import {BoatChargingInitSessionStep} from '@/modules/boat-charging/types'
 
 export const BoatChargingChooseVignetForm = () => {
   const navigation = useNavigation()

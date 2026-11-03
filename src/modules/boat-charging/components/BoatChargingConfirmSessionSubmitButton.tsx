@@ -2,12 +2,12 @@ import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {alerts} from '@/modules/boat-charging/alerts'
 import {vignetInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
+import {useBoatChargingVerifyVignetMutation} from '@/modules/boat-charging/service'
 import {
   BoatChargingInitSessionStep,
-  useInitSession,
-} from '@/modules/boat-charging/hooks/useInitSession'
-import {useBoatChargingVerifyVignetMutation} from '@/modules/boat-charging/service'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+  type NewSessionFormValues,
+} from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 

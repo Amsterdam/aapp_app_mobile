@@ -1,6 +1,5 @@
 import {useCallback} from 'react'
 import {useStore} from '@/hooks/redux/useStore'
-import {BoatChargingInitSessionStep} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
@@ -9,7 +8,10 @@ import {
   useBoatChargingVignettesQuery,
 } from '@/modules/boat-charging/service'
 import {selectLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+import {
+  BoatChargingInitSessionStep,
+  type NewSessionFormValues,
+} from '@/modules/boat-charging/types'
 import {validateEmail} from '@/utils/validate'
 
 export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {

@@ -8,13 +8,13 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {useAccessCodePendingScreen} from '@/modules/access-code/exports/useAccessCodePendingScreen'
-import {
-  BoatChargingInitSessionStep,
-  useInitSession,
-} from '@/modules/boat-charging/hooks/useInitSession'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+import {
+  BoatChargingInitSessionStep,
+  type NewSessionFormValues,
+} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const BoatChargingGuestEmailForm = () => {

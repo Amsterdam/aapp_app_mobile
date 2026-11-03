@@ -1,10 +1,10 @@
 import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
+import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {
-  useInitSession,
   BoatChargingInitSessionStep,
-} from '@/modules/boat-charging/hooks/useInitSession'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+  type NewSessionFormValues,
+} from '@/modules/boat-charging/types'
 
 export const BoatChargingChooseVignetFormSubmitButton = () => {
   const {onPress, form} = useInitSession(

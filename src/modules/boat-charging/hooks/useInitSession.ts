@@ -7,18 +7,12 @@ import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingInitSessionMutation} from '@/modules/boat-charging/service'
-import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+import type {
+  BoatChargingInitSessionStep,
+  NewSessionFormValues,
+} from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
-
-export enum BoatChargingInitSessionStep {
-  guestEmail = 2,
-  verifyVignet = 3,
-  chooseVignet = 4,
-  selectSocket = 1,
-  termsAndConditions = 5,
-  confirmSession = 6,
-}
 
 export const useInitSession = (step: BoatChargingInitSessionStep) => {
   const form = useNewSessionFormContext()
