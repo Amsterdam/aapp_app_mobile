@@ -18,9 +18,18 @@ export type DirectoriesCodeGenConfigItem = {
   type: 'directories'
 }
 
+export type CopyCodeGenConfigItem = {
+  inputDir: string
+  match: string
+  output: string
+  stub: string
+  type: 'copy'
+}
+
 export type CodeGenConfigItem =
   | ImportsCodeGenConfigItem
   | DirectoriesCodeGenConfigItem
+  | CopyCodeGenConfigItem
 
 export type ImportConfig = {
   exportName?: string

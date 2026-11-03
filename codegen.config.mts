@@ -212,4 +212,11 @@ export const config: CodeGenConfig = [
       },
     ],
   },
+  {
+    inputDir,
+    match: 'alerts.ts',
+    output: 'alerts.stories.tsx',
+    stub: 'stubs/alerts.stories.tsx.stub',
+    type: 'copy',
+  },
 ]
