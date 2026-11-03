@@ -1,8 +1,8 @@
 import {type ComponentType, useCallback, useState} from 'react'
-import {FlatList, type FlatListProps} from 'react-native'
-import {Gutter} from '@/components/ui/layout/Gutter'
+import {FlatList, StyleSheet, type FlatListProps} from 'react-native'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
+import {ParkingSessionsSectionList} from '@/modules/parking/components/sessionsList/ParkingSessionSectionList'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {parkingApi} from '@/modules/parking/service'
 import {
@@ -13,23 +13,27 @@ import {
   ParkingSessionStatus,
 } from '@/modules/parking/types'
 import {layoutStyles} from '@/styles/layoutStyles'
+import type {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
 
 type Props = {
   ListEmptyComponent?: ComponentType
+  inSections?: boolean
   sortAscending?: boolean
   status: ParkingSessionStatus
 }
 
 const pageSize = 40
 
-export const ParkingSessionsList = ({
-  ListEmptyComponent,
-  sortAscending = false,
+const useParkingSessionsInfiniteScroller = ({
+  sortAscending,
   status,
-}: Props) => {
+}: {
+  sortAscending?: boolean
+  status: ParkingSessionStatus
+}) => {
   const currentPermit = useCurrentParkingPermit()
-
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
   const page = getCurrentPage(viewableItemIndex, 1, pageSize)
 
@@ -97,14 +101,44 @@ export const ParkingSessionsList = ({
     [result.data],
   )
 
-  return (
+  return {
+    onViewableItemsChanged,
+    ...result,
+  }
+}
+
+export const ParkingSessionsList = ({
+  ListEmptyComponent,
+  sortAscending = false,
+  status,
+  inSections = false,
+}: Props) => {
+  const styles = useThemable(createStyles)
+  const {data, isLoading, onViewableItemsChanged} =
+    useParkingSessionsInfiniteScroller({status, sortAscending})
+
+  return inSections ? (
+    <ParkingSessionsSectionList
+      isLoading={isLoading}
+      ListEmptyComponent={ListEmptyComponent}
+      onViewableItemsChanged={onViewableItemsChanged}
+      sessions={data}
+      sortAscending={sortAscending}
+    />
+  ) : (
     <FlatList
-      contentContainerStyle={layoutStyles.grow}
-      data={result.data}
-      ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
-      ListFooterComponent={<Gutter height="md" />}
+      contentContainerStyle={[layoutStyles.grow, styles.container]}
+      data={data}
+      ListEmptyComponent={isLoading ? null : ListEmptyComponent}
       onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => <ParkingSessionListRenderItem item={item} />}
     />
   )
 }
+
+const createStyles = ({size}: Theme) =>
+  StyleSheet.create({
+    container: {
+      paddingBottom: size.spacing.md,
+    },
+  })

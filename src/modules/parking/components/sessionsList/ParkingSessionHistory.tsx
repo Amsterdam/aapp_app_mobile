@@ -11,6 +11,7 @@ const ListEmptyComponent = () => (
 
 export const ParkingSessionHistory = () => (
   <ParkingSessionsList
+    inSections
     ListEmptyComponent={ListEmptyComponent}
     sortAscending={false}
     status={ParkingSessionStatus.completed}
