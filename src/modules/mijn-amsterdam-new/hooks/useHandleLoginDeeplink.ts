@@ -60,7 +60,7 @@ export const useHandleLoginDeeplink = (
           setAlert(alerts.loginSuccess)
         }
 
-        dispatch(setIsLoggedIn({isLoggedIn: true, profileName: 'hoi'}))
+        dispatch(setIsLoggedIn({isLoggedIn: true}))
         dispatch(mijnAmsterdamApi.util.invalidateTags(['MijnAmsterdam']))
       } catch (error) {
         devError('Error fetching access token:', error)
@@ -69,7 +69,7 @@ export const useHandleLoginDeeplink = (
     } else if (loginResult === LoginResult.failed) {
       if (!fromOnboarding) {
         setAlert(alerts.loginFailed)
-        dispatch(setIsLoggedIn({isLoggedIn: false, profileName: 'test'}))
+        dispatch(setIsLoggedIn({isLoggedIn: false}))
       }
 
       trackException(ExceptionLogKey.deepLink, 'useHandleLoginDeeplink.ts')
