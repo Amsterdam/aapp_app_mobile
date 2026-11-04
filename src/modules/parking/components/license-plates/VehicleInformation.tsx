@@ -5,7 +5,12 @@ import {Notice} from '@/components/ui/feedback/Notice'
 import {useVehicleInformationQuery} from '@/modules/parking/service'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
-type Props = {name?: string}
+type Props = {
+  /**
+   * The name of the formContextProperty that holds the vehicle ID
+   */
+  name?: string
+}
 
 type NotInRegisterProps = {withDelay?: boolean}
 const NotInRegisterNotice = ({withDelay = false}: NotInRegisterProps) => (
