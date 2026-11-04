@@ -5,6 +5,8 @@ import type {
   LicensePlatesEndpointResponse,
   ParkingLicensePlate,
   ParkingPermit,
+  VehicleInformationFailure,
+  VehicleInformationSuccess,
 } from '@/modules/parking/types'
 
 type LicensePlateMutationOverrides = {
@@ -108,4 +110,40 @@ export const useLicensePlateMutations = () => {
         visitor_name: NonNullable<ParkingLicensePlate['visitor_name']>
       }) => resolvedPromise),
   }
+}
+
+const vehicleInformationMockSuccess: VehicleInformationSuccess = {
+  success: true,
+  content: {
+    brand: 'PEUGEOT',
+    color: 'GEEL',
+    type: '208',
+  },
+}
+
+const vehicleInformationMockError: VehicleInformationFailure = {
+  success: false,
+  content: null,
+}
+
+export const useVehicleInformationQuery = (licensePlate: string) => {
+  if (licensePlate?.length !== 6) {
+    return {
+      data: vehicleInformationMockError,
+      isLoading: false,
+      isFetching: false,
+    }
+  }
+
+  return {
+    data: vehicleInformationMockSuccess,
+    isLoading: false,
+    isFetching: false,
+  }
+}
+
+export const parkingApi = {
+  util: {
+    invalidateTags: () => null,
+  },
 }
