@@ -26,6 +26,7 @@ export enum ParkingEndpointName {
   removeLicensePlate = 'removeLicensePlate',
   sessionReceipt = 'sessionReceipt',
   startSession = 'startSession',
+  vehicleInformation = 'vehicleInformation',
   visitorParkingSessions = 'visitorParkingSessions',
   zoneByMachine = 'zoneByMachine',
 }
@@ -256,6 +257,24 @@ export type VisitorParkingSessionsEndpointRequest = {
   status?: ParkingSessionStatus
   vehicle_id: string
 }
+
+export type VehicleInformationSuccess = {
+  content: {
+    brand: string
+    color: string
+    type: string
+  }
+  success: true
+}
+
+export type VehicleInformationFailure = {
+  content: null
+  success: false
+}
+
+export type VehicleInformationEndpointResponse =
+  | VehicleInformationSuccess
+  | VehicleInformationFailure
 
 export type ParkingSessionsEndpointResponse = Paginated<ParkingSession>
 export type VisitorParkingSessionsEndpointResponse = VisitorParkingSession[]

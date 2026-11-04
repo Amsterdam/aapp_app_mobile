@@ -4,6 +4,7 @@ import {ParkingLicensePlateFormProvider} from '@/modules/parking/components/form
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {LicensePlateFormDeleteButton} from '@/modules/parking/components/license-plates/LicensePlateFormDeleteButton'
 import {LicensePlateFormSubmitButton} from '@/modules/parking/components/license-plates/LicensePlateFormSubmitButton'
+import {VehicleInformation} from '@/modules/parking/components/license-plates/VehicleInformation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {useLicensePlateMutations} from '@/modules/parking/hooks/useLicensePlateMutations'
@@ -25,11 +26,14 @@ export const LicensePlateForm = ({licensePlateId}: Props) => {
     <ParkingLicensePlateFormProvider defaultValues={prefilledLicensePlate}>
       <Column gutter="xl">
         <Column gutter="lg">
-          <ParkingVehicleIdTextInput
-            inputInstructions="Voer alleen letters en cijfers in."
-            label="Kenteken"
-            testID="ParkingLicensePlateFormLicensePlateInputField"
-          />
+          <Column gutter="md">
+            <ParkingVehicleIdTextInput
+              inputInstructions="Voer alleen letters en cijfers in."
+              label="Kenteken"
+              testID="ParkingLicensePlateFormLicensePlateInputField"
+            />
+            <VehicleInformation />
+          </Column>
           <TextInputField
             hasClearButton={false}
             label="Naam"

@@ -6,6 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingSessionAddLicensePlateName} from '@/modules/parking/components/form/ParkingSessionAddLicensePlateName'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
+import {VehicleInformation} from '@/modules/parking/components/license-plates/VehicleInformation'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
@@ -38,6 +39,7 @@ export const ParkingSessionAddLicensePlate = () => {
         label="Uw kenteken"
         testID="ParkingAddLicensePlateFormLicensePlateInputField"
       />
+      <VehicleInformation />
       {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
         <>
           <Switch

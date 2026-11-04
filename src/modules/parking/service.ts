@@ -36,6 +36,7 @@ import {
   type ActivateLicensePlateEndpointResponse,
   type ConfirmBalanceEndpointRequest,
   type PermitZoneGeoJsonResponse,
+  type VehicleInformationEndpointResponse,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {prepareHeaders} from '@/modules/parking/utils/prepareHeaders'
@@ -359,7 +360,7 @@ export const parkingApi = baseApi.injectEndpoints({
       VisitorParkingSessionsEndpointRequest
     >({
       providesTags: ['ParkingSessions'],
-      query: ({...params}) => ({
+      query: params => ({
         prepareHeaders,
         method: 'GET',
         params,
@@ -389,6 +390,19 @@ export const parkingApi = baseApi.injectEndpoints({
           ) || [],
       }),
     }),
+    [ParkingEndpointName.vehicleInformation]: builder.query<
+      VehicleInformationEndpointResponse,
+      string
+    >({
+      query: license_plate => ({
+        method: 'GET',
+        // TODO: solve this once AM-1366 is completed
+        params: {licence_plate: license_plate},
+        slug: ModuleSlug.parking,
+        url: '/vehicle-information',
+      }),
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
   }),
   overrideExisting: true,
 })
@@ -415,5 +429,6 @@ export const {
   useManageVisitorTimeBalanceMutation,
   useManageVisitorAddAccountMutation,
   useManageVisitorRemoveAccountMutation,
+  useVehicleInformationQuery,
   useVisitorParkingSessionsQuery,
 } = parkingApi
