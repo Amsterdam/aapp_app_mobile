@@ -2,6 +2,7 @@ import {useEffect, useLayoutEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Survey} from '@/modules/survey/exports/Survey'
 import {Fraction} from '@/modules/waste-guide/components/Fraction'
@@ -12,7 +13,7 @@ type Props = NavigationProps<WasteGuideRouteName.wasteGuideFraction>
 
 export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
   const {fractionCode} = route.params
-  const {wasteGuide, hasValidAddress} = useGetWasteGuide()
+  const {wasteGuide, hasValidAddress, isLoading} = useGetWasteGuide()
 
   useEffect(() => {
     if (!hasValidAddress) {
@@ -21,18 +22,26 @@ export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
   }, [hasValidAddress, navigation])
 
   const fraction = wasteGuide?.waste_types.find(
-    wasteType => wasteType.code === fractionCode,
+    wasteType => wasteType.code.toLowerCase() === fractionCode.toLowerCase(),
   )
 
   useLayoutEffect(() => {
-    if (!fraction) {
+    if (!wasteGuide) {
       return
     }
 
-    navigation.setOptions({
-      headerTitle: fraction.label,
-    })
-  }, [fraction, navigation])
+    if (!fraction) {
+      navigation.replace(WasteGuideRouteName.wasteGuide)
+    } else {
+      navigation.setOptions({
+        headerTitle: fraction.label,
+      })
+    }
+  }, [fraction, wasteGuide, navigation])
+
+  if (isLoading) {
+    return <PleaseWait testID="WasteGuideFractionScreenPleaseWait" />
+  }
 
   if (!fraction) {
     return null
