@@ -136,6 +136,10 @@ const config: StorybookConfig = {
             find: 'expo-screen-orientation',
             replacement: require.resolve('./mocks/expo-screen-orientation'),
           },
+          {
+            find: '@/services/fetchBaseQuery',
+            replacement: require.resolve('./mocks/api/index.ts'),
+          },
           ...parkingAlias,
           ...accessCodeAlias,
           ...boatChargingAlias,

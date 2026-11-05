@@ -1,4 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {setNextResponse} from '@/storybook/mocks/api'
+import {vehicleInformationMockHandler} from '../../service.mock'
 import {ParkingLicensePlateFormProvider} from '../form/ParkingLicensePlateFormProvider'
 import {VehicleInformation} from './VehicleInformation'
 
@@ -9,6 +11,8 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
+
+setNextResponse(vehicleInformationMockHandler)
 
 /**
  * When a license plate is found in the RDW register

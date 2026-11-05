@@ -17,8 +17,4 @@ export const parkingAlias = [
     find: '@/modules/parking/hooks/useLicensePlateMutations',
     replacement: path.resolve(__dirname, './index.tsx'),
   },
-  {
-    find: '@/modules/parking/service',
-    replacement: path.resolve(__dirname, './index.tsx'),
-  },
 ]
