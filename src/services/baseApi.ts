@@ -3,7 +3,6 @@ import {
   BaseQueryFn,
   createApi,
   FetchArgs,
-  fetchBaseQuery,
   FetchBaseQueryError,
   retry,
 } from '@reduxjs/toolkit/query/react'
@@ -12,6 +11,7 @@ import {tagTypes as boatChargingTagTypes} from '@/modules/boat-charging/constant
 import {tagTypes as cityPassTagTypes} from '@/modules/city-pass/constants'
 import {tagTypes as parkingTagTypes} from '@/modules/parking/constants'
 import {devError, devInfo} from '@/processes/development'
+import {fetchBaseQuery} from '@/services/fetchBaseQuery'
 import {
   PrepareHeaders,
   AfterBaseQueryErrorFn,
