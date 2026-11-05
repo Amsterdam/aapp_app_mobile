@@ -4,22 +4,19 @@ import {isToday} from '@/utils/datetime/isToday'
 import {isTomorrow} from '@/utils/datetime/isTomorrow'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
 
-export const getNextCollectionDate = (fraction: WasteType) => {
-  const nextDate = dayjs(fraction.next_date)
+const getDateToDisplay = (next_date: string) => {
+  const nextDate = dayjs(next_date)
 
-  const getDateToDisplay = () => {
-    if (isToday(fraction.next_date)) {
-      return 'vandaag'
-    }
-
-    if (isTomorrow(nextDate)) {
-      return 'morgen'
-    }
-
-    return nextDate.format('dddd D MMMM')
+  if (isToday(nextDate)) {
+    return 'Vandaag'
   }
 
-  const dateToDisplay = getDateToDisplay()
+  if (isTomorrow(nextDate)) {
+    return 'Morgen'
+  }
 
-  return fraction.next_date ? capitalizeString(dateToDisplay) : ''
+  return capitalizeString(nextDate.format('dddd D MMMM'))
 }
+
+export const getNextCollectionDate = (fraction: WasteType) =>
+  fraction.next_date ? getDateToDisplay(fraction.next_date) : ''

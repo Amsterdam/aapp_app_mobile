@@ -1,4 +1,4 @@
-import {useLayoutEffect} from 'react'
+import {useEffect, useLayoutEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
@@ -12,7 +12,14 @@ type Props = NavigationProps<WasteGuideRouteName.wasteGuideFraction>
 
 export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
   const {fractionCode} = route.params
-  const {wasteGuide} = useGetWasteGuide()
+  const {wasteGuide, hasValidAddress} = useGetWasteGuide()
+
+  useEffect(() => {
+    if (!hasValidAddress) {
+      navigation.replace(WasteGuideRouteName.wasteGuide)
+    }
+  }, [hasValidAddress, navigation])
+
   const fraction = wasteGuide?.waste_types.find(
     wasteType => wasteType.code === fractionCode,
   )
