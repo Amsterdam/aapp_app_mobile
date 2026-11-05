@@ -11,7 +11,6 @@ import {
 import {getParkingSessionDurationDescription} from '@/modules/parking/utils/getParkingSessionDurationDescription'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
-import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
 type Props = {
   parkingSession: ParkingSession | VisitorParkingSession
@@ -85,9 +84,8 @@ const getAccessibilityLabel = (
     start_date_time,
     end_date_time,
   )
-  const startTimeString = formatTimeToDisplay(start_date_time)
   const startDateTimeString = formatDateTimeToDisplay(start_date_time)
-  const timeLabel = `Starttijd ${startTimeString} ${noEndTime || maxSessionLengthInDays > 1 ? startDateTimeString : 'Parkeertijd ' + remainingTimeStringLong}`
+  const timeLabel = `Starttijd ${startDateTimeString} ${noEndTime || maxSessionLengthInDays > 1 ? startDateTimeString : 'Parkeertijd ' + remainingTimeStringLong}`
 
   return `Kenteken ${title}. ${timeLabel}`
 }

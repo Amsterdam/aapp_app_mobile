@@ -1,5 +1,9 @@
 import type {ComponentType} from 'react'
 import {FlatList, StyleSheet, type FlatListProps} from 'react-native'
+import {
+  useSafeAreaInsets,
+  type EdgeInsets,
+} from 'react-native-safe-area-context'
 import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {ParkingSessionOrDummy} from '@/modules/parking/types'
 import {layoutStyles} from '@/styles/layoutStyles'
@@ -18,7 +22,8 @@ export const ParkingSessionsFlatList = ({
   onViewableItemsChanged,
   isLoading = false,
 }: Props) => {
-  const styles = useThemable(createStyles)
+  const {bottom} = useSafeAreaInsets()
+  const styles = useThemable(createStyles(bottom))
 
   return (
     <FlatList
@@ -31,9 +36,11 @@ export const ParkingSessionsFlatList = ({
   )
 }
 
-const createStyles = ({size}: Theme) =>
-  StyleSheet.create({
-    container: {
-      paddingBottom: size.spacing.md,
-    },
-  })
+const createStyles =
+  (bottom: EdgeInsets['bottom']) =>
+  ({size}: Theme) =>
+    StyleSheet.create({
+      container: {
+        paddingBottom: Math.max(bottom, size.spacing.md),
+      },
+    })

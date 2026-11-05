@@ -1,5 +1,9 @@
 import {type ComponentType, useMemo} from 'react'
 import {SectionList, StyleSheet, type FlatListProps} from 'react-native'
+import {
+  useSafeAreaInsets,
+  type EdgeInsets,
+} from 'react-native-safe-area-context'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -28,7 +32,8 @@ export const ParkingSessionsSectionList = ({
   onViewableItemsChanged,
   isLoading = false,
 }: Props) => {
-  const styles = useThemable(createStyles)
+  const {bottom} = useSafeAreaInsets()
+  const styles = useThemable(createStyles(bottom))
 
   const sections = useMemo(
     () =>
@@ -63,9 +68,11 @@ export const ParkingSessionsSectionList = ({
   )
 }
 
-const createStyles = ({size}: Theme) =>
-  StyleSheet.create({
-    container: {
-      paddingBottom: size.spacing.md,
-    },
-  })
+const createStyles =
+  (bottom: EdgeInsets['bottom']) =>
+  ({size}: Theme) =>
+    StyleSheet.create({
+      container: {
+        paddingBottom: Math.max(bottom, size.spacing.md),
+      },
+    })
