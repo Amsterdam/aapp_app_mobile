@@ -26,7 +26,7 @@ export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
   )
 
   useLayoutEffect(() => {
-    if (!wasteGuide) {
+    if (isLoading) {
       return
     }
 
@@ -37,7 +37,7 @@ export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
         headerTitle: fraction.label,
       })
     }
-  }, [fraction, wasteGuide, navigation])
+  }, [fraction, isLoading, navigation])
 
   if (isLoading) {
     return <PleaseWait testID="WasteGuideFractionScreenPleaseWait" />
