@@ -21,20 +21,12 @@ export const ParkingPermitBalanceTime = () => {
     <SingleSelectable>
       <Column gutter="xs">
         <Row align="between">
-          {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
-            <Title
-              accessible={false}
-              level="h5"
-              testID="ParkingPermitBalanceTimeTitlePhrase"
-              text="Tijdsaldo"
-            />
-          ) : (
-            <Phrase
-              accessible={false}
-              testID="ParkingPermitBalanceTimeTitlePhrase">
-              Tijdsaldo
-            </Phrase>
-          )}
+          <Title
+            accessible={false}
+            level="h5"
+            testID="ParkingPermitBalanceTimeTitlePhrase"
+            text="Tijdsaldo"
+          />
           <Title
             accessible={false}
             level="h5"

@@ -16,6 +16,8 @@ export const ParkingDashboardNavigationButtons = () => {
       {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
         <>
           <NavigationButton
+            chevronSize="md"
+            insetHorizontal="no"
             onPress={() => {
               navigate(ParkingRouteName.parkingPlannedSessions)
             }}
@@ -30,6 +32,8 @@ export const ParkingDashboardNavigationButtons = () => {
             title="Parkeergeschiedenis"
           />
           <NavigationButton
+            chevronSize="md"
+            insetHorizontal="no"
             onPress={() => {
               navigate(ParkingRouteName.myLicensePlates)
             }}
@@ -38,6 +42,8 @@ export const ParkingDashboardNavigationButtons = () => {
           />
           {!!currentPermit.money_balance_applicable && (
             <NavigationButton
+              chevronSize="md"
+              insetHorizontal="no"
               onPress={() => {
                 navigate(ParkingRouteName.parkingMoneyTransactions)
               }}
@@ -49,6 +55,8 @@ export const ParkingDashboardNavigationButtons = () => {
       )}
 
       <NavigationButton
+        chevronSize="md"
+        insetHorizontal="no"
         onPress={() => {
           navigate(ParkingRouteName.parkingPermitZones)
         }}
