@@ -396,8 +396,7 @@ export const parkingApi = baseApi.injectEndpoints({
     >({
       query: license_plate => ({
         method: 'GET',
-        // TODO: solve this once AM-1366 is completed
-        params: {licence_plate: license_plate},
+        params: {license_plate},
         slug: ModuleSlug.parking,
         url: '/vehicle-information',
       }),

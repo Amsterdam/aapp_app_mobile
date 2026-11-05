@@ -10,10 +10,7 @@ export const ParkingMaxSessionsWarning = () => {
   return (
     errors.root?.serverError?.message === 'SSP_MAX_SESSIONS_REACHED' ||
     (errors?.root?.serverError?.message === 'SSP_OVERBOOKED_TIME_SLOT' && (
-      <AlertNegative
-        {...alerts.maximumSessionsWarning}
-        testID="ParkingMaxSessionsWarningAlert"
-      />
+      <AlertNegative {...alerts.maximumSessionsWarning} />
     ))
   )
 }

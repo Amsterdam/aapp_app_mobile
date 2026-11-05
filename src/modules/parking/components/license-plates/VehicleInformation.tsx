@@ -32,7 +32,7 @@ export const VehicleInformation = ({name = 'vehicle_id'}: Props) => {
   const licensePlate = watch(name) as string
 
   const licensePlateLength = licensePlate?.length ?? 0
-  const {data, isFetching} = useVehicleInformationQuery(
+  const {currentData: data} = useVehicleInformationQuery(
     licensePlateLength === 6 ? licensePlate : skipToken,
   )
 
@@ -47,10 +47,8 @@ export const VehicleInformation = ({name = 'vehicle_id'}: Props) => {
     )
   }
 
-  // make sure no old data is rendered, so no data for another license plate is shown
   if (
     !data ||
-    isFetching ||
     licensePlateLength < MINIMUM_LENGTH_FOR_WARNING ||
     licensePlateLength > MAXIMUM_LENGTH_FOR_WARNING
   ) {
