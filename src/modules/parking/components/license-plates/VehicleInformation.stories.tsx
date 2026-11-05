@@ -6,6 +6,9 @@ import {VehicleInformation} from './VehicleInformation'
 
 const meta = {
   component: VehicleInformation,
+  argTypes: {
+    name: {control: false},
+  },
 } satisfies Meta<typeof VehicleInformation>
 
 export default meta
