@@ -11,6 +11,7 @@ import {selectLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-chargi
 import {
   BoatChargingInitSessionStep,
   type NewSessionFormValues,
+  type Vignet,
 } from '@/modules/boat-charging/types'
 import {validateEmail} from '@/utils/validate'
 
@@ -19,12 +20,12 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
   const form = useNewSessionFormContext()
   const {isLoggedIn} = useIsLoggedIn()
   const {
-    data: terms,
+    data: termsData,
     isLoading: isLoadingTerms,
     isError: isErrorTerms,
   } = useBoatChargingTermsQuery()
   const {
-    data: vignettes,
+    data: vignettesData,
     isLoading: isLoadingVignettes,
     isError: isErrorVignettes,
   } = useBoatChargingVignettesQuery(undefined, {
@@ -32,10 +33,17 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
   })
 
   const loggedInNextStep = useCallback(
-    (params: NewSessionFormValues) => {
+    (
+      params: NewSessionFormValues,
+      terms: {version: number},
+      vignettes: Vignet[] = [],
+    ) => {
       const state = store.getState()
       const lastApprovedTermsVersionFromState =
         selectLastApprovedTermsVersionWhileLoggedIn(state)
+      const needsTermsApproval =
+        lastApprovedTermsVersionFromState === undefined ||
+        terms.version > lastApprovedTermsVersionFromState
 
       const {vignet} = params
 
@@ -45,13 +53,15 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
         } else if (vignettes.length === 1) {
           form.setValue('vignet', vignettes[0])
 
-          return BoatChargingRouteName.confirmSession
+          return needsTermsApproval
+            ? BoatChargingRouteName.termsAndConditions
+            : BoatChargingRouteName.confirmSession
         } else {
           return BoatChargingRouteName.chooseVignet
         }
       }
 
-      if (terms?.version !== lastApprovedTermsVersionFromState) {
+      if (needsTermsApproval) {
         return BoatChargingRouteName.termsAndConditions
       }
 
@@ -59,7 +69,7 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
         return BoatChargingRouteName.confirmSession
       }
     },
-    [step, store, terms?.version, vignettes, form],
+    [step, store, form],
   )
 
   const guestNextStep = useCallback(
@@ -86,9 +96,16 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
   )
 
   const getNextStep = useCallback(
-    (params: NewSessionFormValues) =>
-      isLoggedIn ? loggedInNextStep(params) : guestNextStep(params),
-    [guestNextStep, loggedInNextStep, isLoggedIn],
+    (params: NewSessionFormValues) => {
+      if (!termsData) {
+        return
+      }
+
+      return isLoggedIn
+        ? loggedInNextStep(params, termsData, vignettesData)
+        : guestNextStep(params)
+    },
+    [guestNextStep, loggedInNextStep, isLoggedIn, vignettesData, termsData],
   )
 
   return {
