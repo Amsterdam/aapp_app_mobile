@@ -1,4 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import {useMemo} from 'react'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   useParkingSessionsInfiniteQuery,
@@ -12,6 +13,7 @@ import {
   type VisitorParkingSessionsEndpointResponse,
 } from '@/modules/parking/types'
 import type {Paginated} from '@/types/api'
+import {sortByDate} from '@/utils/sort/sortByDate'
 
 type UseGetParkingSessionsReturn = {
   isError: boolean
@@ -23,28 +25,31 @@ type UseGetParkingSessionsReturn = {
     | ReturnType<typeof useVisitorParkingSessionsQuery>['refetch']
 }
 
+type Options = {skip?: boolean; sortAscending?: boolean}
+
 export function useGetParkingSessions(
   /**
    * Pass a boolean to overwrite status and retrieve all active or planned sessions in the upcoming 24 hours.
    */
   next_24_hours?: boolean,
-  options?: {skip: boolean},
+  options?: Options,
 ): UseGetParkingSessionsReturn
 export function useGetParkingSessions(
   /**
    * Pass a ParkingSessionStatus to retrieve only sessions with given status.
    */
   status?: ParkingSessionStatus,
-  options?: {skip: boolean},
+  options?: Options,
 ): UseGetParkingSessionsReturn
 
 export function useGetParkingSessions(
   sessionStatusOrNext24Hours?: ParkingSessionStatus | boolean,
-  options?: {skip: boolean},
+  options?: Options,
 ) {
   const currentPermit = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
+  const {skip, sortAscending = false} = options ?? {}
 
   const next_24_hours =
     typeof sessionStatusOrNext24Hours === 'boolean'
@@ -75,10 +80,9 @@ export function useGetParkingSessions(
           next_24_hours,
         }
       : skipToken,
-    {initialPageParam: 1, refetchOnMountOrArgChange: true, ...options},
+    {initialPageParam: 1, refetchOnMountOrArgChange: true, skip},
   )
-  const {page, result: parkingSessions} =
-    parkingSessionsInfinite?.pages[0] ?? {}
+  const permitHolderParkingSessions = parkingSessionsInfinite?.pages[0]
 
   const {
     currentData: visitorParkingSessions,
@@ -97,11 +101,26 @@ export function useGetParkingSessions(
     {refetchOnMountOrArgChange: true, ...options},
   )
 
+  const parkingSessions = useMemo(() => {
+    const sessions =
+      visitorParkingSessions || permitHolderParkingSessions?.result
+
+    if (!sessions) {
+      return
+    }
+
+    return sortByDate(sessions, sortAscending)
+  }, [
+    visitorParkingSessions,
+    permitHolderParkingSessions?.result,
+    sortAscending,
+  ])
+
   if (isVisitorSessionsActive) {
     return {
       isLoading: isLoadingVisitorParkingSessions,
       isError: isVisitorParkingSessionsError,
-      parkingSessions: visitorParkingSessions,
+      parkingSessions,
       page: undefined,
       refetch: refetchVisitorParkingSessions,
     }
@@ -110,8 +129,8 @@ export function useGetParkingSessions(
   return {
     isLoading: isLoadingParkingSessions,
     isError: isParkingSessionsError,
-    parkingSessions: parkingSessions,
-    page,
+    parkingSessions,
+    page: permitHolderParkingSessions?.page,
     refetch: refetchParkingSessions,
   }
 }
