@@ -12,12 +12,14 @@ import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   ListEmptyComponent?: ComponentType
+  ListHeaderComponent?: ComponentType
   isLoading: boolean
   sessions?: ParkingSessionOrDummy[]
 } & Pick<FlatListProps<ParkingSessionOrDummy>, 'onViewableItemsChanged'>
 
 export const ParkingSessionsFlatList = ({
   ListEmptyComponent,
+  ListHeaderComponent,
   sessions,
   onViewableItemsChanged,
   isLoading = false,
@@ -30,6 +32,7 @@ export const ParkingSessionsFlatList = ({
       contentContainerStyle={[layoutStyles.grow, styles.container]}
       data={sessions}
       ListEmptyComponent={isLoading ? null : ListEmptyComponent}
+      ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => <ParkingSessionListRenderItem item={item} />}
     />

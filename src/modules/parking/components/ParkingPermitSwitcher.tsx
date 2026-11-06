@@ -35,7 +35,7 @@ export const ParkingPermitSwitcher = () => {
   return (
     <Box variant="distinct">
       <Column
-        gutter="md"
+        gutter="smd"
         halign="start">
         <AccessibilityGroup
           accessibilityLabel={`${title} ${secureAccount?.name ?? ''}, ${parkingAccount ? 'Meldcode ' + parkingAccount.reportCode : ''}`}>

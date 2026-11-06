@@ -1,0 +1,44 @@
+import {
+  Controls,
+  Meta,
+  Primary,
+  Stories,
+  Subtitle,
+  Title,
+} from '@storybook/addon-docs/blocks'
+import * as ParkingDashboardStories from './ParkingDashboard.stories'
+
+<Meta of={ParkingDashboardStories} />
+
+<Title />
+
+<Subtitle>
+  An overview of a parking permit, upcoming sessions, and the actions available
+  to the current account.
+</Subtitle>
+
+<Primary />
+
+## Key states to review
+
+- Permit holder and visitor accounts, including a visitor who has selected a
+  license plate.
+- An inactive permit, which explains when it becomes available and hides
+  session-start actions.
+- Permits with no end time and accounts with zero, two, or six upcoming
+  sessions.
+
+## Do and don't
+
+- Do distinguish an inactive permit from an active permit with no sessions.
+- Do show the selected license plate when visitor sessions are available.
+- Don't imply that a visitor's sessions are visible before a license plate is
+  selected.
+
+## Stories
+
+<Stories />
+
+## Controls
+
+<Controls />

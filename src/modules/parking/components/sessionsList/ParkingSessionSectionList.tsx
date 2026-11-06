@@ -20,6 +20,7 @@ import {
 
 type Props = {
   ListEmptyComponent?: ComponentType
+  ListHeaderComponent?: ComponentType
   isLoading: boolean
   sessions?: ParkingSessionOrDummy[]
   sortAscending?: boolean
@@ -27,6 +28,7 @@ type Props = {
 
 export const ParkingSessionsSectionList = ({
   ListEmptyComponent,
+  ListHeaderComponent,
   sortAscending = false,
   sessions,
   onViewableItemsChanged,
@@ -45,6 +47,7 @@ export const ParkingSessionsSectionList = ({
     <SectionList
       contentContainerStyle={[layoutStyles.grow, styles.container]}
       ListEmptyComponent={isLoading ? null : ListEmptyComponent}
+      ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => <ParkingSessionListRenderItem item={item} />}
       renderSectionFooter={() => <Gutter height="md" />}

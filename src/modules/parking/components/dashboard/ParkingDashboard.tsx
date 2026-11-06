@@ -1,39 +1,64 @@
-import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
-import {Tip} from '@/components/features/product-tour/types'
+import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Placement} from '@/components/ui/types'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
 import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
+import {ParkingDashboardVisitorChooseLicensePlateSwitch} from '@/modules/parking/components/dashboard/ParkingDashboardVisitorChooseLicensePlateSwitch'
 import {ParkingPaymentByVisitorButton} from '@/modules/parking/components/dashboard/ParkingPaymentByVisitorButton'
 import {ParkingPermitBalance} from '@/modules/parking/components/dashboard/ParkingPermitBalance'
-import {ParkingPermitSessions} from '@/modules/parking/components/dashboard/ParkingPermitSessions'
 import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
 import {ParkingPermitSwitcher} from '@/modules/parking/components/ParkingPermitSwitcher'
+import {ParkingUpcomingSessionsSummary} from '@/modules/parking/components/session/ParkingUpcomingSessionsSummary'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope} from '@/modules/parking/types'
+import {getPermitStartDateString} from '@/modules/parking/utils/getPermitStartDateString'
 
 export const ParkingDashboard = () => {
   const currentPermit = useCurrentParkingPermit()
+  const {isPermitStartedAtInFuture, started_at} = useCurrentParkingPermit()
+  const parkingAccount = useParkingAccount()
 
   return (
     <Column gutter="lg">
-      <ProductTourTipWrapper
-        placement={Placement.below}
-        testID="ParkingPermitTopTaskButtonTooltip"
-        tipSlug={Tip.parkingPermitTopTaskButtonTooltip}>
-        <ParkingPermitSwitcher />
-      </ProductTourTipWrapper>
+      <ParkingPermitSwitcher />
 
       <Column gutter="xl">
-        <ParkingPermitSessions />
+        <Box variant="distinct">
+          <Column gutter="lg">
+            <Column gutter="sm">
+              <Title
+                level="h2"
+                testID="ParkingPermitSessionsTitle"
+                text="Parkeersessies"
+              />
 
-        {!currentPermit.isPermitStartedAtInFuture && (
-          <Column gutter="md">
-            <ParkingStartSessionButton />
-            <ParkingPaymentByVisitorButton />
+              {isPermitStartedAtInFuture ? (
+                <Paragraph>
+                  Uw vergunning is nog niet actief.{' '}
+                  {getPermitStartDateString(started_at)}
+                </Paragraph>
+              ) : (
+                <>
+                  {parkingAccount?.scope === ParkingPermitScope.visitor && (
+                    <ParkingDashboardVisitorChooseLicensePlateSwitch />
+                  )}
+                  <ParkingUpcomingSessionsSummary />
+                </>
+              )}
+            </Column>
+
+            {!currentPermit.isPermitStartedAtInFuture && (
+              <Column gutter="md">
+                <ParkingStartSessionButton />
+                <ParkingPaymentByVisitorButton />
+              </Column>
+            )}
+            <ParkingDashboardNavigationButtons />
           </Column>
-        )}
+        </Box>
 
-        <ParkingDashboardNavigationButtons />
         <ParkingPermitBalance />
       </Column>
 
