@@ -166,6 +166,19 @@ describe('useInitSessionNextStep/loggedIn', () => {
     },
   )
 
+  it('routes to terms before confirmation when auto-selecting the only vignette and no terms version is approved', () => {
+    vignettes = [vignet]
+    lastApprovedTermsVersion = undefined
+    const {result} = renderHook(() =>
+      useInitSessionNextStep(BoatChargingInitSessionStep.selectSocket),
+    )
+
+    expect(result.current.getNextStep(params)).toBe(
+      BoatChargingRouteName.termsAndConditions,
+    )
+    expect(setValueMock).toHaveBeenCalledWith('vignet', vignet)
+  })
+
   it.each([
     BoatChargingInitSessionStep.selectSocket,
     BoatChargingInitSessionStep.guestEmail,
@@ -212,15 +225,25 @@ describe('useInitSessionNextStep/loggedIn', () => {
     expect(result.current.getNextStep({...params, vignet})).toBeUndefined()
   })
 
-  it('treats matching absent terms versions as current', () => {
+  it('treats matching absent terms versions as invalid', () => {
     terms = undefined
     lastApprovedTermsVersion = undefined
     const {result} = renderHook(() =>
       useInitSessionNextStep(BoatChargingInitSessionStep.termsAndConditions),
     )
 
+    expect(result.current.getNextStep({...params, vignet})).toBeUndefined()
+  })
+
+  it('Navigated to terms and conditions when no approved terms version has been stored', () => {
+    terms = {version: 1}
+    lastApprovedTermsVersion = undefined
+    const {result} = renderHook(() =>
+      useInitSessionNextStep(BoatChargingInitSessionStep.selectSocket),
+    )
+
     expect(result.current.getNextStep({...params, vignet})).toBe(
-      BoatChargingRouteName.confirmSession,
+      BoatChargingRouteName.termsAndConditions,
     )
   })
 })
