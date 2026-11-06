@@ -10,7 +10,6 @@ import {ParkingLogoutScreen} from '@/modules/parking/screens/logout/ParkingLogou
 import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
 import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
 import {ParkingAccountInactiveScreen} from '@/modules/parking/screens/ParkingAccountInactiveScreen.screen'
-import {ParkingActiveSessionsScreen} from '@/modules/parking/screens/ParkingActiveSessions.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingEditSessionScreen} from '@/modules/parking/screens/ParkingEditSession.screen'
 import {ParkingIncreaseBalanceScreen} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
@@ -21,6 +20,7 @@ import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPla
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
 import {ParkingSessionHistoryScreen} from '@/modules/parking/screens/ParkingSessionHistory.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
+import {ParkingUpcomingSessionsScreen} from '@/modules/parking/screens/ParkingUpcomingSessions.screen'
 import {ParkingVisitorExtendSessionScreen} from '@/modules/parking/screens/ParkingVisitorExtendSession.screen'
 
 export type ParkingScreenConfigRoutes = Exclude<
@@ -103,11 +103,11 @@ export const parkingScreenConfig: StackNavigationRoutes<
       headerTitle: 'Parkeersessie',
     },
   },
-  [ParkingRouteName.parkingActiveSessions]: {
-    component: ParkingActiveSessionsScreen,
-    name: ParkingRouteName.parkingActiveSessions,
+  [ParkingRouteName.parkingUpcomingSessions]: {
+    component: ParkingUpcomingSessionsScreen,
+    name: ParkingRouteName.parkingUpcomingSessions,
     options: {
-      headerTitle: 'Actief',
+      headerTitle: 'Parkeersessies',
     },
   },
   [ParkingRouteName.parkingPlannedSessions]: {

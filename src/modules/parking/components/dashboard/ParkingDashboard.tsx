@@ -9,7 +9,7 @@ import {ParkingPermitBalance} from '@/modules/parking/components/dashboard/Parki
 import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
 import {ParkingPermitSwitcher} from '@/modules/parking/components/ParkingPermitSwitcher'
-import {ParkingActiveSessionsSummary} from '@/modules/parking/components/session/ParkingActiveSessionsSummary'
+import {ParkingUpcomingSessionsSummary} from '@/modules/parking/components/session/ParkingUpcomingSessionsSummary'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
@@ -44,7 +44,7 @@ export const ParkingDashboard = () => {
                   {parkingAccount?.scope === ParkingPermitScope.visitor && (
                     <ParkingDashboardVisitorChooseLicensePlateSwitch />
                   )}
-                  <ParkingActiveSessionsSummary />
+                  <ParkingUpcomingSessionsSummary />
                 </>
               )}
             </Column>
