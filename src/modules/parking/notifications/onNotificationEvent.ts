@@ -13,5 +13,5 @@ export const onNotificationEvent: ModuleClientConfig<{
 
   dispatch(setCurrentPermitReportCode(reportCode))
   dispatch(setCurrentAccountByPermitReportCode(reportCode))
-  dispatch(parkingApi.util.invalidateTags(tagTypes))
+  setTimeout(() => dispatch(parkingApi.util.invalidateTags(tagTypes)), 500)
 }
