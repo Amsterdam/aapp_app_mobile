@@ -105,7 +105,7 @@ export function useGetParkingSessions(
     const sessions =
       visitorParkingSessions || permitHolderParkingSessions?.result
 
-    if (!sessions) {
+    if (!sessions || !Array.isArray(sessions)) {
       return
     }
 
