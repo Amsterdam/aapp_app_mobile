@@ -5,15 +5,55 @@ import {
   useVisitorParkingSessionsQuery,
 } from '@/modules/parking/service'
 import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
-import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
+import {
+  ParkingPermitScope,
+  ParkingSessionStatus,
+  type ParkingSession,
+  type VisitorParkingSessionsEndpointResponse,
+} from '@/modules/parking/types'
+import type {Paginated} from '@/types/api'
 
-export const useGetParkingSessions = (
-  status: ParkingSessionStatus,
+type UseGetParkingSessionsReturn = {
+  isError: boolean
+  isLoading: boolean
+  page?: Paginated<unknown>['page']
+  parkingSessions?: VisitorParkingSessionsEndpointResponse | ParkingSession[]
+  refetch:
+    | ReturnType<typeof useParkingSessionsInfiniteQuery>['refetch']
+    | ReturnType<typeof useVisitorParkingSessionsQuery>['refetch']
+}
+
+export function useGetParkingSessions(
+  /**
+   * Pass a boolean to overwrite status and retrieve all active or planned sessions in the upcoming 24 hours.
+   */
+  next_24_hours?: boolean,
   options?: {skip: boolean},
-) => {
+): UseGetParkingSessionsReturn
+export function useGetParkingSessions(
+  /**
+   * Pass a ParkingSessionStatus to retrieve only sessions with given status.
+   */
+  status?: ParkingSessionStatus,
+  options?: {skip: boolean},
+): UseGetParkingSessionsReturn
+
+export function useGetParkingSessions(
+  sessionStatusOrNext24Hours?: ParkingSessionStatus | boolean,
+  options?: {skip: boolean},
+) {
   const currentPermit = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
+
+  const next_24_hours =
+    typeof sessionStatusOrNext24Hours === 'boolean'
+      ? sessionStatusOrNext24Hours
+      : undefined
+  const status =
+    typeof sessionStatusOrNext24Hours !== 'boolean'
+      ? sessionStatusOrNext24Hours
+      : undefined
 
   const isPermitHolderSessionsActive =
     !!currentPermit && parkingAccount?.scope === ParkingPermitScope.permitHolder
@@ -32,11 +72,13 @@ export const useGetParkingSessions = (
           report_code: currentPermit.report_code.toString(),
           status,
           page_size: 100,
+          next_24_hours,
         }
       : skipToken,
     {initialPageParam: 1, refetchOnMountOrArgChange: true, ...options},
   )
-  const parkingSessions = parkingSessionsInfinite?.pages[0]
+  const {page, result: parkingSessions} =
+    parkingSessionsInfinite?.pages[0] ?? {}
 
   const {
     currentData: visitorParkingSessions,
@@ -49,6 +91,7 @@ export const useGetParkingSessions = (
           vehicle_id: visitorVehicleId,
           report_code: currentPermit.report_code.toString(),
           status,
+          next_24_hours,
         }
       : skipToken,
     {refetchOnMountOrArgChange: true, ...options},
@@ -58,7 +101,7 @@ export const useGetParkingSessions = (
     return {
       isLoading: isLoadingVisitorParkingSessions,
       isError: isVisitorParkingSessionsError,
-      parkingSessions: visitorParkingSessions?.[status],
+      parkingSessions: visitorParkingSessions,
       page: undefined,
       refetch: refetchVisitorParkingSessions,
     }
@@ -67,8 +110,8 @@ export const useGetParkingSessions = (
   return {
     isLoading: isLoadingParkingSessions,
     isError: isParkingSessionsError,
-    parkingSessions: parkingSessions?.result,
-    page: parkingSessions?.page,
+    parkingSessions: parkingSessions,
+    page,
     refetch: refetchParkingSessions,
   }
 }

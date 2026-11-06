@@ -15,19 +15,19 @@ import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessio
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi} from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
-import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
+import {ParkingPermitScope} from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 const PARKING_SESSIONS_AMOUNT_CUTOFF = 4
 
-export const ParkingActiveSessionsSummary = () => {
+export const ParkingUpcomingSessionsSummary = () => {
   const {navigate} = useNavigation()
   const {
     parkingSessions: activeParkingSessions,
     isLoading,
     isError,
     refetch,
-  } = useGetParkingSessions(ParkingSessionStatus.active)
+  } = useGetParkingSessions(true)
   const parkingAccount = useParkingAccount()
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
   const {value: isRefetched, enable: setRefetched} = useBoolean(false)
@@ -104,11 +104,7 @@ export const ParkingActiveSessionsSummary = () => {
   }
 
   return (
-    <Box
-      insetHorizontal={
-        parkingAccount?.scope === ParkingPermitScope.visitor ? 'md' : 'no'
-      }
-      insetVertical="md">
+    <Box insetVertical="md">
       <Column gutter="lg">
         {activeParkingSessions
           .slice(0, PARKING_SESSIONS_AMOUNT_CUTOFF)
@@ -127,7 +123,7 @@ export const ParkingActiveSessionsSummary = () => {
             horizontallyAlign="center"
             insetHorizontal="no"
             insetVertical="no"
-            onPress={() => navigate(ParkingRouteName.parkingActiveSessions)}
+            onPress={() => navigate(ParkingRouteName.parkingUpcomingSessions)}
             testID="ParkingDashboardMoreSessionsNavigationButton"
             title="Meer parkeersessies"
           />

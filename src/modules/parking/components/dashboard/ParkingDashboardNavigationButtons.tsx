@@ -1,5 +1,6 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
+import type {TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -15,25 +16,21 @@ export const ParkingDashboardNavigationButtons = () => {
     <Column gutter="xs">
       {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
         <>
-          <NavigationButton
-            chevronSize="md"
-            insetHorizontal="no"
+          <ParkingDashboardNavigationButton
             onPress={() => {
               navigate(ParkingRouteName.parkingPlannedSessions)
             }}
             testID="ParkingPlannedSessionsButton"
             title="Geplande parkeersessies"
           />
-          <NavigationButton
+          <ParkingDashboardNavigationButton
             onPress={() => {
               navigate(ParkingRouteName.parkingSessionTransactions)
             }}
             testID="ParkingParkingHistoryButton"
             title="Parkeergeschiedenis"
           />
-          <NavigationButton
-            chevronSize="md"
-            insetHorizontal="no"
+          <ParkingDashboardNavigationButton
             onPress={() => {
               navigate(ParkingRouteName.myLicensePlates)
             }}
@@ -41,9 +38,7 @@ export const ParkingDashboardNavigationButtons = () => {
             title="Mijn kentekens"
           />
           {!!currentPermit.money_balance_applicable && (
-            <NavigationButton
-              chevronSize="md"
-              insetHorizontal="no"
+            <ParkingDashboardNavigationButton
               onPress={() => {
                 navigate(ParkingRouteName.parkingMoneyTransactions)
               }}
@@ -54,9 +49,7 @@ export const ParkingDashboardNavigationButtons = () => {
         </>
       )}
 
-      <NavigationButton
-        chevronSize="md"
-        insetHorizontal="no"
+      <ParkingDashboardNavigationButton
         onPress={() => {
           navigate(ParkingRouteName.parkingPermitZones)
         }}
@@ -66,3 +59,18 @@ export const ParkingDashboardNavigationButtons = () => {
     </Column>
   )
 }
+
+type ParkingDashboardNavigationButtonProps = {
+  onPress: () => void
+  title: string
+} & TestProps
+
+const ParkingDashboardNavigationButton = (
+  props: ParkingDashboardNavigationButtonProps,
+) => (
+  <NavigationButton
+    chevronSize="md"
+    insetHorizontal="no"
+    {...props}
+  />
+)
