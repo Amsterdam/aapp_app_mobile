@@ -27,7 +27,7 @@ export const ParkingUpcomingSessionsSummary = () => {
     isLoading,
     isError,
     refetch,
-  } = useGetParkingSessions(true)
+  } = useGetParkingSessions(true, {sortAscending: true})
   const parkingAccount = useParkingAccount()
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
   const {value: isRefetched, enable: setRefetched} = useBoolean(false)

@@ -6,6 +6,7 @@ import {ParkingSessionStatus} from '@/modules/parking/types'
 type Props = {
   ListEmptyComponent?: ComponentType
   ListHeaderComponent?: ComponentType
+  sortAscending?: boolean
 } & Or<
   {status: ParkingSessionStatus},
   {
@@ -17,12 +18,14 @@ type Props = {
 >
 
 export const ParkingSessionsListVisitor = ({
+  sortAscending = false,
   status,
   next24Hours,
   ...rest
 }: Props) => {
   const {parkingSessions, isLoading} = useGetParkingSessions(
     (next24Hours ?? status) as Parameters<typeof useGetParkingSessions>[0],
+    {sortAscending},
   )
 
   return (

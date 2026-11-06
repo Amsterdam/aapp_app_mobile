@@ -1,5 +1,5 @@
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
-import {compareSortableItemsByStartDateTime} from '@/utils/sort/compareSortableItemsByStartDateTime'
+import {sortByDate} from '@/utils/sort/sortByDate'
 
 export const dummyTitle = 'dummy'
 
@@ -20,16 +20,8 @@ export const getSectionsSortedByDate = <
   sortableItems: Array<T> | undefined,
   sortAscending: boolean,
 ): Section<T>[] =>
-  [...(sortableItems ?? [])]
-    .sort((a, b) =>
-      a.dummy || b.dummy
-        ? 0
-        : sortAscending
-          ? compareSortableItemsByStartDateTime(a, b)
-          : // eslint-disable-next-line sonarjs/arguments-order
-            compareSortableItemsByStartDateTime(b, a),
-    )
-    .reduce<Section<T>[]>((result, session) => {
+  sortByDate(sortableItems, sortAscending).reduce<Section<T>[]>(
+    (result, session) => {
       const date = session.dummy
         ? dummyTitle
         : formatDateToDisplay(session.start_date_time, {todayAsDate: false})
@@ -42,4 +34,6 @@ export const getSectionsSortedByDate = <
       }
 
       return result
-    }, [])
+    },
+    [],
+  )
