@@ -11,7 +11,7 @@ import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSectio
 import {ParkingPermitSwitcher} from '@/modules/parking/components/ParkingPermitSwitcher'
 import {ParkingUpcomingSessionsSummary} from '@/modules/parking/components/session/ParkingUpcomingSessionsSummary'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useParkingAccount} from '@/modules/parking/slice'
+import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {getPermitStartDateString} from '@/modules/parking/utils/getPermitStartDateString'
 
@@ -19,6 +19,7 @@ export const ParkingDashboard = () => {
   const currentPermit = useCurrentParkingPermit()
   const {isPermitStartedAtInFuture, started_at} = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()
+  const {visitorVehicleId} = useVisitorVehicleId()
 
   return (
     <Column gutter="lg">
@@ -44,7 +45,8 @@ export const ParkingDashboard = () => {
                   {parkingAccount?.scope === ParkingPermitScope.visitor && (
                     <ParkingDashboardVisitorChooseLicensePlateSwitch />
                   )}
-                  <ParkingUpcomingSessionsSummary />
+                  {(parkingAccount?.scope === ParkingPermitScope.permitHolder ||
+                    visitorVehicleId) && <ParkingUpcomingSessionsSummary />}
                 </>
               )}
             </Column>
