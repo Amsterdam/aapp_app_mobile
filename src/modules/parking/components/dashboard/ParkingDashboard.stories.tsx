@@ -158,8 +158,6 @@ export const PermitHolder: Story = {
         permit_name: 'Bezoekersparkeervergunning',
         money_balance_applicable: true,
       },
-    },
-    parkingDashboard: {
       accountScope: ParkingPermitScope.permitHolder,
       parkingSessions: createParkingSessions(1, false),
     } satisfies ParkingStorybookParameters,
