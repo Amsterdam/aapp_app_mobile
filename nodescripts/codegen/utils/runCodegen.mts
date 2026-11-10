@@ -5,8 +5,9 @@ import {lintAll} from './lintAll.mts'
 
 export const runCodeGen = () => {
   console.log('Running code generation...')
-  config.forEach(generate)
-  lintAll(config)
-  formatAll(config)
+  const adjustedFiles = config.flatMap(generate)
+
+  lintAll(adjustedFiles)
+  formatAll(adjustedFiles)
   console.log('Finished code generation.')
 }

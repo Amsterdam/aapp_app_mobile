@@ -18,4 +18,6 @@ export const generateDirectoriesOutput = ({
 
   fs.mkdirSync(outputDir, {recursive: true})
   fs.writeFileSync(outputPath, result(directories))
+
+  return output
 }
