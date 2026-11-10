@@ -46,7 +46,7 @@ export const ParkingDashboard = () => {
                     <ParkingDashboardVisitorChooseLicensePlateSwitch />
                   )}
                   {(parkingAccount?.scope === ParkingPermitScope.permitHolder ||
-                    visitorVehicleId) && <ParkingUpcomingSessionsSummary />}
+                    !!visitorVehicleId) && <ParkingUpcomingSessionsSummary />}
                 </>
               )}
             </Column>
