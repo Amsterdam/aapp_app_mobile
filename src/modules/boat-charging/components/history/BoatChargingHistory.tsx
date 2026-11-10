@@ -53,7 +53,7 @@ const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
   end_date_time: '1970-01-01T00:00:00Z',
   id: '',
   kwh: 0,
-  location: {name: ''} as BoatChargingLocation,
+  location: {name: '', address: {}} as BoatChargingLocation,
   nrg_status: NRGStatus.Created,
   page: 0,
   socket_number: '',

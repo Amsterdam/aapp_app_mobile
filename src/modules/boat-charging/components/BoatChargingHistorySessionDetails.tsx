@@ -9,6 +9,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useBeforeRemove} from '@/hooks/navigation/useBeforeRemove'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {alerts} from '@/modules/boat-charging/alerts'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
 import {
@@ -98,7 +99,7 @@ export const BoatChargingHistorySessionDetails = () => {
   return (
     <Column gutter="xl">
       <Column gutter="lg">
-        <Title text={location.name} />
+        <Title text={getAddressLine1(location.address)} />
 
         <MetaDataCard
           iconName="power-plug"

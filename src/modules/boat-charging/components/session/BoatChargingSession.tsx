@@ -10,6 +10,7 @@ import {MetaDataCard} from '@/components/ui/MetaDataCard'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
+import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {BoatChargingMapNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingMapNavigationButton'
 import {BoatChargingSessionInfoContainer} from '@/modules/boat-charging/components/session/BoatChargingSessionInfoContainer'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
@@ -32,7 +33,7 @@ export const BoatChargingSession = () => {
     settings,
   } = useBoatChargingSession()
 
-  useSetScreenTitle(session?.location.name)
+  useSetScreenTitle(session ? getAddressLine1(session?.location.address) : '')
   const navigation = useNavigation()
 
   useEffect(() => {
