@@ -3,11 +3,9 @@ import {Button} from '@/components/ui/buttons/Button'
 import {alerts} from '@/modules/boat-charging/alerts'
 import {vignetInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVerifyVignetMutation} from '@/modules/boat-charging/service'
-import {
-  BoatChargingInitSessionStep,
-  type NewSessionFormValues,
-} from '@/modules/boat-charging/types'
+import {type NewSessionFormValues} from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 
@@ -15,7 +13,7 @@ export const BoatChargingConfirmSessionSubmitButton = () => {
   const {setAlert} = useAlert()
 
   const {form, onPress, isLoading, isError} = useInitSession(
-    BoatChargingInitSessionStep.confirmSession,
+    BoatChargingRouteName.confirmSession,
   )
 
   const [

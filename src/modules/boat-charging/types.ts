@@ -1,5 +1,6 @@
 import type {Feature, Point} from 'geojson'
 import type {Address} from '@/modules/address/exports/types'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import type {PaginationQueryArgs} from '@/types/api'
 
 export enum BoatChargingEndpointName {
@@ -303,11 +304,12 @@ export type BoatChargingVerifyVignetResponse = Or<
   {reason: VignetInvalidReasons; status: 'invalid'}
 >
 
-export enum BoatChargingInitSessionStep {
-  guestEmail = 2,
-  verifyVignet = 3,
-  chooseVignet = 4,
-  selectSocket = 1,
-  termsAndConditions = 5,
-  confirmSession = 6,
-}
+export type BoatChargingInitSessionStep = Extract<
+  BoatChargingRouteName,
+  | BoatChargingRouteName.confirmSession
+  | BoatChargingRouteName.guestEmail
+  | BoatChargingRouteName.verifyVignet
+  | BoatChargingRouteName.chooseVignet
+  | BoatChargingRouteName.locationDetails
+  | BoatChargingRouteName.termsAndConditions
+>

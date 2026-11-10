@@ -9,7 +9,7 @@ import {
 } from '@/modules/boat-charging/service'
 import {selectLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
 import {
-  BoatChargingInitSessionStep,
+  type BoatChargingInitSessionStep,
   type NewSessionFormValues,
   type Vignet,
 } from '@/modules/boat-charging/types'
@@ -65,7 +65,7 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
         return BoatChargingRouteName.termsAndConditions
       }
 
-      if (step !== BoatChargingInitSessionStep.confirmSession) {
+      if (step !== BoatChargingRouteName.confirmSession) {
         return BoatChargingRouteName.confirmSession
       }
     },
@@ -88,7 +88,7 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
         return BoatChargingRouteName.termsAndConditions
       }
 
-      if (step !== BoatChargingInitSessionStep.confirmSession) {
+      if (step !== BoatChargingRouteName.confirmSession) {
         return BoatChargingRouteName.confirmSession
       }
     },
@@ -98,14 +98,21 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
   const getNextStep = useCallback(
     (params: NewSessionFormValues) => {
       if (!termsData) {
-        return
+        return step
       }
 
       return isLoggedIn
         ? loggedInNextStep(params, termsData, vignettesData)
         : guestNextStep(params)
     },
-    [guestNextStep, loggedInNextStep, isLoggedIn, vignettesData, termsData],
+    [
+      guestNextStep,
+      loggedInNextStep,
+      isLoggedIn,
+      vignettesData,
+      termsData,
+      step,
+    ],
   )
 
   return {

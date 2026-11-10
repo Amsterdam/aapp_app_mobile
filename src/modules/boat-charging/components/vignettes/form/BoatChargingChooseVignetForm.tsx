@@ -10,7 +10,6 @@ import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
-import {BoatChargingInitSessionStep} from '@/modules/boat-charging/types'
 
 export const BoatChargingChooseVignetForm = () => {
   const navigation = useNavigation()
@@ -19,7 +18,7 @@ export const BoatChargingChooseVignetForm = () => {
     isLoading,
     isError,
   } = useBoatChargingVignettesQuery()
-  const {form} = useInitSession(BoatChargingInitSessionStep.chooseVignet)
+  const {form} = useInitSession(BoatChargingRouteName.chooseVignet)
 
   const options: ComponentProps<typeof RadioGroupControlled>['options'] =
     useMemo(
