@@ -24,7 +24,7 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: Props) => {
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
 
   const {onPress, isLoading, isError, disabled} = useInitSession(
-    BoatChargingRouteName.confirmSession,
+    BoatChargingRouteName.locationDetails,
   )
 
   const onSubmit = useCallback(

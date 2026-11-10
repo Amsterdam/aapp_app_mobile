@@ -97,7 +97,13 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
 
   const getNextStep = useCallback(
     (params: NewSessionFormValues) => {
+      if (isErrorTerms) {
+        // Navigate to terms to retry fetching terms when error or unavailable
+        return BoatChargingRouteName.termsAndConditions
+      }
+
       if (!termsData) {
+        // Block progress when no termsData as an extra guardrail
         return step
       }
 
@@ -111,6 +117,7 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
       isLoggedIn,
       vignettesData,
       termsData,
+      isErrorTerms,
       step,
     ],
   )
