@@ -10,7 +10,7 @@ export const BurningGuideRisksScreen = () => (
       <Box>
         <Column gutter="lg">
           <Title text="Rook van hout is slecht voor uw gezondheid" />
-          <Paragraph variant="intro">
+          <Paragraph>
             Rook bevat fijnstof. Dit kan zorgen voor hoesten, benauwdheid en
             prikkende ogen, keel of luchtwegen. Als u vaak rook inademt, heeft u
             meer kans op hart- en longziekten. Houtrook is ook slecht voor het
