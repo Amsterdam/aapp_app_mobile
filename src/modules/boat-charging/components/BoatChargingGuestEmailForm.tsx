@@ -11,10 +11,7 @@ import {useAccessCodePendingScreen} from '@/modules/access-code/exports/useAcces
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {
-  BoatChargingInitSessionStep,
-  type NewSessionFormValues,
-} from '@/modules/boat-charging/types'
+import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 
 export const BoatChargingGuestEmailForm = () => {
@@ -24,7 +21,7 @@ export const BoatChargingGuestEmailForm = () => {
   const {
     onPress,
     form: {handleSubmit},
-  } = useInitSession(BoatChargingInitSessionStep.guestEmail)
+  } = useInitSession(BoatChargingRouteName.guestEmail)
 
   const onSubmit = useCallback(
     (params: NewSessionFormValues) => onPress(params),

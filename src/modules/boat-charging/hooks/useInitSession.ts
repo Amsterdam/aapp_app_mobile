@@ -36,6 +36,7 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
       const nextStep = getNextStep(params)
 
       if (nextStep) {
+        // @ts-expect-error nextStep is a valid navigation input but hard for TS to resolve
         navigation.navigate(nextStep)
 
         return Promise.resolve()

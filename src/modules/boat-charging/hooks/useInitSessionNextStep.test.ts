@@ -10,7 +10,7 @@ import {
 } from '@/modules/boat-charging/service'
 import {selectLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
 import {
-  BoatChargingInitSessionStep,
+  type BoatChargingInitSessionStep,
   type NewSessionFormValues,
   type Vignet,
 } from '@/modules/boat-charging/types'
@@ -92,7 +92,7 @@ describe('useInitSessionNextStep/loggedIn', () => {
     'ignores email form param for logged in users',
     email => {
       const {result} = renderHook(() =>
-        useInitSessionNextStep(BoatChargingInitSessionStep.selectSocket),
+        useInitSessionNextStep(BoatChargingRouteName.locationDetails),
       )
 
       const {getNextStep} = result.current
@@ -103,13 +103,15 @@ describe('useInitSessionNextStep/loggedIn', () => {
     },
   )
 
-  it.each([
-    BoatChargingInitSessionStep.selectSocket,
-    BoatChargingInitSessionStep.guestEmail,
-    BoatChargingInitSessionStep.termsAndConditions,
-    BoatChargingInitSessionStep.confirmSession,
-    BoatChargingInitSessionStep.chooseVignet,
-  ])(
+  it.each(
+    Array.from<BoatChargingInitSessionStep>([
+      BoatChargingRouteName.locationDetails,
+      BoatChargingRouteName.guestEmail,
+      BoatChargingRouteName.termsAndConditions,
+      BoatChargingRouteName.confirmSession,
+      BoatChargingRouteName.chooseVignet,
+    ]),
+  )(
     'routes logged-in users at step %s to vignette verification when no vignet has been selected',
     step => {
       const {result} = renderHook(() => useInitSessionNextStep(step))
@@ -120,13 +122,15 @@ describe('useInitSessionNextStep/loggedIn', () => {
     },
   )
 
-  it.each([
-    BoatChargingInitSessionStep.selectSocket,
-    BoatChargingInitSessionStep.guestEmail,
-    BoatChargingInitSessionStep.termsAndConditions,
-    BoatChargingInitSessionStep.confirmSession,
-    BoatChargingInitSessionStep.verifyVignet,
-  ])(
+  it.each(
+    Array.from<BoatChargingInitSessionStep>([
+      BoatChargingRouteName.locationDetails,
+      BoatChargingRouteName.guestEmail,
+      BoatChargingRouteName.termsAndConditions,
+      BoatChargingRouteName.confirmSession,
+      BoatChargingRouteName.verifyVignet,
+    ]),
+  )(
     'routes logged-in users at step %s to vignette selection, when they have 2 or more vignettes connected to their account',
     step => {
       vignettes = [
@@ -146,13 +150,15 @@ describe('useInitSessionNextStep/loggedIn', () => {
     },
   )
 
-  it.each([
-    BoatChargingInitSessionStep.selectSocket,
-    BoatChargingInitSessionStep.guestEmail,
-    BoatChargingInitSessionStep.termsAndConditions,
-    BoatChargingInitSessionStep.confirmSession,
-    BoatChargingInitSessionStep.verifyVignet,
-  ])(
+  it.each(
+    Array.from<BoatChargingInitSessionStep>([
+      BoatChargingRouteName.locationDetails,
+      BoatChargingRouteName.guestEmail,
+      BoatChargingRouteName.termsAndConditions,
+      BoatChargingRouteName.confirmSession,
+      BoatChargingRouteName.verifyVignet,
+    ]),
+  )(
     'routes logged-in users at step %s to confirm session, when they have only 1 vignet connected to their account and all other params are set.',
     step => {
       vignettes = [vignet]
@@ -166,18 +172,34 @@ describe('useInitSessionNextStep/loggedIn', () => {
     },
   )
 
-  it.each([
-    BoatChargingInitSessionStep.selectSocket,
-    BoatChargingInitSessionStep.guestEmail,
-    BoatChargingInitSessionStep.termsAndConditions,
-    BoatChargingInitSessionStep.chooseVignet,
-    BoatChargingInitSessionStep.verifyVignet,
-  ])(
+  it('routes to terms before confirmation when auto-selecting the only vignette and no terms version is approved', () => {
+    vignettes = [vignet]
+    lastApprovedTermsVersion = undefined
+    const {result} = renderHook(() =>
+      useInitSessionNextStep(BoatChargingRouteName.locationDetails),
+    )
+
+    expect(result.current.getNextStep(params)).toBe(
+      BoatChargingRouteName.termsAndConditions,
+    )
+    expect(setValueMock).toHaveBeenCalledWith('vignet', vignet)
+  })
+
+  it.each(
+    Array.from<BoatChargingInitSessionStep>([
+      BoatChargingRouteName.locationDetails,
+      BoatChargingRouteName.guestEmail,
+      BoatChargingRouteName.termsAndConditions,
+      BoatChargingRouteName.confirmSession,
+      BoatChargingRouteName.verifyVignet,
+    ]),
+  )(
     'routes logged-in users at step %s to session confirmation, when all required params are set',
     step => {
+      vignettes = [vignet]
       const {result} = renderHook(() => useInitSessionNextStep(step))
 
-      expect(result.current.getNextStep({...params, vignet})).toBe(
+      expect(result.current.getNextStep(params)).toBe(
         BoatChargingRouteName.confirmSession,
       )
     },
@@ -186,7 +208,7 @@ describe('useInitSessionNextStep/loggedIn', () => {
   it('routes logged-in users to terms when their approved version is outdated', () => {
     lastApprovedTermsVersion = 0
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.confirmSession),
+      useInitSessionNextStep(BoatChargingRouteName.confirmSession),
     )
 
     expect(result.current.getNextStep({...params, vignet})).toBe(
@@ -196,7 +218,7 @@ describe('useInitSessionNextStep/loggedIn', () => {
 
   it('routes logged-in users with current terms to session confirmation', () => {
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.termsAndConditions),
+      useInitSessionNextStep(BoatChargingRouteName.termsAndConditions),
     )
 
     expect(result.current.getNextStep({...params, vignet})).toBe(
@@ -206,21 +228,40 @@ describe('useInitSessionNextStep/loggedIn', () => {
 
   it('does not route logged-in users already at confirmation when terms match', () => {
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.confirmSession),
+      useInitSessionNextStep(BoatChargingRouteName.confirmSession),
     )
 
     expect(result.current.getNextStep({...params, vignet})).toBeUndefined()
   })
 
-  it('treats matching absent terms versions as current', () => {
-    terms = undefined
+  it.each(
+    Array.from<BoatChargingInitSessionStep>([
+      BoatChargingRouteName.locationDetails,
+      BoatChargingRouteName.guestEmail,
+      BoatChargingRouteName.termsAndConditions,
+      BoatChargingRouteName.verifyVignet,
+      BoatChargingRouteName.chooseVignet,
+    ]),
+  )(
+    'treats matching absent terms versions as invalid and returns current route',
+    step => {
+      terms = undefined
+      lastApprovedTermsVersion = undefined
+      const {result} = renderHook(() => useInitSessionNextStep(step))
+
+      expect(result.current.getNextStep({...params, vignet})).toBe(step)
+    },
+  )
+
+  it('Navigated to terms and conditions when no approved terms version has been stored', () => {
+    terms = {version: 1}
     lastApprovedTermsVersion = undefined
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.termsAndConditions),
+      useInitSessionNextStep(BoatChargingRouteName.locationDetails),
     )
 
     expect(result.current.getNextStep({...params, vignet})).toBe(
-      BoatChargingRouteName.confirmSession,
+      BoatChargingRouteName.termsAndConditions,
     )
   })
 })
@@ -251,7 +292,7 @@ describe('useInitSessionNextStep/guest', () => {
     'routes guests to email when email is %p',
     email => {
       const {result} = renderHook(() =>
-        useInitSessionNextStep(BoatChargingInitSessionStep.guestEmail),
+        useInitSessionNextStep(BoatChargingRouteName.guestEmail),
       )
 
       const {getNextStep} = result.current
@@ -264,7 +305,7 @@ describe('useInitSessionNextStep/guest', () => {
 
   it('routes guests with an empty or invalid email to email entry', () => {
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.verifyVignet),
+      useInitSessionNextStep(BoatChargingRouteName.verifyVignet),
     )
 
     expect(result.current.getNextStep({...params, email: ''})).toBe(
@@ -277,7 +318,7 @@ describe('useInitSessionNextStep/guest', () => {
 
   it('routes guests from socket selection to confirm session, when all required form values are set.', () => {
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.selectSocket),
+      useInitSessionNextStep(BoatChargingRouteName.locationDetails),
     )
 
     expect(result.current.getNextStep({...params, vignet})).toBe(
@@ -287,7 +328,7 @@ describe('useInitSessionNextStep/guest', () => {
 
   it('routes guests from email entry to vignette verification, regardless of approvedTerms value', () => {
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.guestEmail),
+      useInitSessionNextStep(BoatChargingRouteName.guestEmail),
     )
 
     expect(result.current.getNextStep(params)).toBe(
@@ -303,7 +344,7 @@ describe('useInitSessionNextStep/guest', () => {
 
   it('routes guests from vignette verification to terms when not yet approved', () => {
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.verifyVignet),
+      useInitSessionNextStep(BoatChargingRouteName.verifyVignet),
     )
 
     expect(
@@ -315,7 +356,7 @@ describe('useInitSessionNextStep/guest', () => {
     'requires guest terms approval when approvedTerms is %p',
     approvedTerms => {
       const {result} = renderHook(() =>
-        useInitSessionNextStep(BoatChargingInitSessionStep.termsAndConditions),
+        useInitSessionNextStep(BoatChargingRouteName.termsAndConditions),
       )
 
       expect(
@@ -330,7 +371,7 @@ describe('useInitSessionNextStep/guest', () => {
 
   it('routes a guest with approved terms to session confirmation when all other required form values are set', () => {
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.termsAndConditions),
+      useInitSessionNextStep(BoatChargingRouteName.termsAndConditions),
     )
 
     expect(result.current.getNextStep({...params, vignet})).toBe(
@@ -340,7 +381,7 @@ describe('useInitSessionNextStep/guest', () => {
 
   it('returns no next route for a guest already at session confirmation when all required form values are set', () => {
     const {result} = renderHook(() =>
-      useInitSessionNextStep(BoatChargingInitSessionStep.confirmSession),
+      useInitSessionNextStep(BoatChargingRouteName.confirmSession),
     )
 
     expect(result.current.getNextStep({...params, vignet})).toBeUndefined()

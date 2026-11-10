@@ -13,12 +13,10 @@ import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingTermsQuery} from '@/modules/boat-charging/service'
 import {setLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-charging/slice'
-import {
-  BoatChargingInitSessionStep,
-  type NewSessionFormValues,
-} from '@/modules/boat-charging/types'
+import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 const AGREED_TO_TERMS_ERROR_MESSAGE =
@@ -28,7 +26,7 @@ export const BoatChargingTermsAndConditionsScreen = () => {
   const {
     onPress,
     form: {handleSubmit, setError, watch},
-  } = useInitSession(BoatChargingInitSessionStep.termsAndConditions)
+  } = useInitSession(BoatChargingRouteName.termsAndConditions)
 
   const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
   const dispatch = useDispatch()

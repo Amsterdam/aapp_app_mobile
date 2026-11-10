@@ -4,9 +4,9 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingLocationDetailsQuery} from '@/modules/boat-charging/service'
 import {
-  BoatChargingInitSessionStep,
   ChargingPointStatus,
   type BoatChargingSelectSocketFormValues,
   type NewSessionFormValues,
@@ -24,7 +24,7 @@ export const BoatChargingDetailsSocketSubmitButton = ({id}: Props) => {
   } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
 
   const {onPress, isLoading, isError, disabled} = useInitSession(
-    BoatChargingInitSessionStep.selectSocket,
+    BoatChargingRouteName.locationDetails,
   )
 
   const onSubmit = useCallback(
