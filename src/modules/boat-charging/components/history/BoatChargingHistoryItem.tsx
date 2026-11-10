@@ -3,6 +3,7 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import type {BoatChargingHistoryInfiniteItem} from '@/modules/boat-charging/components/history/BoatChargingHistory'
 import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
@@ -60,7 +61,7 @@ export const BoatChargingHistoryItem = memo(({session}: Props) => {
         })
       }
       testID="BoatChargingHistoryNavigationButton"
-      title={session.location.name}
+      title={getAddressLine1(session.location.address)}
     />
   )
 })
