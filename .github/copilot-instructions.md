@@ -13,3 +13,7 @@ In /src/modules we have several mini projects called 'modules'.
   - Any major non-standard architectural decisions
 - The documentation should not include any implementation details, such as the names of components or functions.
 - It should focus on the business logic and the purpose of the module.
+
+## Coding rules
+
+- Whenever new UI elements are build or existing UI elements are changed, add- or change Storybook stories.
