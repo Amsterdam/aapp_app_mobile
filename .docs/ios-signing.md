@@ -12,7 +12,7 @@ Run the pipeline `aapp_app_mobile [sync]` to run Fastlane Match.
 - If you get an error that a certificate cannot be created, delete certificates for user `API Key: 21d7[...]c95f` in the [App Store](https://developer.apple.com/account/resources/certificates/list) and run again.
 - If Match is stuck on unknown errors, you can ususally fix it by running [Match Nuke](https://docs.fastlane.tools/actions/match_nuke/). Or you can delete the certificates and profiles as described above, and delete the branch: https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_git/aapp_app_ios-certificates?version=GBamsterdam-app
 
-## 3. Install the provisioning profiles locally
+## 2. Install the provisioning profiles locally
 
 After running the sync pipeline, run Fastlane Match locally:
 
