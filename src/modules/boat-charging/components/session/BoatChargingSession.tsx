@@ -14,6 +14,7 @@ import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddress
 import {BoatChargingMapNavigationButton} from '@/modules/boat-charging/components/navigation/BoatChargingMapNavigationButton'
 import {BoatChargingSessionInfoContainer} from '@/modules/boat-charging/components/session/BoatChargingSessionInfoContainer'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
+import {useInvalidateBoatChargingSessions} from '@/modules/boat-charging/hooks/useInvalidateBoatChargingSessions'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {
   NRGStatus,
@@ -33,6 +34,10 @@ export const BoatChargingSession = () => {
     settings,
   } = useBoatChargingSession()
 
+  const invalidateBoatChargingSessions = useInvalidateBoatChargingSessions()
+
+  useEffect(invalidateBoatChargingSessions, [invalidateBoatChargingSessions])
+
   useSetScreenTitle(session ? getAddressLine1(session?.location.address) : '')
   const navigation = useNavigation()
 
@@ -42,11 +47,18 @@ export const BoatChargingSession = () => {
         session?.nrg_status === NRGStatus.Cancelled) &&
       session?.status === SessionStatus.COMPLETED
     ) {
+      invalidateBoatChargingSessions()
       navigation.replace(BoatChargingRouteName.historySessionDetails, {
         id: session.id,
       })
     }
-  }, [session?.status, navigation, session?.id, session?.nrg_status])
+  }, [
+    session?.status,
+    navigation,
+    session?.id,
+    session?.nrg_status,
+    invalidateBoatChargingSessions,
+  ])
 
   if (isLoading) {
     return (
