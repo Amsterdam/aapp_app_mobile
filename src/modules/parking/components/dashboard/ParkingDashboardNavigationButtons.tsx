@@ -16,13 +16,15 @@ export const ParkingDashboardNavigationButtons = () => {
     <Column gutter="xs">
       {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
         <>
-          <ParkingDashboardNavigationButton
-            onPress={() => {
-              navigate(ParkingRouteName.parkingPlannedSessions)
-            }}
-            testID="ParkingPlannedSessionsButton"
-            title="Geplande parkeersessies"
-          />
+          {!currentPermit.no_endtime && (
+            <ParkingDashboardNavigationButton
+              onPress={() => {
+                navigate(ParkingRouteName.parkingPlannedSessions)
+              }}
+              testID="ParkingPlannedSessionsButton"
+              title="Geplande parkeersessies"
+            />
+          )}
           <ParkingDashboardNavigationButton
             onPress={() => {
               navigate(ParkingRouteName.parkingSessionTransactions)
