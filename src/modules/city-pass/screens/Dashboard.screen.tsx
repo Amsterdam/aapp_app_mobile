@@ -10,6 +10,7 @@ import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {AutomaticLogoutAlert} from '@/modules/city-pass/components/AutomaticLogoutAlert'
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
 import {aboutBlocks} from '@/modules/city-pass/constants'
+import {useGetCityPasses} from '@/modules/city-pass/hooks/useGetCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {BottomSheetSurvey} from '@/modules/survey/exports/BottomSheetSurvey'
 import {Survey} from '@/modules/survey/exports/Survey'
@@ -22,6 +23,8 @@ export const DashboardScreen = ({navigation}: Props) => {
   }, [navigation])
   const {openRedirect} = useOpenRedirect()
 
+  const {cityPasses, isLoading} = useGetCityPasses()
+
   return (
     <Screen
       bottomSheet={<BottomSheetSurvey testID="CityPassSurveyBottomSheet" />}
@@ -30,41 +33,44 @@ export const DashboardScreen = ({navigation}: Props) => {
       testID="CityPassDashboardScreen">
       <AutomaticLogoutAlert />
       <PassOwners logout={logout} />
-      <Box
-        insetHorizontal="md"
-        insetVertical="xl"
-        variant="cityPass">
-        <Column gutter="lg">
-          <Title
-            color="inverse"
-            text="Over de Stadspas"
-          />
-          {aboutBlocks.map(({icon, title, text, testID, redirectKey}) => (
-            <TopTaskButton
-              icon={icon}
-              isExternalLink
-              key={title}
-              onPress={() => openRedirect(redirectKey)}
-              testID={testID}
-              text={text}
-              title={title}
-              variant="transparentInverse"
+      {(cityPasses?.length !== 0 || !!isLoading) && (
+        <>
+          <Box
+            insetHorizontal="md"
+            insetVertical="xl"
+            variant="cityPass">
+            <Column gutter="lg">
+              <Title
+                color="inverse"
+                text="Over de Stadspas"
+              />
+              {aboutBlocks.map(({icon, title, text, testID, redirectKey}) => (
+                <TopTaskButton
+                  icon={icon}
+                  isExternalLink
+                  key={title}
+                  onPress={() => openRedirect(redirectKey)}
+                  testID={testID}
+                  text={text}
+                  title={title}
+                  variant="transparentInverse"
+                />
+              ))}
+            </Column>
+          </Box>
+          <Box
+            insetBottom="md"
+            insetHorizontal="md"
+            insetTop="xl">
+            <Button
+              label="Uitloggen"
+              onPress={logout}
+              testID="CityPassLogoutButton"
+              variant="secondary"
             />
-          ))}
-        </Column>
-      </Box>
-      <Box
-        insetBottom="md"
-        insetHorizontal="md"
-        insetTop="xl">
-        <Button
-          label="Uitloggen"
-          onPress={logout}
-          testID="CityPassLogoutButton"
-          variant="secondary"
-        />
-      </Box>
-
+          </Box>
+        </>
+      )}
       <Survey entryPoint="city-pass-info" />
     </Screen>
   )
