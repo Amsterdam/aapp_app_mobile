@@ -41,7 +41,7 @@ export const BoatChargingSessionButtons = () => {
       !isErrorStartSession &&
       !session.last_command_error
     ) {
-      void startSession(session.id).then(invalidateBoatChargingSessions)
+      void startSession(session.id)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
