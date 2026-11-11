@@ -24,5 +24,7 @@ export const afterError: AfterBaseQueryErrorFn = async (
       dispatch,
       state,
     ).then(() => Promise.resolve())
+  } else if (error?.status === 422) {
+    failRetry('Input error')
   }
 }
