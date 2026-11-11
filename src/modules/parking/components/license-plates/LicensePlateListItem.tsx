@@ -1,5 +1,7 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -21,6 +23,10 @@ export const LicensePlateListItem = ({
   const {navigate} = useNavigation()
 
   const title = `${is_future ? '-' : number + '.'}  ${licensePlate}`
+  const description =
+    is_future && activated_at
+      ? `Actief vanaf ${dayjs(activated_at).format('D MMMM YYYY')}`
+      : undefined
 
   if (forced_license_plate_list) {
     // TODO: Change this to ObjectButton once new component has been set up (https://gemeente-amsterdam.atlassian.net/browse/AM-1013)
@@ -28,13 +34,16 @@ export const LicensePlateListItem = ({
       <Box
         insetHorizontal="no"
         insetVertical="sm">
-        <Title
-          accessibilityLabel={`Kenteken ${licensePlate}`}
-          color="link"
-          level="h5"
-          testID="NavigationButtonTitle"
-          text={title}
-        />
+        <Column shrink={1}>
+          <Title
+            accessibilityLabel={`Kenteken ${licensePlate}`}
+            color="link"
+            level="h5"
+            testID="NavigationButtonTitle"
+            text={title}
+          />
+          {!!description && <Phrase>{description}</Phrase>}
+        </Column>
       </Box>
     )
   }
@@ -45,11 +54,7 @@ export const LicensePlateListItem = ({
       accessibilityLabel={`Kenteken ${licensePlate}`}
       chevronColor="secondary"
       chevronSize="lg"
-      description={
-        is_future && activated_at
-          ? `Actief vanaf ${dayjs(activated_at).format('D MMMM YYYY')}`
-          : undefined
-      }
+      description={description}
       insetHorizontal="no"
       onPress={() => {
         if (!forced_license_plate_list) {
