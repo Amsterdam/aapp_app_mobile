@@ -4,6 +4,7 @@ import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {Column} from '@/components/ui/layout/Column'
 import {MetaDataCard} from '@/components/ui/MetaDataCard'
+import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingMachineDetails} from '@/modules/parking/components/session/details/ParkingMachineDetails'
@@ -69,12 +70,8 @@ export const ParkingSessionDetails = ({
           title="Kenteken">
           <Column>
             <Phrase accessible={false}>{licensePlateString}</Phrase>
-            <NavigationButton
+            <InlineLink
               accessibilityLabel={`Nieuwe parkeersessie met kenteken ${licensePlateString}`}
-              chevronSize="md"
-              emphasis="default"
-              horizontallyAlign="start"
-              insetHorizontal="no"
               onPress={() =>
                 navigate(ParkingRouteName.startSession, {
                   licensePlate: {
@@ -83,9 +80,9 @@ export const ParkingSessionDetails = ({
                   },
                 })
               }
-              testID="ParkingStartSessionNavigationButton"
-              title="Nieuwe parkeersessie"
-            />
+              testID="ParkingStartSessionNavigationButton">
+              Nieuwe parkeersessie
+            </InlineLink>
           </Column>
         </MetaDataCard>
 
