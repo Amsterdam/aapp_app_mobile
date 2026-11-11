@@ -4,7 +4,7 @@ import {FractionCode} from '@/modules/waste-guide/types'
 import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 
 const wasteTypeMapping: Record<
-  Exclude<FractionCode, FractionCode.GA> | 'Brood',
+  Exclude<FractionCode, FractionCode.GA | FractionCode.Kerstbomen> | 'Brood',
   number[]
 > = {
   Rest: [12491],
@@ -20,7 +20,8 @@ const getLocationTypes = (fractionCode?: FractionCode) => {
   if (
     fractionCode &&
     Object.keys(wasteTypeMapping).includes(fractionCode) &&
-    fractionCode !== FractionCode.GA
+    fractionCode !== FractionCode.GA &&
+    fractionCode !== FractionCode.Kerstbomen
   ) {
     return wasteTypeMapping[fractionCode].join(',')
   }
