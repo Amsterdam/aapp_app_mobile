@@ -185,6 +185,10 @@ export type BoatChargingSettings = {
   pre_authorization_amount: number | null
   session_expiry_hours: number | null
   session_expiry_warning_hours: number | null
+  /**
+   * Standard fine amount applied when exceeding the allowed session time.
+   * Including VAT.
+   */
   standard_fine: number | null
   vat_fraction?: number | null
 }

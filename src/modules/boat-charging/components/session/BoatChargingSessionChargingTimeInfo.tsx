@@ -14,17 +14,13 @@ type Props = Omit<
   NonOptional<ReturnType<typeof useBoatChargingSession>, 'session'>,
   'isLoading' | 'isError'
 > &
-  Pick<
-    BoatChargingSettings,
-    'session_expiry_hours' | 'standard_fine' | 'vat_fraction'
-  >
+  Pick<BoatChargingSettings, 'session_expiry_hours' | 'standard_fine'>
 
 export const BoatChargingSessionChargingTimeInfo = ({
   session,
   session_expiry_hours,
   chargingTimeString,
   standard_fine,
-  vat_fraction,
 }: Props) => (
   <Column gutter="md">
     <Column gutter="xs">
@@ -53,12 +49,11 @@ export const BoatChargingSessionChargingTimeInfo = ({
           text="Maximale laadtijd"
         />
         <Phrase>{session_expiry_hours} uur</Phrase>
-        {!!standard_fine && !!vat_fraction && (
+        {!!standard_fine && (
           <Paragraph>
             Uw boot mag maximaal {session_expiry_hours} uur laden. Daarna
-            betaalt u {formatNumber(standard_fine * vat_fraction, 'EUR')} per
-            uur. Ook als u maar een deel van een uur gebruikt, betaalt u voor
-            het hele uur.
+            betaalt u {formatNumber(standard_fine, 'EUR')} per uur. Ook als u
+            maar een deel van een uur gebruikt, betaalt u voor het hele uur.
           </Paragraph>
         )}
       </Column>
