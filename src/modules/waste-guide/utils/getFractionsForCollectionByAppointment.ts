@@ -11,7 +11,7 @@ export const getFractionsForCollectionByAppointment = (
   for (const fraction of fractions) {
     const {code} = fraction
 
-    if (code === FractionCode.GA) {
+    if (code === FractionCode.GA || code === FractionCode.Kerstbomen) {
       combinedFractions.push(fraction)
     } else if (code === FractionCode.Rest) {
       combinedFractions.unshift({
