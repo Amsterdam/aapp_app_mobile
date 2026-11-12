@@ -28,6 +28,10 @@ ruleTester.run('exported-component-requires-stories', rule, {
       filename: missingStoriesFilename,
     },
     {
+      code: 'export const Button = memo(() => null)',
+      filename: missingStoriesFilename,
+    },
+    {
       code: 'export const Button = () => { const renderButton = () => <View />; return null }',
       filename: missingStoriesFilename,
     },
@@ -68,6 +72,32 @@ ruleTester.run('exported-component-requires-stories', rule, {
     },
     {
       code: 'export const Button = (isActive: boolean) => isActive ? <View /> : null',
+      filename: missingStoriesFilename,
+      errors: [
+        {
+          messageId: 'missingStoriesFile',
+          data: {
+            name: 'Button',
+            storyFile: 'Component.stories.tsx',
+          },
+        },
+      ],
+    },
+    {
+      code: 'export const Button = memo(() => <View />)',
+      filename: missingStoriesFilename,
+      errors: [
+        {
+          messageId: 'missingStoriesFile',
+          data: {
+            name: 'Button',
+            storyFile: 'Component.stories.tsx',
+          },
+        },
+      ],
+    },
+    {
+      code: 'export const Button = React.memo(function Button() { return <View /> })',
       filename: missingStoriesFilename,
       errors: [
         {

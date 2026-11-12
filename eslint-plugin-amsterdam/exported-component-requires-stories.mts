@@ -76,12 +76,46 @@ const hasJSXInReturnedStatement = (node: TSESTree.Statement): boolean => {
   }
 }
 
-const arrowFunctionReturnsJSX = (
-  arrowFunction: TSESTree.ArrowFunctionExpression,
+const functionReturnsJSX = (
+  functionExpression:
+    | TSESTree.ArrowFunctionExpression
+    | TSESTree.FunctionExpression,
 ): boolean =>
-  arrowFunction.body.type === TSESTree.AST_NODE_TYPES.BlockStatement
-    ? arrowFunction.body.body.some(hasJSXInReturnedStatement)
-    : hasJSXInExpression(arrowFunction.body)
+  functionExpression.body.type === TSESTree.AST_NODE_TYPES.BlockStatement
+    ? functionExpression.body.body.some(hasJSXInReturnedStatement)
+    : hasJSXInExpression(functionExpression.body)
+
+const isMemoCall = (callExpression: TSESTree.CallExpression): boolean => {
+  const {callee} = callExpression
+
+  return (
+    (callee.type === TSESTree.AST_NODE_TYPES.Identifier &&
+      callee.name === 'memo') ||
+    (callee.type === TSESTree.AST_NODE_TYPES.MemberExpression &&
+      !callee.computed &&
+      callee.object.type === TSESTree.AST_NODE_TYPES.Identifier &&
+      callee.object.name === 'React' &&
+      callee.property.type === TSESTree.AST_NODE_TYPES.Identifier &&
+      callee.property.name === 'memo')
+  )
+}
+
+const componentReturnsJSX = (
+  node: TSESTree.Node | null | undefined,
+): boolean => {
+  if (
+    node?.type === TSESTree.AST_NODE_TYPES.ArrowFunctionExpression ||
+    node?.type === TSESTree.AST_NODE_TYPES.FunctionExpression
+  ) {
+    return functionReturnsJSX(node)
+  }
+
+  return (
+    node?.type === TSESTree.AST_NODE_TYPES.CallExpression &&
+    isMemoCall(node) &&
+    componentReturnsJSX(node.arguments[0])
+  )
+}
 
 export const rule = createRule<Options, MessageIds>({
   name: 'exported-component-requires-stories',
@@ -123,9 +157,7 @@ export const rule = createRule<Options, MessageIds>({
           if (
             variableDeclarator.id.type !== TSESTree.AST_NODE_TYPES.Identifier ||
             !isPascalCaseComponentName(variableDeclarator.id.name) ||
-            variableDeclarator.init?.type !==
-              TSESTree.AST_NODE_TYPES.ArrowFunctionExpression ||
-            !arrowFunctionReturnsJSX(variableDeclarator.init)
+            !componentReturnsJSX(variableDeclarator.init)
           ) {
             continue
           }
