@@ -61,11 +61,17 @@ export const createStackNavigator = <T extends ParamListBase>() => {
         UNSTABLE_router={
           defaultScreen === undefined
             ? routerOverrides
-            : originalRouter =>
-                createDefaultScreenRouter(defaultScreen)({
-                  ...originalRouter,
-                  ...routerOverrides?.(originalRouter),
-                })
+            : originalRouter => {
+                const overrides = routerOverrides?.(originalRouter)
+
+                return {
+                  ...overrides,
+                  ...createDefaultScreenRouter(defaultScreen)({
+                    ...originalRouter,
+                    ...overrides,
+                  }),
+                }
+              }
         }
       />
     )
