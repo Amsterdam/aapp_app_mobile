@@ -7,6 +7,7 @@ import {
   type BoatChargingSessionCostBreakdownItem,
 } from '@/modules/boat-charging/types'
 import {StoreProvider} from '@/providers/store.provider'
+import {formatNumber} from '@/utils/formatNumber'
 
 const ITEMS: Record<
   BoatChargingCostBreakdownItemType,
@@ -85,6 +86,33 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
         ),
       )
     })
+  })
+
+  it('omits calculation details when volume or unit price is unavailable', () => {
+    const items = [
+      {...ITEMS.TIME, unit_price_incl_vat: undefined},
+      {...ITEMS.ENERGY, volume: undefined},
+    ]
+    const {getAllByTestId, getByText, queryByText} = renderComponent({
+      items,
+      sessionExpiryHours: SESSION_EXPIRY_HOURS,
+    })
+
+    expect(
+      getAllByTestId('BoatChargingHistorySessionCostDetailsInfoRow'),
+    ).toHaveLength(2)
+
+    items.forEach(item => {
+      expect(getByText(formatNumber(item.cost_incl_vat, 'EUR'))).toBeTruthy()
+      expect(
+        boatChargingCostItemTypeMap(SESSION_EXPIRY_HOURS)[item.type].details(
+          item,
+        ),
+      ).toBe('')
+    })
+
+    expect(queryByText('per uur')).toBeNull()
+    expect(queryByText('per kWh')).toBeNull()
   })
 
   it('renders no rows for an empty items list', () => {
