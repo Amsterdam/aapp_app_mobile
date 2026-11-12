@@ -121,6 +121,13 @@ export const BoatChargingHistorySessionDetails = () => {
         )}
 
         <MetaDataCard
+          iconName="lightning"
+          testID="BoatChargingHistorySessionDetailsChargedCard"
+          title="Geladen">
+          <Phrase>{formatKWH(kwh)}</Phrase>
+        </MetaDataCard>
+
+        <MetaDataCard
           iconName="euro-coins"
           testID="BoatChargingHistorySessionDetailsTotalCostCard"
           title="Totale kosten">
@@ -141,13 +148,6 @@ export const BoatChargingHistorySessionDetails = () => {
             testID="BoatChargingHistorySessionDetailsViewCostBreakdownButton"
             variant="tertiary"
           />
-        </MetaDataCard>
-
-        <MetaDataCard
-          iconName="lightning"
-          testID="BoatChargingHistorySessionDetailsChargedCard"
-          title="Geladen">
-          <Phrase>{formatKWH(kwh)}</Phrase>
         </MetaDataCard>
 
         <MetaDataCard

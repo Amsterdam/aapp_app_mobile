@@ -175,6 +175,7 @@ export const BoatChargingCreateAccountConfirmForm = () => {
             Dit kan een paar minuten duren.
           </Paragraph>
           <TextInputField<FormValues>
+            inputMode="numeric"
             label="Bevestigingscode"
             name="confirmationCode"
             onSubmitEditing={form.handleSubmit(handleConfirm)}

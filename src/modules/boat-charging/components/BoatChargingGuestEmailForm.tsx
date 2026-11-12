@@ -55,6 +55,7 @@ export const BoatChargingGuestEmailForm = () => {
 
         <EmailTextInputField<'email'>
           disabled={isLoggedIn}
+          hasClearButton={false}
           inputInstructions="U ontvangt een link naar uw laadsessie en het betaalbewijs."
           name="email"
           onSubmitEditing={handleSubmit(onSubmit)}
