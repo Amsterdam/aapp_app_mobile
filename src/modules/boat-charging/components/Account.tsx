@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useAccessCodePendingScreen} from '@/modules/access-code/exports/useAccessCodePendingScreen'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -12,6 +13,7 @@ import {UserRouteName} from '@/modules/user/routes'
 export const Account = () => {
   const {isLoggedIn, username} = useIsLoggedIn()
   const {navigate} = useNavigation()
+  const {setPendingScreen} = useAccessCodePendingScreen()
 
   return (
     <Column gutter="smd">
@@ -42,20 +44,22 @@ export const Account = () => {
             <Paragraph>Log in om uw boot op te laden.</Paragraph>
             <Button
               label="Inloggen"
-              onPress={() =>
+              onPress={() => {
+                setPendingScreen([BoatChargingRouteName.map])
                 navigate(ModuleSlug['boat-charging'], {
                   screen: BoatChargingRouteName.login,
                 })
-              }
+              }}
               testID="UserAccountBoatChargingLoginButton"
             />
             <Button
               label="Account aanmaken"
-              onPress={() =>
+              onPress={() => {
+                setPendingScreen([BoatChargingRouteName.map])
                 navigate(ModuleSlug['boat-charging'], {
                   screen: BoatChargingRouteName.createAccount,
                 })
-              }
+              }}
               testID="UserAccountBoatChargingCreateAccountButton"
               variant="tertiary"
             />
