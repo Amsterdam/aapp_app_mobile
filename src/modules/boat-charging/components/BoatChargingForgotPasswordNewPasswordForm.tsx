@@ -156,6 +156,8 @@ export const BoatChargingForgotPasswordNewPasswordForm = () => {
             Dit kan een paar minuten duren.
           </Paragraph>
           <TextInputField<FormValues>
+            hasClearButton={false}
+            inputMode="numeric"
             label="Bevestigingscode"
             name="confirmationCode"
             onSubmitEditing={() => passwordInputReference.current?.focus()}
@@ -167,6 +169,7 @@ export const BoatChargingForgotPasswordNewPasswordForm = () => {
             autoCapitalize="none"
             autoCorrect={false}
             fieldType={FieldType.password}
+            hasClearButton={false}
             inputInstructions={PASSWORD_RULES_TEXT}
             label="Nieuw wachtwoord"
             name="password"
@@ -188,6 +191,7 @@ export const BoatChargingForgotPasswordNewPasswordForm = () => {
             autoCapitalize="none"
             autoCorrect={false}
             fieldType={FieldType.password}
+            hasClearButton={false}
             label="Herhaal nieuw wachtwoord"
             name="repeatPassword"
             onSubmitEditing={form.handleSubmit(handleForgotPasswordConfirm)}

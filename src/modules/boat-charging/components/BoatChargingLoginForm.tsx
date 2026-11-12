@@ -56,6 +56,7 @@ export const BoatChargingLoginForm = () => {
         <Column gutter="xl">
           <Column gutter="lg">
             <EmailTextInputField<'username'>
+              hasClearButton={false}
               label="E-mailadres"
               name="username"
               onSubmitEditing={() => passwordInputReference.current?.focus()}
@@ -66,6 +67,7 @@ export const BoatChargingLoginForm = () => {
               autoCapitalize="none"
               autoCorrect={false}
               fieldType={FieldType.password}
+              hasClearButton={false}
               label="Wachtwoord"
               name="password"
               onSubmitEditing={form.handleSubmit(handleSignIn)}

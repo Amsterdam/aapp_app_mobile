@@ -4,7 +4,7 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 export const BoatChargingHistoryLogin = () => (
   <BoatChargingLoginRegister
     pendingScreen={[BoatChargingRouteName.history]}
-    text="Overzicht van uw laadsessies en kosten."
-    title="Log in voor uw laadgeschiedenis"
+    text="Log in om uw laadsessies en de kosten te bekijken."
+    title="Bekijk uw laadgeschiedenis"
   />
 )
