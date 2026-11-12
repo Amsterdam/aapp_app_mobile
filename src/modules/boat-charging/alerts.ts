@@ -94,8 +94,8 @@ export const alerts = {
   },
   loginFailed: {
     variant: AlertVariant.negative,
-    text: 'Er is iets misgegaan. Probeer het opnieuw.',
-    title: 'Inloggen is mislukt',
+    text: 'Controleer uw inloggegevens. Heeft u nog geen account voor Boot laden? Maak dan eerst een account aan.',
+    title: 'Inloggen lukt niet',
     testID: 'BoatChargingLoginFailedAlert',
   },
   vignetInvalidFailed: {
