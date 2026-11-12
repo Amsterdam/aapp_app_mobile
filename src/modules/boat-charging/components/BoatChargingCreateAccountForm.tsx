@@ -85,6 +85,7 @@ export const BoatChargingCreateAccountForm = () => {
             laadgeschiedenis te bekijken.
           </Paragraph>
           <EmailTextInputField<'username'>
+            hasClearButton={false}
             label="E-mailadres"
             name="username"
             onSubmitEditing={() => passwordInputReference.current?.focus()}
@@ -95,6 +96,7 @@ export const BoatChargingCreateAccountForm = () => {
             autoCapitalize="none"
             autoCorrect={false}
             fieldType={FieldType.password}
+            hasClearButton={false}
             inputInstructions={PASSWORD_RULES_TEXT}
             label="Wachtwoord"
             name="password"
@@ -116,6 +118,7 @@ export const BoatChargingCreateAccountForm = () => {
             autoCapitalize="none"
             autoCorrect={false}
             fieldType={FieldType.password}
+            hasClearButton={false}
             label="Herhaal wachtwoord"
             name="repeatPassword"
             onSubmitEditing={form.handleSubmit(handleSignUp)}

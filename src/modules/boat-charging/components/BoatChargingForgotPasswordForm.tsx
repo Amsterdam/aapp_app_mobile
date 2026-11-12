@@ -60,6 +60,7 @@ export const BoatChargingForgotPasswordForm = () => {
             opnieuw in te stellen.
           </Paragraph>
           <EmailTextInputField<'username'>
+            hasClearButton={false}
             label="E-mailadres"
             name="username"
             onSubmitEditing={form.handleSubmit(handleForgotPassword)}
