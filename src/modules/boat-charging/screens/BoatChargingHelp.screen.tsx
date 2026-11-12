@@ -4,13 +4,11 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {PhoneHQButton} from '@/components/ui/buttons/PhoneHQButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {List} from '@/components/ui/text/list/List'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
-import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 
 type Props = NavigationProps<BoatChargingRouteName.help>
@@ -35,11 +33,6 @@ export const BoatChargingHelpScreen = ({navigation}: Props) => (
             ]}
             testID="BoatChargingHelpList"
           />
-          <ExternalInlineLink
-            redirectKey={RedirectKey.boatChargingFAQ}
-            testID="BoatChargingHelpScreenFAQButton">
-            Bekijk de veelgestelde vragen
-          </ExternalInlineLink>
         </Column>
         <Column gutter="md">
           <Title
