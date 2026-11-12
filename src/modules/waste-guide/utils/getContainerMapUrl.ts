@@ -4,7 +4,7 @@ import {FractionCode} from '@/modules/waste-guide/types'
 import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 
 const wasteTypeMapping: Record<
-  Exclude<FractionCode, FractionCode.GA | FractionCode.Kerstbomen> | 'Brood',
+  Exclude<FractionCode, FractionCode.GA | FractionCode.Kerstbomen>,
   number[]
 > = {
   Rest: [12491],
@@ -12,7 +12,6 @@ const wasteTypeMapping: Record<
   Papier: [12493],
   Plastic: [12494],
   Textiel: [12495, 13698],
-  Brood: [12497],
   GFT: [12496],
 }
 
