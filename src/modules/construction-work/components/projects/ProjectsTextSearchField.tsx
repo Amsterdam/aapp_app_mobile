@@ -63,10 +63,11 @@ export const ProjectsTextSearchField = () => {
   return (
     <SearchField
       accessibilityLabel="Zoek naar werkzaamheden"
+      autoCorrect={false}
       autoFocus
-      blurOnSubmit={true}
       onChangeText={setSearchData}
       placeholder="Type drie letters of meer …"
+      submitBehavior="blurAndSubmit"
       testID="ConstructionWorkProjectsTextSearchField"
       value={searchTextValue}
     />
