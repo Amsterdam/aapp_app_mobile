@@ -10,6 +10,7 @@ export enum FractionCode {
   GA = 'GA',
   GFT = 'GFT',
   Glas = 'Glas',
+  Kerstbomen = 'Kerstbomen',
   Papier = 'Papier',
   Plastic = 'Plastic',
   Rest = 'Rest',
@@ -41,6 +42,7 @@ export type WasteType = {
   label: string
   next_date: string | null
   note: string
+  sublabel?: string | null
   url: string
   where: string
 }
