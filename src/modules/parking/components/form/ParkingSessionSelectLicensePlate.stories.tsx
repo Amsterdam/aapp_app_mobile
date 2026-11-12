@@ -1,4 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {ParkingLicensePlateFormProvider} from './ParkingLicensePlateFormProvider'
 import {ParkingSessionSelectLicensePlate} from './ParkingSessionSelectLicensePlate'
 
 const meta = {
@@ -13,6 +14,11 @@ const meta = {
       isOpen: true,
     },
   },
+  render: args => (
+    <ParkingLicensePlateFormProvider defaultValues={{vehicle_id: 'ABC123'}}>
+      <ParkingSessionSelectLicensePlate {...args} />
+    </ParkingLicensePlateFormProvider>
+  ),
 } satisfies Meta<typeof ParkingSessionSelectLicensePlate>
 
 export default meta
