@@ -41,7 +41,7 @@ export const BoatChargingSessionProvider = ({
     lastStatus === NRGStatus.Starting || lastStatus === NRGStatus.Stopping
 
   const {
-    data: session,
+    data: sessionResponse,
     isLoading,
     isError,
     fulfilledTimeStamp,
@@ -50,6 +50,18 @@ export const BoatChargingSessionProvider = ({
       isFocused && shouldPollSession ? (shouldPollFast ? 5000 : 30000) : 0,
     skip: !id,
   })
+
+  const session = useMemo(() => {
+    if (
+      !sessionResponse ||
+      sessionResponse.status ||
+      sessionResponse.nrg_status !== NRGStatus.Charging
+    ) {
+      return sessionResponse
+    }
+
+    return {...sessionResponse, status: SessionStatus.ACTIVE}
+  }, [sessionResponse])
 
   useEffect(() => {
     setLastStatus(session?.nrg_status)
