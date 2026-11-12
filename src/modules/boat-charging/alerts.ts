@@ -58,9 +58,9 @@ export const alerts = {
     testID: 'BoatChargingForgotPasswordFailedAlert',
   },
   paymentFailed: {
-    title: 'Betaling mislukt',
+    title: 'Betalen lukt niet',
     variant: AlertVariant.negative,
-    text: 'De betaling is niet gelukt. Probeer het opnieuw.',
+    text: 'Probeer het later opnieuw.',
     testID: 'BoatChargingPaymentFailedAlert',
   },
   initializeFailed: {
