@@ -13,19 +13,16 @@ const getItemString = (item: BoatChargingSessionCostBreakdownItem) =>
     : ''
 
 export const boatChargingCostItemTypeMap = (
-  settings: BoatChargingSettings | undefined,
+  sessionExpiryHours: BoatChargingSettings['session_expiry_hours'] | undefined,
 ): Record<
   BoatChargingCostBreakdownItemType,
   {
-    details: (
-      item: BoatChargingSessionCostBreakdownItem,
-      vat_fraction?: number | null,
-    ) => string
+    details: (item: BoatChargingSessionCostBreakdownItem) => string
     label: string
   }
 > => ({
   [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
-    label: `Na ${settings?.session_expiry_hours ?? 24} uur`,
+    label: sessionExpiryHours ? `Na ${sessionExpiryHours} uur` : '',
     details: getItemString,
   },
   [BoatChargingCostBreakdownItemType.ENERGY]: {

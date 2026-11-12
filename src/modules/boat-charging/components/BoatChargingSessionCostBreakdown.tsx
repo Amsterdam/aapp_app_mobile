@@ -43,8 +43,7 @@ export const BoatChargingSessionCostBreakdown = () => {
         <>
           <BoatChargingSessionCostBreakdownItems
             items={costBreakdown.items}
-            settings={settings}
-            vat_fraction={costBreakdown.items[0].vat_percentage}
+            sessionExpiryHours={settings?.session_expiry_hours}
           />
 
           <Divider height="md" />
@@ -81,13 +80,11 @@ export const BoatChargingSessionCostBreakdown = () => {
 
 type Props = {
   items: BoatChargingSessionCostBreakdownItem[]
-  settings: BoatChargingSettings | undefined
-  vat_fraction?: number | null
+  sessionExpiryHours: BoatChargingSettings['session_expiry_hours'] | undefined
 }
 export const BoatChargingSessionCostBreakdownItems = ({
   items,
-  vat_fraction,
-  settings,
+  sessionExpiryHours,
 }: Props) => (
   <Column gutter="sm">
     {items.map(item => {
@@ -95,11 +92,16 @@ export const BoatChargingSessionCostBreakdownItems = ({
         return null
       }
 
-      const {details, label} = boatChargingCostItemTypeMap(settings)[item.type]
+      const {details, label} =
+        boatChargingCostItemTypeMap(sessionExpiryHours)[item.type]
+
+      if (!label) {
+        return null
+      }
 
       return (
         <BoatChargingHistorySessionCostDetailsInfoRow
-          details={details(item, vat_fraction)}
+          details={details(item)}
           key={item.type}
           label={label}
           value={formatNumber(item.cost_incl_vat, 'EUR')}
