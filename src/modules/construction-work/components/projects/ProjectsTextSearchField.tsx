@@ -67,6 +67,7 @@ export const ProjectsTextSearchField = () => {
       autoFocus
       onChangeText={setSearchData}
       placeholder="Type drie letters of meer …"
+      submitBehavior="blurAndSubmit"
       testID="ConstructionWorkProjectsTextSearchField"
       value={searchTextValue}
     />
