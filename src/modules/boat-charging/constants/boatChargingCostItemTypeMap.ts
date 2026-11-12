@@ -22,7 +22,7 @@ export const boatChargingCostItemTypeMap = (
   }
 > => ({
   [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
-    label: sessionExpiryHours ? `Na ${sessionExpiryHours} uur` : '',
+    label: sessionExpiryHours ? `Na ${sessionExpiryHours} uur` : 'Extra kosten',
     details: getItemString,
   },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
