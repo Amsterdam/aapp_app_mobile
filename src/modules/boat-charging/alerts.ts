@@ -58,9 +58,9 @@ export const alerts = {
     testID: 'BoatChargingForgotPasswordFailedAlert',
   },
   paymentFailed: {
-    title: 'Betaling mislukt',
+    title: 'Betalen lukt niet',
     variant: AlertVariant.negative,
-    text: 'De betaling is niet gelukt. Probeer het opnieuw.',
+    text: 'Probeer het later opnieuw.',
     testID: 'BoatChargingPaymentFailedAlert',
   },
   initializeFailed: {
@@ -94,8 +94,8 @@ export const alerts = {
   },
   loginFailed: {
     variant: AlertVariant.negative,
-    text: 'Er is iets misgegaan. Probeer het opnieuw.',
-    title: 'Inloggen is mislukt',
+    text: 'Controleer uw inloggegevens. Heeft u nog geen account voor Boot laden? Maak dan eerst een account aan.',
+    title: 'Inloggen lukt niet',
     testID: 'BoatChargingLoginFailedAlert',
   },
   vignetInvalidFailed: {
