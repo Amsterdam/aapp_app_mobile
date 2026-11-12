@@ -15,12 +15,12 @@ import {boatChargingApi} from '@/modules/boat-charging/service'
 import {
   BoatChargingEndpointName,
   NRGStatus,
-  type BoatChargingSession,
   SessionStatus,
+  type BoatChargingHistoryInfiniteItem,
   type BoatChargingLocation,
 } from '@/modules/boat-charging/types'
-import type {WithDummyAndPage} from '@/services/types'
 import {layoutStyles} from '@/styles/layoutStyles'
+import type {NonOptional} from '@/types/utils'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
 import {
   dummyTitle,
@@ -29,11 +29,12 @@ import {
 
 const PAGE_SIZE = 20
 
-export type BoatChargingHistoryInfiniteItem =
-  WithDummyAndPage<BoatChargingSession>
-
+type BoatChargingHistoryInfiniteItemWithStartTime = NonOptional<
+  BoatChargingHistoryInfiniteItem,
+  'start_date_time'
+>
 type BoatChargingHistoryInfiniteSection = {
-  data: BoatChargingHistoryInfiniteItem[]
+  data: BoatChargingHistoryInfiniteItemWithStartTime[]
   title: string
 }
 
@@ -44,25 +45,27 @@ const hasDummyFlag = (
 
 const isCompletedOrDummySession = (
   session: BoatChargingHistoryInfiniteItem,
-): session is BoatChargingHistoryInfiniteItem =>
-  hasDummyFlag(session) || session.status === SessionStatus.COMPLETED
+): session is BoatChargingHistoryInfiniteItemWithStartTime =>
+  (hasDummyFlag(session) || session.status === SessionStatus.COMPLETED) &&
+  !!session.start_date_time
 
-const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItem = {
-  created_date_time: '1970-01-01T00:00:00Z',
-  currency: 'EUR',
-  end_date_time: '1970-01-01T00:00:00Z',
-  id: '',
-  kwh: 0,
-  location: {name: '', address: {}} as BoatChargingLocation,
-  nrg_status: NRGStatus.Created,
-  page: 0,
-  socket_number: '',
-  start_date_time: '1970-01-01T00:00:00Z',
-  station_id: '',
-  status: SessionStatus.COMPLETED,
-  total_cost: 0,
-  email: '',
-}
+const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItemWithStartTime =
+  {
+    created_date_time: '1970-01-01T00:00:00Z',
+    currency: 'EUR',
+    end_date_time: '1970-01-01T00:00:00Z',
+    id: '',
+    kwh: 0,
+    location: {name: '', address: {}} as BoatChargingLocation,
+    nrg_status: NRGStatus.Created,
+    page: 0,
+    socket_number: '',
+    start_date_time: '1970-01-01T00:00:00Z',
+    station_id: '',
+    status: SessionStatus.COMPLETED,
+    total_cost_incl_vat: 0,
+    email: '',
+  }
 
 export const BoatChargingHistory = () => {
   const {isLoggedIn} = useIsLoggedIn()
@@ -86,7 +89,7 @@ export const BoatChargingHistory = () => {
   const onViewableItemsChanged = useCallback<
     NonNullable<
       SectionListProps<
-        BoatChargingHistoryInfiniteItem,
+        BoatChargingHistoryInfiniteItemWithStartTime,
         BoatChargingHistoryInfiniteSection
       >['onViewableItemsChanged']
     >
@@ -116,7 +119,7 @@ export const BoatChargingHistory = () => {
     [result.data],
   )
 
-  const history = useMemo(
+  const history = useMemo<BoatChargingHistoryInfiniteItemWithStartTime[]>(
     () => result.data.filter(isCompletedOrDummySession),
     [result.data],
   )

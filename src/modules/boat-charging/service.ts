@@ -233,7 +233,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
       invalidatesTags: ['BoatChargingVignettes'],
     }),
     [BoatChargingEndpointName.editVignet]: builder.mutation<
-      Vignet,
+      void,
       BaseVignet & {vignetId: Vignet['id']}
     >({
       query: ({vignetId, ...body}) => ({

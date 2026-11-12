@@ -82,7 +82,7 @@ export const BoatChargingSessionProvider = ({
           ? session.end_date_time
           : undefined
 
-    return session && endDateTime
+    return session && endDateTime && session.start_date_time
       ? [
           formatTimeRangeToDisplay(session.start_date_time, endDateTime),
           formatTimeRangeToDisplay(session.start_date_time, endDateTime, {

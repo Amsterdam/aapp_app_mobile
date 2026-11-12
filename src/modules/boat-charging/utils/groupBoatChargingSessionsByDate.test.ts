@@ -42,7 +42,7 @@ const createBoatChargingSession = (
   start_date_time: startDateTime,
   station_id: 'station-1',
   status: SessionStatus.COMPLETED,
-  total_cost: 15.75,
+  total_cost_incl_vat: 15.75,
   email: 'app@amsterdam.nl',
 })
 

@@ -1,6 +1,7 @@
 import type {Feature, Point} from 'geojson'
 import type {Address} from '@/modules/address/exports/types'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import type {WithDummyAndPage} from '@/services/types'
 import type {PaginationQueryArgs} from '@/types/api'
 
 export enum BoatChargingEndpointName {
@@ -60,7 +61,9 @@ export type BoatChargingLocation = {
 
 export type Connector = {
   connector_id: number
-  format: string
+  max_amp: number
+  status: ChargingPointStatus
+  voltage: number
 }
 
 export type EVSE = {
@@ -118,7 +121,6 @@ export enum SocketStatus {
 
 export type BoatChargingOIDCConfigResponse = {
   client_id: string
-  issuer: string
   pkce_required?: string
   redirect_uri?: string
   response_type?: string
@@ -130,19 +132,22 @@ export type BoatChargingSession = {
   boat_name?: Vignet['boat_name']
   created_date_time: string
   currency: 'EUR'
-  email: string
+  email?: string
   end_date_time?: string
   id: string
-  kwh: number
+  kwh?: number
   last_command_error?: string
   location: BoatChargingLocation
   nrg_status: NRGStatus
   socket_number: string
-  start_date_time: string
+  start_date_time?: string
   station_id: string
-  status: SessionStatus
+  status?: SessionStatus
   stop_reason?: BoatChargingStopReason
-  total_cost: number
+  /**
+   * Is 0 when session is not COMPLETED, otherwise contains the final costs including VAT
+   */
+  total_cost_incl_vat: number
   vignette_number?: Vignet['vignette_number']
 }
 
@@ -169,7 +174,10 @@ export type BoatChargingSessionInitResponse = {
 
 export type BoatChargingSocketStatusResponse = {
   status: ChargingPointStatus
-  substatus: SocketStatus
+  /**
+   * Substatus is only provided when status is OCCUPIED
+   */
+  substatus?: SocketStatus
 }
 
 export enum SessionLengthStatus {
@@ -183,6 +191,7 @@ export enum SessionLengthStatus {
  */
 export type BoatChargingSettings = {
   pre_authorization_amount: number | null
+  session_cleanup_enabled: boolean | null
   session_expiry_hours: number | null
   session_expiry_warning_hours: number | null
   /**
@@ -242,8 +251,9 @@ export type BoatChargingSessionCostBreakdownResponse = {
 export type BoatChargingSessionCostBreakdownItem = {
   cost_incl_vat: number
   type: BoatChargingCostBreakdownItemType
-  unit_price_incl_vat: number
-  volume: number
+  unit_price_incl_vat?: number
+  vat_percentage?: number
+  volume?: number
 }
 
 export enum BoatChargingCostBreakdownItemType {
@@ -317,3 +327,6 @@ export type BoatChargingInitSessionStep = Extract<
   | BoatChargingRouteName.locationDetails
   | BoatChargingRouteName.termsAndConditions
 >
+
+export type BoatChargingHistoryInfiniteItem =
+  WithDummyAndPage<BoatChargingSession>

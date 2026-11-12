@@ -8,7 +8,9 @@ import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationTo
 import {formatNumber} from '@/utils/formatNumber'
 
 const getItemString = (item: BoatChargingSessionCostBreakdownItem) =>
-  `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price_incl_vat, 'EUR', {maximumFractionDigits: 4})} per uur`
+  item.volume
+    ? `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price_incl_vat, 'EUR', {maximumFractionDigits: 4})} per uur`
+    : ''
 
 export const boatChargingCostItemTypeMap = (
   settings: BoatChargingSettings | undefined,

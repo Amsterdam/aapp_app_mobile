@@ -43,7 +43,7 @@ const session: BoatChargingSession = {
   start_date_time: '2026-01-01T10:00:00Z',
   station_id: 'station-1',
   status: SessionStatus.ACTIVE,
-  total_cost: 1,
+  total_cost_incl_vat: 1,
 }
 
 const meta = {

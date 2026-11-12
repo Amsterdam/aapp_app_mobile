@@ -4,10 +4,8 @@ import {Box} from '@/components/ui/containers/Box'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
-import type {BoatChargingHistoryInfiniteItem} from '@/modules/boat-charging/components/history/BoatChargingHistory'
-import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {useBoatChargingSettingsQuery} from '@/modules/boat-charging/service'
+import type {BoatChargingHistoryInfiniteItem} from '@/modules/boat-charging/types'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -17,8 +15,6 @@ type Props = {
 
 export const BoatChargingHistoryItem = memo(({session}: Props) => {
   const {navigate} = useNavigation()
-
-  const {data: settingsServerData} = useBoatChargingSettingsQuery()
 
   if ('dummy' in session && session.dummy === true) {
     return (
@@ -38,13 +34,7 @@ export const BoatChargingHistoryItem = memo(({session}: Props) => {
   }
 
   const elements = [
-    typeof session.total_cost === 'number'
-      ? formatNumber(
-          session.total_cost *
-            (settingsServerData?.vat_fraction ?? VAT_FRACTION_FALLBACK),
-          session.currency,
-        )
-      : null,
+    formatNumber(session.total_cost_incl_vat, session.currency),
     typeof session.kwh === 'number' ? formatKWH(session.kwh) : null,
   ].filter(Boolean)
   const description = elements.join(' - ')

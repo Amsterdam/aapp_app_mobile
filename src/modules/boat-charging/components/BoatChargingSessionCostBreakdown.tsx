@@ -20,8 +20,6 @@ import {formatNumber} from '@/utils/formatNumber'
 export const BoatChargingSessionCostBreakdown = () => {
   const {session, settings} = useBoatChargingSession()
 
-  const {vat_fraction} = settings || {}
-
   const {
     data: costBreakdown,
     isLoading,
@@ -46,7 +44,7 @@ export const BoatChargingSessionCostBreakdown = () => {
           <BoatChargingSessionCostBreakdownItems
             items={costBreakdown.items}
             settings={settings}
-            vat_fraction={vat_fraction}
+            vat_fraction={costBreakdown.items[0].vat_percentage}
           />
 
           <Divider height="md" />

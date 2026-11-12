@@ -27,8 +27,7 @@ import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const BoatChargingHistorySessionDetails = () => {
-  const {session, chargingTimeString, settings, isLoading} =
-    useBoatChargingSession()
+  const {session, chargingTimeString, isLoading} = useBoatChargingSession()
 
   const dispatch = useDispatch()
 
@@ -90,7 +89,7 @@ export const BoatChargingHistorySessionDetails = () => {
     end_date_time,
     id,
     kwh,
-    total_cost,
+    total_cost_incl_vat,
     currency,
     vignette_number,
     boat_name,
@@ -132,12 +131,7 @@ export const BoatChargingHistorySessionDetails = () => {
           testID="BoatChargingHistorySessionDetailsTotalCostCard"
           title="Totale kosten">
           <Phrase>
-            {settings?.vat_fraction
-              ? `${formatNumber(
-                  total_cost * settings.vat_fraction,
-                  currency,
-                )} inclusief btw`
-              : `${formatNumber(total_cost, currency)} exclusief btw`}
+            {formatNumber(total_cost_incl_vat, currency)} inclusief btw
           </Phrase>
           <Button
             icon={{name: 'chevron-down', size: 'md'}}
@@ -155,9 +149,11 @@ export const BoatChargingHistorySessionDetails = () => {
           testID="BoatChargingHistorySessionDetailsChargingTimeCard"
           title="Laadtijd">
           <Phrase>{chargingTimeString}</Phrase>
-          <Phrase>
-            Start: {formatDateTimeToDisplay(start_date_time, true)}
-          </Phrase>
+          {!!start_date_time && (
+            <Phrase>
+              Start: {formatDateTimeToDisplay(start_date_time, true)}
+            </Phrase>
+          )}
           {!!end_date_time && (
             <Phrase>
               Einde: {formatDateTimeToDisplay(end_date_time, true)}

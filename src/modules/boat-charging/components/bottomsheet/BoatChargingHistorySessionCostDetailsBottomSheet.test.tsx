@@ -51,6 +51,7 @@ const SETTINGS: BoatChargingSettings = {
   session_expiry_warning_hours: 20,
   standard_fine: 1,
   pre_authorization_amount: 50,
+  session_cleanup_enabled: false,
 }
 
 const ITEMS_ARRAY = Object.values(ITEMS)
