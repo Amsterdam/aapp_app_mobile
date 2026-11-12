@@ -5,7 +5,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {useBoatChargingSession} from '@/modules/boat-charging/hooks/useBoatChargingSession'
-import {useInvalidateBoatChargingSessions} from '@/modules/boat-charging/hooks/useInvalidateBoatChargingSessions'
 import {
   useBoatChargingCancelSessionMutation,
   useBoatChargingStartSessionMutation,
@@ -31,7 +30,6 @@ export const BoatChargingSessionButtons = () => {
   ] = useBoatChargingStopSessionMutation({
     fixedCacheKey: `boat-charging-stop-session:${session?.id}`,
   })
-  const invalidateBoatChargingSessions = useInvalidateBoatChargingSessions()
 
   useEffect(() => {
     if (
@@ -44,13 +42,7 @@ export const BoatChargingSessionButtons = () => {
       void startSession(session.id)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    session?.nrg_status,
-    isPluggedIn,
-    startSession,
-    session?.id,
-    invalidateBoatChargingSessions,
-  ])
+  }, [session?.nrg_status, isPluggedIn, startSession, session?.id])
 
   const stop = useCallback(() => {
     if (!session) {
