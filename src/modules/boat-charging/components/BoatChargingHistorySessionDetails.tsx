@@ -142,7 +142,7 @@ export const BoatChargingHistorySessionDetails = () => {
           <Button
             icon={{name: 'chevron-down', size: 'md'}}
             isReverseOrder
-            label="Kostenoverzicht bekijken"
+            label="Bekijk kostenoverzicht"
             noPadding
             onPress={() => toggle()}
             testID="BoatChargingHistorySessionDetailsViewCostBreakdownButton"
