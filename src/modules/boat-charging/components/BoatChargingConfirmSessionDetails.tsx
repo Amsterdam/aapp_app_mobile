@@ -81,6 +81,7 @@ export const BoatChargingConfirmSessionDetails = () => {
     ) {
       navigation[navigationMethod](BoatChargingRouteName.verifyVignet)
     } else {
+      form.setValue('vignet', null)
       navigation[navigationMethod](BoatChargingRouteName.chooseVignet)
     }
   }, [vignettes, navigation, form])
