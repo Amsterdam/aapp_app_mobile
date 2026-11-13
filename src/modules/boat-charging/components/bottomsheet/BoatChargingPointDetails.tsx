@@ -18,7 +18,6 @@ import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
-import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {
   useBoatChargingLocationDetailsQuery,
@@ -77,8 +76,6 @@ export const BoatChargingPointDetails = () => {
 
     return [maxKw, rate].filter(Boolean).join(' - ')
   }, [location, vat_fraction])
-
-  const {reset} = useNewSessionFormContext()
 
   const socketAvailabilitySentence =
     getSocketStatusAndAvailabilitySentence(location)
@@ -149,11 +146,9 @@ export const BoatChargingPointDetails = () => {
         </Column>
         {!!id && (
           <BoatChargingPointDetailsButton
-            onPress={() => {
-              reset()
-
-              return navigate(BoatChargingRouteName.locationDetails, {id})
-            }}
+            onPress={() =>
+              navigate(BoatChargingRouteName.locationDetails, {id})
+            }
             status={status}
           />
         )}

@@ -1,6 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
+import type {StackNavigationProp} from '@/app/navigation/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -58,10 +59,18 @@ export const BoatChargingConfirmSessionDetails = () => {
   const onNavigateToChangeVignet = useCallback(() => {
     const selectedVignet = form.getValues('vignet')
 
-    form.setValue('vignet', null)
+    const navigationMethod: keyof StackNavigationProp<string> = navigation
+      .getState()
+      .history?.some(
+        route =>
+          route === BoatChargingRouteName.verifyVignet ||
+          route === BoatChargingRouteName.chooseVignet,
+      )
+      ? 'popTo'
+      : 'navigate'
 
     if (!vignettes?.length) {
-      navigation.popTo(BoatChargingRouteName.verifyVignet)
+      navigation[navigationMethod](BoatChargingRouteName.verifyVignet)
 
       return
     }
@@ -70,9 +79,9 @@ export const BoatChargingConfirmSessionDetails = () => {
       vignettes.length === 1 &&
       vignettes[0].vignette_number === selectedVignet?.vignette_number
     ) {
-      navigation.popTo(BoatChargingRouteName.verifyVignet)
+      navigation[navigationMethod](BoatChargingRouteName.verifyVignet)
     } else {
-      navigation.popTo(BoatChargingRouteName.chooseVignet)
+      navigation[navigationMethod](BoatChargingRouteName.chooseVignet)
     }
   }, [vignettes, navigation, form])
 
