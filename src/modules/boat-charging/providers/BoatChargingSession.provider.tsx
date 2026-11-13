@@ -102,7 +102,8 @@ export const BoatChargingSessionProvider = ({
           }),
         ]
       : []
-  }, [session])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, fulfilledTimeStamp])
 
   const {data: settingsServerData} = useBoatChargingSettingsQuery()
   const settings: BoatChargingSettings = useMemo(
