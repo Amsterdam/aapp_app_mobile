@@ -109,7 +109,6 @@ export const BoatChargingSessionProvider = ({
     () =>
       settingsServerData || {
         pre_authorization_amount: null,
-        session_cleanup_enabled: null,
         session_expiry_hours: 24,
         session_expiry_warning_hours: 20,
         standard_fine: null,
