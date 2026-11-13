@@ -1,4 +1,5 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useFocusEffect} from '@react-navigation/native'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {Notice} from '@/components/ui/feedback/Notice'
 import {Switch} from '@/components/ui/forms/Switch'
@@ -48,27 +49,46 @@ export const NotificationToggleBox = ({
   const accessibilityAnnounce = useAccessibilityAnnounce()
   const {registerDeviceIfPermitted} = useRegisterDevice()
   const [isValueChanged, setIsValueChanged] = useState(false)
-  const onChangeFn = useCallback(() => {
-    setIsValueChanged(true)
+  const retryChangeOnFocusRef = useRef(false)
 
-    if (value) {
-      onChange(false)
-    } else {
-      void registerDeviceIfPermitted(true).then(hasPermission => {
-        if (hasPermission) {
-          onChange(true)
-        } else {
-          navigateToInstructionsScreen()
-        }
-      })
-    }
-  }, [onChange, value, registerDeviceIfPermitted, navigateToInstructionsScreen])
+  const onChangeFn = useCallback(
+    (handler: 'onFocus' | 'onPress') => {
+      setIsValueChanged(true)
+
+      if (value) {
+        onChange(false)
+      } else {
+        void registerDeviceIfPermitted(true)
+          .then(hasPermission => {
+            if (hasPermission) {
+              onChange(true)
+              retryChangeOnFocusRef.current = false
+            } else if (handler === 'onPress') {
+              navigateToInstructionsScreen()
+              retryChangeOnFocusRef.current = true
+            } else {
+              retryChangeOnFocusRef.current = false
+            }
+          })
+          .catch(() => (retryChangeOnFocusRef.current = false))
+      }
+    },
+    [onChange, value, registerDeviceIfPermitted, navigateToInstructionsScreen],
+  )
 
   useEffect(() => {
     if (isValueChanged) {
       accessibilityAnnounce(value ? 'aangezet' : 'uitgezet')
     }
   }, [accessibilityAnnounce, isValueChanged, value])
+
+  useFocusEffect(
+    useCallback(() => {
+      if (retryChangeOnFocusRef.current) {
+        onChangeFn('onFocus')
+      }
+    }, [onChangeFn]),
+  )
 
   return (
     <Column gutter="smd">
@@ -95,7 +115,9 @@ export const NotificationToggleBox = ({
           </Column>
         }
         loading={loading}
-        onChange={onChangeFn}
+        onChange={() => {
+          onChangeFn('onPress')
+        }}
         testID={`${testID}Switch`}
         value={value}
         wrapper={Wrapper}
