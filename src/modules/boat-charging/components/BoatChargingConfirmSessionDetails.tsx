@@ -64,13 +64,12 @@ export const BoatChargingConfirmSessionDetails = () => {
         vignettes[0].vignette_number === selectedVignet?.vignette_number)
 
     const routes = navigation.getState().routes
-    const shouldPop = routes.some(
-      route =>
-        route.name === BoatChargingRouteName.verifyVignet.toString() ||
-        route.name === BoatChargingRouteName.chooseVignet.toString(),
-    )
 
     if (shouldResetVerificationForm) {
+      const shouldPop = routes.some(
+        ({name}) => name === BoatChargingRouteName.verifyVignet.toString(),
+      )
+
       if (shouldPop) {
         navigation.popTo(BoatChargingRouteName.verifyVignet, {
           resetFormOnFocus: true,
@@ -80,6 +79,10 @@ export const BoatChargingConfirmSessionDetails = () => {
       }
     } else {
       form.setValue('vignet', null)
+
+      const shouldPop = routes.some(
+        ({name}) => name === BoatChargingRouteName.chooseVignet.toString(),
+      )
 
       navigation[shouldPop ? 'popTo' : 'navigate'](
         BoatChargingRouteName.chooseVignet,
