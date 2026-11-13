@@ -31,11 +31,18 @@ import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = {
+  onReset?: () => void
   onVerified?: (vignet: BaseVignet) => void
+  resetOnFocus?: boolean
   vignetId?: Vignet['id']
 }
 
-export const BoatChargingVignetForm = ({vignetId, onVerified}: Props) => {
+export const BoatChargingVignetForm = ({
+  vignetId,
+  onReset,
+  onVerified,
+  resetOnFocus,
+}: Props) => {
   const navigation = useNavigation()
   const {setAlert} = useAlert()
   const {isLoggedIn} = useIsLoggedIn()
@@ -85,7 +92,9 @@ export const BoatChargingVignetForm = ({vignetId, onVerified}: Props) => {
       defaultValues={{
         postalCode: defaultValues?.postal_code,
         vignetNumber: defaultValues?.vignette_number,
-      }}>
+      }}
+      onReset={onReset}
+      resetOnFocus={resetOnFocus}>
       <Column gutter="xl">
         <Column gutter="lg">
           {!existingVignet && (

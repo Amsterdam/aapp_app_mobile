@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
-import type {StackNavigationProp} from '@/app/navigation/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -59,30 +58,32 @@ export const BoatChargingConfirmSessionDetails = () => {
   const onNavigateToChangeVignet = useCallback(() => {
     const selectedVignet = form.getValues('vignet')
 
-    const navigationMethod: keyof StackNavigationProp<string> = navigation
-      .getState()
-      .history?.some(
-        route =>
-          route === BoatChargingRouteName.verifyVignet ||
-          route === BoatChargingRouteName.chooseVignet,
-      )
-      ? 'popTo'
-      : 'navigate'
+    const shouldResetVerificationForm =
+      !vignettes?.length ||
+      (vignettes.length === 1 &&
+        vignettes[0].vignette_number === selectedVignet?.vignette_number)
 
-    if (!vignettes?.length) {
-      navigation[navigationMethod](BoatChargingRouteName.verifyVignet)
+    const routes = navigation.getState().routes
+    const shouldPop = routes.some(
+      route =>
+        route.name === BoatChargingRouteName.verifyVignet.toString() ||
+        route.name === BoatChargingRouteName.chooseVignet.toString(),
+    )
 
-      return
-    }
-
-    if (
-      vignettes.length === 1 &&
-      vignettes[0].vignette_number === selectedVignet?.vignette_number
-    ) {
-      navigation[navigationMethod](BoatChargingRouteName.verifyVignet)
+    if (shouldResetVerificationForm) {
+      if (shouldPop) {
+        navigation.popTo(BoatChargingRouteName.verifyVignet, {
+          resetFormOnFocus: true,
+        })
+      } else {
+        navigation.navigate(BoatChargingRouteName.verifyVignet)
+      }
     } else {
       form.setValue('vignet', null)
-      navigation[navigationMethod](BoatChargingRouteName.chooseVignet)
+
+      navigation[shouldPop ? 'popTo' : 'navigate'](
+        BoatChargingRouteName.chooseVignet,
+      )
     }
   }, [vignettes, navigation, form])
 
