@@ -58,21 +58,35 @@ export const BoatChargingConfirmSessionDetails = () => {
   const onNavigateToChangeVignet = useCallback(() => {
     const selectedVignet = form.getValues('vignet')
 
-    form.setValue('vignet', null)
+    const shouldResetVerificationForm =
+      !vignettes?.length ||
+      (vignettes.length === 1 &&
+        vignettes[0].vignette_number === selectedVignet?.vignette_number)
 
-    if (!vignettes?.length) {
-      navigation.popTo(BoatChargingRouteName.verifyVignet)
+    const routes = navigation.getState().routes
 
-      return
-    }
+    if (shouldResetVerificationForm) {
+      const shouldPop = routes.some(
+        ({name}) => name === BoatChargingRouteName.verifyVignet.toString(),
+      )
 
-    if (
-      vignettes.length === 1 &&
-      vignettes[0].vignette_number === selectedVignet?.vignette_number
-    ) {
-      navigation.popTo(BoatChargingRouteName.verifyVignet)
+      if (shouldPop) {
+        navigation.popTo(BoatChargingRouteName.verifyVignet, {
+          resetFormOnFocus: true,
+        })
+      } else {
+        navigation.navigate(BoatChargingRouteName.verifyVignet)
+      }
     } else {
-      navigation.popTo(BoatChargingRouteName.chooseVignet)
+      form.setValue('vignet', null)
+
+      const shouldPop = routes.some(
+        ({name}) => name === BoatChargingRouteName.chooseVignet.toString(),
+      )
+
+      navigation[shouldPop ? 'popTo' : 'navigate'](
+        BoatChargingRouteName.chooseVignet,
+      )
     }
   }, [vignettes, navigation, form])
 
