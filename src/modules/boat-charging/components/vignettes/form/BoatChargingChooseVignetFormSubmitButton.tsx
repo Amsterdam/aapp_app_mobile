@@ -4,20 +4,20 @@ import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 
-export const BoatChargingChooseVignetFormSubmitButton = () => {
-  const {onPress, form} = useInitSession(BoatChargingRouteName.chooseVignet)
+export const BoatChargingChooseVignetteFormSubmitButton = () => {
+  const {onPress, form} = useInitSession(BoatChargingRouteName.chooseVignette)
 
   const onSubmit = useCallback(
-    ({vignet, ...values}: NewSessionFormValues) => {
-      form.clearErrors('vignet')
+    ({vignette, ...values}: NewSessionFormValues) => {
+      form.clearErrors('vignette')
 
-      if (!vignet) {
-        return form.setError('vignet', {
+      if (!vignette) {
+        return form.setError('vignette', {
           message: 'Kies een vignet om verder te gaan.',
         })
       }
 
-      void onPress({...values, vignet})
+      void onPress({...values, vignette})
     },
     [form, onPress],
   )
@@ -26,7 +26,7 @@ export const BoatChargingChooseVignetFormSubmitButton = () => {
     <Button
       label="Kies vignet"
       onPress={() => onSubmit(form.getValues())}
-      testID="BoatChargingChooseVignetSubmitButton"
+      testID="BoatChargingChooseVignetteSubmitButton"
     />
   )
 }

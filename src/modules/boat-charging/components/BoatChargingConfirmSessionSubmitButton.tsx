@@ -1,10 +1,10 @@
 import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {alerts} from '@/modules/boat-charging/alerts'
-import {vignetInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
+import {vignetteInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {useBoatChargingVerifyVignetMutation} from '@/modules/boat-charging/service'
+import {useBoatChargingVerifyVignetteMutation} from '@/modules/boat-charging/service'
 import {type NewSessionFormValues} from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
@@ -17,39 +17,39 @@ export const BoatChargingConfirmSessionSubmitButton = () => {
   )
 
   const [
-    verifyVignet,
-    {isLoading: isLoadingVerifyVignet, isError: isErrorVerifyVignet},
-  ] = useBoatChargingVerifyVignetMutation()
+    verifyVignette,
+    {isLoading: isLoadingVerifyVignette, isError: isErrorVerifyVignette},
+  ] = useBoatChargingVerifyVignetteMutation()
 
   const onSubmit = useCallback(
-    async ({vignet, ...values}: NewSessionFormValues) => {
-      if (!vignet) {
+    async ({vignette, ...values}: NewSessionFormValues) => {
+      if (!vignette) {
         return
       }
 
-      if (!vignet.verified) {
+      if (!vignette.verified) {
         try {
-          const {status, reason} = await verifyVignet(vignet).unwrap()
+          const {status, reason} = await verifyVignette(vignette).unwrap()
 
           if (status === 'invalid') {
-            setAlert(alerts[vignetInvalidReasonToAlertMap[reason]])
+            setAlert(alerts[vignetteInvalidReasonToAlertMap[reason]])
 
             return
           }
 
-          form.setValue('vignet.verified', true)
+          form.setValue('vignette.verified', true)
         } catch (error) {
           devError(error)
 
-          setAlert(alerts.vignetVerificationErrorFailed)
+          setAlert(alerts.vignetteVerificationErrorFailed)
 
           return
         }
       }
 
-      return onPress({...values, vignet})
+      return onPress({...values, vignette})
     },
-    [verifyVignet, onPress, setAlert, form],
+    [onPress, setAlert, form, verifyVignette],
   )
 
   return (
@@ -60,9 +60,9 @@ export const BoatChargingConfirmSessionSubmitButton = () => {
         size: 'ml',
         isFilled: true,
       }}
-      isError={isError || isErrorVerifyVignet}
+      isError={isError || isErrorVerifyVignette}
       isLoading={
-        isLoading || isLoadingVerifyVignet || form.formState.isSubmitting
+        isLoading || isLoadingVerifyVignette || form.formState.isSubmitting
       }
       label="Betalen en laden"
       onPress={form.handleSubmit(onSubmit)}

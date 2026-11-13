@@ -1,14 +1,14 @@
 import type {Alerts} from '@/modules/boat-charging/alerts'
-import {VignetInvalidReasons} from '@/modules/boat-charging/types'
+import {VignetteInvalidReasons} from '@/modules/boat-charging/types'
 
-export const vignetInvalidReasonToAlertMap: Record<
-  VignetInvalidReasons,
+export const vignetteInvalidReasonToAlertMap: Record<
+  VignetteInvalidReasons,
   Alerts
 > = {
-  [VignetInvalidReasons.notFound]: 'vignetInvalidFailed',
-  [VignetInvalidReasons.cancelled]: 'vignetInvalidFailed',
-  [VignetInvalidReasons.expired]: 'vignetExpiredFailed',
-  [VignetInvalidReasons.onlyEnvironmentTypeAllowed]:
-    'vignetNotApplicableFailed',
-  [VignetInvalidReasons.mismatch]: 'vignetInvalidFailed',
+  [VignetteInvalidReasons.notFound]: 'vignetteInvalidFailed',
+  [VignetteInvalidReasons.cancelled]: 'vignetteInvalidFailed',
+  [VignetteInvalidReasons.expired]: 'vignetteExpiredFailed',
+  [VignetteInvalidReasons.onlyEnvironmentTypeAllowed]:
+    'vignetteNotApplicableFailed',
+  [VignetteInvalidReasons.mismatch]: 'vignetteInvalidFailed',
 }

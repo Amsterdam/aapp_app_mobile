@@ -1,40 +1,40 @@
 import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import type {Alerts} from '@/modules/boat-charging/alerts'
-import {useBoatChargingDeleteVignetMutation} from '@/modules/boat-charging/service'
-import type {Vignet} from '@/modules/boat-charging/types'
+import {useBoatChargingDeleteVignetteMutation} from '@/modules/boat-charging/service'
+import type {Vignette} from '@/modules/boat-charging/types'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = {
   onError: (error: unknown[], alert: Alerts) => void
   onSuccess: () => void
-  vignetId: Vignet['id']
+  vignetteId: Vignette['id']
 }
 
-export const BoatChargingVignetFormDeleteVignetButton = ({
-  vignetId,
+export const BoatChargingVignetteFormDeleteVignetteButton = ({
+  vignetteId,
   onError,
   onSuccess,
 }: Props) => {
-  const [deleteVignet, state] = useBoatChargingDeleteVignetMutation()
+  const [deleteVignette, state] = useBoatChargingDeleteVignetteMutation()
   const {resetAlert} = useAlert()
 
-  const onDeleteVignet = useCallback(() => {
+  const onDeleteVignette = useCallback(() => {
     resetAlert()
-    void deleteVignet(vignetId)
+    void deleteVignette(vignetteId)
       .unwrap()
       .then(onSuccess, (...error: unknown[]) =>
-        onError(error, 'vignetDeleteFailed'),
+        onError(error, 'vignetteDeleteFailed'),
       )
-  }, [deleteVignet, onSuccess, onError, vignetId, resetAlert])
+  }, [deleteVignette, onSuccess, onError, vignetteId, resetAlert])
 
   return (
     <Button
       {...state}
       icon={{name: 'trash-bin'}}
       label="Vignet verwijderen"
-      onPress={onDeleteVignet}
-      testID="BoatChargingVignetFormDeleteButton"
+      onPress={onDeleteVignette}
+      testID="BoatChargingVignetteFormDeleteButton"
       variant="tertiaryDestructive"
     />
   )

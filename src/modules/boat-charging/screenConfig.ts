@@ -1,5 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
-import {BoatChargingAddVignetHeaderButton} from '@/modules/boat-charging/components/vignettes/BoatChargingAddVignetHeaderButton'
+import {BoatChargingAddVignetteHeaderButton} from '@/modules/boat-charging/components/vignettes/BoatChargingAddVignetHeaderButton'
 import {
   BoatChargingRouteName,
   type ModuleStackParams,
@@ -7,7 +7,7 @@ import {
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
 import {BoatChargingActiveSessionsScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSessions.screen'
-import {BoatChargingChooseVignetScreen} from '@/modules/boat-charging/screens/BoatChargingChooseVignet.screen'
+import {BoatChargingChooseVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingChooseVignet.screen'
 import {BoatChargingConfirmSession} from '@/modules/boat-charging/screens/BoatChargingConfirmSession.screen'
 import {BoatChargingCreateAccountScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccount.screen'
 import {BoatChargingCreateAccountConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccountConfirm.screen'
@@ -22,8 +22,8 @@ import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatCharg
 import {BoatChargingMyVignettesScreen} from '@/modules/boat-charging/screens/BoatChargingMyVignettes.screen'
 import {BoatChargingPaymentResultScreen} from '@/modules/boat-charging/screens/BoatChargingPaymentResult.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
-import {BoatChargingVerifyVignetScreen} from '@/modules/boat-charging/screens/BoatChargingVerifyVignet.screen'
-import {BoatChargingVignetScreen} from '@/modules/boat-charging/screens/BoatChargingVignet.screen'
+import {BoatChargingVerifyVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingVerifyVignet.screen'
+import {BoatChargingVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingVignet.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
@@ -53,16 +53,16 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Laden zonder account',
     },
   },
-  [BoatChargingRouteName.verifyVignet]: {
-    component: BoatChargingVerifyVignetScreen,
-    name: BoatChargingRouteName.verifyVignet,
+  [BoatChargingRouteName.verifyVignette]: {
+    component: BoatChargingVerifyVignetteScreen,
+    name: BoatChargingRouteName.verifyVignette,
     options: {
       headerTitle: 'Vignet controleren',
     },
   },
-  [BoatChargingRouteName.chooseVignet]: {
-    component: BoatChargingChooseVignetScreen,
-    name: BoatChargingRouteName.chooseVignet,
+  [BoatChargingRouteName.chooseVignette]: {
+    component: BoatChargingChooseVignetteScreen,
+    name: BoatChargingRouteName.chooseVignette,
     options: {
       headerTitle: 'Vignet kiezen',
     },
@@ -137,12 +137,12 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.myVignettes,
     options: {
       headerTitle: 'Mijn vignetten',
-      SideComponent: BoatChargingAddVignetHeaderButton,
+      SideComponent: BoatChargingAddVignetteHeaderButton,
     },
   },
-  [BoatChargingRouteName.vignet]: {
-    component: BoatChargingVignetScreen,
-    name: BoatChargingRouteName.vignet,
+  [BoatChargingRouteName.vignette]: {
+    component: BoatChargingVignetteScreen,
+    name: BoatChargingRouteName.vignette,
     options: {
       headerShown: false,
     },

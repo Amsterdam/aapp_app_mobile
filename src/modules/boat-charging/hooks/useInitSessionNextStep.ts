@@ -11,7 +11,7 @@ import {selectLastApprovedTermsVersionWhileLoggedIn} from '@/modules/boat-chargi
 import {
   type BoatChargingInitSessionStep,
   type NewSessionFormValues,
-  type Vignet,
+  type Vignette,
 } from '@/modules/boat-charging/types'
 import {validateEmail} from '@/utils/validate'
 
@@ -36,7 +36,7 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
     (
       params: NewSessionFormValues,
       terms: {version: number},
-      vignettes: Vignet[] = [],
+      vignettes: Vignette[] = [],
     ) => {
       const state = store.getState()
       const lastApprovedTermsVersionFromState =
@@ -45,19 +45,19 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
         lastApprovedTermsVersionFromState === undefined ||
         terms.version > lastApprovedTermsVersionFromState
 
-      const {vignet} = params
+      const {vignette} = params
 
-      if (!vignet) {
+      if (!vignette) {
         if (!vignettes?.length) {
-          return BoatChargingRouteName.verifyVignet
+          return BoatChargingRouteName.verifyVignette
         } else if (vignettes.length === 1) {
-          form.setValue('vignet', vignettes[0])
+          form.setValue('vignette', vignettes[0])
 
           return needsTermsApproval
             ? BoatChargingRouteName.termsAndConditions
             : BoatChargingRouteName.confirmSession
         } else {
-          return BoatChargingRouteName.chooseVignet
+          return BoatChargingRouteName.chooseVignette
         }
       }
 
@@ -74,14 +74,14 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
 
   const guestNextStep = useCallback(
     (params: NewSessionFormValues) => {
-      const {approvedTerms, email, vignet} = params
+      const {approvedTerms, email, vignette} = params
 
       if (!email || validateEmail(email) !== true) {
         return BoatChargingRouteName.guestEmail
       }
 
-      if (!vignet) {
-        return BoatChargingRouteName.verifyVignet
+      if (!vignette) {
+        return BoatChargingRouteName.verifyVignette
       }
 
       if (!approvedTerms) {

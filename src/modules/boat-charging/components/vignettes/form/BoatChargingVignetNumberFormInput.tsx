@@ -5,7 +5,7 @@ const lengthValidation = {
   message: 'Vul een vignetnummer in van 8 tekens.',
 }
 
-export const BoatChargingVignetNumberFormInput = () => (
+export const BoatChargingVignetteNumberFormInput = () => (
   <TextInputField
     autoCapitalize="characters"
     autoComplete="off"
@@ -13,7 +13,7 @@ export const BoatChargingVignetNumberFormInput = () => (
     hasClearButton={false}
     inputInstructions="Bijvoorbeeld: AM123456"
     label="Vignetnummer"
-    name="vignetNumber"
+    name="vignetteNumber"
     required
     rules={{
       required: 'Vul een vignetnummer in.',
@@ -24,6 +24,6 @@ export const BoatChargingVignetNumberFormInput = () => (
       maxLength: lengthValidation,
       minLength: lengthValidation,
     }}
-    testID="BoatChargingVignetNumberFormInputField"
+    testID="BoatChargingVignetteNumberFormInputField"
   />
 )

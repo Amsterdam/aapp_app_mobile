@@ -1,23 +1,23 @@
 import {useCallback} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
-import {BoatChargingVignetForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetForm'
+import {BoatChargingVignetteForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetForm'
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import type {BaseVignet} from '@/modules/boat-charging/types'
+import type {BaseVignette} from '@/modules/boat-charging/types'
 
-export const BoatChargingVerifyVignetScreen = () => {
+export const BoatChargingVerifyVignetteScreen = () => {
   const {
     onPress,
     form: {getValues, setValue},
-  } = useInitSession(BoatChargingRouteName.verifyVignet)
+  } = useInitSession(BoatChargingRouteName.verifyVignette)
 
   const onVerified = useCallback(
-    (vignet: BaseVignet) => {
-      const verifiedVignet = {...vignet, verified: true}
+    (vignette: BaseVignette) => {
+      const verifiedVignette = {...vignette, verified: true}
 
-      setValue('vignet', verifiedVignet)
-      void onPress({...getValues(), vignet: verifiedVignet})
+      setValue('vignette', verifiedVignette)
+      void onPress({...getValues(), vignette: verifiedVignette})
     },
     [onPress, getValues, setValue],
   )
@@ -27,9 +27,9 @@ export const BoatChargingVerifyVignetScreen = () => {
       hasStickyAlert
       keyboardAware
       scroll
-      testID="BoatChargingVerifyVignetScreen">
+      testID="BoatChargingVerifyVignetteScreen">
       <Box grow>
-        <BoatChargingVignetForm onVerified={onVerified} />
+        <BoatChargingVignetteForm onVerified={onVerified} />
       </Box>
     </Screen>
   )

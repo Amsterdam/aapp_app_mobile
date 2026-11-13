@@ -3,61 +3,61 @@ import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {alerts} from '@/modules/boat-charging/alerts'
-import {vignetInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
+import {vignetteInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {type BoatChargingVignetFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
+import {type BoatChargingVignetteFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
 import {
-  useBoatChargingAddVignetMutation,
-  useBoatChargingVerifyVignetMutation,
+  useBoatChargingAddVignetteMutation,
+  useBoatChargingVerifyVignetteMutation,
   useBoatChargingVignettesQuery,
 } from '@/modules/boat-charging/service'
 import {
-  type BaseVignet,
-  VignetInvalidReasons,
+  type BaseVignette,
+  VignetteInvalidReasons,
 } from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = {
-  onVerified: (vignet: BaseVignet) => void
+  onVerified: (vignette: BaseVignette) => void
 }
 
-export const BoatChargingVignetFormVerifyVignetButton = ({
+export const BoatChargingVignetteFormVerifyVignetteButton = ({
   onVerified,
 }: Props) => {
   const {isLoggedIn} = useIsLoggedIn()
 
-  const [addVignet, {isLoading: isLoadingAddVignet}] =
-    useBoatChargingAddVignetMutation()
+  const [addVignette, {isLoading: isLoadingAddVignette}] =
+    useBoatChargingAddVignetteMutation()
   const [
-    verifyVignet,
-    {isLoading: isLoadingVerifyVignet, isError: isErrorVerifyVignet},
-  ] = useBoatChargingVerifyVignetMutation()
+    verifyVignette,
+    {isLoading: isLoadingVerifyVignette, isError: isErrorVerifyVignette},
+  ] = useBoatChargingVerifyVignetteMutation()
 
   const {data: myVignettes, isLoading: isLoadingMyVignettes} =
     useBoatChargingVignettesQuery(isLoggedIn ? undefined : skipToken)
 
   const {setAlert} = useAlert()
   const {handleSubmit, setError} =
-    useFormContext<BoatChargingVignetFormValues>()
+    useFormContext<BoatChargingVignetteFormValues>()
 
-  const onVerifyVignet = useCallback(
+  const onVerifyVignette = useCallback(
     ({
       postalCode,
-      vignetNumber,
+      vignetteNumber,
       saveToMyVignettes,
-    }: BoatChargingVignetFormValues) => {
-      const vignet = {
+    }: BoatChargingVignetteFormValues) => {
+      const vignette = {
         postal_code: postalCode,
-        vignette_number: vignetNumber,
+        vignette_number: vignetteNumber,
       }
 
-      void verifyVignet(vignet)
+      void verifyVignette(vignette)
         .unwrap()
         .then(
           ({status, reason}) => {
             if (status === 'invalid') {
-              if (reason === VignetInvalidReasons.mismatch) {
+              if (reason === VignetteInvalidReasons.mismatch) {
                 setError('postalCode', {
                   message: 'Vignetnummer en postcode komen niet overeen.',
                 })
@@ -65,7 +65,7 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
                 return
               }
 
-              const alertKey = vignetInvalidReasonToAlertMap[reason]
+              const alertKey = vignetteInvalidReasonToAlertMap[reason]
 
               setAlert(alerts[alertKey])
 
@@ -73,35 +73,35 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
             }
 
             const alreadySaved = myVignettes?.some(
-              myVignet => myVignet.vignette_number === vignetNumber,
+              myVignette => myVignette.vignette_number === vignetteNumber,
             )
 
             if (saveToMyVignettes && !alreadySaved) {
-              void addVignet(vignet).unwrap().catch(devError) // This call should not block the flow and only fail silently
+              void addVignette(vignette).unwrap().catch(devError) // This call should not block the flow and only fail silently
             }
 
-            onVerified(vignet)
+            onVerified(vignette)
           },
           error => {
             devError(error)
 
-            setAlert(alerts.vignetVerificationErrorFailed)
+            setAlert(alerts.vignetteVerificationErrorFailed)
           },
         )
     },
 
-    [addVignet, verifyVignet, setAlert, onVerified, setError, myVignettes],
+    [addVignette, verifyVignette, setAlert, onVerified, setError, myVignettes],
   )
 
   return (
     <Button
-      isError={isErrorVerifyVignet}
+      isError={isErrorVerifyVignette}
       isLoading={
-        isLoadingVerifyVignet || isLoadingAddVignet || isLoadingMyVignettes
+        isLoadingVerifyVignette || isLoadingAddVignette || isLoadingMyVignettes
       }
       label="Controleer vignet"
-      onPress={handleSubmit(onVerifyVignet)}
-      testID="BoatChargingVignetFormVerifyButton"
+      onPress={handleSubmit(onVerifyVignette)}
+      testID="BoatChargingVignetteFormVerifyButton"
     />
   )
 }

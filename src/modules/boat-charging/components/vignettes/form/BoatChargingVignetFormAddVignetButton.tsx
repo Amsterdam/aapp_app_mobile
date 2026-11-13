@@ -2,54 +2,54 @@ import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import type {Alerts} from '@/modules/boat-charging/alerts'
-import type {BoatChargingVignetFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
-import {useBoatChargingAddVignetMutation} from '@/modules/boat-charging/service'
-import type {Vignet} from '@/modules/boat-charging/types'
+import type {BoatChargingVignetteFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
+import {useBoatChargingAddVignetteMutation} from '@/modules/boat-charging/service'
+import type {Vignette} from '@/modules/boat-charging/types'
 import {isSameStringValue} from '@/modules/boat-charging/utils/isSameStringValue'
 
 type Props = {
   onError: (error?: unknown[], alert?: Alerts) => void
   onSuccess: () => void
-  vignettes?: Vignet[]
+  vignettes?: Vignette[]
 }
 
-export const BoatChargingVignetFormAddVignetButton = ({
+export const BoatChargingVignetteFormAddVignetteButton = ({
   vignettes,
   onError,
   onSuccess,
 }: Props) => {
-  const [addVignet, state] = useBoatChargingAddVignetMutation()
-  const {handleSubmit} = useFormContext<BoatChargingVignetFormValues>()
+  const [addVignette, state] = useBoatChargingAddVignetteMutation()
+  const {handleSubmit} = useFormContext<BoatChargingVignetteFormValues>()
 
-  const onAddVignet = useCallback(
-    ({postalCode, vignetNumber}: BoatChargingVignetFormValues) => {
+  const onAddVignette = useCallback(
+    ({postalCode, vignetteNumber}: BoatChargingVignetteFormValues) => {
       if (
         vignettes?.some(
-          vignet =>
-            isSameStringValue(vignet.vignette_number, vignetNumber) &&
-            isSameStringValue(vignet.postal_code, postalCode),
+          vignette =>
+            isSameStringValue(vignette.vignette_number, vignetteNumber) &&
+            isSameStringValue(vignette.postal_code, postalCode),
         )
       ) {
-        // Simply return when vignet already is connected
+        // Simply return when vignette already is connected
         return onSuccess()
       }
 
-      return addVignet({
+      return addVignette({
         postal_code: postalCode,
-        vignette_number: vignetNumber,
+        vignette_number: vignetteNumber,
       })
         .unwrap()
         .then(onSuccess, onError)
     },
-    [addVignet, onSuccess, onError, vignettes],
+    [addVignette, onSuccess, onError, vignettes],
   )
 
   return (
     <Button
       {...state}
       label="Vignet toevoegen"
-      onPress={handleSubmit(onAddVignet)}
-      testID="BoatChargingVignetFormAddButton"
+      onPress={handleSubmit(onAddVignette)}
+      testID="BoatChargingVignetteFormAddButton"
     />
   )
 }

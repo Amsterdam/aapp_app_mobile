@@ -1,24 +1,24 @@
 import type {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
-import {BoatChargingVignetForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetForm'
+import {BoatChargingVignetteForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetForm'
 import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 
-type Props = NavigationProps<BoatChargingRouteName.vignet>
+type Props = NavigationProps<BoatChargingRouteName.vignette>
 
-export const BoatChargingVignetScreen = ({route}: Props) => (
+export const BoatChargingVignetteScreen = ({route}: Props) => (
   <Screen
     hasStickyAlert
     headerOptions={{
-      headerTitle: route.params?.vignetId
+      headerTitle: route.params?.vignetteId
         ? 'Vignet wijzigen'
         : 'Vignet toevoegen',
     }}
     keyboardAware
     scroll
-    testID="BoatChargingVignetScreen">
+    testID="BoatChargingVignetteScreen">
     <Box grow>
-      <BoatChargingVignetForm vignetId={route.params?.vignetId} />
+      <BoatChargingVignetteForm vignetteId={route.params?.vignetteId} />
     </Box>
   </Screen>
 )
