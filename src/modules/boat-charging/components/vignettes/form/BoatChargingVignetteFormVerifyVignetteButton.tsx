@@ -3,9 +3,9 @@ import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {alerts} from '@/modules/boat-charging/alerts'
-import {vignetteInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetInvalidReasonToAlertMap'
+import {vignetteInvalidReasonToAlertMap} from '@/modules/boat-charging/constants/vignetteInvalidReasonToAlertMap'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {type BoatChargingVignetteFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
+import {type BoatChargingVignetteFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetteForm.provider'
 import {
   useBoatChargingAddVignetteMutation,
   useBoatChargingVerifyVignetteMutation,

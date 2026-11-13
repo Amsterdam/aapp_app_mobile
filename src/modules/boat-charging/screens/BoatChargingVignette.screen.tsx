@@ -1,7 +1,7 @@
 import type {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
-import {BoatChargingVignetteForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetForm'
+import {BoatChargingVignetteForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteForm'
 import type {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 
 type Props = NavigationProps<BoatChargingRouteName.vignette>

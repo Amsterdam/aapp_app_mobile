@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
-import {BoatChargingVignetteForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetForm'
+import {BoatChargingVignetteForm} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteForm'
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import type {BaseVignette} from '@/modules/boat-charging/types'

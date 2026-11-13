@@ -1,5 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
-import {BoatChargingAddVignetteHeaderButton} from '@/modules/boat-charging/components/vignettes/BoatChargingAddVignetHeaderButton'
+import {BoatChargingAddVignetteHeaderButton} from '@/modules/boat-charging/components/vignettes/BoatChargingAddVignetteHeaderButton'
 import {
   BoatChargingRouteName,
   type ModuleStackParams,
@@ -7,7 +7,7 @@ import {
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
 import {BoatChargingActiveSessionsScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSessions.screen'
-import {BoatChargingChooseVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingChooseVignet.screen'
+import {BoatChargingChooseVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingChooseVignette.screen'
 import {BoatChargingConfirmSession} from '@/modules/boat-charging/screens/BoatChargingConfirmSession.screen'
 import {BoatChargingCreateAccountScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccount.screen'
 import {BoatChargingCreateAccountConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingCreateAccountConfirm.screen'
@@ -22,8 +22,8 @@ import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatCharg
 import {BoatChargingMyVignettesScreen} from '@/modules/boat-charging/screens/BoatChargingMyVignettes.screen'
 import {BoatChargingPaymentResultScreen} from '@/modules/boat-charging/screens/BoatChargingPaymentResult.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
-import {BoatChargingVerifyVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingVerifyVignet.screen'
-import {BoatChargingVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingVignet.screen'
+import {BoatChargingVerifyVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingVerifyVignette.screen'
+import {BoatChargingVignetteScreen} from '@/modules/boat-charging/screens/BoatChargingVignette.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
