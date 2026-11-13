@@ -2,12 +2,12 @@ import {render} from '@testing-library/react-native'
 import type {ComponentProps} from 'react'
 import {BoatChargingSessionCostBreakdownItems} from '@/modules/boat-charging/components/BoatChargingSessionCostBreakdown'
 import {boatChargingCostItemTypeMap} from '@/modules/boat-charging/constants/boatChargingCostItemTypeMap'
-import type {BoatChargingSettings} from '@/modules/boat-charging/types'
 import {
   BoatChargingCostBreakdownItemType,
   type BoatChargingSessionCostBreakdownItem,
 } from '@/modules/boat-charging/types'
 import {StoreProvider} from '@/providers/store.provider'
+import {formatNumber} from '@/utils/formatNumber'
 
 const ITEMS: Record<
   BoatChargingCostBreakdownItemType,
@@ -45,13 +45,7 @@ const ITEMS: Record<
   },
 }
 
-const SETTINGS: BoatChargingSettings = {
-  vat_fraction: 21.0,
-  session_expiry_hours: 24,
-  session_expiry_warning_hours: 20,
-  standard_fine: 1,
-  pre_authorization_amount: 50,
-}
+const SESSION_EXPIRY_HOURS = 24
 
 const ITEMS_ARRAY = Object.values(ITEMS)
 
@@ -68,7 +62,7 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
   it('maps each item type to the expected row props for typical values', () => {
     const {getAllByTestId, getByText} = renderComponent({
       items: ITEMS_ARRAY,
-      settings: SETTINGS,
+      sessionExpiryHours: SESSION_EXPIRY_HOURS,
     })
 
     const infoRows = getAllByTestId(
@@ -79,20 +73,54 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
 
     ITEMS_ARRAY.forEach((item, index) => {
       expect(infoRows[index]).toContainElement(
-        getByText(boatChargingCostItemTypeMap(SETTINGS)[item.type].label),
+        getByText(
+          boatChargingCostItemTypeMap(SESSION_EXPIRY_HOURS)[item.type].label,
+        ),
       )
 
       expect(infoRows[index]).toContainElement(
         getByText(
-          boatChargingCostItemTypeMap(SETTINGS)[item.type].details(item),
+          boatChargingCostItemTypeMap(SESSION_EXPIRY_HOURS)[item.type].details(
+            item,
+          ),
         ),
       )
     })
   })
 
+  it('omits calculation details when volume or unit price is unavailable', () => {
+    const items = [
+      {...ITEMS.TIME, unit_price_incl_vat: undefined},
+      {...ITEMS.ENERGY, volume: undefined},
+    ]
+    const {getAllByTestId, getByText, queryByText} = renderComponent({
+      items,
+      sessionExpiryHours: SESSION_EXPIRY_HOURS,
+    })
+
+    expect(
+      getAllByTestId('BoatChargingHistorySessionCostDetailsInfoRow'),
+    ).toHaveLength(2)
+
+    items.forEach(item => {
+      expect(getByText(formatNumber(item.cost_incl_vat, 'EUR'))).toBeTruthy()
+      expect(
+        boatChargingCostItemTypeMap(SESSION_EXPIRY_HOURS)[item.type].details(
+          item,
+        ),
+      ).toBe('')
+    })
+
+    expect(queryByText('per uur')).toBeNull()
+    expect(queryByText('per kWh')).toBeNull()
+  })
+
   it('renders no rows for an empty items list', () => {
-    renderComponent({items: [], settings: SETTINGS})
-    const {queryAllByTestId} = renderComponent({items: [], settings: SETTINGS})
+    renderComponent({items: [], sessionExpiryHours: SESSION_EXPIRY_HOURS})
+    const {queryAllByTestId} = renderComponent({
+      items: [],
+      sessionExpiryHours: SESSION_EXPIRY_HOURS,
+    })
 
     const infoRows = queryAllByTestId(
       `BoatChargingHistorySessionCostDetailsInfoRow`,
@@ -104,7 +132,7 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
   it('only renders rows if they have costs', () => {
     const {queryAllByTestId} = renderComponent({
       items: ITEMS_ARRAY.map(item => ({...item, cost_incl_vat: 0})),
-      settings: SETTINGS,
+      sessionExpiryHours: SESSION_EXPIRY_HOURS,
     })
 
     const infoRows = queryAllByTestId(
@@ -123,7 +151,7 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
     ]
     const {queryAllByTestId, queryByText} = renderComponent({
       items,
-      settings: SETTINGS,
+      sessionExpiryHours: SESSION_EXPIRY_HOURS,
     })
 
     const infoRows = queryAllByTestId(
@@ -137,12 +165,14 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
       BoatChargingCostBreakdownItemType.FLAT,
     ].forEach(type => {
       expect(
-        queryByText(boatChargingCostItemTypeMap(SETTINGS)[type].label),
+        queryByText(
+          boatChargingCostItemTypeMap(SESSION_EXPIRY_HOURS)[type].label,
+        ),
       ).toBeNull()
 
       expect(
         queryByText(
-          boatChargingCostItemTypeMap(SETTINGS)[type].details(
+          boatChargingCostItemTypeMap(SESSION_EXPIRY_HOURS)[type].details(
             items.find(item => item.type === type)!,
           ),
         ),
@@ -154,12 +184,14 @@ describe('BoatChargingSessionCostBreakdownItems', () => {
       BoatChargingCostBreakdownItemType.PARKING_TIME,
     ].forEach(type => {
       expect(
-        queryByText(boatChargingCostItemTypeMap(SETTINGS)[type].label),
+        queryByText(
+          boatChargingCostItemTypeMap(SESSION_EXPIRY_HOURS)[type].label,
+        ),
       ).not.toBeNull()
 
       expect(
         queryByText(
-          boatChargingCostItemTypeMap(SETTINGS)[type].details(
+          boatChargingCostItemTypeMap(SESSION_EXPIRY_HOURS)[type].details(
             items.find(item => item.type === type)!,
           ),
         ),

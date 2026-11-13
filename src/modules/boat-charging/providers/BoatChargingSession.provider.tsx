@@ -41,7 +41,7 @@ export const BoatChargingSessionProvider = ({
     lastStatus === NRGStatus.Starting || lastStatus === NRGStatus.Stopping
 
   const {
-    data: session,
+    data: sessionResponse,
     isLoading,
     isError,
     fulfilledTimeStamp,
@@ -50,6 +50,18 @@ export const BoatChargingSessionProvider = ({
       isFocused && shouldPollSession ? (shouldPollFast ? 5000 : 30000) : 0,
     skip: !id,
   })
+
+  const session = useMemo(() => {
+    if (
+      !sessionResponse ||
+      sessionResponse.status ||
+      sessionResponse.nrg_status !== NRGStatus.Charging
+    ) {
+      return sessionResponse
+    }
+
+    return {...sessionResponse, status: SessionStatus.ACTIVE}
+  }, [sessionResponse])
 
   useEffect(() => {
     setLastStatus(session?.nrg_status)
@@ -82,7 +94,7 @@ export const BoatChargingSessionProvider = ({
           ? session.end_date_time
           : undefined
 
-    return session && endDateTime
+    return session && endDateTime && session.start_date_time
       ? [
           formatTimeRangeToDisplay(session.start_date_time, endDateTime),
           formatTimeRangeToDisplay(session.start_date_time, endDateTime, {
@@ -97,7 +109,6 @@ export const BoatChargingSessionProvider = ({
     () =>
       settingsServerData || {
         pre_authorization_amount: null,
-        session_cleanup_enabled: null,
         session_expiry_hours: 24,
         session_expiry_warning_hours: 20,
         standard_fine: null,
