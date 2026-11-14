@@ -98,44 +98,44 @@ export const alerts = {
     title: 'Inloggen lukt niet',
     testID: 'BoatChargingLoginFailedAlert',
   },
-  vignetInvalidFailed: {
+  vignetteInvalidFailed: {
     variant: AlertVariant.negative,
     text: 'Dit vignet is niet geldig.',
     title: 'Niet geldig',
-    testID: 'BoatChargingVignetInvalidAlert',
+    testID: 'BoatChargingVignetteInvalidAlert',
   },
-  vignetDeleteFailed: {
+  vignetteDeleteFailed: {
     variant: AlertVariant.negative,
     text: 'Het vignet is niet verwijderd. Probeer het later nog eens.',
     title: 'Er ging iets mis',
-    testID: 'BoatChargingVignetDeleteAlert',
+    testID: 'BoatChargingVignetteDeleteAlert',
   },
-  vignetExpiredFailed: {
+  vignetteExpiredFailed: {
     variant: AlertVariant.negative,
     text: 'Dit vignet is niet meer geldig.',
     title: 'Dit vignet is verlopen',
-    testID: 'BoatChargingVignetExpiredAlert',
+    testID: 'BoatChargingVignetteExpiredAlert',
   },
-  vignetNotApplicableFailed: {
+  vignetteNotApplicableFailed: {
     variant: AlertVariant.negative,
     externalLink: {
       label: 'Bekijk welk vignet u nodig heeft',
-      redirectKey: RedirectKey.boatChargingVignetInfo,
+      redirectKey: RedirectKey.boatChargingVignetteInfo,
     },
     title: 'Met dit vignet kunt u niet laden',
-    testID: 'BoatChargingVignetNotApplicableAlert',
+    testID: 'BoatChargingVignetteNotApplicableAlert',
   },
-  vignetAlreadyInUseFailed: {
+  vignetteAlreadyInUseFailed: {
     variant: AlertVariant.negative,
     text: 'Er is al een actieve laadsessie met dit vignet. Controleer uw actieve laadsessies.',
     title: 'Vignet is al in gebruik',
-    testID: 'BoatChargingVignetAlreadyInUseAlert',
+    testID: 'BoatChargingVignetteAlreadyInUseAlert',
   },
-  vignetVerificationErrorFailed: {
+  vignetteVerificationErrorFailed: {
     variant: AlertVariant.negative,
     title: 'Vignet controleren is niet gelukt',
     text: 'Probeer het opnieuw.',
-    testID: 'BoatChargingVignetVerificationFailedAlert',
+    testID: 'BoatChargingVignetteVerificationFailedAlert',
   },
 } as const satisfies AlertsRecord
 

@@ -115,7 +115,7 @@ export const BoatChargingSession = () => {
           <Divider />
 
           <MetaDataCard
-            testID="BoatChargingSessionVignetMetaDataCard"
+            testID="BoatChargingSessionVignetteMetaDataCard"
             title="Vignet">
             <Phrase>{session.vignette_number}</Phrase>
             {!!session.boat_name && (

@@ -6,7 +6,7 @@ import type {
 import {setBoatChargingOpenIdConnectConfig} from '@/modules/boat-charging/slice'
 import {
   BoatChargingEndpointName,
-  type BaseVignet,
+  type BaseVignette,
   type BoatChargingGeoJSON,
   type BoatChargingLocationDetailsResponse,
   type BoatChargingOIDCConfigResponse,
@@ -18,8 +18,8 @@ import {
   type BoatChargingSettings,
   type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
-  type BoatChargingVerifyVignetResponse,
-  type Vignet,
+  type BoatChargingVerifyVignetteResponse,
+  type Vignette,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
@@ -201,7 +201,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['BoatChargingSessions', 'BoatChargingLocations'],
     }),
-    [BoatChargingEndpointName.vignettes]: builder.query<Array<Vignet>, void>({
+    [BoatChargingEndpointName.vignettes]: builder.query<Array<Vignette>, void>({
       query: () => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
@@ -210,7 +210,10 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       providesTags: ['BoatChargingVignettes'],
     }),
-    [BoatChargingEndpointName.addVignet]: builder.mutation<Vignet, BaseVignet>({
+    [BoatChargingEndpointName.addVignette]: builder.mutation<
+      Vignette,
+      BaseVignette
+    >({
       query: body => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
@@ -220,34 +223,34 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['BoatChargingVignettes'],
     }),
-    [BoatChargingEndpointName.deleteVignet]: builder.mutation<
+    [BoatChargingEndpointName.deleteVignette]: builder.mutation<
       void,
-      Vignet['id']
+      Vignette['id']
     >({
-      query: vignetId => ({
+      query: vignetteId => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
-        url: `/vignettes/${vignetId}`,
+        url: `/vignettes/${vignetteId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['BoatChargingVignettes'],
     }),
-    [BoatChargingEndpointName.editVignet]: builder.mutation<
+    [BoatChargingEndpointName.editVignette]: builder.mutation<
       void,
-      BaseVignet & {vignetId: Vignet['id']}
+      BaseVignette & {vignetteId: Vignette['id']}
     >({
-      query: ({vignetId, ...body}) => ({
+      query: ({vignetteId, ...body}) => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
-        url: `/vignettes/${vignetId}`,
+        url: `/vignettes/${vignetteId}`,
         method: 'PUT',
         body,
       }),
       invalidatesTags: ['BoatChargingVignettes'],
     }),
-    [BoatChargingEndpointName.verifyVignet]: builder.mutation<
-      BoatChargingVerifyVignetResponse,
-      BaseVignet
+    [BoatChargingEndpointName.verifyVignette]: builder.mutation<
+      BoatChargingVerifyVignetteResponse,
+      BaseVignette
     >({
       query: body => ({
         prepareHeaders,
@@ -276,8 +279,8 @@ export const {
   useBoatChargingStopSessionMutation,
   useBoatChargingSessionCostBreakdownQuery,
   useBoatChargingVignettesQuery,
-  useBoatChargingAddVignetMutation,
-  useBoatChargingDeleteVignetMutation,
-  useBoatChargingEditVignetMutation,
-  useBoatChargingVerifyVignetMutation,
+  useBoatChargingAddVignetteMutation,
+  useBoatChargingDeleteVignetteMutation,
+  useBoatChargingEditVignetteMutation,
+  useBoatChargingVerifyVignetteMutation,
 } = boatChargingApi

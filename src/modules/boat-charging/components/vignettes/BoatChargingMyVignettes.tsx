@@ -6,7 +6,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BoatChargingMyVignettesLogin} from '@/modules/boat-charging/components/vignettes/BoatChargingMyVignettesLogin'
-import {BoatChargingVignetListItem} from '@/modules/boat-charging/components/vignettes/BoatChargingVignetListItem'
+import {BoatChargingVignetteListItem} from '@/modules/boat-charging/components/vignettes/BoatChargingVignetteListItem'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
@@ -47,9 +47,9 @@ export const BoatChargingMyVignettes = () => {
           icon={{name: 'plus-circle', isFilled: true}}
           label="Vignet toevoegen"
           onPress={() => {
-            navigate(BoatChargingRouteName.vignet)
+            navigate(BoatChargingRouteName.vignette)
           }}
-          testID="BoatChargingMyVignettesEmptyListAddVignetButton"
+          testID="BoatChargingMyVignettesEmptyListAddVignetteButton"
         />
       </>
     )
@@ -57,10 +57,10 @@ export const BoatChargingMyVignettes = () => {
 
   return (
     <Column gutter="md">
-      {vignettes.map(vignet => (
-        <BoatChargingVignetListItem
-          key={vignet.id}
-          vignet={vignet}
+      {vignettes.map(vignette => (
+        <BoatChargingVignetteListItem
+          key={vignette.id}
+          vignette={vignette}
         />
       ))}
     </Column>
