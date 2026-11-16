@@ -1,5 +1,5 @@
-import {useIsFocused} from '@react-navigation/native'
-import {useEffect, type ComponentProps} from 'react'
+import {useFocusEffect, useIsFocused} from '@react-navigation/native'
+import {type ComponentProps} from 'react'
 import {MapViewSwitchView} from '@/components/features/map/MapViewSwitchView'
 import {MapFiltersProvider} from '@/components/features/map/providers/MapFilters.provider'
 import {BoatChargingList} from '@/modules/boat-charging/components/BoatChargingList'
@@ -16,12 +16,10 @@ export const BoatChargingView = () => {
   const {reset} = useNewSessionFormContext()
   const isFocused = useIsFocused()
 
-  useEffect(() => {
-    if (isFocused) {
-      // Reset the session form when the user arrives/returns on this screen
-      reset()
-    }
-  }, [reset, isFocused])
+  useFocusEffect(() => {
+    // Reset the session form when the user arrives/returns on this screen
+    reset()
+  })
 
   const {
     data,

@@ -10,7 +10,7 @@ export const BoatChargingSessionChargingTimeBottomSheet = () => {
   const {session, settings, isError, isLoading, ...rest} =
     useBoatChargingSession()
 
-  const data = session && settings
+  const data = !!session && !!settings
 
   return (
     <Box

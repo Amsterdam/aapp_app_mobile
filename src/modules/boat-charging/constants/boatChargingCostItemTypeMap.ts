@@ -7,29 +7,33 @@ import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
-const getItemString = (item: BoatChargingSessionCostBreakdownItem) =>
-  `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price_incl_vat, 'EUR', {maximumFractionDigits: 4})} per uur`
+const getItemString = (item: BoatChargingSessionCostBreakdownItem) => {
+  if (item.volume === undefined || item.unit_price_incl_vat === undefined) {
+    return ''
+  }
+
+  return `${formatTimeDurationToDisplay(item.volume, 'hour', {format: 'short', smallestUnit: item.volume > 100 / 60 ? 'minutes' : 'seconds'})} × ${formatNumber(item.unit_price_incl_vat, 'EUR', {maximumFractionDigits: 4})} per uur`
+}
 
 export const boatChargingCostItemTypeMap = (
-  settings: BoatChargingSettings | undefined,
+  sessionExpiryHours: BoatChargingSettings['session_expiry_hours'] | undefined,
 ): Record<
   BoatChargingCostBreakdownItemType,
   {
-    details: (
-      item: BoatChargingSessionCostBreakdownItem,
-      vat_fraction?: number | null,
-    ) => string
+    details: (item: BoatChargingSessionCostBreakdownItem) => string
     label: string
   }
 > => ({
   [BoatChargingCostBreakdownItemType.STANDARD_FINE]: {
-    label: `Na ${settings?.session_expiry_hours ?? 24} uur`,
+    label: sessionExpiryHours ? `Na ${sessionExpiryHours} uur` : 'Extra kosten',
     details: getItemString,
   },
   [BoatChargingCostBreakdownItemType.ENERGY]: {
     label: 'Stroom',
     details: item =>
-      `${formatKWH(item.volume)} × ${formatNumber(item.unit_price_incl_vat, 'EUR', {maximumFractionDigits: 4})} per kWh`,
+      item.volume === undefined || item.unit_price_incl_vat === undefined
+        ? ''
+        : `${formatKWH(item.volume)} × ${formatNumber(item.unit_price_incl_vat, 'EUR', {maximumFractionDigits: 4})} per kWh`,
   },
   [BoatChargingCostBreakdownItemType.TIME]: {
     label: 'Laadtijd',

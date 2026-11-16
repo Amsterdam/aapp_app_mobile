@@ -1,15 +1,15 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import type {Vignet} from '@/modules/boat-charging/types'
+import type {Vignette} from '@/modules/boat-charging/types'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
 type Props = {
-  vignet: Vignet
+  vignette: Vignette
 }
 
-export const BoatChargingVignetListItem = ({
-  vignet: {boat_name, vignette_number, expiration_date, id},
+export const BoatChargingVignetteListItem = ({
+  vignette: {boat_name, vignette_number, expiration_date, id},
 }: Props) => {
   const {navigate} = useNavigation()
 
@@ -30,8 +30,8 @@ export const BoatChargingVignetListItem = ({
         color: 'secondary',
       }}
       insetHorizontal="no"
-      onPress={() => navigate(BoatChargingRouteName.vignet, {vignetId: id})}
-      testID="VignetListItemTopTaskButton"
+      onPress={() => navigate(BoatChargingRouteName.vignette, {vignetteId: id})}
+      testID="VignetteListItemTopTaskButton"
       text={boat_name}
       textAdditional={`Geldig tot ${formatDateToDisplay(expiration_date)}`}
       title={vignette_number}

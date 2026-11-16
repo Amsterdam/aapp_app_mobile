@@ -1,10 +1,11 @@
 import type {Feature, Point} from 'geojson'
 import type {Address} from '@/modules/address/exports/types'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import type {WithDummyAndPage} from '@/services/types'
 import type {PaginationQueryArgs} from '@/types/api'
 
 export enum BoatChargingEndpointName {
-  addVignet = 'boatChargingAddVignet',
+  addVignette = 'boatChargingAddVignette',
   boatChargingCancelSession = 'boatChargingCancelSession',
   boatChargingInitSession = 'boatChargingInitSession',
   boatChargingLocationDetails = 'boatChargingLocationDetails',
@@ -18,9 +19,9 @@ export enum BoatChargingEndpointName {
   boatChargingStartSession = 'boatChargingStartSession',
   boatChargingStopSession = 'boatChargingStopSession',
   boatChargingTerms = 'boatChargingTerms',
-  deleteVignet = 'boatChargingDeleteVignet',
-  editVignet = 'boatChargingEditVignet',
-  verifyVignet = 'boatChargingVerifyVignet',
+  deleteVignette = 'boatChargingDeleteVignette',
+  editVignette = 'boatChargingEditVignette',
+  verifyVignette = 'boatChargingVerifyVignette',
   vignettes = 'boatChargingVignettes',
 }
 
@@ -60,7 +61,9 @@ export type BoatChargingLocation = {
 
 export type Connector = {
   connector_id: number
-  format: string
+  max_amp: number
+  status: ChargingPointStatus
+  voltage: number
 }
 
 export type EVSE = {
@@ -118,7 +121,6 @@ export enum SocketStatus {
 
 export type BoatChargingOIDCConfigResponse = {
   client_id: string
-  issuer: string
   pkce_required?: string
   redirect_uri?: string
   response_type?: string
@@ -127,23 +129,26 @@ export type BoatChargingOIDCConfigResponse = {
 }
 
 export type BoatChargingSession = {
-  boat_name?: Vignet['boat_name']
+  boat_name?: Vignette['boat_name']
   created_date_time: string
   currency: 'EUR'
-  email: string
+  email?: string
   end_date_time?: string
   id: string
-  kwh: number
+  kwh?: number
   last_command_error?: string
   location: BoatChargingLocation
   nrg_status: NRGStatus
   socket_number: string
-  start_date_time: string
+  start_date_time?: string
   station_id: string
-  status: SessionStatus
+  status?: SessionStatus
   stop_reason?: BoatChargingStopReason
-  total_cost: number
-  vignette_number?: Vignet['vignette_number']
+  /**
+   * Is 0 when session is not COMPLETED, otherwise contains the final costs including VAT
+   */
+  total_cost_incl_vat: number
+  vignette_number?: Vignette['vignette_number']
 }
 
 export type BoatChargingSessionsEndpointRequest = {
@@ -161,7 +166,7 @@ export type BoatChargingSessionInitRequest = {
   return_url: string
   socket_number: string
   station_id: string
-} & Or<BaseVignet, {vignette_id: Vignet['id']}>
+} & Or<BaseVignette, {vignette_id: Vignette['id']}>
 
 export type BoatChargingSessionInitResponse = {
   checkout_url: string
@@ -169,7 +174,10 @@ export type BoatChargingSessionInitResponse = {
 
 export type BoatChargingSocketStatusResponse = {
   status: ChargingPointStatus
-  substatus: SocketStatus
+  /**
+   * Substatus is only provided when status is OCCUPIED
+   */
+  substatus?: SocketStatus
 }
 
 export enum SessionLengthStatus {
@@ -242,8 +250,9 @@ export type BoatChargingSessionCostBreakdownResponse = {
 export type BoatChargingSessionCostBreakdownItem = {
   cost_incl_vat: number
   type: BoatChargingCostBreakdownItemType
-  unit_price_incl_vat: number
-  volume: number
+  unit_price_incl_vat?: number
+  vat_percentage?: number
+  volume?: number
 }
 
 export enum BoatChargingCostBreakdownItemType {
@@ -258,26 +267,26 @@ export type NewSessionFormValues = {
   approvedTerms?: boolean
   email?: string
   selectedSocket?: BoatChargingSelectSocketFormSelectedSocket
-  vignet?:
-    | ((BaseVignet | Vignet) & {
+  vignette?:
+    | ((BaseVignette | Vignette) & {
         /**
-         * Depending on how the vignet is selected during session initialization, verification needs to happen at a different moment during the flow.
+         * Depending on how the vignette is selected during session initialization, verification needs to happen at a different moment during the flow.
          * This property is used at session confirmation to check if verification has been done already, and if so, is skipped.
          */
         verified?: boolean
       })
-    | null // null is required to allow proper 'reset' using form.setValue('vignet', null). `undefined` Is not supported as a cleared value for a controlled field.
+    | null // null is required to allow proper 'reset' using form.setValue('vignette', null). `undefined` Is not supported as a cleared value for a controlled field.
 }
 
-export type BaseVignet = {postal_code: string; vignette_number: string}
+export type BaseVignette = {postal_code: string; vignette_number: string}
 
-export type Vignet = BaseVignet & {
+export type Vignette = BaseVignette & {
   boat_name?: string
   expiration_date: string
   id: number
 }
 
-export enum VignetInvalidReasons {
+export enum VignetteInvalidReasons {
   /**
    * The vignette has been signed off / cancelled.
    */
@@ -300,20 +309,23 @@ export enum VignetInvalidReasons {
   onlyEnvironmentTypeAllowed = 'ONLY_ENVIRONMENT_TYPE_ALLOWED',
 }
 
-export type BoatChargingVerifyVignetResponse = Or<
+export type BoatChargingVerifyVignetteResponse = Or<
   {
     expiration_date: string
     status: 'valid'
   },
-  {reason: VignetInvalidReasons; status: 'invalid'}
+  {reason: VignetteInvalidReasons; status: 'invalid'}
 >
 
 export type BoatChargingInitSessionStep = Extract<
   BoatChargingRouteName,
   | BoatChargingRouteName.confirmSession
   | BoatChargingRouteName.guestEmail
-  | BoatChargingRouteName.verifyVignet
-  | BoatChargingRouteName.chooseVignet
+  | BoatChargingRouteName.verifyVignette
+  | BoatChargingRouteName.chooseVignette
   | BoatChargingRouteName.locationDetails
   | BoatChargingRouteName.termsAndConditions
 >
+
+export type BoatChargingHistoryInfiniteItem =
+  WithDummyAndPage<BoatChargingSession>

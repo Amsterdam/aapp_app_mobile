@@ -1,6 +1,6 @@
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 
-export const BoatChargingVignetPostalCodeFormInput = () => (
+export const BoatChargingVignettePostalCodeFormInput = () => (
   <TextInputField
     autoCapitalize="characters"
     autoComplete="off"
@@ -16,6 +16,6 @@ export const BoatChargingVignetPostalCodeFormInput = () => (
         new RegExp(/^[1-9]\d{3}\s?[a-zA-Z]{2}$/).test(value) ||
         'Vul een geldige postcode in, bijvoorbeeld 1234AB.',
     }}
-    testID="BoatChargingVignetPostalCodeFormInputField"
+    testID="BoatChargingVignettePostalCodeFormInputField"
   />
 )

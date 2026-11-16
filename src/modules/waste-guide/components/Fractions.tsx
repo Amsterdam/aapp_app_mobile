@@ -17,7 +17,7 @@ export const Fractions = ({fractions, isCollectionByAppointment}: Props) => {
   return (
     <Column gutter="lg">
       {fractions.map(fraction => {
-        const {code, label} = fraction
+        const {code, label, sublabel} = fraction
         const nextCollectionDate = getNextCollectionDate(fraction)
 
         return (
@@ -26,7 +26,7 @@ export const Fractions = ({fractions, isCollectionByAppointment}: Props) => {
             description={
               !isCollectionByAppointment && nextCollectionDate
                 ? `Ophaaldag: ${nextCollectionDate}`
-                : ''
+                : (sublabel ?? '')
             }
             Icon={<WasteFractionIcon fractionCode={code} />}
             insetHorizontal="no"

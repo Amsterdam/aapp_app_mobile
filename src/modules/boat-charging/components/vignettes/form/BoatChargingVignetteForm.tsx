@@ -10,21 +10,21 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {alerts, type Alerts} from '@/modules/boat-charging/alerts'
-import {BoatChargingVignetFormAddToMyVignettesSwitch} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormAddToMyVignettesSwitch'
-import {BoatChargingVignetFormAddVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormAddVignetButton'
-import {BoatChargingVignetFormDeleteVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormDeleteVignetButton'
-import {BoatChargingVignetFormEditVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormEditVignetButton'
-import {BoatChargingVignetFormVerifyVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormVerifyVignetButton'
-import {BoatChargingVignetNumberFormInput} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetNumberFormInput'
-import {BoatChargingVignetPostalCodeFormInput} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetPostalCodeFormInput'
+import {BoatChargingVignetteFormAddToMyVignettesSwitch} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteFormAddToMyVignettesSwitch'
+import {BoatChargingVignetteFormAddVignetteButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteFormAddVignetteButton'
+import {BoatChargingVignetteFormDeleteVignetteButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteFormDeleteVignetteButton'
+import {BoatChargingVignetteFormEditVignetteButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteFormEditVignetteButton'
+import {BoatChargingVignetteFormVerifyVignetteButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteFormVerifyVignetteButton'
+import {BoatChargingVignetteNumberFormInput} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteNumberFormInput'
+import {BoatChargingVignettePostalCodeFormInput} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignettePostalCodeFormInput'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
-import {BoatChargingVignetFormProvider} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
+import {BoatChargingVignetteFormProvider} from '@/modules/boat-charging/providers/BoatChargingVignetteForm.provider'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
 import type {
-  BaseVignet,
+  BaseVignette,
   NewSessionFormValues,
-  Vignet,
+  Vignette,
 } from '@/modules/boat-charging/types'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {devError} from '@/processes/development'
@@ -32,13 +32,13 @@ import {useAlert} from '@/store/slices/alert'
 
 type Props = {
   onReset?: () => void
-  onVerified?: (vignet: BaseVignet) => void
+  onVerified?: (vignet: BaseVignette) => void
   resetOnFocus?: boolean
-  vignetId?: Vignet['id']
+  vignetteId?: Vignette['id']
 }
 
-export const BoatChargingVignetForm = ({
-  vignetId,
+export const BoatChargingVignetteForm = ({
+  vignetteId,
   onReset,
   onVerified,
   resetOnFocus,
@@ -58,15 +58,15 @@ export const BoatChargingVignetForm = ({
     isError: isErrorVignettes,
   } = useBoatChargingVignettesQuery(isLoggedIn ? undefined : skipToken)
 
-  const existingVignet = useMemo(
-    () => vignettes?.find(vignet => vignet.id === vignetId),
-    [vignettes, vignetId],
+  const existingVignette = useMemo(
+    () => vignettes?.find(vignette => vignette.id === vignetteId),
+    [vignettes, vignetteId],
   )
 
   const onError = useCallback(
     (error?: unknown, alert?: Alerts) => {
       devError(error)
-      setAlert(alerts[alert ?? 'vignetInvalidFailed'])
+      setAlert(alerts[alert ?? 'vignetteInvalidFailed'])
     },
     [setAlert],
   )
@@ -74,75 +74,77 @@ export const BoatChargingVignetForm = ({
   const onSuccess = useCallback(() => navigation.goBack(), [navigation])
 
   if (isLoadingVignettes) {
-    return <PleaseWait testID="BoatChargingVignetFormPleaseWait" />
+    return <PleaseWait testID="BoatChargingVignetteFormPleaseWait" />
   }
 
   if (isErrorVignettes) {
     return (
-      <SomethingWentWrong testID="BoatChargingVignetFormSomethingWentWrong" />
+      <SomethingWentWrong testID="BoatChargingVignetteFormSomethingWentWrong" />
     )
   }
 
   const defaultValues = shouldNotPrefillForm
     ? undefined
-    : (existingVignet ?? getValues?.('vignet'))
+    : (existingVignette ?? getValues?.('vignette'))
 
   return (
-    <BoatChargingVignetFormProvider
+    <BoatChargingVignetteFormProvider
       defaultValues={{
         postalCode: defaultValues?.postal_code,
-        vignetNumber: defaultValues?.vignette_number,
+        vignetteNumber: defaultValues?.vignette_number,
       }}
       onReset={onReset}
       resetOnFocus={resetOnFocus}>
       <Column gutter="xl">
         <Column gutter="lg">
-          {!existingVignet && (
+          {!existingVignette && (
             <Paragraph>
               Om te kunnen laden, heeft uw boot een geldig vignet nodig.
             </Paragraph>
           )}
           <Column gutter="md">
-            <BoatChargingVignetNumberFormInput />
+            <BoatChargingVignetteNumberFormInput />
 
-            {!existingVignet && (
+            {!existingVignette && (
               <Row gutter="sm">
                 <Paragraph>Nog geen vignet?</Paragraph>
 
                 <ExternalInlineLink
-                  redirectKey={RedirectKey.boatChargingRequestVignet}
-                  testID="BoatChargingVignetFormExternalLink">
+                  redirectKey={RedirectKey.boatChargingRequestVignette}
+                  testID="BoatChargingVignetteFormExternalLink">
                   Vignet aanvragen
                 </ExternalInlineLink>
               </Row>
             )}
           </Column>
 
-          <BoatChargingVignetPostalCodeFormInput />
+          <BoatChargingVignettePostalCodeFormInput />
         </Column>
         {!!isLoggedIn && !!onVerified && (
-          <BoatChargingVignetFormAddToMyVignettesSwitch />
+          <BoatChargingVignetteFormAddToMyVignettesSwitch />
         )}
 
         {onVerified ? (
-          <BoatChargingVignetFormVerifyVignetButton onVerified={onVerified} />
+          <BoatChargingVignetteFormVerifyVignetteButton
+            onVerified={onVerified}
+          />
         ) : (
           <>
-            {existingVignet ? (
+            {existingVignette ? (
               <>
-                <BoatChargingVignetFormEditVignetButton
+                <BoatChargingVignetteFormEditVignetteButton
                   onError={onError}
                   onSuccess={onSuccess}
-                  vignet={existingVignet}
+                  vignette={existingVignette}
                 />
-                <BoatChargingVignetFormDeleteVignetButton
+                <BoatChargingVignetteFormDeleteVignetteButton
                   onError={onError}
                   onSuccess={onSuccess}
-                  vignetId={existingVignet.id}
+                  vignetteId={existingVignette.id}
                 />
               </>
             ) : (
-              <BoatChargingVignetFormAddVignetButton
+              <BoatChargingVignetteFormAddVignetteButton
                 onError={onError}
                 onSuccess={onSuccess}
                 vignettes={vignettes}
@@ -151,6 +153,6 @@ export const BoatChargingVignetForm = ({
           </>
         )}
       </Column>
-    </BoatChargingVignetFormProvider>
+    </BoatChargingVignetteFormProvider>
   )
 }

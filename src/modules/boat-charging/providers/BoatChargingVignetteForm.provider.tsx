@@ -1,29 +1,29 @@
 import {useFocusEffect} from '@react-navigation/native'
 import {useCallback, useEffect, type PropsWithChildren} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
-import type {BaseVignet} from '@/modules/boat-charging/types'
+import type {BaseVignette} from '@/modules/boat-charging/types'
 import {useAlert} from '@/store/slices/alert'
 
-export type BoatChargingVignetFormValues = {
-  postalCode: BaseVignet['postal_code']
+export type BoatChargingVignetteFormValues = {
+  postalCode: BaseVignette['postal_code']
   saveToMyVignettes?: boolean
-  vignetNumber: BaseVignet['vignette_number']
+  vignetteNumber: BaseVignette['vignette_number']
 }
 
 type Props = PropsWithChildren<{
-  defaultValues: Partial<BoatChargingVignetFormValues>
+  defaultValues: Partial<BoatChargingVignetteFormValues>
   onReset?: () => void
   resetOnFocus?: boolean
 }>
 
-export const BoatChargingVignetFormProvider = ({
+export const BoatChargingVignetteFormProvider = ({
   defaultValues,
   onReset,
   resetOnFocus = false,
   children,
 }: Props) => {
   const {resetAlert} = useAlert()
-  const form = useForm<BoatChargingVignetFormValues>({
+  const form = useForm<BoatChargingVignetteFormValues>({
     defaultValues,
     resetOptions: {
       keepIsSubmitted: false,
@@ -36,7 +36,7 @@ export const BoatChargingVignetFormProvider = ({
         return
       }
 
-      form.reset({postalCode: undefined, vignetNumber: undefined})
+      form.reset({postalCode: undefined, vignetteNumber: undefined})
       onReset?.()
     }, [form, onReset, resetOnFocus]),
   )

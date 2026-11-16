@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -21,42 +22,54 @@ export const BoatChargingSessionChargingTimeInfo = ({
   session_expiry_hours,
   chargingTimeString,
   standard_fine,
-}: Props) => (
-  <Column gutter="md">
-    <Column gutter="xs">
-      <Title
-        level="h5"
-        text="Gestart op"
-      />
-      <Phrase>{formatDateTimeToDisplay(session.start_date_time, true)}</Phrase>
-    </Column>
+}: Props) => {
+  const chargingTime = useMemo(
+    () =>
+      chargingTimeString ??
+      (session.start_date_time
+        ? formatTimeRangeToDisplay(session.start_date_time, dayjs())
+        : ''),
+    [chargingTimeString, session.start_date_time],
+  )
 
-    <Column gutter="xs">
-      <Title
-        level="h5"
-        text="Laadtijd"
-      />
-      <Phrase>
-        {chargingTimeString ??
-          formatTimeRangeToDisplay(session.start_date_time, dayjs())}
-      </Phrase>
-    </Column>
-
-    {!!session_expiry_hours && (
+  return (
+    <Column gutter="md">
       <Column gutter="xs">
         <Title
           level="h5"
-          text="Maximale laadtijd"
+          text="Gestart op"
         />
-        <Phrase>{session_expiry_hours} uur</Phrase>
-        {!!standard_fine && (
-          <Paragraph>
-            Uw boot mag maximaal {session_expiry_hours} uur laden. Daarna
-            betaalt u {formatNumber(standard_fine, 'EUR')} per uur. Ook als u
-            maar een deel van een uur gebruikt, betaalt u voor het hele uur.
-          </Paragraph>
+        {!!session.start_date_time && (
+          <Phrase>
+            {formatDateTimeToDisplay(session.start_date_time, true)}
+          </Phrase>
         )}
       </Column>
-    )}
-  </Column>
-)
+
+      <Column gutter="xs">
+        <Title
+          level="h5"
+          text="Laadtijd"
+        />
+        {!!chargingTime && <Phrase>{chargingTime}</Phrase>}
+      </Column>
+
+      {!!session_expiry_hours && (
+        <Column gutter="xs">
+          <Title
+            level="h5"
+            text="Maximale laadtijd"
+          />
+          <Phrase>{session_expiry_hours} uur</Phrase>
+          {!!standard_fine && (
+            <Paragraph>
+              Uw boot mag maximaal {session_expiry_hours} uur laden. Daarna
+              betaalt u {formatNumber(standard_fine, 'EUR')} per uur. Ook als u
+              maar een deel van een uur gebruikt, betaalt u voor het hele uur.
+            </Paragraph>
+          )}
+        </Column>
+      )}
+    </Column>
+  )
+}
