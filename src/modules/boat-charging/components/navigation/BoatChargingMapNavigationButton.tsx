@@ -13,7 +13,7 @@ export const BoatChargingMapNavigationButton = () => {
   const onPress = useCallback(() => {
     navigation.popTo(BoatChargingRouteName.map)
     requestAnimationFrame(() => {
-      if (session?.location.id) {
+      if (session?.location?.id) {
         selectChargingPoint(session.location.id)
       }
     })

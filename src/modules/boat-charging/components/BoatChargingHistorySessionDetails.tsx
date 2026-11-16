@@ -98,7 +98,7 @@ export const BoatChargingHistorySessionDetails = () => {
   return (
     <Column gutter="xl">
       <Column gutter="lg">
-        <Title text={getAddressLine1(location.address)} />
+        {!!location && <Title text={getAddressLine1(location.address)} />}
 
         <MetaDataCard
           iconName="power-plug"

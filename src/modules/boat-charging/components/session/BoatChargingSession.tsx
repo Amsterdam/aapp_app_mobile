@@ -38,7 +38,9 @@ export const BoatChargingSession = () => {
 
   useEffect(invalidateBoatChargingSessions, [invalidateBoatChargingSessions])
 
-  useSetScreenTitle(session ? getAddressLine1(session?.location.address) : '')
+  useSetScreenTitle(
+    session?.location ? getAddressLine1(session?.location.address) : '',
+  )
   const navigation = useNavigation()
 
   useEffect(() => {

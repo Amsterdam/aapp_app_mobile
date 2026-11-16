@@ -15,7 +15,9 @@ export const BoatChargingActiveSessionsListItem = ({session}: Props) => {
 
   const {address, statusText} = useMemo(
     () => ({
-      address: getAddressLine1(session?.location.address),
+      address: session?.location
+        ? getAddressLine1(session?.location.address)
+        : undefined,
       statusText: getSessionStatusText(
         session,
         isPluggedIn,
@@ -33,7 +35,7 @@ export const BoatChargingActiveSessionsListItem = ({session}: Props) => {
 
   return (
     <TopTaskButton
-      accessibilityLabel={`Laadsessie op locatie ${address}. Status: ${statusText}`}
+      accessibilityLabel={`Laadsessie${address ? ' op locatie ' + address : ''}. Status: ${statusText}`}
       icon={{name: 'lightning', size: 'lg'}}
       iconRight={{
         name: 'chevron-right',
@@ -45,7 +47,7 @@ export const BoatChargingActiveSessionsListItem = ({session}: Props) => {
       testID="BoatChargingActiveSessionsListItemTopTaskButton"
       text={[vignette_number, boat_name].filter(Boolean).join(' - ')}
       textAdditional={statusText}
-      title={address}
+      title={address ?? 'Laadsessie'}
     />
   )
 }
