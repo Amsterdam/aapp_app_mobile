@@ -20,22 +20,23 @@ import {
   useBoatChargingVignettesQuery,
 } from '@/modules/boat-charging/service'
 import type {
-  BaseVignet,
+  BaseVignette,
   NewSessionFormValues,
-  Vignet,
+  Vignette,
 } from '@/modules/boat-charging/types'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {formatNumber} from '@/utils/formatNumber'
 
-const isVignet = (vignet?: BaseVignet | Vignet | null): vignet is Vignet =>
-  !!vignet && 'id' in vignet
+const isVignette = (
+  vignette?: BaseVignette | Vignette | null,
+): vignette is Vignette => !!vignette && 'id' in vignette
 
 export const BoatChargingConfirmSessionDetails = () => {
   const form = useFormContext<NewSessionFormValues>()
   const navigation = useNavigation()
   const {isLoggedIn} = useIsLoggedIn()
 
-  const {selectedSocket, vignet, email} = form.getValues()
+  const {selectedSocket, vignette, email} = form.getValues()
 
   const {data: vignettes} = useBoatChargingVignettesQuery(undefined, {
     skip: !isLoggedIn,
@@ -55,24 +56,24 @@ export const BoatChargingConfirmSessionDetails = () => {
     selectedSocket?.locationId ? selectedSocket.locationId : skipToken,
   )
 
-  const onNavigateToChangeVignet = useCallback(() => {
-    const selectedVignet = form.getValues('vignet')
+  const onNavigateToChangeVignette = useCallback(() => {
+    const selectedVignette = form.getValues('vignette')
 
-    form.setValue('vignet', null)
+    form.setValue('vignette', null)
 
     if (!vignettes?.length) {
-      navigation.popTo(BoatChargingRouteName.verifyVignet)
+      navigation.popTo(BoatChargingRouteName.verifyVignette)
 
       return
     }
 
     if (
       vignettes.length === 1 &&
-      vignettes[0].vignette_number === selectedVignet?.vignette_number
+      vignettes[0].vignette_number === selectedVignette?.vignette_number
     ) {
-      navigation.popTo(BoatChargingRouteName.verifyVignet)
+      navigation.popTo(BoatChargingRouteName.verifyVignette)
     } else {
-      navigation.popTo(BoatChargingRouteName.chooseVignet)
+      navigation.popTo(BoatChargingRouteName.chooseVignette)
     }
   }, [vignettes, navigation, form])
 
@@ -125,16 +126,16 @@ export const BoatChargingConfirmSessionDetails = () => {
 
       <Column>
         <MetaDataCard
-          testID="BoatChargingConfirmSessionVignetMetaDataCard"
+          testID="BoatChargingConfirmSessionVignetteMetaDataCard"
           title="Vignet">
-          <Phrase>{vignet?.vignette_number}</Phrase>
-          {isVignet(vignet) && !!vignet.boat_name && (
-            <Phrase color="secondary">{vignet?.boat_name}</Phrase>
+          <Phrase>{vignette?.vignette_number}</Phrase>
+          {isVignette(vignette) && !!vignette.boat_name && (
+            <Phrase color="secondary">{vignette?.boat_name}</Phrase>
           )}
         </MetaDataCard>
         <InlineLink
-          onPress={onNavigateToChangeVignet}
-          testID="BoatChargingConfirmSessionVignetNavigationButton"
+          onPress={onNavigateToChangeVignette}
+          testID="BoatChargingConfirmSessionVignetteNavigationButton"
           variant="internal">
           Wijzigen
         </InlineLink>

@@ -29,7 +29,7 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
 
   const onPress = useCallback(
     (params: NewSessionFormValues) => {
-      const {vignet, selectedSocket} = params
+      const {vignette, selectedSocket} = params
       const email = isLoggedIn ? loggedInUsername : params.email
       const {socketNumber, stationId} = selectedSocket || {}
 
@@ -42,12 +42,12 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         return Promise.resolve()
       }
 
-      if (!email || !socketNumber || !stationId || !vignet) {
+      if (!email || !socketNumber || !stationId || !vignette) {
         devError('Missing params in session initialization request', {
           email,
           socketNumber,
           stationId,
-          vignet,
+          vignette,
         })
 
         navigation.replace(BoatChargingRouteName.map)
@@ -61,11 +61,11 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         email,
         name: email,
         return_url: 'amsterdam://boat-charging/payment',
-        ...('id' in vignet && vignet.id
-          ? {vignette_id: vignet.id}
+        ...('id' in vignette && vignette.id
+          ? {vignette_id: vignette.id}
           : {
-              vignette_number: vignet.vignette_number,
-              postal_code: vignet.postal_code,
+              vignette_number: vignette.vignette_number,
+              postal_code: vignette.postal_code,
             }),
       })
         .unwrap()

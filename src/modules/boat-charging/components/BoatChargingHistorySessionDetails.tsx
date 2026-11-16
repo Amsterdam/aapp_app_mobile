@@ -112,7 +112,7 @@ export const BoatChargingHistorySessionDetails = () => {
         {!!vignette_number && (
           <MetaDataCard
             iconName="boat"
-            testID="BoatChargingHistorySessionDetailsVignetCard"
+            testID="BoatChargingHistorySessionDetailsVignetteCard"
             title="Vignet">
             <Phrase>{vignette_number}</Phrase>
             <Phrase color="secondary">{boat_name}</Phrase>

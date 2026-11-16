@@ -6,7 +6,7 @@ import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
 
-export const BoatChargingAddVignetHeaderButton = () => {
+export const BoatChargingAddVignetteHeaderButton = () => {
   const {navigate} = useNavigation()
   const {isLoggedIn} = useIsLoggedIn()
 
@@ -28,13 +28,13 @@ export const BoatChargingAddVignetHeaderButton = () => {
           isFilled
           name="plus-circle"
           size="lgx"
-          testID="BoatChargingAddVignetHeaderButtonIcon"
+          testID="BoatChargingAddVignetteHeaderButtonIcon"
         />
       }
       onPress={() => {
-        navigate(BoatChargingRouteName.vignet)
+        navigate(BoatChargingRouteName.vignette)
       }}
-      testID="BoatChargingAddVignetHeaderButton"
+      testID="BoatChargingAddVignetteHeaderButton"
     />
   )
 }

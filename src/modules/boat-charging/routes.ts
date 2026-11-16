@@ -2,13 +2,13 @@ import type {
   BoatChargingLocation,
   BoatChargingSession,
   BoatChargingPaymentResultStatus,
-  Vignet,
+  Vignette,
 } from '@/modules/boat-charging/types'
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
   activeSessions = 'BoatChargingActiveSessions',
-  chooseVignet = 'BoatChargingChooseVignet',
+  chooseVignette = 'BoatChargingChooseVignette',
   confirmSession = 'BoatChargingConfirmSession',
   createAccount = 'BoatChargingCreateAccount',
   createAccountConfirm = 'BoatChargingCreateAccountConfirm',
@@ -26,8 +26,8 @@ export enum BoatChargingRouteName {
   myVignettes = 'BoatChargingMyVignettes',
   paymentResult = 'BoatChargingPaymentResult',
   termsAndConditions = 'BoatChargingTermsAndConditions',
-  verifyVignet = 'BoatChargingVerifyVignet',
-  vignet = 'BoatChargingVignet',
+  verifyVignette = 'BoatChargingVerifyVignette',
+  vignette = 'BoatChargingVignette',
 }
 
 export type ModuleStackParams = {
@@ -53,9 +53,9 @@ export type ModuleStackParams = {
   }
   [BoatChargingRouteName.confirmSession]: undefined
   [BoatChargingRouteName.myVignettes]: undefined
-  [BoatChargingRouteName.vignet]: undefined | {vignetId: Vignet['id']}
-  [BoatChargingRouteName.verifyVignet]: undefined
-  [BoatChargingRouteName.chooseVignet]: undefined
+  [BoatChargingRouteName.vignette]: undefined | {vignetteId: Vignette['id']}
+  [BoatChargingRouteName.verifyVignette]: undefined
+  [BoatChargingRouteName.chooseVignette]: undefined
   [BoatChargingRouteName.createAccount]: undefined
   [BoatChargingRouteName.createAccountConfirm]: undefined
   [BoatChargingRouteName.forgotPassword]: undefined

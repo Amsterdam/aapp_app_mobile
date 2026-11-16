@@ -11,28 +11,28 @@ import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
 
-export const BoatChargingChooseVignetForm = () => {
+export const BoatChargingChooseVignetteForm = () => {
   const navigation = useNavigation()
   const {
     data: vignettes = [],
     isLoading,
     isError,
   } = useBoatChargingVignettesQuery()
-  const {form} = useInitSession(BoatChargingRouteName.chooseVignet)
+  const {form} = useInitSession(BoatChargingRouteName.chooseVignette)
 
   const options: ComponentProps<typeof RadioGroupControlled>['options'] =
     useMemo(
       () =>
-        vignettes.map(vignet => ({
+        vignettes.map(vignette => ({
           label: (
-            <Phrase key={vignet.id}>
-              {[vignet.vignette_number, vignet.boat_name]
+            <Phrase key={vignette.id}>
+              {[vignette.vignette_number, vignette.boat_name]
                 .filter(Boolean)
                 .join(' - ')}
             </Phrase>
           ),
 
-          value: vignet,
+          value: vignette,
         })),
       [vignettes],
     )
@@ -41,19 +41,19 @@ export const BoatChargingChooseVignetForm = () => {
     if (!isLoading && !isError && vignettes && !vignettes.length) {
       /**
        * When a user does not have vignettes connected to their account and they arrive on this route
-       * from the pendingScreen set in @see BoatChargingGuestEmailForm we forward and replace to verifyVignet screen.
+       * from the pendingScreen set in @see BoatChargingGuestEmailForm we forward and replace to verifyVignette screen.
        * */
-      navigation.replace(BoatChargingRouteName.verifyVignet)
+      navigation.replace(BoatChargingRouteName.verifyVignette)
     }
   }, [isLoading, isError, vignettes, navigation])
 
   if (isLoading) {
-    return <PleaseWait testID="BoatChargingChooseVignetFormPleaseWait" />
+    return <PleaseWait testID="BoatChargingChooseVignetteFormPleaseWait" />
   }
 
   if (isError) {
     return (
-      <SomethingWentWrong testID="BoatChargingChooseVignetFormSomethingWentWrong" />
+      <SomethingWentWrong testID="BoatChargingChooseVignetteFormSomethingWentWrong" />
     )
   }
 
@@ -62,10 +62,10 @@ export const BoatChargingChooseVignetForm = () => {
       <RadioGroupControlled
         {...form}
         label="Met welk vignet wilt u laden?"
-        name="vignet"
+        name="vignette"
         options={options}
         rules={{required: true}}
-        testID="BoatChargingDetailsChooseSocketRadioGroup"
+        testID="BoatChargingDetailsChooseVignetteRadioGroup"
       />
       <NavigationButton
         chevronSize="ml"
@@ -73,10 +73,10 @@ export const BoatChargingChooseVignetForm = () => {
         horizontallyAlign="start"
         insetHorizontal="no"
         onPress={() => {
-          form.setValue('vignet', null)
-          navigation.navigate(BoatChargingRouteName.verifyVignet)
+          form.setValue('vignette', null)
+          navigation.navigate(BoatChargingRouteName.verifyVignette)
         }}
-        testID="BoatChargingChooseVignetFormVerifyVignetNavigationButton"
+        testID="BoatChargingChooseVignetteFormVerifyVignetteNavigationButton"
         title="Ander vignet invullen"
       />
     </Column>

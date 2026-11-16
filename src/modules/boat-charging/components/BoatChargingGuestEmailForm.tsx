@@ -44,7 +44,7 @@ export const BoatChargingGuestEmailForm = () => {
           <Paragraph>Heeft u al een account?</Paragraph>
           <InlineLink
             onPress={() => {
-              setPendingScreen([BoatChargingRouteName.chooseVignet])
+              setPendingScreen([BoatChargingRouteName.chooseVignette])
               navigation.navigate(BoatChargingRouteName.login)
             }}
             testID="BoatChargingGuestEmailFormLoginNavigationButton"
@@ -74,7 +74,7 @@ export const BoatChargingGuestEmailForm = () => {
         <Button
           label="Account aanmaken"
           onPress={() => {
-            setPendingScreen([BoatChargingRouteName.verifyVignet])
+            setPendingScreen([BoatChargingRouteName.verifyVignette])
             navigation.navigate(BoatChargingRouteName.createAccount)
           }}
           testID="BoatChargingGuestEmailFormCreateAccountButton"
