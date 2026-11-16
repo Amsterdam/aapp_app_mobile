@@ -61,6 +61,7 @@ export const ModuleStack = () => {
 
   return (
     <Stack.Navigator
+      defaultScreen={BoatChargingRouteName.map}
       layout={NewSessionFormProvider}
       screenOptions={screenOptions}>
       {accessCodeGate(
