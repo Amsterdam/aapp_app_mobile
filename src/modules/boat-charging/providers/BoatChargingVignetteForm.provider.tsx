@@ -1,4 +1,5 @@
-import {useEffect, type PropsWithChildren} from 'react'
+import {useFocusEffect} from '@react-navigation/native'
+import {useCallback, useEffect, type PropsWithChildren} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
 import type {BaseVignette} from '@/modules/boat-charging/types'
 import {useAlert} from '@/store/slices/alert'
@@ -11,10 +12,14 @@ export type BoatChargingVignetteFormValues = {
 
 type Props = PropsWithChildren<{
   defaultValues: Partial<BoatChargingVignetteFormValues>
+  onReset?: () => void
+  resetOnFocus?: boolean
 }>
 
 export const BoatChargingVignetteFormProvider = ({
   defaultValues,
+  onReset,
+  resetOnFocus = false,
   children,
 }: Props) => {
   const {resetAlert} = useAlert()
@@ -24,6 +29,17 @@ export const BoatChargingVignetteFormProvider = ({
       keepIsSubmitted: false,
     },
   })
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!resetOnFocus) {
+        return
+      }
+
+      form.reset({postalCode: undefined, vignetteNumber: undefined})
+      onReset?.()
+    }, [form, onReset, resetOnFocus]),
+  )
 
   useEffect(() => {
     if (form.formState.isSubmitting) {

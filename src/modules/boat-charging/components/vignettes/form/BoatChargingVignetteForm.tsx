@@ -8,6 +8,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {alerts, type Alerts} from '@/modules/boat-charging/alerts'
 import {BoatChargingVignetteFormAddToMyVignettesSwitch} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteFormAddToMyVignettesSwitch'
 import {BoatChargingVignetteFormAddVignetteButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetteFormAddVignetteButton'
@@ -18,6 +19,7 @@ import {BoatChargingVignetteNumberFormInput} from '@/modules/boat-charging/compo
 import {BoatChargingVignettePostalCodeFormInput} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignettePostalCodeFormInput'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingVignetteFormProvider} from '@/modules/boat-charging/providers/BoatChargingVignetteForm.provider'
+import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
 import type {
   BaseVignette,
@@ -29,15 +31,26 @@ import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = {
-  onVerified?: (vignette: BaseVignette) => void
+  onReset?: () => void
+  onVerified?: (vignet: BaseVignette) => void
+  resetOnFocus?: boolean
   vignetteId?: Vignette['id']
 }
 
-export const BoatChargingVignetteForm = ({vignetteId, onVerified}: Props) => {
+export const BoatChargingVignetteForm = ({
+  vignetteId,
+  onReset,
+  onVerified,
+  resetOnFocus,
+}: Props) => {
   const navigation = useNavigation()
   const {setAlert} = useAlert()
   const {isLoggedIn} = useIsLoggedIn()
   const {getValues} = useFormContext<NewSessionFormValues>()
+  const previousRoute = usePreviousRoute()
+
+  const shouldNotPrefillForm =
+    previousRoute?.name === BoatChargingRouteName.confirmSession.toString()
 
   const {
     data: vignettes,
@@ -70,14 +83,18 @@ export const BoatChargingVignetteForm = ({vignetteId, onVerified}: Props) => {
     )
   }
 
-  const defaultValues = existingVignette ?? getValues?.('vignette')
+  const defaultValues = shouldNotPrefillForm
+    ? undefined
+    : (existingVignette ?? getValues?.('vignette'))
 
   return (
     <BoatChargingVignetteFormProvider
       defaultValues={{
         postalCode: defaultValues?.postal_code,
         vignetteNumber: defaultValues?.vignette_number,
-      }}>
+      }}
+      onReset={onReset}
+      resetOnFocus={resetOnFocus}>
       <Column gutter="xl">
         <Column gutter="lg">
           {!existingVignette && (

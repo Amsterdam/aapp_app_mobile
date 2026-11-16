@@ -54,7 +54,9 @@ export type ModuleStackParams = {
   [BoatChargingRouteName.confirmSession]: undefined
   [BoatChargingRouteName.myVignettes]: undefined
   [BoatChargingRouteName.vignette]: undefined | {vignetteId: Vignette['id']}
-  [BoatChargingRouteName.verifyVignette]: undefined
+  [BoatChargingRouteName.verifyVignette]:
+    | undefined
+    | {resetFormOnFocus?: boolean}
   [BoatChargingRouteName.chooseVignette]: undefined
   [BoatChargingRouteName.createAccount]: undefined
   [BoatChargingRouteName.createAccountConfirm]: undefined

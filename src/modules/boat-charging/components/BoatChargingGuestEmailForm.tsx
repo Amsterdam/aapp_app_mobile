@@ -74,7 +74,7 @@ export const BoatChargingGuestEmailForm = () => {
         <Button
           label="Account aanmaken"
           onPress={() => {
-            setPendingScreen([BoatChargingRouteName.verifyVignette])
+            setPendingScreen([BoatChargingRouteName.verifyVignette, undefined])
             navigation.navigate(BoatChargingRouteName.createAccount)
           }}
           testID="BoatChargingGuestEmailFormCreateAccountButton"
