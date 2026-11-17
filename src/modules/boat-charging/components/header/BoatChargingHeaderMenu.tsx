@@ -28,6 +28,11 @@ export const BoatChargingHeaderMenu = () => {
         redirectKey: RedirectKey.boatChargingInfo,
         testID: 'BoatChargingHeaderMenuMoreAboutBoatChargingButton',
       },
+      {
+        label: 'Privacyverklaring',
+        redirectKey: RedirectKey.boatChargingPrivacyStatement,
+        testID: 'BoatChargingHeaderMenuBoatChargingPrivacyStatementButton',
+      },
     ],
     [navigation],
   )

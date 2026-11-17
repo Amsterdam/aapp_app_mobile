@@ -3,6 +3,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -13,6 +14,7 @@ import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const BoatChargingGuestEmailForm = () => {
   const navigation = useNavigation()
@@ -62,6 +64,11 @@ export const BoatChargingGuestEmailForm = () => {
           required
           testID="BoatChargingGuestEmailTextInputField"
         />
+        <ExternalInlineLink
+          redirectKey={RedirectKey.boatChargingPrivacyStatement}
+          testID="BoatChargingGuestEmailFormPrivacyStatementExternalLink">
+          Bekijk de privacyverklaring
+        </ExternalInlineLink>
       </Column>
 
       <Column gutter="lg">

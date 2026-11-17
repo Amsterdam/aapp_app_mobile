@@ -6,6 +6,7 @@ import {EmailTextInputField} from '@/components/ui/forms/input/EmailTextInputFie
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
+import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -18,6 +19,7 @@ import {useOpenIdConnect} from '@/modules/boat-charging/hooks/useOpenIdConnect'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {setBoatChargingTemporaryUsername} from '@/modules/boat-charging/slice'
 import {signUpWithOpenIdConnect} from '@/modules/boat-charging/utils/openIdConnect'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 import {useAlert} from '@/store/slices/alert'
 import {isObjectWithKeys} from '@/utils/isObjectWithKeys'
 
@@ -133,6 +135,11 @@ export const BoatChargingCreateAccountForm = () => {
             }}
             testID="BoatChargingCreateAccountFormRepeatPasswordInputField"
           />
+          <ExternalInlineLink
+            redirectKey={RedirectKey.boatChargingPrivacyStatement}
+            testID="BoatChargingCreateAccountFormPrivacyStatementExternalLink">
+            Bekijk de privacyverklaring
+          </ExternalInlineLink>
         </Column>
         <Button
           isLoading={form.formState.isSubmitting}

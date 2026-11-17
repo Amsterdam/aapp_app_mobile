@@ -195,11 +195,18 @@ export const BoatChargingConfirmSessionDetails = () => {
         </Paragraph>
       )}
 
-      <ExternalInlineLink
-        redirectKey={RedirectKey.boatChargingTermsAndConditions}
-        testID="BoatChargingConfirmSessionDetailsTermsAndConditionsExternalLink">
-        Bekijk alle voorwaarden
-      </ExternalInlineLink>
+      <Column gutter="sm">
+        <ExternalInlineLink
+          redirectKey={RedirectKey.boatChargingTermsAndConditions}
+          testID="BoatChargingConfirmSessionDetailsTermsAndConditionsExternalLink">
+          Bekijk alle voorwaarden
+        </ExternalInlineLink>
+        <ExternalInlineLink
+          redirectKey={RedirectKey.boatChargingPrivacyStatement}
+          testID="BoatChargingConfirmSessionDetailsPrivacyStatementExternalLink">
+          Bekijk de privacyverklaring
+        </ExternalInlineLink>
+      </Column>
     </Column>
   )
 }
