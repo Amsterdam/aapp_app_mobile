@@ -137,7 +137,7 @@ export type BoatChargingSession = {
   id: string
   kwh?: number
   last_command_error?: string
-  location: BoatChargingLocation
+  location?: BoatChargingLocation
   nrg_status: NRGStatus
   socket_number: string
   start_date_time?: string

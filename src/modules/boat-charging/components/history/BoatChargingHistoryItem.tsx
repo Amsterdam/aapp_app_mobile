@@ -51,7 +51,11 @@ export const BoatChargingHistoryItem = memo(({session}: Props) => {
         })
       }
       testID="BoatChargingHistoryNavigationButton"
-      title={getAddressLine1(session.location.address)}
+      title={
+        session.location
+          ? getAddressLine1(session.location.address)
+          : 'Laadsessie'
+      }
     />
   )
 })
