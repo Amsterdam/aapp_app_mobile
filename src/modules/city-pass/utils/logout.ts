@@ -18,11 +18,12 @@ export const logout = async (
    */
   successAlert: keyof typeof alerts | false,
   dispatch: ReduxDispatch,
+  skipLogout: boolean = false,
 ) => {
   try {
     const accessToken = await getSecureItem(SecureItemKey.cityPassAccessToken)
 
-    if (accessToken) {
+    if (accessToken && !skipLogout) {
       await dispatch(cityPassApi.endpoints.logout.initiate()).unwrap()
     }
 
