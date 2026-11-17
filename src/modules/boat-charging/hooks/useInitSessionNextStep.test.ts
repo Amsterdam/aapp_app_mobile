@@ -68,8 +68,8 @@ describe('useInitSessionNextStep/loggedIn', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    terms = {version: '1'}
-    lastApprovedTermsVersion = '1'
+    terms = {version: '1abc'}
+    lastApprovedTermsVersion = '1abc'
     vignettes = []
 
     useNewSessionFormContextMock.mockReturnValue({
@@ -206,7 +206,7 @@ describe('useInitSessionNextStep/loggedIn', () => {
   )
 
   it('routes logged-in users to terms when their approved version is outdated', () => {
-    lastApprovedTermsVersion = '0'
+    lastApprovedTermsVersion = '0abc'
     const {result} = renderHook(() =>
       useInitSessionNextStep(BoatChargingRouteName.confirmSession),
     )
@@ -254,7 +254,7 @@ describe('useInitSessionNextStep/loggedIn', () => {
   )
 
   it('Navigated to terms and conditions when no approved terms version has been stored', () => {
-    terms = {version: '1'}
+    terms = {version: '1abc'}
     lastApprovedTermsVersion = undefined
     const {result} = renderHook(() =>
       useInitSessionNextStep(BoatChargingRouteName.locationDetails),
@@ -272,8 +272,8 @@ describe('useInitSessionNextStep/guest', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    terms = {version: '1'}
-    lastApprovedTermsVersion = '1'
+    terms = {version: '1abc'}
+    lastApprovedTermsVersion = '1abc'
 
     useStoreMock.mockReturnValue({getState: jest.fn()} as never)
     useIsLoggedInMock.mockImplementation(() => ({isLoggedIn: false}) as never)
