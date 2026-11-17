@@ -157,7 +157,7 @@ export type BoatChargingSessionsEndpointRequest = {
 
 export type BoatChargingTerms = {
   content: string
-  version: number
+  version: string
 }
 
 export type BoatChargingSessionInitRequest = {
