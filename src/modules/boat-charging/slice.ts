@@ -15,7 +15,7 @@ export type BoatChargingState = {
   accessToken?: {accessToken: string; accessTokenExpiration: string}
   completedSessionSeenIds?: string[]
   guestSessionIds?: Array<BoatChargingSession['id']>
-  lastApprovedTermsVersionWhileLoggedIn?: number
+  lastApprovedTermsVersionWhileLoggedIn?: string
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
@@ -81,7 +81,7 @@ export const boatChargingSlice = createSlice({
     },
     setLastApprovedTermsVersionWhileLoggedIn: (
       state,
-      {payload: version}: PayloadAction<number>,
+      {payload: version}: PayloadAction<string>,
     ) => {
       state.lastApprovedTermsVersionWhileLoggedIn = version
     },

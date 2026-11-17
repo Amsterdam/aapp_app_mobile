@@ -35,7 +35,7 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
   const loggedInNextStep = useCallback(
     (
       params: NewSessionFormValues,
-      terms: {version: number},
+      terms: {version: string},
       vignettes: Vignette[] = [],
     ) => {
       const state = store.getState()
@@ -43,7 +43,7 @@ export const useInitSessionNextStep = (step: BoatChargingInitSessionStep) => {
         selectLastApprovedTermsVersionWhileLoggedIn(state)
       const needsTermsApproval =
         lastApprovedTermsVersionFromState === undefined ||
-        terms.version > lastApprovedTermsVersionFromState
+        terms.version !== lastApprovedTermsVersionFromState
 
       const {vignette} = params
 
