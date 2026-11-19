@@ -134,6 +134,7 @@ export const BoatChargingHistorySessionDetails = () => {
             {formatNumber(total_cost_incl_vat, currency)} inclusief btw
           </Phrase>
           <Button
+            alignSelf="flex-start"
             icon={{name: 'chevron-down', size: 'md'}}
             isReverseOrder
             label="Bekijk kostenoverzicht"
