@@ -9,6 +9,7 @@ export const parseTextToComponentsWithInlineLinks = (
 ): ReactNode[] =>
   parseTextToComponentsForLinks(text, part => (
     <InlineLink
+      isInline
       isInverse={isInverse}
       key={part}
       onPress={() => openUrl(part)}
