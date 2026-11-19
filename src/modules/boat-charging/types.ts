@@ -49,12 +49,6 @@ export type BoatChargingLocation = {
   id: string
   max_kw: number | null
   name: string
-  opening_times: {
-    exceptional_closings: unknown[] //TODO: add typing
-    exceptional_openings: unknown[] //TODO: add typing
-    regular_hours: unknown[] //TODO: add typing
-    twentyfourseven: boolean
-  }
   status: ChargingPointStatus
   total_sockets: number
 }

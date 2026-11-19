@@ -27,12 +27,6 @@ const createBoatChargingSession = (
     id: 'location-1',
     max_kw: 22,
     name: 'Damrak steiger',
-    opening_times: {
-      exceptional_closings: [],
-      exceptional_openings: [],
-      regular_hours: [],
-      twentyfourseven: true,
-    },
     status: ChargingPointStatus.OPERATIVE,
     total_sockets: 2,
     available_sockets: 2,
