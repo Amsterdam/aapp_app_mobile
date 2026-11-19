@@ -138,6 +138,7 @@ export const BoatChargingHistorySessionDetails = () => {
           </Phrase>
           {nrg_status !== NRGStatus.Cancelled && (
             <Button
+              alignSelf="flex-start"
               icon={{name: 'chevron-down', size: 'md'}}
               isReverseOrder
               label="Bekijk kostenoverzicht"

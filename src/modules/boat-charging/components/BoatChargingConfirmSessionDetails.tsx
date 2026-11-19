@@ -148,6 +148,8 @@ export const BoatChargingConfirmSessionDetails = () => {
           )}
         </MetaDataCard>
         <InlineLink
+          accessibilityLabel="Vignet wijzigen"
+          accessibilityRole="link"
           onPress={onNavigateToChangeVignette}
           testID="BoatChargingConfirmSessionVignetteNavigationButton"
           variant="internal">
@@ -163,6 +165,8 @@ export const BoatChargingConfirmSessionDetails = () => {
             <Phrase>{email}</Phrase>
           </MetaDataCard>
           <InlineLink
+            accessibilityLabel="E-mailadres wijzigen"
+            accessibilityRole="link"
             onPress={() => navigation.popTo(BoatChargingRouteName.guestEmail)}
             testID="BoatChargingConfirmSessionEmailAddressNavigationButton"
             variant="internal">

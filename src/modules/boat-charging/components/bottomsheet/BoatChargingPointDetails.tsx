@@ -114,6 +114,7 @@ export const BoatChargingPointDetails = () => {
           />
           {!!formattedCoordinates && (
             <ShareButton
+              accessibilityLabel="Coördinaten delen"
               label="Coördinaten delen"
               onPress={() => {
                 void Share.share(
