@@ -21,6 +21,7 @@ export const BoatChargingMapNavigationButton = () => {
 
   return (
     <NavigationButton
+      accessibilityLabel="Bekijk stopcontact op kaart"
       chevronSize="md"
       emphasis="default"
       horizontallyAlign="start"
