@@ -47,7 +47,7 @@ const isCompletedOrDummySession = (
   session: BoatChargingHistoryInfiniteItem,
 ): session is BoatChargingHistoryInfiniteItemWithStartTime =>
   (hasDummyFlag(session) || session.status === SessionStatus.COMPLETED) &&
-  !!session.start_date_time
+  (!!session.start_date_time || !!session.created_date_time)
 
 const dummyBoatChargingHistoryItem: BoatChargingHistoryInfiniteItemWithStartTime =
   {
@@ -120,7 +120,11 @@ export const BoatChargingHistory = () => {
   )
 
   const history = useMemo<BoatChargingHistoryInfiniteItemWithStartTime[]>(
-    () => result.data.filter(isCompletedOrDummySession),
+    () =>
+      result.data.filter(isCompletedOrDummySession).map(item => ({
+        ...item,
+        start_date_time: item.start_date_time || item.created_date_time,
+      })),
     [result.data],
   )
 

@@ -19,6 +19,7 @@ import {
 } from '@/modules/boat-charging/slice'
 import {
   BoatChargingStopReason,
+  NRGStatus,
   SessionStatus,
 } from '@/modules/boat-charging/types'
 import {formatKWH} from '@/modules/boat-charging/utils/formatKWH'
@@ -46,11 +47,10 @@ export const BoatChargingHistorySessionDetails = () => {
 
   useEffect(() => {
     if (session && !completedSessionSeenIds.includes(session?.id)) {
-      if (
-        session.stop_reason === BoatChargingStopReason.MANUAL ||
-        session.stop_reason === BoatChargingStopReason.CANCELLED
-      ) {
+      if (session.stop_reason === BoatChargingStopReason.MANUAL) {
         setAlert(alerts.chargingStoppedSuccess)
+      } else if (session.stop_reason === BoatChargingStopReason.CANCELLED) {
+        setAlert(alerts.chargingCancelledSuccess)
       } else if (session.stop_reason === BoatChargingStopReason.UNPLUGGED) {
         setAlert(alerts.chargingStoppedUnpluggedWarning)
       } else if (
@@ -93,6 +93,8 @@ export const BoatChargingHistorySessionDetails = () => {
     currency,
     vignette_number,
     boat_name,
+    nrg_status,
+    created_date_time,
   } = session
 
   return (
@@ -123,9 +125,10 @@ export const BoatChargingHistorySessionDetails = () => {
           iconName="lightning"
           testID="BoatChargingHistorySessionDetailsChargedCard"
           title="Geladen">
-          <Phrase>{formatKWH(kwh)}</Phrase>
+          <Phrase>
+            {formatKWH(nrg_status !== NRGStatus.Cancelled ? kwh : 0)}
+          </Phrase>
         </MetaDataCard>
-
         <MetaDataCard
           iconName="euro-coins"
           testID="BoatChargingHistorySessionDetailsTotalCostCard"
@@ -133,31 +136,47 @@ export const BoatChargingHistorySessionDetails = () => {
           <Phrase>
             {formatNumber(total_cost_incl_vat, currency)} inclusief btw
           </Phrase>
-          <Button
-            icon={{name: 'chevron-down', size: 'md'}}
-            isReverseOrder
-            label="Bekijk kostenoverzicht"
-            noPadding
-            onPress={() => toggle()}
-            testID="BoatChargingHistorySessionDetailsViewCostBreakdownButton"
-            variant="tertiary"
-          />
+          {nrg_status !== NRGStatus.Cancelled && (
+            <Button
+              icon={{name: 'chevron-down', size: 'md'}}
+              isReverseOrder
+              label="Bekijk kostenoverzicht"
+              noPadding
+              onPress={() => toggle()}
+              testID="BoatChargingHistorySessionDetailsViewCostBreakdownButton"
+              variant="tertiary"
+            />
+          )}
         </MetaDataCard>
 
         <MetaDataCard
           iconName="clock"
           testID="BoatChargingHistorySessionDetailsChargingTimeCard"
           title="Laadtijd">
-          <Phrase>{chargingTimeString}</Phrase>
-          {!!start_date_time && (
-            <Phrase>
-              Start: {formatDateTimeToDisplay(start_date_time, true)}
-            </Phrase>
-          )}
-          {!!end_date_time && (
-            <Phrase>
-              Einde: {formatDateTimeToDisplay(end_date_time, true)}
-            </Phrase>
+          {nrg_status !== NRGStatus.Cancelled ? (
+            <>
+              <Phrase>{chargingTimeString}</Phrase>
+              {!!start_date_time && (
+                <Phrase>
+                  Start: {formatDateTimeToDisplay(start_date_time, true)}
+                </Phrase>
+              )}
+              {!!end_date_time && (
+                <Phrase>
+                  Einde: {formatDateTimeToDisplay(end_date_time, true)}
+                </Phrase>
+              )}
+            </>
+          ) : (
+            <>
+              <Phrase>0 minuten</Phrase>
+              <Phrase>
+                Start: {formatDateTimeToDisplay(created_date_time, true)}
+              </Phrase>
+              <Phrase>
+                Einde: {formatDateTimeToDisplay(created_date_time, true)}
+              </Phrase>
+            </>
           )}
         </MetaDataCard>
 
