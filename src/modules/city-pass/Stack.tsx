@@ -22,7 +22,7 @@ export const ModuleStack = () => {
   const screenOptions = useScreenOptions()
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
 
-  const {pendingScreen} = usePendingScreen<CityPassScreenConfigRoutes>()
+  const pendingScreen = usePendingScreen<CityPassScreenConfigRoutes>()
   const screenConfigPendingFirst = sortEntriesByKeyFirst(
     Object.entries(cityPassScreenConfig),
     pendingScreen,

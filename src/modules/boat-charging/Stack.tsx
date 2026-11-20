@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
@@ -11,6 +10,7 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {screenConfig} from '@/modules/boat-charging/screenConfig'
 import {BoatChargingForgotAccessCodeScreen} from '@/modules/boat-charging/screens/BoatChargingForgotAccessCode.screen'
 import {LoginStepsScreen} from '@/modules/boat-charging/screens/LoginSteps.screen'
+import {useSessionDraft} from '@/modules/boat-charging/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {sortEntriesByKeyFirst} from '@/utils/sort/sortEntriesByKeyFirst'
 
@@ -21,14 +21,14 @@ export const ModuleStack = () => {
   const screenOptionsSettings = useScreenOptions({
     screenType: 'settings',
   })
+  const {clearSessionDraft} = useSessionDraft()
 
   const {
     pendingScreen: [pendingScreenFromAccessCode] = [],
-    clearPendingScreen,
-  } = useAccessCodePendingScreen()
+    clearPendingScreenOnScreenFocus,
+  } = useAccessCodePendingScreen(ModuleSlug['boat-charging'], clearSessionDraft)
 
-  const {pendingScreen: pendingScreenFromParam} =
-    usePendingScreen<BoatChargingRouteName>()
+  const pendingScreenFromParam = usePendingScreen<BoatChargingRouteName>()
 
   const screenConfigPendingFirst = sortEntriesByKeyFirst(
     Object.entries(screenConfig),
@@ -57,12 +57,11 @@ export const ModuleStack = () => {
     shouldRenderGate: isLoggedIn,
   })
 
-  useEffect(() => clearPendingScreen, [clearPendingScreen])
-
   return (
     <Stack.Navigator
       defaultScreen={BoatChargingRouteName.map}
       layout={NewSessionFormProvider}
+      {...clearPendingScreenOnScreenFocus}
       screenOptions={screenOptions}>
       {accessCodeGate(
         screenConfigPendingFirst.map(([key, route]) => (

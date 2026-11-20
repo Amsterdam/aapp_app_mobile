@@ -12,6 +12,7 @@ import {useAccessCodePendingScreen} from '@/modules/access-code/exports/useAcces
 import {useInitSession} from '@/modules/boat-charging/hooks/useInitSession'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
+import {useSessionDraft} from '@/modules/boat-charging/slice'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
@@ -19,10 +20,11 @@ import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 export const BoatChargingGuestEmailForm = () => {
   const navigation = useNavigation()
   const {setPendingScreen} = useAccessCodePendingScreen()
+  const {setSessionDraft, clearSessionDraft} = useSessionDraft()
 
   const {
     onPress,
-    form: {handleSubmit},
+    form: {handleSubmit, getValues},
   } = useInitSession(BoatChargingRouteName.guestEmail)
 
   const onSubmit = useCallback(
@@ -36,8 +38,10 @@ export const BoatChargingGuestEmailForm = () => {
       // When the user logs in from this flow, and returns to this screen after login,
       // we need to 'reset' the navigation to the module root to render the pending screen.
       navigation.replace(ModuleSlug['boat-charging'])
+    } else if (navigation.isFocused()) {
+      clearSessionDraft()
     }
-  }, [isLoggedIn, navigation])
+  }, [isLoggedIn, navigation, clearSessionDraft])
 
   return (
     <Column gutter="xl">
@@ -46,6 +50,7 @@ export const BoatChargingGuestEmailForm = () => {
           <Paragraph>Heeft u al een account?</Paragraph>
           <InlineLink
             onPress={() => {
+              setSessionDraft(getValues())
               setPendingScreen([BoatChargingRouteName.chooseVignette])
               navigation.navigate(BoatChargingRouteName.login)
             }}
@@ -81,6 +86,7 @@ export const BoatChargingGuestEmailForm = () => {
         <Button
           label="Account aanmaken"
           onPress={() => {
+            setSessionDraft(getValues())
             setPendingScreen([BoatChargingRouteName.verifyVignette, undefined])
             navigation.navigate(BoatChargingRouteName.createAccount)
           }}
