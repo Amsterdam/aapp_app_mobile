@@ -47,6 +47,7 @@ export const InternalIntro: Story = {
  */
 export const External: Story = {
   args: {
+    accessibilityHint: 'Opent in webbrowser.',
     children: 'External',
     variant: 'external',
     testID: 'actionLink',

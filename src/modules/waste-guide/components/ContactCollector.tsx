@@ -8,6 +8,7 @@ const InlineLinkWasteContainer = () => {
 
   return (
     <InlineLink
+      isInline
       onPress={() => openWebUrl(WASTE_DISPOSAL_BUSINESS_URL)}
       testID="WasteGuideBusinessesLink"
       variant="external">

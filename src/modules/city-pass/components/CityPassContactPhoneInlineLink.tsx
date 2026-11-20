@@ -11,6 +11,7 @@ export const CityPassContactPhoneInlineLink = ({testID}: Props) => {
   return (
     <InlineLink
       accessibilityLabel={`Bel ${CITY_PASS_PHONE_NUMBER}`}
+      isInline
       onPress={() => openPhoneUrl(CITY_PASS_PHONE_NUMBER)}
       testID={testID}>
       020 252 6000
