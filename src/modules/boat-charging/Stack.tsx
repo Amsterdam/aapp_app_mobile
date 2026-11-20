@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
@@ -24,11 +23,10 @@ export const ModuleStack = () => {
 
   const {
     pendingScreen: [pendingScreenFromAccessCode] = [],
-    clearPendingScreen,
-  } = useAccessCodePendingScreen()
+    clearPendingScreenOnScreenFocus,
+  } = useAccessCodePendingScreen(ModuleSlug['boat-charging'])
 
-  const {pendingScreen: pendingScreenFromParam} =
-    usePendingScreen<BoatChargingRouteName>()
+  const pendingScreenFromParam = usePendingScreen<BoatChargingRouteName>()
 
   const screenConfigPendingFirst = sortEntriesByKeyFirst(
     Object.entries(screenConfig),
@@ -57,12 +55,11 @@ export const ModuleStack = () => {
     shouldRenderGate: isLoggedIn,
   })
 
-  useEffect(() => clearPendingScreen, [clearPendingScreen])
-
   return (
     <Stack.Navigator
       defaultScreen={BoatChargingRouteName.map}
       layout={NewSessionFormProvider}
+      {...clearPendingScreenOnScreenFocus}
       screenOptions={screenOptions}>
       {accessCodeGate(
         screenConfigPendingFirst.map(([key, route]) => (

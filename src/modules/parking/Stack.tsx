@@ -36,7 +36,7 @@ export const ModuleStack = () => {
   const isLoggingIn = useParkingAccountIsLoggingIn()
   const isLoggingOut = useParkingAccountIsLoggingOut()
   const {isLoggedIn} = useIsLoggedIn()
-  const {pendingScreen} = usePendingScreen<ParkingScreenConfigRoutes>()
+  const pendingScreen = usePendingScreen<ParkingScreenConfigRoutes>()
   const screenConfigPendingFirst = sortEntriesByKeyFirst(
     Object.entries(parkingScreenConfig),
     pendingScreen,
