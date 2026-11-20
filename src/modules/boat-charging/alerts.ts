@@ -74,6 +74,11 @@ export const alerts = {
     variant: AlertVariant.positive,
     testID: 'BoatChargingChargingStoppedSuccessAlert',
   },
+  chargingCancelledSuccess: {
+    title: 'Laadsessie is geannuleerd.',
+    variant: AlertVariant.positive,
+    testID: 'BoatChargingChargingCancelledSuccessAlert',
+  },
   chargingStoppedUnpluggedWarning: {
     title: 'Het laden is gestopt.',
     variant: AlertVariant.warning,
