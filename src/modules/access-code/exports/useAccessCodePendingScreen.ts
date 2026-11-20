@@ -1,4 +1,10 @@
-import {useCallback, useEffect, useMemo, type ComponentProps} from 'react'
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  type ComponentProps,
+} from 'react'
 import type {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import type {NavigateTo} from '@/app/navigation/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -51,18 +57,21 @@ type UseAccessCodePendingScreenReturn = {
  * consume the destination once its screen receives focus.
  *
  * **Other consumers should omit `moduleSlug` to read or update the destination
- * without clearing it when their own screen is removed.** Effect cleanup only
- * unsubscribes; rerenders and hook unmounts do not clear the destination.
+ * without clearing it when their own screen is removed.**
  *
  * @param moduleSlug The module route to preserve during same-module replacement.
  * Provide it only from the component registered as that module's root screen.
+ * @param onClearPendingScreen A stable callback for discarding associated
+ * temporary state when the destination is consumed or abandoned.
  */
 export const useAccessCodePendingScreen = (
   moduleSlug?: ModuleSlug,
+  onClearPendingScreen?: () => void,
 ): UseAccessCodePendingScreenReturn => {
   const dispatch = useDispatch()
   const pendingScreen = useSelector(selectPendingScreen)
   const navigation = useNavigation()
+  const preservePendingScreenOnUnmount = useRef(false)
 
   const setPendingScreen = useCallback(
     (screen: NavigateTo) => {
@@ -72,12 +81,9 @@ export const useAccessCodePendingScreen = (
   )
 
   const clearPendingScreen = useCallback(() => {
-    if (!pendingScreen) {
-      return
-    }
-
     dispatch(setSlicePendingScreen(undefined))
-  }, [dispatch, pendingScreen])
+    onClearPendingScreen?.()
+  }, [dispatch, onClearPendingScreen])
 
   const clearPendingScreenOnScreenFocus = useMemo<ScreenListeners>(
     () => ({
@@ -97,6 +103,8 @@ export const useAccessCodePendingScreen = (
       return
     }
 
+    preservePendingScreenOnUnmount.current = false
+
     const unsubscribe = navigation.addListener('beforeRemove', event => {
       const {type, payload} = event.data.action
       const routeName =
@@ -106,13 +114,23 @@ export const useAccessCodePendingScreen = (
 
       if (type === 'REPLACE' && routeName === moduleSlug.toString()) {
         // Don't clear the pending screen if the module is being replaced by a fresh instance of itself.”
+        preservePendingScreenOnUnmount.current = true
+
         return
       }
+
+      preservePendingScreenOnUnmount.current = false
 
       clearPendingScreen()
     })
 
-    return unsubscribe
+    return () => {
+      unsubscribe()
+
+      if (!preservePendingScreenOnUnmount.current) {
+        clearPendingScreen()
+      }
+    }
   }, [navigation, clearPendingScreen, moduleSlug])
 
   return {

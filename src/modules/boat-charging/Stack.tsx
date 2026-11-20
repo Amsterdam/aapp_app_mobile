@@ -10,6 +10,7 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {screenConfig} from '@/modules/boat-charging/screenConfig'
 import {BoatChargingForgotAccessCodeScreen} from '@/modules/boat-charging/screens/BoatChargingForgotAccessCode.screen'
 import {LoginStepsScreen} from '@/modules/boat-charging/screens/LoginSteps.screen'
+import {useSessionDraft} from '@/modules/boat-charging/slice'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {sortEntriesByKeyFirst} from '@/utils/sort/sortEntriesByKeyFirst'
 
@@ -20,11 +21,12 @@ export const ModuleStack = () => {
   const screenOptionsSettings = useScreenOptions({
     screenType: 'settings',
   })
+  const {clearSessionDraft} = useSessionDraft()
 
   const {
     pendingScreen: [pendingScreenFromAccessCode] = [],
     clearPendingScreenOnScreenFocus,
-  } = useAccessCodePendingScreen(ModuleSlug['boat-charging'])
+  } = useAccessCodePendingScreen(ModuleSlug['boat-charging'], clearSessionDraft)
 
   const pendingScreenFromParam = usePendingScreen<BoatChargingRouteName>()
 

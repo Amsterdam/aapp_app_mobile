@@ -6,6 +6,7 @@ import type {
   BoatChargingLocation,
   BoatChargingOIDCConfigResponse,
   BoatChargingSession,
+  NewSessionFormValues,
 } from '@/modules/boat-charging/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import type {RootState} from '@/store/types/rootState'
@@ -19,6 +20,10 @@ export type BoatChargingState = {
   loggedInUsername?: string
   openIdConnectConfig?: BoatChargingOIDCConfigResponse
   selectedBoatChargingPointId?: BoatChargingLocation['id']
+  /**
+   * Used to temporarily store session form values when the user logs in mid-flow
+   */
+  sessionDraft?: NewSessionFormValues
   /**
    * Used in sign up flow and forgot password flow, this username cannot be considered as logged in
    */
@@ -112,6 +117,12 @@ export const boatChargingSlice = createSlice({
         sessionId,
       ]
     },
+    setSessionDraft: (
+      state,
+      {payload: sessionDraft}: PayloadAction<NewSessionFormValues | undefined>,
+    ) => {
+      state.sessionDraft = sessionDraft
+    },
     reset: () => initialState,
   },
 })
@@ -178,3 +189,24 @@ export const selectLastApprovedTermsVersionWhileLoggedIn = (state: RootState) =>
 
 export const selectCompletedSessionSeenIds = (state: RootState) =>
   state[ReduxKey.boatCharging].completedSessionSeenIds ?? []
+
+const selectSessionDraft = (state: RootState) =>
+  state[ReduxKey.boatCharging].sessionDraft
+
+export const useSessionDraft = () => {
+  const sessionDraft = useSelector(selectSessionDraft)
+  const dispatch = useDispatch()
+
+  const setSessionDraft = useCallback(
+    (draft: NewSessionFormValues) =>
+      dispatch(boatChargingSlice.actions.setSessionDraft(draft)),
+    [dispatch],
+  )
+
+  const clearSessionDraft = useCallback(
+    () => dispatch(boatChargingSlice.actions.setSessionDraft(undefined)),
+    [dispatch],
+  )
+
+  return {sessionDraft, setSessionDraft, clearSessionDraft}
+}
