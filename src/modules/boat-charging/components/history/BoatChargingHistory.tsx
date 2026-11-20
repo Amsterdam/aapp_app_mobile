@@ -123,7 +123,7 @@ export const BoatChargingHistory = () => {
     () =>
       result.data.filter(isCompletedOrDummySession).map(item => ({
         ...item,
-        start_date_time: item.start_date_time ?? item.created_date_time,
+        start_date_time: item.start_date_time || item.created_date_time,
       })),
     [result.data],
   )
