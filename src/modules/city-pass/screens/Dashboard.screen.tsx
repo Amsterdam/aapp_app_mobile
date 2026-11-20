@@ -23,7 +23,7 @@ export const DashboardScreen = ({navigation}: Props) => {
   }, [navigation])
   const {openRedirect} = useOpenRedirect()
 
-  const {cityPasses, isLoading} = useGetCityPasses()
+  const {cityPasses} = useGetCityPasses()
 
   return (
     <Screen
@@ -33,7 +33,7 @@ export const DashboardScreen = ({navigation}: Props) => {
       testID="CityPassDashboardScreen">
       <AutomaticLogoutAlert />
       <PassOwners logout={logout} />
-      {(cityPasses?.length !== 0 || !!isLoading) && (
+      {cityPasses?.length !== 0 && (
         <>
           <Box
             insetHorizontal="md"
