@@ -5,7 +5,11 @@ import type {
   LicensePlatesEndpointResponse,
   ParkingLicensePlate,
   ParkingPermit,
+  ParkingPermitScope,
+  ParkingSession,
+  VisitorParkingSession,
 } from '@/modules/parking/types'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 type LicensePlateMutationOverrides = {
   deleteLicensePlate?: (
@@ -36,10 +40,14 @@ type LicensePlateMutationOverrides = {
 }
 
 export type ParkingStorybookParameters = {
+  accountScope?: ParkingPermitScope
   currentPermit?: ParkingPermit
   isLoadingLicensePlates?: boolean
   licensePlates?: LicensePlatesEndpointResponse
   mutationOverrides?: LicensePlateMutationOverrides
+  parkingSessions?: ParkingSession[]
+  visitorParkingSessions?: VisitorParkingSession[]
+  visitorVehicleId?: string
 }
 
 const ParkingStorybookContext = createContext<ParkingStorybookParameters>({})
@@ -65,8 +73,14 @@ const useParkingStorybookParameters = () => useContext(ParkingStorybookContext)
 
 export const useCurrentParkingPermit = () => {
   const {currentPermit} = useParkingStorybookParameters()
+  const permit = currentPermit ?? permitMock
 
-  return currentPermit ?? permitMock
+  const isPermitStartedAtInFuture =
+    permit.max_session_length_in_days === 1 &&
+    !!permit.started_at &&
+    dayjs(permit.started_at).isAfter(dayjs().add(1, 'day'), 'day')
+
+  return {...permit, isPermitStartedAtInFuture}
 }
 
 export const useGetLicensePlates = () => {

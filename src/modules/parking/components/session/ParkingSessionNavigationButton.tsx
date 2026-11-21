@@ -14,9 +14,13 @@ import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDispla
 
 type Props = {
   parkingSession: ParkingSession | VisitorParkingSession
+  withIcon?: boolean
 }
 
-export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
+export const ParkingSessionNavigationButton = ({
+  parkingSession,
+  withIcon = true,
+}: Props) => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
 
@@ -59,7 +63,7 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
       chevronColor="secondary"
       chevronSize="ml"
       description={description}
-      icon={{name: 'car'}}
+      icon={withIcon ? {name: 'car'} : undefined}
       insetHorizontal="no"
       insetVertical="no"
       isDescriptionBelowIcon={false}

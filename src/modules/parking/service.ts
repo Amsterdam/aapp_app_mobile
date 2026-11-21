@@ -26,7 +26,6 @@ import {
   type ParkingTransactionsEndpointResponse,
   type VisitorParkingSessionsEndpointRequest,
   type VisitorParkingSessionsEndpointResponse,
-  ParkingSessionStatus,
   type ParkingManageVisitorTimeBalanceEndpointRequest,
   ParkingEndpointName,
   type ParkingZoneByMachineEndpointRequest,
@@ -356,7 +355,7 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
     }),
     [ParkingEndpointName.visitorParkingSessions]: builder.query<
-      Record<ParkingSessionStatus, VisitorParkingSessionsEndpointResponse>,
+      VisitorParkingSessionsEndpointResponse,
       VisitorParkingSessionsEndpointRequest
     >({
       providesTags: ['ParkingSessions'],
@@ -369,26 +368,6 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
       keepUnusedDataFor: CacheLifetime.hour,
-      transformResponse: (
-        response: VisitorParkingSessionsEndpointResponse,
-      ) => ({
-        [ParkingSessionStatus.active]:
-          response.filter(
-            session => session.status === ParkingSessionStatus.active,
-          ) || [],
-        [ParkingSessionStatus.completed]:
-          response.filter(
-            session => session.status === ParkingSessionStatus.completed,
-          ) || [],
-        [ParkingSessionStatus.cancelled]:
-          response.filter(
-            session => session.status === ParkingSessionStatus.cancelled,
-          ) || [],
-        [ParkingSessionStatus.planned]:
-          response.filter(
-            session => session.status === ParkingSessionStatus.planned,
-          ) || [],
-      }),
     }),
     [ParkingEndpointName.vehicleInformation]: builder.query<
       VehicleInformationEndpointResponse,

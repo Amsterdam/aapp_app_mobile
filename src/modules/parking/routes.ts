@@ -22,12 +22,12 @@ export enum ParkingRouteName {
   manageVisitor = 'ParkingManageVisitor',
   manageVisitorAdjustTimeBalance = 'ParkingManageVisitorAdjustTimeBalance',
   myLicensePlates = 'ParkingMyLicensePlates',
-  parkingActiveSessions = 'ParkingActiveSessions',
   parkingMoneyTransactions = 'ParkingMoneyTransactions',
   parkingPermitZones = 'ParkingPermitZones',
   parkingPlannedSessions = 'ParkingPlannedSessions',
   parkingSession = 'ParkingSession',
   parkingSessionTransactions = 'ParkingSessionTransactions',
+  parkingUpcomingSessions = 'ParkingUpcomingSessions',
   startSession = 'ParkingStartSession',
   visitorExtendSession = 'ParkingVisitorExtendSession',
 }
@@ -59,7 +59,7 @@ export type ModuleStackParams = {
   [ParkingRouteName.logout]: {reportCode: string} | undefined
   [ParkingRouteName.loginSteps]: undefined
   [ParkingRouteName.myLicensePlates]: undefined
-  [ParkingRouteName.parkingActiveSessions]: undefined
+  [ParkingRouteName.parkingUpcomingSessions]: undefined
   [ParkingRouteName.parkingPermitZones]: undefined
   [ParkingRouteName.parkingPlannedSessions]: undefined
   [ParkingRouteName.parkingSession]: {

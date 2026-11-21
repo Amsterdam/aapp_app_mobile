@@ -217,6 +217,7 @@ export type ParkingPermitsEndpointRequestParams = {
 
 export enum ParkingSessionStatus {
   active = 'ACTIVE',
+  activeOrPlanned = 'ACTIVE_OR_PLANNED',
   cancelled = 'CANCELLED',
   completed = 'COMPLETED',
   planned = 'PLANNED',
@@ -247,16 +248,22 @@ export type ParkingSession = VisitorParkingSession & {
   updated_date_time?: string
 }
 
-export type ParkingSessionsEndpointRequest = {
+type ParkingSessionsEndpointRequestBase = {
+  /**
+   * Overwrites the `status` parameter, and returns all sessions planned or active within the next 24 hours
+   */
+  next_24_hours?: boolean
   report_code: string
   status?: ParkingSessionStatus
-} & PaginationQueryArgs
-
-export type VisitorParkingSessionsEndpointRequest = {
-  report_code: string
-  status?: ParkingSessionStatus
-  vehicle_id: string
 }
+
+export type ParkingSessionsEndpointRequest =
+  ParkingSessionsEndpointRequestBase & PaginationQueryArgs
+
+export type VisitorParkingSessionsEndpointRequest =
+  ParkingSessionsEndpointRequestBase & {
+    vehicle_id: string
+  }
 
 export type VehicleInformationSuccess = {
   content: {

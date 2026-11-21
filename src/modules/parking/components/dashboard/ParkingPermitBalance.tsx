@@ -1,5 +1,4 @@
 import {Column} from '@/components/ui/layout/Column'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingPermitBalanceMoney} from '@/modules/parking/components/dashboard/ParkingPermitBalanceMoney'
 import {ParkingPermitBalanceTime} from '@/modules/parking/components/dashboard/ParkingPermitBalanceTime'
@@ -19,19 +18,6 @@ export const ParkingPermitBalance = () => {
     return null
   }
 
-  if (parkingAccount?.scope === ParkingPermitScope.visitor) {
-    return (
-      <Column>
-        <Title
-          level="h2"
-          text="Tijd en kosten"
-        />
-        <Gutter height="md" />
-        <ParkingPermitBalanceTime />
-      </Column>
-    )
-  }
-
   return (
     <Column gutter="md">
       <Title
@@ -39,7 +25,9 @@ export const ParkingPermitBalance = () => {
         text="Uw saldo"
       />
       <ParkingPermitBalanceTime />
-      <ParkingPermitBalanceMoney />
+      {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
+        <ParkingPermitBalanceMoney />
+      )}
     </Column>
   )
 }
