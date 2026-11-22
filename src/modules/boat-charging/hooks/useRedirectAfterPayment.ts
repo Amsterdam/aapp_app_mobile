@@ -24,7 +24,7 @@ export const useRedirectAfterPayment = () => {
           dispatch(addGuestSessionId(sessionId))
         }
 
-        reset()
+        reset({})
         clearSessionDraft()
 
         navigation.popTo(BoatChargingRouteName.map)

@@ -21,7 +21,7 @@ export const BoatChargingView = () => {
   useEffect(() => {
     if (isFocused) {
       // Reset the session form when the user arrives/returns on this screen
-      reset()
+      reset({})
       clearSessionDraft()
     }
   }, [reset, isFocused, clearSessionDraft])
