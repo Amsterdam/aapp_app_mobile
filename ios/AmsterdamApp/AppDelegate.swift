@@ -9,11 +9,12 @@ import TrustKit  // added for certificate pinning
 import UIKit
 
 @main
-class AppDelegate: ExpoAppDelegate {
+class AppDelegate: ExpoAppDelegate, ExpoReactNativeFactoryProvider {
     var window: UIWindow?
 
     var reactNativeDelegate: ReactNativeDelegate?
     var reactNativeFactory: RCTReactNativeFactory?
+    var reactNativeFactoryModuleName: String { "AmsterdamApp" }
 
     override func application(
         _ application: UIApplication,
@@ -82,22 +83,8 @@ class AppDelegate: ExpoAppDelegate {
         reactNativeDelegate = delegate
         reactNativeFactory = factory
 
-        #if os(iOS) || os(tvOS)
-            window = UIWindow(frame: UIScreen.main.bounds)
-            factory.startReactNative(
-                withModuleName: "main",
-                in: window,
-                launchOptions: launchOptions)
-        #endif
-
         // set default accessibilityLanguage
         application.accessibilityLanguage = "nl-NL"
-
-        factory.startReactNative(
-            withModuleName: "AmsterdamApp",
-            in: window,
-            launchOptions: launchOptions
-        )
 
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
@@ -137,7 +124,7 @@ class ReactNativeDelegate: ExpoReactNativeFactoryDelegate {
     }
 
     // Added for react-native-bootsplash:
-    override func customize(_ rootView: RCTRootView) {
+    override func customize(_ rootView: UIView) {
         super.customize(rootView)
         RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView)  // ⬅️ initialize the splash screen
     }
