@@ -15,10 +15,18 @@ export const BoatChargingDetailsInfoRows = ({rows}: Props) => (
         <SingleSelectable key={key}>
           <Row flex={1}>
             <Column flex={1}>
-              <Phrase color="secondary">{key}</Phrase>
+              <Phrase
+                accessible={false}
+                color="secondary">
+                {key}
+              </Phrase>
             </Column>
             <Column flex={1}>
-              <Phrase color="secondary">{value}</Phrase>
+              <Phrase
+                accessible={false}
+                color="secondary">
+                {value}
+              </Phrase>
             </Column>
           </Row>
         </SingleSelectable>

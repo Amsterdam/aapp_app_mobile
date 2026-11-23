@@ -434,7 +434,7 @@ const PRenderer: CustomMixedRenderer = props => {
   return (
     <View
       accessibilityLabel={getTNodeAccessibleLabel(tnode)}
-      accessible
+      accessible={Platform.OS !== 'ios'}
       style={style}>
       <TNodeChildrenRenderer {...props} />
     </View>

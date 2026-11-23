@@ -117,7 +117,7 @@ export const BoatChargingSessionInfoContainerCharging = () => {
           halign="center">
           <PressableBase
             accessibilityHint="Dubbeltik om de laadtijd te bekijken"
-            accessibilityLabel={`Laadtijd: ${chargingTimeVeryShortString}`}
+            accessibilityLabel={`Laadtijd: ${chargingTimeVeryShortString ?? 'Niet beschikbaar'}`}
             hitSlop={16}
             onPress={() =>
               open(BoatChargingSessionBottomsheetVariants.chargingTime)
