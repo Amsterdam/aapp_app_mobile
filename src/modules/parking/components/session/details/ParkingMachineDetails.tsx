@@ -78,7 +78,9 @@ export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
             </Phrase>
           )}
           {!!directionsUrl && (
+            //TODO: unreachable
             <ExternalLinkButton
+              alignSelf="flex-start"
               label="Route openen"
               noPadding
               testID="PollingStationDetailsRouteExternalLinkButton"
