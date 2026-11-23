@@ -9,19 +9,22 @@ import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSess
 import {useOpenIdConnectAuth} from '@/modules/boat-charging/hooks/useOpenIdConnectAuth'
 import {useSelectChargingPoint} from '@/modules/boat-charging/hooks/useSelectChargingPoint'
 import {useBoatChargingLocationsQuery} from '@/modules/boat-charging/service'
+import {useSessionDraft} from '@/modules/boat-charging/slice'
 
 export const BoatChargingView = () => {
   useOpenIdConnectAuth()
   const selectChargingPoint = useSelectChargingPoint()
   const {reset} = useNewSessionFormContext()
+  const {clearSessionDraft} = useSessionDraft()
   const isFocused = useIsFocused()
 
   useEffect(() => {
     if (isFocused) {
       // Reset the session form when the user arrives/returns on this screen
-      reset()
+      reset({})
+      clearSessionDraft()
     }
-  }, [reset, isFocused])
+  }, [reset, isFocused, clearSessionDraft])
 
   const {
     data,

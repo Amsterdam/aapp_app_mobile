@@ -5,7 +5,7 @@ import {alerts} from '@/modules/boat-charging/alerts'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {addGuestSessionId} from '@/modules/boat-charging/slice'
+import {addGuestSessionId, useSessionDraft} from '@/modules/boat-charging/slice'
 import type {BoatChargingPaymentResultStatus} from '@/modules/boat-charging/types'
 import {useAlert} from '@/store/slices/alert'
 
@@ -15,6 +15,7 @@ export const useRedirectAfterPayment = () => {
   const {isLoggedIn} = useIsLoggedIn()
   const {setAlert} = useAlert()
   const {reset} = useNewSessionFormContext()
+  const {clearSessionDraft} = useSessionDraft()
 
   return useCallback(
     (paymentStatus: BoatChargingPaymentResultStatus, sessionId: string) => {
@@ -23,7 +24,8 @@ export const useRedirectAfterPayment = () => {
           dispatch(addGuestSessionId(sessionId))
         }
 
-        reset()
+        reset({})
+        clearSessionDraft()
 
         navigation.popTo(BoatChargingRouteName.map)
         navigation.push(BoatChargingRouteName.activeSessionDetails, {
@@ -34,6 +36,6 @@ export const useRedirectAfterPayment = () => {
         setAlert(alerts.paymentFailed)
       }
     },
-    [isLoggedIn, reset, navigation, dispatch, setAlert],
+    [isLoggedIn, reset, navigation, dispatch, setAlert, clearSessionDraft],
   )
 }
