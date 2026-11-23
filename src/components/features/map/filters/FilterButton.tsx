@@ -15,8 +15,8 @@ export const FilterButton = ({
   testID,
 }: Props) => (
   <Button
-    accessibilityHint={`Dubbeltik om te ${isActive ? 'de' : ''}selecteren`}
-    accessibilityLabel={`${filter.label}, ${isActive ? '' : 'niet'} geselecteerd`}
+    accessibilityHint={`Dubbeltik om filter ${isActive ? 'uit te zetten' : 'te activeren'}.`}
+    accessibilityLabel={`Filter ${filter.label}, is ${isActive ? 'actief' : 'niet actief'}.`}
     icon={isActive ? {name: 'close', size: 'md'} : undefined}
     insetHorizontal="sm"
     isReverseOrder

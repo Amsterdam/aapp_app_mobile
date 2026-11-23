@@ -74,14 +74,17 @@ export const MetaDataCard = ({
       )}
       <Column
         flex={1}
-        gutter="xxs">
+        gutter="xxs"
+        halign="start">
         <SingleSelectable testID={testID}>
-          <Title
-            accessible={false}
-            level="h5"
-            text={title}
-          />
-          {included}
+          <Column gutter="xxs">
+            <Title
+              accessible={false}
+              level="h5"
+              text={title}
+            />
+            {included}
+          </Column>
         </SingleSelectable>
         {excluded}
       </Column>
