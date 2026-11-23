@@ -142,7 +142,6 @@ const parkingDashboardDecorator: Decorator = (Story, context) => {
 const meta = {
   component: ParkingDashboard,
   decorators: [parkingDashboardDecorator],
-  beforeEach: () => {},
   tags: ['!autodocs'],
 } satisfies Meta<typeof ParkingDashboard>
 
