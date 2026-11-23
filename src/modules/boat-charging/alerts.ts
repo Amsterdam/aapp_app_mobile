@@ -109,6 +109,12 @@ export const alerts = {
     title: 'Niet geldig',
     testID: 'BoatChargingVignetteInvalidAlert',
   },
+  vignetteIncorrectInputsFailed: {
+    variant: AlertVariant.negative,
+    text: 'Controleer de gegevens en probeer het opnieuw.',
+    title: 'Het vignetnummer of de postcode klopt niet',
+    testID: 'BoatChargingVignetteInvalidAlert',
+  },
   vignetteDeleteFailed: {
     variant: AlertVariant.negative,
     text: 'Het vignet is niet verwijderd. Probeer het later nog eens.',

@@ -5,10 +5,10 @@ export const vignetteInvalidReasonToAlertMap: Record<
   VignetteInvalidReasons,
   Alerts
 > = {
-  [VignetteInvalidReasons.notFound]: 'vignetteInvalidFailed',
+  [VignetteInvalidReasons.notFound]: 'vignetteIncorrectInputsFailed',
   [VignetteInvalidReasons.cancelled]: 'vignetteInvalidFailed',
   [VignetteInvalidReasons.expired]: 'vignetteExpiredFailed',
   [VignetteInvalidReasons.onlyEnvironmentTypeAllowed]:
     'vignetteNotApplicableFailed',
-  [VignetteInvalidReasons.mismatch]: 'vignetteInvalidFailed',
+  [VignetteInvalidReasons.mismatch]: 'vignetteIncorrectInputsFailed',
 }
