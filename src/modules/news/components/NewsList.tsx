@@ -1,6 +1,7 @@
 import {useState, useCallback} from 'react'
 import {FlatList, StyleSheet, type FlatListProps} from 'react-native'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {NewsListItem} from '@/modules/news/components/NewsListItem'
@@ -69,6 +70,15 @@ export const NewsList = ({
       }
     }
   }, [])
+
+  if (result.isError) {
+    return (
+      <SomethingWentWrong
+        retryFn={result.retry}
+        testID="NewsListSomethingWentWrong"
+      />
+    )
+  }
 
   return (
     <FlatList

@@ -25,7 +25,7 @@ type InfiniteQueryResult = {
   fetchNextPage: jest.Mock<Promise<void>, []>
   hasNextPage?: boolean | null
   isError: boolean
-  isFetchingNextPage: boolean
+  isFetching: boolean
   isLoading: boolean
   refetch: jest.Mock<Promise<void>, []>
 }
@@ -61,7 +61,7 @@ const createInfiniteQueryResult = (
   fetchNextPage: createFetchNextPageMock(),
   hasNextPage: false,
   isError: false,
-  isFetchingNextPage: false,
+  isFetching: false,
   isLoading: false,
   refetch: createFetchNextPageMock(),
   ...overrides,
@@ -81,7 +81,7 @@ describe('useInfiniteScroller', () => {
         pages: [createPage([{id: 'item-1'}], 2, 1)],
       },
       hasNextPage: true,
-      isFetchingNextPage: true,
+      isFetching: true,
     })
     const endpoint = createEndpoint(queryResult)
     const {result, rerender} = renderHook(() =>
@@ -90,7 +90,7 @@ describe('useInfiniteScroller', () => {
       }),
     )
 
-    queryResult.isFetchingNextPage = false
+    queryResult.isFetching = false
     queryResult.isError = true
     queryResult.error = {status: 503}
     rerender({})
@@ -104,7 +104,7 @@ describe('useInfiniteScroller', () => {
     expect(queryResult.fetchNextPage).not.toHaveBeenCalled()
 
     queryResult.isError = false
-    queryResult.isFetchingNextPage = true
+    queryResult.isFetching = true
     rerender({})
     queryResult.data = {
       pageParams: [1, 2],
@@ -113,10 +113,40 @@ describe('useInfiniteScroller', () => {
         createPage([{id: 'item-2'}], 3, 1, 2),
       ],
     }
-    queryResult.isFetchingNextPage = false
+    queryResult.isFetching = false
     rerender({})
 
     requestedPage = 2
+    rerender({})
+
+    expect(queryResult.fetchNextPage).toHaveBeenCalledTimes(1)
+  })
+
+  it('resumes pagination after refetch completes with unchanged cached pages', () => {
+    const queryResult = createInfiniteQueryResult({
+      data: {
+        pageParams: [1],
+        pages: [createPage([{id: 'item-1'}], 2, 1)],
+      },
+      hasNextPage: true,
+      isError: true,
+    })
+    const endpoint = createEndpoint(queryResult)
+    const {result, rerender} = renderHook(() =>
+      useInfiniteScroller({id: 'empty'}, endpoint, 'id', 1, 1, {page_size: 1}),
+    )
+
+    void result.current.retry()
+
+    expect(queryResult.refetch).toHaveBeenCalledTimes(1)
+
+    queryResult.isError = false
+    queryResult.isFetching = true
+    rerender({})
+
+    expect(queryResult.fetchNextPage).not.toHaveBeenCalled()
+
+    queryResult.isFetching = false
     rerender({})
 
     expect(queryResult.fetchNextPage).toHaveBeenCalledTimes(1)

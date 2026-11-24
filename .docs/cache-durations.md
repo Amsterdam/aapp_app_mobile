@@ -22,6 +22,10 @@ When an endpoint isn't mentioned, RTK's default caching duration of 1 minute wil
 | /waste-guide/search         | 1 day     |
 | /address                    | 1 day     |
 
+## Failed paginated loads
+
+News, construction-work listings, and boat-charging history stop automatic pagination after a failed request and offer an explicit retry. After the cached results have been refreshed successfully, pagination can resume without another scroll.
+
 ## Custom interval
 
 For some components we use an interval after which, no matter the subscriptions, the endpoint will be refetched.

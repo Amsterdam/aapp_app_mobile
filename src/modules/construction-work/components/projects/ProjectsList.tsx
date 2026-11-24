@@ -34,6 +34,7 @@ type Props = {
   noResultsMessage?: string
   onItemsPerRowChange?: FlatGridProps<ProjectsItem>['onItemsPerRowChange']
   onViewableItemsChanged?: FlatGridProps<ProjectsItem>['onViewableItemsChanged']
+  retry?: () => void
   searchText?: string
 }
 
@@ -44,6 +45,7 @@ export const ProjectsList = ({
   isLoading,
   onItemsPerRowChange,
   onViewableItemsChanged,
+  retry,
   searchText,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
@@ -105,7 +107,7 @@ export const ProjectsList = ({
         buttonLabel="Ga terug"
         error={error}
         Image={ConstructionWorkFigure}
-        onPress={() => navigation.goBack()}
+        onPress={() => (retry ? retry() : navigation.goBack())}
         testID="ConstructionWorkFullScreenError"
         title="Er zijn geen werkzaamheden beschikbaar"
       />

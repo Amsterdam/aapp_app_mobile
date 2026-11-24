@@ -72,7 +72,7 @@ export const useInfiniteScroller = <
     error: errorCurrentPage,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
+    isFetching,
     refetch,
   } = endpoint.useInfiniteQuery(queryParams, {initialPageParam: 1})
 
@@ -81,7 +81,7 @@ export const useInfiniteScroller = <
       hasNextPage &&
       !isErrorCurrentPage &&
       page >= (currentData?.pageParams.at(-1) ?? 0) &&
-      !isFetchingNextPage
+      !isFetching
     ) {
       void fetchNextPage()
     }
@@ -90,7 +90,7 @@ export const useInfiniteScroller = <
     fetchNextPage,
     hasNextPage,
     isErrorCurrentPage,
-    isFetchingNextPage,
+    isFetching,
     page,
   ])
 
