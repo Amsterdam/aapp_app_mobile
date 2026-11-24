@@ -51,8 +51,6 @@ export const Phrase = ({
   testID,
   'logging-label': loggingLabel,
   textAlign = 'left',
-  accessibilityHint,
-  accessibilityLabel,
   ...textProps
 }: PhraseProps) => {
   const createdStyles = useMemo(
@@ -72,9 +70,6 @@ export const Phrase = ({
   return (
     <AccessibleText
       {...textProps}
-      accessibilityLabel={[accessibilityLabel, accessibilityHint]
-        .filter(Boolean)
-        .join(', ')}
       accessibilityLanguage="nl-NL"
       logging-label={loggingLabel}
       style={styles.text}
