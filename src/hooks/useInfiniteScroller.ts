@@ -73,11 +73,13 @@ export const useInfiniteScroller = <
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = endpoint.useInfiniteQuery(queryParams, {initialPageParam: 1})
 
   useEffect(() => {
     if (
       hasNextPage &&
+      !isErrorCurrentPage &&
       page >= (currentData?.pageParams.at(-1) ?? 0) &&
       !isFetchingNextPage
     ) {
@@ -87,6 +89,7 @@ export const useInfiniteScroller = <
     currentData?.pageParams,
     fetchNextPage,
     hasNextPage,
+    isErrorCurrentPage,
     isFetchingNextPage,
     page,
   ])
@@ -125,5 +128,6 @@ export const useInfiniteScroller = <
     error: errorCurrentPage,
     isError: isErrorCurrentPage,
     isLoading: isLoadingCurrentPage,
+    retry: refetch,
   }
 }
