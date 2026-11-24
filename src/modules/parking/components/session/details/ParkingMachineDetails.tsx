@@ -51,15 +51,18 @@ export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
     [parkingZoneData, startTime],
   )
 
+  const isLoading =
+    isLoadingParkingMachineData ||
+    isLoadingParkingMachines ||
+    (!parkingMachines && isFetchingParkingMachines) ||
+    (!parkingZoneData && isFetchingParkingZone)
+
   return (
     <MetaDataCard
       iconName="map-marker"
       testID="ParkingSessionDetailsParkingMachineRow"
       title={`Parkeerautomaat ${parkingSession.parking_machine}`}>
-      {isLoadingParkingMachineData ||
-      isLoadingParkingMachines ||
-      (!parkingMachines && isFetchingParkingMachines) ||
-      (!parkingZoneData && isFetchingParkingZone) ? (
+      {isLoading ? (
         <PleaseWait testID="ParkingSessionPleaseWait" />
       ) : (
         <>
@@ -78,7 +81,6 @@ export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
             </Phrase>
           )}
           {!!directionsUrl && (
-            //TODO: unreachable
             <ExternalLinkButton
               alignSelf="flex-start"
               label="Route openen"
