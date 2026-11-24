@@ -47,6 +47,13 @@ Occasionally, something will be cached outside of the build folder. To make sure
 
 You can also run the `clean` script command to clean the iOS project.
 
+#### Swift concurrency errors in native dependencies
+
+Keyboard controller 1.23.1 and Nitro Modules 0.31.10 are compiled in Swift 5 language mode because they are not compatible with Swift 6 concurrency checks.
+This avoids build errors about non-`Sendable` values, shared mutable state, and potential data races without changing the app's language mode.
+After changing the Podfile, run `bundle exec pod install --project-directory=ios` and rebuild.
+Remove each compatibility override when the corresponding dependency supports Swift 6.
+
 #### Archive failed
 
 During the Fastlane `build_app` task:

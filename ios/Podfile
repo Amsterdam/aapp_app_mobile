@@ -88,8 +88,8 @@ target 'AmsterdamApp' do
       target.build_configurations.each do |config|
         config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
 
-        # Keyboard controller 1.23.1 is not compatible with Swift 6 concurrency checks.
-        if target.name == 'react-native-keyboard-controller'
+        # These dependency versions are not compatible with Swift 6 concurrency checks.
+        if ['react-native-keyboard-controller', 'NitroModules'].include?(target.name)
           config.build_settings['SWIFT_VERSION'] = '5.0'
         end
       end
