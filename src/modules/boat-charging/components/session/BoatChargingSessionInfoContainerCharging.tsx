@@ -51,6 +51,8 @@ export const BoatChargingSessionInfoContainerCharging = () => {
   const kwh = session?.kwh ?? 0
   const currency = session?.currency ?? 'EUR'
   const totalCost = costBreakdown?.total_incl_vat
+    ? formatNumber(costBreakdown?.total_incl_vat, currency)
+    : 'Niet beschikbaar'
 
   return (
     <>
@@ -78,11 +80,14 @@ export const BoatChargingSessionInfoContainerCharging = () => {
           flex={1}
           halign="center">
           <PressableBase
+            accessibilityHint="Dubbeltik om het kostenoverzicht te bekijken"
+            accessibilityLabel={`Geschatte kosten: ${totalCost}`}
             hitSlop={16}
             onPress={() => open(BoatChargingSessionBottomsheetVariants.costs)}
             testID="BoatChargingSessionEstimatedCostButton">
             <Row gutter="xs">
               <Phrase
+                accessible={false}
                 color="secondary"
                 variant="small">
                 Geschatte kosten
@@ -100,12 +105,9 @@ export const BoatChargingSessionInfoContainerCharging = () => {
             </Size>
           ) : (
             <Title
+              accessible={false}
               level="h3"
-              text={
-                totalCost
-                  ? formatNumber(totalCost, currency)
-                  : 'Niet beschikbaar'
-              }
+              text={totalCost}
             />
           )}
         </Column>
@@ -114,6 +116,8 @@ export const BoatChargingSessionInfoContainerCharging = () => {
           flex={1}
           halign="center">
           <PressableBase
+            accessibilityHint="Dubbeltik om de laadtijd te bekijken"
+            accessibilityLabel={`Laadtijd: ${chargingTimeVeryShortString ?? 'Niet beschikbaar'}`}
             hitSlop={16}
             onPress={() =>
               open(BoatChargingSessionBottomsheetVariants.chargingTime)
@@ -121,6 +125,7 @@ export const BoatChargingSessionInfoContainerCharging = () => {
             testID="BoatChargingSessionChargingTimeButton">
             <Row gutter="xs">
               <Phrase
+                accessible={false}
                 color="secondary"
                 variant="small">
                 Laadtijd
@@ -145,6 +150,7 @@ export const BoatChargingSessionInfoContainerCharging = () => {
               />
             )}
             <Title
+              accessible={false}
               color={
                 sessionLengthStatus === SessionLengthStatus.expiry
                   ? 'negative'

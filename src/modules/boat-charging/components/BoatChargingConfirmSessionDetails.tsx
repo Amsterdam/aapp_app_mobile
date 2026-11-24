@@ -138,37 +138,41 @@ export const BoatChargingConfirmSessionDetails = () => {
         )}
       </MetaDataCard>
 
-      <Column>
-        <MetaDataCard
-          testID="BoatChargingConfirmSessionVignetteMetaDataCard"
-          title="Vignet">
-          <Phrase>{vignette?.vignette_number}</Phrase>
-          {isVignette(vignette) && !!vignette.boat_name && (
-            <Phrase color="secondary">{vignette?.boat_name}</Phrase>
-          )}
-        </MetaDataCard>
-        <InlineLink
-          onPress={onNavigateToChangeVignette}
-          testID="BoatChargingConfirmSessionVignetteNavigationButton"
-          variant="internal">
-          Wijzigen
-        </InlineLink>
-      </Column>
-
-      {!!email && !isLoggedIn && (
-        <Column>
-          <MetaDataCard
-            testID="BoatChargingConfirmSessionEmailAddressMetaDataCard"
-            title="E-mailadres">
-            <Phrase>{email}</Phrase>
-          </MetaDataCard>
+      <MetaDataCard
+        actions={
           <InlineLink
-            onPress={() => navigation.popTo(BoatChargingRouteName.guestEmail)}
-            testID="BoatChargingConfirmSessionEmailAddressNavigationButton"
+            accessibilityLabel="Vignet wijzigen"
+            accessibilityRole="link"
+            onPress={onNavigateToChangeVignette}
+            testID="BoatChargingConfirmSessionVignetteNavigationButton"
             variant="internal">
             Wijzigen
           </InlineLink>
-        </Column>
+        }
+        testID="BoatChargingConfirmSessionVignetteMetaDataCard"
+        title="Vignet">
+        <Phrase>{vignette?.vignette_number}</Phrase>
+        {isVignette(vignette) && !!vignette.boat_name && (
+          <Phrase color="secondary">{vignette?.boat_name}</Phrase>
+        )}
+      </MetaDataCard>
+
+      {!!email && !isLoggedIn && (
+        <MetaDataCard
+          actions={
+            <InlineLink
+              accessibilityLabel="E-mailadres wijzigen"
+              accessibilityRole="link"
+              onPress={() => navigation.popTo(BoatChargingRouteName.guestEmail)}
+              testID="BoatChargingConfirmSessionEmailAddressNavigationButton"
+              variant="internal">
+              Wijzigen
+            </InlineLink>
+          }
+          testID="BoatChargingConfirmSessionEmailAddressMetaDataCard"
+          title="E-mailadres">
+          <Phrase>{email}</Phrase>
+        </MetaDataCard>
       )}
 
       <Column>
