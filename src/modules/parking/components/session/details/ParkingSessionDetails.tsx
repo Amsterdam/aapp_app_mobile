@@ -65,11 +65,7 @@ export const ParkingSessionDetails = ({
     <Box>
       <Column gutter="lg">
         <MetaDataCard
-          iconName="car"
-          testID="ParkingSessionDetailsLicensePlateRow"
-          title="Kenteken">
-          <Column>
-            <Phrase accessible={false}>{licensePlateString}</Phrase>
+          actions={
             <InlineLink
               accessibilityLabel={`Nieuwe parkeersessie met kenteken ${licensePlateString}`}
               onPress={() =>
@@ -83,7 +79,11 @@ export const ParkingSessionDetails = ({
               testID="ParkingStartSessionNavigationButton">
               Nieuwe parkeersessie
             </InlineLink>
-          </Column>
+          }
+          iconName="car"
+          testID="ParkingSessionDetailsLicensePlateRow"
+          title="Kenteken">
+          <Phrase accessible={false}>{licensePlateString}</Phrase>
         </MetaDataCard>
 
         {!!parkingSession.parking_machine && (
@@ -95,19 +95,21 @@ export const ParkingSessionDetails = ({
 
         {!parkingSession.parking_machine && (
           <MetaDataCard
+            actions={
+              <NavigationButton
+                chevronSize="smd"
+                emphasis="default"
+                insetHorizontal="no"
+                insetVertical="no"
+                onPress={() => navigate(ParkingRouteName.parkingPermitZones)}
+                testID="ParkingParkingPermitZonesButton"
+                title="Kaart bekijken"
+              />
+            }
             iconName="map-marker"
             testID="ParkingSessionDetailsPermitZoneRow"
-            title={getPermitZoneLabel(currentPermit.permit_zone)}>
-            <NavigationButton
-              chevronSize="smd"
-              emphasis="default"
-              insetHorizontal="no"
-              insetVertical="no"
-              onPress={() => navigate(ParkingRouteName.parkingPermitZones)}
-              testID="ParkingParkingPermitZonesButton"
-              title="Kaart bekijken"
-            />
-          </MetaDataCard>
+            title={getPermitZoneLabel(currentPermit.permit_zone)}
+          />
         )}
 
         <MetaDataCard

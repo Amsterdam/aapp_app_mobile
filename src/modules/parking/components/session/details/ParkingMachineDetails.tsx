@@ -59,6 +59,18 @@ export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
 
   return (
     <MetaDataCard
+      actions={
+        directionsUrl ? (
+          <ExternalLinkButton
+            alignSelf="flex-start"
+            label="Route openen"
+            noPadding
+            testID="PollingStationDetailsRouteExternalLinkButton"
+            url={directionsUrl}
+            variant="tertiary"
+          />
+        ) : undefined
+      }
       iconName="map-marker"
       testID="ParkingSessionDetailsParkingMachineRow"
       title={`Parkeerautomaat ${parkingSession.parking_machine}`}>
@@ -79,16 +91,6 @@ export const ParkingMachineDetails = ({parkingSession, report_code}: Props) => {
               accessible={false}>
               {machineDetailsLabel}
             </Phrase>
-          )}
-          {!!directionsUrl && (
-            <ExternalLinkButton
-              alignSelf="flex-start"
-              label="Route openen"
-              noPadding
-              testID="PollingStationDetailsRouteExternalLinkButton"
-              url={directionsUrl}
-              variant="tertiary"
-            />
           )}
         </>
       )}

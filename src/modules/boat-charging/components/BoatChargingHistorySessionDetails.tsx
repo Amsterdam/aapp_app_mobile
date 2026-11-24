@@ -130,23 +130,25 @@ export const BoatChargingHistorySessionDetails = () => {
           </Phrase>
         </MetaDataCard>
         <MetaDataCard
+          actions={
+            nrg_status !== NRGStatus.Cancelled && (
+              <Button
+                icon={{name: 'chevron-down', size: 'md'}}
+                isReverseOrder
+                label="Bekijk kostenoverzicht"
+                noPadding
+                onPress={() => toggle()}
+                testID="BoatChargingHistorySessionDetailsViewCostBreakdownButton"
+                variant="tertiary"
+              />
+            )
+          }
           iconName="euro-coins"
           testID="BoatChargingHistorySessionDetailsTotalCostCard"
           title="Totale kosten">
           <Phrase>
             {formatNumber(total_cost_incl_vat, currency)} inclusief btw
           </Phrase>
-          {nrg_status !== NRGStatus.Cancelled && (
-            <Button
-              icon={{name: 'chevron-down', size: 'md'}}
-              isReverseOrder
-              label="Bekijk kostenoverzicht"
-              noPadding
-              onPress={() => toggle()}
-              testID="BoatChargingHistorySessionDetailsViewCostBreakdownButton"
-              variant="tertiary"
-            />
-          )}
         </MetaDataCard>
 
         <MetaDataCard
