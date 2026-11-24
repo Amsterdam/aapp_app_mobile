@@ -101,10 +101,10 @@ export const ProjectsList = ({
     ],
   )
 
-  if (isError && !data?.length) {
+  if (isError && (retry || !data?.length)) {
     return (
       <FullScreenError
-        buttonLabel="Ga terug"
+        buttonLabel={retry ? 'Laad opnieuw' : 'Ga terug'}
         error={error}
         Image={ConstructionWorkFigure}
         onPress={() => (retry ? retry() : navigation.goBack())}
