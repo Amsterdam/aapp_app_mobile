@@ -95,7 +95,7 @@ export const ParkingEditSessionButtons = () => {
       <Button
         label="Annuleren"
         onPress={navigation.goBack}
-        testID="ParkingEditSessionButton"
+        testID="ParkingCancelEditSessionButton"
         variant="secondary"
       />
     </Column>

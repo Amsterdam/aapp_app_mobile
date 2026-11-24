@@ -5,6 +5,7 @@ import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -124,6 +125,15 @@ export const ParkingMoneyTransactionsList = () => {
 
     return getSectionsSortedByDate(transactionsOnly, false)
   }, [result])
+
+  if (result.isError) {
+    return (
+      <SomethingWentWrong
+        retryFn={result.retry}
+        testID="ParkingMoneyTransactionsSomethingWentWrong"
+      />
+    )
+  }
 
   return (
     <SectionList

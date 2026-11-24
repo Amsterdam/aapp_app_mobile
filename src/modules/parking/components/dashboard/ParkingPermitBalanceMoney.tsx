@@ -1,3 +1,4 @@
+import {useIsFocused} from '@react-navigation/native'
 import {useEffect} from 'react'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -19,12 +20,14 @@ import {dayjs} from '@/utils/datetime/dayjs'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingPermitBalanceMoney = () => {
+  const isFocused = useIsFocused()
   const dispatch = useDispatch()
   const currentPermit = useCurrentParkingPermit()
   const walletBalance = useWalletBalanceIncreaseStartBalance()
   const {
     data: account,
     isLoading,
+    isError,
     refetch,
     startedTimeStamp,
   } = useAccountDetailsQuery()
@@ -44,7 +47,9 @@ export const ParkingPermitBalanceMoney = () => {
   // refetch account details every 5 seconds if the wallet balance hasn't updated yet, it can take a bit before the payment is processed
   useInterval(
     refetch,
-    walletBalanceIncreaseStartedAt &&
+    isFocused &&
+      !isError &&
+      walletBalanceIncreaseStartedAt &&
       dayjs().diff(walletBalanceIncreaseStartedAt, 'minutes') < 15 &&
       typeof walletBalance === 'number' &&
       walletBalance === accountWalletBalance
@@ -61,9 +66,12 @@ export const ParkingPermitBalanceMoney = () => {
     )
   }
 
-  if (!account) {
+  if (isError || !account) {
     return (
-      <SomethingWentWrong testID="ParkingPermitBalanceMoneySomethingWentWrong" />
+      <SomethingWentWrong
+        retryFn={refetch}
+        testID="ParkingPermitBalanceMoneySomethingWentWrong"
+      />
     )
   }
 

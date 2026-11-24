@@ -1,4 +1,5 @@
 import type {ComponentType} from 'react'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ParkingSessionsFlatList} from '@/modules/parking/components/sessionsList/ParkingSessionFlatList'
 import {ParkingSessionsSectionList} from '@/modules/parking/components/sessionsList/ParkingSessionSectionList'
 import {useParkingSessionsInfiniteScroller} from '@/modules/parking/hooks/useParkingSessionsInfiniteScroller'
@@ -26,12 +27,21 @@ export const ParkingSessionsList = ({
   inSections = false,
   ...rest
 }: Props) => {
-  const {data, isLoading, onViewableItemsChanged} =
+  const {data, isLoading, isError, retry, onViewableItemsChanged} =
     useParkingSessionsInfiniteScroller({
       status: next24Hours ? ParkingSessionStatus.activeOrPlanned : status,
       next_24_hours: next24Hours,
       sortAscending,
     })
+
+  if (isError) {
+    return (
+      <SomethingWentWrong
+        retryFn={retry}
+        testID="ParkingSessionsListSomethingWentWrong"
+      />
+    )
+  }
 
   return inSections ? (
     <ParkingSessionsSectionList

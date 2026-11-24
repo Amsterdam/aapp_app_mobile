@@ -1,3 +1,4 @@
+import {retry} from '@reduxjs/toolkit/query'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {alerts} from '@/modules/parking/alerts'
 import {parkingApi} from '@/modules/parking/service'
@@ -8,7 +9,9 @@ import {logout} from '@/modules/parking/utils/logout'
 import {devLog, devError} from '@/processes/development'
 import {type RootState} from '@/store/types/rootState'
 
-export const refreshAccessToken = async (
+const refreshRequests = new Map<string, Promise<string>>()
+
+const requestAccessToken = async (
   reportCode: string,
   scope: ParkingPermitScope,
   dispatch: ReduxDispatch,
@@ -67,7 +70,36 @@ export const refreshAccessToken = async (
           )
         }
 
-        throw new Error('Token refresh failed')
+        devError('Token refresh failed', status)
+        // The login request has already used its retry budget; do not retry its parent.
+        retry.fail({status: 'CUSTOM_ERROR', error: 'Token refresh failed'})
       },
     )
+}
+
+export const refreshAccessToken = (
+  reportCode: string,
+  scope: ParkingPermitScope,
+  dispatch: ReduxDispatch,
+  state: RootState,
+): Promise<string> => {
+  const accountKey = `${scope}:${reportCode}`
+  const pendingRequest = refreshRequests.get(accountKey)
+
+  if (pendingRequest) {
+    return pendingRequest
+  }
+
+  const request = requestAccessToken(
+    reportCode,
+    scope,
+    dispatch,
+    state,
+  ).finally(() => {
+    refreshRequests.delete(accountKey)
+  })
+
+  refreshRequests.set(accountKey, request)
+
+  return request
 }
