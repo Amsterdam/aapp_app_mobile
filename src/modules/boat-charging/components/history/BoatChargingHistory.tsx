@@ -143,7 +143,11 @@ export const BoatChargingHistory = () => {
   )
 
   if (!isLoggedIn) {
-    return <BoatChargingHistoryLogin />
+    return (
+      <Box>
+        <BoatChargingHistoryLogin />
+      </Box>
+    )
   }
 
   if (result.isLoading && result.data.length === 0) {
