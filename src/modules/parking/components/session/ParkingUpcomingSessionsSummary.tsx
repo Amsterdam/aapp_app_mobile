@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, useMemo} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -22,15 +22,15 @@ const PARKING_SESSIONS_AMOUNT_CUTOFF = 4
 
 export const ParkingUpcomingSessionsSummary = () => {
   const {navigate} = useNavigation()
-  const {
-    parkingSessions: activeParkingSessions,
-    isLoading,
-    isError,
-    refetch,
-  } = useGetParkingSessions(true, {sortAscending: true})
+  const dispatch = useDispatch()
+  const {parkingSessions, isLoading, isError, refetch} = useGetParkingSessions(
+    true,
+    {sortAscending: true},
+  )
   const parkingAccount = useParkingAccount()
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
   const {value: isRefetched, enable: setRefetched} = useBoolean(false)
+  const now = dayjs()
 
   useEffect(() => {
     if (parkingAccount?.scope === ParkingPermitScope.visitor) {
@@ -39,13 +39,13 @@ export const ParkingUpcomingSessionsSummary = () => {
 
     if (
       !isRefetched &&
-      activeParkingSessions?.some(session => !session.ps_right_id)
+      parkingSessions?.some(session => !session.ps_right_id)
     ) {
       void refetch()
       setRefetched()
     }
   }, [
-    activeParkingSessions,
+    parkingSessions,
     isRefetched,
     parkingAccount?.scope,
     refetch,
@@ -55,34 +55,42 @@ export const ParkingUpcomingSessionsSummary = () => {
   // refetch sessions every 5 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
   useInterval(
     refetch,
-    activeParkingSessions?.some(
-      session => 'is_paid' in session && !session.is_paid,
-    )
+    parkingSessions?.some(session => 'is_paid' in session && !session.is_paid)
       ? 5000
       : 0,
   )
 
-  const firstEndDateTime = activeParkingSessions?.length
-    ? activeParkingSessions.reduce((min, session) => {
-        const candidateDateTime = dayjs(session.end_date_time)
+  const refreshTimeoutDelay = useMemo(() => {
+    if (!parkingSessions?.length) {
+      return 0
+    }
 
-        return candidateDateTime.isAfter(min) ? min : candidateDateTime
-      }, dayjs(activeParkingSessions[0].end_date_time))
-    : undefined
+    const nextRefreshDateTime = parkingSessions
+      .flatMap(session => {
+        const startDateTime = dayjs(session.start_date_time)
+        const endDateTime = dayjs(session.end_date_time)
 
-  const dispatch = useDispatch()
+        return startDateTime.isAfter(now)
+          ? [startDateTime, endDateTime]
+          : [endDateTime]
+      })
+      .reduce(
+        (earliestDateTime, candidateDateTime) =>
+          candidateDateTime.isBefore(earliestDateTime)
+            ? candidateDateTime
+            : earliestDateTime,
+        dayjs(parkingSessions[0].end_date_time),
+      )
 
-  useRefetchTimeout(
-    () => {
-      dispatch(parkingApi.util.invalidateTags(['ParkingSessions']))
-    },
-    activeParkingSessions?.length
-      ? Math.max(
-          firstEndDateTime?.endOf('minute').diff(dayjs(), 'milliseconds') ?? 0,
-          30000,
-        )
-      : 0,
-  )
+    return Math.max(
+      nextRefreshDateTime.endOf('minute').diff(now, 'milliseconds'),
+      30000,
+    )
+  }, [parkingSessions, now])
+
+  useRefetchTimeout(() => {
+    dispatch(parkingApi.util.invalidateTags(['ParkingSessions']))
+  }, refreshTimeoutDelay)
 
   if (isLoading) {
     return (
@@ -99,14 +107,14 @@ export const ParkingUpcomingSessionsSummary = () => {
     )
   }
 
-  if (!activeParkingSessions?.length) {
+  if (!parkingSessions?.length) {
     return <Phrase>U heeft nu geen parkeersessies</Phrase>
   }
 
   return (
     <Box insetVertical="md">
       <Column gutter="lg">
-        {activeParkingSessions
+        {parkingSessions
           .slice(0, PARKING_SESSIONS_AMOUNT_CUTOFF)
           .map(session => (
             <ParkingSessionNavigationButton
@@ -115,8 +123,7 @@ export const ParkingUpcomingSessionsSummary = () => {
               withIcon={parkingAccount?.scope === ParkingPermitScope.visitor}
             />
           ))}
-        {!!activeParkingSessions.slice(PARKING_SESSIONS_AMOUNT_CUTOFF)
-          .length && (
+        {!!parkingSessions.slice(PARKING_SESSIONS_AMOUNT_CUTOFF).length && (
           <NavigationButton
             chevronSize="md"
             emphasis="default"
