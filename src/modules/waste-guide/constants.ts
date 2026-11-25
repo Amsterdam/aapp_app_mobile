@@ -37,7 +37,7 @@ export const fractionIconConfig: Omit<
   },
   [FractionCode.Kerstbomen]: {
     [SvgIconVariant.default]: {
-      color: '#EC0000',
+      color: '#00893C',
       path: 'M12 4.375L14.787525 9.125025H13.48665L15.902475 12.924975H14.229975L16.460025 16.487475H12.929175V18.624975H11.070825V16.487475H7.539975L9.770025 12.924975H8.097525L10.51335 9.125025H9.212475L12 4.375Z',
     },
   },

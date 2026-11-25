@@ -42,6 +42,7 @@ export type WasteType = {
   label: string
   next_date: string | null
   note: string
+  service_map_id?: string
   sublabel?: string | null
   url: string
   where: string

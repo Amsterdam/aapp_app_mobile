@@ -51,8 +51,8 @@ export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
     <Screen
       keyboardAware
       testID="WasteGuideFractionScreen">
-      <Column gutter="lg">
-        <Box>
+      <Column gutter="sm">
+        <Box insetHorizontal="md">
           <Fraction
             fraction={fraction}
             testID="WasteGuideFraction"

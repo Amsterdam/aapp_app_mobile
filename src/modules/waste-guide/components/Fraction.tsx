@@ -14,6 +14,7 @@ import {FractionCode, WasteType} from '@/modules/waste-guide/types'
 import {getNextCollectionDate} from '@/modules/waste-guide/utils/getNextCollectionDate'
 import {formatEnumeration} from '@/utils/formatEnumeration'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
+import {FractionMapNavigationButton} from '@/modules/waste-guide/components/FractionMapNavigationButton'
 
 type Props = {
   fraction: WasteType
@@ -40,7 +41,9 @@ export const Fraction = ({fraction, testID}: Props) => {
         />
       </Column>
       {!!fraction.alert && (
-        <AlertWarning testID={`${testID}TimeboundNotification`}>
+        <AlertWarning
+          hasIcon
+          testID={`${testID}TimeboundNotification`}>
           <FractionContent
             content={fraction.alert}
             testID={`${testID}Content`}
@@ -109,12 +112,18 @@ export const Fraction = ({fraction, testID}: Props) => {
           sectionTitle="Buitenzetten"
           testID={`${testID}OutsideSection`}
         />
-        <FractionSection
-          content={fraction.where}
-          sectionTitle="Waar"
-          testID={`${testID}WhereSection`}
-          url={containerMapUrl}
-        />
+        <Column>
+          <FractionSection
+            content={fraction.where}
+            sectionTitle="Waar"
+            testID={`${testID}WhereSection`}
+            url={containerMapUrl}
+          />
+          {!!fraction.service_map_id && (
+            <FractionMapNavigationButton {...fraction} />
+          )}
+        </Column>
+
         {!!fraction?.info_link && (
           <FractionSection
             content={`Wat mag er bij ${fraction.label.toLowerCase()}`}
