@@ -49,6 +49,7 @@ export default defineConfig({
     'amsterdam/named-component-props': 'warn',
     'amsterdam/no-relative-file-import': 'warn',
     'amsterdam/no-type-import-for-function-component': 'warn',
+    'amsterdam/exported-component-requires-stories': 'warn',
     'amsterdam/jsx-strict-logical-expression': 'error',
     'amsterdam/jsx-prefer-coerced-and-over-null-ternary': 'error',
     'amsterdam/todo-comment-requires-ticket': 'warn',
