@@ -1,6 +1,6 @@
 {
   "name": "amsterdam-app",
-  "version": "1.30.0",
+  "version": "1.31.0",
   "private": true,
   "scripts": {
     "ci": "npm ci --no-audit && npm run postinstall && npm run prepare",
