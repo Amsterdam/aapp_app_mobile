@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {type TestProps} from '@/components/ui/types'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
+import {FractionMapNavigationButton} from '@/modules/waste-guide/components/FractionMapNavigationButton'
 import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
 import {NavigationButtonToWasteCalendar} from '@/modules/waste-guide/components/NavigationButtonToWasteCalendar'
 import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
@@ -14,7 +15,6 @@ import {FractionCode, WasteType} from '@/modules/waste-guide/types'
 import {getNextCollectionDate} from '@/modules/waste-guide/utils/getNextCollectionDate'
 import {formatEnumeration} from '@/utils/formatEnumeration'
 import {capitalizeString} from '@/utils/transform/capitalizeString'
-import {FractionMapNavigationButton} from '@/modules/waste-guide/components/FractionMapNavigationButton'
 
 type Props = {
   fraction: WasteType
