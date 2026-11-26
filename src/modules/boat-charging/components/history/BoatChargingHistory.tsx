@@ -1,6 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState} from 'react'
-import {SectionList, type SectionListProps} from 'react-native'
+import {SectionList, StyleSheet, type SectionListProps} from 'react-native'
+import {
+  useSafeAreaInsets,
+  type EdgeInsets,
+} from 'react-native-safe-area-context'
+import {Box} from '@/components/ui/containers/Box'
 import {Divider} from '@/components/ui/Divider'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -20,6 +25,8 @@ import {
   type BoatChargingLocation,
 } from '@/modules/boat-charging/types'
 import {layoutStyles} from '@/styles/layoutStyles'
+import type {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 import type {NonOptional} from '@/types/utils'
 import {getCurrentPage} from '@/utils/pagination/getCurrentPage'
 import {
@@ -71,6 +78,8 @@ export const BoatChargingHistory = () => {
   const {isLoggedIn} = useIsLoggedIn()
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
   const page = getCurrentPage(viewableItemIndex, 1, PAGE_SIZE)
+  const {bottom} = useSafeAreaInsets()
+  const styles = useThemable(createStyles(bottom))
 
   const result = useInfiniteScroller(
     dummyBoatChargingHistoryItem,
@@ -134,7 +143,11 @@ export const BoatChargingHistory = () => {
   )
 
   if (!isLoggedIn) {
-    return <BoatChargingHistoryLogin />
+    return (
+      <Box>
+        <BoatChargingHistoryLogin />
+      </Box>
+    )
   }
 
   if (result.isLoading && result.data.length === 0) {
@@ -147,12 +160,19 @@ export const BoatChargingHistory = () => {
   }
 
   if (result.isError) {
-    return <SomethingWentWrong testID="BoatChargingHistorySomethingWentWrong" />
+    return (
+      <Box>
+        <SomethingWentWrong
+          retryFn={result.retry}
+          testID="BoatChargingHistorySomethingWentWrong"
+        />
+      </Box>
+    )
   }
 
   return (
     <SectionList
-      contentContainerStyle={layoutStyles.grow}
+      contentContainerStyle={[layoutStyles.grow, styles.container]}
       keyExtractor={({id}) => id}
       ListEmptyComponent={
         result.isLoading ? null : <BoatChargingHistoryEmpty />
@@ -161,7 +181,7 @@ export const BoatChargingHistory = () => {
       renderItem={({item}) => <BoatChargingHistoryItem session={item} />}
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
-        <>
+        <Box insetHorizontal="md">
           {section !== sections[0] && (
             <>
               <Divider />
@@ -173,10 +193,19 @@ export const BoatChargingHistory = () => {
             testID="BoatChargingHistorySessionDatePhrase">
             {section.title === dummyTitle ? ' ' : section.title}
           </Phrase>
-        </>
+        </Box>
       )}
       sections={sections}
       stickySectionHeadersEnabled={false}
     />
   )
 }
+
+const createStyles =
+  (bottom: EdgeInsets['bottom']) =>
+  ({size}: Theme) =>
+    StyleSheet.create({
+      container: {
+        paddingBottom: Math.max(bottom, size.spacing.md),
+      },
+    })

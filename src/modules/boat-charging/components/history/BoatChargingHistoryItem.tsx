@@ -18,7 +18,9 @@ export const BoatChargingHistoryItem = memo(({session}: Props) => {
 
   if ('dummy' in session && session.dummy === true) {
     return (
-      <Box insetTop="md">
+      <Box
+        insetHorizontal="md"
+        insetTop="md">
         <Skeleton isLoading>
           <NavigationButton
             chevronColor="secondary"
@@ -40,22 +42,24 @@ export const BoatChargingHistoryItem = memo(({session}: Props) => {
   const description = elements.join(' - ')
 
   return (
-    <NavigationButton
-      chevronColor="secondary"
-      chevronSize="md"
-      description={description}
-      icon={{color: 'link', name: 'lightning', size: 'lg'}}
-      onPress={() =>
-        navigate(BoatChargingRouteName.historySessionDetails, {
-          id: session.id,
-        })
-      }
-      testID="BoatChargingHistoryNavigationButton"
-      title={
-        session.location
-          ? getAddressLine1(session.location.address)
-          : 'Laadsessie'
-      }
-    />
+    <Box insetHorizontal="md">
+      <NavigationButton
+        chevronColor="secondary"
+        chevronSize="md"
+        description={description}
+        icon={{color: 'link', name: 'lightning', size: 'lg'}}
+        onPress={() =>
+          navigate(BoatChargingRouteName.historySessionDetails, {
+            id: session.id,
+          })
+        }
+        testID="BoatChargingHistoryNavigationButton"
+        title={
+          session.location
+            ? getAddressLine1(session.location.address)
+            : 'Laadsessie'
+        }
+      />
+    </Box>
   )
 })

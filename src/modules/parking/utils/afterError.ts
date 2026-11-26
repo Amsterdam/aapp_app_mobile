@@ -7,7 +7,12 @@ export const afterError: AfterBaseQueryErrorFn = async (
   {error},
   {dispatch, getState},
   failRetry,
+  final,
 ) => {
+  if (final) {
+    return
+  }
+
   if (error?.status === 403) {
     const state = getState() as RootState
     const account = selectParkingAccount(state)

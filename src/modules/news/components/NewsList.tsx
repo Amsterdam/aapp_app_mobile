@@ -1,6 +1,9 @@
 import {useState, useCallback} from 'react'
 import {FlatList, StyleSheet, type FlatListProps} from 'react-native'
+import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {NewsListItem} from '@/modules/news/components/NewsListItem'
@@ -54,6 +57,9 @@ export const NewsList = ({
       ...params,
     },
   )
+  const data = result.isError
+    ? result.data.filter(item => !item.dummy)
+    : result.data
 
   const onViewableItemsChanged = useCallback<
     NonNullable<
@@ -73,7 +79,7 @@ export const NewsList = ({
   return (
     <FlatList
       contentContainerStyle={styles.contentContainer}
-      data={result.data ?? []}
+      data={data ?? []}
       ItemSeparatorComponent={<Gutter height="md" />}
       ListEmptyComponent={
         result.isLoading ? (
@@ -81,12 +87,33 @@ export const NewsList = ({
             showFeedback
             testID="NewsListPleaseWait"
           />
+        ) : result.isError ? (
+          <SomethingWentWrong
+            retryFn={result.retry}
+            testID="NewsListSomethingWentWrong"
+          />
         ) : null
       }
       ListFooterComponent={footerComponent}
       ListHeaderComponent={headerComponent}
       onViewableItemsChanged={onViewableItemsChanged}
-      renderItem={({item}) => <NewsListItem {...item} />}
+      renderItem={({item, index}) =>
+        result.isError && index === data.length - 1 ? (
+          // Show an error message at the bottom of the scroll, with an option to retry, so successfully retrieved data in de list can still be viewed
+          <Column gutter="md">
+            <NewsListItem {...item} />
+
+            <Box insetHorizontal="md">
+              <SomethingWentWrong
+                retryFn={result.retry}
+                testID="NewsListSomethingWentWrong"
+              />
+            </Box>
+          </Column>
+        ) : (
+          <NewsListItem {...item} />
+        )
+      }
     />
   )
 }
