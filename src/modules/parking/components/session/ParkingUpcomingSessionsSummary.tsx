@@ -1,0 +1,141 @@
+import {useEffect, useMemo} from 'react'
+import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
+import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {Column} from '@/components/ui/layout/Column'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useBoolean} from '@/hooks/useBoolean'
+import {useInterval} from '@/hooks/useInterval'
+import {useRefetchTimeout} from '@/hooks/useRefetchTimeout'
+import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
+import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
+import {ParkingRouteName} from '@/modules/parking/routes'
+import {parkingApi} from '@/modules/parking/service'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope} from '@/modules/parking/types'
+import {dayjs} from '@/utils/datetime/dayjs'
+
+const PARKING_SESSIONS_AMOUNT_CUTOFF = 4
+
+export const ParkingUpcomingSessionsSummary = () => {
+  const {navigate} = useNavigation()
+  const dispatch = useDispatch()
+  const {parkingSessions, isLoading, isError, refetch} = useGetParkingSessions(
+    true,
+    {sortAscending: true},
+  )
+  const parkingAccount = useParkingAccount()
+  // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
+  const {value: isRefetched, enable: setRefetched} = useBoolean(false)
+  const now = dayjs()
+
+  useEffect(() => {
+    if (parkingAccount?.scope === ParkingPermitScope.visitor) {
+      return
+    }
+
+    if (
+      !isRefetched &&
+      parkingSessions?.some(session => !session.ps_right_id)
+    ) {
+      void refetch()
+      setRefetched()
+    }
+  }, [
+    parkingSessions,
+    isRefetched,
+    parkingAccount?.scope,
+    refetch,
+    setRefetched,
+  ])
+
+  // refetch sessions every 5 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
+  useInterval(
+    refetch,
+    parkingSessions?.some(session => 'is_paid' in session && !session.is_paid)
+      ? 5000
+      : 0,
+  )
+
+  const refreshTimeoutDelay = useMemo(() => {
+    if (!parkingSessions?.length) {
+      return 0
+    }
+
+    const nextRefreshDateTime = parkingSessions
+      .flatMap(session => {
+        const startDateTime = dayjs(session.start_date_time)
+        const endDateTime = dayjs(session.end_date_time)
+
+        return startDateTime.isAfter(now)
+          ? [startDateTime, endDateTime]
+          : [endDateTime]
+      })
+      .reduce(
+        (earliestDateTime, candidateDateTime) =>
+          candidateDateTime.isBefore(earliestDateTime)
+            ? candidateDateTime
+            : earliestDateTime,
+        dayjs(parkingSessions[0].end_date_time),
+      )
+
+    return Math.max(
+      nextRefreshDateTime.endOf('minute').diff(now, 'milliseconds'),
+      30000,
+    )
+  }, [parkingSessions, now])
+
+  useRefetchTimeout(() => {
+    dispatch(parkingApi.util.invalidateTags(['ParkingSessions']))
+  }, refreshTimeoutDelay)
+
+  if (isLoading) {
+    return (
+      <PleaseWait
+        showFeedback
+        testID="ParkingPermitSessionsActivePleaseWait"
+      />
+    )
+  }
+
+  if (isError) {
+    return (
+      <SomethingWentWrong testID="ParkingActiveSessionsSummarySomethingWentWrong" />
+    )
+  }
+
+  if (!parkingSessions?.length) {
+    return <Phrase>U heeft nu geen parkeersessies</Phrase>
+  }
+
+  return (
+    <Box insetVertical="md">
+      <Column gutter="lg">
+        {parkingSessions
+          .slice(0, PARKING_SESSIONS_AMOUNT_CUTOFF)
+          .map(session => (
+            <ParkingSessionNavigationButton
+              key={session.ps_right_id ?? session.vehicle_id}
+              parkingSession={session}
+              withIcon={parkingAccount?.scope === ParkingPermitScope.visitor}
+            />
+          ))}
+        {!!parkingSessions.slice(PARKING_SESSIONS_AMOUNT_CUTOFF).length && (
+          <NavigationButton
+            chevronSize="md"
+            emphasis="default"
+            horizontallyAlign="center"
+            insetHorizontal="no"
+            insetVertical="no"
+            onPress={() => navigate(ParkingRouteName.parkingUpcomingSessions)}
+            testID="ParkingDashboardMoreSessionsNavigationButton"
+            title="Meer parkeersessies"
+          />
+        )}
+      </Column>
+    </Box>
+  )
+}

@@ -22,7 +22,10 @@ export const ParkingSessionListRenderItem = memo(({item}: Props) => (
         />
       </Skeleton>
     ) : (
-      <ParkingSessionNavigationButton parkingSession={item} />
+      <ParkingSessionNavigationButton
+        parkingSession={item}
+        withIcon={false}
+      />
     )}
   </Box>
 ))

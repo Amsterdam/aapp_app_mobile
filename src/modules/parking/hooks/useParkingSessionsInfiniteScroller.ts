@@ -17,7 +17,9 @@ const PAGE_SIZE = 40
 export const useParkingSessionsInfiniteScroller = ({
   sortAscending,
   status,
+  next_24_hours = false,
 }: {
+  next_24_hours?: boolean
   sortAscending?: boolean
   status: ParkingSessionStatus
 }) => {
@@ -58,6 +60,7 @@ export const useParkingSessionsInfiniteScroller = ({
       page_size: PAGE_SIZE,
       report_code: currentPermit.report_code.toString(),
       status,
+      next_24_hours,
     },
   )
 

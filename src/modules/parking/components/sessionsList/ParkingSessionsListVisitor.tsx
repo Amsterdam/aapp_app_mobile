@@ -1,27 +1,38 @@
 import {ComponentType} from 'react'
-import {ParkingSessionsSectionList} from '@/modules/parking/components/sessionsList/ParkingSessionSectionList'
+import {ParkingSessionsFlatList} from '@/modules/parking/components/sessionsList/ParkingSessionFlatList'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
 type Props = {
   ListEmptyComponent?: ComponentType
+  ListHeaderComponent?: ComponentType
   sortAscending?: boolean
-  status: ParkingSessionStatus
-}
+} & Or<
+  {status: ParkingSessionStatus},
+  {
+    /**
+     *  When passed, the active and planned sessions for the upcoming 24 hours will be retrieved
+     */
+    next24Hours: true
+  }
+>
 
 export const ParkingSessionsListVisitor = ({
-  ListEmptyComponent,
   sortAscending = false,
   status,
+  next24Hours,
+  ...rest
 }: Props) => {
-  const {parkingSessions, isLoading} = useGetParkingSessions(status)
+  const {parkingSessions, isLoading} = useGetParkingSessions(
+    (next24Hours ?? status) as Parameters<typeof useGetParkingSessions>[0],
+    {sortAscending},
+  )
 
   return (
-    <ParkingSessionsSectionList
+    <ParkingSessionsFlatList
       isLoading={isLoading}
-      ListEmptyComponent={ListEmptyComponent}
       sessions={parkingSessions}
-      sortAscending={sortAscending}
+      {...rest}
     />
   )
 }
