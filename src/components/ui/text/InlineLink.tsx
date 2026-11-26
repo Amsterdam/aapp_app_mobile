@@ -1,5 +1,6 @@
 import {type ReactNode} from 'react'
 import type {AccessibilityProps} from 'react-native'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Icon, type IconProps} from '@/components/ui/media/Icon'
 import {Phrase, type PhraseProps} from '@/components/ui/text/Phrase'
@@ -19,6 +20,11 @@ type ConfigurableIconProps = Omit<IconProps, 'size' | 'path' | 'color'>
 
 export type InlineLinkProps = {
   children: ReactNode
+  /**
+   * Preserves text flow when embedded inside another text element.
+   * Native text accessibility limitations still apply.
+   */
+  isInline?: boolean
   /**
    * Inverts the color when set to true.
    */
@@ -66,6 +72,7 @@ const VARIANT_ICON_MAP: Record<
 export const InlineLink = ({
   accessibilityRole = 'button',
   children,
+  isInline = false,
   isInverse,
   onPress,
   phraseVariant = 'body',
@@ -73,6 +80,10 @@ export const InlineLink = ({
   testID,
   variant = 'internal',
   actionIcon,
+  ellipsizeMode,
+  flexShrink = 1,
+  numberOfLines,
+  textAlign,
   ...otherProps
 }: InlineLinkProps) => {
   const onEvent = usePiwikTrackCustomEventFromProps({
@@ -89,6 +100,8 @@ export const InlineLink = ({
   const iconProps = variant === 'action' ? (actionIcon ?? icon) : icon
 
   const color = isInverse ? 'inverse' : 'link'
+  const resolvedAccessibilityRole =
+    variant === 'external' ? 'link' : accessibilityRole
 
   const IconComponent = (
     <Icon
@@ -100,14 +113,19 @@ export const InlineLink = ({
     />
   )
 
-  return (
+  const phrase = (
     <Phrase
-      accessibilityRole={variant === 'external' ? 'link' : accessibilityRole}
+      {...(isInline ? otherProps : {})}
+      accessibilityRole={isInline ? resolvedAccessibilityRole : undefined}
+      accessible={isInline ? (otherProps.accessible ?? true) : false}
       color={color}
-      onPress={onEvent}
-      testID={testID}
-      variant={phraseVariant}
-      {...otherProps}>
+      ellipsizeMode={ellipsizeMode}
+      flexShrink={flexShrink}
+      numberOfLines={numberOfLines}
+      onPress={isInline ? onEvent : undefined}
+      testID={isInline ? testID : `${testID}Phrase`}
+      textAlign={textAlign}
+      variant={phraseVariant}>
       {placement === 'start' && (
         <>
           {IconComponent}
@@ -122,5 +140,21 @@ export const InlineLink = ({
         </>
       )}
     </Phrase>
+  )
+
+  if (isInline) {
+    return phrase
+  }
+
+  return (
+    <PressableBase
+      accessibilityRole={resolvedAccessibilityRole}
+      logAction={logAction}
+      onPress={onPress}
+      style={{flexShrink}}
+      testID={testID}
+      {...otherProps}>
+      {phrase}
+    </PressableBase>
   )
 }

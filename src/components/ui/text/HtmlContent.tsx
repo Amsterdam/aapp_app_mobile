@@ -382,6 +382,7 @@ const ARenderer: CustomMixedRenderer = props => {
       ]}
       accessibilityLabel={getTNodeAccessibleLabel(tnode)}
       accessibilityRole="link"
+      isInline
       onAccessibilityAction={event => {
         if (event.nativeEvent.actionName === 'open') {
           openUrl(href)

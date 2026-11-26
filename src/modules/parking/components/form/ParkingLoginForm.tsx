@@ -157,6 +157,7 @@ export const ParkingLoginForm = () => {
           <Paragraph>
             U vindt uw meldcode en pincode in{' '}
             <ExternalInlineLink
+              isInline
               redirectKey={RedirectKey.my_parking}
               testID="ParkingLoginFormInlineLink">
               Mijn Parkeren

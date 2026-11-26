@@ -30,6 +30,7 @@ export const EntryRichLink = ({message}: Props) => {
         onPressOut={onPress}
         testID="ChatMessageRichLinkTitleLink">
         <InlineLink
+          isInline
           isInverse={message.sender.role === ConversationEntrySenderRole.user}
           onPress={onPress}
           testID="ChatMessageRichLinkTitle"
@@ -42,6 +43,7 @@ export const EntryRichLink = ({message}: Props) => {
           onPressOut={onPress}
           testID="ChatMessageRichLinkUrlLink">
           <InlineLink
+            isInline
             isInverse={message.sender.role === ConversationEntrySenderRole.user}
             onPress={onPress}
             testID="ChatMessageRichLinkUrlPhrase"
