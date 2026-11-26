@@ -1810,7 +1810,7 @@ PODS:
     - React
   - react-native-get-random-values (1.11.0):
     - React-Core
-  - react-native-keyboard-controller (1.22.5):
+  - react-native-keyboard-controller (1.23.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1822,7 +1822,7 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-keyboard-controller/common (= 1.22.5)
+    - react-native-keyboard-controller/common (= 1.23.1)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -1833,7 +1833,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - react-native-keyboard-controller/common (1.22.5):
+  - react-native-keyboard-controller/common (1.23.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -3380,7 +3380,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 11c5a0b2a0a54a213d6bb4067bf3df4962c714d4
   react-native-geolocation-service: 32b2c2a3b91e70ce2a8d0c684801aaeb0a07e0ec
   react-native-get-random-values: d16467cf726c618e9c7a8c3c39c31faa2244bbba
-  react-native-keyboard-controller: ce68b0d160ca7a2314ce238bb1becb935b8de773
+  react-native-keyboard-controller: 8bebcc86e8c5ef1f5c1eeb3355d2db1855c83c2d
   react-native-maps: cb32168a32e30f83beb08198325ff96b70dd5c9f
   react-native-netinfo: 2f906d5d9a639090ed1c079135d6485a95f749f1
   react-native-piwik-pro-sdk: 5a42b96784aca6d94b0e734d87c239754027c073
@@ -3439,6 +3439,6 @@ SPEC CHECKSUMS:
   TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   Yoga: 18b74b3ade30bebc1904004dfaceae1dd02a330a
 
-PODFILE CHECKSUM: 77852d52dae2899f06431bd00a270bbbc5c4c3d0
+PODFILE CHECKSUM: 7fc4d8ecbdc3d185ac2cb89c2c16305b2f1085ef
 
 COCOAPODS: 1.15.2

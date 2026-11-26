@@ -87,6 +87,11 @@ target 'AmsterdamApp' do
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
         config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
+
+        # These dependency versions are not compatible with Swift 6 concurrency checks.
+        if ['react-native-keyboard-controller', 'NitroModules'].include?(target.name)
+          config.build_settings['SWIFT_VERSION'] = '5.0'
+        end
       end
     end
   end

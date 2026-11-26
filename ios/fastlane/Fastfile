@@ -12,7 +12,13 @@ end
 
 # TF_BUILD will be true when this is run in a DevOps pipeline
 if ENV["TF_BUILD"]
-  xcode_select("/Applications/Xcode_26.4.1.app")
+  xcode_select("/Applications/Xcode_26.6.app")
+
+  UI.message("Selected Xcode: #{`xcodebuild -version`}")
+  UI.message("Selected Swift: #{`xcrun swift --version`}")
+  UI.message("Developer directory: #{`xcode-select -p`}")
+  UI.message("DEVELOPER_DIR: #{ENV["DEVELOPER_DIR"]}")
+
   setup_ci(timeout: 0)
 end
 
@@ -221,7 +227,7 @@ platform :ios do
         build_app(
           workspace: "AmsterdamApp.xcworkspace",
           scheme: app[:scheme],
-          clean: false,
+          clean: true,
           build_path: "./builds",
           output_directory: "./builds",
           output_name: app[:output_name],
