@@ -28,7 +28,7 @@ export const useScreenOptions = ({
     header: props => (
       <Header
         {...props}
-        backgroundColor={backgroundColor}
+        backgroundColor={theme.color.screen.background.default}
       />
     ),
     headerMode: 'screen',

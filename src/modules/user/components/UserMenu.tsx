@@ -7,7 +7,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAccessCodeBiometrics} from '@/modules/access-code/exports/useAccessCodeBiometrics'
 import {useGetSecureAccessCode} from '@/modules/access-code/exports/useGetSecureAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
-import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
 import {AppInfoCopyButtons} from '@/modules/user/components/AppInfoCopyButtons'
 import {UserRouteName} from '@/modules/user/routes'
@@ -39,10 +38,9 @@ const generalSection: UserMenuSection[] = [
         route: UserRouteName.accounts,
       },
       {
-        icon: {name: 'house'},
-        label: 'Mijn adres',
-        moduleSlug: ModuleSlug.address,
-        route: AddressRouteName.address,
+        icon: {name: 'identity-card'},
+        label: 'Mijn gegevens',
+        route: UserRouteName.personalDetails,
       },
       {
         icon: {name: 'bell-push'},
@@ -111,7 +109,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
               key={item.label}
               {...item}
               onPress={() =>
-                navigate(item.moduleSlug ?? ModuleSlug.user, {
+                navigate(ModuleSlug.user, {
                   screen: item.route,
                 })
               }

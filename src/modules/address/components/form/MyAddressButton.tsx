@@ -8,8 +8,9 @@ import {useMyAddress} from '@/modules/address/exports/hooks/useMyAddress'
 import {type Address} from '@/modules/address/exports/types'
 import {getAddressLineWithCityIfNotAmsterdam} from '@/modules/address/exports/utils/getAddressLineWithCityIfNotAmsterdam'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
-import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
+import {AddressModalName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/generated/slugs.generated'
+import {UserRouteName} from '@/modules/user/routes'
 
 type Props = {
   moduleSlug: ModuleSlug
@@ -49,8 +50,8 @@ export const MyAddressButton = ({testID, onPress, moduleSlug}: Props) => {
           label="Wijzig"
           minWidth={90}
           onPress={() => {
-            navigate(ModuleSlug.address, {
-              screen: AddressRouteName.address,
+            navigate(ModuleSlug.user, {
+              screen: UserRouteName.personalDetails,
             })
 
             setLocationType('address')

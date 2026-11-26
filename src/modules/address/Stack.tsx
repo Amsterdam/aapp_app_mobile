@@ -14,7 +14,7 @@ export const ModuleStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={AddressRouteName.address}
+      initialRouteName={AddressRouteName.chooseAddress}
       screenOptions={screenOptionsSettings}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen

@@ -1,8 +1,6 @@
 import type {IconProps} from '@/components/ui/media/Icon'
 import type {AccessCodeRouteName} from '@/modules/access-code/routes'
-import type {AddressRouteName} from '@/modules/address/routes'
 import type {ModuleSlug} from '@/modules/generated/slugs.generated'
-import type {OnboardingRouteName} from '@/modules/onboarding/routes'
 import type {UserRouteName} from '@/modules/user/routes'
 
 export type UserMenuSection = {
@@ -14,11 +12,7 @@ export type UserMenuSectionItem = {
   icon?: Pick<IconProps, 'name' | 'isFilled'>
   label: string
   moduleSlug?: ModuleSlug
-  route?:
-    | AccessCodeRouteName
-    | AddressRouteName
-    | UserRouteName
-    | OnboardingRouteName
+  route?: AccessCodeRouteName | UserRouteName
 }
 
 export enum NotificationSettingVisibility {

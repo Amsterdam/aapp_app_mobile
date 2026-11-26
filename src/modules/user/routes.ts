@@ -10,6 +10,7 @@ export enum UserRouteName {
   logoutModule = 'LogoutModule',
   moduleSettings = 'ModuleSettings',
   notificationSettings = 'NotificationSettings',
+  personalDetails = 'UserPersonalDetails',
   privacyStatement = 'PrivacyStatement',
   removeAllData = 'UserRemoveAllData',
   removeAllDataPermissions = 'UserRemoveAllDataPermissions',
@@ -30,6 +31,7 @@ export type ModuleStackParams = {
       }
     | undefined
   [UserRouteName.about]: undefined
+  [UserRouteName.personalDetails]: undefined
   [UserRouteName.feedback]: undefined
   [UserRouteName.logoutModule]: {slug: ModuleSlug}
   [UserRouteName.privacyStatement]: undefined

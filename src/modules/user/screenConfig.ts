@@ -7,6 +7,7 @@ import {ModuleSettingsScreen} from '@/modules/user/screens/ModuleSettings.screen
 import {AccountsScreen} from '@/modules/user/screens/my-accounts/Accounts.screen'
 import {LogoutModuleScreen} from '@/modules/user/screens/my-accounts/LogoutModule.screen'
 import {NotificationSettingsScreen} from '@/modules/user/screens/NotificationSettings.screen'
+import {PersonalDetailsScreen} from '@/modules/user/screens/PersonalDetails.screen'
 import {PrivacyStatementScreen} from '@/modules/user/screens/PrivacyStatement.screen'
 import {RemoveAllDataScreen} from '@/modules/user/screens/remove-all-data/RemoveAllData.screen'
 import {RemoveAllDataPermissionsScreen} from '@/modules/user/screens/remove-all-data/RemoveAllDataPermissions.screen'
@@ -18,6 +19,14 @@ export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
   UserRouteName
 > = {
+  [UserRouteName.personalDetails]: {
+    component: PersonalDetailsScreen,
+    name: UserRouteName.personalDetails,
+    options: {
+      headerTitle: 'Mijn gegevens',
+      headerShown: false,
+    },
+  },
   [UserRouteName.logoutModule]: {
     component: LogoutModuleScreen,
     name: UserRouteName.logoutModule,
