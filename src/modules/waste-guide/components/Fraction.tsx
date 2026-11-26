@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {type TestProps} from '@/components/ui/types'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
+import {FractionMapNavigationButton} from '@/modules/waste-guide/components/FractionMapNavigationButton'
 import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
 import {NavigationButtonToWasteCalendar} from '@/modules/waste-guide/components/NavigationButtonToWasteCalendar'
 import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
@@ -40,7 +41,9 @@ export const Fraction = ({fraction, testID}: Props) => {
         />
       </Column>
       {!!fraction.alert && (
-        <AlertWarning testID={`${testID}TimeboundNotification`}>
+        <AlertWarning
+          hasIcon
+          testID={`${testID}TimeboundNotification`}>
           <FractionContent
             content={fraction.alert}
             testID={`${testID}Content`}
@@ -109,12 +112,18 @@ export const Fraction = ({fraction, testID}: Props) => {
           sectionTitle="Buitenzetten"
           testID={`${testID}OutsideSection`}
         />
-        <FractionSection
-          content={fraction.where}
-          sectionTitle="Waar"
-          testID={`${testID}WhereSection`}
-          url={containerMapUrl}
-        />
+        <Column>
+          <FractionSection
+            content={fraction.where}
+            sectionTitle="Waar"
+            testID={`${testID}WhereSection`}
+            url={containerMapUrl}
+          />
+          {!!fraction.service_map_id && (
+            <FractionMapNavigationButton {...fraction} />
+          )}
+        </Column>
+
         {!!fraction?.info_link && (
           <FractionSection
             content={`Wat mag er bij ${fraction.label.toLowerCase()}`}
