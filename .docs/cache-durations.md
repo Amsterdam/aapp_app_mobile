@@ -24,7 +24,7 @@ When an endpoint isn't mentioned, RTK's default caching duration of 1 minute wil
 
 ## Failed paginated loads
 
-News, construction-work listings, and boat-charging history stop automatic pagination after a failed request and offer an explicit retry. After the cached results have been refreshed successfully, pagination can resume without another scroll.
+Automatic pagination is stopped after a failed request and offers an explicit retry. After the cached results have been refreshed successfully, a failed next page is retried even if the list has returned to the top. Recovery applies only to the same listing and stops again if the request fails.
 
 ## Custom interval
 

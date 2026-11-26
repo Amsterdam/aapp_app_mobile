@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 import type {WithDummyAndPage} from '@/services/types'
 import type {ApiEndpointInfinite, PaginationQueryArgs} from '@/types/api'
 
@@ -72,17 +72,57 @@ export const useInfiniteScroller = <
     error: errorCurrentPage,
     fetchNextPage,
     hasNextPage,
+    direction,
     isFetching,
     refetch,
   } = endpoint.useInfiniteQuery(queryParams, {initialPageParam: 1})
 
+  const pendingNextPageRecovery = useRef<
+    | {
+        fetchNextPage: typeof fetchNextPage
+        lastLoadedPage: number
+      }
+    | undefined
+  >(undefined)
+
+  const retry = useCallback(() => {
+    if (isErrorCurrentPage && direction === 'forward') {
+      pendingNextPageRecovery.current = {
+        fetchNextPage,
+        lastLoadedPage: currentData?.pageParams.at(-1) ?? 0,
+      }
+    }
+
+    return refetch()
+  }, [
+    currentData?.pageParams,
+    direction,
+    fetchNextPage,
+    isErrorCurrentPage,
+    refetch,
+  ])
+
   useEffect(() => {
+    const lastLoadedPage = currentData?.pageParams.at(-1) ?? 0
+    const recovery = pendingNextPageRecovery.current
+
+    // RTK Query changes fetchNextPage when the query arguments change.
+    if (
+      recovery &&
+      (recovery.fetchNextPage !== fetchNextPage ||
+        lastLoadedPage > recovery.lastLoadedPage ||
+        !hasNextPage)
+    ) {
+      pendingNextPageRecovery.current = undefined
+    }
+
     if (
       hasNextPage &&
       !isErrorCurrentPage &&
-      page >= (currentData?.pageParams.at(-1) ?? 0) &&
+      (pendingNextPageRecovery.current || page >= lastLoadedPage) &&
       !isFetching
     ) {
+      pendingNextPageRecovery.current = undefined
       void fetchNextPage()
     }
   }, [
@@ -128,6 +168,6 @@ export const useInfiniteScroller = <
     error: errorCurrentPage,
     isError: isErrorCurrentPage,
     isLoading: isLoadingCurrentPage,
-    retry: refetch,
+    retry,
   }
 }

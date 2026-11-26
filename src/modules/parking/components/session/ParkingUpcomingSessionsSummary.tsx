@@ -1,3 +1,4 @@
+import {useIsFocused} from '@react-navigation/native'
 import {useEffect, useMemo} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -21,6 +22,7 @@ import {dayjs} from '@/utils/datetime/dayjs'
 const PARKING_SESSIONS_AMOUNT_CUTOFF = 4
 
 export const ParkingUpcomingSessionsSummary = () => {
+  const isFocused = useIsFocused()
   const {navigate} = useNavigation()
   const dispatch = useDispatch()
   const {parkingSessions, isLoading, isError, refetch} = useGetParkingSessions(
@@ -38,6 +40,8 @@ export const ParkingUpcomingSessionsSummary = () => {
     }
 
     if (
+      isFocused &&
+      !isError &&
       !isRefetched &&
       parkingSessions?.some(session => !session.ps_right_id)
     ) {
@@ -46,6 +50,8 @@ export const ParkingUpcomingSessionsSummary = () => {
     }
   }, [
     parkingSessions,
+    isFocused,
+    isError,
     isRefetched,
     parkingAccount?.scope,
     refetch,
@@ -55,13 +61,15 @@ export const ParkingUpcomingSessionsSummary = () => {
   // refetch sessions every 5 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
   useInterval(
     refetch,
-    parkingSessions?.some(session => 'is_paid' in session && !session.is_paid)
+    isFocused &&
+      !isError &&
+      parkingSessions?.some(session => 'is_paid' in session && !session.is_paid)
       ? 5000
       : 0,
   )
 
   const refreshTimeoutDelay = useMemo(() => {
-    if (!parkingSessions?.length) {
+    if (!parkingSessions?.length || !isFocused || isError) {
       return 0
     }
 
@@ -86,7 +94,7 @@ export const ParkingUpcomingSessionsSummary = () => {
       nextRefreshDateTime.endOf('minute').diff(now, 'milliseconds'),
       30000,
     )
-  }, [parkingSessions, now])
+  }, [parkingSessions, now, isError, isFocused])
 
   useRefetchTimeout(() => {
     dispatch(parkingApi.util.invalidateTags(['ParkingSessions']))
@@ -103,7 +111,10 @@ export const ParkingUpcomingSessionsSummary = () => {
 
   if (isError) {
     return (
-      <SomethingWentWrong testID="ParkingActiveSessionsSummarySomethingWentWrong" />
+      <SomethingWentWrong
+        retryFn={refetch}
+        testID="ParkingActiveSessionsSummarySomethingWentWrong"
+      />
     )
   }
 
