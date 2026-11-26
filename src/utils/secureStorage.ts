@@ -9,6 +9,8 @@ export enum SecureItemKey {
   mijnAmsterdamAccessToken = 'mijnAmsterdamAccessToken',
   parkingPermitHolder = 'parkingPermitHolder',
   parkingVisitor = 'parkingVisitor',
+  userEmail = 'userEmail',
+  userPhone = 'userPhone',
   wasteCardNumber = 'wasteCardNumber',
 }
 
